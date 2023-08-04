@@ -61,7 +61,7 @@ namespace AMSEMS
 
         private void btnAnnouncement_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForms_Admin.formSubjects());
+            OpenChildForm(new SubForms_SAO.formAnnouncement());
 
             this.kryptonSplitContainer1.Panel2Collapsed = false;
 
@@ -123,7 +123,7 @@ namespace AMSEMS
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForms_Admin.formSettings());
+            OpenChildForm(new SubForms_SAO.formSettings());
 
             this.kryptonSplitContainer1.Panel2Collapsed = false;
 
@@ -168,5 +168,11 @@ namespace AMSEMS
             childForm.Show();
         }
 
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+            FormLoginPage formLoginPage = new FormLoginPage();
+            formLoginPage.Show();
+        }
     }
 }

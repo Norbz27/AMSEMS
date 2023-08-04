@@ -74,6 +74,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormGuidanceNavigation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGuidanceNavigation.Designer.cs">
+      <DependentUpon>FormGuidanceNavigation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormLoginPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLoginPage.Designer.cs">
+      <DependentUpon>FormLoginPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormDeptHeadNavigation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDeptHeadNavigation.Designer.cs">
+      <DependentUpon>FormDeptHeadNavigation.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSAONavigation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,11 +124,41 @@
     <Compile Include="SubForms_Admin\formSettings.Designer.cs">
       <DependentUpon>formSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_DeptHead\formSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formSettings.Designer.cs">
+      <DependentUpon>formSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formSubjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formSubjects.Designer.cs">
+      <DependentUpon>formSubjects.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Admin\formSubjects.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SubForms_Admin\formSubjects.Designer.cs">
       <DependentUpon>formSubjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formAttendanceRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formAttendanceRecord.Designer.cs">
+      <DependentUpon>formAttendanceRecord.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formAttendanceReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formAttendanceReport.Designer.cs">
+      <DependentUpon>formAttendanceReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formDashboard.Designer.cs">
+      <DependentUpon>formDashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_SAO\formDashboard.cs">
       <SubType>Form</SubType>
@@ -124,6 +172,63 @@
     <Compile Include="SubForms_SAO\formEvents.Designer.cs">
       <DependentUpon>formEvents.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_SAO\formAnnouncement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_SAO\formAnnouncement.Designer.cs">
+      <DependentUpon>formAnnouncement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_SAO\formSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_SAO\formSettings.Designer.cs">
+      <DependentUpon>formSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_SAO\UserControlBlank_Calendar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubForms_SAO\UserControlBlank_Calendar.Designer.cs">
+      <DependentUpon>UserControlBlank_Calendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_SAO\UserControlDays_Calendar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SubForms_SAO\UserControlDays_Calendar.Designer.cs">
+      <DependentUpon>UserControlDays_Calendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm_Guidance\formAccounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\formAccounts.Designer.cs">
+      <DependentUpon>formAccounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm_Guidance\formDashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\formDashboard.Designer.cs">
+      <DependentUpon>formDashboard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm_Guidance\formSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\formSettings.Designer.cs">
+      <DependentUpon>formSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="test.Designer.cs">
+      <DependentUpon>test.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="FormGuidanceNavigation.resx">
+      <DependentUpon>FormGuidanceNavigation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLoginPage.resx">
+      <DependentUpon>FormLoginPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDeptHeadNavigation.resx">
+      <DependentUpon>FormDeptHeadNavigation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormSAONavigation.resx">
       <DependentUpon>FormSAONavigation.cs</DependentUpon>
     </EmbeddedResource>
@@ -144,14 +249,50 @@
     <EmbeddedResource Include="SubForms_Admin\formSettings.resx">
       <DependentUpon>formSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\formSettings.resx">
+      <DependentUpon>formSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\formSubjects.resx">
+      <DependentUpon>formSubjects.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formSubjects.resx">
       <DependentUpon>formSubjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\formAttendanceRecord.resx">
+      <DependentUpon>formAttendanceRecord.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\formAttendanceReport.resx">
+      <DependentUpon>formAttendanceReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\formDashboard.resx">
+      <DependentUpon>formDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_SAO\formDashboard.resx">
       <DependentUpon>formDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_SAO\formEvents.resx">
       <DependentUpon>formEvents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_SAO\formAnnouncement.resx">
+      <DependentUpon>formAnnouncement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_SAO\formSettings.resx">
+      <DependentUpon>formSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_SAO\UserControlBlank_Calendar.resx">
+      <DependentUpon>UserControlBlank_Calendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_SAO\UserControlDays_Calendar.resx">
+      <DependentUpon>UserControlDays_Calendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\formAccounts.resx">
+      <DependentUpon>formAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\formDashboard.resx">
+      <DependentUpon>formDashboard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\formSettings.resx">
+      <DependentUpon>formSettings.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -229,7 +370,9 @@
   <ItemGroup>
     <None Include="Resources\plus-16.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\left-arrow.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\books.png" />
   </ItemGroup>
@@ -238,6 +381,36 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\event.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\right-arrow %282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calendar-16-blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new-moon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new-moon-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blob.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attendance-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\attendance-16-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\report-16-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search-24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

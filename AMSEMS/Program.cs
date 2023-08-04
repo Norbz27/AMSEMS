@@ -16,7 +16,7 @@ namespace AMSEMS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormSAONavigation());
+            Application.Run(new FormLoginPage());
         }
     }
 }

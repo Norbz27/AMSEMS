@@ -61,6 +61,7 @@ namespace AMSEMS
 
         private void btnAccounts_Click(object sender, EventArgs e)
         {
+            isCollapsed = true;
             timer1.Start();
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
@@ -210,6 +211,11 @@ namespace AMSEMS
             OpenChildForm(new SubForms_Admin.formAccounts("Students Account"));
         }
 
-
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+            FormLoginPage formLoginPage = new FormLoginPage();
+            formLoginPage.Show();
+        }
     }
 }
