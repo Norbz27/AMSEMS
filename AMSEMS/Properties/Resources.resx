@@ -127,6 +127,9 @@
   <data name="dashboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="search-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\search-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="attendance-16-white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\attendance-16-white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -160,6 +163,9 @@
   <data name="dashboard1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="search-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\search-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="discussion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\discussion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -169,8 +175,8 @@
   <data name="sti_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sti_logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="right-arrow (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\right-arrow (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="man (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\man (3)1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="right-arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\right-arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -214,13 +220,10 @@
   <data name="exit (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exit (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="man (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\man (3)1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="right-arrow (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\right-arrow (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="search-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\search-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="search-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\search-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="verified-account" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\verified-account.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

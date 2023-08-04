@@ -1,6 +1,6 @@
 ﻿namespace AMSEMS.SubForm_Guidance
 {
-    partial class formAccounts
+    partial class formAbsReport
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.lblAccountName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.btnSettings = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -48,76 +47,14 @@
             // 
             this.lblAccountName.Location = new System.Drawing.Point(3, 3);
             this.lblAccountName.Name = "lblAccountName";
-            this.lblAccountName.Size = new System.Drawing.Size(175, 27);
+            this.lblAccountName.Size = new System.Drawing.Size(68, 27);
             this.lblAccountName.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAccountName.TabIndex = 4;
-            this.lblAccountName.Values.Text = "Teachers Accounts";
-            // 
-            // btnSettings
-            // 
-            this.btnSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSettings.Location = new System.Drawing.Point(596, 0);
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSettings.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSettings.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnSettings.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            this.btnSettings.OverrideDefault.Border.Rounding = 10;
-            this.btnSettings.OverrideDefault.Border.Width = 1;
-            this.btnSettings.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnSettings.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnSettings.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnSettings.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSettings.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSettings.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnSettings.OverrideFocus.Border.Rounding = 10;
-            this.btnSettings.Size = new System.Drawing.Size(164, 34);
-            this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSettings.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnSettings.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnSettings.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnSettings.StateCommon.Border.Rounding = 10;
-            this.btnSettings.StateCommon.Border.Width = 1;
-            this.btnSettings.StateCommon.Content.AdjacentGap = 8;
-            this.btnSettings.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, -1, -1, -1);
-            this.btnSettings.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnSettings.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnSettings.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
-            this.btnSettings.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
-            this.btnSettings.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSettings.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSettings.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnSettings.StatePressed.Border.Rounding = 10;
-            this.btnSettings.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnSettings.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnSettings.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnSettings.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnSettings.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnSettings.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnSettings.StateTracking.Border.Rounding = 10;
-            this.btnSettings.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnSettings.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnSettings.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnSettings.TabIndex = 6;
-            this.btnSettings.Values.Image = global::AMSEMS.Properties.Resources.plus_16;
-            this.btnSettings.Values.Text = "Add New Account";
+            this.lblAccountName.Values.Text = "Report";
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.lblAccountName);
-            this.panel1.Controls.Add(this.btnSettings);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(20, 15);
             this.panel1.Name = "panel1";
@@ -328,7 +265,7 @@
             this.kryptonButton3.TabIndex = 3;
             this.kryptonButton3.Values.Text = "Inactive";
             // 
-            // formAccounts
+            // formAbsReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -337,7 +274,7 @@
             this.Controls.Add(this.kryptonGroupBox1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "formAccounts";
+            this.Name = "formAbsReport";
             this.Padding = new System.Windows.Forms.Padding(20, 15, 20, 10);
             this.Text = " ";
             this.panel1.ResumeLayout(false);
@@ -354,7 +291,6 @@
         #endregion
 
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblAccountName;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSettings;
         private System.Windows.Forms.Panel panel1;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;

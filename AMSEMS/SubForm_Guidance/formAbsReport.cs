@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace AMSEMS.SubForm_Guidance
 {
-    public partial class formAccounts : Form
+    public partial class formAbsReport : Form
     {
-        public formAccounts(String accountName)
+        public formAbsReport(String accountName)
         {
             InitializeComponent();
             lblAccountName.Text = accountName;

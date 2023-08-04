@@ -80,7 +80,7 @@ namespace AMSEMS
         {
             isCollapsed = false;
             timer1.Start();
-            OpenChildForm(new SubForms_Admin.formSettings());
+            OpenChildForm(new SubForm_Guidance.formSettings());
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
@@ -138,14 +138,14 @@ namespace AMSEMS
             }
         }
 
-        private void btnTeachers_Click(object sender, EventArgs e)
+        private void btnSHS_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForm_Guidance.formAccounts("Teachers Account"));
+            OpenChildForm(new SubForm_Guidance.formAbsReport("SHS Absenteeism Report"));
         }
 
-        private void btnDeptHead_Click(object sender, EventArgs e)
+        private void btnCollege_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForm_Guidance.formAccounts("Department Account"));
+            OpenChildForm(new SubForm_Guidance.formAbsReport("College Absenteeism Report"));
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

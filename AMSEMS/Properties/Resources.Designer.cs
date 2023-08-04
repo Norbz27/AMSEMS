@@ -393,6 +393,16 @@ namespace AMSEMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap verified_account {
+            get {
+                object obj = ResourceManager.GetObject("verified-account", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap yellow_circular_shape {
             get {
                 object obj = ResourceManager.GetObject("yellow-circular-shape", resourceCulture);

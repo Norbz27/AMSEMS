@@ -105,6 +105,12 @@ namespace AMSEMS
                 formGuidanceNavigation.Show();
                 this.Hide();
             }
+            else if (tbID.Text.Equals("tech"))
+            {
+                FormTeacherNavigation formTeacherNavigation = new FormTeacherNavigation();
+                formTeacherNavigation.Show();
+                this.Hide();
+            }
         }
     }
 }
