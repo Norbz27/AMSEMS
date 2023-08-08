@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,14 @@ namespace AMSEMS
 {
     public partial class FormLoginPage : KryptonForm
     {
+        SqlConnection cn;
+        SqlCommand cm;
+        SqlDataAdapter ad;
+
         public FormLoginPage()
         {
             InitializeComponent();
+            cn = new SqlConnection(SQL_Connection.connection);
         }
 
         private void tbID_Enter(object sender, EventArgs e)
@@ -81,36 +87,63 @@ namespace AMSEMS
 
         public void login()
         {
-            if (tbID.Text.Equals("admin"))
+
+            try
             {
-                FormAdminNavigation formAdminNavigation = new FormAdminNavigation();
-                formAdminNavigation.Show();
-                this.Hide();
+                cn.Open();
+                ad = new SqlDataAdapter("Select count(*) from tbl_admin where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn);
+                DataTable dt = new DataTable();
+                ad.Fill(dt);
+                if (dt.Rows[0][0].ToString() == "1")
+                {
+                    FormAdminNavigation frmMainPage = new FormAdminNavigation();
+                    frmMainPage.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid Barangay ID or Password!!", "Attendance Monitoring System", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else if (tbID.Text.Equals("sao"))
+            catch (Exception ex)
             {
-                FormSAONavigation formSAONavigation = new FormSAONavigation();
-                formSAONavigation.Show();
-                this.Hide();
+                MessageBox.Show(ex.Message);
             }
-            else if (tbID.Text.Equals("dept"))
+            finally
             {
-                FormDeptHeadNavigation formDeptHeadNavigation = new FormDeptHeadNavigation();
-                formDeptHeadNavigation.Show();
-                this.Hide();
+                cn.Close();
             }
-            else if (tbID.Text.Equals("gui"))
-            {
-                FormGuidanceNavigation formGuidanceNavigation = new FormGuidanceNavigation();
-                formGuidanceNavigation.Show();
-                this.Hide();
-            }
-            else if (tbID.Text.Equals("tech"))
-            {
-                FormTeacherNavigation formTeacherNavigation = new FormTeacherNavigation();
-                formTeacherNavigation.Show();
-                this.Hide();
-            }
+
+            //if (tbID.Text.Equals("admin"))
+            //{
+            //    FormAdminNavigation formAdminNavigation = new FormAdminNavigation();
+            //    formAdminNavigation.Show();
+            //    this.Hide();
+            //}
+            //else if (tbID.Text.Equals("sao"))
+            //{
+            //    FormSAONavigation formSAONavigation = new FormSAONavigation();
+            //    formSAONavigation.Show();
+            //    this.Hide();
+            //}
+            //else if (tbID.Text.Equals("dept"))
+            //{
+            //    FormDeptHeadNavigation formDeptHeadNavigation = new FormDeptHeadNavigation();
+            //    formDeptHeadNavigation.Show();
+            //    this.Hide();
+            //}
+            //else if (tbID.Text.Equals("gui"))
+            //{
+            //    FormGuidanceNavigation formGuidanceNavigation = new FormGuidanceNavigation();
+            //    formGuidanceNavigation.Show();
+            //    this.Hide();
+            //}
+            //else if (tbID.Text.Equals("tech"))
+            //{
+            //    FormTeacherNavigation formTeacherNavigation = new FormTeacherNavigation();
+            //    formTeacherNavigation.Show();
+            //    this.Hide();
+            //}
         }
     }
 }

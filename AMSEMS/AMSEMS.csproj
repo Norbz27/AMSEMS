@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SQL_Connection.cs" />
     <Compile Include="FormTeacherNavigation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -473,6 +474,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\verified-account.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
