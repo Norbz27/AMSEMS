@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -87,31 +88,37 @@ namespace AMSEMS
 
         public void login()
         {
-
-            try
+            if (CheckForInternetConnection())
             {
-                cn.Open();
-                ad = new SqlDataAdapter("Select count(*) from tbl_admin where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn);
-                DataTable dt = new DataTable();
-                ad.Fill(dt);
-                if (dt.Rows[0][0].ToString() == "1")
+                try
                 {
-                    FormAdminNavigation frmMainPage = new FormAdminNavigation();
-                    frmMainPage.Show();
-                    this.Hide();
+                    cn.Open();
+                    ad = new SqlDataAdapter("Select count(*) from tbl_admin where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn);
+                    DataTable dt = new DataTable();
+                    ad.Fill(dt);
+                    if (dt.Rows[0][0].ToString() == "1")
+                    {
+                        FormAdminNavigation frmMainPage = new FormAdminNavigation();
+                        frmMainPage.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid Barangay ID or Password!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Invalid Barangay ID or Password!!", "Attendance Monitoring System", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    cn.Close();
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                cn.Close();
+                MessageBox.Show("No Internet Connection!! Cant connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             //if (tbID.Text.Equals("admin"))
@@ -144,6 +151,22 @@ namespace AMSEMS
             //    formTeacherNavigation.Show();
             //    this.Hide();
             //}
+        }
+
+        public static bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                using (var stream = client.OpenRead("https://portal.azure.com"))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
