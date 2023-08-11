@@ -55,7 +55,6 @@
             this.tbID.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 10F);
             this.tbID.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2);
             this.tbID.TabIndex = 2;
-            this.tbID.TabStop = false;
             this.tbID.Text = "School ID";
             this.tbID.WordWrap = false;
             this.tbID.Enter += new System.EventHandler(this.tbID_Enter);
@@ -136,7 +135,6 @@
             this.tbPass.StateCommon.Content.Color1 = System.Drawing.Color.DarkGray;
             this.tbPass.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbPass.TabIndex = 3;
-            this.tbPass.TabStop = false;
             this.tbPass.Text = "Password";
             this.tbPass.Enter += new System.EventHandler(this.tbPass_Enter);
             this.tbPass.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnLogin_KeyDown);

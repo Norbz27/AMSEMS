@@ -93,7 +93,15 @@ namespace AMSEMS
                 try
                 {
                     cn.Open();
-                    ad = new SqlDataAdapter("Select count(*) from tbl_admin where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn);
+                    ad = new SqlDataAdapter("Select Role from tbl_admin_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                            " UNION " +
+                                            "Select Role from tbl_deptHead_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                            " UNION " +
+                                            "Select Role from tbl_guidance_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                            " UNION " +
+                                            "Select Role from tbl_sao_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                            " UNION " +
+                                            "Select Role from tbl_teacher_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn);
                     DataTable dt = new DataTable();
                     ad.Fill(dt);
                     if (dt.Rows[0][0].ToString() == "1")
@@ -102,14 +110,38 @@ namespace AMSEMS
                         frmMainPage.Show();
                         this.Hide();
                     }
+                    else if (dt.Rows[0][0].ToString() == "2")
+                    {
+                        FormDeptHeadNavigation frmMainPage = new FormDeptHeadNavigation();
+                        frmMainPage.Show();
+                        this.Hide();
+                    }
+                    else if (dt.Rows[0][0].ToString() == "3")
+                    {
+                        FormGuidanceNavigation frmMainPage = new FormGuidanceNavigation();
+                        frmMainPage.Show();
+                        this.Hide();
+                    }
+                    else if (dt.Rows[0][0].ToString() == "4")
+                    {
+                        FormSAONavigation frmMainPage = new FormSAONavigation();
+                        frmMainPage.Show();
+                        this.Hide();
+                    }
+                    else if (dt.Rows[0][0].ToString() == "6")
+                    {
+                        FormTeacherNavigation frmMainPage = new FormTeacherNavigation();
+                        frmMainPage.Show();
+                        this.Hide();
+                    }
                     else
                     {
-                        MessageBox.Show("Invalid Barangay ID or Password!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
