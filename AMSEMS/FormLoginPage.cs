@@ -152,37 +152,6 @@ namespace AMSEMS
             {
                 MessageBox.Show("No Internet Connection!! Cant connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            //if (tbID.Text.Equals("admin"))
-            //{
-            //    FormAdminNavigation formAdminNavigation = new FormAdminNavigation();
-            //    formAdminNavigation.Show();
-            //    this.Hide();
-            //}
-            //else if (tbID.Text.Equals("sao"))
-            //{
-            //    FormSAONavigation formSAONavigation = new FormSAONavigation();
-            //    formSAONavigation.Show();
-            //    this.Hide();
-            //}
-            //else if (tbID.Text.Equals("dept"))
-            //{
-            //    FormDeptHeadNavigation formDeptHeadNavigation = new FormDeptHeadNavigation();
-            //    formDeptHeadNavigation.Show();
-            //    this.Hide();
-            //}
-            //else if (tbID.Text.Equals("gui"))
-            //{
-            //    FormGuidanceNavigation formGuidanceNavigation = new FormGuidanceNavigation();
-            //    formGuidanceNavigation.Show();
-            //    this.Hide();
-            //}
-            //else if (tbID.Text.Equals("tech"))
-            //{
-            //    FormTeacherNavigation formTeacherNavigation = new FormTeacherNavigation();
-            //    formTeacherNavigation.Show();
-            //    this.Hide();
-            //}
         }
 
         public static bool CheckForInternetConnection()
