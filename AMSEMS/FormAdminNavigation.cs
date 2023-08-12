@@ -11,14 +11,19 @@ using System.Runtime.InteropServices;
 using ComponentFactory.Krypton.Toolkit;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using AMSEMS.Properties;
+using System.Data.SqlClient;
 
 namespace AMSEMS
 {
     public partial class FormAdminNavigation : KryptonForm
     {
+        SqlConnection cn;
+        SqlCommand cm;
+        SqlDataReader dr;
+
         private bool isCollapsed;
         private Form activeForm;
-        public FormAdminNavigation()
+        public FormAdminNavigation(String id)
         {
             InitializeComponent();
             this.btnDashboard.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -26,7 +31,21 @@ namespace AMSEMS
             this.btnDashboard.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnDashboard.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            OpenChildForm(new SubForms_Admin.formDashboard());
+
+            SubForms_Admin.formDashboard form = new SubForms_Admin.formDashboard();
+            form.DisplayName(id);
+            OpenChildForm(form);
+
+            cn = new SqlConnection(SQL_Connection.connection);
+
+            cn.Open();
+            cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where ID = '"+ id +"'", cn);
+            dr = cm.ExecuteReader();
+            dr.Read();
+            lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+            dr.Close();
+            cn.Close();
+
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -216,6 +235,16 @@ namespace AMSEMS
             this.Dispose();
             FormLoginPage formLoginPage = new FormLoginPage();
             formLoginPage.Show();
+        }
+
+        private void FormAdminNavigation_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void FormAdminNavigation_Load(object sender, EventArgs e)
+        {
+         
         }
     }
 }

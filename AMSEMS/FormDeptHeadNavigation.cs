@@ -235,5 +235,10 @@ namespace AMSEMS
             FormLoginPage formLoginPage = new FormLoginPage();
             formLoginPage.Show();
         }
+
+        private void FormDeptHeadNavigation_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

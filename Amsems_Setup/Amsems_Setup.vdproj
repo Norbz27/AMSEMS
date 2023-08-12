@@ -51,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_0E622E99A97A450391B0E419145B029C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_0FC7FD82860AA652CE139D412157F43A"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
         "MsmSig" = "8:_UNDEFINED"
@@ -147,6 +153,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_21063F33333E45C2B8FC65827B633C91"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_21330F404AB0DB45F44BEF007278BE64"
         "OwnerKey" = "8:_B96A8BB2E4A7E96F7755C0DC93A81121"
         "MsmSig" = "8:_UNDEFINED"
@@ -161,6 +173,12 @@
         {
         "MsmKey" = "8:_2752B837080E610EC2B2E46BCCF77485"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_29FD4ECE03334977B00F7BE86E266226"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -189,8 +207,20 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_31DC57B3854340C4B169A565381EE494"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_32A67CB521C97E94ADE5A88608188D61"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3334E2AC53034222BE578D8B2FDFA386"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -249,6 +279,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_439639DDDCBD41EA9F08E66963988B96"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_45B2E200CC55F3605220E0423134EC16"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
         "MsmSig" = "8:_UNDEFINED"
@@ -263,6 +299,12 @@
         {
         "MsmKey" = "8:_495BE84AE879EC5A7BAC300A3840D018"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4AC7DEBF50CF4A55B02FEFA599755521"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -317,6 +359,12 @@
         {
         "MsmKey" = "8:_5562D602BB916222C0D9135BE6DDB755"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_57E53259088F45D484632FF7ABAA9086"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -441,6 +489,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_80653C5B9D9844AE984E4B67B4BBB313"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_82725B7BA77CAA9EDF2C2BF9D701DC8B"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
         "MsmSig" = "8:_UNDEFINED"
@@ -461,6 +515,12 @@
         {
         "MsmKey" = "8:_8A5215B8FF286B8EB6A2557E66C06A5C"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8CC926259DB74D2284EAB9B722866BD6"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -507,6 +567,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_97D537087C0642F1853D20B15B814EAD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9895B866DF0B66B831E9C492A12A7C2D"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
         "MsmSig" = "8:_UNDEFINED"
@@ -521,6 +587,12 @@
         {
         "MsmKey" = "8:_9CBDA112A76167E1426A90122641F60E"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A13C36E83FF74C509C54428A20BBB694"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -569,6 +641,12 @@
         {
         "MsmKey" = "8:_A982952E8C8C7C4079C49061899B2CA1"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AA65F15BDAE8498E9BFEE2197C43CBF8"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -633,6 +711,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_BBC0B598AC064C0690DF7114ADD5BE88"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C12147E5E19D71D7CEA1F2354767FFC7"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
         "MsmSig" = "8:_UNDEFINED"
@@ -641,6 +725,12 @@
         {
         "MsmKey" = "8:_C2534FDED90E006ED4C07D447C9A6C84"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C25C628E17274C56941969D49090B910"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -671,6 +761,12 @@
         {
         "MsmKey" = "8:_CF70F1CF3F3D9437B4351D09D18ADA56"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D104DF69DB384DED918103F47225E7B5"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -777,6 +873,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_EDBCDFBB3C794ED0BC2DC3520BE3D288"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F01D9022261C432E8F3267537A72A61E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F01F3ED4FDBD709A91D0E9613D73A739"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
         "MsmSig" = "8:_UNDEFINED"
@@ -813,14 +921,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_FD03B28E6344AE69619FA45AC79C5AE2"
-        "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmKey" = "8:_FBA12A855ADD490686C9B2B3B6286F9E"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8471A166B5B4F1C88AEC1866A6E9DCB2"
+        "MsmKey" = "8:_FD03B28E6344AE69619FA45AC79C5AE2"
+        "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1543,6 +1651,12 @@
         "OwnerKey" = "8:_301D65A6C6FB2DB7BD5C06BD4F2C6F82"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8471A166B5B4F1C88AEC1866A6E9DCB2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -1561,6 +1675,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -1577,6 +1707,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -1779,6 +1917,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0E622E99A97A450391B0E419145B029C"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\TheChieldrenPersonalUseOnly-YzdJL.ttf"
+            "TargetName" = "8:TheChieldrenPersonalUseOnly-YzdJL.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0FC7FD82860AA652CE139D412157F43A"
@@ -2122,6 +2280,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_21063F33333E45C2B8FC65827B633C91"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-Light.ttf"
+            "TargetName" = "8:Poppins-Light.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_21330F404AB0DB45F44BEF007278BE64"
             {
             "AssemblyRegister" = "3:1"
@@ -2213,6 +2391,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_29FD4ECE03334977B00F7BE86E266226"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-Black.ttf"
+            "TargetName" = "8:Poppins-Black.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2B03ADD161F2052243012D0A776BCCB5"
@@ -2339,6 +2537,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_31DC57B3854340C4B169A565381EE494"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-ExtraBoldItalic.ttf"
+            "TargetName" = "8:Poppins-ExtraBoldItalic.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_32A67CB521C97E94ADE5A88608188D61"
             {
             "AssemblyRegister" = "3:1"
@@ -2368,6 +2586,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3334E2AC53034222BE578D8B2FDFA386"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-LightItalic.ttf"
+            "TargetName" = "8:Poppins-LightItalic.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_36DB5B2FA4180AD8F142AF2A68C0D78F"
@@ -2649,6 +2887,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_439639DDDCBD41EA9F08E66963988B96"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-BlackItalic.ttf"
+            "TargetName" = "8:Poppins-BlackItalic.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_45B2E200CC55F3605220E0423134EC16"
             {
             "AssemblyRegister" = "3:1"
@@ -2709,6 +2967,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4AC7DEBF50CF4A55B02FEFA599755521"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-ExtraLight.ttf"
+            "TargetName" = "8:Poppins-ExtraLight.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4BAF1F8E6854BB53E597BECE18261B20"
@@ -2988,6 +3266,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_57E53259088F45D484632FF7ABAA9086"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-ExtraLightItalic.ttf"
+            "TargetName" = "8:Poppins-ExtraLightItalic.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_593A5167B3FD07EC9F8E1CFEDD0CA0D6"
@@ -3548,6 +3846,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_80653C5B9D9844AE984E4B67B4BBB313"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-Bold.ttf"
+            "TargetName" = "8:Poppins-Bold.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_82725B7BA77CAA9EDF2C2BF9D701DC8B"
             {
             "AssemblyRegister" = "3:1"
@@ -3670,6 +3988,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8CC926259DB74D2284EAB9B722866BD6"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-SemiBold.ttf"
+            "TargetName" = "8:Poppins-SemiBold.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8FC120F2D009B75A2F597CDF4315A12A"
@@ -3889,6 +4227,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_97D537087C0642F1853D20B15B814EAD"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-BoldItalic.ttf"
+            "TargetName" = "8:Poppins-BoldItalic.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9895B866DF0B66B831E9C492A12A7C2D"
             {
             "AssemblyRegister" = "3:1"
@@ -3980,6 +4338,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A13C36E83FF74C509C54428A20BBB694"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-ExtraBold.ttf"
+            "TargetName" = "8:Poppins-ExtraBold.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A1D096E8DCEB931313FF2D857D103AF2"
@@ -4166,6 +4544,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AA65F15BDAE8498E9BFEE2197C43CBF8"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-Regular.ttf"
+            "TargetName" = "8:Poppins-Regular.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AD0A75D5CA30DA04FD6902B2C49E8158"
@@ -4478,6 +4876,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BBC0B598AC064C0690DF7114ADD5BE88"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-Thin.ttf"
+            "TargetName" = "8:Poppins-Thin.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C12147E5E19D71D7CEA1F2354767FFC7"
             {
             "AssemblyRegister" = "3:1"
@@ -4538,6 +4956,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C25C628E17274C56941969D49090B910"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-Medium.ttf"
+            "TargetName" = "8:Poppins-Medium.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C742B42D4AB68CAAC67B95FAF0123DD6"
@@ -4662,6 +5100,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D104DF69DB384DED918103F47225E7B5"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-ThinItalic.ttf"
+            "TargetName" = "8:Poppins-ThinItalic.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D74C054EE1405B5402B0A67E8595F25F"
@@ -5191,6 +5649,46 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EDBCDFBB3C794ED0BC2DC3520BE3D288"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-Italic.ttf"
+            "TargetName" = "8:Poppins-Italic.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F01D9022261C432E8F3267537A72A61E"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-SemiBoldItalic.ttf"
+            "TargetName" = "8:Poppins-SemiBoldItalic.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F01F3ED4FDBD709A91D0E9613D73A739"
             {
             "AssemblyRegister" = "3:1"
@@ -5315,6 +5813,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FBA12A855ADD490686C9B2B3B6286F9E"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\Fonts\\Poppins-MediumItalic.ttf"
+            "TargetName" = "8:Poppins-MediumItalic.ttf"
+            "Tag" = "8:"
+            "Folder" = "8:_EFDEF2E41F784490B27BF37F2D86B04E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:5"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FD03B28E6344AE69619FA45AC79C5AE2"
             {
             "AssemblyRegister" = "3:1"
@@ -5374,6 +5892,17 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_EFDEF2E41F784490B27BF37F2D86B04E"
+            {
+            "Name" = "8:#1911"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:FontsFolder"
+                "Folders"
+                {
+                }
+            }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_F7A6DAAC01024D8FA90E7EBCAAF8AD74"
             {
             "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
@@ -5403,7 +5932,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Amsems_Setup"
         "ProductCode" = "8:{5F7BDE5F-6C4B-4836-B6F1-96A8DC7C3FF3}"
-        "PackageCode" = "8:{E6D2E6B8-F8AD-4676-BAAA-D83F667FF70F}"
+        "PackageCode" = "8:{28590B8D-C4C8-4F26-8C8C-3330B5041D3F}"
         "UpgradeCode" = "8:{AE62E803-4287-4A39-811D-29ECF1594153}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

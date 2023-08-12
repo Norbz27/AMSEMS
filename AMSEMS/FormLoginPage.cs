@@ -16,13 +16,25 @@ namespace AMSEMS
     public partial class FormLoginPage : KryptonForm
     {
         SqlConnection cn;
-        SqlCommand cm;
         SqlDataAdapter ad;
 
         public FormLoginPage()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
+
+            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+            {
+                try
+                {
+                    connection.Open();
+                    Console.WriteLine("Connection successful!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Connection failed: " + ex.Message);
+                }
+            }
         }
 
         private void tbID_Enter(object sender, EventArgs e)
@@ -104,9 +116,14 @@ namespace AMSEMS
                                             "Select Role from tbl_teacher_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn);
                     DataTable dt = new DataTable();
                     ad.Fill(dt);
-                    if (dt.Rows[0][0].ToString() == "1")
+
+                    if (dt.Rows.Equals(null))
                     {
-                        FormAdminNavigation frmMainPage = new FormAdminNavigation();
+                        MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else if (dt.Rows[0][0].ToString() == "1")
+                    {
+                        FormAdminNavigation frmMainPage = new FormAdminNavigation(tbID.Text);
                         frmMainPage.Show();
                         this.Hide();
                     }
@@ -138,10 +155,11 @@ namespace AMSEMS
                     {
                         MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+                    dt.Rows.Clear();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(ex.Message, "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
@@ -168,6 +186,16 @@ namespace AMSEMS
             {
                 return false;
             }
+        }
+
+        private void FormLoginPage_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormLoginPage_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

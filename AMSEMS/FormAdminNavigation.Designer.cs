@@ -56,8 +56,8 @@
             this.x = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonMonthCalendar1 = new ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar();
             this.kryptonPanel4 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lblRole = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lblName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -929,7 +929,7 @@
             this.kryptonSplitContainer1.Panel2.StateCommon.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonSplitContainer1.Panel2MinSize = 290;
             this.kryptonSplitContainer1.Size = new System.Drawing.Size(1061, 611);
-            this.kryptonSplitContainer1.SplitterDistance = 767;
+            this.kryptonSplitContainer1.SplitterDistance = 766;
             this.kryptonSplitContainer1.SplitterWidth = 4;
             this.kryptonSplitContainer1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.kryptonSplitContainer1.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
@@ -1068,41 +1068,41 @@
             // 
             // kryptonPanel4
             // 
-            this.kryptonPanel4.Controls.Add(this.kryptonLabel4);
-            this.kryptonPanel4.Controls.Add(this.kryptonLabel3);
+            this.kryptonPanel4.Controls.Add(this.lblRole);
+            this.kryptonPanel4.Controls.Add(this.lblName);
             this.kryptonPanel4.Controls.Add(this.kryptonLabel2);
             this.kryptonPanel4.Controls.Add(this.pictureBox2);
             this.kryptonPanel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonPanel4.Location = new System.Drawing.Point(20, 0);
             this.kryptonPanel4.Name = "kryptonPanel4";
-            this.kryptonPanel4.Size = new System.Drawing.Size(250, 239);
+            this.kryptonPanel4.Size = new System.Drawing.Size(251, 239);
             this.kryptonPanel4.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonPanel4.StateCommon.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonPanel4.TabIndex = 0;
             // 
-            // kryptonLabel4
+            // lblRole
             // 
-            this.kryptonLabel4.AutoSize = false;
-            this.kryptonLabel4.Location = new System.Drawing.Point(1, 211);
-            this.kryptonLabel4.Name = "kryptonLabel4";
-            this.kryptonLabel4.Size = new System.Drawing.Size(243, 25);
-            this.kryptonLabel4.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel4.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel4.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonLabel4.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonLabel4.TabIndex = 6;
-            this.kryptonLabel4.Values.Text = "Admin";
+            this.lblRole.AutoSize = false;
+            this.lblRole.Location = new System.Drawing.Point(1, 211);
+            this.lblRole.Name = "lblRole";
+            this.lblRole.Size = new System.Drawing.Size(243, 25);
+            this.lblRole.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            this.lblRole.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+            this.lblRole.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRole.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.lblRole.TabIndex = 6;
+            this.lblRole.Values.Text = "Admin";
             // 
-            // kryptonLabel3
+            // lblName
             // 
-            this.kryptonLabel3.AutoSize = false;
-            this.kryptonLabel3.Location = new System.Drawing.Point(2, 189);
-            this.kryptonLabel3.Name = "kryptonLabel3";
-            this.kryptonLabel3.Size = new System.Drawing.Size(243, 25);
-            this.kryptonLabel3.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonLabel3.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonLabel3.TabIndex = 5;
-            this.kryptonLabel3.Values.Text = "Norberto Bruzon Jr.";
+            this.lblName.AutoSize = false;
+            this.lblName.Location = new System.Drawing.Point(2, 189);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(243, 25);
+            this.lblName.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.lblName.TabIndex = 5;
+            this.lblName.Values.Text = "Norberto Bruzon Jr.";
             // 
             // kryptonLabel2
             // 
@@ -1141,6 +1141,8 @@
             this.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormAdminNavigation_FormClosed);
+            this.Load += new System.EventHandler(this.FormAdminNavigation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Panel1)).EndInit();
             this.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelCollapsed)).EndInit();
@@ -1183,8 +1185,8 @@
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel4;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel4;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblRole;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblName;
         private ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar kryptonMonthCalendar1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel x;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel panelCollapsed;
