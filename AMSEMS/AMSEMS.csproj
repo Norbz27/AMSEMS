@@ -179,6 +179,12 @@
     <Compile Include="SubForms_Admin\formSettings.Designer.cs">
       <DependentUpon>formSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Admin\formAddSchoolSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\formAddSchoolSetting.Designer.cs">
+      <DependentUpon>formAddSchoolSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Admin\formStudentForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -354,6 +360,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formSettings.resx">
       <DependentUpon>formSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\formAddSchoolSetting.resx">
+      <DependentUpon>formAddSchoolSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formStudentForm.resx">
       <DependentUpon>formStudentForm.cs</DependentUpon>
@@ -600,6 +609,7 @@
   <ItemGroup>
     <None Include="Resources\import-16.png" />
     <None Include="Resources\export-16.png" />
+    <None Include="Resources\add-circle.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

@@ -17,5 +17,23 @@ namespace AMSEMS.SubForms_Admin
         {
             InitializeComponent();
         }
+
+        private void btnAddSection_Click(object sender, EventArgs e)
+        {
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting("Section");
+            formAddSchoolSetting.Show();
+        }
+
+        private void btnAddYearLvl_Click(object sender, EventArgs e)
+        {
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting("Year Level");
+            formAddSchoolSetting.Show();
+        }
+
+        private void btnAddProgram_Click(object sender, EventArgs e)
+        {
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting("Program");
+            formAddSchoolSetting.Show();
+        }
     }
 }
