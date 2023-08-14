@@ -80,69 +80,83 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (header.Equals("Program"))
+            if (!tbDes.Text.Equals(""))
             {
+                if (header.Equals("Program"))
+                {
 
-                cm = new SqlCommand("Select * from tbl_program where Description = '"+ tbDes.Text +"'", cn);
-                ad = new SqlDataAdapter(cm);
-                ad.Fill(ds);
-                int i = ds.Tables[0].Rows.Count;
-                if (i == 0)
-                {
-                    cn.Open();
-                    cm = new SqlCommand("Insert into tbl_program Values (@Des)", cn);
-                    cm.Parameters.AddWithValue("@Des", tbDes.Text);
-                    cm.ExecuteNonQuery();
-                    dr.Close();
-                    cn.Close();
+                    cm = new SqlCommand("Select * from tbl_program where Description = '" + tbDes.Text + "'", cn);
+                    ad = new SqlDataAdapter(cm);
+                    ad.Fill(ds);
+                    int i = ds.Tables[0].Rows.Count;
+                    if (i == 0)
+                    {
+                        cn.Open();
+                        cm = new SqlCommand("Insert into tbl_program Values (@Des)", cn);
+                        cm.Parameters.AddWithValue("@Des", tbDes.Text);
+                        cm.ExecuteNonQuery();
+                        dr.Close();
+                        cn.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                 }
-                else
+                else if (header.Equals("Year Level"))
                 {
-                    MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    cm = new SqlCommand("Select * from tbl_year_level where Description = '" + tbDes.Text + "'", cn);
+                    ad = new SqlDataAdapter(cm);
+                    ad.Fill(ds);
+                    int i = ds.Tables[0].Rows.Count;
+                    if (i == 0)
+                    {
+                        cn.Open();
+                        cm = new SqlCommand("Insert into tbl_year_level Values (@Des)", cn);
+                        cm.Parameters.AddWithValue("@Des", tbDes.Text);
+                        cm.ExecuteNonQuery();
+                        dr.Close();
+                        cn.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                
+                else if (header.Equals("Section"))
+                {
+                    cm = new SqlCommand("Select * from tbl_Section where Description = '" + tbDes.Text + "'", cn);
+                    ad = new SqlDataAdapter(cm);
+                    ad.Fill(ds);
+                    int i = ds.Tables[0].Rows.Count;
+                    if (i == 0)
+                    {
+                        cn.Open();
+                        cm = new SqlCommand("Insert into tbl_Section Values (@Des)", cn);
+                        cm.Parameters.AddWithValue("@Des", tbDes.Text);
+                        cm.ExecuteNonQuery();
+                        dr.Close();
+                        cn.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
-            else if (header.Equals("Year Level"))
+            else
             {
-                cm = new SqlCommand("Select * from tbl_year_level where Description = '"+ tbDes.Text +"'", cn);
-                ad = new SqlDataAdapter(cm);
-                ad.Fill(ds);
-                int i = ds.Tables[0].Rows.Count;
-                if (i == 0)
-                {
-                    cn.Open();
-                    cm = new SqlCommand("Insert into tbl_year_level Values (@Des)", cn);
-                    cm.Parameters.AddWithValue("@Des", tbDes.Text);
-                    cm.ExecuteNonQuery();
-                    dr.Close();
-                    cn.Close();
-                }
-                else
-                {
-                    MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else if (header.Equals("Section"))
-            {
-                cm = new SqlCommand("Select * from tbl_Section where Description = '"+ tbDes.Text +"'", cn);
-                ad = new SqlDataAdapter(cm);
-                ad.Fill(ds);
-                int i = ds.Tables[0].Rows.Count;
-                if (i == 0)
-                {
-                    cn.Open();
-                    cm = new SqlCommand("Insert into tbl_Section Values (@Des)", cn);
-                    cm.Parameters.AddWithValue("@Des", tbDes.Text);
-                    cm.ExecuteNonQuery();
-                    dr.Close();
-                    cn.Close();
-                }
-                else
-                {
-                    MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show(header + " is empty!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             displayData();
+        }
+
+        private void btnDone_Click(object sender, EventArgs e)
+        {
+            formStudentForm formStudentForm = new formStudentForm();
+            formStudentForm.displayPSY();
+            this.Close();
         }
     }
 }

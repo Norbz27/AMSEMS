@@ -51,10 +51,7 @@
             this.kryptonDropButton5 = new ComponentFactory.Krypton.Toolkit.KryptonDropButton();
             this.kryptonLabel18 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonDropButton6 = new ComponentFactory.Krypton.Toolkit.KryptonDropButton();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.bsit = new System.Windows.Forms.ToolStripMenuItem();
-            this.bSHMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bSCPEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctMProgram = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.kryptonLabel19 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel20 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel21 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -71,11 +68,12 @@
             this.kryptonContextMenuItem1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuHeading1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuHeading();
             this.kryptonContextMenuSeparator1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator();
+            this.ctMYlvl = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ctMSection = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddSection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddYearLvl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddProgram)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -478,6 +476,7 @@
             // 
             // kryptonDropButton4
             // 
+            this.kryptonDropButton4.ContextMenuStrip = this.ctMSection;
             this.kryptonDropButton4.Location = new System.Drawing.Point(460, 134);
             this.kryptonDropButton4.Name = "kryptonDropButton4";
             this.kryptonDropButton4.OverrideDefault.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -519,6 +518,7 @@
             // 
             // kryptonDropButton5
             // 
+            this.kryptonDropButton5.ContextMenuStrip = this.ctMYlvl;
             this.kryptonDropButton5.Location = new System.Drawing.Point(349, 134);
             this.kryptonDropButton5.Name = "kryptonDropButton5";
             this.kryptonDropButton5.OverrideDefault.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -560,7 +560,7 @@
             // 
             // kryptonDropButton6
             // 
-            this.kryptonDropButton6.ContextMenuStrip = this.contextMenuStrip1;
+            this.kryptonDropButton6.ContextMenuStrip = this.ctMProgram;
             this.kryptonDropButton6.Location = new System.Drawing.Point(191, 134);
             this.kryptonDropButton6.Name = "kryptonDropButton6";
             this.kryptonDropButton6.OverrideDefault.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -587,45 +587,15 @@
             this.kryptonDropButton6.TabIndex = 79;
             this.kryptonDropButton6.Values.Text = "BSIT";
             // 
-            // contextMenuStrip1
+            // ctMProgram
             // 
-            this.contextMenuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.contextMenuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.contextMenuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bsit,
-            this.bSHMToolStripMenuItem,
-            this.bSCPEToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.ShowItemToolTips = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(89, 82);
-            // 
-            // bsit
-            // 
-            this.bsit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.bsit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.bsit.DoubleClickEnabled = true;
-            this.bsit.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bsit.Name = "bsit";
-            this.bsit.Size = new System.Drawing.Size(88, 26);
-            this.bsit.Text = "BSIT";
-            // 
-            // bSHMToolStripMenuItem
-            // 
-            this.bSHMToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.bSHMToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bSHMToolStripMenuItem.Name = "bSHMToolStripMenuItem";
-            this.bSHMToolStripMenuItem.Size = new System.Drawing.Size(88, 26);
-            this.bSHMToolStripMenuItem.Text = "BSHM";
-            // 
-            // bSCPEToolStripMenuItem
-            // 
-            this.bSCPEToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bSCPEToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
-            this.bSCPEToolStripMenuItem.Name = "bSCPEToolStripMenuItem";
-            this.bSCPEToolStripMenuItem.Size = new System.Drawing.Size(88, 26);
-            this.bSCPEToolStripMenuItem.Text = "BSCPE";
+            this.ctMProgram.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ctMProgram.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ctMProgram.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ctMProgram.Name = "contextMenuStrip1";
+            this.ctMProgram.ShowImageMargin = false;
+            this.ctMProgram.ShowItemToolTips = false;
+            this.ctMProgram.Size = new System.Drawing.Size(36, 4);
             // 
             // kryptonLabel19
             // 
@@ -797,6 +767,26 @@
             // 
             this.kryptonContextMenuHeading1.ExtraText = "";
             // 
+            // ctMYlvl
+            // 
+            this.ctMYlvl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ctMYlvl.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ctMYlvl.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ctMYlvl.Name = "contextMenuStrip1";
+            this.ctMYlvl.ShowImageMargin = false;
+            this.ctMYlvl.ShowItemToolTips = false;
+            this.ctMYlvl.Size = new System.Drawing.Size(36, 4);
+            // 
+            // ctMSection
+            // 
+            this.ctMSection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ctMSection.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ctMSection.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ctMSection.Name = "contextMenuStrip1";
+            this.ctMSection.ShowImageMargin = false;
+            this.ctMSection.ShowItemToolTips = false;
+            this.ctMSection.Size = new System.Drawing.Size(36, 4);
+            // 
             // formStudentForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -811,12 +801,12 @@
             this.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Load += new System.EventHandler(this.formStudentForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddSection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddYearLvl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddProgram)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -857,14 +847,13 @@
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem1;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuHeading kryptonContextMenuHeading1;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator kryptonContextMenuSeparator1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem bsit;
-        private System.Windows.Forms.ToolStripMenuItem bSHMToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bSCPEToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip ctMProgram;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox kryptonMaskedTextBox1;
         private System.Windows.Forms.PictureBox btnAddProgram;
         private System.Windows.Forms.PictureBox btnAddSection;
         private System.Windows.Forms.PictureBox btnAddYearLvl;
+        private System.Windows.Forms.ContextMenuStrip ctMYlvl;
+        private System.Windows.Forms.ContextMenuStrip ctMSection;
     }
 }
