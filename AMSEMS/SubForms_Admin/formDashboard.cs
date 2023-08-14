@@ -16,13 +16,11 @@ namespace AMSEMS.SubForms_Admin
         SqlConnection cn;
         SqlCommand cm;
         SqlDataReader dr;
-        public formDashboard()
+        String id;
+        public formDashboard(String id)
         {
             InitializeComponent();
-        }
 
-        public void DisplayName(String id)
-        {
             cn = new SqlConnection(SQL_Connection.connection);
 
             cn.Open();
@@ -32,6 +30,7 @@ namespace AMSEMS.SubForms_Admin
             lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
             dr.Close();
             cn.Close();
+            this.id = id;
         }
     }
 }

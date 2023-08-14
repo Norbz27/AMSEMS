@@ -1,6 +1,6 @@
 ﻿namespace AMSEMS.SubForms_Admin
 {
-    partial class formAccounts
+    partial class formAccounts_SAO
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblAccountName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.btnSettings = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -36,12 +39,25 @@
             this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton3 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Lname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.role = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
             this.kryptonGroupBox1.Panel.SuspendLayout();
             this.kryptonGroupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
+            this.kryptonGroupBox5.Panel.SuspendLayout();
+            this.kryptonGroupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblAccountName
@@ -57,7 +73,7 @@
             // 
             this.btnSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSettings.Location = new System.Drawing.Point(596, 0);
+            this.btnSettings.Location = new System.Drawing.Point(728, 0);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -121,7 +137,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(20, 15);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(760, 36);
+            this.panel1.Size = new System.Drawing.Size(892, 36);
             this.panel1.TabIndex = 7;
             // 
             // kryptonGroupBox1
@@ -328,16 +344,135 @@
             this.kryptonButton3.TabIndex = 3;
             this.kryptonButton3.Values.Text = "Inactive";
             // 
-            // formAccounts
+            // kryptonGroupBox5
+            // 
+            this.kryptonGroupBox5.CaptionVisible = false;
+            this.kryptonGroupBox5.CausesValidation = false;
+            this.kryptonGroupBox5.Location = new System.Drawing.Point(20, 108);
+            this.kryptonGroupBox5.Name = "kryptonGroupBox5";
+            // 
+            // kryptonGroupBox5.Panel
+            // 
+            this.kryptonGroupBox5.Panel.Controls.Add(this.dataGridView1);
+            this.kryptonGroupBox5.Size = new System.Drawing.Size(892, 372);
+            this.kryptonGroupBox5.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonGroupBox5.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonGroupBox5.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox5.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox5.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonGroupBox5.StateCommon.Border.Rounding = 10;
+            this.kryptonGroupBox5.StateCommon.Border.Width = 2;
+            this.kryptonGroupBox5.TabIndex = 29;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dataGridView1.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.ColumnHeadersHeight = 50;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.No,
+            this.ID,
+            this.Fname,
+            this.Lname,
+            this.role,
+            this.status});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.GridColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidth = 30;
+            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.Size = new System.Drawing.Size(882, 362);
+            this.dataGridView1.TabIndex = 10;
+            // 
+            // No
+            // 
+            this.No.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.No.HeaderText = "No";
+            this.No.Name = "No";
+            this.No.ReadOnly = true;
+            this.No.Width = 51;
+            // 
+            // ID
+            // 
+            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 46;
+            // 
+            // Fname
+            // 
+            this.Fname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Fname.HeaderText = "First Name";
+            this.Fname.Name = "Fname";
+            this.Fname.ReadOnly = true;
+            // 
+            // Lname
+            // 
+            this.Lname.HeaderText = "Last Name";
+            this.Lname.Name = "Lname";
+            this.Lname.ReadOnly = true;
+            // 
+            // role
+            // 
+            this.role.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.role.HeaderText = "Role";
+            this.role.Name = "role";
+            this.role.ReadOnly = true;
+            this.role.Width = 60;
+            // 
+            // status
+            // 
+            this.status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.status.HeaderText = "Status";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
+            this.status.Width = 72;
+            // 
+            // formAccounts_SAO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ClientSize = new System.Drawing.Size(800, 493);
+            this.ClientSize = new System.Drawing.Size(932, 493);
+            this.Controls.Add(this.kryptonGroupBox5);
             this.Controls.Add(this.kryptonGroupBox1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "formAccounts";
+            this.Name = "formAccounts_SAO";
             this.Padding = new System.Windows.Forms.Padding(20, 15, 20, 10);
             this.Text = " ";
             this.panel1.ResumeLayout(false);
@@ -347,6 +482,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).EndInit();
             this.kryptonGroupBox1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).EndInit();
+            this.kryptonGroupBox5.Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).EndInit();
+            this.kryptonGroupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -361,5 +501,13 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton2;
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton3;
+        private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox5;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn No;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Lname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn role;
+        private System.Windows.Forms.DataGridViewTextBoxColumn status;
     }
 }

@@ -962,7 +962,7 @@
             // kryptonGroupBox3.Panel
             // 
             this.kryptonGroupBox3.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.kryptonGroupBox3.Size = new System.Drawing.Size(246, 66);
+            this.kryptonGroupBox3.Size = new System.Drawing.Size(280, 66);
             this.kryptonGroupBox3.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox3.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox3.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));

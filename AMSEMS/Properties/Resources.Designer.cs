@@ -203,6 +203,16 @@ namespace AMSEMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap export_16 {
+            get {
+                object obj = ResourceManager.GetObject("export-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap green_circular_shape {
             get {
                 object obj = ResourceManager.GetObject("green-circular-shape", resourceCulture);
@@ -226,6 +236,16 @@ namespace AMSEMS.Properties {
         internal static System.Drawing.Bitmap green_circular_shape_121 {
             get {
                 object obj = ResourceManager.GetObject("green-circular-shape-121", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap import_16 {
+            get {
+                object obj = ResourceManager.GetObject("import-16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

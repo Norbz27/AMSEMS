@@ -17,24 +17,21 @@ namespace AMSEMS
     {
         SqlConnection cn;
         SqlDataAdapter ad;
+        SqlCommand cm;
+        SqlDataReader dr;
 
         public FormLoginPage()
         {
             InitializeComponent();
+
             cn = new SqlConnection(SQL_Connection.connection);
 
-            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
-            {
-                try
-                {
-                    connection.Open();
-                    Console.WriteLine("Connection successful!");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Connection failed: " + ex.Message);
-                }
-            }
+            cn.Open();
+            cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts", cn);
+            dr = cm.ExecuteReader();
+            dr.Read();
+            dr.Close();
+            cn.Close();
         }
 
         private void tbID_Enter(object sender, EventArgs e)
@@ -102,68 +99,71 @@ namespace AMSEMS
         {
             if (CheckForInternetConnection())
             {
-                try
+                using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
                 {
-                    cn.Open();
-                    ad = new SqlDataAdapter("Select Role from tbl_admin_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                            " UNION " +
-                                            "Select Role from tbl_deptHead_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                            " UNION " +
-                                            "Select Role from tbl_guidance_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                            " UNION " +
-                                            "Select Role from tbl_sao_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                            " UNION " +
-                                            "Select Role from tbl_teacher_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn);
-                    DataTable dt = new DataTable();
-                    ad.Fill(dt);
+                    try
+                    {
+                        cn.Open();
+                        ad = new SqlDataAdapter("Select Role from tbl_admin_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                " UNION " +
+                                                "Select Role from tbl_deptHead_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                " UNION " +
+                                                "Select Role from tbl_guidance_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                " UNION " +
+                                                "Select Role from tbl_sao_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                " UNION " +
+                                                "Select Role from tbl_teacher_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn);
+                        DataTable dt = new DataTable();
+                        ad.Fill(dt);
 
-                    if (dt.Rows.Equals(null))
-                    {
-                        MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (dt.Rows.Equals(null))
+                        {
+                            MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else if (dt.Rows[0][0].ToString() == "1")
+                        {
+                            FormAdminNavigation frmMainPage = new FormAdminNavigation(tbID.Text);
+                            frmMainPage.Show();
+                            this.Hide();
+                        }
+                        else if (dt.Rows[0][0].ToString() == "2")
+                        {
+                            FormDeptHeadNavigation frmMainPage = new FormDeptHeadNavigation();
+                            frmMainPage.Show();
+                            this.Hide();
+                        }
+                        else if (dt.Rows[0][0].ToString() == "3")
+                        {
+                            FormGuidanceNavigation frmMainPage = new FormGuidanceNavigation();
+                            frmMainPage.Show();
+                            this.Hide();
+                        }
+                        else if (dt.Rows[0][0].ToString() == "4")
+                        {
+                            FormSAONavigation frmMainPage = new FormSAONavigation();
+                            frmMainPage.Show();
+                            this.Hide();
+                        }
+                        else if (dt.Rows[0][0].ToString() == "6")
+                        {
+                            FormTeacherNavigation frmMainPage = new FormTeacherNavigation();
+                            frmMainPage.Show();
+                            this.Hide();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        dt.Rows.Clear();
                     }
-                    else if (dt.Rows[0][0].ToString() == "1")
+                    catch (Exception ex)
                     {
-                        FormAdminNavigation frmMainPage = new FormAdminNavigation(tbID.Text);
-                        frmMainPage.Show();
-                        this.Hide();
+                        MessageBox.Show(ex.Message, "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    else if (dt.Rows[0][0].ToString() == "2")
+                    finally
                     {
-                        FormDeptHeadNavigation frmMainPage = new FormDeptHeadNavigation();
-                        frmMainPage.Show();
-                        this.Hide();
+                        cn.Close();
                     }
-                    else if (dt.Rows[0][0].ToString() == "3")
-                    {
-                        FormGuidanceNavigation frmMainPage = new FormGuidanceNavigation();
-                        frmMainPage.Show();
-                        this.Hide();
-                    }
-                    else if (dt.Rows[0][0].ToString() == "4")
-                    {
-                        FormSAONavigation frmMainPage = new FormSAONavigation();
-                        frmMainPage.Show();
-                        this.Hide();
-                    }
-                    else if (dt.Rows[0][0].ToString() == "6")
-                    {
-                        FormTeacherNavigation frmMainPage = new FormTeacherNavigation();
-                        frmMainPage.Show();
-                        this.Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    dt.Rows.Clear();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                finally
-                {
-                    cn.Close();
                 }
             }
             else

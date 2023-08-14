@@ -326,7 +326,7 @@
             this.kryptonLabel8.Cursor = System.Windows.Forms.Cursors.Hand;
             this.kryptonLabel8.Location = new System.Drawing.Point(118, 50);
             this.kryptonLabel8.Name = "kryptonLabel8";
-            this.kryptonLabel8.Size = new System.Drawing.Size(81, 21);
+            this.kryptonLabel8.Size = new System.Drawing.Size(82, 21);
             this.kryptonLabel8.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
             this.kryptonLabel8.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
             this.kryptonLabel8.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
@@ -340,7 +340,7 @@
             this.kryptonLabel7.Cursor = System.Windows.Forms.Cursors.Hand;
             this.kryptonLabel7.Location = new System.Drawing.Point(18, 50);
             this.kryptonLabel7.Name = "kryptonLabel7";
-            this.kryptonLabel7.Size = new System.Drawing.Size(70, 21);
+            this.kryptonLabel7.Size = new System.Drawing.Size(71, 21);
             this.kryptonLabel7.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
             this.kryptonLabel7.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
             this.kryptonLabel7.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
@@ -371,7 +371,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonLabel5.Location = new System.Drawing.Point(15, 10);
             this.kryptonLabel5.Name = "kryptonLabel5";
-            this.kryptonLabel5.Size = new System.Drawing.Size(84, 25);
+            this.kryptonLabel5.Size = new System.Drawing.Size(83, 25);
             this.kryptonLabel5.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel5.TabIndex = 2;
             this.kryptonLabel5.Values.Text = "Teachers";
@@ -465,7 +465,7 @@
             // 
             this.lblName.Location = new System.Drawing.Point(22, 52);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(201, 31);
+            this.lblName.Size = new System.Drawing.Size(202, 31);
             this.lblName.StateCommon.ShortText.Color1 = System.Drawing.Color.White;
             this.lblName.StateCommon.ShortText.Color2 = System.Drawing.Color.White;
             this.lblName.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 14F, System.Drawing.FontStyle.Bold);

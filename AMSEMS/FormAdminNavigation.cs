@@ -23,6 +23,7 @@ namespace AMSEMS
 
         private bool isCollapsed;
         private Form activeForm;
+        private String id;
         public FormAdminNavigation(String id)
         {
             InitializeComponent();
@@ -31,10 +32,6 @@ namespace AMSEMS
             this.btnDashboard.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnDashboard.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-
-            SubForms_Admin.formDashboard form = new SubForms_Admin.formDashboard();
-            form.DisplayName(id);
-            OpenChildForm(form);
 
             cn = new SqlConnection(SQL_Connection.connection);
 
@@ -46,13 +43,15 @@ namespace AMSEMS
             dr.Close();
             cn.Close();
 
+            OpenChildForm(new SubForms_Admin.formDashboard(id));
+            this.id = id;
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
             isCollapsed = false;
             timer1.Start();
-            OpenChildForm(new SubForms_Admin.formDashboard());
+            OpenChildForm(new SubForms_Admin.formDashboard(id));
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
@@ -207,27 +206,27 @@ namespace AMSEMS
 
         private void btnTeachers_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForms_Admin.formAccounts("Teachers Account"));
+            OpenChildForm(new SubForms_Admin.formAccounts_Teachers("Teachers Account", 6));
         }
 
         private void btnDeptHead_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForms_Admin.formAccounts("Department Account"));
+            OpenChildForm(new SubForms_Admin.formAcctounts_DeptHead("Department Account", 2));
         }
 
         private void btnGuidance_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForms_Admin.formAccounts("Guidance Associate Account"));
+            OpenChildForm(new SubForms_Admin.formAcctounts_Guidance("Guidance Associate Account", 3));
         }
 
         private void btnSAO_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForms_Admin.formAccounts("Student Affairs Officer Account"));
+            OpenChildForm(new SubForms_Admin.formAccounts_SAO("Student Affairs Officer Account", 4));
         }
 
         private void btnStudents_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForms_Admin.formAccounts("Students Account"));
+            OpenChildForm(new SubForms_Admin.formAccounts_Students("Students Account", 5));
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

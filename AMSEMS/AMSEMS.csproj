@@ -137,11 +137,35 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubForms_Admin\formAccounts.cs">
+    <Compile Include="SubForms_Admin\formAcctounts_DeptHead.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formAccounts.Designer.cs">
-      <DependentUpon>formAccounts.cs</DependentUpon>
+    <Compile Include="SubForms_Admin\formAcctounts_DeptHead.Designer.cs">
+      <DependentUpon>formAcctounts_DeptHead.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\formAcctounts_Guidance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\formAcctounts_Guidance.Designer.cs">
+      <DependentUpon>formAcctounts_Guidance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\formAcctounts_SAO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\formAcctounts_SAO.Designer.cs">
+      <DependentUpon>formAcctounts_SAO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\formAcctounts_Teachers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\formAcctounts_Teachers.Designer.cs">
+      <DependentUpon>formAcctounts_Teachers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\formAccounts_Students.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\formAccounts_Students.Designer.cs">
+      <DependentUpon>formAccounts_Students.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\formDashboard.cs">
       <SubType>Form</SubType>
@@ -154,6 +178,12 @@
     </Compile>
     <Compile Include="SubForms_Admin\formSettings.Designer.cs">
       <DependentUpon>formSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\formStudentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\formStudentForm.Designer.cs">
+      <DependentUpon>formStudentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Teacher\formAttendanceRecord.cs">
       <SubType>Form</SubType>
@@ -304,14 +334,29 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formAccounts.resx">
-      <DependentUpon>formAccounts.cs</DependentUpon>
+    <EmbeddedResource Include="SubForms_Admin\formAcctounts_DeptHead.resx">
+      <DependentUpon>formAcctounts_DeptHead.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\formAcctounts_Guidance.resx">
+      <DependentUpon>formAcctounts_Guidance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\formAcctounts_SAO.resx">
+      <DependentUpon>formAcctounts_SAO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\formAcctounts_Teachers.resx">
+      <DependentUpon>formAcctounts_Teachers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\formAccounts_Students.resx">
+      <DependentUpon>formAccounts_Students.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formDashboard.resx">
       <DependentUpon>formDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formSettings.resx">
       <DependentUpon>formSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\formStudentForm.resx">
+      <DependentUpon>formStudentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formAttendanceRecord.resx">
       <DependentUpon>formAttendanceRecord.cs</DependentUpon>
@@ -553,6 +598,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\import-16.png" />
+    <None Include="Resources\export-16.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

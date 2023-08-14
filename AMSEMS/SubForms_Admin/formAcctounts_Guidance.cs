@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_Admin
 {
-    public partial class formAccounts : Form
+    public partial class formAcctounts_Guidance : Form
     {
-        public formAccounts(String accountName)
+        public formAcctounts_Guidance(String accountName, int role)
         {
             InitializeComponent();
             lblAccountName.Text = accountName;
