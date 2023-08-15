@@ -21,11 +21,15 @@ namespace AMSEMS.SubForms_Admin
         DataSet ds = new DataSet();
 
         String header;
-        public formAddSchoolSetting(String header)
+
+        formStudentForm form;
+        public formAddSchoolSetting(String header, formStudentForm form)
         {
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
+
+            this.form = form;
 
             this.header = header;
 
@@ -154,8 +158,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            formStudentForm formStudentForm = new formStudentForm();
-            formStudentForm.displayPSY();
+            form.displayPSY();
             this.Close();
         }
     }

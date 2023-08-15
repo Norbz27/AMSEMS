@@ -20,7 +20,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnAddStudent_Click(object sender, EventArgs e)
         {
-            formStudentForm formStudentForm = new formStudentForm();
+            formStudentForm formStudentForm = new formStudentForm(5);
             formStudentForm.ShowDialog();
         }
     }
