@@ -5,7 +5,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -56,7 +58,7 @@ namespace AMSEMS.SubForms_Admin
             int passwordLength = 12;
             tbPass.Text = GeneratePassword(passwordLength);
         }
-        public void clear()
+        public void clearSetting()
         {
             cbProgram.Items.Clear();
             cbSection.Items.Clear();
@@ -65,7 +67,7 @@ namespace AMSEMS.SubForms_Admin
 
         public void displayPSY()
         {
-            clear();
+            clearSetting();
             cn.Open();
             cm = new SqlCommand("Select Description from tbl_program", cn);
             dr = cm.ExecuteReader();
@@ -133,6 +135,88 @@ namespace AMSEMS.SubForms_Admin
             }
 
             return password.ToString();
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (tbFname.Text == "" && tbLname.Text == "" && tbMname.Text == "" && tbID.Text == "" && tbPass.Text == "" && tbRole.Text == "" && cbProgram.Text == "" && cbYearlvl.Text == "" && cbSection.Text == "")
+            {
+                MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                byte[] picData;
+                if (openFileDialog1.FileName == String.Empty)
+                {
+                    picData = null;
+                }
+                else
+                {
+                    picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
+                }
+                cn.Open();
+                cm = new SqlCommand();
+                cm.Connection = cn;
+                cm.CommandType = CommandType.StoredProcedure;
+                cm.CommandText = "sp_AddAccounts";
+                cm.Parameters.AddWithValue("@ID", tbID.Text);
+                cm.Parameters.AddWithValue("@RFID", tbRFID.Text);
+                cm.Parameters.AddWithValue("@Firstname", tbFname.Text);
+                cm.Parameters.AddWithValue("@Lastname", tbLname.Text);
+                cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                cm.Parameters.AddWithValue("@Profile_pic", picData);
+                cm.Parameters.AddWithValue("@Program", cbProgram.Text);
+                cm.Parameters.AddWithValue("@Section", cbSection.Text);
+                cm.Parameters.AddWithValue("@Year_Level", cbYearlvl.Text);
+                cm.Parameters.AddWithValue("@Role", tbRole.Text);
+                cm.Parameters.AddWithValue("@Status", tbStatus.Text);
+                cm.ExecuteNonQuery();
+                cn.Close();
+                MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                clearTexts();
+            }   
+        }
+        public void clearTexts()
+        {
+            tbID.Text = "";
+            tbMname.Text = "";
+            tbLname.Text = "";
+            tbPass.Text = "";
+            tbRFID.Text = "";
+            cbProgram.Text = "";
+            cbSection.Text = "";
+            cbYearlvl.Text = "";
+            openFileDialog1.FileName = null;
+            ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
+        }
+
+        public void getStudID(String ID)
+        {
+            try
+            {
+                cn.Open();
+                cm = new SqlCommand("Select Profile_pic from tbl_student_accounts where ID = " + ID + "", cn);
+
+                byte[] imageData = (byte[])cm.ExecuteScalar();
+
+                if (imageData != null && imageData.Length > 0)
+                {
+                    using (MemoryStream ms = new MemoryStream(imageData))
+                    {
+                        Image image = Image.FromStream(ms);
+                        ptbProfile.Image = image;
+                    }
+                }
+                else
+                {
+                    // Display a default image or handle the case where there's no image in the database
+                }
+                cn.Close();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
     }
 }

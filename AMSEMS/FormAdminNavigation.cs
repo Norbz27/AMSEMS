@@ -206,26 +206,31 @@ namespace AMSEMS
 
         private void btnTeachers_Click(object sender, EventArgs e)
         {
+
             OpenChildForm(new SubForms_Admin.formAccounts_Teachers("Teachers Account", 6));
         }
 
         private void btnDeptHead_Click(object sender, EventArgs e)
         {
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
             OpenChildForm(new SubForms_Admin.formAcctounts_DeptHead("Department Account", 2));
         }
 
         private void btnGuidance_Click(object sender, EventArgs e)
         {
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
             OpenChildForm(new SubForms_Admin.formAcctounts_Guidance("Guidance Associate Account", 3));
         }
 
         private void btnSAO_Click(object sender, EventArgs e)
         {
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
             OpenChildForm(new SubForms_Admin.formAccounts_SAO("Student Affairs Officer Account", 4));
         }
 
         private void btnStudents_Click(object sender, EventArgs e)
         {
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
             OpenChildForm(new SubForms_Admin.formAccounts_Students("Students Account", 5));
         }
 

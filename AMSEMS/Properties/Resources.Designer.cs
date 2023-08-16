@@ -283,6 +283,16 @@ namespace AMSEMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap menu {
+            get {
+                object obj = ResourceManager.GetObject("menu", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap new_moon {
             get {
                 object obj = ResourceManager.GetObject("new-moon", resourceCulture);
@@ -296,6 +306,26 @@ namespace AMSEMS.Properties {
         internal static System.Drawing.Bitmap new_moon_24 {
             get {
                 object obj = ResourceManager.GetObject("new-moon-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap option_24 {
+            get {
+                object obj = ResourceManager.GetObject("option-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap options {
+            get {
+                object obj = ResourceManager.GetObject("options", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -426,6 +456,16 @@ namespace AMSEMS.Properties {
         internal static System.Drawing.Bitmap verified_account {
             get {
                 object obj = ResourceManager.GetObject("verified-account", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap view_24 {
+            get {
+                object obj = ResourceManager.GetObject("view-24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
