@@ -24,11 +24,7 @@ namespace AMSEMS
         {
             InitializeComponent();
 
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(SQL_Connection.connection);
-            builder.Encrypt = true;
-            builder.TrustServerCertificate = true;
-            builder.ConnectTimeout = 30; // Increase the timeout value as needed
-            cn = new SqlConnection(builder.ToString());
+            cn = new SqlConnection(SQL_Connection.connection);
 
         }
 
@@ -83,17 +79,37 @@ namespace AMSEMS
         private void btnLogin_Click(object sender, EventArgs e)
         {
             UseWaitCursor = true;
-            login();
-            UseWaitCursor = false;
+            try
+            {
+                login();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                UseWaitCursor = false;
+            }
         }
 
         private void btnLogin_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
             {
-                this.UseWaitCursor = true;
-                login();
-                this.UseWaitCursor = false;
+                UseWaitCursor = true;
+                try
+                {
+                    login();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    UseWaitCursor = false;
+                }
             }
         }
 
@@ -106,57 +122,58 @@ namespace AMSEMS
                     try
                     {
                         cn.Open();
-                        ad = new SqlDataAdapter("Select Role from tbl_admin_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                " UNION " +
-                                                "Select Role from tbl_deptHead_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                " UNION " +
-                                                "Select Role from tbl_guidance_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                " UNION " +
-                                                "Select Role from tbl_sao_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                " UNION " +
-                                                "Select Role from tbl_teacher_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn);
-                        DataTable dt = new DataTable();
-                        ad.Fill(dt);
+                        using (SqlDataAdapter ad = new SqlDataAdapter("Select Role from tbl_admin_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                    " UNION " +
+                                                    "Select Role from tbl_deptHead_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                    " UNION " +
+                                                    "Select Role from tbl_guidance_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                    " UNION " +
+                                                    "Select Role from tbl_sao_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                    " UNION " +
+                                                    "Select Role from tbl_teacher_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn))
+                        {
+                            DataTable dt = new DataTable();
+                            ad.Fill(dt);
 
-                        if (dt.Rows.Equals(null))
-                        {
-                            MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (dt.Rows.Count == 0)
+                            {
+                                MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                            {
+                                int role = Convert.ToInt32(dt.Rows[0][0]);
+
+                                Form mainForm = null;
+
+                                switch (role)
+                                {
+                                    case 1:
+                                        mainForm = new FormAdminNavigation(tbID.Text);
+                                        break;
+                                    case 2:
+                                        mainForm = new FormDeptHeadNavigation();
+                                        break;
+                                    case 3:
+                                        mainForm = new FormGuidanceNavigation();
+                                        break;
+                                    case 4:
+                                        mainForm = new FormSAONavigation();
+                                        break;
+                                    case 6:
+                                        mainForm = new FormTeacherNavigation();
+                                        break;
+                                    default:
+                                        MessageBox.Show("Invalid Role!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        break;
+                                }
+
+                                if (mainForm != null)
+                                {
+                                    mainForm.Show();
+                                    this.Hide();
+                                }
+                            }
                         }
-                        else if (dt.Rows[0][0].ToString() == "1")
-                        {
-                            FormAdminNavigation frmMainPage = new FormAdminNavigation(tbID.Text);
-                            frmMainPage.Show();
-                            this.Hide();
-                        }
-                        else if (dt.Rows[0][0].ToString() == "2")
-                        {
-                            FormDeptHeadNavigation frmMainPage = new FormDeptHeadNavigation();
-                            frmMainPage.Show();
-                            this.Hide();
-                        }
-                        else if (dt.Rows[0][0].ToString() == "3")
-                        {
-                            FormGuidanceNavigation frmMainPage = new FormGuidanceNavigation();
-                            frmMainPage.Show();
-                            this.Hide();
-                        }
-                        else if (dt.Rows[0][0].ToString() == "4")
-                        {
-                            FormSAONavigation frmMainPage = new FormSAONavigation();
-                            frmMainPage.Show();
-                            this.Hide();
-                        }
-                        else if (dt.Rows[0][0].ToString() == "6")
-                        {
-                            FormTeacherNavigation frmMainPage = new FormTeacherNavigation();
-                            frmMainPage.Show();
-                            this.Hide();
-                        }
-                        else
-                        {
-                            MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        dt.Rows.Clear();
                     }
                     catch (Exception ex)
                     {
