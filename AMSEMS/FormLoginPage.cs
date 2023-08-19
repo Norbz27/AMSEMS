@@ -24,14 +24,12 @@ namespace AMSEMS
         {
             InitializeComponent();
 
-            cn = new SqlConnection(SQL_Connection.connection);
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(SQL_Connection.connection);
+            builder.Encrypt = true;
+            builder.TrustServerCertificate = true;
+            builder.ConnectTimeout = 30; // Increase the timeout value as needed
+            cn = new SqlConnection(builder.ToString());
 
-            cn.Open();
-            cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts", cn);
-            dr = cm.ExecuteReader();
-            dr.Read();
-            dr.Close();
-            cn.Close();
         }
 
         private void tbID_Enter(object sender, EventArgs e)
@@ -84,14 +82,18 @@ namespace AMSEMS
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            UseWaitCursor = true;
             login();
+            UseWaitCursor = false;
         }
 
         private void btnLogin_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.KeyCode == Keys.Enter)
             {
+                this.UseWaitCursor = true;
                 login();
+                this.UseWaitCursor = false;
             }
         }
 
@@ -99,7 +101,7 @@ namespace AMSEMS
         {
             if (CheckForInternetConnection())
             {
-                using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+                using (cn)
                 {
                     try
                     {

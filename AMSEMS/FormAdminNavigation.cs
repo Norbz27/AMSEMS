@@ -49,6 +49,7 @@ namespace AMSEMS
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
+            this.kryptonSplitContainer1.Panel2Collapsed = false;
             isCollapsed = false;
             timer1.Start();
             OpenChildForm(new SubForms_Admin.formDashboard(id));
@@ -108,6 +109,7 @@ namespace AMSEMS
 
         private void btnSubjects_Click(object sender, EventArgs e)
         {
+            this.kryptonSplitContainer1.Panel2Collapsed = false;
             isCollapsed = false;
             timer1.Start();
             OpenChildForm(new SubForms_Admin.formSubjects());
@@ -138,6 +140,7 @@ namespace AMSEMS
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
+            this.kryptonSplitContainer1.Panel2Collapsed = false;
             isCollapsed = false;
             timer1.Start();
             OpenChildForm(new SubForms_Admin.formSettings());

@@ -42,118 +42,124 @@ namespace AMSEMS.SubForms_Admin
 
         public void displayData()
         {
-            dataGridView.Rows.Clear();
+            using (cn)
+            {
+                dataGridView.Rows.Clear();
 
-            if (header.Equals("Program"))
-            {
-                cn.Open();
-                cm = new SqlCommand("Select * from tbl_program", cn);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
+                if (header.Equals("Program"))
                 {
-                    dataGridView.Rows.Add(dr["Program_ID"].ToString(), dr["Description"].ToString());
+                    cn.Open();
+                    cm = new SqlCommand("Select * from tbl_program", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        dataGridView.Rows.Add(dr["Program_ID"].ToString(), dr["Description"].ToString());
+                    }
+                    dr.Close();
+                    cn.Close();
                 }
-                dr.Close();
-                cn.Close();
-            }
-            else if (header.Equals("Year Level"))
-            {
-                cn.Open();
-                cm = new SqlCommand("Select * from tbl_year_level", cn);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
+                else if (header.Equals("Year Level"))
                 {
-                    dataGridView.Rows.Add(dr["Level_ID"].ToString(), dr["Description"].ToString());
+                    cn.Open();
+                    cm = new SqlCommand("Select * from tbl_year_level", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        dataGridView.Rows.Add(dr["Level_ID"].ToString(), dr["Description"].ToString());
+                    }
+                    dr.Close();
+                    cn.Close();
                 }
-                dr.Close();
-                cn.Close();
-            }
-            else if (header.Equals("Section"))
-            {
-                cn.Open();
-                cm = new SqlCommand("Select * from tbl_Section", cn);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
+                else if (header.Equals("Section"))
                 {
-                    dataGridView.Rows.Add(dr["Section_ID"].ToString(), dr["Description"].ToString());
+                    cn.Open();
+                    cm = new SqlCommand("Select * from tbl_Section", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        dataGridView.Rows.Add(dr["Section_ID"].ToString(), dr["Description"].ToString());
+                    }
+                    dr.Close();
+                    cn.Close();
                 }
-                dr.Close();
-                cn.Close();
             }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (!tbDes.Text.Equals(""))
+            using (cn)
             {
-                if (header.Equals("Program"))
+                if (!tbDes.Text.Equals(""))
                 {
+                    if (header.Equals("Program"))
+                    {
 
-                    cm = new SqlCommand("Select * from tbl_program where Description = '" + tbDes.Text + "'", cn);
-                    ad = new SqlDataAdapter(cm);
-                    ad.Fill(ds);
-                    int i = ds.Tables[0].Rows.Count;
-                    if (i == 0)
-                    {
-                        cn.Open();
-                        cm = new SqlCommand("Insert into tbl_program Values (@Des)", cn);
-                        cm.Parameters.AddWithValue("@Des", tbDes.Text);
-                        cm.ExecuteNonQuery();
-                        dr.Close();
-                        cn.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                        cm = new SqlCommand("Select * from tbl_program where Description = '" + tbDes.Text + "'", cn);
+                        ad = new SqlDataAdapter(cm);
+                        ad.Fill(ds);
+                        int i = ds.Tables[0].Rows.Count;
+                        if (i == 0)
+                        {
+                            cn.Open();
+                            cm = new SqlCommand("Insert into tbl_program Values (@Des)", cn);
+                            cm.Parameters.AddWithValue("@Des", tbDes.Text);
+                            cm.ExecuteNonQuery();
+                            dr.Close();
+                            cn.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
 
+                    }
+                    else if (header.Equals("Year Level"))
+                    {
+                        cm = new SqlCommand("Select * from tbl_year_level where Description = '" + tbDes.Text + "'", cn);
+                        ad = new SqlDataAdapter(cm);
+                        ad.Fill(ds);
+                        int i = ds.Tables[0].Rows.Count;
+                        if (i == 0)
+                        {
+                            cn.Open();
+                            cm = new SqlCommand("Insert into tbl_year_level Values (@Des)", cn);
+                            cm.Parameters.AddWithValue("@Des", tbDes.Text);
+                            cm.ExecuteNonQuery();
+                            dr.Close();
+                            cn.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else if (header.Equals("Section"))
+                    {
+                        cm = new SqlCommand("Select * from tbl_Section where Description = '" + tbDes.Text + "'", cn);
+                        ad = new SqlDataAdapter(cm);
+                        ad.Fill(ds);
+                        int i = ds.Tables[0].Rows.Count;
+                        if (i == 0)
+                        {
+                            cn.Open();
+                            cm = new SqlCommand("Insert into tbl_Section Values (@Des)", cn);
+                            cm.Parameters.AddWithValue("@Des", tbDes.Text);
+                            cm.ExecuteNonQuery();
+                            dr.Close();
+                            cn.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
-                else if (header.Equals("Year Level"))
+                else
                 {
-                    cm = new SqlCommand("Select * from tbl_year_level where Description = '" + tbDes.Text + "'", cn);
-                    ad = new SqlDataAdapter(cm);
-                    ad.Fill(ds);
-                    int i = ds.Tables[0].Rows.Count;
-                    if (i == 0)
-                    {
-                        cn.Open();
-                        cm = new SqlCommand("Insert into tbl_year_level Values (@Des)", cn);
-                        cm.Parameters.AddWithValue("@Des", tbDes.Text);
-                        cm.ExecuteNonQuery();
-                        dr.Close();
-                        cn.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show(header + " is empty!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                else if (header.Equals("Section"))
-                {
-                    cm = new SqlCommand("Select * from tbl_Section where Description = '" + tbDes.Text + "'", cn);
-                    ad = new SqlDataAdapter(cm);
-                    ad.Fill(ds);
-                    int i = ds.Tables[0].Rows.Count;
-                    if (i == 0)
-                    {
-                        cn.Open();
-                        cm = new SqlCommand("Insert into tbl_Section Values (@Des)", cn);
-                        cm.Parameters.AddWithValue("@Des", tbDes.Text);
-                        cm.ExecuteNonQuery();
-                        dr.Close();
-                        cn.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                displayData();
             }
-            else
-            {
-                MessageBox.Show(header + " is empty!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            displayData();
         }
 
         private void btnDone_Click(object sender, EventArgs e)
