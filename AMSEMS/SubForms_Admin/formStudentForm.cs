@@ -239,6 +239,7 @@ namespace AMSEMS.SubForms_Admin
                             cm.Parameters.AddWithValue("@RFID", tbRFID.Text);
                             cm.Parameters.AddWithValue("@Firstname", tbFname.Text);
                             cm.Parameters.AddWithValue("@Lastname", tbLname.Text);
+                            cm.Parameters.AddWithValue("@Middlename", tbMname.Text);
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             cm.Parameters.AddWithValue("@Profile_pic", picData);
                             cm.Parameters.AddWithValue("@Program", cbProgram.Text);

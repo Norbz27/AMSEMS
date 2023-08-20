@@ -618,6 +618,9 @@
     <None Include="Resources\menu.png" />
     <None Include="Resources\option-24.png" />
     <None Include="Resources\view-24.png" />
+    <None Include="Resources\delete-24.png" />
+    <None Include="Resources\remove-16.png" />
+    <None Include="Resources\refresh-16.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

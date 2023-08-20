@@ -23,9 +23,6 @@ namespace AMSEMS
         public FormLoginPage()
         {
             InitializeComponent();
-
-            cn = new SqlConnection(SQL_Connection.connection);
-
         }
 
         private void tbID_Enter(object sender, EventArgs e)
@@ -117,7 +114,7 @@ namespace AMSEMS
         {
             if (CheckForInternetConnection())
             {
-                using (cn)
+                using (cn = new SqlConnection(SQL_Connection.connection))
                 {
                     try
                     {
@@ -177,7 +174,7 @@ namespace AMSEMS
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Invalid Account!! Try Again!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     finally
                     {

@@ -35,6 +35,7 @@ namespace AMSEMS.SubForms_Admin
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblpassA = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.tbStatus = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
+            this.ptbProfile = new AMSEMS.RoundPictureBox();
             this.cbSection = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             this.cbYearlvl = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             this.cbProgram = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
@@ -71,15 +72,14 @@ namespace AMSEMS.SubForms_Admin
             this.kryptonContextMenuHeading1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuHeading();
             this.kryptonContextMenuSeparator1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.ptbProfile = new AMSEMS.RoundPictureBox();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbSection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbYearlvl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbProgram)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddSection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddYearLvl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddProgram)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonPalette1
@@ -217,6 +217,16 @@ namespace AMSEMS.SubForms_Admin
             this.tbStatus.TabIndex = 106;
             this.tbStatus.Text = "Active";
             this.tbStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ptbProfile
+            // 
+            this.ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
+            this.ptbProfile.Location = new System.Drawing.Point(3, 0);
+            this.ptbProfile.Name = "ptbProfile";
+            this.ptbProfile.Size = new System.Drawing.Size(170, 170);
+            this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProfile.TabIndex = 105;
+            this.ptbProfile.TabStop = false;
             // 
             // cbSection
             // 
@@ -763,16 +773,6 @@ namespace AMSEMS.SubForms_Admin
             // 
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // ptbProfile
-            // 
-            this.ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
-            this.ptbProfile.Location = new System.Drawing.Point(3, 0);
-            this.ptbProfile.Name = "ptbProfile";
-            this.ptbProfile.Size = new System.Drawing.Size(170, 170);
-            this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProfile.TabIndex = 105;
-            this.ptbProfile.TabStop = false;
-            // 
             // formStudentForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -790,13 +790,13 @@ namespace AMSEMS.SubForms_Admin
             this.Load += new System.EventHandler(this.formStudentForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbSection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbYearlvl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbProgram)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddSection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddYearLvl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddProgram)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).EndInit();
             this.ResumeLayout(false);
 
         }
