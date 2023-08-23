@@ -53,24 +53,39 @@ namespace AMSEMS.SubForms_Admin
                     if (header.Equals("Program"))
                     {
                         selectQuery = "Select * from tbl_program";
+                        cn.Open();
+                        cm = new SqlCommand(selectQuery, cn);
+                        dr = cm.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            dataGridView.Rows.Add(dr["Program_ID"].ToString(), dr["Description"].ToString());
+                        }
+                        dr.Close();
                     }
                     else if (header.Equals("Year Level"))
                     {
                         selectQuery = "Select * from tbl_year_level";
+                        cn.Open();
+                        cm = new SqlCommand(selectQuery, cn);
+                        dr = cm.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            dataGridView.Rows.Add(dr["Level_ID"].ToString(), dr["Description"].ToString());
+                        }
+                        dr.Close();
                     }
                     else if (header.Equals("Section"))
                     {
                         selectQuery = "Select * from tbl_Section";
+                        cn.Open();
+                        cm = new SqlCommand(selectQuery, cn);
+                        dr = cm.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            dataGridView.Rows.Add(dr["Section_ID"].ToString(), dr["Description"].ToString());
+                        }
+                        dr.Close();
                     }
-
-                    cn.Open();
-                    cm = new SqlCommand(selectQuery, cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        dataGridView.Rows.Add(dr["ID"].ToString(), dr["Description"].ToString());
-                    }
-                    dr.Close();
                 }
                 catch (Exception e)
                 {
@@ -96,7 +111,7 @@ namespace AMSEMS.SubForms_Admin
                         {
                             if (header.Equals("Program"))
                             {
-                                cm = new SqlCommand("Select * from tbl_program where Description = '" + data + "'", cn);
+                                cm = new SqlCommand("Select * from tbl_program where Program_ID = '" + data + "'", cn);
                                 ad = new SqlDataAdapter(cm);
                                 ad.Fill(ds);
                                 int i = ds.Tables[0].Rows.Count;
@@ -117,7 +132,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else if (header.Equals("Year Level"))
                             {
-                                cm = new SqlCommand("Select * from tbl_year_level where Description = '" + data + "'", cn);
+                                cm = new SqlCommand("Select * from tbl_year_level where Level_ID = '" + data + "'", cn);
                                 ad = new SqlDataAdapter(cm);
                                 ad.Fill(ds);
                                 int i = ds.Tables[0].Rows.Count;
@@ -138,7 +153,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else if (header.Equals("Section"))
                             {
-                                cm = new SqlCommand("Select * from tbl_Section where Description = '" + data + "'", cn);
+                                cm = new SqlCommand("Select * from tbl_Section where Section_ID = '" + data + "'", cn);
                                 ad = new SqlDataAdapter(cm);
                                 ad.Fill(ds);
                                 int i = ds.Tables[0].Rows.Count;
@@ -284,7 +299,6 @@ namespace AMSEMS.SubForms_Admin
                             {
                                 try
                                 {
-                                    cn.Open();
 
                                     // Assuming your primary key column is named "ID"
                                     int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
@@ -310,35 +324,17 @@ namespace AMSEMS.SubForms_Admin
                                     {
                                         // Add parameter for the primary key value
                                         command.Parameters.AddWithValue("@ID", primaryKeyValue);
+                                        cn.Open();
+                                        command.ExecuteNonQuery();
 
-                                        try
-                                        {
-                                            cn.Open();
-                                            command.ExecuteNonQuery();
-
-                                            MessageBox.Show(header + " deleted successfully.");
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            MessageBox.Show("Error deleting record: " + ex.Message);
-                                        }
-                                        finally
-                                        {
-                                            cn.Close();
-                                        }
+                                        MessageBox.Show(header + " deleted successfully.");
+                                        displayData();
+                                        cn.Close();
                                     }
-
-                                    MessageBox.Show(header + " deleted successfully.");
-                                    // Refresh the DataGridView to reflect the changes
-                                    displayData();
                                 }
                                 catch (Exception ex)
                                 {
                                     MessageBox.Show("Error deleting record: " + ex.Message);
-                                }
-                                finally
-                                {
-                                    cn.Close();
                                 }
                             }
                         }
@@ -367,7 +363,7 @@ namespace AMSEMS.SubForms_Admin
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
                         DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
                         tbDes.Text = dataGridView.Rows[rowIndex].Cells[1].Value.ToString();
-                        data = dataGridView.Rows[rowIndex].Cells[1].Value.ToString(); ;
+                        data = dataGridView.Rows[rowIndex].Cells[0].Value.ToString(); ;
                         isUpdateTrue = true;
                         this.btnAdd.Values.Image = global::AMSEMS.Properties.Resources.refresh_16;
                     }

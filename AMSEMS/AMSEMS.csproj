@@ -69,6 +69,10 @@
     <Reference Include="Microsoft.Configuration.ConfigurationBuilders.UserSecrets, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -170,6 +174,12 @@
     </Compile>
     <Compile Include="SubForms_Admin\formAccounts_Students.Designer.cs">
       <DependentUpon>formAccounts_Students.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\formImportView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\formImportView.Designer.cs">
+      <DependentUpon>formImportView.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\formDashboard.cs">
       <SubType>Form</SubType>
@@ -358,6 +368,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formAccounts_Students.resx">
       <DependentUpon>formAccounts_Students.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\formImportView.resx">
+      <DependentUpon>formImportView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formDashboard.resx">
       <DependentUpon>formDashboard.cs</DependentUpon>
@@ -621,6 +634,8 @@
     <None Include="Resources\delete-24.png" />
     <None Include="Resources\remove-16.png" />
     <None Include="Resources\refresh-16.png" />
+    <None Include="Resources\printer_16.png" />
+    <None Include="Resources\printer_16_bold.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

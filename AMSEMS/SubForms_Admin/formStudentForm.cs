@@ -28,10 +28,12 @@ namespace AMSEMS.SubForms_Admin
         private const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private static readonly Random RandomGenerator = new Random();
 
-        public formStudentForm(int roleID, String choice)
+        formAccounts_Students form;
+        public formStudentForm(int roleID, String choice, formAccounts_Students form)
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
+            this.form = form;
 
             this.roleID = roleID;
             this.choice = choice;
@@ -255,6 +257,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                 }
+                form.displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
             }
         }
         public void clearTexts()
@@ -297,9 +300,9 @@ namespace AMSEMS.SubForms_Admin
 
                     cn.Open();
                     cm = new SqlCommand("Select ID,Firstname,Lastname,Middlename,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa " +
-                        "inner join tbl_program as p on sa.Program = p.Program_ID inner join tbl_Section as se on sa.Section = se.Section_ID " +
-                        "inner join tbl_year_level as yl on sa.Year_level = yl.Level_ID " +
-                        "inner join tbl_status as st on sa.Status = st.Status_ID where ID = " + ID + "", cn);
+                        "left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID " +
+                        "left join tbl_year_level as yl on sa.Year_level = yl.Level_ID " +
+                        "left join tbl_status as st on sa.Status = st.Status_ID where ID = " + ID + "", cn);
                     dr = cm.ExecuteReader();
                     dr.Read();
                     tbID.Text = dr["ID"].ToString();

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
@@ -73,12 +69,12 @@ namespace AMSEMS
             }            
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
             UseWaitCursor = true;
             try
             {
-                login();
+                await LoginAsync();
             }
             catch (Exception ex)
             {
@@ -90,14 +86,15 @@ namespace AMSEMS
             }
         }
 
-        private void btnLogin_KeyDown(object sender, KeyEventArgs e)
+        private async void btnLogin_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
+                e.Handled = e.SuppressKeyPress = true;
                 UseWaitCursor = true;
                 try
                 {
-                    login();
+                    await LoginAsync();
                 }
                 catch (Exception ex)
                 {
@@ -110,16 +107,19 @@ namespace AMSEMS
             }
         }
 
-        public void login()
+        private async Task LoginAsync()
         {
-            if (CheckForInternetConnection())
+            if (!CheckForInternetConnection())
             {
-                using (cn = new SqlConnection(SQL_Connection.connection))
-                {
-                    try
-                    {
-                        cn.Open();
-                        using (SqlDataAdapter ad = new SqlDataAdapter("Select Role from tbl_admin_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                MessageBox.Show("No Internet Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                await cn.OpenAsync();
+
+                using (SqlCommand cmd = new SqlCommand("Select Role from tbl_admin_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
                                                     " UNION " +
                                                     "Select Role from tbl_deptHead_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
                                                     " UNION " +
@@ -128,65 +128,72 @@ namespace AMSEMS
                                                     "Select Role from tbl_sao_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
                                                     " UNION " +
                                                     "Select Role from tbl_teacher_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn))
+                {
+                    // Add parameters and execute the query here
+                    DataTable dt = new DataTable();
+                    using (SqlDataAdapter ad = new SqlDataAdapter(cmd))
+                    {
+                        await Task.Run(() => ad.Fill(dt));
+                    }
+
+                    if (dt.Rows.Count == 0)
+                    {
+                        MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        int role = Convert.ToInt32(dt.Rows[0][0]);
+                        Form mainForm = null;
+
+                        switch (role)
                         {
-                            DataTable dt = new DataTable();
-                            ad.Fill(dt);
-
-                            if (dt.Rows.Count == 0)
-                            {
-                                MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else
-                            {
-                                int role = Convert.ToInt32(dt.Rows[0][0]);
-
-                                Form mainForm = null;
-
-                                switch (role)
-                                {
-                                    case 1:
-                                        mainForm = new FormAdminNavigation(tbID.Text);
-                                        break;
-                                    case 2:
-                                        mainForm = new FormDeptHeadNavigation();
-                                        break;
-                                    case 3:
-                                        mainForm = new FormGuidanceNavigation();
-                                        break;
-                                    case 4:
-                                        mainForm = new FormSAONavigation();
-                                        break;
-                                    case 6:
-                                        mainForm = new FormTeacherNavigation();
-                                        break;
-                                    default:
-                                        MessageBox.Show("Invalid Role!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        break;
-                                }
-
-                                if (mainForm != null)
-                                {
-                                    mainForm.Show();
-                                    this.Hide();
-                                }
-                            }
+                            case 1:
+                                mainForm = new FormAdminNavigation(tbID.Text);
+                                break;
+                            case 2:
+                                mainForm = new FormDeptHeadNavigation();
+                                break;
+                            case 3:
+                                mainForm = new FormGuidanceNavigation();
+                                break;
+                            case 4:
+                                mainForm = new FormSAONavigation();
+                                break;
+                            case 6:
+                                mainForm = new FormTeacherNavigation();
+                                break;
+                            default:
+                                MessageBox.Show("Invalid Role!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Invalid Account!! Try Again!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    finally
-                    {
-                        cn.Close();
+
+                        if (mainForm != null)
+                        {
+                            btnLogin.Enabled = false;
+                            mainForm.Show();
+                            this.Hide();
+                        }
                     }
                 }
             }
-            else
+        }
+
+        private async Task<bool> CheckForInternetConnectionAsync()
+        {
+            try
             {
-                MessageBox.Show("No Internet Connection!! Cant connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                using (var client = new WebClient())
+                using (var stream = await client.OpenReadTaskAsync("https://portal.azure.com"))
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
+
 
         public static bool CheckForInternetConnection()
         {
