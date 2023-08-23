@@ -23,6 +23,10 @@ namespace AMSEMS.SubForms_Admin
 
         String selectedFilePath;
 
+
+        private const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        private static readonly Random RandomGenerator = new Random();
+
         public formImportView(String selectedFilePath)
         {
             InitializeComponent();
@@ -86,70 +90,118 @@ namespace AMSEMS.SubForms_Admin
                     string column7Value = row.Cells[7].Value.ToString();
 
                     int programId, sectionId, yearLevelId;
+                    int studentId = -1;
+                    cn.Open();
 
-                    // Check if Program exists in the Programs table
-                    string programQuery = $"SELECT Program_ID FROM tbl_program WHERE Description = @ProgramName";
-                    using (SqlCommand programCommand = new SqlCommand(programQuery, cn))
+                    // Check if the student is already present in the Students table based on a unique identifier (e.g., ID or name)
+                    string checkQuery = "SELECT ID FROM tbl_student_accounts WHERE ID = @ID"; // Modify this query as needed
+                    using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
                     {
-                        programCommand.Parameters.AddWithValue("@ProgramName", column5Value);
-                        programId = (int?)programCommand.ExecuteScalar() ?? -1;
-                    }
-
-                    if (programId == -1)
-                    {
-                        string insertProgramQuery = $"INSERT INTO tbl_program (Description) VALUES (@Description); SELECT SCOPE_IDENTITY();";
-                        using (SqlCommand insertProgramCommand = new SqlCommand(insertProgramQuery, cn))
+                        checkCommand.Parameters.AddWithValue("@ID", column1Value);
+                        object result = checkCommand.ExecuteScalar();
+                        if (result != null && result != DBNull.Value)
                         {
-                            insertProgramCommand.Parameters.AddWithValue("@Description", column5Value);
-                            programId = Convert.ToInt32(insertProgramCommand.ExecuteScalar());
+                            studentId = Convert.ToInt32(result);
                         }
                     }
 
-                    // Check if Program exists in the Section table
-                    string sectionQuery = $"SELECT Section_ID FROM tbl_Section WHERE Description = @Description";
-                    using (SqlCommand sectionCommand = new SqlCommand(sectionQuery, cn))
+                    if (studentId == -1)
                     {
-                        sectionCommand.Parameters.AddWithValue("@Description", column6Value);
-                        sectionId = (int?)sectionCommand.ExecuteScalar() ?? -1;
-                    }
 
-                    if (sectionId == -1)
-                    {
-                        string insertsectionQuery = $"INSERT INTO tbl_Section (Description) VALUES (@Description); SELECT SCOPE_IDENTITY();";
-                        using (SqlCommand insertsectionCommand = new SqlCommand(insertsectionQuery, cn))
+                        // Check if Program exists in the Programs table
+                        string programQuery = $"SELECT Program_ID FROM tbl_program WHERE Description = @ProgramName";
+                        using (SqlCommand programCommand = new SqlCommand(programQuery, cn))
                         {
-                            insertsectionCommand.Parameters.AddWithValue("@Description", column6Value);
-                            sectionId = Convert.ToInt32(insertsectionCommand.ExecuteScalar());
+                            programCommand.Parameters.AddWithValue("@ProgramName", column5Value);
+                            programId = (int?)programCommand.ExecuteScalar() ?? -1;
+                        }
+
+                        if (programId == -1)
+                        {
+                            string insertProgramQuery = $"INSERT INTO tbl_program (Description) VALUES (@Description); SELECT SCOPE_IDENTITY();";
+                            using (SqlCommand insertProgramCommand = new SqlCommand(insertProgramQuery, cn))
+                            {
+                                insertProgramCommand.Parameters.AddWithValue("@Description", column5Value);
+                                programId = Convert.ToInt32(insertProgramCommand.ExecuteScalar());
+                            }
+                        }
+
+                        // Check if Program exists in the Section table
+                        string sectionQuery = $"SELECT Section_ID FROM tbl_Section WHERE Description = @Description";
+                        using (SqlCommand sectionCommand = new SqlCommand(sectionQuery, cn))
+                        {
+                            sectionCommand.Parameters.AddWithValue("@Description", column6Value);
+                            sectionId = (int?)sectionCommand.ExecuteScalar() ?? -1;
+                        }
+
+                        if (sectionId == -1)
+                        {
+                            string insertsectionQuery = $"INSERT INTO tbl_Section (Description) VALUES (@Description); SELECT SCOPE_IDENTITY();";
+                            using (SqlCommand insertsectionCommand = new SqlCommand(insertsectionQuery, cn))
+                            {
+                                insertsectionCommand.Parameters.AddWithValue("@Description", column6Value);
+                                sectionId = Convert.ToInt32(insertsectionCommand.ExecuteScalar());
+                            }
+                        }
+
+                        // Check if Program exists in the Year Level table
+                        string yearLevelQuery = $"SELECT Level_ID FROM tbl_year_level WHERE Description = @Description";
+                        using (SqlCommand yearLevelCommand = new SqlCommand(yearLevelQuery, cn))
+                        {
+                            yearLevelCommand.Parameters.AddWithValue("@Description", column7Value);
+                            yearLevelId = (int?)yearLevelCommand.ExecuteScalar() ?? -1;
+                        }
+
+                        if (yearLevelId == -1)
+                        {
+                            string insertyearLevelQuery = $"INSERT INTO tbl_year_level (Description) VALUES (@Description); SELECT SCOPE_IDENTITY();";
+                            using (SqlCommand insertyearLevelCommand = new SqlCommand(insertyearLevelQuery, cn))
+                            {
+                                insertyearLevelCommand.Parameters.AddWithValue("@Description", column7Value);
+                                yearLevelId = Convert.ToInt32(insertyearLevelCommand.ExecuteScalar());
+                            }
+                        }
+                        //Generated Password
+                        int passwordLength = 12;
+                        string generatedPass = GeneratePassword(passwordLength); ;
+
+                        // Construct your INSERT query
+                        string insertQuery = $"INSERT INTO tbl_student_accounts (ID, Firstname, Lastname, Middlename, Password, Program, Section, Year_Level) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password,@ProgramId, @SectionId, @YearLevelId)";
+
+                        using (SqlCommand command = new SqlCommand(insertQuery, cn))
+                        {
+                            command.Parameters.AddWithValue("@ID", column1Value);
+                            command.Parameters.AddWithValue("@Firstname", column2Value);
+                            command.Parameters.AddWithValue("@Lastname", column3Value);
+                            command.Parameters.AddWithValue("@Middlename", column4Value);
+                            command.Parameters.AddWithValue("@Password", generatedPass);
+                            command.Parameters.AddWithValue("@ProgramId", programId);
+                            command.Parameters.AddWithValue("@SectionId", sectionId);
+                            command.Parameters.AddWithValue("@YearLevelId", yearLevelId);
+
+                            command.ExecuteNonQuery();
                         }
                     }
-
-                    // Check if Program exists in the Year Level table
-                    string yearLevelQuery = $"SELECT Section_ID FROM tbl_year_level WHERE Description = @Description";
-                    using (SqlCommand yearLevelCommand = new SqlCommand(yearLevelQuery, cn))
+                    else
                     {
-                        yearLevelCommand.Parameters.AddWithValue("@Description", column7Value);
-                        yearLevelId = (int?)yearLevelCommand.ExecuteScalar() ?? -1;
+                        MessageBox.Show("Student " + studentId + " is Active!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-
-                    if (yearLevelId == -1)
-                    {
-                        string insertyearLevelQuery = $"INSERT INTO tbl_year_level (Description) VALUES (@Description); SELECT SCOPE_IDENTITY();";
-                        using (SqlCommand insertyearLevelCommand = new SqlCommand(insertyearLevelQuery, cn))
-                        {
-                            insertyearLevelCommand.Parameters.AddWithValue("@Description", column7Value);
-                            sectionId = Convert.ToInt32(insertyearLevelCommand.ExecuteScalar());
-                        }
-                    }
-
-                    // Construct your INSERT query
-                    //string insertQuery = $"INSERT INTO YourTable (Column1, Column2, RowNumber) VALUES ('{column1Value}', '{column2Value}', '{rowNumber}')";
-
-                    //using (SqlCommand command = new SqlCommand(insertQuery, cn))
-                    //{
-                    //    command.ExecuteNonQuery();
-                    //}
+                    cn.Close();
                 }
             }
+            MessageBox.Show("Successfully Imported Data", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        string GeneratePassword(int length)
+        {
+            StringBuilder password = new StringBuilder();
+
+            for (int i = 0; i < length; i++)
+            {
+                int randomIndex = RandomGenerator.Next(AllowedChars.Length);
+                password.Append(AllowedChars[randomIndex]);
+            }
+
+            return password.ToString();
         }
     }
 }
