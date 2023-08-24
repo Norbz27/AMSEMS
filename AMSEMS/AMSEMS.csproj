@@ -39,6 +39,9 @@
     <ApplicationIcon>time-management.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="Bunifu_UI_v1.5.3">
       <HintPath>C:\Users\Norberto Bruzon Jr\Downloads\Bunifu_UI_v1.5.3.dll</HintPath>
     </Reference>
@@ -62,6 +65,9 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Base, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Base.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Base.dll</HintPath>
@@ -198,6 +204,12 @@
     </Compile>
     <Compile Include="SubForms_Admin\formAddSchoolSetting.Designer.cs">
       <DependentUpon>formAddSchoolSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\formTeacherForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\formTeacherForm.Designer.cs">
+      <DependentUpon>formTeacherForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\formStudentForm.cs">
       <SubType>Form</SubType>
@@ -380,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formAddSchoolSetting.resx">
       <DependentUpon>formAddSchoolSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\formTeacherForm.resx">
+      <DependentUpon>formTeacherForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formStudentForm.resx">
       <DependentUpon>formStudentForm.cs</DependentUpon>

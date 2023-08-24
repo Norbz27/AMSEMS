@@ -48,6 +48,13 @@
             this.btnDone = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.dgvStudents = new System.Windows.Forms.DataGridView();
+            this.lblHeader1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonContextMenuItems1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
+            this.kryptonContextMenuItems2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
+            this.kryptonContextMenuItem1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
+            this.kryptonContextMenuHeading1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuHeading();
+            this.kryptonContextMenuSeparator1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fname = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,13 +63,6 @@
             this.program = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.section = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ylvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblHeader1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonContextMenuItems1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
-            this.kryptonContextMenuItems2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
-            this.kryptonContextMenuItem1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
-            this.kryptonContextMenuHeading1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuHeading();
-            this.kryptonContextMenuSeparator1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).BeginInit();
@@ -379,7 +379,37 @@
             this.dgvStudents.RowTemplate.Height = 30;
             this.dgvStudents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStudents.Size = new System.Drawing.Size(717, 229);
-            this.dgvStudents.TabIndex = 11;
+            this.dgvStudents.TabIndex = 12;
+            // 
+            // lblHeader1
+            // 
+            this.lblHeader1.Location = new System.Drawing.Point(-2, 0);
+            this.lblHeader1.Margin = new System.Windows.Forms.Padding(2);
+            this.lblHeader1.Name = "lblHeader1";
+            this.lblHeader1.Size = new System.Drawing.Size(152, 25);
+            this.lblHeader1.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblHeader1.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblHeader1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHeader1.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.lblHeader1.TabIndex = 79;
+            this.lblHeader1.Values.Text = "Import Excel Data";
+            // 
+            // kryptonContextMenuItem1
+            // 
+            this.kryptonContextMenuItem1.Text = "Menu Item";
+            // 
+            // kryptonContextMenuHeading1
+            // 
+            this.kryptonContextMenuHeading1.ExtraText = "";
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn1.Description = "Action";
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.delete_24;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.ReadOnly = true;
             // 
             // No
             // 
@@ -438,6 +468,7 @@
             this.program.HeaderText = "Program";
             this.program.Name = "program";
             this.program.ReadOnly = true;
+            this.program.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.program.Width = 78;
             // 
             // section
@@ -449,6 +480,7 @@
             this.section.HeaderText = "Section";
             this.section.Name = "section";
             this.section.ReadOnly = true;
+            this.section.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.section.Width = 73;
             // 
             // ylvl
@@ -460,40 +492,12 @@
             this.ylvl.HeaderText = "Year Level";
             this.ylvl.Name = "ylvl";
             this.ylvl.ReadOnly = true;
-            // 
-            // lblHeader1
-            // 
-            this.lblHeader1.Location = new System.Drawing.Point(-2, 0);
-            this.lblHeader1.Margin = new System.Windows.Forms.Padding(2);
-            this.lblHeader1.Name = "lblHeader1";
-            this.lblHeader1.Size = new System.Drawing.Size(152, 25);
-            this.lblHeader1.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.lblHeader1.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.lblHeader1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHeader1.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.lblHeader1.TabIndex = 79;
-            this.lblHeader1.Values.Text = "Import Excel Data";
-            // 
-            // kryptonContextMenuItem1
-            // 
-            this.kryptonContextMenuItem1.Text = "Menu Item";
-            // 
-            // kryptonContextMenuHeading1
-            // 
-            this.kryptonContextMenuHeading1.ExtraText = "";
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewImageColumn1.Description = "Action";
-            this.dataGridViewImageColumn1.HeaderText = "";
-            this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.delete_24;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.ReadOnly = true;
+            this.ylvl.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // formImportView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(767, 367);
             this.Controls.Add(this.panel1);
@@ -530,9 +534,9 @@
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox2;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnDone;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
-        private System.Windows.Forms.DataGridView dgvStudents;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnImport;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbFilePath;
+        private System.Windows.Forms.DataGridView dgvStudents;
         private System.Windows.Forms.DataGridViewTextBoxColumn No;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fname;

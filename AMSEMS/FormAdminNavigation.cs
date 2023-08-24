@@ -209,7 +209,7 @@ namespace AMSEMS
 
         private void btnTeachers_Click(object sender, EventArgs e)
         {
-
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
             OpenChildForm(new SubForms_Admin.formAccounts_Teachers("Teachers Account", 6));
         }
 

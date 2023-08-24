@@ -376,6 +376,7 @@
             this.kryptonGroupBox1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox1.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox1.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
+            this.kryptonGroupBox1.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
             this.kryptonGroupBox1.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
@@ -601,7 +602,7 @@
             this.dgvStudents.AllowUserToDeleteRows = false;
             this.dgvStudents.AllowUserToResizeColumns = false;
             this.dgvStudents.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
@@ -613,10 +614,10 @@
             this.dgvStudents.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvStudents.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins", 8.75F, System.Drawing.FontStyle.Bold);
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Desktop;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvStudents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
@@ -635,7 +636,7 @@
             this.option});
             this.dgvStudents.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle13.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
@@ -650,7 +651,7 @@
             this.dgvStudents.ReadOnly = true;
             this.dgvStudents.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
@@ -661,7 +662,7 @@
             this.dgvStudents.RowHeadersWidth = 30;
             this.dgvStudents.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle15.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
             dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvStudents.RowsDefaultCellStyle = dataGridViewCellStyle15;
@@ -680,7 +681,7 @@
             this.No.HeaderText = "No";
             this.No.Name = "No";
             this.No.ReadOnly = true;
-            this.No.Width = 49;
+            this.No.Width = 50;
             // 
             // ID
             // 
@@ -691,7 +692,7 @@
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
-            this.ID.Width = 45;
+            this.ID.Width = 46;
             // 
             // rfid
             // 
@@ -702,7 +703,7 @@
             this.rfid.HeaderText = "RFID";
             this.rfid.Name = "rfid";
             this.rfid.ReadOnly = true;
-            this.rfid.Width = 58;
+            this.rfid.Width = 61;
             // 
             // Fname
             // 
@@ -732,7 +733,7 @@
             this.program.HeaderText = "Program";
             this.program.Name = "program";
             this.program.ReadOnly = true;
-            this.program.Width = 86;
+            this.program.Width = 87;
             // 
             // section
             // 
@@ -743,7 +744,7 @@
             this.section.HeaderText = "Section";
             this.section.Name = "section";
             this.section.ReadOnly = true;
-            this.section.Width = 77;
+            this.section.Width = 79;
             // 
             // ylvl
             // 
@@ -754,7 +755,7 @@
             this.ylvl.HeaderText = "Year Level";
             this.ylvl.Name = "ylvl";
             this.ylvl.ReadOnly = true;
-            this.ylvl.Width = 85;
+            this.ylvl.Width = 88;
             // 
             // status
             // 
@@ -765,7 +766,7 @@
             this.status.HeaderText = "Status";
             this.status.Name = "status";
             this.status.ReadOnly = true;
-            this.status.Width = 70;
+            this.status.Width = 73;
             // 
             // option
             // 
@@ -803,13 +804,14 @@
             this.tbSearch.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 8.75F);
             this.tbSearch.StateCommon.Content.Padding = new System.Windows.Forms.Padding(25, 3, 0, 0);
             this.tbSearch.TabIndex = 31;
+            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             // 
             // kryptonLabel2
             // 
             this.kryptonLabel2.Location = new System.Drawing.Point(16, 60);
             this.kryptonLabel2.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(68, 22);
+            this.kryptonLabel2.Size = new System.Drawing.Size(67, 22);
             this.kryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonLabel2.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.kryptonLabel2.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
@@ -824,10 +826,11 @@
             this.cbProgram.Name = "cbProgram";
             this.cbProgram.Size = new System.Drawing.Size(201, 27);
             this.cbProgram.TabIndex = 32;
+            this.cbProgram.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
             // 
             // kryptonLabel1
             // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(233, 60);
+            this.kryptonLabel1.Location = new System.Drawing.Point(358, 60);
             this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel1.Name = "kryptonLabel1";
             this.kryptonLabel1.Size = new System.Drawing.Size(59, 22);
@@ -841,14 +844,15 @@
             // 
             this.cbSection.Font = new System.Drawing.Font("Poppins", 8F);
             this.cbSection.FormattingEnabled = true;
-            this.cbSection.Location = new System.Drawing.Point(238, 84);
+            this.cbSection.Location = new System.Drawing.Point(363, 84);
             this.cbSection.Name = "cbSection";
             this.cbSection.Size = new System.Drawing.Size(108, 27);
             this.cbSection.TabIndex = 34;
+            this.cbSection.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
             // 
             // kryptonLabel3
             // 
-            this.kryptonLabel3.Location = new System.Drawing.Point(360, 60);
+            this.kryptonLabel3.Location = new System.Drawing.Point(232, 60);
             this.kryptonLabel3.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel3.Name = "kryptonLabel3";
             this.kryptonLabel3.Size = new System.Drawing.Size(76, 22);
@@ -869,10 +873,11 @@
             "2nd Year",
             "3rd Year",
             "4th Year"});
-            this.cbYearlvl.Location = new System.Drawing.Point(365, 84);
+            this.cbYearlvl.Location = new System.Drawing.Point(237, 84);
             this.cbYearlvl.Name = "cbYearlvl";
             this.cbYearlvl.Size = new System.Drawing.Size(108, 27);
             this.cbYearlvl.TabIndex = 36;
+            this.cbYearlvl.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
             // 
             // contextMenuStrip2
             // 
@@ -883,13 +888,13 @@
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.ShowImageMargin = false;
             this.contextMenuStrip2.ShowItemToolTips = false;
-            this.contextMenuStrip2.Size = new System.Drawing.Size(90, 56);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(89, 56);
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(89, 26);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(88, 26);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
@@ -897,7 +902,7 @@
             // 
             this.deleteToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(89, 26);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(88, 26);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -932,6 +937,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(932, 623);
             this.Controls.Add(this.kryptonLabel3);
