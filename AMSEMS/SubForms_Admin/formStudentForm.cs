@@ -71,13 +71,14 @@ namespace AMSEMS.SubForms_Admin
             {
                 tbPass.Text = Pass;
                 lblpassA.Hide();
-                tbID.Enabled = true;
+                tbID.Enabled = false;
+                tbRFID.Focus();
             }
             else
             {
                 tbPass.Text = GeneratePassword(passwordLength);
                 lblpassA.Show();
-                tbID.Enabled = false;
+                tbID.Enabled = true;
             }
 
             btnSubmit.Text = choice1;
@@ -307,13 +308,14 @@ namespace AMSEMS.SubForms_Admin
                     cn.Close();
 
                     cn.Open();
-                    cm = new SqlCommand("Select ID,Firstname,Lastname,Middlename,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa " +
+                    cm = new SqlCommand("Select ID,RFID,Firstname,Lastname,Middlename,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa " +
                         "left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID " +
                         "left join tbl_year_level as yl on sa.Year_level = yl.Level_ID " +
                         "left join tbl_status as st on sa.Status = st.Status_ID where ID = " + ID + "", cn);
                     dr = cm.ExecuteReader();
                     dr.Read();
                     tbID.Text = dr["ID"].ToString();
+                    tbRFID.Text = dr["RFID"].ToString();
                     tbFname.Text = dr["Firstname"].ToString();
                     tbLname.Text = dr["Lastname"].ToString();
                     tbMname.Text = dr["Middlename"].ToString();
