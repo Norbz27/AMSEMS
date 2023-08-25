@@ -23,22 +23,24 @@ namespace AMSEMS.SubForms_Admin
         String header, data;
         Boolean isUpdateTrue = false;
 
-        formStudentForm form;
-        public formAddSchoolSetting(String header, formStudentForm form)
+        formStudentForm formStudentForm;
+        formTeacherForm formTeacherForm;
+        public formAddSchoolSetting()
         {
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
-
-            this.form = form;
-
-            this.header = header;
 
             lblHeader1.Text = header;
             lblHeader2.Text = "Description:";
             lblHeader3.Text = "List of " + header + ":";
 
             displayData();
+        }
+
+        public void setData(String header)
+        {
+            this.header = header;
         }
 
         public void displayData()
@@ -83,6 +85,18 @@ namespace AMSEMS.SubForms_Admin
                         while (dr.Read())
                         {
                             dataGridView.Rows.Add(dr["Section_ID"].ToString(), dr["Description"].ToString());
+                        }
+                        dr.Close();
+                    }
+                    else if (header.Equals("Departments"))
+                    {
+                        selectQuery = "Select * from tbl_Departments";
+                        cn.Open();
+                        cm = new SqlCommand(selectQuery, cn);
+                        dr = cm.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            dataGridView.Rows.Add(dr["Department_ID"].ToString(), dr["Description"].ToString());
                         }
                         dr.Close();
                     }
@@ -168,6 +182,23 @@ namespace AMSEMS.SubForms_Admin
                                     cn.Close();
                                 }
                             }
+                            else if (header.Equals("Departments"))
+                            {
+                                cm = new SqlCommand("Select * from tbl_Departments where Department_ID = '" + data + "'", cn);
+                                ad = new SqlDataAdapter(cm);
+                                ad.Fill(ds);
+                                int i = ds.Tables[0].Rows.Count;
+                                if (i > 0)
+                                {
+                                    cn.Open();
+                                    cm = new SqlCommand("UPDATE tbl_Departments SET Description = @NewValue WHERE Department_ID = @ConditionValue", cn);
+                                    cm.Parameters.AddWithValue("@NewValue", tbDes.Text);
+                                    cm.Parameters.AddWithValue("@ConditionValue", ds.Tables[0].Rows[0]["Department_ID"]);
+                                    cm.ExecuteNonQuery();
+                                    dr.Close();
+                                    cn.Close();
+                                }
+                            }
                         }
                         else
                         {
@@ -233,6 +264,26 @@ namespace AMSEMS.SubForms_Admin
                                     MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
+                            else if (header.Equals("Departments"))
+                            {
+                                cm = new SqlCommand("Select * from tbl_Departments where Description = '" + tbDes.Text + "'", cn);
+                                ad = new SqlDataAdapter(cm);
+                                ad.Fill(ds);
+                                int i = ds.Tables[0].Rows.Count;
+                                if (i == 0)
+                                {
+                                    cn.Open();
+                                    cm = new SqlCommand("Insert into tbl_Departments Values (@Des)", cn);
+                                    cm.Parameters.AddWithValue("@Des", tbDes.Text);
+                                    cm.ExecuteNonQuery();
+                                    dr.Close();
+                                    cn.Close();
+                                }
+                                else
+                                {
+                                    MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                            }
                         }
                     }
                     else
@@ -254,8 +305,16 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            form.displayPSY();
-            this.Close();
+            if (header.Equals("Departments"))
+            {
+                formTeacherForm.displayDept();
+                this.Close();
+            }
+            else
+            {
+                formStudentForm.displayPSY();
+                this.Close();
+            }
         }
 
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -291,7 +350,7 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
 
                         // Ask for confirmation before deleting
-                        DialogResult confirmationResult = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        DialogResult confirmationResult = MessageBox.Show("Are you sure you want to delete this data?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (confirmationResult == DialogResult.Yes)
                         {
@@ -318,6 +377,11 @@ namespace AMSEMS.SubForms_Admin
                                     {
                                         // Create a DELETE query
                                         deleteQuery = "DELETE FROM tbl_Section WHERE Section_ID = @ID";
+                                    }
+                                    else if (header.Equals("Departments"))
+                                    {
+                                        // Create a DELETE query
+                                        deleteQuery = "DELETE FROM tbl_Departments WHERE Department_ID = @ID";
                                     }
 
                                     using (SqlCommand command = new SqlCommand(deleteQuery, cn))

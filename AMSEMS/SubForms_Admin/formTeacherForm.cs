@@ -29,30 +29,34 @@ namespace AMSEMS.SubForms_Admin
         private static readonly Random RandomGenerator = new Random();
 
         formAccounts_Teachers form;
-        public formTeacherForm(int roleID, String choice, formAccounts_Teachers form)
+        public formTeacherForm()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
-            this.form = form;
 
+        }
+        public void setData(int roleID, String choice, formAccounts_Teachers form)
+        {
+            this.form = form;
             this.roleID = roleID;
             this.choice = choice;
         }
 
-
         private void formStudentForm_Load(object sender, EventArgs e)
         {
-            displayPSY();
+            displayDept();
             int passwordLength = 12;
             if (choice.Equals("Update"))
             {
                 tbPass.Text = Pass;
                 lblpassA.Hide();
+                tbID.Enabled = false;
             }
             else
             {
                 tbPass.Text = GeneratePassword(passwordLength);
                 lblpassA.Show();
+                tbID.Enabled = true;
             }
 
             btnSubmit.Text = choice;
@@ -62,7 +66,7 @@ namespace AMSEMS.SubForms_Admin
             cbDepartment.Items.Clear();
         }
 
-        public void displayPSY()
+        public void displayDept()
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
@@ -89,7 +93,7 @@ namespace AMSEMS.SubForms_Admin
             }
         }
 
-        private void cbProgram_KeyPress(object sender, KeyPressEventArgs e)
+        private void cbDept_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
         }
@@ -251,7 +255,7 @@ namespace AMSEMS.SubForms_Admin
                     cn.Close();
 
                     cn.Open();
-                    cm = new SqlCommand("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID where ID = " + ID + "", cn);
+                    cm = new SqlCommand("Select ID,Firstname,Lastname,Middlename,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID where ID = " + ID + "", cn);
                     dr = cm.ExecuteReader();
                     dr.Read();
                     tbID.Text = dr["ID"].ToString();
@@ -269,6 +273,13 @@ namespace AMSEMS.SubForms_Admin
                     MessageBox.Show(e.Message);
                 }
             }
+        }
+
+        private void btnAddDep_Click(object sender, EventArgs e)
+        {
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting();
+            formAddSchoolSetting.setData("Departments");
+            formAddSchoolSetting.ShowDialog();
         }
     }
 }

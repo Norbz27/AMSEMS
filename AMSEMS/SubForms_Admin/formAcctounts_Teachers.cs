@@ -1,13 +1,17 @@
-﻿using System;
+﻿using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace AMSEMS.SubForms_Admin
 {
@@ -18,12 +22,21 @@ namespace AMSEMS.SubForms_Admin
         SqlCommand cm;
         SqlDataReader dr;
 
-        public formAccounts_Teachers(String accountName, int role)
+        static int role;
+        static string accountName;
+        public formAccounts_Teachers()
         {
             InitializeComponent();
             lblAccountName.Text = accountName;
             cn = new SqlConnection(SQL_Connection.connection);
-
+        }
+        public static void setAccountName(String accountName1)
+        {
+            accountName = accountName1;
+        }
+        public static void setRole(int role1)
+        {
+            role = role1;
         }
 
         private void formAccounts_Teachers_Load(object sender, EventArgs e)
@@ -248,13 +261,211 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnImport_Click(object sender, EventArgs e)
         {
+            UseWaitCursor = true;
+            using (OpenFileDialog openFileDialogEXL = new OpenFileDialog())
+            {
+                openFileDialogEXL.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+                if (openFileDialogEXL.ShowDialog() == DialogResult.OK)
+                {
+                    string selectedFilePath = openFileDialogEXL.FileName;
 
+                    // Pass the selectedFilePath to Form2 and show Form2
+                    formImportView form2 = new formImportView(selectedFilePath);
+
+                    form2.ShowDialog();
+
+                }
+            }
+            UseWaitCursor = false;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            formTeacherForm formTeacherForm = new formTeacherForm(6, "Submit", this);
+            formTeacherForm formTeacherForm = new formTeacherForm();
+            formTeacherForm.setData(role, "Submit", this);
             formTeacherForm.ShowDialog();
+        }
+
+        private void editToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+                        formTeacherForm formTeacherForm = new formTeacherForm();
+                        formTeacherForm.setData(role, "Update", this);
+                        formTeacherForm.getStudID(dgvTeachers.Rows[rowIndex].Cells[1].Value.ToString());
+                        formTeacherForm.ShowDialog();
+                        UseWaitCursor = false;
+                    }
+                }
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        DialogResult confirmationResult = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmationResult == DialogResult.Yes)
+                        {
+                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            bool deletionSuccessful = DeleteStudentRecord(primaryKeyValue);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                                MessageBox.Show("Student deleted successfully.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error deleting teacher.");
+                            }
+                            UseWaitCursor = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool DeleteStudentRecord(int studentID)
+        {
+            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+            {
+                try
+                {
+                    connection.Open();
+                    string deleteQuery = "DELETE FROM tbl_teacher_accounts WHERE ID = @ID";
+
+                    using (SqlCommand command = new SqlCommand(deleteQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@ID", studentID);
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log or display the error message
+                    MessageBox.Show("Error deleting record: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ExportToPDF(dgvTeachers, saveFileDialog.FileName);
+                MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Process.Start(saveFileDialog.FileName);
+            }
+        }
+
+        private void ExportToPDF(DataGridView dataGridView, string filePath)
+        {
+            Document document = new Document();
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+
+            document.Open();
+
+            // Customizing the font and size
+            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+            iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+
+            // Add title "List of Students:"
+            Paragraph titleParagraph = new Paragraph("List of Teachers:", headerFont);
+            titleParagraph.Alignment = Element.ALIGN_CENTER;
+            document.Add(titleParagraph);
+
+            // Customizing the table appearance
+            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1); // Exclude the last column
+            pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
+            pdfTable.SpacingBefore = 10f; // Add space before the table
+            pdfTable.DefaultCell.Padding = 3; // Cell padding
+
+
+            // Set column widths for specific columns (2nd and 6th columns) to autosize
+            float[] columnWidths = new float[dataGridView.Columns.Count - 1];
+            columnWidths[0] = 25; // No column width
+            columnWidths[1] = 70; // ID column width
+            columnWidths[2] = 70; // RFID column width
+            columnWidths[3] = 70; // First Name column autosize
+            columnWidths[4] = 70; // Last Name column autosize
+            columnWidths[5] = 86; // Program column width
+            columnWidths[6] = 60; // Section column width
+            columnWidths[7] = 40; // Year Level column width
+            columnWidths[8] = 45; // Status column width
+            pdfTable.SetWidths(columnWidths);
+
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                if (column.Index < dataGridView.Columns.Count - 1) // Exclude the last column
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
+                    cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
+                    pdfTable.AddCell(cell);
+                }
+            }
+
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                for (int i = 0; i < row.Cells.Count - 1; i++) // Exclude the last column
+                {
+                    PdfPCell pdfCell = new PdfPCell(new Phrase(row.Cells[i].Value.ToString(), cellFont));
+                    pdfTable.AddCell(pdfCell);
+                }
+            }
+
+            document.Add(pdfTable);
+            document.Close();
+        }
+
+        private void dgvTeachers_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string col = dgvTeachers.Columns[e.ColumnIndex].Name;
+            if (col == "option")
+            {
+                // Get the bounds of the cell
+                System.Drawing.Rectangle cellBounds = dgvTeachers.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+
+                // Show the context menu just below the cell
+                contextMenuStrip2.Show(dgvTeachers, cellBounds.Left, cellBounds.Bottom);
+            }
         }
     }
 }

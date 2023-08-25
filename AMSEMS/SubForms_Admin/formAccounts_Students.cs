@@ -22,19 +22,30 @@ namespace AMSEMS.SubForms_Admin
         SqlCommand cm;
         SqlDataReader dr;
 
-        String selectedItem;
-
-        public formAccounts_Students(String accountName, int role)
+        string selectedItem;
+        static string account;
+        static int role;
+        public formAccounts_Students()
         {
             InitializeComponent();
-            lblAccountName.Text = accountName;
+            
             cn = new SqlConnection(SQL_Connection.connection);
+            lblAccountName.Text = account;
+        }
+        public static void setAccountName(string accountName)
+        {
+            account =  accountName;
+        }
 
+        public static void setRole(int roleID)
+        {
+            role = roleID;
         }
 
         private void btnAddStudent_Click(object sender, EventArgs e)
         {
-            formStudentForm formStudentForm = new formStudentForm(5, "Submit", this);
+            formStudentForm formStudentForm = new formStudentForm();
+            formStudentForm.setData(role, "Submit", this);
             formStudentForm.ShowDialog();
         }
 
@@ -45,6 +56,7 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnImport, "Import Excel File");
             toolTip.SetToolTip(btnExport, "Export to PDF");
 
+            
             displayFilter();
 
             dgvStudents.Rows.Clear();
@@ -187,7 +199,8 @@ namespace AMSEMS.SubForms_Admin
                     {
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
                         DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
-                        formStudentForm formStudentForm = new formStudentForm(5, "Update", this);
+                        formStudentForm formStudentForm = new formStudentForm();
+                        formStudentForm.setData(role, "Update", this);
                         formStudentForm.getStudID(dgvStudents.Rows[rowIndex].Cells[1].Value.ToString());
                         formStudentForm.ShowDialog();
                         UseWaitCursor = false;

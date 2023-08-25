@@ -210,7 +210,9 @@ namespace AMSEMS
         private void btnTeachers_Click(object sender, EventArgs e)
         {
             this.kryptonSplitContainer1.Panel2Collapsed = true;
-            OpenChildForm(new SubForms_Admin.formAccounts_Teachers("Teachers Account", 6));
+            SubForms_Admin.formAccounts_Teachers.setAccountName("Teachers Account");
+            SubForms_Admin.formAccounts_Teachers.setRole(6);
+            OpenChildForm(new SubForms_Admin.formAccounts_Teachers());
         }
 
         private void btnDeptHead_Click(object sender, EventArgs e)
@@ -234,7 +236,9 @@ namespace AMSEMS
         private void btnStudents_Click(object sender, EventArgs e)
         {
             this.kryptonSplitContainer1.Panel2Collapsed = true;
-            OpenChildForm(new SubForms_Admin.formAccounts_Students("Students Account", 5));
+            SubForms_Admin.formAccounts_Students.setAccountName("Students Account");
+            SubForms_Admin.formAccounts_Students.setRole(5);
+            OpenChildForm(new SubForms_Admin.formAccounts_Students());
         }
 
         private void btnLogout_Click(object sender, EventArgs e)

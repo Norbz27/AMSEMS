@@ -21,39 +21,45 @@ namespace AMSEMS.SubForms_Admin
         SqlCommand cm;
         SqlDataReader dr;
         DataSet ds = new DataSet();
-        String Pass;
+        string Pass;
 
-        int roleID;
-        String choice;
+        int roleID1;
+        string choice1;
         private const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private static readonly Random RandomGenerator = new Random();
 
-        formAccounts_Students form;
-        public formStudentForm(int roleID, String choice, formAccounts_Students form)
+        formAccounts_Students form2;
+        public formStudentForm()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
-            this.form = form;
-
-            this.roleID = roleID;
-            this.choice = choice;
+            
+        }
+        public  void setData(int roleID, String choice, formAccounts_Students form)
+        {
+            form2 = form;
+            roleID1 = roleID;
+            choice1 = choice;
         }
 
         private void btnAddSection_Click(object sender, EventArgs e)
         {
-            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting("Section", this);
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting();
+            formAddSchoolSetting.setData("Section");
             formAddSchoolSetting.ShowDialog();
         }
 
         private void btnAddYearLvl_Click(object sender, EventArgs e)
         {
-            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting("Year Level", this);
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting();
+            formAddSchoolSetting.setData("Year Level");
             formAddSchoolSetting.ShowDialog();
         }
 
         private void btnAddProgram_Click(object sender, EventArgs e)
         {
-            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting("Program", this);
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting();
+            formAddSchoolSetting.setData("Program");
             formAddSchoolSetting.ShowDialog();
         }
 
@@ -61,18 +67,20 @@ namespace AMSEMS.SubForms_Admin
         {
             displayPSY();
             int passwordLength = 12;
-            if (choice.Equals("Update"))
+            if (choice1.Equals("Update"))
             {
                 tbPass.Text = Pass;
                 lblpassA.Hide();
+                tbID.Enabled = true;
             }
             else
             {
                 tbPass.Text = GeneratePassword(passwordLength);
                 lblpassA.Show();
+                tbID.Enabled = false;
             }
 
-            btnSubmit.Text = choice;
+            btnSubmit.Text = choice1;
         }
         public void clearSetting()
         {
@@ -117,7 +125,7 @@ namespace AMSEMS.SubForms_Admin
                 cn.Close();
 
                 cn.Open();
-                cm = new SqlCommand("Select Description from tbl_Role where Role_ID = " + roleID + "", cn);
+                cm = new SqlCommand("Select Description from tbl_Role where Role_ID = " + roleID1 + "", cn);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
@@ -257,7 +265,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                 }
-                form.displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                form2.displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
             }
         }
         public void clearTexts()
