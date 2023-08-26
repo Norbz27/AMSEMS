@@ -21,9 +21,12 @@ namespace AMSEMS
         SqlCommand cm;
         SqlDataReader dr;
 
-        private bool isCollapsed;
+        public bool isCollapsed;
         private Form activeForm;
         private String id;
+
+        public event EventHandler TogglePanelCollapse;
+
         public FormAdminNavigation(String id)
         {
             InitializeComponent();
@@ -43,16 +46,18 @@ namespace AMSEMS
             dr.Close();
             cn.Close();
 
+            SubForms_Admin.formDashboard.setForm(this);
             OpenChildForm(new SubForms_Admin.formDashboard(id));
+            this.kryptonSplitContainer1.Panel2Collapsed = false;
             this.id = id;
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            this.kryptonSplitContainer1.Panel2Collapsed = false;
             isCollapsed = false;
             timer1.Start();
             OpenChildForm(new SubForms_Admin.formDashboard(id));
+            this.kryptonSplitContainer1.Panel2Collapsed = false;
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
@@ -109,10 +114,10 @@ namespace AMSEMS
 
         private void btnSubjects_Click(object sender, EventArgs e)
         {
-            this.kryptonSplitContainer1.Panel2Collapsed = false;
             isCollapsed = false;
             timer1.Start();
             OpenChildForm(new SubForms_Admin.formSubjects());
+            this.kryptonSplitContainer1.Panel2Collapsed = false;
             this.btnSubjects.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSubjects.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSubjects.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
@@ -140,10 +145,10 @@ namespace AMSEMS
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            this.kryptonSplitContainer1.Panel2Collapsed = false;
             isCollapsed = false;
             timer1.Start();
             OpenChildForm(new SubForms_Admin.formSettings());
+            this.kryptonSplitContainer1.Panel2Collapsed = false;
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
@@ -169,7 +174,7 @@ namespace AMSEMS
             this.btnSubjects.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
         }
 
-        private void OpenChildForm(Form childForm)
+        public void OpenChildForm(Form childForm)
         {
             if(activeForm != null)
             {
@@ -183,9 +188,15 @@ namespace AMSEMS
             this.kryptonSplitContainer1.Panel1.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
+        {
+            CollapseForm();
+        }
+
+        public void CollapseForm()
         {
             if (isCollapsed)
             {
@@ -209,33 +220,34 @@ namespace AMSEMS
 
         private void btnTeachers_Click(object sender, EventArgs e)
         {
-            this.kryptonSplitContainer1.Panel2Collapsed = true;
-            SubForms_Admin.formAccounts_Teachers.setAccountName("Teachers Account");
+            SubForms_Admin.formAccounts_Teachers.setAccountName("Teachers Accounts");
             SubForms_Admin.formAccounts_Teachers.setRole(6);
             OpenChildForm(new SubForms_Admin.formAccounts_Teachers());
         }
 
         private void btnDeptHead_Click(object sender, EventArgs e)
         {
-            this.kryptonSplitContainer1.Panel2Collapsed = true;
-            OpenChildForm(new SubForms_Admin.formAcctounts_DeptHead("Department Account", 2));
+            SubForms_Admin.formAcctounts_DeptHead.setAccountName("Department Head Accounts");
+            SubForms_Admin.formAcctounts_DeptHead.setRole(2);
+            OpenChildForm(new SubForms_Admin.formAcctounts_DeptHead());
         }
 
         private void btnGuidance_Click(object sender, EventArgs e)
         {
-            this.kryptonSplitContainer1.Panel2Collapsed = true;
-            OpenChildForm(new SubForms_Admin.formAcctounts_Guidance("Guidance Associate Account", 3));
+            SubForms_Admin.formAcctounts_Guidance.setAccountName("Guidance Associate Accounts");
+            SubForms_Admin.formAcctounts_Guidance.setRole(3);
+            OpenChildForm(new SubForms_Admin.formAcctounts_Guidance());
         }
 
         private void btnSAO_Click(object sender, EventArgs e)
         {
-            this.kryptonSplitContainer1.Panel2Collapsed = true;
-            OpenChildForm(new SubForms_Admin.formAccounts_SAO("Student Affairs Officer Account", 4));
+            SubForms_Admin.formAccounts_SAO.setAccountName("Student Affairs Officer Accounts");
+            SubForms_Admin.formAccounts_SAO.setRole(4);
+            OpenChildForm(new SubForms_Admin.formAccounts_SAO());
         }
 
         private void btnStudents_Click(object sender, EventArgs e)
         {
-            this.kryptonSplitContainer1.Panel2Collapsed = true;
             SubForms_Admin.formAccounts_Students.setAccountName("Students Account");
             SubForms_Admin.formAccounts_Students.setRole(5);
             OpenChildForm(new SubForms_Admin.formAccounts_Students());

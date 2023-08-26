@@ -285,6 +285,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_41AAB583E20B4D0784763E4326184E68"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_42BF9A531CA0EB8ECA30B2635D21ADFA"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
         "MsmSig" = "8:_UNDEFINED"
@@ -329,6 +335,18 @@
         {
         "MsmKey" = "8:_4CF2F77A9CFE8476AE52C92E36CCA5CD"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4EDBD6AE2979420D0FFE955CCB44AE92"
+        "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4EDBD6AE2979420D0FFE955CCB44AE92"
+        "OwnerKey" = "8:_850AC885D52B81E1D2CF6621CA53EAF1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -483,6 +501,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_850AC885D52B81E1D2CF6621CA53EAF1"
+        "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_89D7DCDA4E1BF3D2466452B65C567B8E"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
         "MsmSig" = "8:_UNDEFINED"
@@ -515,6 +539,12 @@
         {
         "MsmKey" = "8:_936D8A1972823793B23D5E758F5402C8"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_950928836C0D453DA7C253BD2086ADEB"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -940,6 +970,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_850AC885D52B81E1D2CF6621CA53EAF1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B1BF11C6B64F9A18F566B7BF5A9C7DCC"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -947,6 +983,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0C7F5CE7E326CA367BD7C7605DE65016"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4EDBD6AE2979420D0FFE955CCB44AE92"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -2888,6 +2930,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_41AAB583E20B4D0784763E4326184E68"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\time-management.ico"
+            "TargetName" = "8:time-management.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_F7A6DAAC01024D8FA90E7EBCAAF8AD74"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_42BF9A531CA0EB8ECA30B2635D21ADFA"
             {
             "AssemblyRegister" = "3:1"
@@ -3097,6 +3159,37 @@
                     }
                 }
             "SourcePath" = "8:System.Drawing.Primitives.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F7A6DAAC01024D8FA90E7EBCAAF8AD74"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4EDBD6AE2979420D0FFE955CCB44AE92"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942"
+                "ScatterAssemblies"
+                {
+                    "_4EDBD6AE2979420D0FFE955CCB44AE92"
+                    {
+                    "Name" = "8:BouncyCastle.Crypto.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:BouncyCastle.Crypto.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F7A6DAAC01024D8FA90E7EBCAAF8AD74"
@@ -3836,6 +3929,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_850AC885D52B81E1D2CF6621CA53EAF1"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_850AC885D52B81E1D2CF6621CA53EAF1"
+                    {
+                    "Name" = "8:itextsharp.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:itextsharp.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_F7A6DAAC01024D8FA90E7EBCAAF8AD74"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_89D7DCDA4E1BF3D2466452B65C567B8E"
             {
             "AssemblyRegister" = "3:1"
@@ -4009,6 +4133,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_950928836C0D453DA7C253BD2086ADEB"
+            {
+            "SourcePath" = "8:..\\AMSEMS\\time-management.ico"
+            "TargetName" = "8:time-management.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_F7A6DAAC01024D8FA90E7EBCAAF8AD74"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_955CA6DEBD1ACE2A76D7F9DD061E8706"
@@ -5871,7 +6015,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Amsems_Setup"
         "ProductCode" = "8:{5F7BDE5F-6C4B-4836-B6F1-96A8DC7C3FF3}"
-        "PackageCode" = "8:{28590B8D-C4C8-4F26-8C8C-3330B5041D3F}"
+        "PackageCode" = "8:{2971663F-F69F-4432-93CE-6D7F5FA41778}"
         "UpgradeCode" = "8:{AE62E803-4287-4A39-811D-29ECF1594153}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -6002,7 +6146,7 @@
             "Target" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
             "Folder" = "8:_48981CCE7DD34E5ABE2722DD2728A3C6"
             "WorkingFolder" = "8:_F7A6DAAC01024D8FA90E7EBCAAF8AD74"
-            "Icon" = "8:"
+            "Icon" = "8:_41AAB583E20B4D0784763E4326184E68"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A2AF76AED4A1487BA5617FE35B825C66"
@@ -6016,7 +6160,7 @@
             "Target" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
             "Folder" = "8:_F7A6DAAC01024D8FA90E7EBCAAF8AD74"
             "WorkingFolder" = "8:_F7A6DAAC01024D8FA90E7EBCAAF8AD74"
-            "Icon" = "8:"
+            "Icon" = "8:_950928836C0D453DA7C253BD2086ADEB"
             "Feature" = "8:"
             }
         }

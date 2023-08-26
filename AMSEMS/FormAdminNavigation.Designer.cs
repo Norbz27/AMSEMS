@@ -1196,8 +1196,8 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblName;
         private ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar kryptonMonthCalendar1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel x;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel panelCollapsed;
-        private System.Windows.Forms.Timer timer1;
+        public ComponentFactory.Krypton.Toolkit.KryptonPanel panelCollapsed;
+        public System.Windows.Forms.Timer timer1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnStudents;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnGuidance;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSAO;

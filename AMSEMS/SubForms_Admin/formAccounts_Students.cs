@@ -31,6 +31,7 @@ namespace AMSEMS.SubForms_Admin
             
             cn = new SqlConnection(SQL_Connection.connection);
             lblAccountName.Text = account;
+            btnAll.Focus();
         }
         public static void setAccountName(string accountName)
         {
@@ -56,7 +57,8 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnImport, "Import Excel File");
             toolTip.SetToolTip(btnExport, "Export to PDF");
 
-            
+            btnAll.Focus();
+
             displayFilter();
 
             dgvStudents.Rows.Clear();
@@ -239,7 +241,7 @@ namespace AMSEMS.SubForms_Admin
                             if (deletionSuccessful)
                             {
                                 displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
-                                MessageBox.Show("Student deleted successfully.");
+                                MessageBox.Show("Account deleted successfully.");
                             }
                             else
                             {
@@ -351,22 +353,9 @@ namespace AMSEMS.SubForms_Admin
         
         private void btnImport_Click(object sender, EventArgs e)
         {
-            UseWaitCursor = true;
-            using (OpenFileDialog openFileDialogEXL = new OpenFileDialog())
-            {
-                openFileDialogEXL.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
-                if (openFileDialogEXL.ShowDialog() == DialogResult.OK)
-                {
-                    string selectedFilePath = openFileDialogEXL.FileName;
-
-                    // Pass the selectedFilePath to Form2 and show Form2
-                    formImportView form2 = new formImportView(selectedFilePath);
-                    
-                    form2.ShowDialog();
-                    
-                }
-            }
-            UseWaitCursor = false;
+            formImportView form2 = new formImportView();
+            form2.setRole(role);
+            form2.ShowDialog();
         }
 
         private async void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
@@ -549,6 +538,17 @@ namespace AMSEMS.SubForms_Admin
                 // Show or hide the row based on search result
                 row.Visible = rowVisible;
             }
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+
+            cbProgram.Text = String.Empty;
+            cbSection.Text = String.Empty;
+            cbYearlvl.Text = String.Empty;
+            tbSearch.Text = String.Empty;
+            btnAll.Focus();
         }
     }
 }

@@ -136,8 +136,8 @@
   <data name="menu" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\menu.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="verified-account" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\verified-account.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="announcement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\announcement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="yellow-circular-shape-12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\yellow-circular-shape-12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -169,8 +169,8 @@
   <data name="event" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\event.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="view-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\view-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="left-arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\left-arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dashboard1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,17 +178,14 @@
   <data name="add-circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add-circle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="left-arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\left-arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="view-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\view-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="options" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\options.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="discussion" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\discussion.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="announcement" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\announcement.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="user-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -204,6 +201,9 @@
   </data>
   <data name="right-arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\right-arrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dashboard-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dashboard-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="remove-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\remove-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -226,8 +226,8 @@
   <data name="search-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\search-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dashboard-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dashboard-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="verified-account" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\verified-account.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="printer_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\printer_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -244,6 +244,9 @@
   <data name="right-arrow (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\right-arrow (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="file" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\file.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="books" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\books.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -256,10 +259,13 @@
   <data name="exit (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exit (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="printer_16_bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\printer_16_bold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="right-arrow (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\right-arrow (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="printer_16_bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\printer_16_bold.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="reload" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reload.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using static System.Collections.Specialized.BitVector32;
 
 namespace AMSEMS.SubForms_Admin
 {
@@ -29,6 +30,7 @@ namespace AMSEMS.SubForms_Admin
             InitializeComponent();
             lblAccountName.Text = accountName;
             cn = new SqlConnection(SQL_Connection.connection);
+
         }
         public static void setAccountName(String accountName1)
         {
@@ -41,6 +43,12 @@ namespace AMSEMS.SubForms_Admin
 
         private void formAccounts_Teachers_Load(object sender, EventArgs e)
         {
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(btnAdd, "Add Account");
+            toolTip.SetToolTip(btnImport, "Import Excel File");
+            toolTip.SetToolTip(btnExport, "Export to PDF");
+
+            btnAll.Focus();
             displayFilter();
             displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
         }
@@ -261,22 +269,9 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            UseWaitCursor = true;
-            using (OpenFileDialog openFileDialogEXL = new OpenFileDialog())
-            {
-                openFileDialogEXL.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
-                if (openFileDialogEXL.ShowDialog() == DialogResult.OK)
-                {
-                    string selectedFilePath = openFileDialogEXL.FileName;
-
-                    // Pass the selectedFilePath to Form2 and show Form2
-                    formImportView form2 = new formImportView(selectedFilePath);
-
-                    form2.ShowDialog();
-
-                }
-            }
-            UseWaitCursor = false;
+            formImportView form2 = new formImportView();
+            form2.setRole(role);
+            form2.ShowDialog();
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -345,7 +340,7 @@ namespace AMSEMS.SubForms_Admin
                             if (deletionSuccessful)
                             {
                                 displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
-                                MessageBox.Show("Student deleted successfully.");
+                                MessageBox.Show("Account deleted successfully.");
                             }
                             else
                             {
@@ -423,13 +418,10 @@ namespace AMSEMS.SubForms_Admin
             float[] columnWidths = new float[dataGridView.Columns.Count - 1];
             columnWidths[0] = 25; // No column width
             columnWidths[1] = 70; // ID column width
-            columnWidths[2] = 70; // RFID column width
-            columnWidths[3] = 70; // First Name column autosize
-            columnWidths[4] = 70; // Last Name column autosize
-            columnWidths[5] = 86; // Program column width
-            columnWidths[6] = 60; // Section column width
-            columnWidths[7] = 40; // Year Level column width
-            columnWidths[8] = 45; // Status column width
+            columnWidths[2] = 70; // First Name column autosize
+            columnWidths[3] = 70; // Last Name column autosize
+            columnWidths[4] = 86; // Department column width
+            columnWidths[5] = 45; // Status column width
             pdfTable.SetWidths(columnWidths);
 
             foreach (DataGridViewColumn column in dataGridView.Columns)
@@ -466,6 +458,15 @@ namespace AMSEMS.SubForms_Admin
                 // Show the context menu just below the cell
                 contextMenuStrip2.Show(dgvTeachers, cellBounds.Left, cellBounds.Bottom);
             }
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+
+            cbET.Text = String.Empty;
+            tbSearch.Text = String.Empty;
+            btnAll.Focus();
         }
     }
 }

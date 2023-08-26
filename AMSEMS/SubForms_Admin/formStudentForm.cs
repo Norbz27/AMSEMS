@@ -25,41 +25,50 @@ namespace AMSEMS.SubForms_Admin
 
         int roleID1;
         string choice1;
+        bool istrue = false;
         private const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private static readonly Random RandomGenerator = new Random();
 
-        formAccounts_Students form2;
+        formAccounts_Students form1;
+        formDashboard form2;
         public formStudentForm()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
             
         }
-        public  void setData(int roleID, String choice, formAccounts_Students form)
+        public void setData(int roleID, String choice, formAccounts_Students form)
+        {
+            form1 = form;
+            roleID1 = roleID;
+            choice1 = choice;
+        }
+        public void setData2(int roleID, String choice, formDashboard form, bool istrue)
         {
             form2 = form;
             roleID1 = roleID;
             choice1 = choice;
+            this.istrue = istrue;
         }
 
         private void btnAddSection_Click(object sender, EventArgs e)
         {
             formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting();
-            formAddSchoolSetting.setData("Section");
+            formAddSchoolSetting.setDisplayData("Section");
             formAddSchoolSetting.ShowDialog();
         }
 
         private void btnAddYearLvl_Click(object sender, EventArgs e)
         {
             formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting();
-            formAddSchoolSetting.setData("Year Level");
+            formAddSchoolSetting.setDisplayData("Year Level");
             formAddSchoolSetting.ShowDialog();
         }
 
         private void btnAddProgram_Click(object sender, EventArgs e)
         {
             formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting();
-            formAddSchoolSetting.setData("Program");
+            formAddSchoolSetting.setDisplayData("Program");
             formAddSchoolSetting.ShowDialog();
         }
 
@@ -266,7 +275,11 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                 }
-                form2.displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                if (!istrue)
+                    form1.displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                else
+                    form2.DisplayData();
+
             }
         }
         public void clearTexts()

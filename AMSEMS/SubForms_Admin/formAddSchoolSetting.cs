@@ -20,7 +20,8 @@ namespace AMSEMS.SubForms_Admin
         SqlDataReader dr;
         DataSet ds = new DataSet();
 
-        String header, data;
+        string header;
+        string data;
         Boolean isUpdateTrue = false;
 
         formStudentForm formStudentForm;
@@ -31,16 +32,15 @@ namespace AMSEMS.SubForms_Admin
 
             cn = new SqlConnection(SQL_Connection.connection);
 
+        }
+
+        public void setDisplayData(String header)
+        {
+            this.header = header;
             lblHeader1.Text = header;
             lblHeader2.Text = "Description:";
             lblHeader3.Text = "List of " + header + ":";
-
             displayData();
-        }
-
-        public void setData(String header)
-        {
-            this.header = header;
         }
 
         public void displayData()

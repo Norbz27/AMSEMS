@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_Admin
 {
-    public partial class formTeacherForm : KryptonForm
+    public partial class formGeneratedForm : KryptonForm
     {
         SqlConnection cn;
         SqlDataAdapter ad;
@@ -28,22 +28,22 @@ namespace AMSEMS.SubForms_Admin
         private const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private static readonly Random RandomGenerator = new Random();
 
-        formAccounts_Teachers form;
-        formAcctounts_DeptHead form2;
-        public formTeacherForm()
+        formAcctounts_Guidance form;
+        formAccounts_SAO form2;
+        public formGeneratedForm()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
 
         }
-        public void setData(int roleID, String choice, formAccounts_Teachers form)
+        public void setData(int roleID, String choice, formAcctounts_Guidance form)
         {
             this.form = form;
             this.roleID = roleID;
             this.choice = choice;
         }
 
-        public void setData2(int roleID, String choice, formAcctounts_DeptHead form)
+        public void setData2(int roleID, String choice, formAccounts_SAO form)
         {
             this.form2 = form;
             this.roleID = roleID;
@@ -52,15 +52,15 @@ namespace AMSEMS.SubForms_Admin
 
         private void formStudentForm_Load(object sender, EventArgs e)
         {
-            displayDept();
-            if(roleID == 6)
+            if(roleID == 3)
             {
-                lblInfo.Text = "Teacher Information";
+                lblInfo.Text = "Guidance Associate Information";
             }
             else
             {
-                lblInfo.Text = "Department Head Information";
+                lblInfo.Text = "Student Affairs Officer Information";
             }
+
             int passwordLength = 12;
             if (choice.Equals("Update"))
             {
@@ -75,28 +75,8 @@ namespace AMSEMS.SubForms_Admin
                 tbID.Enabled = true;
             }
 
-            btnSubmit.Text = choice;
-        }
-        public void clearSetting()
-        {
-            cbDepartment.Items.Clear();
-        }
-
-        public void displayDept()
-        {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                clearSetting();
-                cn.Open();
-                cm = new SqlCommand("Select Description from tbl_Departments", cn);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    cbDepartment.Items.Add(dr["Description"].ToString());
-                }
-                dr.Close();
-                cn.Close();
-
                 cn.Open();
                 cm = new SqlCommand("Select Description from tbl_Role where Role_ID = " + roleID + "", cn);
                 dr = cm.ExecuteReader();
@@ -107,6 +87,8 @@ namespace AMSEMS.SubForms_Admin
                 dr.Close();
                 cn.Close();
             }
+
+            btnSubmit.Text = choice;
         }
 
         private void cbDept_KeyPress(object sender, KeyPressEventArgs e)
@@ -141,17 +123,17 @@ namespace AMSEMS.SubForms_Admin
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                if (tbFname.Text == "" && tbLname.Text == "" && tbMname.Text == "" && tbID.Text == "" && tbPass.Text == "" && tbRole.Text == "" && cbDepartment.Text == "")
+                if (tbFname.Text == "" && tbLname.Text == "" && tbMname.Text == "" && tbID.Text == "" && tbPass.Text == "" && tbRole.Text == "")
                 {
                     MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
-                    if (roleID == 6)
+                    if (roleID == 3)
                     {
                         if (btnSubmit.Text.Equals("Update"))
                         {
-                            cm = new SqlCommand("SELECT Profile_pic FROM tbl_teacher_accounts WHERE ID = @ID", cn);
+                            cm = new SqlCommand("SELECT Profile_pic FROM tbl_guidance_accounts WHERE ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
 
                             ad = new SqlDataAdapter(cm);
@@ -183,7 +165,6 @@ namespace AMSEMS.SubForms_Admin
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             cm.Parameters.AddWithValue("@Profile_pic", picData);
                             cm.Parameters.AddWithValue("@Role", tbRole.Text);
-                            cm.Parameters.AddWithValue("@Department", cbDepartment.Text);
                             cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                             cm.ExecuteNonQuery();
                             cn.Close();
@@ -191,7 +172,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                         else
                         {
-                            cm = new SqlCommand("Select ID from tbl_teacher_accounts where ID = '" + tbID.Text + "'", cn);
+                            cm = new SqlCommand("Select ID from tbl_guidance_accounts where ID = '" + tbID.Text + "'", cn);
                             ad = new SqlDataAdapter(cm);
                             ad.Fill(ds);
                             int i = ds.Tables[0].Rows.Count;
@@ -224,7 +205,6 @@ namespace AMSEMS.SubForms_Admin
                                 cm.Parameters.AddWithValue("@Password", tbPass.Text);
                                 cm.Parameters.AddWithValue("@Profile_pic", picData);
                                 cm.Parameters.AddWithValue("@Role", tbRole.Text);
-                                cm.Parameters.AddWithValue("@Department", cbDepartment.Text);
                                 cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                                 cm.ExecuteNonQuery();
                                 cn.Close();
@@ -233,13 +213,13 @@ namespace AMSEMS.SubForms_Admin
                                 ds.Tables[0].Rows.Clear();
                             }
                         }
-                        form.displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                        form.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
                     }
                     else
                     {
                         if (btnSubmit.Text.Equals("Update"))
                         {
-                            cm = new SqlCommand("SELECT Profile_pic FROM tbl_deptHead_accounts WHERE ID = @ID", cn);
+                            cm = new SqlCommand("SELECT Profile_pic FROM tbl_sao_accounts WHERE ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
 
                             ad = new SqlDataAdapter(cm);
@@ -271,7 +251,6 @@ namespace AMSEMS.SubForms_Admin
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             cm.Parameters.AddWithValue("@Profile_pic", picData);
                             cm.Parameters.AddWithValue("@Role", tbRole.Text);
-                            cm.Parameters.AddWithValue("@Department", cbDepartment.Text);
                             cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                             cm.ExecuteNonQuery();
                             cn.Close();
@@ -279,7 +258,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                         else
                         {
-                            cm = new SqlCommand("Select ID from tbl_deptHead_accounts where ID = '" + tbID.Text + "'", cn);
+                            cm = new SqlCommand("Select ID from tbl_sao_accounts where ID = '" + tbID.Text + "'", cn);
                             ad = new SqlDataAdapter(cm);
                             ad.Fill(ds);
                             int i = ds.Tables[0].Rows.Count;
@@ -312,7 +291,6 @@ namespace AMSEMS.SubForms_Admin
                                 cm.Parameters.AddWithValue("@Password", tbPass.Text);
                                 cm.Parameters.AddWithValue("@Profile_pic", picData);
                                 cm.Parameters.AddWithValue("@Role", tbRole.Text);
-                                cm.Parameters.AddWithValue("@Department", cbDepartment.Text);
                                 cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                                 cm.ExecuteNonQuery();
                                 cn.Close();
@@ -321,7 +299,7 @@ namespace AMSEMS.SubForms_Admin
                                 ds.Tables[0].Rows.Clear();
                             }
                         }
-                        form2.displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                        //form2.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
                     }
                 }
                 
@@ -333,7 +311,6 @@ namespace AMSEMS.SubForms_Admin
             tbMname.Text = "";
             tbLname.Text = "";
             tbPass.Text = "";
-            cbDepartment.Text = "";
             openFileDialog1.FileName = null;
             ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
 
@@ -347,10 +324,10 @@ namespace AMSEMS.SubForms_Admin
             {
                 try
                 {
-                    if (roleID == 6)
+                    if (roleID == 3)
                     {
                         cn.Open();
-                        cm = new SqlCommand("Select Profile_pic from tbl_teacher_accounts where ID = " + ID + "", cn);
+                        cm = new SqlCommand("Select Profile_pic from tbl_guidance_accounts where ID = " + ID + "", cn);
 
                         byte[] imageData = (byte[])cm.ExecuteScalar();
 
@@ -365,7 +342,7 @@ namespace AMSEMS.SubForms_Admin
                         cn.Close();
 
                         cn.Open();
-                        cm = new SqlCommand("Select ID,Firstname,Lastname,Middlename,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID where ID = " + ID + "", cn);
+                        cm = new SqlCommand("Select ID,Firstname,Lastname,Middlename,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID where ID = " + ID + "", cn);
                         dr = cm.ExecuteReader();
                         dr.Read();
                         tbID.Text = dr["ID"].ToString();
@@ -373,7 +350,6 @@ namespace AMSEMS.SubForms_Admin
                         tbLname.Text = dr["Lastname"].ToString();
                         tbMname.Text = dr["Middlename"].ToString();
                         Pass = dr["Password"].ToString();
-                        cbDepartment.Text = dr["dDes"].ToString();
                         tbStatus.Text = dr["stDes"].ToString();
                         dr.Close();
                         cn.Close();
@@ -381,7 +357,7 @@ namespace AMSEMS.SubForms_Admin
                     else
                     {
                         cn.Open();
-                        cm = new SqlCommand("Select Profile_pic from tbl_deptHead_accounts where ID = " + ID + "", cn);
+                        cm = new SqlCommand("Select Profile_pic from tbl_sao_accounts where ID = " + ID + "", cn);
 
                         byte[] imageData = (byte[])cm.ExecuteScalar();
 
@@ -396,7 +372,7 @@ namespace AMSEMS.SubForms_Admin
                         cn.Close();
 
                         cn.Open();
-                        cm = new SqlCommand("Select ID,Firstname,Lastname,Middlename,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID where ID = " + ID + "", cn);
+                        cm = new SqlCommand("Select ID,Firstname,Lastname,Middlename,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID where ID = " + ID + "", cn);
                         dr = cm.ExecuteReader();
                         dr.Read();
                         tbID.Text = dr["ID"].ToString();
@@ -404,7 +380,6 @@ namespace AMSEMS.SubForms_Admin
                         tbLname.Text = dr["Lastname"].ToString();
                         tbMname.Text = dr["Middlename"].ToString();
                         Pass = dr["Password"].ToString();
-                        cbDepartment.Text = dr["dDes"].ToString();
                         tbStatus.Text = dr["stDes"].ToString();
                         dr.Close();
                         cn.Close();
@@ -415,13 +390,6 @@ namespace AMSEMS.SubForms_Admin
                     MessageBox.Show(e.Message);
                 }
             }
-        }
-
-        private void btnAddDep_Click(object sender, EventArgs e)
-        {
-            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting();
-            formAddSchoolSetting.setDisplayData("Departments");
-            formAddSchoolSetting.ShowDialog();
         }
     }
 }
