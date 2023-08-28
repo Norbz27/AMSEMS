@@ -42,7 +42,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formSubjects));
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.dgvGuidance = new System.Windows.Forms.DataGridView();
+            this.dgvSubjects = new System.Windows.Forms.DataGridView();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.tbSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.btnAll = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -71,7 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
             this.kryptonGroupBox5.Panel.SuspendLayout();
             this.kryptonGroupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvGuidance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -94,7 +94,7 @@
             // 
             // kryptonGroupBox5.Panel
             // 
-            this.kryptonGroupBox5.Panel.Controls.Add(this.dgvGuidance);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.dgvSubjects);
             this.kryptonGroupBox5.Size = new System.Drawing.Size(892, 339);
             this.kryptonGroupBox5.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox5.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -107,23 +107,23 @@
             this.kryptonGroupBox5.StateCommon.Border.Width = 2;
             this.kryptonGroupBox5.TabIndex = 64;
             // 
-            // dgvGuidance
+            // dgvSubjects
             // 
-            this.dgvGuidance.AllowUserToAddRows = false;
-            this.dgvGuidance.AllowUserToDeleteRows = false;
-            this.dgvGuidance.AllowUserToResizeColumns = false;
-            this.dgvGuidance.AllowUserToResizeRows = false;
+            this.dgvSubjects.AllowUserToAddRows = false;
+            this.dgvSubjects.AllowUserToDeleteRows = false;
+            this.dgvSubjects.AllowUserToResizeColumns = false;
+            this.dgvSubjects.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvGuidance.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvGuidance.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvGuidance.BackgroundColor = System.Drawing.Color.White;
-            this.dgvGuidance.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvGuidance.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dgvGuidance.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dgvGuidance.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvSubjects.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvSubjects.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvSubjects.BackgroundColor = System.Drawing.Color.White;
+            this.dgvSubjects.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvSubjects.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvSubjects.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dgvSubjects.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins", 8.75F, System.Drawing.FontStyle.Bold);
@@ -131,17 +131,17 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Desktop;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvGuidance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvGuidance.ColumnHeadersHeight = 50;
-            this.dgvGuidance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvGuidance.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvSubjects.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvSubjects.ColumnHeadersHeight = 50;
+            this.dgvSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvSubjects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.No,
             this.ID,
             this.Des,
             this.units,
             this.status,
             this.option});
-            this.dgvGuidance.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dgvSubjects.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -149,14 +149,14 @@
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.Desktop;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvGuidance.DefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvGuidance.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvGuidance.EnableHeadersVisualStyles = false;
-            this.dgvGuidance.GridColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dgvGuidance.Location = new System.Drawing.Point(0, 0);
-            this.dgvGuidance.Name = "dgvGuidance";
-            this.dgvGuidance.ReadOnly = true;
-            this.dgvGuidance.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgvSubjects.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dgvSubjects.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvSubjects.EnableHeadersVisualStyles = false;
+            this.dgvSubjects.GridColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dgvSubjects.Location = new System.Drawing.Point(0, 0);
+            this.dgvSubjects.Name = "dgvSubjects";
+            this.dgvSubjects.ReadOnly = true;
+            this.dgvSubjects.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -164,19 +164,19 @@
             dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvGuidance.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dgvGuidance.RowHeadersVisible = false;
-            this.dgvGuidance.RowHeadersWidth = 30;
-            this.dgvGuidance.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvSubjects.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            this.dgvSubjects.RowHeadersVisible = false;
+            this.dgvSubjects.RowHeadersWidth = 30;
+            this.dgvSubjects.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle10.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvGuidance.RowsDefaultCellStyle = dataGridViewCellStyle10;
-            this.dgvGuidance.RowTemplate.Height = 30;
-            this.dgvGuidance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvGuidance.Size = new System.Drawing.Size(882, 329);
-            this.dgvGuidance.TabIndex = 10;
+            this.dgvSubjects.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            this.dgvSubjects.RowTemplate.Height = 30;
+            this.dgvSubjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSubjects.Size = new System.Drawing.Size(882, 329);
+            this.dgvSubjects.TabIndex = 10;
             // 
             // dataGridViewImageColumn1
             // 
@@ -740,14 +740,14 @@
             // 
             this.deleteToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(88, 26);
             this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(88, 26);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // kryptonGroupBox1
@@ -779,7 +779,7 @@
             this.contextMenuStrip2.Name = "contextMenuStrip2";
             this.contextMenuStrip2.ShowImageMargin = false;
             this.contextMenuStrip2.ShowItemToolTips = false;
-            this.contextMenuStrip2.Size = new System.Drawing.Size(156, 78);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(89, 56);
             // 
             // No
             // 
@@ -866,7 +866,7 @@
             this.kryptonGroupBox5.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).EndInit();
             this.kryptonGroupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvGuidance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -884,7 +884,7 @@
         #endregion
 
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox5;
-        private System.Windows.Forms.DataGridView dgvGuidance;
+        private System.Windows.Forms.DataGridView dgvSubjects;
         private System.Windows.Forms.DataGridViewTextBoxColumn No;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Des;

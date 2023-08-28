@@ -197,6 +197,12 @@
     <Compile Include="SubForms_Admin\formAccounts_Students.Designer.cs">
       <DependentUpon>formAccounts_Students.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Admin\formSubjectsform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\formSubjectsform.Designer.cs">
+      <DependentUpon>formSubjectsform.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Admin\formImportView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -402,6 +408,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formAccounts_Students.resx">
       <DependentUpon>formAccounts_Students.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\formSubjectsform.resx">
+      <DependentUpon>formSubjectsform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formImportView.resx">
       <DependentUpon>formImportView.cs</DependentUpon>
@@ -678,6 +687,7 @@
     <None Include="Resources\printer_16_bold.png" />
     <None Include="Resources\file.png" />
     <None Include="Resources\reload.png" />
+    <None Include="Resources\book.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />
