@@ -363,6 +363,7 @@
             this.btnAddSAO.StateTracking.Content.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddSAO.TabIndex = 7;
             this.btnAddSAO.Values.Text = "Add new";
+            this.btnAddSAO.Click += new System.EventHandler(this.btnAddSAO_Click);
             // 
             // lblInacSAO
             // 
@@ -513,6 +514,7 @@
             this.btnAddGui.StateTracking.Content.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddGui.TabIndex = 7;
             this.btnAddGui.Values.Text = "Add new";
+            this.btnAddGui.Click += new System.EventHandler(this.btnAddGui_Click);
             // 
             // lblInacGui
             // 
@@ -663,6 +665,7 @@
             this.btnAddDep.StateTracking.Content.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddDep.TabIndex = 7;
             this.btnAddDep.Values.Text = "Add new";
+            this.btnAddDep.Click += new System.EventHandler(this.btnAddDep_Click);
             // 
             // lblInacDep
             // 
@@ -813,6 +816,7 @@
             this.btnAddTeach.StateTracking.Content.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddTeach.TabIndex = 7;
             this.btnAddTeach.Values.Text = "Add new";
+            this.btnAddTeach.Click += new System.EventHandler(this.btnAddTeach_Click);
             // 
             // lblInacTeach
             // 

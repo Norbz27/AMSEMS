@@ -25,11 +25,13 @@ namespace AMSEMS.SubForms_Admin
 
         int roleID;
         String choice;
+        bool istrue = false;
         private const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private static readonly Random RandomGenerator = new Random();
 
         formAcctounts_Guidance form;
         formAccounts_SAO form2;
+        formDashboard form3;
         public formGeneratedForm()
         {
             InitializeComponent();
@@ -48,6 +50,14 @@ namespace AMSEMS.SubForms_Admin
             this.form2 = form;
             this.roleID = roleID;
             this.choice = choice;
+        }
+
+        public void setData3(int roleID, String choice, formDashboard form, bool istrue)
+        {
+            form3 = form;
+            this.roleID = roleID;
+            this.choice = choice;
+            this.istrue = istrue;
         }
 
         private void formStudentForm_Load(object sender, EventArgs e)
@@ -213,7 +223,10 @@ namespace AMSEMS.SubForms_Admin
                                 ds.Tables[0].Rows.Clear();
                             }
                         }
-                        form.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                        if (!istrue)
+                            form.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                        else
+                            form3.DisplayData();
                     }
                     else
                     {
@@ -299,7 +312,10 @@ namespace AMSEMS.SubForms_Admin
                                 ds.Tables[0].Rows.Clear();
                             }
                         }
-                        //form2.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                        if (!istrue)
+                            form2.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                        else
+                            form3.DisplayData();
                     }
                 }
                 

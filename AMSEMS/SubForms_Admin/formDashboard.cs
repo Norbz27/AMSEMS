@@ -193,5 +193,33 @@ namespace AMSEMS.SubForms_Admin
             formStudentForm.setData2(5,"Submit",this, true);
             formStudentForm.ShowDialog();
         }
+
+        private void btnAddTeach_Click(object sender, EventArgs e)
+        {
+            SubForms_Admin.formTeacherForm formTeacherForm = new formTeacherForm();
+            formTeacherForm.setData3(6, "Submit", this, true);
+            formTeacherForm.ShowDialog();
+        }
+
+        private void btnAddDep_Click(object sender, EventArgs e)
+        {
+            SubForms_Admin.formTeacherForm formTeacherForm = new formTeacherForm();
+            formTeacherForm.setData3(2, "Submit", this, true);
+            formTeacherForm.ShowDialog();
+        }
+
+        private void btnAddGui_Click(object sender, EventArgs e)
+        {
+            SubForms_Admin.formGeneratedForm formGeneratedForm = new formGeneratedForm();
+            formGeneratedForm.setData3(3, "Submit", this, true);
+            formGeneratedForm.ShowDialog();
+        }
+
+        private void btnAddSAO_Click(object sender, EventArgs e)
+        {
+            SubForms_Admin.formGeneratedForm formGeneratedForm = new formGeneratedForm();
+            formGeneratedForm.setData3(4, "Submit", this, true);
+            formGeneratedForm.ShowDialog();
+        }
     }
 }

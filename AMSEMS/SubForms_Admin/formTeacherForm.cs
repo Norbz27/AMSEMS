@@ -30,6 +30,9 @@ namespace AMSEMS.SubForms_Admin
 
         formAccounts_Teachers form;
         formAcctounts_DeptHead form2;
+        formDashboard form3;
+
+        bool istrue = false;
         public formTeacherForm()
         {
             InitializeComponent();
@@ -48,6 +51,13 @@ namespace AMSEMS.SubForms_Admin
             this.form2 = form;
             this.roleID = roleID;
             this.choice = choice;
+        }
+        public void setData3(int roleID, String choice, formDashboard form, bool istrue)
+        {
+            form3 = form;
+            this.roleID = roleID;
+            this.choice = choice;
+            this.istrue = istrue;
         }
 
         private void formStudentForm_Load(object sender, EventArgs e)
@@ -233,7 +243,10 @@ namespace AMSEMS.SubForms_Admin
                                 ds.Tables[0].Rows.Clear();
                             }
                         }
-                        form.displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                        if (!istrue)
+                            form.displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                        else
+                            form3.DisplayData();
                     }
                     else
                     {
@@ -321,7 +334,10 @@ namespace AMSEMS.SubForms_Admin
                                 ds.Tables[0].Rows.Clear();
                             }
                         }
-                        form2.displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                        if (!istrue)
+                            form2.displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                        else
+                            form3.DisplayData();
                     }
                 }
                 

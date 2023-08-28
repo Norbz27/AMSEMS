@@ -16,6 +16,7 @@ namespace AMSEMS
         SqlCommand cm;
         SqlDataReader dr;
 
+        private bool isLoggingIn = false;
         public FormLoginPage()
         {
             InitializeComponent();
@@ -71,7 +72,11 @@ namespace AMSEMS
 
         private async void btnLogin_Click(object sender, EventArgs e)
         {
+            if (isLoggingIn) return; // If already logging in, exit
+
+            isLoggingIn = true;
             UseWaitCursor = true;
+
             try
             {
                 await LoginAsync();
@@ -83,6 +88,7 @@ namespace AMSEMS
             finally
             {
                 UseWaitCursor = false;
+                isLoggingIn = false;
             }
         }
 
@@ -90,8 +96,11 @@ namespace AMSEMS
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.Handled = e.SuppressKeyPress = true;
+                if (isLoggingIn) return; // If already logging in, exit
+
+                isLoggingIn = true;
                 UseWaitCursor = true;
+
                 try
                 {
                     await LoginAsync();
@@ -103,6 +112,7 @@ namespace AMSEMS
                 finally
                 {
                     UseWaitCursor = false;
+                    isLoggingIn = false;
                 }
             }
         }
