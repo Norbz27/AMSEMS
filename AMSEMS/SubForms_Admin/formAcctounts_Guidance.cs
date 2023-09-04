@@ -46,7 +46,7 @@ namespace AMSEMS.SubForms_Admin
             ToolTip toolTip = new ToolTip();
             toolTip.SetToolTip(btnAdd, "Add Account");
             toolTip.SetToolTip(btnImport, "Import Excel File");
-            toolTip.SetToolTip(btnExport, "Export to PDF");
+            toolTip.SetToolTip(btnExport, "Export");
 
             btnAll.Focus();
             displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
@@ -137,15 +137,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                ExportToPDF(dgvGuidance, saveFileDialog.FileName);
-                MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                Process.Start(saveFileDialog.FileName);
-            }
+            CMSExport.Show(btnExport, new System.Drawing.Point(0, btnExport.Height));
         }
 
         private void ExportToPDF(DataGridView dataGridView, string filePath)
@@ -325,6 +317,19 @@ namespace AMSEMS.SubForms_Admin
 
             tbSearch.Text = String.Empty;
             btnAll.Focus();
+        }
+
+        private void btnExpPDF_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ExportToPDF(dgvGuidance, saveFileDialog.FileName);
+                MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Process.Start(saveFileDialog.FileName);
+            }
         }
     }
 }

@@ -13,9 +13,30 @@ namespace AMSEMS.SubForms_Admin
 {
     public partial class formSettings : KryptonForm
     {
+        private Form activeForm;
         public formSettings()
         {
             InitializeComponent();
+        }
+
+        private void formSettings_Load(object sender, EventArgs e)
+        {
+            OpenChildForm(new formAccountSetting());
+        }
+        public void OpenChildForm(Form childForm)
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.Dock = DockStyle.Fill;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            this.panelSetting.Controls.Add(childForm);
+            this.panelSetting.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
         }
     }
 }

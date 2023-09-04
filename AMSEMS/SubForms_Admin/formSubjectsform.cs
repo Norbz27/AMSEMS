@@ -23,83 +23,153 @@ namespace AMSEMS.SubForms_Admin
         DataSet ds = new DataSet();
         String Pass;
 
-        int roleID;
         String choice;
         bool istrue = false;
         private const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private static readonly Random RandomGenerator = new Random();
 
-        formAcctounts_Guidance form;
-        formAccounts_SAO form2;
-        formDashboard form3;
+        formSubjects form;
+
         public formSubjectsForm()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
 
         }
-        public void setData(int roleID, String choice, formAcctounts_Guidance form)
+        public void setData(String choice, formSubjects form)
         {
             this.form = form;
-            this.roleID = roleID;
             this.choice = choice;
-        }
-
-        public void setData2(int roleID, String choice, formAccounts_SAO form)
-        {
-            this.form2 = form;
-            this.roleID = roleID;
-            this.choice = choice;
-        }
-
-        public void setData3(int roleID, String choice, formDashboard form, bool istrue)
-        {
-            form3 = form;
-            this.roleID = roleID;
-            this.choice = choice;
-            this.istrue = istrue;
         }
 
         private void formStudentForm_Load(object sender, EventArgs e)
         {
-            if(roleID == 3)
-            {
-                lblInfo.Text = "Guidance Associate Information";
-            }
-            else
-            {
-                lblInfo.Text = "Student Affairs Officer Information";
-            }
-
-            int passwordLength = 12;
             if (choice.Equals("Update"))
             {
-                tbID.Enabled = false;
+                tbCcode.Enabled = false;
+                
             }
             else
             {
-                tbID.Enabled = true;
-            }
-
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-            {
-                cn.Open();
-                cm = new SqlCommand("Select Description from tbl_Role where Role_ID = " + roleID + "", cn);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    tbRole.Text = dr["Description"].ToString();
-                }
-                dr.Close();
-                cn.Close();
+                tbCcode.Enabled = true;
             }
 
             btnSubmit.Text = choice;
         }
 
-        private void cbDept_KeyPress(object sender, KeyPressEventArgs e)
+        private void btnSubmit_Click(object sender, EventArgs e)
         {
-            e.Handled = true;
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                if (tbCourseDes.Text == "" && tbCcode.Text == "" && tbUnits.Text == "")
+                {
+                    MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    if (btnSubmit.Text.Equals("Update"))
+                    {
+                        cm = new SqlCommand("SELECT Image FROM tbl_subjects WHERE Course_Code = @Course_Code", cn);
+                        cm.Parameters.AddWithValue("@Course_Code", tbCcode.Text);
+
+                        ad = new SqlDataAdapter(cm);
+                        DataSet ds = new DataSet();
+                        ad.Fill(ds);
+
+                        byte[] picData = null;
+
+                        if (ds.Tables[0].Rows.Count > 0)
+                        {
+                            // Read the image data from the retrieved row
+                            picData = (byte[])ds.Tables[0].Rows[0]["Image"];
+                        }
+
+                        cn.Open();
+                        cm = new SqlCommand();
+                        cm.Connection = cn;
+                        cm.CommandType = CommandType.StoredProcedure;
+                        cm.CommandText = "sp_AddSubjects";
+                        cm.Parameters.AddWithValue("@Course_Code", tbCcode.Text);
+                        cm.Parameters.AddWithValue("@Course_Description", tbCourseDes.Text);
+                        cm.Parameters.AddWithValue("@Image", picData);
+                        cm.Parameters.AddWithValue("@Units", tbUnits.Text);
+                        cm.ExecuteNonQuery();
+                        cn.Close();
+                        MessageBox.Show("Subject Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        clearTexts();
+                        ds.Tables[0].Rows.Clear();
+                    }
+                    else
+                    {
+                        byte[] picData;
+                        if (openFileDialog1.FileName == String.Empty)
+                        {
+                            picData = null;
+                        }
+                        else
+                        {
+                            picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
+                        }
+                        cm = new SqlCommand("Select Course_Code from tbl_subjects where Course_Code = '" + tbCcode.Text + "'", cn);
+                        ad = new SqlDataAdapter(cm);
+                        ad.Fill(ds);
+                        int i = ds.Tables[0].Rows.Count;
+
+                        if (i != 0)
+                        {
+                            MessageBox.Show("A Subject is already Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ds.Tables[0].Rows.Clear();
+                        }
+                        else
+                        {
+                            cn.Open();
+                            cm = new SqlCommand();
+                            cm.Connection = cn;
+                            cm.CommandType = CommandType.StoredProcedure;
+                            cm.CommandText = "sp_AddSubjects";
+                            cm.Parameters.AddWithValue("@Course_Code", tbCcode.Text);
+                            cm.Parameters.AddWithValue("@Course_Description", tbCourseDes.Text);
+                            cm.Parameters.AddWithValue("@Image", picData);
+                            cm.Parameters.AddWithValue("@Units", tbUnits.Text);
+                            cm.ExecuteNonQuery();
+                            cn.Close();
+                            MessageBox.Show("Subject Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            clearTexts();
+                            ds.Tables[0].Rows.Clear();
+                        }
+                    }
+                    //form.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");              
+                }
+                
+            }
+        }
+        public void clearTexts()
+        {
+            tbCcode.Text = "";
+        }
+
+        public void getStudID(String Course_code)
+        {
+            using (cn)
+            {
+                try
+                {
+                    cn.Open();
+                    cm = new SqlCommand("Select Course_code,Course_Description,Units,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID where Course_code = " + Course_code + "", cn);
+                    dr = cm.ExecuteReader();
+                    dr.Read();
+                    tbCcode.Text = dr["Course_code"].ToString();
+                    tbCourseDes.Text = dr["Course_Description"].ToString();
+                    tbUnits.Text = dr["Units"].ToString();
+
+                    dr.Close();
+                    cn.Close();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
         }
 
         private void btnUploadImage_Click(object sender, EventArgs e)
@@ -109,277 +179,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            ptbProfile.Image = Image.FromFile(openFileDialog1.FileName);
-        }
-
-        string GeneratePassword(int length)
-        {
-            StringBuilder password = new StringBuilder();
-
-            for (int i = 0; i < length; i++)
-            {
-                int randomIndex = RandomGenerator.Next(AllowedChars.Length);
-                password.Append(AllowedChars[randomIndex]);
-            }
-
-            return password.ToString();
-        }
-
-        private void btnSubmit_Click(object sender, EventArgs e)
-        {
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-            {
-                if (tbFname.Text == "" && tbID.Text == "" && tbRole.Text == "")
-                {
-                    MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    if (roleID == 3)
-                    {
-                        if (btnSubmit.Text.Equals("Update"))
-                        {
-                            cm = new SqlCommand("SELECT Profile_pic FROM tbl_guidance_accounts WHERE ID = @ID", cn);
-                            cm.Parameters.AddWithValue("@ID", tbID.Text);
-
-                            ad = new SqlDataAdapter(cm);
-                            DataSet ds = new DataSet();
-                            ad.Fill(ds);
-
-                            byte[] picData = null;
-
-                            if (ds.Tables[0].Rows.Count > 0)
-                            {
-                                // Read the image data from the retrieved row
-                                picData = (byte[])ds.Tables[0].Rows[0]["Profile_pic"];
-                            }
-
-                            // Now, check if an image file is selected using OpenFileDialog
-                            if (openFileDialog1.FileName != String.Empty)
-                            {
-                                picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
-                            }
-                            cn.Open();
-                            cm = new SqlCommand();
-                            cm.Connection = cn;
-                            cm.CommandType = CommandType.StoredProcedure;
-                            cm.CommandText = "sp_UpdateAccounts";
-                            cm.Parameters.AddWithValue("@ID", tbID.Text);
-                            cm.Parameters.AddWithValue("@Firstname", tbFname.Text);
-                            cm.Parameters.AddWithValue("@Profile_pic", picData);
-                            cm.Parameters.AddWithValue("@Role", tbRole.Text);
-                            cm.Parameters.AddWithValue("@Status", tbStatus.Text);
-                            cm.ExecuteNonQuery();
-                            cn.Close();
-                            MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            cm = new SqlCommand("Select ID from tbl_guidance_accounts where ID = '" + tbID.Text + "'", cn);
-                            ad = new SqlDataAdapter(cm);
-                            ad.Fill(ds);
-                            int i = ds.Tables[0].Rows.Count;
-
-                            if (i != 0)
-                            {
-                                MessageBox.Show("An Account is already Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                ds.Tables[0].Rows.Clear();
-                            }
-                            else
-                            {
-                                byte[] picData;
-                                if (openFileDialog1.FileName == String.Empty)
-                                {
-                                    picData = null;
-                                }
-                                else
-                                {
-                                    picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
-                                }
-                                cn.Open();
-                                cm = new SqlCommand();
-                                cm.Connection = cn;
-                                cm.CommandType = CommandType.StoredProcedure;
-                                cm.CommandText = "sp_AddAccounts";
-                                cm.Parameters.AddWithValue("@ID", tbID.Text);
-                                cm.Parameters.AddWithValue("@Firstname", tbFname.Text);
-                                cm.Parameters.AddWithValue("@Profile_pic", picData);
-                                cm.Parameters.AddWithValue("@Role", tbRole.Text);
-                                cm.Parameters.AddWithValue("@Status", tbStatus.Text);
-                                cm.ExecuteNonQuery();
-                                cn.Close();
-                                MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                clearTexts();
-                                ds.Tables[0].Rows.Clear();
-                            }
-                        }
-                        if (!istrue)
-                            form.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
-                        else
-                            form3.DisplayData();
-                    }
-                    else
-                    {
-                        if (btnSubmit.Text.Equals("Update"))
-                        {
-                            cm = new SqlCommand("SELECT Profile_pic FROM tbl_sao_accounts WHERE ID = @ID", cn);
-                            cm.Parameters.AddWithValue("@ID", tbID.Text);
-
-                            ad = new SqlDataAdapter(cm);
-                            DataSet ds = new DataSet();
-                            ad.Fill(ds);
-
-                            byte[] picData = null;
-
-                            if (ds.Tables[0].Rows.Count > 0)
-                            {
-                                // Read the image data from the retrieved row
-                                picData = (byte[])ds.Tables[0].Rows[0]["Profile_pic"];
-                            }
-
-                            // Now, check if an image file is selected using OpenFileDialog
-                            if (openFileDialog1.FileName != String.Empty)
-                            {
-                                picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
-                            }
-                            cn.Open();
-                            cm = new SqlCommand();
-                            cm.Connection = cn;
-                            cm.CommandType = CommandType.StoredProcedure;
-                            cm.CommandText = "sp_UpdateAccounts";
-                            cm.Parameters.AddWithValue("@ID", tbID.Text);
-                            cm.Parameters.AddWithValue("@Firstname", tbFname.Text);
-                            cm.Parameters.AddWithValue("@Profile_pic", picData);
-                            cm.Parameters.AddWithValue("@Role", tbRole.Text);
-                            cm.Parameters.AddWithValue("@Status", tbStatus.Text);
-                            cm.ExecuteNonQuery();
-                            cn.Close();
-                            MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            cm = new SqlCommand("Select ID from tbl_sao_accounts where ID = '" + tbID.Text + "'", cn);
-                            ad = new SqlDataAdapter(cm);
-                            ad.Fill(ds);
-                            int i = ds.Tables[0].Rows.Count;
-
-                            if (i != 0)
-                            {
-                                MessageBox.Show("An Account is already Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                ds.Tables[0].Rows.Clear();
-                            }
-                            else
-                            {
-                                byte[] picData;
-                                if (openFileDialog1.FileName == String.Empty)
-                                {
-                                    picData = null;
-                                }
-                                else
-                                {
-                                    picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
-                                }
-                                cn.Open();
-                                cm = new SqlCommand();
-                                cm.Connection = cn;
-                                cm.CommandType = CommandType.StoredProcedure;
-                                cm.CommandText = "sp_AddAccounts";
-                                cm.Parameters.AddWithValue("@ID", tbID.Text);
-                                cm.Parameters.AddWithValue("@Firstname", tbFname.Text);
-                                cm.Parameters.AddWithValue("@Profile_pic", picData);
-                                cm.Parameters.AddWithValue("@Role", tbRole.Text);
-                                cm.Parameters.AddWithValue("@Status", tbStatus.Text);
-                                cm.ExecuteNonQuery();
-                                cn.Close();
-                                MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                clearTexts();
-                                ds.Tables[0].Rows.Clear();
-                            }
-                        }
-                        if (!istrue)
-                            form2.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
-                        else
-                            form3.DisplayData();
-                    }
-                }
-                
-            }
-        }
-        public void clearTexts()
-        {
-            tbID.Text = "";
-            openFileDialog1.FileName = null;
-            ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
-        }
-
-        public void getStudID(String ID)
-        {
-            using (cn)
-            {
-                try
-                {
-                    if (roleID == 3)
-                    {
-                        cn.Open();
-                        cm = new SqlCommand("Select Profile_pic from tbl_guidance_accounts where ID = " + ID + "", cn);
-
-                        byte[] imageData = (byte[])cm.ExecuteScalar();
-
-                        if (imageData != null && imageData.Length > 0)
-                        {
-                            using (MemoryStream ms = new MemoryStream(imageData))
-                            {
-                                Image image = Image.FromStream(ms);
-                                ptbProfile.Image = image;
-                            }
-                        }
-                        cn.Close();
-
-                        cn.Open();
-                        cm = new SqlCommand("Select ID,Firstname,Lastname,Middlename,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID where ID = " + ID + "", cn);
-                        dr = cm.ExecuteReader();
-                        dr.Read();
-                        tbID.Text = dr["ID"].ToString();
-                        tbFname.Text = dr["Firstname"].ToString();
-                        Pass = dr["Password"].ToString();
-                        tbStatus.Text = dr["stDes"].ToString();
-                        dr.Close();
-                        cn.Close();
-                    }
-                    else
-                    {
-                        cn.Open();
-                        cm = new SqlCommand("Select Profile_pic from tbl_sao_accounts where ID = " + ID + "", cn);
-
-                        byte[] imageData = (byte[])cm.ExecuteScalar();
-
-                        if (imageData != null && imageData.Length > 0)
-                        {
-                            using (MemoryStream ms = new MemoryStream(imageData))
-                            {
-                                Image image = Image.FromStream(ms);
-                                ptbProfile.Image = image;
-                            }
-                        }
-                        cn.Close();
-
-                        cn.Open();
-                        cm = new SqlCommand("Select ID,Firstname,Lastname,Middlename,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID where ID = " + ID + "", cn);
-                        dr = cm.ExecuteReader();
-                        dr.Read();
-                        tbID.Text = dr["ID"].ToString();
-                        tbFname.Text = dr["Firstname"].ToString();
-                        Pass = dr["Password"].ToString();
-                        tbStatus.Text = dr["stDes"].ToString();
-                        dr.Close();
-                        cn.Close();
-                    }
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                }
-            }
+            ptbImage.Image = Image.FromFile(openFileDialog1.FileName);
         }
     }
 }

@@ -55,7 +55,7 @@ namespace AMSEMS.SubForms_Admin
             ToolTip toolTip = new ToolTip();
             toolTip.SetToolTip(btnAddStudent, "Add Account");
             toolTip.SetToolTip(btnImport, "Import Excel File");
-            toolTip.SetToolTip(btnExport, "Export to PDF");
+            toolTip.SetToolTip(btnExport, "Export");
 
             btnAll.Focus();
 
@@ -159,7 +159,7 @@ namespace AMSEMS.SubForms_Admin
                 System.Drawing.Rectangle cellBounds = dgvStudents.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
 
                 // Show the context menu just below the cell
-                contextMenuStrip2.Show(dgvStudents, cellBounds.Left, cellBounds.Bottom);
+                CMSOptions.Show(dgvStudents, cellBounds.Left, cellBounds.Bottom);
             }
         }
 
@@ -340,15 +340,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnExport_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                ExportToPDF(dgvStudents, saveFileDialog.FileName);
-                MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                Process.Start(saveFileDialog.FileName);
-            }
+            CMSExport.Show(btnExport, new System.Drawing.Point(0, btnExport.Height));
         }
         
         private void btnImport_Click(object sender, EventArgs e)
@@ -549,6 +541,19 @@ namespace AMSEMS.SubForms_Admin
             cbYearlvl.Text = String.Empty;
             tbSearch.Text = String.Empty;
             btnAll.Focus();
+        }
+
+        private void btnExpPDF_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ExportToPDF(dgvStudents, saveFileDialog.FileName);
+                MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Process.Start(saveFileDialog.FileName);
+            }
         }
     }
 }

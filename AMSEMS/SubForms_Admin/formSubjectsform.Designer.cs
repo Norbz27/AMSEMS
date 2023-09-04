@@ -33,15 +33,15 @@ namespace AMSEMS.SubForms_Admin
             this.components = new System.ComponentModel.Container();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tbStatus = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
+            this.btnUploadImage = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.ptbImage = new System.Windows.Forms.PictureBox();
             this.btnSubmit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonLabel13 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.tbRole = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
+            this.tbUnits = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.lblInfo = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.tbFname = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
+            this.tbCourseDes = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.kryptonLabel22 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.tbID = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
-            this.kryptonLabel23 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.tbCcode = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.kryptonLabel24 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonContextMenuItems1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
             this.kryptonContextMenuItems2 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems();
@@ -49,9 +49,8 @@ namespace AMSEMS.SubForms_Admin
             this.kryptonContextMenuHeading1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuHeading();
             this.kryptonContextMenuSeparator1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbImage)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonPalette1
@@ -120,40 +119,86 @@ namespace AMSEMS.SubForms_Admin
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.tbStatus);
+            this.panel1.Controls.Add(this.btnUploadImage);
+            this.panel1.Controls.Add(this.ptbImage);
             this.panel1.Controls.Add(this.btnSubmit);
             this.panel1.Controls.Add(this.kryptonLabel13);
-            this.panel1.Controls.Add(this.tbRole);
+            this.panel1.Controls.Add(this.tbUnits);
             this.panel1.Controls.Add(this.lblInfo);
-            this.panel1.Controls.Add(this.tbFname);
+            this.panel1.Controls.Add(this.tbCourseDes);
             this.panel1.Controls.Add(this.kryptonLabel22);
-            this.panel1.Controls.Add(this.tbID);
-            this.panel1.Controls.Add(this.kryptonLabel23);
+            this.panel1.Controls.Add(this.tbCcode);
             this.panel1.Controls.Add(this.kryptonLabel24);
             this.panel1.Location = new System.Drawing.Point(30, 5);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(356, 301);
             this.panel1.TabIndex = 68;
             // 
-            // tbStatus
+            // btnUploadImage
             // 
-            this.tbStatus.Enabled = false;
-            this.tbStatus.Location = new System.Drawing.Point(188, 204);
-            this.tbStatus.Name = "tbStatus";
-            this.tbStatus.Size = new System.Drawing.Size(164, 32);
-            this.tbStatus.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
-            this.tbStatus.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
-            this.tbStatus.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
-            this.tbStatus.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnUploadImage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnUploadImage.Location = new System.Drawing.Point(124, 262);
+            this.btnUploadImage.Name = "btnUploadImage";
+            this.btnUploadImage.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.OverrideDefault.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.OverrideDefault.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.tbStatus.StateCommon.Border.Rounding = 5;
-            this.tbStatus.StateCommon.Border.Width = 1;
-            this.tbStatus.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
-            this.tbStatus.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.tbStatus.TabIndex = 106;
-            this.tbStatus.Text = "Active";
+            this.btnUploadImage.OverrideDefault.Border.Rounding = 10;
+            this.btnUploadImage.OverrideDefault.Border.Width = 2;
+            this.btnUploadImage.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.Size = new System.Drawing.Size(121, 36);
+            this.btnUploadImage.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnUploadImage.StateCommon.Border.Rounding = 10;
+            this.btnUploadImage.StateCommon.Border.Width = 2;
+            this.btnUploadImage.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold);
+            this.btnUploadImage.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.StatePressed.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.StatePressed.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnUploadImage.StatePressed.Border.Rounding = 10;
+            this.btnUploadImage.StatePressed.Border.Width = 1;
+            this.btnUploadImage.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnUploadImage.StateTracking.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.StateTracking.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnUploadImage.StateTracking.Border.Rounding = 10;
+            this.btnUploadImage.StateTracking.Border.Width = 1;
+            this.btnUploadImage.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnUploadImage.TabIndex = 69;
+            this.btnUploadImage.TabStop = false;
+            this.btnUploadImage.Values.Text = "Upload Image";
+            this.btnUploadImage.Click += new System.EventHandler(this.btnUploadImage_Click);
+            // 
+            // ptbImage
+            // 
+            this.ptbImage.Image = global::AMSEMS.Properties.Resources.book1;
+            this.ptbImage.Location = new System.Drawing.Point(3, 4);
+            this.ptbImage.Name = "ptbImage";
+            this.ptbImage.Size = new System.Drawing.Size(176, 163);
+            this.ptbImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ptbImage.TabIndex = 107;
+            this.ptbImage.TabStop = false;
             // 
             // btnSubmit
             // 
@@ -221,23 +266,22 @@ namespace AMSEMS.SubForms_Admin
             this.kryptonLabel13.TabIndex = 91;
             this.kryptonLabel13.Values.Text = "Units:";
             // 
-            // tbRole
+            // tbUnits
             // 
-            this.tbRole.Enabled = false;
-            this.tbRole.Location = new System.Drawing.Point(188, 130);
-            this.tbRole.Name = "tbRole";
-            this.tbRole.Size = new System.Drawing.Size(164, 28);
-            this.tbRole.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
-            this.tbRole.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
-            this.tbRole.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
-            this.tbRole.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.tbUnits.Location = new System.Drawing.Point(188, 130);
+            this.tbUnits.Name = "tbUnits";
+            this.tbUnits.Size = new System.Drawing.Size(164, 28);
+            this.tbUnits.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
+            this.tbUnits.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
+            this.tbUnits.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
+            this.tbUnits.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.tbRole.StateCommon.Border.Rounding = 5;
-            this.tbRole.StateCommon.Border.Width = 1;
-            this.tbRole.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
-            this.tbRole.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.tbRole.TabIndex = 90;
+            this.tbUnits.StateCommon.Border.Rounding = 5;
+            this.tbUnits.StateCommon.Border.Width = 1;
+            this.tbUnits.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
+            this.tbUnits.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.tbUnits.TabIndex = 90;
             // 
             // lblInfo
             // 
@@ -252,79 +296,66 @@ namespace AMSEMS.SubForms_Admin
             this.lblInfo.TabIndex = 78;
             this.lblInfo.Values.Text = "Subject Information";
             // 
-            // tbFname
+            // tbCourseDes
             // 
-            this.tbFname.Location = new System.Drawing.Point(188, 63);
-            this.tbFname.Name = "tbFname";
-            this.tbFname.Size = new System.Drawing.Size(164, 28);
-            this.tbFname.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
-            this.tbFname.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
-            this.tbFname.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
-            this.tbFname.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.tbCourseDes.Location = new System.Drawing.Point(188, 63);
+            this.tbCourseDes.Name = "tbCourseDes";
+            this.tbCourseDes.Size = new System.Drawing.Size(164, 28);
+            this.tbCourseDes.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
+            this.tbCourseDes.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
+            this.tbCourseDes.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
+            this.tbCourseDes.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.tbFname.StateCommon.Border.Rounding = 5;
-            this.tbFname.StateCommon.Border.Width = 1;
-            this.tbFname.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
-            this.tbFname.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.tbFname.TabIndex = 2;
+            this.tbCourseDes.StateCommon.Border.Rounding = 5;
+            this.tbCourseDes.StateCommon.Border.Width = 1;
+            this.tbCourseDes.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
+            this.tbCourseDes.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.tbCourseDes.TabIndex = 2;
             // 
             // kryptonLabel22
             // 
             this.kryptonLabel22.Location = new System.Drawing.Point(185, 39);
             this.kryptonLabel22.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel22.Name = "kryptonLabel22";
-            this.kryptonLabel22.Size = new System.Drawing.Size(111, 19);
+            this.kryptonLabel22.Size = new System.Drawing.Size(116, 19);
             this.kryptonLabel22.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonLabel22.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.kryptonLabel22.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
             this.kryptonLabel22.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.kryptonLabel22.TabIndex = 72;
-            this.kryptonLabel22.Values.Text = "Course Decription:";
+            this.kryptonLabel22.Values.Text = "Course Description:";
             // 
-            // tbID
+            // tbCcode
             // 
-            this.tbID.Location = new System.Drawing.Point(15, 204);
-            this.tbID.Name = "tbID";
-            this.tbID.Size = new System.Drawing.Size(144, 28);
-            this.tbID.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
-            this.tbID.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
-            this.tbID.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
-            this.tbID.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.tbCcode.Location = new System.Drawing.Point(15, 204);
+            this.tbCcode.Name = "tbCcode";
+            this.tbCcode.Size = new System.Drawing.Size(144, 28);
+            this.tbCcode.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
+            this.tbCcode.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
+            this.tbCcode.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
+            this.tbCcode.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.tbID.StateCommon.Border.Rounding = 5;
-            this.tbID.StateCommon.Border.Width = 1;
-            this.tbID.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
-            this.tbID.StateCommon.Content.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
-            this.tbID.TabIndex = 1;
-            this.tbID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // kryptonLabel23
-            // 
-            this.kryptonLabel23.Location = new System.Drawing.Point(190, 180);
-            this.kryptonLabel23.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel23.Name = "kryptonLabel23";
-            this.kryptonLabel23.Size = new System.Drawing.Size(47, 19);
-            this.kryptonLabel23.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.kryptonLabel23.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
-            this.kryptonLabel23.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
-            this.kryptonLabel23.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonLabel23.TabIndex = 70;
-            this.kryptonLabel23.Values.Text = "Status:";
+            this.tbCcode.StateCommon.Border.Rounding = 5;
+            this.tbCcode.StateCommon.Border.Width = 1;
+            this.tbCcode.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
+            this.tbCcode.StateCommon.Content.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            this.tbCcode.TabIndex = 1;
+            this.tbCcode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // kryptonLabel24
             // 
-            this.kryptonLabel24.Location = new System.Drawing.Point(56, 183);
+            this.kryptonLabel24.Location = new System.Drawing.Point(44, 182);
             this.kryptonLabel24.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel24.Name = "kryptonLabel24";
-            this.kryptonLabel24.Size = new System.Drawing.Size(63, 19);
+            this.kryptonLabel24.Size = new System.Drawing.Size(84, 19);
             this.kryptonLabel24.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonLabel24.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.kryptonLabel24.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
             this.kryptonLabel24.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.kryptonLabel24.TabIndex = 69;
-            this.kryptonLabel24.Values.Text = "School ID:";
+            this.kryptonLabel24.Values.Text = "Course Code:";
             // 
             // kryptonContextMenuItem1
             // 
@@ -338,16 +369,6 @@ namespace AMSEMS.SubForms_Admin
             // 
             this.openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp|All Files|*.*";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.book;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(176, 163);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 107;
-            this.pictureBox1.TabStop = false;
             // 
             // formSubjectsForm
             // 
@@ -366,7 +387,7 @@ namespace AMSEMS.SubForms_Admin
             this.Load += new System.EventHandler(this.formStudentForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -377,20 +398,19 @@ namespace AMSEMS.SubForms_Admin
         private System.Windows.Forms.Panel panel1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSubmit;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel13;
-        private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox tbRole;
+        private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox tbUnits;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblInfo;
-        private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox tbFname;
+        private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox tbCourseDes;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel22;
-        private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox tbID;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel23;
+        private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox tbCcode;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel24;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems kryptonContextMenuItems1;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItems kryptonContextMenuItems2;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem kryptonContextMenuItem1;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuHeading kryptonContextMenuHeading1;
         private ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator kryptonContextMenuSeparator1;
+        private System.Windows.Forms.PictureBox ptbImage;
+        private KryptonButton btnUploadImage;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private KryptonMaskedTextBox tbStatus;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

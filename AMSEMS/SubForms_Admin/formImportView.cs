@@ -54,23 +54,23 @@ namespace AMSEMS.SubForms_Admin
 
             if (role == 2)
             {
-                lblHeader1.Text = "Import Department Heads Excel Data";
+                lblHeader1.Text = "Import Excel Data - Department Heads ";
             }
             else if (role == 3)
             {
-                lblHeader1.Text = "Import Guidance Associate Excel Data";
+                lblHeader1.Text = "Import Excel Data - Guidance Associate";
             }
             else if (role == 4)
             {
-                lblHeader1.Text = "Import SAO Excel Data";
+                lblHeader1.Text = "Import Excel Data - SAO";
             }
             else if (role == 5)
             {
-                lblHeader1.Text = "Import Students Excel Data";
+                lblHeader1.Text = "Import Excel Data - Students";
             }
             else if (role == 6)
             {
-                lblHeader1.Text = "Import Teachers Excel Data";
+                lblHeader1.Text = "Import Excel Data - Teachers";
             }
         }
 

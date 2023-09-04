@@ -197,6 +197,12 @@
     <Compile Include="SubForms_Admin\formAccounts_Students.Designer.cs">
       <DependentUpon>formAccounts_Students.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Admin\formImportViewSubjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\formImportViewSubjects.Designer.cs">
+      <DependentUpon>formImportViewSubjects.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Admin\formSubjectsform.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -244,6 +250,12 @@
     </Compile>
     <Compile Include="SubForms_Admin\formStudentForm.Designer.cs">
       <DependentUpon>formStudentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formAccountSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formAccountSetting.Designer.cs">
+      <DependentUpon>formAccountSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Teacher\formAttendanceRecord.cs">
       <SubType>Form</SubType>
@@ -409,6 +421,9 @@
     <EmbeddedResource Include="SubForms_Admin\formAccounts_Students.resx">
       <DependentUpon>formAccounts_Students.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\formImportViewSubjects.resx">
+      <DependentUpon>formImportViewSubjects.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formSubjectsform.resx">
       <DependentUpon>formSubjectsform.cs</DependentUpon>
     </EmbeddedResource>
@@ -432,6 +447,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formStudentForm.resx">
       <DependentUpon>formStudentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formAccountSetting.resx">
+      <DependentUpon>formAccountSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formAttendanceRecord.resx">
       <DependentUpon>formAttendanceRecord.cs</DependentUpon>
@@ -688,6 +706,10 @@
     <None Include="Resources\file.png" />
     <None Include="Resources\reload.png" />
     <None Include="Resources\book.png" />
+    <None Include="Resources\book1.png" />
+    <None Include="Resources\xls-file.png" />
+    <None Include="Resources\xls-file-32.png" />
+    <None Include="Resources\xls-file-64.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

@@ -117,7 +117,7 @@ namespace AMSEMS
             isCollapsed = false;
             timer1.Start();
             OpenChildForm(new SubForms_Admin.formSubjects());
-            this.kryptonSplitContainer1.Panel2Collapsed = false;
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
             this.btnSubjects.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSubjects.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSubjects.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
