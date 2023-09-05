@@ -124,67 +124,72 @@ namespace AMSEMS
                 MessageBox.Show("No Internet Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            try
             {
-                await cn.OpenAsync();
-
-                using (SqlCommand cmd = new SqlCommand("Select Role from tbl_admin_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                    " UNION " +
-                                                    "Select Role from tbl_deptHead_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                    " UNION " +
-                                                    "Select Role from tbl_guidance_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                    " UNION " +
-                                                    "Select Role from tbl_sao_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                    " UNION " +
-                                                    "Select Role from tbl_teacher_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn))
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
-                    // Add parameters and execute the query here
-                    DataTable dt = new DataTable();
-                    using (SqlDataAdapter ad = new SqlDataAdapter(cmd))
-                    {
-                        await Task.Run(() => ad.Fill(dt));
-                    }
+                    await cn.OpenAsync();
 
-                    if (dt.Rows.Count == 0)
+                    using (SqlCommand cmd = new SqlCommand("Select Role from tbl_admin_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                        " UNION " +
+                                                        "Select Role from tbl_deptHead_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                        " UNION " +
+                                                        "Select Role from tbl_guidance_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                        " UNION " +
+                                                        "Select Role from tbl_sao_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
+                                                        " UNION " +
+                                                        "Select Role from tbl_teacher_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn))
                     {
-                        MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        int role = Convert.ToInt32(dt.Rows[0][0]);
-                        Form mainForm = null;
-
-                        switch (role)
+                        // Add parameters and execute the query here
+                        DataTable dt = new DataTable();
+                        using (SqlDataAdapter ad = new SqlDataAdapter(cmd))
                         {
-                            case 1:
-                                mainForm = new FormAdminNavigation(tbID.Text);
-                                break;
-                            case 2:
-                                mainForm = new FormDeptHeadNavigation();
-                                break;
-                            case 3:
-                                mainForm = new FormGuidanceNavigation();
-                                break;
-                            case 4:
-                                mainForm = new FormSAONavigation();
-                                break;
-                            case 6:
-                                mainForm = new FormTeacherNavigation();
-                                break;
-                            default:
-                                MessageBox.Show("Invalid Role!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                break;
+                            await Task.Run(() => ad.Fill(dt));
                         }
 
-                        if (mainForm != null)
+                        if (dt.Rows.Count == 0)
                         {
-                            btnLogin.Enabled = false;
-                            mainForm.Show();
-                            this.Hide();
+                            MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            int role = Convert.ToInt32(dt.Rows[0][0]);
+                            Form mainForm = null;
+
+                            switch (role)
+                            {
+                                case 1:
+                                    mainForm = new FormAdminNavigation(tbID.Text);
+                                    break;
+                                case 2:
+                                    mainForm = new FormDeptHeadNavigation();
+                                    break;
+                                case 3:
+                                    mainForm = new FormGuidanceNavigation();
+                                    break;
+                                case 4:
+                                    mainForm = new FormSAONavigation();
+                                    break;
+                                case 6:
+                                    mainForm = new FormTeacherNavigation();
+                                    break;
+                                default:
+                                    MessageBox.Show("Invalid Role!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    break;
+                            }
+
+                            if (mainForm != null)
+                            {
+                                btnLogin.Enabled = false;
+                                mainForm.Show();
+                                this.Hide();
+                            }
                         }
                     }
                 }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
