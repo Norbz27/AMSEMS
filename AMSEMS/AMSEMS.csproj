@@ -710,6 +710,7 @@
     <None Include="Resources\xls-file.png" />
     <None Include="Resources\xls-file-32.png" />
     <None Include="Resources\xls-file-64.png" />
+    <None Include="Resources\edit.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

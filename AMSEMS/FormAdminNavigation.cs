@@ -23,11 +23,11 @@ namespace AMSEMS
 
         public bool isCollapsed;
         private Form activeForm;
-        private String id;
+        public static String id;
 
         public event EventHandler TogglePanelCollapse;
 
-        public FormAdminNavigation(String id)
+        public FormAdminNavigation(String id1)
         {
             InitializeComponent();
             this.btnDashboard.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -39,7 +39,7 @@ namespace AMSEMS
             cn = new SqlConnection(SQL_Connection.connection);
 
             cn.Open();
-            cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where ID = '"+ id +"'", cn);
+            cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where ID = '"+ id1 +"'", cn);
             dr = cm.ExecuteReader();
             dr.Read();
             lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
@@ -47,9 +47,9 @@ namespace AMSEMS
             cn.Close();
 
             SubForms_Admin.formDashboard.setForm(this);
-            OpenChildForm(new SubForms_Admin.formDashboard(id));
+            OpenChildForm(new SubForms_Admin.formDashboard(id1));
             this.kryptonSplitContainer1.Panel2Collapsed = false;
-            this.id = id;
+            id = id1;
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
