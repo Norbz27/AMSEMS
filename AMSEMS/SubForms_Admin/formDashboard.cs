@@ -17,23 +17,14 @@ namespace AMSEMS.SubForms_Admin
         SqlConnection cn;
         SqlCommand cm;
         SqlDataReader dr;
-        String id;
+        public String id;
+        public static String id2 { get; set; }
         static FormAdminNavigation form;
-        public formDashboard(String id)
+        public formDashboard(String id1)
         {
             InitializeComponent();
 
-            using(cn = new SqlConnection(SQL_Connection.connection))
-            {
-                cn.Open();
-                cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where ID = '" + id + "'", cn);
-                dr = cm.ExecuteReader();
-                dr.Read();
-                lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
-                dr.Close();
-                cn.Close();
-                this.id = id;
-            }
+            id = id1;
         }
         public static void setForm(FormAdminNavigation form1)
         {
@@ -42,11 +33,30 @@ namespace AMSEMS.SubForms_Admin
 
         private void formDashboard_Load(object sender, EventArgs e)
         {
+            if(id.Equals(String.Empty))
+                loadData(id2);
+            else
+                loadData(id);
             DisplayData();
         }
 
+        public void loadData(String id)
+        {
+            using (cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where ID = '" + id + "'", cn);
+                dr = cm.ExecuteReader();
+                dr.Read();
+                lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+                dr.Close();
+                cn.Close();
+
+            }
+        }
         public void DisplayData()
         {
+            
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 //Students

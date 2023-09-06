@@ -257,6 +257,19 @@
     <Compile Include="SubForms_Admin\Settings_SubForms\formAccountSetting.Designer.cs">
       <DependentUpon>formAccountSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeID.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeID.Designer.cs">
+      <DependentUpon>formChangeID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formChangePass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formChangePass.Designer.cs">
+      <DependentUpon>formChangePass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\UserID.cs" />
     <Compile Include="SubForms_Teacher\formAttendanceRecord.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -450,6 +463,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formAccountSetting.resx">
       <DependentUpon>formAccountSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangeID.resx">
+      <DependentUpon>formChangeID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangePass.resx">
+      <DependentUpon>formChangePass.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formAttendanceRecord.resx">
       <DependentUpon>formAttendanceRecord.cs</DependentUpon>

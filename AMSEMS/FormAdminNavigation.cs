@@ -38,18 +38,22 @@ namespace AMSEMS
 
             cn = new SqlConnection(SQL_Connection.connection);
 
-            cn.Open();
-            cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where ID = '"+ id1 +"'", cn);
-            dr = cm.ExecuteReader();
-            dr.Read();
-            lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
-            dr.Close();
-            cn.Close();
 
             SubForms_Admin.formDashboard.setForm(this);
             OpenChildForm(new SubForms_Admin.formDashboard(id1));
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             id = id1;
+        }
+
+        public void loadData(String id)
+        {
+            cn.Open();
+            cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where ID = '" + id + "'", cn);
+            dr = cm.ExecuteReader();
+            dr.Read();
+            lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+            dr.Close();
+            cn.Close();
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -272,7 +276,7 @@ namespace AMSEMS
 
         private void FormAdminNavigation_Load(object sender, EventArgs e)
         {
-         
+            loadData(id);
         }
     }
 }

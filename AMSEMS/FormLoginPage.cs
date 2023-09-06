@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AMSEMS.SubForms_Admin;
 using ComponentFactory.Krypton.Toolkit;
 
 namespace AMSEMS
@@ -159,7 +160,9 @@ namespace AMSEMS
                             switch (role)
                             {
                                 case 1:
-                                    mainForm = new FormAdminNavigation(tbID.Text);
+                                    UserID user = new UserID();
+                                    user.setID(tbID.Text);
+                                    mainForm = new FormAdminNavigation(user.getID());
                                     break;
                                 case 2:
                                     mainForm = new FormDeptHeadNavigation();
