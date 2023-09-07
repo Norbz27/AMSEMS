@@ -131,16 +131,19 @@ namespace AMSEMS
                 {
                     await cn.OpenAsync();
 
-                    using (SqlCommand cmd = new SqlCommand("Select Role from tbl_admin_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                        " UNION " +
-                                                        "Select Role from tbl_deptHead_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                        " UNION " +
-                                                        "Select Role from tbl_guidance_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                        " UNION " +
-                                                        "Select Role from tbl_sao_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'" +
-                                                        " UNION " +
-                                                        "Select Role from tbl_teacher_accounts where ID = '" + tbID.Text + "' and Password = '" + tbPass.Text + "'", cn))
+                    using (SqlCommand cmd = new SqlCommand("SELECT Role, Unique_ID FROM (" +
+                        "SELECT Role, Unique_ID FROM tbl_admin_accounts WHERE ID = @ID AND Password = @Password " +
+                        "UNION " +
+                        "SELECT Role, Unique_ID FROM tbl_deptHead_accounts WHERE ID = @ID AND Password = @Password " +
+                        "UNION " +
+                        "SELECT Role, Unique_ID FROM tbl_guidance_accounts WHERE ID = @ID AND Password = @Password " +
+                        "UNION " +
+                        "SELECT Role, Unique_ID FROM tbl_sao_accounts WHERE ID = @ID AND Password = @Password " +
+                        "UNION " +
+                        "SELECT Role, Unique_ID FROM tbl_teacher_accounts WHERE ID = @ID AND Password = @Password) AS CombinedRoles", cn))
                     {
+                        cmd.Parameters.AddWithValue("@ID", tbID.Text);
+                        cmd.Parameters.AddWithValue("@Password", tbPass.Text);
                         // Add parameters and execute the query here
                         DataTable dt = new DataTable();
                         using (SqlDataAdapter ad = new SqlDataAdapter(cmd))
@@ -154,15 +157,14 @@ namespace AMSEMS
                         }
                         else
                         {
-                            int role = Convert.ToInt32(dt.Rows[0][0]);
+                            int role = Convert.ToInt32(dt.Rows[0]["Role"]);
+                            string uniqueID = dt.Rows[0]["Unique_ID"].ToString();
                             Form mainForm = null;
 
                             switch (role)
                             {
                                 case 1:
-                                    UserID user = new UserID();
-                                    user.setID(tbID.Text);
-                                    mainForm = new FormAdminNavigation(user.getID());
+                                    mainForm = new FormAdminNavigation(uniqueID);
                                     break;
                                 case 2:
                                     mainForm = new FormDeptHeadNavigation();
