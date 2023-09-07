@@ -21,6 +21,7 @@ namespace AMSEMS.SubForms_Admin
         SqlCommand cm;
         SqlDataReader dr;
         string id;
+        private bool fileChosen = false;
 
         public formAccountSetting()
         {
@@ -56,7 +57,7 @@ namespace AMSEMS.SubForms_Admin
                 cn.Close();
 
                 cn.Open();
-                cm = new SqlCommand("Select Profile_pic from tbl_admin_accounts where ID = " + id + "", cn);
+                cm = new SqlCommand("Select Profile_pic from tbl_admin_accounts where Unique_ID = " + id + "", cn);
 
                 byte[] imageData = (byte[])cm.ExecuteScalar();
 
@@ -87,13 +88,25 @@ namespace AMSEMS.SubForms_Admin
         private void btnChangeProf_Click(object sender, EventArgs e)
         {
             openFileDialog1.ShowDialog();
+
+            if (fileChosen)
+            {
+                formChangeImage formChangeImage = new formChangeImage(this, openFileDialog1.FileName);
+                formChangeImage.ShowDialog();
+                fileChosen = false; // Reset the flag
+            }
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
-            formChangeImage formChangeImage = new formChangeImage(this, openFileDialog1.FileName);
+            // Set the flag to indicate that a file has been chosen
+            fileChosen = true;
 
-            formChangeImage.ShowDialog();
+            // Close the OpenFileDialog
+            openFileDialog1.Dispose();
+
         }
+
+
     }
 }

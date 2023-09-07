@@ -44,7 +44,8 @@ namespace AMSEMS.SubForms_Admin
                 cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
                 cm.ExecuteNonQuery();
                 cn.Close();
-                form.loadData(FormAdminNavigation.id);
+                form.loadData();
+                this.Close();
             }
         }
 
