@@ -45,7 +45,7 @@ namespace AMSEMS.SubForms_Admin
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where ID = '" + id + "'", cn);
+                cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where Unique_ID = '" + id + "'", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
                 lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();

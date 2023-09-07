@@ -37,21 +37,21 @@ namespace AMSEMS.SubForms_Admin
 
         private void formAccountSetting_Load(object sender, EventArgs e)
         {
-            loadData(id);
+            loadData();
         }
-        public void loadData(String id)
+        public void loadData()
         {
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("Select ID,Firstname,Middlename,Lastname from tbl_admin_accounts where ID = '" + id + "'", cn);
+                cm = new SqlCommand("Select ID,Firstname,Middlename,Lastname from tbl_admin_accounts where Unique_ID = '" + id + "'", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
                 lblFname.Text = dr["Firstname"].ToString();
                 lblMname.Text = dr["Middlename"].ToString();
                 lblLname.Text = dr["Lastname"].ToString();
                 lblSchoolID.Text = dr["ID"].ToString();
-                lblName.Text = dr["Firstname"].ToString() + " " + dr["Middlename"].ToString();
+                lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
                 dr.Close();
                 cn.Close();
 

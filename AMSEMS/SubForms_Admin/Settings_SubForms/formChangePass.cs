@@ -85,7 +85,7 @@ namespace AMSEMS.SubForms_Admin
                         else
                         {
                             reader.Close();
-                            cm = new SqlCommand("UPDATE tbl_admin_accounts SET Password = @NewValue WHERE ID = @ConditionValue", cn);
+                            cm = new SqlCommand("UPDATE tbl_admin_accounts SET Password = @NewValue WHERE Unique_ID = @ConditionValue", cn);
                             cm.Parameters.AddWithValue("@NewValue", tbNewPass.Text);
                             cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
                             cm.ExecuteNonQuery();

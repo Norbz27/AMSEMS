@@ -27,7 +27,15 @@ namespace AMSEMS.SubForms_Admin
             cn = new SqlConnection(SQL_Connection.connection);
 
             this.form = form;
-            tbSchoolID.Text = FormAdminNavigation.id;
+
+            cn.Open();
+            cm = new SqlCommand("Select ID from tbl_admin_accounts where Unique_ID = '" + FormAdminNavigation.id + "'", cn);
+            dr = cm.ExecuteReader();
+            dr.Read();
+            tbSchoolID.Text = dr["ID"].ToString();
+            dr.Close();
+            cn.Close();
+            
 
         }
 
@@ -54,7 +62,7 @@ namespace AMSEMS.SubForms_Admin
                     else
                     {
                         reader.Close();
-                        cm = new SqlCommand("UPDATE tbl_admin_accounts SET ID = @NewValue WHERE ID = @ConditionValue", cn);
+                        cm = new SqlCommand("UPDATE tbl_admin_accounts SET ID = @NewValue WHERE Unique_ID = @ConditionValue", cn);
                         cm.Parameters.AddWithValue("@NewValue", tbSchoolID.Text);
                         cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
                         cm.ExecuteNonQuery();
@@ -69,7 +77,7 @@ namespace AMSEMS.SubForms_Admin
                         lblCurPalss.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
                         UserID user = new UserID();
                         user.setID(tbSchoolID.Text);
-                        form.loadData(tbSchoolID.Text);
+                        form.loadData();
                         formDashboard.id2 = tbSchoolID.Text;
                         this.Close();
                     }
