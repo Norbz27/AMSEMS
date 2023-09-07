@@ -83,5 +83,17 @@ namespace AMSEMS.SubForms_Admin
             formChangeID formChangeID = new formChangeID(this);
             formChangeID.ShowDialog();
         }
+
+        private void btnChangeProf_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.ShowDialog();
+        }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+            formChangeImage formChangeImage = new formChangeImage(this, openFileDialog1.FileName);
+
+            formChangeImage.ShowDialog();
+        }
     }
 }

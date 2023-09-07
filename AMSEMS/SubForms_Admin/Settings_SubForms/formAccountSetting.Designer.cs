@@ -52,6 +52,7 @@
             this.lblSchoolID = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.btnChamgePass = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.ptbProfile = new AMSEMS.RoundPictureBox();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).BeginInit();
             this.SuspendLayout();
             // 
@@ -211,6 +212,7 @@
             this.btnChangeProf.TabIndex = 120;
             this.btnChangeProf.TabStop = false;
             this.btnChangeProf.Values.Text = "Change Profile";
+            this.btnChangeProf.Click += new System.EventHandler(this.btnChangeProf_Click);
             // 
             // kryptonLabel9
             // 
@@ -664,10 +666,16 @@
             this.ptbProfile.TabStop = false;
             this.ptbProfile.MouseHover += new System.EventHandler(this.ptbProfile_MouseHover);
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp|All Files|*.*";
+            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
             // formAccountSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(896, 581);
             this.Controls.Add(this.btnChamgePass);
@@ -740,5 +748,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblLname;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblSchoolID;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnChamgePass;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }
