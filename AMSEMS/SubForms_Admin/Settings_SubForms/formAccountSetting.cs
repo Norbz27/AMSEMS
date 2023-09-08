@@ -107,6 +107,38 @@ namespace AMSEMS.SubForms_Admin
 
         }
 
+        private void btnRemoveProf_Click(object sender, EventArgs e)
+        {
+            using (cn = new SqlConnection(SQL_Connection.connection))
+            {
+                if (MessageBox.Show("Are you sure you want to remove your Profile Picture?", "AMSEMS", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    cn.Open();
+                    cm = new SqlCommand("UPDATE tbl_admin_accounts SET Profile_pic = DEFAULT WHERE Unique_ID = @ConditionValue", cn);
+                    cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
+                    cm.ExecuteNonQuery();
+                    cn.Close();
+                    loadData();
+                }
+            }
+        }
 
+        private void btnEditFname_Click(object sender, EventArgs e)
+        {
+            formChangeName formChangeName = new formChangeName(this);
+            formChangeName.ShowDialog();
+        }
+
+        private void btnEditMname_Click(object sender, EventArgs e)
+        {
+            formChangeName formChangeName = new formChangeName(this);
+            formChangeName.ShowDialog();
+        }
+
+        private void btEditLname_Click(object sender, EventArgs e)
+        {
+            formChangeName formChangeName = new formChangeName(this);
+            formChangeName.ShowDialog();
+        }
     }
 }

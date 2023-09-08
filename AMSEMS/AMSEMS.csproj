@@ -125,6 +125,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RJToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RoundPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -251,6 +254,12 @@
     <Compile Include="SubForms_Admin\formStudentForm.Designer.cs">
       <DependentUpon>formStudentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formNotificationSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formNotificationSetting.Designer.cs">
+      <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formAccountSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -268,6 +277,12 @@
     </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formChangeID.Designer.cs">
       <DependentUpon>formChangeID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeName.Designer.cs">
+      <DependentUpon>formChangeName.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formChangePass.cs">
       <SubType>Form</SubType>
@@ -467,6 +482,9 @@
     <EmbeddedResource Include="SubForms_Admin\formStudentForm.resx">
       <DependentUpon>formStudentForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formNotificationSetting.resx">
+      <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formAccountSetting.resx">
       <DependentUpon>formAccountSetting.cs</DependentUpon>
     </EmbeddedResource>
@@ -475,6 +493,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangeID.resx">
       <DependentUpon>formChangeID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangeName.resx">
+      <DependentUpon>formChangeName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangePass.resx">
       <DependentUpon>formChangePass.cs</DependentUpon>

@@ -1,4 +1,5 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -62,46 +63,53 @@ namespace AMSEMS.SubForms_Admin
             {
                 using (cn = new SqlConnection(SQL_Connection.connection))
                 {
-                    cn.Open();
-                    cm = new SqlCommand("Select ID from tbl_admin_accounts where Password = @CurrentPassword", cn);
-                    cm.Parameters.AddWithValue("@CurrentPassword", tbCurPass.Text);
-
-                    using (SqlDataReader reader = cm.ExecuteReader())
+                    if (tbConNewPass.Text.Equals(String.Empty) || tbCurPass.Text.Equals(String.Empty) || tbNewPass.Text.Equals(String.Empty))
                     {
-                        if (!reader.Read())
+                        MessageBox.Show("Empty Fields Detected!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        cn.Open();
+                        cm = new SqlCommand("Select ID from tbl_admin_accounts where Password = @CurrentPassword", cn);
+                        cm.Parameters.AddWithValue("@CurrentPassword", tbCurPass.Text);
+
+                        using (SqlDataReader reader = cm.ExecuteReader())
                         {
-                            lblConNewPass.Text = "Confirm New Password";
-                            lblConNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-                            lblConNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                            if (!reader.Read())
+                            {
+                                lblConNewPass.Text = "Confirm New Password";
+                                lblConNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                                lblConNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
 
-                            lblCurPass.Text = "Current Password - Password do not match!";
-                            lblCurPass.StateCommon.ShortText.Color1 = System.Drawing.Color.IndianRed;
-                            lblCurPass.StateCommon.ShortText.Color2 = System.Drawing.Color.IndianRed;
+                                lblCurPass.Text = "Current Password - Password do not match!";
+                                lblCurPass.StateCommon.ShortText.Color1 = System.Drawing.Color.IndianRed;
+                                lblCurPass.StateCommon.ShortText.Color2 = System.Drawing.Color.IndianRed;
 
-                            lblNewPass.Text = "New Password";
-                            lblNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-                            lblNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-                        }
-                        else
-                        {
-                            reader.Close();
-                            cm = new SqlCommand("UPDATE tbl_admin_accounts SET Password = @NewValue WHERE Unique_ID = @ConditionValue", cn);
-                            cm.Parameters.AddWithValue("@NewValue", tbNewPass.Text);
-                            cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
-                            cm.ExecuteNonQuery();
-                            MessageBox.Show("Password Changed!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            lblConNewPass.Text = "Confirm New Password";
-                            lblConNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-                            lblConNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                                lblNewPass.Text = "New Password";
+                                lblNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                                lblNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                            }
+                            else
+                            {
+                                reader.Close();
+                                cm = new SqlCommand("UPDATE tbl_admin_accounts SET Password = @NewValue WHERE Unique_ID = @ConditionValue", cn);
+                                cm.Parameters.AddWithValue("@NewValue", tbNewPass.Text);
+                                cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
+                                cm.ExecuteNonQuery();
+                                MessageBox.Show("Password Changed!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                lblConNewPass.Text = "Confirm New Password";
+                                lblConNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                                lblConNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
 
-                            lblCurPass.Text = "Current Password";
-                            lblCurPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-                            lblCurPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                                lblCurPass.Text = "Current Password";
+                                lblCurPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                                lblCurPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
 
-                            lblNewPass.Text = "New Password";
-                            lblNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-                            lblNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-                            this.Close();
+                                lblNewPass.Text = "New Password";
+                                lblNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                                lblNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                                this.Close();
+                            }
                         }
                     }
                 }

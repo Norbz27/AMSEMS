@@ -1,4 +1,5 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,43 +44,50 @@ namespace AMSEMS.SubForms_Admin
         {
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
-                cn.Open();
-                cm = new SqlCommand("Select ID from tbl_admin_accounts where Password = @CurrentPassword", cn);
-                cm.Parameters.AddWithValue("@CurrentPassword", tbCurPass.Text);
-
-                using (SqlDataReader reader = cm.ExecuteReader())
+                if (tbCurPass.Text.Equals(String.Empty) || tbSchoolID.Text.Equals(String.Empty))
                 {
-                    if (!reader.Read())
+                    MessageBox.Show("Empty Fields Detected!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    cn.Open();
+                    cm = new SqlCommand("Select ID from tbl_admin_accounts where Password = @CurrentPassword", cn);
+                    cm.Parameters.AddWithValue("@CurrentPassword", tbCurPass.Text);
+
+                    using (SqlDataReader reader = cm.ExecuteReader())
                     {
-                        lblSchoolID.Text = "School ID";
-                        lblSchoolID.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-                        lblSchoolID.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                        if (!reader.Read())
+                        {
+                            lblSchoolID.Text = "School ID";
+                            lblSchoolID.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                            lblSchoolID.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
 
-                        lblCurPalss.Text = "Current Password - Password do not match";
-                        lblCurPalss.StateCommon.ShortText.Color1 = System.Drawing.Color.IndianRed;
-                        lblCurPalss.StateCommon.ShortText.Color2 = System.Drawing.Color.IndianRed;
-                    }
-                    else
-                    {
-                        reader.Close();
-                        cm = new SqlCommand("UPDATE tbl_admin_accounts SET ID = @NewValue WHERE Unique_ID = @ConditionValue", cn);
-                        cm.Parameters.AddWithValue("@NewValue", tbSchoolID.Text);
-                        cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
-                        cm.ExecuteNonQuery();
-                        MessageBox.Show("School ID Changed!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            lblCurPalss.Text = "Current Password - Password do not match";
+                            lblCurPalss.StateCommon.ShortText.Color1 = System.Drawing.Color.IndianRed;
+                            lblCurPalss.StateCommon.ShortText.Color2 = System.Drawing.Color.IndianRed;
+                        }
+                        else
+                        {
+                            reader.Close();
+                            cm = new SqlCommand("UPDATE tbl_admin_accounts SET ID = @NewValue WHERE Unique_ID = @ConditionValue", cn);
+                            cm.Parameters.AddWithValue("@NewValue", tbSchoolID.Text);
+                            cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
+                            cm.ExecuteNonQuery();
+                            MessageBox.Show("School ID Changed!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        lblSchoolID.Text = "School ID";
-                        lblSchoolID.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-                        lblSchoolID.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                            lblSchoolID.Text = "School ID";
+                            lblSchoolID.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                            lblSchoolID.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
 
-                        lblCurPalss.Text = "Current Password";
-                        lblCurPalss.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-                        lblCurPalss.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-                        UserID user = new UserID();
-                        user.setID(tbSchoolID.Text);
-                        form.loadData();
-                        formDashboard.id2 = tbSchoolID.Text;
-                        this.Close();
+                            lblCurPalss.Text = "Current Password";
+                            lblCurPalss.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                            lblCurPalss.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                            UserID user = new UserID();
+                            user.setID(tbSchoolID.Text);
+                            form.loadData();
+                            formDashboard.id2 = tbSchoolID.Text;
+                            this.Close();
+                        }
                     }
                 }
             }
