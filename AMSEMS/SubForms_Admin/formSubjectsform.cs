@@ -54,6 +54,19 @@ namespace AMSEMS.SubForms_Admin
                 tbCcode.Enabled = true;
             }
 
+            using (cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                cm = new SqlCommand("Select Lastname from tbl_teacher_accounts", cn);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    cbTeacher.Items.Add(dr["Lastname"].ToString());
+                }
+                dr.Close();
+                cn.Close();
+            }
+
             btnSubmit.Text = choice;
         }
 
@@ -69,12 +82,12 @@ namespace AMSEMS.SubForms_Admin
                 {
                     if (btnSubmit.Text.Equals("Update"))
                     {
-                        cm = new SqlCommand("SELECT Image FROM tbl_subjects WHERE Course_Code = @Course_Code", cn);
+                        cm = new SqlCommand("SELECT Image FROM tbl_student_accounts WHERE Course_code = @Course_Code", cn);
                         cm.Parameters.AddWithValue("@Course_Code", tbCcode.Text);
 
                         ad = new SqlDataAdapter(cm);
                         DataSet ds = new DataSet();
-                        ad.Fill(ds);
+                        ad.Fill(ds);    
 
                         byte[] picData = null;
 
@@ -82,6 +95,12 @@ namespace AMSEMS.SubForms_Admin
                         {
                             // Read the image data from the retrieved row
                             picData = (byte[])ds.Tables[0].Rows[0]["Image"];
+                        }
+
+                        // Now, check if an image file is selected using OpenFileDialog
+                        if (openFileDialog1.FileName != String.Empty)
+                        {
+                            picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
                         }
 
                         cn.Open();
@@ -92,6 +111,7 @@ namespace AMSEMS.SubForms_Admin
                         cm.Parameters.AddWithValue("@Course_Code", tbCcode.Text);
                         cm.Parameters.AddWithValue("@Course_Description", tbCourseDes.Text);
                         cm.Parameters.AddWithValue("@Image", picData);
+                        cm.Parameters.AddWithValue("@Teach", cbTeacher.Text);
                         cm.Parameters.AddWithValue("@Units", tbUnits.Text);
                         cm.ExecuteNonQuery();
                         cn.Close();
@@ -130,6 +150,7 @@ namespace AMSEMS.SubForms_Admin
                             cm.Parameters.AddWithValue("@Course_Code", tbCcode.Text);
                             cm.Parameters.AddWithValue("@Course_Description", tbCourseDes.Text);
                             cm.Parameters.AddWithValue("@Image", picData);
+                            cm.Parameters.AddWithValue("@Teach", cbTeacher.Text);
                             cm.Parameters.AddWithValue("@Units", tbUnits.Text);
                             cm.ExecuteNonQuery();
                             cn.Close();
@@ -138,7 +159,7 @@ namespace AMSEMS.SubForms_Admin
                             ds.Tables[0].Rows.Clear();
                         }
                     }
-                    //form.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");              
+                    form.displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID");              
                 }
                 
             }
@@ -155,12 +176,13 @@ namespace AMSEMS.SubForms_Admin
                 try
                 {
                     cn.Open();
-                    cm = new SqlCommand("Select Course_code,Course_Description,Units,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID where Course_code = " + Course_code + "", cn);
+                    cm = new SqlCommand("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID  where s.Course_code = '" + Course_code + "'", cn);
                     dr = cm.ExecuteReader();
                     dr.Read();
                     tbCcode.Text = dr["Course_code"].ToString();
                     tbCourseDes.Text = dr["Course_Description"].ToString();
                     tbUnits.Text = dr["Units"].ToString();
+                    cbTeacher.Text = dr["teach"].ToString();
 
                     dr.Close();
                     cn.Close();

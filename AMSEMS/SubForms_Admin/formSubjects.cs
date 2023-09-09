@@ -37,7 +37,7 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnExport, "Export");
 
             btnAll.Focus();
-            displayTable("Select Course_code,Course_Description,Units,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID");
         }
 
         public void displayTable(string query)
@@ -62,6 +62,7 @@ namespace AMSEMS.SubForms_Admin
                                     dr["Course_code"].ToString(),
                                     dr["Course_Description"].ToString(),
                                     dr["Units"].ToString(),
+                                    dr["teach"].ToString(),
                                     dr["stDes"].ToString()
                                 );
                             }
@@ -77,17 +78,17 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnAll_Click(object sender, EventArgs e)
         {
-            displayTable("Select Course_code,Course_Description,Units,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID");
         }
 
         private void btnActive_Click(object sender, EventArgs e)
         {
-            displayTable("Select Course_code,Course_Description,Units,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID where s.Status = 1");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID where s.Status = 1");
         }
 
         private void btnInactive_Click(object sender, EventArgs e)
         {
-            displayTable("Select Course_code,Course_Description,Units,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID where s.Status = 2");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID where s.Status = 2");
         }
 
         private void tbSearch_TextChanged(object sender, EventArgs e)
@@ -242,7 +243,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID");
+                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID");
                                 MessageBox.Show("Account deleted successfully.");
                             }
                             else
@@ -295,7 +296,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select Course_code,Course_Description,Units,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID");
 
             tbSearch.Text = String.Empty;
             btnAll.Focus();
