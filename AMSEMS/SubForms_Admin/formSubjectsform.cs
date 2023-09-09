@@ -44,6 +44,8 @@ namespace AMSEMS.SubForms_Admin
 
         private void formStudentForm_Load(object sender, EventArgs e)
         {
+            cbTeacher.Items.Clear();
+            cbStatus.Items.Clear();
             if (choice.Equals("Update"))
             {
                 tbCcode.Enabled = false;
@@ -52,6 +54,7 @@ namespace AMSEMS.SubForms_Admin
             else
             {
                 tbCcode.Enabled = true;
+                cbStatus.Text = "Active";
             }
 
             using (cn = new SqlConnection(SQL_Connection.connection))
@@ -65,6 +68,17 @@ namespace AMSEMS.SubForms_Admin
                 }
                 dr.Close();
                 cn.Close();
+
+                cn.Open();
+                cm = new SqlCommand("Select Description from tbl_status", cn);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    cbStatus.Items.Add(dr["Description"].ToString());
+                }
+                dr.Close();
+                cn.Close();
+                
             }
 
             btnSubmit.Text = choice;
@@ -82,7 +96,7 @@ namespace AMSEMS.SubForms_Admin
                 {
                     if (btnSubmit.Text.Equals("Update"))
                     {
-                        cm = new SqlCommand("SELECT Image FROM tbl_student_accounts WHERE Course_code = @Course_Code", cn);
+                        cm = new SqlCommand("SELECT Image FROM tbl_subjects WHERE Course_code = @Course_Code", cn);
                         cm.Parameters.AddWithValue("@Course_Code", tbCcode.Text);
 
                         ad = new SqlDataAdapter(cm);
@@ -107,16 +121,16 @@ namespace AMSEMS.SubForms_Admin
                         cm = new SqlCommand();
                         cm.Connection = cn;
                         cm.CommandType = CommandType.StoredProcedure;
-                        cm.CommandText = "sp_AddSubjects";
+                        cm.CommandText = "sp_UpdateSubjects";
                         cm.Parameters.AddWithValue("@Course_Code", tbCcode.Text);
                         cm.Parameters.AddWithValue("@Course_Description", tbCourseDes.Text);
                         cm.Parameters.AddWithValue("@Image", picData);
                         cm.Parameters.AddWithValue("@Teach", cbTeacher.Text);
                         cm.Parameters.AddWithValue("@Units", tbUnits.Text);
+                        cm.Parameters.AddWithValue("@Status", cbStatus.Text);
                         cm.ExecuteNonQuery();
                         cn.Close();
                         MessageBox.Show("Subject Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        clearTexts();
                         ds.Tables[0].Rows.Clear();
                     }
                     else
@@ -152,6 +166,7 @@ namespace AMSEMS.SubForms_Admin
                             cm.Parameters.AddWithValue("@Image", picData);
                             cm.Parameters.AddWithValue("@Teach", cbTeacher.Text);
                             cm.Parameters.AddWithValue("@Units", tbUnits.Text);
+                            cm.Parameters.AddWithValue("@Status", cbStatus.Text);
                             cm.ExecuteNonQuery();
                             cn.Close();
                             MessageBox.Show("Subject Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -167,6 +182,10 @@ namespace AMSEMS.SubForms_Admin
         public void clearTexts()
         {
             tbCcode.Text = "";
+            tbCourseDes.Text = "";
+            tbUnits.Text = "";
+            cbStatus.Text = "";
+            cbTeacher.Text = "";
         }
 
         public void getStudID(String Course_code)
@@ -176,6 +195,20 @@ namespace AMSEMS.SubForms_Admin
                 try
                 {
                     cn.Open();
+                    cm = new SqlCommand("Select Image from tbl_subjects where Course_code = '" + Course_code + "'", cn);
+
+                    byte[] imageData = (byte[])cm.ExecuteScalar();
+
+                    if (imageData != null && imageData.Length > 0)
+                    {
+                        using (MemoryStream ms = new MemoryStream(imageData))
+                        {
+                            Image image = Image.FromStream(ms);
+                            ptbImage.Image = image;
+                        }
+                    }
+                    cn.Close();
+                    cn.Open();
                     cm = new SqlCommand("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID  where s.Course_code = '" + Course_code + "'", cn);
                     dr = cm.ExecuteReader();
                     dr.Read();
@@ -183,6 +216,7 @@ namespace AMSEMS.SubForms_Admin
                     tbCourseDes.Text = dr["Course_Description"].ToString();
                     tbUnits.Text = dr["Units"].ToString();
                     cbTeacher.Text = dr["teach"].ToString();
+                    cbStatus.Text = dr["stDes"].ToString();
 
                     dr.Close();
                     cn.Close();

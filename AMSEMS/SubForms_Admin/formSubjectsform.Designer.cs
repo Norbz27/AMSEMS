@@ -33,8 +33,11 @@ namespace AMSEMS.SubForms_Admin
             this.components = new System.ComponentModel.Container();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbTeacher = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
             this.btnUploadImage = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonLabel20 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.ptbImage = new System.Windows.Forms.PictureBox();
+            this.kryptonMaskedTextBox2 = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.btnSubmit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonLabel13 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.tbUnits = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
@@ -49,12 +52,13 @@ namespace AMSEMS.SubForms_Admin
             this.kryptonContextMenuHeading1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuHeading();
             this.kryptonContextMenuSeparator1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.cbTeacher = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
-            this.kryptonLabel20 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonMaskedTextBox2 = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
+            this.cbStatus = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
+            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonMaskedTextBox1 = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbTeacher)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbStatus)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonPalette1
@@ -123,6 +127,9 @@ namespace AMSEMS.SubForms_Admin
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.cbStatus);
+            this.panel1.Controls.Add(this.kryptonLabel1);
+            this.panel1.Controls.Add(this.kryptonMaskedTextBox1);
             this.panel1.Controls.Add(this.cbTeacher);
             this.panel1.Controls.Add(this.btnUploadImage);
             this.panel1.Controls.Add(this.kryptonLabel20);
@@ -138,13 +145,32 @@ namespace AMSEMS.SubForms_Admin
             this.panel1.Controls.Add(this.kryptonLabel24);
             this.panel1.Location = new System.Drawing.Point(30, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(356, 301);
+            this.panel1.Size = new System.Drawing.Size(532, 301);
             this.panel1.TabIndex = 68;
+            // 
+            // cbTeacher
+            // 
+            this.cbTeacher.AlwaysActive = false;
+            this.cbTeacher.DropDownWidth = 163;
+            this.cbTeacher.Location = new System.Drawing.Point(193, 141);
+            this.cbTeacher.Name = "cbTeacher";
+            this.cbTeacher.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            this.cbTeacher.Size = new System.Drawing.Size(158, 23);
+            this.cbTeacher.StateCommon.ComboBox.Back.Color1 = System.Drawing.Color.Gainsboro;
+            this.cbTeacher.StateCommon.ComboBox.Border.Color1 = System.Drawing.Color.Gainsboro;
+            this.cbTeacher.StateCommon.ComboBox.Border.Color2 = System.Drawing.Color.Gainsboro;
+            this.cbTeacher.StateCommon.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.cbTeacher.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTeacher.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTeacher.TabIndex = 108;
             // 
             // btnUploadImage
             // 
+            this.btnUploadImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnUploadImage.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUploadImage.Location = new System.Drawing.Point(124, 262);
+            this.btnUploadImage.Location = new System.Drawing.Point(300, 262);
             this.btnUploadImage.Name = "btnUploadImage";
             this.btnUploadImage.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.btnUploadImage.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -197,6 +223,19 @@ namespace AMSEMS.SubForms_Admin
             this.btnUploadImage.Values.Text = "Upload Image";
             this.btnUploadImage.Click += new System.EventHandler(this.btnUploadImage_Click);
             // 
+            // kryptonLabel20
+            // 
+            this.kryptonLabel20.Location = new System.Drawing.Point(185, 116);
+            this.kryptonLabel20.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel20.Name = "kryptonLabel20";
+            this.kryptonLabel20.Size = new System.Drawing.Size(110, 19);
+            this.kryptonLabel20.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonLabel20.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.kryptonLabel20.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
+            this.kryptonLabel20.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonLabel20.TabIndex = 109;
+            this.kryptonLabel20.Values.Text = "Assigned Teacher:";
+            // 
             // ptbImage
             // 
             this.ptbImage.Image = global::AMSEMS.Properties.Resources.book1;
@@ -207,11 +246,29 @@ namespace AMSEMS.SubForms_Admin
             this.ptbImage.TabIndex = 107;
             this.ptbImage.TabStop = false;
             // 
+            // kryptonMaskedTextBox2
+            // 
+            this.kryptonMaskedTextBox2.Enabled = false;
+            this.kryptonMaskedTextBox2.Location = new System.Drawing.Point(189, 139);
+            this.kryptonMaskedTextBox2.Name = "kryptonMaskedTextBox2";
+            this.kryptonMaskedTextBox2.Size = new System.Drawing.Size(164, 28);
+            this.kryptonMaskedTextBox2.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
+            this.kryptonMaskedTextBox2.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
+            this.kryptonMaskedTextBox2.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
+            this.kryptonMaskedTextBox2.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonMaskedTextBox2.StateCommon.Border.Rounding = 5;
+            this.kryptonMaskedTextBox2.StateCommon.Border.Width = 1;
+            this.kryptonMaskedTextBox2.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
+            this.kryptonMaskedTextBox2.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.kryptonMaskedTextBox2.TabIndex = 110;
+            // 
             // btnSubmit
             // 
             this.btnSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSubmit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSubmit.Location = new System.Drawing.Point(251, 262);
+            this.btnSubmit.Location = new System.Drawing.Point(427, 262);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSubmit.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -262,7 +319,7 @@ namespace AMSEMS.SubForms_Admin
             // 
             // kryptonLabel13
             // 
-            this.kryptonLabel13.Location = new System.Drawing.Point(185, 106);
+            this.kryptonLabel13.Location = new System.Drawing.Point(362, 39);
             this.kryptonLabel13.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel13.Name = "kryptonLabel13";
             this.kryptonLabel13.Size = new System.Drawing.Size(39, 19);
@@ -275,7 +332,7 @@ namespace AMSEMS.SubForms_Admin
             // 
             // tbUnits
             // 
-            this.tbUnits.Location = new System.Drawing.Point(188, 130);
+            this.tbUnits.Location = new System.Drawing.Point(365, 63);
             this.tbUnits.Name = "tbUnits";
             this.tbUnits.Size = new System.Drawing.Size(164, 28);
             this.tbUnits.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -335,7 +392,7 @@ namespace AMSEMS.SubForms_Admin
             // 
             // tbCcode
             // 
-            this.tbCcode.Location = new System.Drawing.Point(15, 204);
+            this.tbCcode.Location = new System.Drawing.Point(18, 204);
             this.tbCcode.Name = "tbCcode";
             this.tbCcode.Size = new System.Drawing.Size(144, 28);
             this.tbCcode.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -353,7 +410,7 @@ namespace AMSEMS.SubForms_Admin
             // 
             // kryptonLabel24
             // 
-            this.kryptonLabel24.Location = new System.Drawing.Point(44, 182);
+            this.kryptonLabel24.Location = new System.Drawing.Point(46, 182);
             this.kryptonLabel24.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel24.Name = "kryptonLabel24";
             this.kryptonLabel24.Size = new System.Drawing.Size(84, 19);
@@ -377,60 +434,63 @@ namespace AMSEMS.SubForms_Admin
             this.openFileDialog1.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp|All Files|*.*";
             this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
             // 
-            // cbTeacher
+            // cbStatus
             // 
-            this.cbTeacher.AlwaysActive = false;
-            this.cbTeacher.DropDownWidth = 163;
-            this.cbTeacher.Location = new System.Drawing.Point(192, 206);
-            this.cbTeacher.Name = "cbTeacher";
-            this.cbTeacher.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            this.cbTeacher.Size = new System.Drawing.Size(158, 23);
-            this.cbTeacher.StateCommon.ComboBox.Back.Color1 = System.Drawing.Color.Gainsboro;
-            this.cbTeacher.StateCommon.ComboBox.Border.Color1 = System.Drawing.Color.Gainsboro;
-            this.cbTeacher.StateCommon.ComboBox.Border.Color2 = System.Drawing.Color.Gainsboro;
-            this.cbTeacher.StateCommon.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.cbStatus.AlwaysActive = false;
+            this.cbStatus.DropDownWidth = 163;
+            this.cbStatus.Items.AddRange(new object[] {
+            "Active",
+            "Inactive"});
+            this.cbStatus.Location = new System.Drawing.Point(370, 141);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            this.cbStatus.Size = new System.Drawing.Size(158, 23);
+            this.cbStatus.StateCommon.ComboBox.Back.Color1 = System.Drawing.Color.Gainsboro;
+            this.cbStatus.StateCommon.ComboBox.Border.Color1 = System.Drawing.Color.Gainsboro;
+            this.cbStatus.StateCommon.ComboBox.Border.Color2 = System.Drawing.Color.Gainsboro;
+            this.cbStatus.StateCommon.ComboBox.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.cbTeacher.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTeacher.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTeacher.TabIndex = 108;
+            this.cbStatus.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbStatus.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbStatus.TabIndex = 111;
             // 
-            // kryptonLabel20
+            // kryptonLabel1
             // 
-            this.kryptonLabel20.Location = new System.Drawing.Point(184, 181);
-            this.kryptonLabel20.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel20.Name = "kryptonLabel20";
-            this.kryptonLabel20.Size = new System.Drawing.Size(110, 19);
-            this.kryptonLabel20.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.kryptonLabel20.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
-            this.kryptonLabel20.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
-            this.kryptonLabel20.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonLabel20.TabIndex = 109;
-            this.kryptonLabel20.Values.Text = "Assigned Teacher:";
+            this.kryptonLabel1.Location = new System.Drawing.Point(362, 116);
+            this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.Size = new System.Drawing.Size(45, 19);
+            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonLabel1.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
+            this.kryptonLabel1.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonLabel1.TabIndex = 112;
+            this.kryptonLabel1.Values.Text = "Status";
             // 
-            // kryptonMaskedTextBox2
+            // kryptonMaskedTextBox1
             // 
-            this.kryptonMaskedTextBox2.Enabled = false;
-            this.kryptonMaskedTextBox2.Location = new System.Drawing.Point(188, 204);
-            this.kryptonMaskedTextBox2.Name = "kryptonMaskedTextBox2";
-            this.kryptonMaskedTextBox2.Size = new System.Drawing.Size(164, 28);
-            this.kryptonMaskedTextBox2.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
-            this.kryptonMaskedTextBox2.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
-            this.kryptonMaskedTextBox2.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
-            this.kryptonMaskedTextBox2.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.kryptonMaskedTextBox1.Enabled = false;
+            this.kryptonMaskedTextBox1.Location = new System.Drawing.Point(366, 139);
+            this.kryptonMaskedTextBox1.Name = "kryptonMaskedTextBox1";
+            this.kryptonMaskedTextBox1.Size = new System.Drawing.Size(164, 28);
+            this.kryptonMaskedTextBox1.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
+            this.kryptonMaskedTextBox1.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
+            this.kryptonMaskedTextBox1.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
+            this.kryptonMaskedTextBox1.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonMaskedTextBox2.StateCommon.Border.Rounding = 5;
-            this.kryptonMaskedTextBox2.StateCommon.Border.Width = 1;
-            this.kryptonMaskedTextBox2.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
-            this.kryptonMaskedTextBox2.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.kryptonMaskedTextBox2.TabIndex = 110;
+            this.kryptonMaskedTextBox1.StateCommon.Border.Rounding = 5;
+            this.kryptonMaskedTextBox1.StateCommon.Border.Width = 1;
+            this.kryptonMaskedTextBox1.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
+            this.kryptonMaskedTextBox1.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.kryptonMaskedTextBox1.TabIndex = 113;
             // 
             // formSubjectsForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ClientSize = new System.Drawing.Size(416, 316);
+            this.ClientSize = new System.Drawing.Size(592, 316);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -443,8 +503,9 @@ namespace AMSEMS.SubForms_Admin
             this.Load += new System.EventHandler(this.formStudentForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbTeacher)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbStatus)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -472,5 +533,8 @@ namespace AMSEMS.SubForms_Admin
         private KryptonComboBox cbTeacher;
         private KryptonLabel kryptonLabel20;
         private KryptonMaskedTextBox kryptonMaskedTextBox2;
+        private KryptonComboBox cbStatus;
+        private KryptonLabel kryptonLabel1;
+        private KryptonMaskedTextBox kryptonMaskedTextBox1;
     }
 }

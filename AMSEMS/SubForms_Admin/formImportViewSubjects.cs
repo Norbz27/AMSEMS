@@ -100,7 +100,7 @@ namespace AMSEMS.SubForms_Admin
                     cn.Open();
 
                     // Check if the student is already present in the Students table based on a unique identifier (e.g., ID or name)
-                    string checkQuery = "SELECT ID FROM tbl_subjects WHERE Course_code = @code"; // Modify this query as needed
+                    string checkQuery = "SELECT Course_code FROM tbl_subjects WHERE Course_code = @code"; // Modify this query as needed
                     using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
                     {
                         checkCommand.Parameters.AddWithValue("@code", column1Value);
@@ -115,12 +115,12 @@ namespace AMSEMS.SubForms_Admin
                     {
 
                         // Construct your INSERT query
-                        string insertQuery = $"INSERT INTO tbl_subjects (Course_code, Course_Descrription, Units) VALUES (@Course_code, @Course_Descrription, @Units)";
+                        string insertQuery = $"INSERT INTO tbl_subjects (Course_code, Course_Description, Units) VALUES (@Course_code, @Course_Description, @Units)";
 
                         using (SqlCommand command = new SqlCommand(insertQuery, cn))
                         {
                             command.Parameters.AddWithValue("@Course_code", column1Value);
-                            command.Parameters.AddWithValue("@Course_Descrription", column2Value);
+                            command.Parameters.AddWithValue("@Course_Description", column2Value);
                             command.Parameters.AddWithValue("@Units", column3Value);
 
                             command.ExecuteNonQuery();
@@ -162,50 +162,50 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnDownload_LinkClicked(object sender, EventArgs e)
         {
-            string excelFilePath = @"F:\Subjects.xlsx";
+            //string excelFilePath = @"F:\Subjects.xlsx";
 
-            byte[] excelBytes;
+            //byte[] excelBytes;
 
-            using (FileStream fs = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read))
-            {
-                excelBytes = new byte[fs.Length];
-                fs.Read(excelBytes, 0, (int)fs.Length);
-            }
+            //using (FileStream fs = new FileStream(excelFilePath, FileMode.Open, FileAccess.Read))
+            //{
+            //    excelBytes = new byte[fs.Length];
+            //    fs.Read(excelBytes, 0, (int)fs.Length);
+            //}
 
-            string fileName = Path.GetFileName(excelFilePath);
-
-            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
-            {
-                connection.Open();
-                using (SqlCommand cmd = new SqlCommand("INSERT INTO tbl_blob_files (Blob_Filename, Blob) VALUES (@FileName, @FileData)", connection))
-                {
-                    cmd.Parameters.AddWithValue("@FileName", fileName);
-                    cmd.Parameters.AddWithValue("@FileData", excelBytes);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-
-            //string query = "SELECT Blob FROM tbl_blob_files WHERE ID = @ID"; // Replace with your actual query
+            //string fileName = Path.GetFileName(excelFilePath);
 
             //using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
             //{
             //    connection.Open();
-            //    using (SqlCommand command = new SqlCommand(query, connection))
+            //    using (SqlCommand cmd = new SqlCommand("INSERT INTO tbl_blob_files (Blob_Filename, Blob) VALUES (@FileName, @FileData)", connection))
             //    {
-            //        command.Parameters.AddWithValue("@ID", 4);
-
-            //        using (SqlDataReader reader = command.ExecuteReader())
-            //        {
-            //            if (reader.Read())
-            //            {
-            //                byte[] excelData = (byte[])reader["Blob"];
-
-            //                // Call a function to save the excelData to a file
-            //                SaveExcelFile(excelData);
-            //            }
-            //        }
+            //        cmd.Parameters.AddWithValue("@FileName", fileName);
+            //        cmd.Parameters.AddWithValue("@FileData", excelBytes);
+            //        cmd.ExecuteNonQuery();
             //    }
             //}
+
+            string query = "SELECT Blob FROM tbl_blob_files WHERE ID = @ID"; // Replace with your actual query
+
+            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ID", 4);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            byte[] excelData = (byte[])reader["Blob"];
+
+                            // Call a function to save the excelData to a file
+                            SaveExcelFile(excelData);
+                        }
+                    }
+                }
+            }
 
         }
         static void SaveExcelFile(byte[] excelData)

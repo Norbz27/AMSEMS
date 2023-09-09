@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
+using OfficeOpenXml;
 
 namespace AMSEMS.SubForms_Admin
 {
@@ -238,13 +240,13 @@ namespace AMSEMS.SubForms_Admin
 
                         if (confirmationResult == DialogResult.Yes)
                         {
-                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            String primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
                             bool deletionSuccessful = DeleteStudentRecord(primaryKeyValue);
 
                             if (deletionSuccessful)
                             {
                                 displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID");
-                                MessageBox.Show("Account deleted successfully.");
+                                MessageBox.Show("Subject deleted successfully.");
                             }
                             else
                             {
@@ -256,7 +258,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
         }
-        private bool DeleteStudentRecord(int code)
+        private bool DeleteStudentRecord(String code)
         {
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
             {
@@ -318,6 +320,82 @@ namespace AMSEMS.SubForms_Admin
         private void btnExport_Click(object sender, EventArgs e)
         {
             CMSExport.Show(btnExport, new System.Drawing.Point(0, btnExport.Height));
+        }
+
+        private void btnExpExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Excel Files|*.xlsx";
+                    saveFileDialog.Title = "Save As Excel File";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string filePath = saveFileDialog.FileName;
+
+                        // Create a new Excel application
+                        Excel.Application excelApp = new Excel.Application();
+                        excelApp.Visible = false; // You can set this to true for debugging purposes
+
+                        // Create a new Excel workbook
+                        Excel.Workbook workbook = excelApp.Workbooks.Add();
+
+                        // Create a new Excel worksheet
+                        Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets.Add();
+
+                        // Customizing the table appearance
+                        Excel.Range tableRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[dgvSubjects.Rows.Count + 1, dgvSubjects.Columns.Count - 1]];
+
+                        int excelColumnIndex = 1; // Start from the first Excel column
+                        foreach (DataGridViewColumn column in dgvSubjects.Columns)
+                        {
+                            if (column.Index < dgvSubjects.Columns.Count - 1) // Exclude the last column
+                            {
+                                worksheet.Cells[1, excelColumnIndex] = column.HeaderText; // Set the header in the first row
+                                worksheet.Cells[1, excelColumnIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196)); // Background color: #4472C4
+                                worksheet.Cells[1, excelColumnIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White); // Text color: White
+                                excelColumnIndex++;
+                            }
+                        }
+
+                        int rowIndex = 2; // Start from the second row
+                        foreach (DataGridViewRow row in dgvSubjects.Rows)
+                        {
+                            excelColumnIndex = 1; // Reset Excel column index for each row
+                            for (int i = 0; i < row.Cells.Count - 1; i++) // Exclude the last column
+                            {
+                                worksheet.Cells[rowIndex, excelColumnIndex] = row.Cells[i].Value.ToString();
+                                excelColumnIndex++;
+                            }
+                            rowIndex++;
+                        }
+
+                        // Apply the "Blue, Table Style Medium 2" table style
+                        tableRange.Worksheet.ListObjects.Add(Excel.XlListObjectSourceType.xlSrcRange, tableRange, null, Excel.XlYesNoGuess.xlYes, null).TableStyle = "TableStyleMedium2";
+
+                        // Delete the last column in the Excel worksheet
+                        worksheet.Cells[1, dgvSubjects.Columns.Count].EntireColumn.Delete();
+
+                        // Save the Excel file
+                        workbook.SaveAs(filePath);
+
+                        // Close Excel and release resources
+                        workbook.Close();
+                        excelApp.Quit();
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+
+                        MessageBox.Show("Data exported to Excel successfully.", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
