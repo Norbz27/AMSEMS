@@ -26,12 +26,14 @@ namespace AMSEMS.SubForms_Admin
 
         formStudentForm formStudentForm;
         formTeacherForm formTeacherForm;
-        public formAddSchoolSetting()
+        public formAddSchoolSetting(formStudentForm formStudentForm, formTeacherForm formTeacherForm)
         {
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
 
+            this.formStudentForm = formStudentForm;
+            this.formTeacherForm = formTeacherForm;
         }
 
         public void setDisplayData(String header)

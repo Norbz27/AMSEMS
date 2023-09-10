@@ -53,21 +53,21 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnAddSection_Click(object sender, EventArgs e)
         {
-            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting();
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting(this, new formTeacherForm());
             formAddSchoolSetting.setDisplayData("Section");
             formAddSchoolSetting.ShowDialog();
         }
 
         private void btnAddYearLvl_Click(object sender, EventArgs e)
         {
-            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting();
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting(this, new formTeacherForm());
             formAddSchoolSetting.setDisplayData("Year Level");
             formAddSchoolSetting.ShowDialog();
         }
 
         private void btnAddProgram_Click(object sender, EventArgs e)
         {
-            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting();
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting(this, new formTeacherForm());
             formAddSchoolSetting.setDisplayData("Program");
             formAddSchoolSetting.ShowDialog();
         }
@@ -112,9 +112,7 @@ namespace AMSEMS.SubForms_Admin
                     cbProgram.Items.Add(dr["Description"].ToString());
                 }
                 dr.Close();
-                cn.Close();
 
-                cn.Open();
                 cm = new SqlCommand("Select Description from tbl_year_level", cn);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
@@ -122,9 +120,7 @@ namespace AMSEMS.SubForms_Admin
                     cbYearlvl.Items.Add(dr["Description"].ToString());
                 }
                 dr.Close();
-                cn.Close();
 
-                cn.Open();
                 cm = new SqlCommand("Select Description from tbl_Section", cn);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
@@ -132,9 +128,15 @@ namespace AMSEMS.SubForms_Admin
                     cbSection.Items.Add(dr["Description"].ToString());
                 }
                 dr.Close();
-                cn.Close();
 
-                cn.Open();
+                cm = new SqlCommand("Select Description from tbl_Departments", cn);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    cbDep.Items.Add(dr["Description"].ToString());
+                }
+                dr.Close();
+
                 cm = new SqlCommand("Select Description from tbl_Role where Role_ID = " + roleID1 + "", cn);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
@@ -221,6 +223,7 @@ namespace AMSEMS.SubForms_Admin
                         cm.Parameters.AddWithValue("@Program", cbProgram.Text);
                         cm.Parameters.AddWithValue("@Section", cbSection.Text);
                         cm.Parameters.AddWithValue("@Year_Level", cbYearlvl.Text);
+                        cm.Parameters.AddWithValue("@Department", cbDep.Text);
                         cm.Parameters.AddWithValue("@Role", tbRole.Text);
                         cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                         cm.ExecuteNonQuery();
@@ -265,6 +268,7 @@ namespace AMSEMS.SubForms_Admin
                             cm.Parameters.AddWithValue("@Program", cbProgram.Text);
                             cm.Parameters.AddWithValue("@Section", cbSection.Text);
                             cm.Parameters.AddWithValue("@Year_Level", cbYearlvl.Text);
+                            cm.Parameters.AddWithValue("@Department", cbDep.Text);
                             cm.Parameters.AddWithValue("@Role", tbRole.Text);
                             cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                             cm.ExecuteNonQuery();
@@ -321,9 +325,10 @@ namespace AMSEMS.SubForms_Admin
                     cn.Close();
 
                     cn.Open();
-                    cm = new SqlCommand("Select ID,RFID,Firstname,Lastname,Middlename,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa " +
+                    cm = new SqlCommand("Select ID,RFID,Firstname,Lastname,Middlename,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes, d.Description as depDes,st.Description as stDes from tbl_student_accounts as sa " +
                         "left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID " +
                         "left join tbl_year_level as yl on sa.Year_level = yl.Level_ID " +
+                        "left join tbl_Departments as d on sa.Department = d.Department_ID " +
                         "left join tbl_status as st on sa.Status = st.Status_ID where ID = " + ID + "", cn);
                     dr = cm.ExecuteReader();
                     dr.Read();
@@ -336,6 +341,7 @@ namespace AMSEMS.SubForms_Admin
                     cbProgram.Text = dr["pDes"].ToString();
                     cbSection.Text = dr["sDes"].ToString();
                     cbYearlvl.Text = dr["yDes"].ToString();
+                    cbDep.Text = dr["depDes"].ToString();
                     tbStatus.Text = dr["stDes"].ToString();
                     dr.Close();
                     cn.Close();
@@ -345,6 +351,13 @@ namespace AMSEMS.SubForms_Admin
                     MessageBox.Show(e.Message);
                 }
             }
+        }
+
+        private void btnAddDep_Click(object sender, EventArgs e)
+        {
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting(this, new formTeacherForm());
+            formAddSchoolSetting.setDisplayData("Departments");
+            formAddSchoolSetting.ShowDialog();
         }
     }
 }

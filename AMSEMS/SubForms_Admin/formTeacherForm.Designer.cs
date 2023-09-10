@@ -451,16 +451,16 @@ namespace AMSEMS.SubForms_Admin
             // 
             // kryptonLabel20
             // 
-            this.kryptonLabel20.Location = new System.Drawing.Point(186, 110);
+            this.kryptonLabel20.Location = new System.Drawing.Point(186, 112);
             this.kryptonLabel20.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel20.Name = "kryptonLabel20";
-            this.kryptonLabel20.Size = new System.Drawing.Size(77, 19);
+            this.kryptonLabel20.Size = new System.Drawing.Size(79, 19);
             this.kryptonLabel20.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonLabel20.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.kryptonLabel20.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
             this.kryptonLabel20.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.kryptonLabel20.TabIndex = 77;
-            this.kryptonLabel20.Values.Text = "Department";
+            this.kryptonLabel20.Values.Text = "Department:";
             // 
             // kryptonLabel21
             // 

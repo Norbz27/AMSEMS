@@ -38,6 +38,34 @@ namespace AMSEMS.SubForms_Admin
             else
                 loadData(id);
             DisplayData();
+
+            displayChart();
+        }
+
+        public void displayChart()
+        {
+            using (cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                chart1.Series["s1"].IsValueShownAsLabel = true;
+                string query = "SELECT p.Description as Prog, COUNT(*) AS StudentCount FROM tbl_student_accounts as sa inner join tbl_program as p on sa.Program = p.Program_ID GROUP BY p.Description";
+                using (SqlCommand command = new SqlCommand(query, cn))
+                {
+                    // Execute the query and retrieve data
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            // Retrieve data and display it on the chart
+                            string program = reader["Prog"].ToString();
+                            int studentCount = Convert.ToInt32(reader["StudentCount"]);
+
+                            // Add data to the chart
+                            chart1.Series[0].Points.AddXY(program, studentCount);
+                        }
+                    }
+                }
+            }
         }
 
         public void loadData(String id)
