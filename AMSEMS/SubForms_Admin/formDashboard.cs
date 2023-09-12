@@ -22,6 +22,7 @@ namespace AMSEMS.SubForms_Admin
         static FormAdminNavigation form;
         public formDashboard(String id1)
         {
+
             InitializeComponent();
 
             id = id1;
@@ -40,15 +41,17 @@ namespace AMSEMS.SubForms_Admin
             DisplayData();
 
             displayChart();
+            displayAccounts();
         }
 
         public void displayChart()
         {
+            chart1.Invalidate();
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
                 chart1.Series["s1"].IsValueShownAsLabel = true;
-                string query = "SELECT p.Description as Prog, COUNT(*) AS StudentCount FROM tbl_student_accounts as sa inner join tbl_program as p on sa.Program = p.Program_ID GROUP BY p.Description";
+                string query = "SELECT d.Description as Dep, COUNT(*) AS StudentCount FROM tbl_student_accounts as sa inner join tbl_Departments as d on sa.Department = d.Department_ID GROUP BY d.Description";
                 using (SqlCommand command = new SqlCommand(query, cn))
                 {
                     // Execute the query and retrieve data
@@ -57,7 +60,7 @@ namespace AMSEMS.SubForms_Admin
                         while (reader.Read())
                         {
                             // Retrieve data and display it on the chart
-                            string program = reader["Prog"].ToString();
+                            string program = reader["Dep"].ToString();
                             int studentCount = Convert.ToInt32(reader["StudentCount"]);
 
                             // Add data to the chart
@@ -82,9 +85,31 @@ namespace AMSEMS.SubForms_Admin
 
             }
         }
+        public void displayAccounts()
+        {
+            dgvAccounts.Rows.Clear();
+            int count = 1;
+            using (cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                cm = new SqlCommand("SELECT TOP 10 ca.Firstname as Fname, ca.Lastname as Lname, r.Description AS RoleDescription, ca.DateTime FROM (SELECT Firstname, Lastname, Role, DateTime FROM tbl_student_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_deptHead_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_guidance_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_sao_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_teacher_accounts) AS ca JOIN tbl_role AS r ON ca.Role = r.Role_ID ORDER BY ca.DateTime", cn);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    dgvAccounts.Rows.Add(
+                        count++,
+                        dr["Fname"].ToString() + " " + dr["Lname"].ToString(),
+                        dr["RoleDescription"].ToString()
+                    );
+                }
+                dr.Close();
+                cn.Close();
+            }
+        }
         public void DisplayData()
         {
-            
+            displayAccounts();
+
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 //Students
@@ -196,8 +221,11 @@ namespace AMSEMS.SubForms_Admin
         }
         private void btnView_Click(object sender, EventArgs e)
         {
+            SubForms_Admin.formAccounts_Students.setAccountName("Students Account");
+            SubForms_Admin.formAccounts_Students.setRole(5);
             form.OpenChildForm(new SubForms_Admin.formAccounts_Students());
             form.isCollapsed = true;
+            form.kryptonSplitContainer1.Panel2Collapsed = true;
             form.panelCollapsed.Size = form.panelCollapsed.MaximumSize;
             controls();
         }

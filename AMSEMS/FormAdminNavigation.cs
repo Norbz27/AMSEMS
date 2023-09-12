@@ -12,6 +12,7 @@ using ComponentFactory.Krypton.Toolkit;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using AMSEMS.Properties;
 using System.Data.SqlClient;
+using AMSEMS.SubForm_Guidance;
 
 namespace AMSEMS
 {
@@ -25,7 +26,6 @@ namespace AMSEMS
         private Form activeForm;
         public static String id;
 
-        public event EventHandler TogglePanelCollapse;
 
         public FormAdminNavigation(String id1)
         {
@@ -36,6 +36,7 @@ namespace AMSEMS
             this.btnDashboard.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
 
+
             cn = new SqlConnection(SQL_Connection.connection);
 
 
@@ -43,6 +44,7 @@ namespace AMSEMS
             OpenChildForm(new SubForms_Admin.formDashboard(id1));
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             id = id1;
+
         }
 
         public void loadData(String id)
@@ -152,7 +154,7 @@ namespace AMSEMS
             isCollapsed = false;
             timer1.Start();
             this.kryptonSplitContainer1.Panel2Collapsed = true;
-            OpenChildForm(new SubForms_Admin.formSettings());
+            OpenChildForm(new SubForms_Admin.formSettings(this));
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
@@ -262,13 +264,6 @@ namespace AMSEMS
             OpenChildForm(new SubForms_Admin.formAccounts_Students());
         }
 
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
-            FormLoginPage formLoginPage = new FormLoginPage();
-            formLoginPage.Show();
-        }
-
         private void FormAdminNavigation_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
@@ -277,6 +272,13 @@ namespace AMSEMS
         private void FormAdminNavigation_Load(object sender, EventArgs e)
         {
             loadData(id);
+        }
+
+        public void Logout()
+        {
+            this.Dispose();
+            FormLoginPage formLoginPage = new FormLoginPage();
+            formLoginPage.Show();
         }
     }
 }

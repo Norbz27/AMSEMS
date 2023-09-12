@@ -25,7 +25,7 @@ namespace AMSEMS.SubForms_Admin
 
         String selectedFilePath;
         int role;
-
+        DateTime currentDateTime = DateTime.Now;
         private const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private static readonly Random RandomGenerator = new Random();
 
@@ -144,7 +144,7 @@ namespace AMSEMS.SubForms_Admin
                             string generatedPass = GeneratePassword(passwordLength); ;
 
                             // Construct your INSERT query
-                            string insertQuery = $"INSERT INTO tbl_deptHead_accounts (ID, Firstname, Lastname, Middlename, Password) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password)";
+                            string insertQuery = $"INSERT INTO tbl_deptHead_accounts (ID, Firstname, Lastname, Middlename, Password, DateTime) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password, @DateTime)";
 
                             using (SqlCommand command = new SqlCommand(insertQuery, cn))
                             {
@@ -153,6 +153,7 @@ namespace AMSEMS.SubForms_Admin
                                 command.Parameters.AddWithValue("@Lastname", column3Value);
                                 command.Parameters.AddWithValue("@Middlename", column4Value);
                                 command.Parameters.AddWithValue("@Password", generatedPass);
+                                command.Parameters.AddWithValue("@DateTime", currentDateTime);
 
                                 command.ExecuteNonQuery();
                             }
@@ -188,7 +189,7 @@ namespace AMSEMS.SubForms_Admin
                             string generatedPass = GeneratePassword(passwordLength); ;
 
                             // Construct your INSERT query
-                            string insertQuery = $"INSERT INTO tbl_guidance_accounts (ID, Firstname, Lastname, Middlename, Password) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password)";
+                            string insertQuery = $"INSERT INTO tbl_guidance_accounts (ID, Firstname, Lastname, Middlename, Password, DateTime) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password, @DateTime)";
 
                             using (SqlCommand command = new SqlCommand(insertQuery, cn))
                             {
@@ -197,6 +198,7 @@ namespace AMSEMS.SubForms_Admin
                                 command.Parameters.AddWithValue("@Lastname", column3Value);
                                 command.Parameters.AddWithValue("@Middlename", column4Value);
                                 command.Parameters.AddWithValue("@Password", generatedPass);
+                                command.Parameters.AddWithValue("@DateTime", currentDateTime);
 
                                 command.ExecuteNonQuery();
                             }
@@ -232,7 +234,7 @@ namespace AMSEMS.SubForms_Admin
                             string generatedPass = GeneratePassword(passwordLength); ;
 
                             // Construct your INSERT query
-                            string insertQuery = $"INSERT INTO tbl_sao_accounts (ID, Firstname, Lastname, Middlename, Password) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password)";
+                            string insertQuery = $"INSERT INTO tbl_sao_accounts (ID, Firstname, Lastname, Middlename, Password, DateTime) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password, @DateTime)";
 
                             using (SqlCommand command = new SqlCommand(insertQuery, cn))
                             {
@@ -241,6 +243,7 @@ namespace AMSEMS.SubForms_Admin
                                 command.Parameters.AddWithValue("@Lastname", column3Value);
                                 command.Parameters.AddWithValue("@Middlename", column4Value);
                                 command.Parameters.AddWithValue("@Password", generatedPass);
+                                command.Parameters.AddWithValue("@DateTime", currentDateTime);
 
                                 command.ExecuteNonQuery();
                             }
@@ -331,7 +334,7 @@ namespace AMSEMS.SubForms_Admin
                             string generatedPass = GeneratePassword(passwordLength); ;
 
                             // Construct your INSERT query
-                            string insertQuery = $"INSERT INTO tbl_student_accounts (ID, Firstname, Lastname, Middlename, Password) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password)";
+                            string insertQuery = $"INSERT INTO tbl_student_accounts (ID, Firstname, Lastname, Middlename, Password, DateTime) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password, @DateTime)";
 
                             using (SqlCommand command = new SqlCommand(insertQuery, cn))
                             {
@@ -340,6 +343,7 @@ namespace AMSEMS.SubForms_Admin
                                 command.Parameters.AddWithValue("@Lastname", column3Value);
                                 command.Parameters.AddWithValue("@Middlename", column4Value);
                                 command.Parameters.AddWithValue("@Password", generatedPass);
+                                command.Parameters.AddWithValue("@DateTime", currentDateTime);
                                 //command.Parameters.AddWithValue("@ProgramId", programId);
                                 //command.Parameters.AddWithValue("@SectionId", sectionId);
                                 //command.Parameters.AddWithValue("@YearLevelId", yearLevelId);
@@ -378,7 +382,7 @@ namespace AMSEMS.SubForms_Admin
                             string generatedPass = GeneratePassword(passwordLength); ;
 
                             // Construct your INSERT query
-                            string insertQuery = $"INSERT INTO tbl_teacher_accounts (ID, Firstname, Lastname, Middlename, Password) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password)";
+                            string insertQuery = $"INSERT INTO tbl_teacher_accounts (ID, Firstname, Lastname, Middlename, Password, DateTime) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password, @DateTime)";
 
                             using (SqlCommand command = new SqlCommand(insertQuery, cn))
                             {
@@ -387,6 +391,7 @@ namespace AMSEMS.SubForms_Admin
                                 command.Parameters.AddWithValue("@Lastname", column3Value);
                                 command.Parameters.AddWithValue("@Middlename", column4Value);
                                 command.Parameters.AddWithValue("@Password", generatedPass);
+                                command.Parameters.AddWithValue("@DateTime", currentDateTime);
 
                                 command.ExecuteNonQuery();
                             }

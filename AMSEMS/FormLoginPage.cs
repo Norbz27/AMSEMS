@@ -120,11 +120,11 @@ namespace AMSEMS
 
         private async Task LoginAsync()
         {
-            if (!CheckForInternetConnection())
-            {
-                MessageBox.Show("No Internet Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            //if (!CheckForInternetConnection())
+            //{
+            //    MessageBox.Show("No Internet Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))

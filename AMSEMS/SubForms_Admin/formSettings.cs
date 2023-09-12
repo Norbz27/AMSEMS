@@ -14,9 +14,11 @@ namespace AMSEMS.SubForms_Admin
     public partial class formSettings : KryptonForm
     {
         private Form activeForm;
-        public formSettings()
+        FormAdminNavigation form;
+        public formSettings(FormAdminNavigation form)
         {
             InitializeComponent();
+            this.form = form;
         }
 
         private void formSettings_Load(object sender, EventArgs e)
@@ -210,6 +212,11 @@ namespace AMSEMS.SubForms_Admin
             this.btnAcPer.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
             this.btnAcPer.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.btnAcPer.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            form.Logout();
         }
     }
 }

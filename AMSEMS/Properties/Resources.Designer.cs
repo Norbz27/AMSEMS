@@ -363,6 +363,16 @@ namespace AMSEMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap notification_24_dg {
+            get {
+                object obj = ResourceManager.GetObject("notification-24-dg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap option_24 {
             get {
                 object obj = ResourceManager.GetObject("option-24", resourceCulture);
@@ -526,6 +536,26 @@ namespace AMSEMS.Properties {
         internal static System.Drawing.Bitmap setting_16 {
             get {
                 object obj = ResourceManager.GetObject("setting-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap setting_24 {
+            get {
+                object obj = ResourceManager.GetObject("setting-24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap setting_24_dg {
+            get {
+                object obj = ResourceManager.GetObject("setting-24-dg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
