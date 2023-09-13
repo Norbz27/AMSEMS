@@ -29,6 +29,9 @@ namespace AMSEMS.SubForms_Admin
             InitializeComponent();
             lblAccountName.Text = accountName;
             cn = new SqlConnection(SQL_Connection.connection);
+
+            dgvGuidance.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
+            dgvGuidance.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
         }
 
         public static void setAccountName(String accountName1)
@@ -68,13 +71,17 @@ namespace AMSEMS.SubForms_Admin
                         {
                             while (dr.Read())
                             {
-                                dgvGuidance.Rows.Add(
-                                    count++,
-                                    dr["ID"].ToString(),
-                                    dr["Firstname"].ToString(),
-                                    dr["Lastname"].ToString(),
-                                    dr["stDes"].ToString()
-                                );
+                                // Add a row and set the checkbox column value to false (unchecked)
+                                int rowIndex = dgvGuidance.Rows.Add(false);
+
+                                // Populate other columns, starting from index 1
+                                dgvGuidance.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
+                                dgvGuidance.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
+                                dgvGuidance.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                                dgvGuidance.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
+
+                                // Populate your control column here (change "ControlColumn" to your actual column name)
+                                dgvGuidance.Rows[rowIndex].Cells["option"].Value = option.Image;
                             }
                         }
                     }
@@ -309,6 +316,19 @@ namespace AMSEMS.SubForms_Admin
                 // Show the context menu just below the cell
                 contextMenuStrip2.Show(dgvGuidance, cellBounds.Left, cellBounds.Bottom);
             }
+
+            if (e.ColumnIndex == dgvGuidance.Columns["Select"].Index)
+            {
+                // Checkbox column clicked
+                if (dgvGuidance.Rows[e.RowIndex].Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell)
+                {
+                    // Toggle the checkbox value
+                    checkBoxCell.Value = !(bool)checkBoxCell.Value;
+
+                    // Check the state of checkboxes and show/hide the panel accordingly
+                    UpdatePanelVisibility();
+                }
+            }
         }
 
         private void btnReload_Click(object sender, EventArgs e)
@@ -330,6 +350,121 @@ namespace AMSEMS.SubForms_Admin
 
                 Process.Start(saveFileDialog.FileName);
             }
+        }
+
+
+        private void UpdatePanelVisibility()
+        {
+            bool anyChecked = false;
+
+            // Iterate through the DataGridView rows to check if any checkboxes are checked
+            foreach (DataGridViewRow row in dgvGuidance.Rows)
+            {
+                if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell &&
+                    (bool)checkBoxCell.Value)
+                {
+                    anyChecked = true;
+                    break; // Exit the loop if at least one checkbox is checked
+                }
+            }
+
+            // Show or hide the panel based on the state of the checkboxes
+            pnControl.Visible = anyChecked;
+        }
+
+        private void dgvTeachers_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Check if the current cell belongs to the "Select" checkbox column
+            if (dgvGuidance.Columns[e.ColumnIndex].Name == "Select")
+            {
+                return; // Skip formatting for the checkbox column
+            }
+
+            // Determine the background color based on the checkbox in the same row
+            if (Convert.ToBoolean(dgvGuidance.Rows[e.RowIndex].Cells["Select"].Value) == true)
+            {
+                // Checkbox is checked, highlight the row
+                dgvGuidance.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightBlue;
+            }
+            else
+            {
+                // Checkbox is unchecked, remove the highlight
+                dgvGuidance.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Empty;
+            }
+
+            if (dgvGuidance.Rows[e.RowIndex].Selected)
+            {
+                // Highlight selected rows
+                dgvGuidance.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = SystemColors.GradientInactiveCaption;
+                dgvGuidance.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black; // Optional: Change text color
+            }
+            else
+            {
+                // Reset the default appearance for unselected rows
+                dgvGuidance.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Empty;
+                dgvGuidance.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Empty; // Optional: Reset text color
+            }
+
+            // Update the panel visibility based on checkbox states
+            UpdatePanelVisibility();
+        }
+
+        private void dgvTeachers_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == -1 && e.ColumnIndex == dgvGuidance.Columns["Select"].Index)
+            {
+                e.PaintBackground(e.CellBounds, true);
+                e.PaintContent(e.CellBounds);
+
+                // Create a checkbox control and set its state
+                CheckBox headerCheckbox = new CheckBox();
+                headerCheckbox.Size = new Size(15, 15);
+
+                // Center the checkbox within the header cell
+                int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
+                int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
+
+                headerCheckbox.Location = new Point(x, y);
+                headerCheckbox.Checked = AreAllCheckboxesChecked();
+
+                // Handle the checkbox click event
+                headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
+
+                // Add the checkbox to the header cell
+                dgvGuidance.Controls.Add(headerCheckbox);
+            }
+        }
+        private void HeaderCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox headerCheckbox = (CheckBox)sender;
+
+            foreach (DataGridViewRow row in dgvGuidance.Rows)
+            {
+                if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell)
+                {
+                    checkBoxCell.Value = headerCheckbox.Checked;
+                }
+            }
+
+            // Force a refresh of the DataGridView to update the highlighting
+            dgvGuidance.Refresh();
+
+            // Update the panel visibility based on checkbox states
+            UpdatePanelVisibility();
+        }
+        private bool AreAllCheckboxesChecked()
+        {
+            foreach (DataGridViewRow row in dgvGuidance.Rows)
+            {
+                if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell &&
+                    !(bool)checkBoxCell.Value)
+                {
+                    return false; // At least one checkbox is not checked
+                }
+            }
+
+            return true; // All checkboxes are checked
+
         }
     }
 }

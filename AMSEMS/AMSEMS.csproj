@@ -780,6 +780,7 @@
     <None Include="Resources\program-16-fill.png" />
     <None Include="Resources\sections.png" />
     <None Include="Resources\volume-level-indicator.png" />
+    <None Include="Resources\sections-16-2.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

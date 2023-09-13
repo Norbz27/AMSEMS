@@ -29,6 +29,9 @@ namespace AMSEMS.SubForms_Admin
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
             lblAccountName.Text = accountName;
+
+            dgvsao.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
+            dgvsao.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
         }
         public static void setAccountName(String accountName1)
         {
@@ -54,7 +57,7 @@ namespace AMSEMS.SubForms_Admin
         {
             try
             {
-                dgvGuidance.Rows.Clear();
+                dgvsao.Rows.Clear();
                 int count = 1;
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -67,13 +70,17 @@ namespace AMSEMS.SubForms_Admin
                         {
                             while (dr.Read())
                             {
-                                dgvGuidance.Rows.Add(
-                                    count++,
-                                    dr["ID"].ToString(),
-                                    dr["Firstname"].ToString(),
-                                    dr["Lastname"].ToString(),
-                                    dr["stDes"].ToString()
-                                );
+                                // Add a row and set the checkbox column value to false (unchecked)
+                                int rowIndex = dgvsao.Rows.Add(false);
+
+                                // Populate other columns, starting from index 1
+                                dgvsao.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
+                                dgvsao.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
+                                dgvsao.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                                dgvsao.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
+
+                                // Populate your control column here (change "ControlColumn" to your actual column name)
+                                dgvsao.Rows[rowIndex].Cells["option"].Value = option.Image;
                             }
                         }
                     }
@@ -108,7 +115,7 @@ namespace AMSEMS.SubForms_Admin
         private void ApplySearchFilter(string searchKeyword)
         {
             // Loop through each row in the DataGridView
-            foreach (DataGridViewRow row in dgvGuidance.Rows)
+            foreach (DataGridViewRow row in dgvsao.Rows)
             {
                 bool rowVisible = false;
 
@@ -221,7 +228,7 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
                         formGeneratedForm formGeneratedForm = new formGeneratedForm();
                         formGeneratedForm.setData2(role, "Update", this);
-                        formGeneratedForm.getStudID(dgvGuidance.Rows[rowIndex].Cells[1].Value.ToString());
+                        formGeneratedForm.getStudID(dgvsao.Rows[rowIndex].Cells[1].Value.ToString());
                         formGeneratedForm.ShowDialog();
                         UseWaitCursor = false;
                     }
@@ -298,14 +305,26 @@ namespace AMSEMS.SubForms_Admin
 
         private void dgvGuidance_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            string col = dgvGuidance.Columns[e.ColumnIndex].Name;
+            string col = dgvsao.Columns[e.ColumnIndex].Name;
             if (col == "option")
             {
                 // Get the bounds of the cell
-                System.Drawing.Rectangle cellBounds = dgvGuidance.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+                System.Drawing.Rectangle cellBounds = dgvsao.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
 
                 // Show the context menu just below the cell
-                contextMenuStrip2.Show(dgvGuidance, cellBounds.Left, cellBounds.Bottom);
+                contextMenuStrip2.Show(dgvsao, cellBounds.Left, cellBounds.Bottom);
+            }
+            if (e.ColumnIndex == dgvsao.Columns["Select"].Index)
+            {
+                // Checkbox column clicked
+                if (dgvsao.Rows[e.RowIndex].Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell)
+                {
+                    // Toggle the checkbox value
+                    checkBoxCell.Value = !(bool)checkBoxCell.Value;
+
+                    // Check the state of checkboxes and show/hide the panel accordingly
+                    UpdatePanelVisibility();
+                }
             }
         }
 
@@ -323,11 +342,124 @@ namespace AMSEMS.SubForms_Admin
             saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                ExportToPDF(dgvGuidance, saveFileDialog.FileName);
+                ExportToPDF(dgvsao, saveFileDialog.FileName);
                 MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 Process.Start(saveFileDialog.FileName);
             }
+        }
+        private void UpdatePanelVisibility()
+        {
+            bool anyChecked = false;
+
+            // Iterate through the DataGridView rows to check if any checkboxes are checked
+            foreach (DataGridViewRow row in dgvsao.Rows)
+            {
+                if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell &&
+                    (bool)checkBoxCell.Value)
+                {
+                    anyChecked = true;
+                    break; // Exit the loop if at least one checkbox is checked
+                }
+            }
+
+            // Show or hide the panel based on the state of the checkboxes
+            pnControl.Visible = anyChecked;
+        }
+
+        private void dgvTeachers_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Check if the current cell belongs to the "Select" checkbox column
+            if (dgvsao.Columns[e.ColumnIndex].Name == "Select")
+            {
+                return; // Skip formatting for the checkbox column
+            }
+
+            // Determine the background color based on the checkbox in the same row
+            if (Convert.ToBoolean(dgvsao.Rows[e.RowIndex].Cells["Select"].Value) == true)
+            {
+                // Checkbox is checked, highlight the row
+                dgvsao.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightBlue;
+            }
+            else
+            {
+                // Checkbox is unchecked, remove the highlight
+                dgvsao.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Empty;
+            }
+
+            if (dgvsao.Rows[e.RowIndex].Selected)
+            {
+                // Highlight selected rows
+                dgvsao.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = SystemColors.GradientInactiveCaption;
+                dgvsao.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black; // Optional: Change text color
+            }
+            else
+            {
+                // Reset the default appearance for unselected rows
+                dgvsao.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Empty;
+                dgvsao.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Empty; // Optional: Reset text color
+            }
+
+            // Update the panel visibility based on checkbox states
+            UpdatePanelVisibility();
+        }
+
+        private void dgvTeachers_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == -1 && e.ColumnIndex == dgvsao.Columns["Select"].Index)
+            {
+                e.PaintBackground(e.CellBounds, true);
+                e.PaintContent(e.CellBounds);
+
+                // Create a checkbox control and set its state
+                CheckBox headerCheckbox = new CheckBox();
+                headerCheckbox.Size = new Size(15, 15);
+
+                // Center the checkbox within the header cell
+                int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
+                int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
+
+                headerCheckbox.Location = new Point(x, y);
+                headerCheckbox.Checked = AreAllCheckboxesChecked();
+
+                // Handle the checkbox click event
+                headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
+
+                // Add the checkbox to the header cell
+                dgvsao.Controls.Add(headerCheckbox);
+            }
+        }
+        private void HeaderCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox headerCheckbox = (CheckBox)sender;
+
+            foreach (DataGridViewRow row in dgvsao.Rows)
+            {
+                if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell)
+                {
+                    checkBoxCell.Value = headerCheckbox.Checked;
+                }
+            }
+
+            // Force a refresh of the DataGridView to update the highlighting
+            dgvsao.Refresh();
+
+            // Update the panel visibility based on checkbox states
+            UpdatePanelVisibility();
+        }
+        private bool AreAllCheckboxesChecked()
+        {
+            foreach (DataGridViewRow row in dgvsao.Rows)
+            {
+                if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell &&
+                    !(bool)checkBoxCell.Value)
+                {
+                    return false; // At least one checkbox is not checked
+                }
+            }
+
+            return true; // All checkboxes are checked
+
         }
     }
 }
