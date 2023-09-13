@@ -621,6 +621,9 @@
     <Content Include="Fonts\Poppins-ThinItalic.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="test.resx">
+      <DependentUpon>test.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Fonts\TheChieldrenPersonalUseOnly-YzdJL.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -770,6 +773,13 @@
     <None Include="Resources\setting-24.png" />
     <None Include="Resources\setting-24-dg.png" />
     <None Include="Resources\notification-24-dg.png" />
+    <None Include="Resources\delete-16.png" />
+    <None Include="Resources\diagram.png" />
+    <None Include="Resources\engineering.png" />
+    <None Include="Resources\program-16.png" />
+    <None Include="Resources\program-16-fill.png" />
+    <None Include="Resources\sections.png" />
+    <None Include="Resources\volume-level-indicator.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

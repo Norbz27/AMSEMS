@@ -28,14 +28,17 @@ namespace AMSEMS.SubForms_Admin
         public formAccounts_Students()
         {
             InitializeComponent();
-            
+
             cn = new SqlConnection(SQL_Connection.connection);
             lblAccountName.Text = account;
             btnAll.Focus();
+
+            dgvStudents.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
+            dgvStudents.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
         }
         public static void setAccountName(string accountName)
         {
-            account =  accountName;
+            account = accountName;
         }
 
         public static void setRole(int roleID)
@@ -105,7 +108,7 @@ namespace AMSEMS.SubForms_Admin
                     cn.Close();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -113,41 +116,38 @@ namespace AMSEMS.SubForms_Admin
 
         public void displayTable(string query)
         {
-            try
+            dgvStudents.Rows.Clear();
+
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                dgvStudents.Rows.Clear();
-                int count = 1;
+                cn.Open();
 
-                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    cn.Open();
-
-                    using (SqlCommand cmd = new SqlCommand(query, cn))
+                    using (SqlDataReader dr = cmd.ExecuteReader())
                     {
-                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        while (dr.Read())
                         {
-                            while (dr.Read())
-                            {
-                                dgvStudents.Rows.Add(
-                                    count++,
-                                    dr["ID"].ToString(),
-                                    dr["RFID"].ToString(),
-                                    dr["Firstname"].ToString(),
-                                    dr["Lastname"].ToString(),
-                                    dr["pDes"].ToString(),
-                                    dr["sDes"].ToString(),
-                                    dr["yDes"].ToString(),
-                                    dr["stDes"].ToString()
-                                );
-                            }
+                            // Add a row and set the checkbox column value to false (unchecked)
+                            int rowIndex = dgvStudents.Rows.Add(false);
+
+                            // Populate other columns, starting from index 1
+                            dgvStudents.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
+
+                            // Populate your control column here (change "ControlColumn" to your actual column name)
+                            dgvStudents.Rows[rowIndex].Cells["option"].Value = option.Image;
                         }
                     }
                 }
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+
         }
 
         private void dgvStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -161,6 +161,38 @@ namespace AMSEMS.SubForms_Admin
                 // Show the context menu just below the cell
                 CMSOptions.Show(dgvStudents, cellBounds.Left, cellBounds.Bottom);
             }
+
+            if (e.ColumnIndex == dgvStudents.Columns["Select"].Index)
+            {
+                // Checkbox column clicked
+                if (dgvStudents.Rows[e.RowIndex].Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell)
+                {
+                    // Toggle the checkbox value
+                    checkBoxCell.Value = !(bool)checkBoxCell.Value;
+
+                    // Check the state of checkboxes and show/hide the panel accordingly
+                    UpdatePanelVisibility();
+                }
+            }
+            //System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))))
+        }
+        private void UpdatePanelVisibility()
+        {
+            bool anyChecked = false;
+
+            // Iterate through the DataGridView rows to check if any checkboxes are checked
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell &&
+                    (bool)checkBoxCell.Value)
+                {
+                    anyChecked = true;
+                    break; // Exit the loop if at least one checkbox is checked
+                }
+            }
+
+            // Show or hide the panel based on the state of the checkboxes
+            pnControl.Visible = anyChecked;
         }
 
         private void btnAll_Click(object sender, EventArgs e)
@@ -342,7 +374,7 @@ namespace AMSEMS.SubForms_Admin
         {
             CMSExport.Show(btnExport, new System.Drawing.Point(0, btnExport.Height));
         }
-        
+
         private void btnImport_Click(object sender, EventArgs e)
         {
             formImportView form2 = new formImportView();
@@ -406,17 +438,21 @@ namespace AMSEMS.SubForms_Admin
                             int count = 1;
                             while (dr.Read())
                             {
-                                dgvStudents.Rows.Add(
-                                    count++,
-                                    dr["ID"].ToString(),
-                                    dr["RFID"].ToString(),
-                                    dr["Firstname"].ToString(),
-                                    dr["Lastname"].ToString(),
-                                    dr["pDes"].ToString(),
-                                    dr["sDes"].ToString(),
-                                    dr["yDes"].ToString(),
-                                    dr["stDes"].ToString()
-                                );
+                                // Add a row and set the checkbox column value to false (unchecked)
+                                int rowIndex = dgvStudents.Rows.Add(false);
+
+                                // Populate other columns, starting from index 1
+                                dgvStudents.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
+
+                                // Populate your control column here (change "ControlColumn" to your actual column name)
+                                dgvStudents.Rows[rowIndex].Cells["option"].Value = option.Image;
                             }
                         }
                     }
@@ -431,10 +467,10 @@ namespace AMSEMS.SubForms_Admin
             {
                 await cn.OpenAsync();
 
-                cm = new SqlCommand("Select Description from "+tbl+" where Description = @SelectedItem", cn);
+                cm = new SqlCommand("Select Description from " + tbl + " where Description = @SelectedItem", cn);
                 cm.Parameters.AddWithValue("@SelectedItem", selectedItem);
 
-                string description = null; 
+                string description = null;
 
                 using (SqlDataReader dr = await cm.ExecuteReaderAsync())
                 {
@@ -486,17 +522,21 @@ namespace AMSEMS.SubForms_Admin
                         int count = 1;
                         while (dr.Read())
                         {
-                            dgvStudents.Rows.Add(
-                                count++,
-                                dr["ID"].ToString(),
-                                dr["RFID"].ToString(),
-                                dr["Firstname"].ToString(),
-                                dr["Lastname"].ToString(),
-                                dr["pDes"].ToString(),
-                                dr["sDes"].ToString(),
-                                dr["yDes"].ToString(),
-                                dr["stDes"].ToString()
-                            );
+                            // Add a row and set the checkbox column value to false (unchecked)
+                            int rowIndex = dgvStudents.Rows.Add(false);
+
+                            // Populate other columns, starting from index 1
+                            dgvStudents.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
+
+                            // Populate your control column here (change "ControlColumn" to your actual column name)
+                            dgvStudents.Rows[rowIndex].Cells["option"].Value = option.Image;
                         }
                     }
                 }
@@ -558,6 +598,102 @@ namespace AMSEMS.SubForms_Admin
 
         private void exportToToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void dgvStudents_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Check if the current cell belongs to the "Select" checkbox column
+            if (dgvStudents.Columns[e.ColumnIndex].Name == "Select")
+            {
+                return; // Skip formatting for the checkbox column
+            }
+
+            // Determine the background color based on the checkbox in the same row
+            if (Convert.ToBoolean(dgvStudents.Rows[e.RowIndex].Cells["Select"].Value) == true)
+            {
+                // Checkbox is checked, highlight the row
+                dgvStudents.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightBlue;
+            }
+            else
+            {
+                // Checkbox is unchecked, remove the highlight
+                dgvStudents.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Empty;
+            }
+
+            if (dgvStudents.Rows[e.RowIndex].Selected)
+            {
+                // Highlight selected rows
+                dgvStudents.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = SystemColors.GradientInactiveCaption;
+                dgvStudents.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black; // Optional: Change text color
+            }
+            else
+            {
+                // Reset the default appearance for unselected rows
+                dgvStudents.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Empty;
+                dgvStudents.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Empty; // Optional: Reset text color
+            }
+
+            // Update the panel visibility based on checkbox states
+            UpdatePanelVisibility();
+        }
+
+        private void dgvStudents_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == -1 && e.ColumnIndex == dgvStudents.Columns["Select"].Index)
+            {
+                e.PaintBackground(e.CellBounds, true);
+                e.PaintContent(e.CellBounds);
+
+                // Create a checkbox control and set its state
+                CheckBox headerCheckbox = new CheckBox();
+                headerCheckbox.Size = new Size(15, 15);
+
+                // Center the checkbox within the header cell
+                int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
+                int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
+
+                headerCheckbox.Location = new Point(x, y);
+                headerCheckbox.Checked = AreAllCheckboxesChecked();
+
+                // Handle the checkbox click event
+                headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
+
+                // Add the checkbox to the header cell
+                dgvStudents.Controls.Add(headerCheckbox);
+            }
+        }
+
+        private void HeaderCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox headerCheckbox = (CheckBox)sender;
+
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell)
+                {
+                    checkBoxCell.Value = headerCheckbox.Checked;
+                }
+            }
+
+            // Force a refresh of the DataGridView to update the highlighting
+            dgvStudents.Refresh();
+
+            // Update the panel visibility based on checkbox states
+            UpdatePanelVisibility();
+        }
+        private bool AreAllCheckboxesChecked()
+        {
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell &&
+                    !(bool)checkBoxCell.Value)
+                {
+                    return false; // At least one checkbox is not checked
+                }
+            }
+
+            return true; // All checkboxes are checked
 
         }
     }
