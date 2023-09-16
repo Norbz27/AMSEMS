@@ -35,6 +35,13 @@ namespace AMSEMS.SubForms_Admin
 
             dgvStudents.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvStudents.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+
+            //DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
+            //checkboxColumn.Name = "Select";
+            //checkboxColumn.HeaderText = "";
+            //checkboxColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            //checkboxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            //dgvStudents.Columns.Insert(0, checkboxColumn);
         }
         public static void setAccountName(string accountName)
         {
@@ -59,6 +66,12 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnAddStudent, "Add Account");
             toolTip.SetToolTip(btnImport, "Import Excel File");
             toolTip.SetToolTip(btnExport, "Export");
+            toolTip.SetToolTip(btnDepartment, "Set Department as");
+            toolTip.SetToolTip(btnProgram, "Set Program as");
+            toolTip.SetToolTip(btnLevel, "Set Year Level as");
+            toolTip.SetToolTip(btnSection, "Set Section as");
+            toolTip.SetToolTip(btnMultiDel, "Delete");
+
 
             btnAll.Focus();
 
@@ -280,6 +293,7 @@ namespace AMSEMS.SubForms_Admin
                                 MessageBox.Show("Error deleting student.");
                             }
                             UseWaitCursor = false;
+
                         }
                     }
                 }
@@ -659,8 +673,11 @@ namespace AMSEMS.SubForms_Admin
                 // Handle the checkbox click event
                 headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
 
-                // Add the checkbox to the header cell
-                dgvStudents.Controls.Add(headerCheckbox);
+                // Check if there are any rows in the DataGridView
+                if (dgvStudents.Rows.Count != 0)
+                {
+                    dgvStudents.Controls.Add(headerCheckbox);
+                }
             }
         }
 
@@ -694,6 +711,62 @@ namespace AMSEMS.SubForms_Admin
             }
 
             return true; // All checkboxes are checked
+
+        }
+
+        private void btnMultiDel_Click(object sender, EventArgs e)
+        {
+            // Check if at least one row is selected
+            bool hasSelectedRow = false;
+
+            // Create a list to store the rows to be removed
+            List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
+
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                if (chk.Value != null && (bool)chk.Value)
+                {
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+
+                    // Get the student ID or relevant data from the row
+                    int studentID = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                                                                            // Ask for confirmation from the user
+                    DialogResult result = MessageBox.Show($"Delete account with ID {studentID}?", "Confirm Deletion", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        // Call your DeleteStudentRecord method to delete the record
+                        bool success = DeleteStudentRecord(studentID);
+
+                        if (success)
+                        {
+                            // Add the row to the list of rows to be removed
+                            rowsToRemove.Add(row);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to delete record with ID: " + studentID);
+                        }
+                    }
+                }
+            }
+
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+
+            dgvStudents.Refresh();
+
+            // Show a message if no rows were selected
+            if (!hasSelectedRow)
+            {
+                MessageBox.Show("No rows selected for deletion.");
+            }
+            else
+            {
+                MessageBox.Show("Selected records have been deleted.");
+            }
+
 
         }
     }
