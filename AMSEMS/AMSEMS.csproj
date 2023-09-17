@@ -781,6 +781,12 @@
     <None Include="Resources\sections.png" />
     <None Include="Resources\volume-level-indicator.png" />
     <None Include="Resources\sections-16-2.png" />
+    <None Include="Resources\archive.png" />
+    <None Include="Resources\check %283%29.png" />
+    <None Include="Resources\cancel-16.png" />
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\vertical-line.png" />
+    <None Include="Resources\vertical-line %281%29.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

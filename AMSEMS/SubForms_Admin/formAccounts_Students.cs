@@ -63,22 +63,29 @@ namespace AMSEMS.SubForms_Admin
         private void formAccounts_Students_Load(object sender, EventArgs e)
         {
             ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
             toolTip.SetToolTip(btnAddStudent, "Add Account");
             toolTip.SetToolTip(btnImport, "Import Excel File");
             toolTip.SetToolTip(btnExport, "Export");
-            toolTip.SetToolTip(btnDepartment, "Set Department as");
-            toolTip.SetToolTip(btnProgram, "Set Program as");
-            toolTip.SetToolTip(btnLevel, "Set Year Level as");
-            toolTip.SetToolTip(btnSection, "Set Section as");
+            toolTip.SetToolTip(btnDepartment, "Set Department");
+            toolTip.SetToolTip(btnProgram, "Set Program");
+            toolTip.SetToolTip(btnLevel, "Set Year Level");
+            toolTip.SetToolTip(btnSection, "Set Section");
             toolTip.SetToolTip(btnMultiDel, "Delete");
+            toolTip.SetToolTip(btnSelArchive, "Archive");
+            toolTip.SetToolTip(btnSetActive, "Set Active");
+            toolTip.SetToolTip(btnSetInactive, "Set Inactive");
 
 
             btnAll.Focus();
 
             displayFilter();
 
-            dgvStudents.Rows.Clear();
+
             displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+
+            loadCMSControls();
         }
 
         public void displayFilter()
@@ -673,6 +680,7 @@ namespace AMSEMS.SubForms_Admin
                 // Handle the checkbox click event
                 headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
 
+
                 // Check if there are any rows in the DataGridView
                 if (dgvStudents.Rows.Count != 0)
                 {
@@ -732,13 +740,13 @@ namespace AMSEMS.SubForms_Admin
                     hasSelectedRow = true; // Set the flag to true if at least one row is selected
 
                     // Get the student ID or relevant data from the row
-                    int studentID = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                    int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
                                                                             // Ask for confirmation from the user
-                    DialogResult result = MessageBox.Show($"Delete account with ID {studentID}?", "Confirm Deletion", MessageBoxButtons.YesNo);
+                    DialogResult result = MessageBox.Show($"Delete account with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
                         // Call your DeleteStudentRecord method to delete the record
-                        bool success = DeleteStudentRecord(studentID);
+                        bool success = DeleteStudentRecord(id);
 
                         if (success)
                         {
@@ -747,7 +755,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                         else
                         {
-                            MessageBox.Show("Failed to delete record with ID: " + studentID);
+                            MessageBox.Show("Failed to delete record with ID: " + id);
                         }
                     }
                 }
@@ -756,6 +764,8 @@ namespace AMSEMS.SubForms_Admin
             displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
 
             dgvStudents.Refresh();
+
+            pnControl.Hide();
 
             // Show a message if no rows were selected
             if (!hasSelectedRow)
@@ -766,8 +776,399 @@ namespace AMSEMS.SubForms_Admin
             {
                 MessageBox.Show("Selected records have been deleted.");
             }
+        }
 
+        private void btnSetInactive_Click(object sender, EventArgs e)
+        {
+            // Check if at least one row is selected
+            bool hasSelectedRow = false;
 
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                if (chk.Value != null && (bool)chk.Value)
+                {
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+                    break; // Exit the loop as soon as the first selected row is found
+                }
+            }
+
+            if (hasSelectedRow)
+            {
+                // Ask for confirmation from the user
+                DialogResult result = MessageBox.Show("Set selected accounts as Inactive?", "Confirm Update", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Create a list to store the rows to be removed
+                    List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
+
+                    // Iterate through the DataGridView rows to update selected rows
+                    foreach (DataGridViewRow row in dgvStudents.Rows)
+                    {
+                        // Check if the "Select" checkbox is checked in the current row
+                        DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                        if (chk.Value != null && (bool)chk.Value)
+                        {
+                            // Get the student ID or relevant data from the row
+                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
+                            // Call your UpdateStudentStatus method to update the record
+                            bool success = UpdateStudentStatus(id, 2);
+
+                            if (success)
+                            {
+                                // Add the row to the list of rows to be removed
+                                rowsToRemove.Add(row);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record with ID: " + id);
+                            }
+                        }
+                    }
+
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                }
+            }
+
+        }
+
+        private void btnSetActive_Click(object sender, EventArgs e)
+        {
+            // Check if at least one row is selected
+            bool hasSelectedRow = false;
+
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                if (chk.Value != null && (bool)chk.Value)
+                {
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+                    break; // Exit the loop as soon as the first selected row is found
+                }
+            }
+
+            if (hasSelectedRow)
+            {
+                // Ask for confirmation from the user
+                DialogResult result = MessageBox.Show("Set selected accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Create a list to store the rows to be removed
+                    List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
+
+                    // Iterate through the DataGridView rows to update selected rows
+                    foreach (DataGridViewRow row in dgvStudents.Rows)
+                    {
+                        // Check if the "Select" checkbox is checked in the current row
+                        DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                        if (chk.Value != null && (bool)chk.Value)
+                        {
+                            // Get the student ID or relevant data from the row
+                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
+                            // Call your UpdateStudentStatus method to update the record
+                            bool success = UpdateStudentStatus(id, 1);
+
+                            if (success)
+                            {
+                                // Add the row to the list of rows to be removed
+                                rowsToRemove.Add(row);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record with ID: " + id);
+                            }
+                        }
+                    }
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                }
+            }
+
+        }
+        private bool UpdateStudentStatus(int studentID, int status)
+        {
+            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+            {
+                try
+                {
+                    connection.Open();
+                    string updateQuery = "UPDATE tbl_student_accounts SET Status = @Status WHERE ID = @ID";
+
+                    using (SqlCommand command = new SqlCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@ID", studentID);
+                        command.Parameters.AddWithValue("@Status", status);
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating record: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+        private bool UpdateStudentInfo(int studentID, int itemID, string column)
+        {
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                try
+                {
+                    cn.Open();
+                    string updateQuery = "UPDATE tbl_student_accounts SET "+ column +" = @ItemID WHERE ID = @ID";
+
+                    using (SqlCommand command = new SqlCommand(updateQuery, cn))
+                    {
+                        command.Parameters.AddWithValue("@ID", studentID);
+                        command.Parameters.AddWithValue("@ItemID", itemID);
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating record: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        private void btnDepartment_Click(object sender, EventArgs e)
+        {
+            CMSDepartment.Show(btnDepartment, new System.Drawing.Point(0, btnDepartment.Height));
+        }
+        private void btnProgram_Click(object sender, EventArgs e)
+        {
+            CMSProgram.Show(btnProgram, new System.Drawing.Point(0, btnProgram.Height));
+        }
+
+        private void btnLevel_Click(object sender, EventArgs e)
+        {
+            CMSLevel.Show(btnLevel, new System.Drawing.Point(0, btnLevel.Height));
+        }
+
+        private void btnSection_Click(object sender, EventArgs e)
+        {
+            CMSSection.Show(btnSection, new System.Drawing.Point(0, btnSection.Height));
+        }
+        public void loadCMSControls()
+        {
+            // Assuming you have a ContextMenuStrip named "contextMenuStrip1"
+
+            int itemCount1 = CMSDepartment.Items.Count;
+            int itemCount2 = CMSProgram.Items.Count;
+            int itemCount3 = CMSLevel.Items.Count;
+            int itemCount4 = CMSSection.Items.Count;
+
+            // Start from the last item (excluding the first item at index 0)
+            for (int i = itemCount1 - 1; i > 0; i--)
+            {
+                CMSDepartment.Items.RemoveAt(i);
+            }
+            
+            for (int i = itemCount2 - 1; i > 0; i--)
+            {
+                CMSProgram.Items.RemoveAt(i);
+            }
+            
+            for (int i = itemCount3 - 1; i > 0; i--)
+            {
+                CMSLevel.Items.RemoveAt(i);
+            }
+            
+            for (int i = itemCount4 - 1; i > 0; i--)
+            {
+                CMSSection.Items.RemoveAt(i);
+            }
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
+                    cm = new SqlCommand("Select Department_ID,Description from tbl_Departments", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        // Add a new ToolStripMenuItem
+                        int itemId = Convert.ToInt32(dr["Department_ID"]);
+                        var item = new ToolStripMenuItem(dr["Description"].ToString());
+
+                        // Set margin for the item (adjust the values as needed)
+                        item.Margin = new Padding(10, 0, 0, 0);
+                        item.AutoSize = false;
+                        item.Width = 138;
+                        item.Height = 26;
+
+                        // Store the table name and ID in the Tag property
+                        item.Tag = new Tuple<string, int>("Department", itemId);
+
+                        // Assign a common event handler for all menu items
+                        item.Click += ContextMenuItem_Click;
+
+                        // Add the item to the context menu
+                        CMSDepartment.Items.Add(item);
+                    }
+                    dr.Close();
+                    cn.Close();
+
+                    cn.Open();
+                    cm = new SqlCommand("Select Program_ID,Description from tbl_Program", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        // Add a new ToolStripMenuItem
+                        int itemId = Convert.ToInt32(dr["Program_ID"]);
+                        var item = new ToolStripMenuItem(dr["Description"].ToString());
+
+                        // Set margin for the item (adjust the values as needed)
+                        item.Margin = new Padding(10, 0, 0, 0);
+                        item.AutoSize = false;
+                        item.Width = 198;
+                        item.Height = 26;
+
+                        // Store the table name and ID in the Tag property
+                        item.Tag = new Tuple<string, int>("Program", itemId);
+
+                        // Assign a common event handler for all menu items
+                        item.Click += ContextMenuItem_Click;
+
+                        // Add the item to the context menu
+                        CMSProgram.Items.Add(item);
+                    }
+                    dr.Close();
+                    cn.Close();
+
+                    cn.Open();
+                    cm = new SqlCommand("Select Level_ID,Description from tbl_year_level", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        // Add a new ToolStripMenuItem
+                        int itemId = Convert.ToInt32(dr["Level_ID"]);
+                        var item = new ToolStripMenuItem(dr["Description"].ToString());
+
+                        // Set margin for the item (adjust the values as needed)
+                        item.Margin = new Padding(10, 0, 0, 0);
+                        item.AutoSize = false;
+                        item.Width = 128;
+                        item.Height = 26;
+
+                        // Store the table name in the Tag property
+                        item.Tag = new Tuple<string, int>("Year_Level", itemId);
+
+                        // Assign a common event handler for all menu items
+                        item.Click += ContextMenuItem_Click;
+
+                        // Add the item to the context menu
+                        CMSLevel.Items.Add(item);
+                    }
+                    dr.Close();
+                    cn.Close();
+
+                    cn.Open();
+                    cm = new SqlCommand("Select Section_ID,Description from tbl_Section", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        // Add a new ToolStripMenuItem
+                        int itemId = Convert.ToInt32(dr["Section_ID"]);
+                        var item = new ToolStripMenuItem(dr["Description"].ToString());
+
+                        // Set margin for the item (adjust the values as needed)
+                        item.Margin = new Padding(10, 0, 0, 0);
+                        item.AutoSize = false;
+                        item.Width = 128;
+                        item.Height = 26;
+
+                        // Store the table name in the Tag property
+                        item.Tag = new Tuple<string, int>("Section", itemId);
+
+                        // Assign a common event handler for all menu items
+                        item.Click += ContextMenuItem_Click;
+
+                        // Add the item to the context menu
+                        CMSSection.Items.Add(item);
+                    }
+                    dr.Close();
+                    cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+        private void ContextMenuItem_Click(object sender, EventArgs e)
+        {
+            // Cast the sender to ToolStripMenuItem to access its properties
+            ToolStripMenuItem clickedMenuItem = (ToolStripMenuItem)sender;
+
+            // Get the text of the clicked menu item
+            string menuItemText = clickedMenuItem.Text;
+
+            // Get the table name and ID from the Tag property
+            Tuple<string, int> tagInfo = (Tuple<string, int>)clickedMenuItem.Tag;
+            string column = tagInfo.Item1;
+            int itemId = tagInfo.Item2;
+
+            // Check if at least one row is selected
+            bool hasSelectedRow = false;
+
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                if (chk.Value != null && (bool)chk.Value)
+                {
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+                    break; // Exit the loop as soon as the first selected row is found
+                }
+            }
+
+            if (hasSelectedRow)
+            {
+                // Ask for confirmation from the user
+                DialogResult result = MessageBox.Show("Update Accounts Info?", "Confirm Update", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Create a list to store the rows to be removed
+                    List<DataGridViewRow> rows = new List<DataGridViewRow>();
+
+                    // Iterate through the DataGridView rows to update selected rows
+                    foreach (DataGridViewRow row in dgvStudents.Rows)
+                    {
+                        // Check if the "Select" checkbox is checked in the current row
+                        DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                        if (chk.Value != null && (bool)chk.Value)
+                        {
+                            // Get the student ID or relevant data from the row
+                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
+                            // Call your UpdateStudentStatus method to update the record
+                            bool success = UpdateStudentInfo(id, itemId, column);
+
+                            if (success)
+                            {
+                                // Add the row to the list of rows to be removed
+                                rows.Add(row);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record with ID: " + id);
+                            }
+                        }
+                    }
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                }
+            }
         }
     }
 }
