@@ -44,9 +44,16 @@ namespace AMSEMS.SubForms_Admin
         private void formAcctounts_DeptHead_Load(object sender, EventArgs e)
         {
             ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
             toolTip.SetToolTip(btnAdd, "Add Account");
             toolTip.SetToolTip(btnImport, "Import Excel File");
             toolTip.SetToolTip(btnExport, "Export");
+            toolTip.SetToolTip(btnDepartment, "Set Department");
+            toolTip.SetToolTip(btnMultiDel, "Delete");
+            toolTip.SetToolTip(btnSelArchive, "Archive");
+            toolTip.SetToolTip(btnSetActive, "Set Active");
+            toolTip.SetToolTip(btnSetInactive, "Set Inactive");
 
             btnAll.Focus();
             displayFilter();
@@ -702,7 +709,7 @@ namespace AMSEMS.SubForms_Admin
                             // Get the teacher ID or relevant data from the row
                             int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSAOStatus method to update the record
+                            // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateTeacherStatus(id, 2);
 
                             if (success)
@@ -759,7 +766,7 @@ namespace AMSEMS.SubForms_Admin
                             // Get the teacher ID or relevant data from the row
                             int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSAOStatus method to update the record
+                            // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateTeacherStatus(id, 1);
 
                             if (success)
@@ -928,7 +935,7 @@ namespace AMSEMS.SubForms_Admin
                             // Get the teacher ID or relevant data from the row
                             int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSAOStatus method to update the record
+                            // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateTeacherInfo(id, itemId, column);
 
                             if (success)
@@ -983,7 +990,7 @@ namespace AMSEMS.SubForms_Admin
                             // Get the teacher ID or relevant data from the row
                             int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSAOStatus method to update the record
+                            // Call your UpdateSubjectStatus method to update the record
                             bool success = AddtoArchive(id);
 
                             if (success)

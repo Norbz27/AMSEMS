@@ -46,9 +46,15 @@ namespace AMSEMS.SubForms_Admin
         private void formAccounts_SAO_Load(object sender, EventArgs e)
         {
             ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
             toolTip.SetToolTip(btnAdd, "Add Account");
             toolTip.SetToolTip(btnImport, "Import Excel File");
             toolTip.SetToolTip(btnExport, "Export");
+            toolTip.SetToolTip(btnMultiDel, "Delete");
+            toolTip.SetToolTip(btnSelArchive, "Archive");
+            toolTip.SetToolTip(btnSetActive, "Set Active");
+            toolTip.SetToolTip(btnSetInactive, "Set Inactive");
 
             btnAll.Focus();
             displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
@@ -58,7 +64,6 @@ namespace AMSEMS.SubForms_Admin
             try
             {
                 dgvsao.Rows.Clear();
-                int count = 1;
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -555,7 +560,7 @@ namespace AMSEMS.SubForms_Admin
                             // Get the sao ID or relevant data from the row
                             int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSAOStatus method to update the record
+                            // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateSAOStatus(id, 2);
 
                             if (success)
@@ -612,7 +617,7 @@ namespace AMSEMS.SubForms_Admin
                             // Get the sao ID or relevant data from the row
                             int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSAOStatus method to update the record
+                            // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateSAOStatus(id, 1);
 
                             if (success)
@@ -692,7 +697,7 @@ namespace AMSEMS.SubForms_Admin
                             // Get the sao ID or relevant data from the row
                             int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSAOStatus method to update the record
+                            // Call your UpdateSubjectStatus method to update the record
                             bool success = AddtoArchive(id);
 
                             if (success)

@@ -1207,7 +1207,7 @@ namespace AMSEMS.SubForms_Admin
                             // Get the teacher ID or relevant data from the row
                             int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSAOStatus method to update the record
+                            // Call your UpdateSubjectStatus method to update the record
                             bool success = AddtoArchive(id);
 
                             if (success)
