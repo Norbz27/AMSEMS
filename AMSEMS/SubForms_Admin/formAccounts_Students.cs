@@ -745,7 +745,7 @@ namespace AMSEMS.SubForms_Admin
                     DialogResult result = MessageBox.Show($"Delete account with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
-                        // Call your DeleteStudentRecord method to delete the record
+                        // Call your DeleteTeacherRecord method to delete the record
                         bool success = DeleteStudentRecord(id);
 
                         if (success)
@@ -1167,6 +1167,92 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                     displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                }
+            }
+        }
+
+        private void btnSelArchive_Click(object sender, EventArgs e)
+        {
+            // Check if at least one row is selected
+            bool hasSelectedRow = false;
+
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                if (chk.Value != null && (bool)chk.Value)
+                {
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+                    break; // Exit the loop as soon as the first selected row is found
+                }
+            }
+
+            if (hasSelectedRow)
+            {
+                // Ask for confirmation from the user
+                DialogResult result = MessageBox.Show("Are you sure to archive this accounts?", "Confirm Update", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Create a list to store the rows to be removed
+                    List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
+
+                    // Iterate through the DataGridView rows to update selected rows
+                    foreach (DataGridViewRow row in dgvStudents.Rows)
+                    {
+                        // Check if the "Select" checkbox is checked in the current row
+                        DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                        if (chk.Value != null && (bool)chk.Value)
+                        {
+                            // Get the teacher ID or relevant data from the row
+                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
+                            // Call your UpdateSAOStatus method to update the record
+                            bool success = AddtoArchive(id);
+
+                            if (success)
+                            {
+                                // Add the row to the list of rows to be removed
+                                rowsToRemove.Add(row);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to archive record with ID: " + id);
+                            }
+                        }
+                    }
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                }
+            }
+        }
+        private bool AddtoArchive(int studentID)
+        {
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                try
+                {
+                    cn.Open();
+
+                    string insertQuery = "INSERT INTO tbl_archived_student_accounts (Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime) SELECT Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime FROM tbl_student_accounts WHERE ID = @ID";
+                    using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
+                    {
+                        sqlCommand.Parameters.AddWithValue("@ID", studentID);
+                        sqlCommand.ExecuteNonQuery();
+                    }
+
+                    string deleteQuery = "DELETE FROM tbl_student_accounts WHERE ID = @ID";
+
+                    using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                    {
+                        command.Parameters.AddWithValue("@ID", studentID);
+                        command.ExecuteNonQuery();
+                    }
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating record: " + ex.Message);
+                    return false;
                 }
             }
         }

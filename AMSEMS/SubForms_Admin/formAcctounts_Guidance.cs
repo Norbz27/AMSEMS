@@ -263,7 +263,7 @@ namespace AMSEMS.SubForms_Admin
                         if (confirmationResult == DialogResult.Yes)
                         {
                             int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
-                            bool deletionSuccessful = DeleteStudentRecord(primaryKeyValue);
+                            bool deletionSuccessful = DeleteGuidanceRecord(primaryKeyValue);
 
                             if (deletionSuccessful)
                             {
@@ -280,7 +280,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
         }
-        private bool DeleteStudentRecord(int studentID)
+        private bool DeleteGuidanceRecord(int studentID)
         {
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
             {
@@ -493,8 +493,8 @@ namespace AMSEMS.SubForms_Admin
                     DialogResult result = MessageBox.Show($"Delete account with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
-                        // Call your DeleteStudentRecord method to delete the record
-                        bool success = DeleteStudentRecord(id);
+                        // Call your DeleteGuidanceRecord method to delete the record
+                        bool success = DeleteGuidanceRecord(id);
 
                         if (success)
                         {
@@ -523,8 +523,228 @@ namespace AMSEMS.SubForms_Admin
             {
                 MessageBox.Show("Selected records have been deleted.");
             }
+        }
+        private void btnSetInactive_Click(object sender, EventArgs e)
+        {
+            // Check if at least one row is selected
+            bool hasSelectedRow = false;
 
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvGuidance.Rows)
+            {
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                if (chk.Value != null && (bool)chk.Value)
+                {
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+                    break; // Exit the loop as soon as the first selected row is found
+                }
+            }
 
+            if (hasSelectedRow)
+            {
+                // Ask for confirmation from the user
+                DialogResult result = MessageBox.Show("Set selected accounts as Inactive?", "Confirm Update", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Create a list to store the rows to be removed
+                    List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
+
+                    // Iterate through the DataGridView rows to update selected rows
+                    foreach (DataGridViewRow row in dgvGuidance.Rows)
+                    {
+                        // Check if the "Select" checkbox is checked in the current row
+                        DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                        if (chk.Value != null && (bool)chk.Value)
+                        {
+                            // Get the guidance ID or relevant data from the row
+                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
+                            // Call your UpdateSAOStatus method to update the record
+                            bool success = UpdateGuidanceStatus(id, 2);
+
+                            if (success)
+                            {
+                                // Add the row to the list of rows to be removed
+                                rowsToRemove.Add(row);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record with ID: " + id);
+                            }
+                        }
+                    }
+
+                    displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                }
+            }
+
+        }
+
+        private void btnSetActive_Click(object sender, EventArgs e)
+        {
+            // Check if at least one row is selected
+            bool hasSelectedRow = false;
+
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvGuidance.Rows)
+            {
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                if (chk.Value != null && (bool)chk.Value)
+                {
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+                    break; // Exit the loop as soon as the first selected row is found
+                }
+            }
+
+            if (hasSelectedRow)
+            {
+                // Ask for confirmation from the user
+                DialogResult result = MessageBox.Show("Set selected accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Create a list to store the rows to be removed
+                    List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
+
+                    // Iterate through the DataGridView rows to update selected rows
+                    foreach (DataGridViewRow row in dgvGuidance.Rows)
+                    {
+                        // Check if the "Select" checkbox is checked in the current row
+                        DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                        if (chk.Value != null && (bool)chk.Value)
+                        {
+                            // Get the guidance ID or relevant data from the row
+                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
+                            // Call your UpdateSAOStatus method to update the record
+                            bool success = UpdateGuidanceStatus(id, 1);
+
+                            if (success)
+                            {
+                                // Add the row to the list of rows to be removed
+                                rowsToRemove.Add(row);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record with ID: " + id);
+                            }
+                        }
+                    }
+                    displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                }
+            }
+
+        }
+        private bool UpdateGuidanceStatus(int guidanceID, int status)
+        {
+            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+            {
+                try
+                {
+                    connection.Open();
+                    string updateQuery = "UPDATE tbl_guidance_accounts SET Status = @Status WHERE ID = @ID";
+
+                    using (SqlCommand command = new SqlCommand(updateQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@ID", guidanceID);
+                        command.Parameters.AddWithValue("@Status", status);
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating record: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        private void btnSelArchive_Click(object sender, EventArgs e)
+        {
+            // Check if at least one row is selected
+            bool hasSelectedRow = false;
+
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvGuidance.Rows)
+            {
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                if (chk.Value != null && (bool)chk.Value)
+                {
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+                    break; // Exit the loop as soon as the first selected row is found
+                }
+            }
+
+            if (hasSelectedRow)
+            {
+                // Ask for confirmation from the user
+                DialogResult result = MessageBox.Show("Are you sure to archive this accounts?", "Confirm Update", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Create a list to store the rows to be removed
+                    List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
+
+                    // Iterate through the DataGridView rows to update selected rows
+                    foreach (DataGridViewRow row in dgvGuidance.Rows)
+                    {
+                        // Check if the "Select" checkbox is checked in the current row
+                        DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                        if (chk.Value != null && (bool)chk.Value)
+                        {
+                            // Get the guidance ID or relevant data from the row
+                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
+                            // Call your UpdateGuidanceStatus method to update the record
+                            bool success = AddtoArchive(id);
+
+                            if (success)
+                            {
+                                // Add the row to the list of rows to be removed
+                                rowsToRemove.Add(row);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to archive record with ID: " + id);
+                            }
+                        }
+                    }
+                    displayTable("Select ID,Firstname,Lastname,Password, st.Description as stDes from tbl_guidance_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
+                }
+            }
+        }
+        private bool AddtoArchive(int guidanceID)
+        {
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                try
+                {
+                    cn.Open();
+
+                    string insertQuery = "INSERT INTO tbl_archived_guidance_accounts (Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Role,Status,DateTime) SELECT Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Role,Status,DateTime FROM tbl_guidance_accounts WHERE ID = @ID";
+                    using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
+                    {
+                        sqlCommand.Parameters.AddWithValue("@ID", guidanceID);
+                        sqlCommand.ExecuteNonQuery();
+                    }
+
+                    string deleteQuery = "DELETE FROM tbl_guidance_accounts WHERE ID = @ID";
+
+                    using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                    {
+                        command.Parameters.AddWithValue("@ID", guidanceID);
+                        command.ExecuteNonQuery();
+                    }
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating record: " + ex.Message);
+                    return false;
+                }
+            }
         }
     }
 }
