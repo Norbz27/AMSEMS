@@ -48,7 +48,33 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnSetInactive, "Set Inactive");
 
             btnAll.Focus();
+            displayFilter();
+
             displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+        }
+
+        public void displayFilter()
+        {
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cbAcadLevel.Items.Clear();
+                    cn.Open();
+                    cm = new SqlCommand("Select Academic_Level_Description from tbl_Academic_Level", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        cbAcadLevel.Items.Add(dr["Academic_Level_Description"].ToString());
+                    }
+                    dr.Close();
+                    cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         public void displayTable(string query)
@@ -56,7 +82,6 @@ namespace AMSEMS.SubForms_Admin
             try
             {
                 dgvSubjects.Rows.Clear();
-                int count = 1;
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -296,7 +321,80 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
         }
+        
+        private async Task<string> GetSelectedItemDescriptionAsync(string selectedItem, string tbl)
+        {
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                await cn.OpenAsync();
 
+                cm = new SqlCommand("Select Academic_Level_Description from " + tbl + " where Academic_Level_Description = @SelectedItem", cn);
+                cm.Parameters.AddWithValue("@SelectedItem", selectedItem);
+
+                string description = null;
+
+                using (SqlDataReader dr = await cm.ExecuteReaderAsync())
+                {
+                    if (await dr.ReadAsync())
+                    {
+                        description = dr["Academic_Level_Description"].ToString();
+                    }
+                }
+
+                return description;
+            }
+        }
+        private async void cbAcad_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            System.Windows.Forms.ComboBox comboBox = (System.Windows.Forms.ComboBox)sender;
+            string filtertbl = "tbl_Academic_Level";
+
+            if (!string.IsNullOrEmpty(filtertbl))
+            {
+                // Get the selected items from all ComboBoxes
+                string selectedItemET = cbAcadLevel.Text;
+
+                // Get the corresponding descriptions for the selected items
+                string descriptionET = await GetSelectedItemDescriptionAsync(selectedItemET, "tbl_Academic_Level");
+
+                // Construct the query based on the selected descriptions
+                string query = "Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID " +
+                    "where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription)";
+
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@AcadLevelDescription", string.IsNullOrEmpty(descriptionET) ? DBNull.Value : (object)descriptionET);
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            dgvSubjects.Rows.Clear();
+                            while (dr.Read())
+                            {
+                                // Add a row and set the checkbox column value to false (unchecked)
+                                int rowIndex = dgvSubjects.Rows.Add(false);
+
+                                // Populate other columns, starting from index 1
+                                dgvSubjects.Rows[rowIndex].Cells["ID"].Value = dr["Course_code"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["acad"].Value = dr["Acad"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
+
+                                // Populate your control column here (change "ControlColumn" to your actual column name)
+                                dgvSubjects.Rows[rowIndex].Cells["option"].Value = option.Image;
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
+        }
         private void dgvSubjects_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             string col = dgvSubjects.Columns[e.ColumnIndex].Name;
@@ -583,16 +681,6 @@ namespace AMSEMS.SubForms_Admin
 
             dgvSubjects.Refresh();
             pnControl.Hide();
-
-            // Show a message if no rows were selected
-            if (!hasSelectedRow)
-            {
-                MessageBox.Show("No rows selected for deletion.");
-            }
-            else
-            {
-                MessageBox.Show("Selected records have been deleted.");
-            }
         }
         private void btnSetInactive_Click(object sender, EventArgs e)
         {

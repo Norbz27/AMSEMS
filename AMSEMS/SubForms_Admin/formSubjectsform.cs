@@ -78,7 +78,17 @@ namespace AMSEMS.SubForms_Admin
                 }
                 dr.Close();
                 cn.Close();
-                
+
+                cn.Open();
+                cm = new SqlCommand("Select Academic_Level_Description from tbl_Academic_Level", cn);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    cbAcadLevel.Items.Add(dr["Academic_Level_Description"].ToString());
+                }
+                dr.Close();
+                cn.Close();
+
             }
 
             btnSubmit.Text = choice;
@@ -126,6 +136,7 @@ namespace AMSEMS.SubForms_Admin
                         cm.Parameters.AddWithValue("@Course_Description", tbCourseDes.Text);
                         cm.Parameters.AddWithValue("@Image", picData);
                         cm.Parameters.AddWithValue("@Teach", cbTeacher.Text);
+                        cm.Parameters.AddWithValue("@AcadLevel", cbAcadLevel.Text);
                         cm.Parameters.AddWithValue("@Units", tbUnits.Text);
                         cm.Parameters.AddWithValue("@Status", cbStatus.Text);
                         cm.ExecuteNonQuery();
@@ -165,6 +176,7 @@ namespace AMSEMS.SubForms_Admin
                             cm.Parameters.AddWithValue("@Course_Description", tbCourseDes.Text);
                             cm.Parameters.AddWithValue("@Image", picData);
                             cm.Parameters.AddWithValue("@Teach", cbTeacher.Text);
+                            cm.Parameters.AddWithValue("@AcadLevel", cbAcadLevel.Text);
                             cm.Parameters.AddWithValue("@Units", tbUnits.Text);
                             cm.Parameters.AddWithValue("@Status", cbStatus.Text);
                             cm.ExecuteNonQuery();
@@ -174,7 +186,7 @@ namespace AMSEMS.SubForms_Admin
                             ds.Tables[0].Rows.Clear();
                         }
                     }
-                    form.displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID");              
+                    form.displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
                 }
                 
             }
@@ -209,13 +221,14 @@ namespace AMSEMS.SubForms_Admin
                     }
                     cn.Close();
                     cn.Open();
-                    cm = new SqlCommand("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID  where s.Course_code = '" + Course_code + "'", cn);
+                    cm = new SqlCommand("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Course_code = '" + Course_code + "'", cn);
                     dr = cm.ExecuteReader();
                     dr.Read();
                     tbCcode.Text = dr["Course_code"].ToString();
                     tbCourseDes.Text = dr["Course_Description"].ToString();
                     tbUnits.Text = dr["Units"].ToString();
                     cbTeacher.Text = dr["teach"].ToString();
+                    cbAcadLevel.Text = dr["Acad"].ToString();
                     cbStatus.Text = dr["stDes"].ToString();
 
                     dr.Close();

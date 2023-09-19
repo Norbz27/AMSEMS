@@ -670,16 +670,6 @@ namespace AMSEMS.SubForms_Admin
             dgvTeachers.Refresh();
             pnControl.Hide();
 
-
-            // Show a message if no rows were selected
-            if (!hasSelectedRow)
-            {
-                MessageBox.Show("No rows selected for deletion.");
-            }
-            else
-            {
-                MessageBox.Show("Selected records have been deleted.");
-            }
         }
         private void btnSetInactive_Click(object sender, EventArgs e)
         {
