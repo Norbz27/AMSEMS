@@ -83,7 +83,7 @@ namespace AMSEMS.SubForms_Admin
             displayFilter();
 
 
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
 
             loadCMSControls();
         }
@@ -105,9 +105,7 @@ namespace AMSEMS.SubForms_Admin
                         cbProgram.Items.Add(dr["Description"].ToString());
                     }
                     dr.Close();
-                    cn.Close();
 
-                    cn.Open();
                     cm = new SqlCommand("Select Description from tbl_section", cn);
                     dr = cm.ExecuteReader();
                     while (dr.Read())
@@ -115,14 +113,20 @@ namespace AMSEMS.SubForms_Admin
                         cbSection.Items.Add(dr["Description"].ToString());
                     }
                     dr.Close();
-                    cn.Close();
 
-                    cn.Open();
                     cm = new SqlCommand("Select Description from tbl_year_level", cn);
                     dr = cm.ExecuteReader();
                     while (dr.Read())
                     {
                         cbYearlvl.Items.Add(dr["Description"].ToString());
+                    }
+                    dr.Close();
+
+                    cm = new SqlCommand("Select Description from tbl_Departments", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        cbDep.Items.Add(dr["Description"].ToString());
                     }
                     dr.Close();
                     cn.Close();
@@ -156,6 +160,7 @@ namespace AMSEMS.SubForms_Admin
                             dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
@@ -217,10 +222,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnAll_Click(object sender, EventArgs e)
         {
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa " +
-                        "left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID " +
-                        "left join tbl_year_level as yl on sa.Year_level = yl.Level_ID " +
-                        "left join tbl_status as st on sa.Status = st.Status_ID");
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
         }
 
         private void btnActive_Click(object sender, EventArgs e)
@@ -292,7 +294,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
                                 MessageBox.Show("Account deleted successfully.");
                             }
                             else
@@ -421,6 +423,10 @@ namespace AMSEMS.SubForms_Admin
             {
                 filtertbl = "tbl_year_level";
             }
+            else if (comboBox == cbDep)
+            {
+                filtertbl = "tbl_Departments";
+            }
 
             if (!string.IsNullOrEmpty(filtertbl))
             {
@@ -428,20 +434,20 @@ namespace AMSEMS.SubForms_Admin
                 string selectedItemP = cbProgram.Text;
                 string selectedItemY = cbYearlvl.Text;
                 string selectedItemS = cbSection.Text;
+                string selectedItemD = cbDep.Text;
 
                 // Get the corresponding descriptions for the selected items
                 string descriptionP = await GetSelectedItemDescriptionAsync(selectedItemP, "tbl_program");
                 string descriptionY = await GetSelectedItemDescriptionAsync(selectedItemY, "tbl_year_level");
                 string descriptionS = await GetSelectedItemDescriptionAsync(selectedItemS, "tbl_Section");
+                string descriptionD = await GetSelectedItemDescriptionAsync(selectedItemD, "tbl_Departments");
 
                 // Construct the query based on the selected descriptions
-                string query = "Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa " +
-                    "left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID " +
-                    "left join tbl_year_level as yl on sa.Year_level = yl.Level_ID " +
-                    "left join tbl_status as st on sa.Status = st.Status_ID " +
-                    "where (@ProgramDescription IS NULL OR p.Description = @ProgramDescription) " +
-                    "AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) " +
-                    "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription)";
+                string query = "Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID " +
+                "where (@ProgramDescription IS NULL OR p.Description = @ProgramDescription) " +
+                "AND (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
+                "AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) " +
+                "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription)";
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -450,6 +456,7 @@ namespace AMSEMS.SubForms_Admin
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
                         cmd.Parameters.AddWithValue("@ProgramDescription", string.IsNullOrEmpty(descriptionP) ? DBNull.Value : (object)descriptionP);
+                        cmd.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(descriptionD) ? DBNull.Value : (object)descriptionD);
                         cmd.Parameters.AddWithValue("@YearLevelDescription", string.IsNullOrEmpty(descriptionY) ? DBNull.Value : (object)descriptionY);
                         cmd.Parameters.AddWithValue("@SectionDescription", string.IsNullOrEmpty(descriptionS) ? DBNull.Value : (object)descriptionS);
 
@@ -467,6 +474,7 @@ namespace AMSEMS.SubForms_Admin
                                 dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
@@ -516,12 +524,11 @@ namespace AMSEMS.SubForms_Admin
             string descriptionP = await GetSelectedItemDescriptionAsync(selectedItemP, "tbl_program");
             string descriptionY = await GetSelectedItemDescriptionAsync(selectedItemY, "tbl_year_level");
             string descriptionS = await GetSelectedItemDescriptionAsync(selectedItemS, "tbl_Section");
+            string descriptionD = await GetSelectedItemDescriptionAsync(selectedItemS, "tbl_Departments");
 
-            string query = "Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa " +
-                "left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID " +
-                "left join tbl_year_level as yl on sa.Year_level = yl.Level_ID " +
-                "left join tbl_status as st on sa.Status = st.Status_ID " +
+            string query = "Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID " +
                 "where (@ProgramDescription IS NULL OR p.Description = @ProgramDescription) " +
+                "AND (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
                 "AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) " +
                 "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription) " +
                 "AND (@StatusDescription IS NULL OR st.Description = @StatusDescription)";
@@ -533,6 +540,7 @@ namespace AMSEMS.SubForms_Admin
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     cmd.Parameters.AddWithValue("@ProgramDescription", string.IsNullOrEmpty(descriptionP) ? DBNull.Value : (object)descriptionP);
+                    cmd.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(descriptionD) ? DBNull.Value : (object)descriptionD);
                     cmd.Parameters.AddWithValue("@YearLevelDescription", string.IsNullOrEmpty(descriptionY) ? DBNull.Value : (object)descriptionY);
                     cmd.Parameters.AddWithValue("@SectionDescription", string.IsNullOrEmpty(descriptionS) ? DBNull.Value : (object)descriptionS);
                     cmd.Parameters.AddWithValue("@StatusDescription", statusDescription);
@@ -551,6 +559,7 @@ namespace AMSEMS.SubForms_Admin
                             dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
@@ -595,7 +604,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
 
             cbProgram.Text = String.Empty;
             cbSection.Text = String.Empty;
@@ -761,7 +770,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
 
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
 
             dgvStudents.Refresh();
 
@@ -820,7 +829,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
 
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
                 }
             }
 
@@ -876,7 +885,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
                 }
             }
 
@@ -1157,7 +1166,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
                 }
             }
         }
@@ -1212,7 +1221,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
                 }
             }
         }

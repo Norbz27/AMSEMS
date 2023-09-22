@@ -117,6 +117,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnArch_Click(object sender, EventArgs e)
         {
+            OpenChildForm(new formArchiveSetting());
             this.btnArch.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnArch.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnArch.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
