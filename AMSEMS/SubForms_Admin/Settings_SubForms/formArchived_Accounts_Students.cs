@@ -12,10 +12,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using ComponentFactory.Krypton.Toolkit;
 
 namespace AMSEMS.SubForms_Admin
 {
-    public partial class formAccounts_Students : Form
+    public partial class formArchived_Accounts_Students : KryptonForm
     {
         SqlConnection cn;
         SqlDataAdapter ad;
@@ -25,39 +26,14 @@ namespace AMSEMS.SubForms_Admin
         string selectedItem;
         static string account;
         static int role;
-        public formAccounts_Students()
+        public formArchived_Accounts_Students()
         {
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
-            lblAccountName.Text = account;
-            btnAll.Focus();
 
             dgvStudents.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvStudents.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-
-            //DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
-            //checkboxColumn.Name = "Select";
-            //checkboxColumn.HeaderText = "";
-            //checkboxColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            //checkboxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //dgvStudents.Columns.Insert(0, checkboxColumn);
-        }
-        public static void setAccountName(string accountName)
-        {
-            account = accountName;
-        }
-
-        public static void setRole(int roleID)
-        {
-            role = roleID;
-        }
-
-        private void btnAddStudent_Click(object sender, EventArgs e)
-        {
-            formStudentForm formStudentForm = new formStudentForm();
-            formStudentForm.setData(role, "Submit", this);
-            formStudentForm.ShowDialog();
         }
 
         private void formAccounts_Students_Load(object sender, EventArgs e)
@@ -65,27 +41,14 @@ namespace AMSEMS.SubForms_Admin
             ToolTip toolTip = new ToolTip();
             toolTip.InitialDelay = 500;
             toolTip.AutoPopDelay = int.MaxValue;
-            toolTip.SetToolTip(btnAddStudent, "Add Account");
-            toolTip.SetToolTip(btnImport, "Import Excel File");
-            toolTip.SetToolTip(btnExport, "Export");
-            toolTip.SetToolTip(btnDepartment, "Set Department");
-            toolTip.SetToolTip(btnProgram, "Set Program");
-            toolTip.SetToolTip(btnLevel, "Set Year Level");
-            toolTip.SetToolTip(btnSection, "Set Section");
             toolTip.SetToolTip(btnMultiDel, "Delete");
-            toolTip.SetToolTip(btnSelArchive, "Archive");
-            toolTip.SetToolTip(btnSetActive, "Set Active");
-            toolTip.SetToolTip(btnSetInactive, "Set Inactive");
-
-
-            btnAll.Focus();
+            toolTip.SetToolTip(btnSelUnarchive, "Retrieve");
 
             displayFilter();
 
 
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
 
-            loadCMSControls();
         }
 
         public void displayFilter()
@@ -220,51 +183,6 @@ namespace AMSEMS.SubForms_Admin
             pnControl.Visible = anyChecked;
         }
 
-        private void btnAll_Click(object sender, EventArgs e)
-        {
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
-        }
-
-        private void btnActive_Click(object sender, EventArgs e)
-        {
-            ApplyStatusFilter("Active");
-        }
-
-        private void btnInactive_Click(object sender, EventArgs e)
-        {
-            ApplyStatusFilter("Inactive");
-
-        }
-
-        private void editToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UseWaitCursor = true;
-            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
-
-            if (menuItem != null)
-            {
-                // Get the ContextMenuStrip associated with the clicked item
-                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
-
-                if (menu != null)
-                {
-                    // Get the DataGridView that the context menu is associated with
-                    DataGridView dataGridView = menu.SourceControl as DataGridView;
-
-                    if (dataGridView != null)
-                    {
-                        int rowIndex = dataGridView.CurrentCell.RowIndex;
-                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
-                        formStudentForm formStudentForm = new formStudentForm();
-                        formStudentForm.setData(role, "Update", this);
-                        formStudentForm.getStudID(dgvStudents.Rows[rowIndex].Cells[1].Value.ToString());
-                        formStudentForm.ShowDialog();
-                        UseWaitCursor = false;
-                    }
-                }
-            }
-        }
-
         private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UseWaitCursor = true;
@@ -294,7 +212,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
                                 MessageBox.Show("Account deleted successfully.");
                             }
                             else
@@ -391,18 +309,6 @@ namespace AMSEMS.SubForms_Admin
 
             document.Add(pdfTable);
             document.Close();
-        }
-
-        private void btnExport_Click(object sender, EventArgs e)
-        {
-            CMSExport.Show(btnExport, new System.Drawing.Point(0, btnExport.Height));
-        }
-
-        private void btnImport_Click(object sender, EventArgs e)
-        {
-            formImportView form2 = new formImportView();
-            form2.setRole(role);
-            form2.ShowDialog();
         }
 
         private async void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
@@ -604,13 +510,12 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
 
             cbProgram.Text = String.Empty;
             cbSection.Text = String.Empty;
             cbYearlvl.Text = String.Empty;
             tbSearch.Text = String.Empty;
-            btnAll.Focus();
         }
 
         private void btnExpPDF_Click(object sender, EventArgs e)
@@ -770,7 +675,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
 
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
 
             dgvStudents.Refresh();
 
@@ -829,7 +734,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
 
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
                 }
             }
 
@@ -885,7 +790,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
                 }
             }
 
@@ -936,173 +841,6 @@ namespace AMSEMS.SubForms_Admin
                     MessageBox.Show("Error updating record: " + ex.Message);
                     return false;
                 }
-            }
-        }
-
-        private void btnDepartment_Click(object sender, EventArgs e)
-        {
-            CMSDepartment.Show(btnDepartment, new System.Drawing.Point(0, btnDepartment.Height));
-        }
-        private void btnProgram_Click(object sender, EventArgs e)
-        {
-            CMSProgram.Show(btnProgram, new System.Drawing.Point(0, btnProgram.Height));
-        }
-
-        private void btnLevel_Click(object sender, EventArgs e)
-        {
-            CMSLevel.Show(btnLevel, new System.Drawing.Point(0, btnLevel.Height));
-        }
-
-        private void btnSection_Click(object sender, EventArgs e)
-        {
-            CMSSection.Show(btnSection, new System.Drawing.Point(0, btnSection.Height));
-        }
-        public void loadCMSControls()
-        {
-            // Assuming you have a ContextMenuStrip named "contextMenuStrip1"
-
-            int itemCount1 = CMSDepartment.Items.Count;
-            int itemCount2 = CMSProgram.Items.Count;
-            int itemCount3 = CMSLevel.Items.Count;
-            int itemCount4 = CMSSection.Items.Count;
-
-            // Start from the last item (excluding the first item at index 0)
-            for (int i = itemCount1 - 1; i > 0; i--)
-            {
-                CMSDepartment.Items.RemoveAt(i);
-            }
-            
-            for (int i = itemCount2 - 1; i > 0; i--)
-            {
-                CMSProgram.Items.RemoveAt(i);
-            }
-            
-            for (int i = itemCount3 - 1; i > 0; i--)
-            {
-                CMSLevel.Items.RemoveAt(i);
-            }
-            
-            for (int i = itemCount4 - 1; i > 0; i--)
-            {
-                CMSSection.Items.RemoveAt(i);
-            }
-
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-                {
-                    cn.Open();
-                    cm = new SqlCommand("Select Department_ID,Description from tbl_Departments", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        // Add a new ToolStripMenuItem
-                        int itemId = Convert.ToInt32(dr["Department_ID"]);
-                        var item = new ToolStripMenuItem(dr["Description"].ToString());
-
-                        // Set margin for the item (adjust the values as needed)
-                        item.Margin = new Padding(10, 0, 0, 0);
-                        item.AutoSize = false;
-                        item.Width = 138;
-                        item.Height = 26;
-
-                        // Store the table name and ID in the Tag property
-                        item.Tag = new Tuple<string, int>("Department", itemId);
-
-                        // Assign a common event handler for all menu items
-                        item.Click += ContextMenuItem_Click;
-
-                        // Add the item to the context menu
-                        CMSDepartment.Items.Add(item);
-                    }
-                    dr.Close();
-                    cn.Close();
-
-                    cn.Open();
-                    cm = new SqlCommand("Select Program_ID,Description from tbl_Program", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        // Add a new ToolStripMenuItem
-                        int itemId = Convert.ToInt32(dr["Program_ID"]);
-                        var item = new ToolStripMenuItem(dr["Description"].ToString());
-
-                        // Set margin for the item (adjust the values as needed)
-                        item.Margin = new Padding(10, 0, 0, 0);
-                        item.AutoSize = false;
-                        item.Width = 198;
-                        item.Height = 26;
-
-                        // Store the table name and ID in the Tag property
-                        item.Tag = new Tuple<string, int>("Program", itemId);
-
-                        // Assign a common event handler for all menu items
-                        item.Click += ContextMenuItem_Click;
-
-                        // Add the item to the context menu
-                        CMSProgram.Items.Add(item);
-                    }
-                    dr.Close();
-                    cn.Close();
-
-                    cn.Open();
-                    cm = new SqlCommand("Select Level_ID,Description from tbl_year_level", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        // Add a new ToolStripMenuItem
-                        int itemId = Convert.ToInt32(dr["Level_ID"]);
-                        var item = new ToolStripMenuItem(dr["Description"].ToString());
-
-                        // Set margin for the item (adjust the values as needed)
-                        item.Margin = new Padding(10, 0, 0, 0);
-                        item.AutoSize = false;
-                        item.Width = 128;
-                        item.Height = 26;
-
-                        // Store the table name in the Tag property
-                        item.Tag = new Tuple<string, int>("Year_Level", itemId);
-
-                        // Assign a common event handler for all menu items
-                        item.Click += ContextMenuItem_Click;
-
-                        // Add the item to the context menu
-                        CMSLevel.Items.Add(item);
-                    }
-                    dr.Close();
-                    cn.Close();
-
-                    cn.Open();
-                    cm = new SqlCommand("Select Section_ID,Description from tbl_Section", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        // Add a new ToolStripMenuItem
-                        int itemId = Convert.ToInt32(dr["Section_ID"]);
-                        var item = new ToolStripMenuItem(dr["Description"].ToString());
-
-                        // Set margin for the item (adjust the values as needed)
-                        item.Margin = new Padding(10, 0, 0, 0);
-                        item.AutoSize = false;
-                        item.Width = 128;
-                        item.Height = 26;
-
-                        // Store the table name in the Tag property
-                        item.Tag = new Tuple<string, int>("Section", itemId);
-
-                        // Assign a common event handler for all menu items
-                        item.Click += ContextMenuItem_Click;
-
-                        // Add the item to the context menu
-                        CMSSection.Items.Add(item);
-                    }
-                    dr.Close();
-                    cn.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
             }
         }
         private void ContextMenuItem_Click(object sender, EventArgs e)
@@ -1166,12 +904,12 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
                 }
             }
         }
 
-        private void btnSelArchive_Click(object sender, EventArgs e)
+        private void btnSelUnarchive_Click(object sender, EventArgs e)
         {
             // Check if at least one row is selected
             bool hasSelectedRow = false;
@@ -1191,7 +929,7 @@ namespace AMSEMS.SubForms_Admin
             if (hasSelectedRow)
             {
                 // Ask for confirmation from the user
-                DialogResult result = MessageBox.Show("Are you sure to archive this accounts?", "Confirm Update", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Are you sure to retrieve this accounts?", "Confirm Update", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     // Create a list to store the rows to be removed
@@ -1208,7 +946,7 @@ namespace AMSEMS.SubForms_Admin
                             int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
-                            bool success = AddtoArchive(id);
+                            bool success = Unarchive(id);
 
                             if (success)
                             {
@@ -1221,11 +959,11 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
                 }
             }
         }
-        private bool AddtoArchive(int studentID)
+        private bool Unarchive(int studentID)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
@@ -1234,15 +972,18 @@ namespace AMSEMS.SubForms_Admin
                     cn.Open();
 
                     // Update the status to 1 before inserting
-                    string updateStatusQuery = "UPDATE tbl_student_accounts SET Status = 2 WHERE ID = @ID";
+                    string updateStatusQuery = "UPDATE tbl_archived_student_accounts SET Status = 1 WHERE ID = @ID";
                     using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
                     {
                         updateStatusCommand.Parameters.AddWithValue("@ID", studentID);
                         updateStatusCommand.ExecuteNonQuery();
                     }
 
+
                     // Insert the student record
-                    string insertQuery = "INSERT INTO tbl_archived_student_accounts (Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime) SELECT Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime FROM tbl_student_accounts WHERE ID = @ID";
+                    string insertQuery = "SET IDENTITY_INSERT tbl_student_accounts ON; " +
+                        "INSERT INTO tbl_student_accounts (Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime) SELECT Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime FROM tbl_archived_student_accounts WHERE ID = @ID; " +
+                        "SET IDENTITY_INSERT tbl_student_accounts OFF;";
                     using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
                     {
                         sqlCommand.Parameters.AddWithValue("@ID", studentID);
@@ -1250,18 +991,64 @@ namespace AMSEMS.SubForms_Admin
                     }
 
                     // Delete the record from the archived table
-                    string deleteQuery = "DELETE FROM tbl_student_accounts WHERE ID = @ID";
+                    string deleteQuery = "DELETE FROM tbl_archived_student_accounts WHERE ID = @ID";
                     using (SqlCommand command = new SqlCommand(deleteQuery, cn))
                     {
                         command.Parameters.AddWithValue("@ID", studentID);
                         command.ExecuteNonQuery();
                     }
+
                     return true;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error updating record: " + ex.Message);
                     return false;
+                }
+            }
+
+        }
+
+        private void retrieveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        DialogResult confirmationResult = MessageBox.Show("Are you sure you want to retrieve this record?", "Confirm Retriving Account", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmationResult == DialogResult.Yes)
+                        {
+                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            bool deletionSuccessful = Unarchive(primaryKeyValue);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                                MessageBox.Show("Account retrieved successfully.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error retrieving account.");
+                            }
+                            UseWaitCursor = false;
+
+                        }
+                    }
                 }
             }
         }

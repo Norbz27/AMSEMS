@@ -261,6 +261,12 @@
     <Compile Include="SubForms_Admin\formStudentForm.Designer.cs">
       <DependentUpon>formStudentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Students.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Students.Designer.cs">
+      <DependentUpon>formArchived_Accounts_Students.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formArchiveSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -494,6 +500,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formStudentForm.resx">
       <DependentUpon>formStudentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Students.resx">
+      <DependentUpon>formArchived_Accounts_Students.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchiveSetting.resx">
       <DependentUpon>formArchiveSetting.cs</DependentUpon>
@@ -796,6 +805,8 @@
     <None Include="Resources\cancel.png" />
     <None Include="Resources\vertical-line.png" />
     <None Include="Resources\vertical-line %281%29.png" />
+    <None Include="Resources\inbox.png" />
+    <None Include="Resources\inbox1.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

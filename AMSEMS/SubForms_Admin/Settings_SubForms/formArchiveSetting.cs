@@ -29,6 +29,54 @@ namespace AMSEMS.SubForms_Admin
             cn = new SqlConnection(SQL_Connection.connection);
             id = FormAdminNavigation.id;
 
+            loadData();
+        }
+
+        public void loadData()
+        {
+            cn.Open();
+            cm = new SqlCommand("Select count(*) as cnt from tbl_archived_student_accounts", cn);
+            dr = cm.ExecuteReader();
+            dr.Read();
+            lblArchivedStud.Text = dr["cnt"].ToString() + " Archived";
+            dr.Close();
+
+            cm = new SqlCommand("Select count(*) as cnt from tbl_archived_teacher_accounts", cn);
+            dr = cm.ExecuteReader();
+            dr.Read();
+            lblArchivedTeach.Text = dr["cnt"].ToString() + " Archived";
+            dr.Close();
+
+            cm = new SqlCommand("Select count(*) as cnt from tbl_archived_sao_accounts", cn);
+            dr = cm.ExecuteReader();
+            dr.Read();
+            lblArchivedSAO.Text = dr["cnt"].ToString() + " Archived";
+            dr.Close();
+
+            cm = new SqlCommand("Select count(*) as cnt from tbl_archived_deptHead_accounts", cn);
+            dr = cm.ExecuteReader();
+            dr.Read();
+            lblArchivedDep.Text = dr["cnt"].ToString() + " Archived";
+            dr.Close();
+
+            cm = new SqlCommand("Select count(*) as cnt from tbl_archived_guidance_accounts", cn);
+            dr = cm.ExecuteReader();
+            dr.Read();
+            lblArchivedGui.Text = dr["cnt"].ToString() + " Archived";
+            dr.Close();
+
+            cm = new SqlCommand("Select count(*) as cnt from tbl_archived_subjects", cn);
+            dr = cm.ExecuteReader();
+            dr.Read();
+            lblArchivedSub.Text = dr["cnt"].ToString() + " Archived";
+            dr.Close();
+            cn.Close();
+        }
+
+        private void btnViewArcStud_Click(object sender, EventArgs e)
+        {
+            formArchived_Accounts_Students formArchived_Accounts_Students = new formArchived_Accounts_Students();
+            formArchived_Accounts_Students.ShowDialog();
         }
     }
 }
