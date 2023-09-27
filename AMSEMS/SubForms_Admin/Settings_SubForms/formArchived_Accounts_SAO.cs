@@ -16,7 +16,7 @@ using ComponentFactory.Krypton.Toolkit;
 
 namespace AMSEMS.SubForms_Admin
 {
-    public partial class formArchived_Accounts_Students : KryptonForm
+    public partial class formArchived_Accounts_SAO : KryptonForm
     {
         SqlConnection cn;
         SqlDataAdapter ad;
@@ -27,7 +27,7 @@ namespace AMSEMS.SubForms_Admin
         static string account;
         static int role;
         formArchiveSetting form;
-        public formArchived_Accounts_Students()
+        public formArchived_Accounts_SAO()
         {
             InitializeComponent();
 
@@ -50,61 +50,8 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnMultiDel, "Delete");
             toolTip.SetToolTip(btnSelUnarchive, "Retrieve");
 
-            displayFilter();
+            displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_sao_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
 
-
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
-
-        }
-
-        public void displayFilter()
-        {
-            try
-            {
-                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-                {
-                    cbProgram.Items.Clear();
-                    cbSection.Items.Clear();
-                    cbYearlvl.Items.Clear();
-                    cn.Open();
-                    cm = new SqlCommand("Select Description from tbl_program", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        cbProgram.Items.Add(dr["Description"].ToString());
-                    }
-                    dr.Close();
-
-                    cm = new SqlCommand("Select Description from tbl_section", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        cbSection.Items.Add(dr["Description"].ToString());
-                    }
-                    dr.Close();
-
-                    cm = new SqlCommand("Select Description from tbl_year_level", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        cbYearlvl.Items.Add(dr["Description"].ToString());
-                    }
-                    dr.Close();
-
-                    cm = new SqlCommand("Select Description from tbl_Departments", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        cbDep.Items.Add(dr["Description"].ToString());
-                    }
-                    dr.Close();
-                    cn.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         public void displayTable(string query)
@@ -126,13 +73,8 @@ namespace AMSEMS.SubForms_Admin
 
                             // Populate other columns, starting from index 1
                             dgvArch.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
-                            dgvArch.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
                             dgvArch.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
                             dgvArch.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
-                            dgvArch.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
-                            dgvArch.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
-                            dgvArch.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
-                            dgvArch.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
                             dgvArch.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
                             // Populate your control column here (change "ControlColumn" to your actual column name)
@@ -218,12 +160,12 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_sao_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
                                 MessageBox.Show("Account deleted successfully.");
                             }
                             else
                             {
-                                MessageBox.Show("Error deleting student.");
+                                MessageBox.Show("Error deleting record.");
                             }
                             UseWaitCursor = false;
 
@@ -233,18 +175,18 @@ namespace AMSEMS.SubForms_Admin
             }
         }
 
-        private bool DeleteStudentRecord(int studentID)
+        private bool DeleteStudentRecord(int ID)
         {
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
             {
                 try
                 {
                     connection.Open();
-                    string deleteQuery = "DELETE FROM tbl_archived_student_accounts WHERE ID = @ID";
+                    string deleteQuery = "DELETE FROM tbl_archived_sao_accounts WHERE ID = @ID";
 
                     using (SqlCommand command = new SqlCommand(deleteQuery, connection))
                     {
-                        command.Parameters.AddWithValue("@ID", studentID);
+                        command.Parameters.AddWithValue("@ID", ID);
                         command.ExecuteNonQuery();
                         return true;
                     }
@@ -270,7 +212,7 @@ namespace AMSEMS.SubForms_Admin
             iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
 
             // Add title "List of Students:"
-            Paragraph titleParagraph = new Paragraph("List of Students:", headerFont);
+            Paragraph titleParagraph = new Paragraph("List of SAO:", headerFont);
             titleParagraph.Alignment = Element.ALIGN_CENTER;
             document.Add(titleParagraph);
 
@@ -317,114 +259,6 @@ namespace AMSEMS.SubForms_Admin
             document.Close();
         }
 
-        private async void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UseWaitCursor = true;
-            ComboBox comboBox = (ComboBox)sender;
-            string filtertbl = string.Empty;
-
-            if (comboBox == cbProgram)
-            {
-                filtertbl = "tbl_program";
-            }
-            else if (comboBox == cbSection)
-            {
-                filtertbl = "tbl_Section";
-            }
-            else if (comboBox == cbYearlvl)
-            {
-                filtertbl = "tbl_year_level";
-            }
-            else if (comboBox == cbDep)
-            {
-                filtertbl = "tbl_Departments";
-            }
-
-            if (!string.IsNullOrEmpty(filtertbl))
-            {
-                // Get the selected items from all ComboBoxes
-                string selectedItemP = cbProgram.Text;
-                string selectedItemY = cbYearlvl.Text;
-                string selectedItemS = cbSection.Text;
-                string selectedItemD = cbDep.Text;
-
-                // Get the corresponding descriptions for the selected items
-                string descriptionP = await GetSelectedItemDescriptionAsync(selectedItemP, "tbl_program");
-                string descriptionY = await GetSelectedItemDescriptionAsync(selectedItemY, "tbl_year_level");
-                string descriptionS = await GetSelectedItemDescriptionAsync(selectedItemS, "tbl_Section");
-                string descriptionD = await GetSelectedItemDescriptionAsync(selectedItemD, "tbl_Departments");
-
-                // Construct the query based on the selected descriptions
-                string query = "Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID " +
-                "where (@ProgramDescription IS NULL OR p.Description = @ProgramDescription) " +
-                "AND (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
-                "AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) " +
-                "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription)";
-
-                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-                {
-                    cn.Open();
-
-                    using (SqlCommand cmd = new SqlCommand(query, cn))
-                    {
-                        cmd.Parameters.AddWithValue("@ProgramDescription", string.IsNullOrEmpty(descriptionP) ? DBNull.Value : (object)descriptionP);
-                        cmd.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(descriptionD) ? DBNull.Value : (object)descriptionD);
-                        cmd.Parameters.AddWithValue("@YearLevelDescription", string.IsNullOrEmpty(descriptionY) ? DBNull.Value : (object)descriptionY);
-                        cmd.Parameters.AddWithValue("@SectionDescription", string.IsNullOrEmpty(descriptionS) ? DBNull.Value : (object)descriptionS);
-
-                        using (SqlDataReader dr = cmd.ExecuteReader())
-                        {
-                            dgvArch.Rows.Clear();
-                            int count = 1;
-                            while (dr.Read())
-                            {
-                                // Add a row and set the checkbox column value to false (unchecked)
-                                int rowIndex = dgvArch.Rows.Add(false);
-
-                                // Populate other columns, starting from index 1
-                                dgvArch.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
-                                dgvArch.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
-                                dgvArch.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
-                                dgvArch.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
-                                dgvArch.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
-                                dgvArch.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
-                                dgvArch.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
-                                dgvArch.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
-                                dgvArch.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
-
-                                // Populate your control column here (change "ControlColumn" to your actual column name)
-                                dgvArch.Rows[rowIndex].Cells["option"].Value = option.Image;
-                            }
-                        }
-                    }
-                }
-            }
-            UseWaitCursor = false;
-        }
-
-        private async Task<string> GetSelectedItemDescriptionAsync(string selectedItem, string tbl)
-        {
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-            {
-                await cn.OpenAsync();
-
-                cm = new SqlCommand("Select Description from " + tbl + " where Description = @SelectedItem", cn);
-                cm.Parameters.AddWithValue("@SelectedItem", selectedItem);
-
-                string description = null;
-
-                using (SqlDataReader dr = await cm.ExecuteReaderAsync())
-                {
-                    if (await dr.ReadAsync())
-                    {
-                        description = dr["Description"].ToString();
-                    }
-                }
-
-                return description;
-            }
-        }
-
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
             string searchKeyword = tbSearch.Text.Trim();
@@ -455,11 +289,8 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+            displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_sao_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
 
-            cbProgram.Text = String.Empty;
-            cbSection.Text = String.Empty;
-            cbYearlvl.Text = String.Empty;
             tbSearch.Text = String.Empty;
         }
 
@@ -616,7 +447,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
 
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+            displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_sao_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
 
             dgvArch.Refresh();
 
@@ -671,15 +502,14 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to retrieve record with ID: " + id);
+                                MessageBox.Show("Failed to archive record with ID: " + id);
                             }
                         }
                     }
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_sao_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
                 }
             }
         }
-
         private bool Unarchive(int studentID)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -687,9 +517,8 @@ namespace AMSEMS.SubForms_Admin
                 try
                 {
                     cn.Open();
-
                     // Check if a record with the same ID already exists in tbl_student_accounts
-                    string checkExistingQuery = "SELECT COUNT(*) FROM tbl_student_accounts WHERE ID = @ID";
+                    string checkExistingQuery = "SELECT COUNT(*) FROM tbl_sao_accounts WHERE ID = @ID";
                     using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
                     {
                         checkExistingCommand.Parameters.AddWithValue("@ID", studentID);
@@ -699,17 +528,18 @@ namespace AMSEMS.SubForms_Admin
                         {
                             // No existing record, proceed with unarchiving
                             // Update the status to 1 before inserting
-                            string updateStatusQuery = "UPDATE tbl_archived_student_accounts SET Status = 1 WHERE ID = @ID";
+                            string updateStatusQuery = "UPDATE tbl_archived_sao_accounts SET Status = 1 WHERE ID = @ID";
                             using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
                             {
                                 updateStatusCommand.Parameters.AddWithValue("@ID", studentID);
                                 updateStatusCommand.ExecuteNonQuery();
                             }
 
+
                             // Insert the student record
-                            string insertQuery = "SET IDENTITY_INSERT tbl_student_accounts ON; " +
-                                "INSERT INTO tbl_student_accounts (Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime) SELECT Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime FROM tbl_archived_student_accounts WHERE ID = @ID; " +
-                                "SET IDENTITY_INSERT tbl_student_accounts OFF;";
+                            string insertQuery = "SET IDENTITY_INSERT tbl_sao_accounts ON; " +
+                                "INSERT INTO tbl_sao_accounts (Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Role,Status,DateTime) SELECT Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Role,Status,DateTime FROM tbl_archived_sao_accounts WHERE ID = @ID; " +
+                                "SET IDENTITY_INSERT tbl_sao_accounts OFF;";
                             using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
                             {
                                 sqlCommand.Parameters.AddWithValue("@ID", studentID);
@@ -717,7 +547,7 @@ namespace AMSEMS.SubForms_Admin
                             }
 
                             // Delete the record from the archived table
-                            string deleteQuery = "DELETE FROM tbl_archived_student_accounts WHERE ID = @ID";
+                            string deleteQuery = "DELETE FROM tbl_archived_sao_accounts WHERE ID = @ID";
                             using (SqlCommand command = new SqlCommand(deleteQuery, cn))
                             {
                                 command.Parameters.AddWithValue("@ID", studentID);
@@ -736,12 +566,11 @@ namespace AMSEMS.SubForms_Admin
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error retrieving record: " + ex.Message);
+                    MessageBox.Show("Error updating record: " + ex.Message);
                     return false;
                 }
             }
         }
-
 
         private void retrieveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -772,12 +601,12 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_sao_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
                                 MessageBox.Show("Account retrieved successfully.");
                             }
                             else
                             {
-                                MessageBox.Show("Failed to retrieve record with ID: " + primaryKeyValue);
+                                MessageBox.Show("Error retrieving account.");
                             }
                             UseWaitCursor = false;
 
@@ -787,7 +616,7 @@ namespace AMSEMS.SubForms_Admin
             }
         }
 
-        private void formArchived_Accounts_Students_FormClosed(object sender, FormClosedEventArgs e)
+        private void formArchived_Accounts_SAO_FormClosed(object sender, FormClosedEventArgs e)
         {
             form.loadData();
         }

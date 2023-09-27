@@ -146,7 +146,7 @@
             // 
             this.btnDownload.Location = new System.Drawing.Point(4, 323);
             this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(152, 19);
+            this.btnDownload.Size = new System.Drawing.Size(151, 19);
             this.btnDownload.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDownload.TabIndex = 98;
             this.btnDownload.Values.Image = global::AMSEMS.Properties.Resources.file;
@@ -238,6 +238,7 @@
             this.tbFilePath.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 3, 0, 0);
             this.tbFilePath.TabIndex = 96;
             this.tbFilePath.TextChanged += new System.EventHandler(this.tbFilePath_TextChanged);
+            this.tbFilePath.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbFilePath_KeyPress);
             // 
             // btnDone
             // 

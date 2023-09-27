@@ -847,6 +847,7 @@
             this.cbET.Size = new System.Drawing.Size(177, 27);
             this.cbET.TabIndex = 51;
             this.cbET.SelectedIndexChanged += new System.EventHandler(this.cbET_SelectedIndexChanged);
+            this.cbET.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbET_KeyPress);
             // 
             // kryptonLabel2
             // 

@@ -250,5 +250,10 @@ namespace AMSEMS.SubForms_Admin
         {
             ptbImage.Image = Image.FromFile(openFileDialog1.FileName);
         }
+
+        private void cbTeacher_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

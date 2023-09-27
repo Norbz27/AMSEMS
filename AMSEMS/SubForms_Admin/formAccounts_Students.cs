@@ -41,7 +41,7 @@ namespace AMSEMS.SubForms_Admin
             //checkboxColumn.HeaderText = "";
             //checkboxColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             //checkboxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //dgvStudents.Columns.Insert(0, checkboxColumn);
+            //dgvArch.Columns.Insert(0, checkboxColumn);
         }
         public static void setAccountName(string accountName)
         {
@@ -1232,31 +1232,48 @@ namespace AMSEMS.SubForms_Admin
                 try
                 {
                     cn.Open();
-
-                    // Update the status to 1 before inserting
-                    string updateStatusQuery = "UPDATE tbl_student_accounts SET Status = 2 WHERE ID = @ID";
-                    using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                    // Check if a record with the same ID already exists in tbl_student_accounts
+                    string checkExistingQuery = "SELECT COUNT(*) FROM tbl_archived_student_accounts WHERE ID = @ID";
+                    using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
                     {
-                        updateStatusCommand.Parameters.AddWithValue("@ID", studentID);
-                        updateStatusCommand.ExecuteNonQuery();
-                    }
+                        checkExistingCommand.Parameters.AddWithValue("@ID", studentID);
+                        int existingRecordCount = (int)checkExistingCommand.ExecuteScalar();
 
-                    // Insert the student record
-                    string insertQuery = "INSERT INTO tbl_archived_student_accounts (Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime) SELECT Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime FROM tbl_student_accounts WHERE ID = @ID";
-                    using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
-                    {
-                        sqlCommand.Parameters.AddWithValue("@ID", studentID);
-                        sqlCommand.ExecuteNonQuery();
-                    }
+                        if (existingRecordCount == 0)
+                        {
+                            // No existing record, proceed with unarchiving
+                            // Update the status to 1 before inserting
+                            string updateStatusQuery = "UPDATE tbl_student_accounts SET Status = 2 WHERE ID = @ID";
+                            using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                            {
+                                updateStatusCommand.Parameters.AddWithValue("@ID", studentID);
+                                updateStatusCommand.ExecuteNonQuery();
+                            }
 
-                    // Delete the record from the archived table
-                    string deleteQuery = "DELETE FROM tbl_student_accounts WHERE ID = @ID";
-                    using (SqlCommand command = new SqlCommand(deleteQuery, cn))
-                    {
-                        command.Parameters.AddWithValue("@ID", studentID);
-                        command.ExecuteNonQuery();
+                            // Insert the student record
+                            string insertQuery = "INSERT INTO tbl_archived_student_accounts (Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime) SELECT Unique_ID,ID,RFID,Firstname,Lastname,Middlename,Password,Profile_pic,Program,Section,Year_Level,Department,Role,Status,DateTime FROM tbl_student_accounts WHERE ID = @ID";
+                            using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
+                            {
+                                sqlCommand.Parameters.AddWithValue("@ID", studentID);
+                                sqlCommand.ExecuteNonQuery();
+                            }
+
+                            // Delete the record from the archived table
+                            string deleteQuery = "DELETE FROM tbl_student_accounts WHERE ID = @ID";
+                            using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                            {
+                                command.Parameters.AddWithValue("@ID", studentID);
+                                command.ExecuteNonQuery();
+                            }
+                            return true;
+                        }
+                        else
+                        {
+                            // A record with the same ID already exists in tbl_student_accounts
+                            MessageBox.Show("A record with the same ID already exists. No archiving performed.");
+                            return false;
+                        }
                     }
-                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -1264,6 +1281,11 @@ namespace AMSEMS.SubForms_Admin
                     return false;
                 }
             }
+        }
+
+        private void cbProgram_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

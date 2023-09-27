@@ -261,6 +261,30 @@
     <Compile Include="SubForms_Admin\formStudentForm.Designer.cs">
       <DependentUpon>formStudentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Guidance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Guidance.Designer.cs">
+      <DependentUpon>formArchived_Accounts_Guidance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_SAO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_SAO.Designer.cs">
+      <DependentUpon>formArchived_Accounts_SAO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Teachers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Teachers.Designer.cs">
+      <DependentUpon>formArchived_Accounts_Teachers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_DepHead.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_DepHead.Designer.cs">
+      <DependentUpon>formArchived_Accounts_DepHead.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Students.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -272,6 +296,12 @@
     </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formArchiveSetting.Designer.cs">
       <DependentUpon>formArchiveSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formAcademicYearSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formAcademicYearSetting.Designer.cs">
+      <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formNotificationSetting.cs">
       <SubType>Form</SubType>
@@ -308,6 +338,12 @@
     </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formChangePass.Designer.cs">
       <DependentUpon>formChangePass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Subjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Subjects.Designer.cs">
+      <DependentUpon>formArchived_Subjects.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\UserID.cs" />
     <Compile Include="SubForms_Teacher\formAttendanceRecord.cs">
@@ -501,11 +537,26 @@
     <EmbeddedResource Include="SubForms_Admin\formStudentForm.resx">
       <DependentUpon>formStudentForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Guidance.resx">
+      <DependentUpon>formArchived_Accounts_Guidance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_SAO.resx">
+      <DependentUpon>formArchived_Accounts_SAO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Teachers.resx">
+      <DependentUpon>formArchived_Accounts_Teachers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_DepHead.resx">
+      <DependentUpon>formArchived_Accounts_DepHead.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Students.resx">
       <DependentUpon>formArchived_Accounts_Students.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchiveSetting.resx">
       <DependentUpon>formArchiveSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formAcademicYearSetting.resx">
+      <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
@@ -524,6 +575,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangePass.resx">
       <DependentUpon>formChangePass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Subjects.resx">
+      <DependentUpon>formArchived_Subjects.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formAttendanceRecord.resx">
       <DependentUpon>formAttendanceRecord.cs</DependentUpon>

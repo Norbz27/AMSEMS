@@ -719,22 +719,46 @@ namespace AMSEMS.SubForms_Admin
                 try
                 {
                     cn.Open();
-
-                    string insertQuery = "INSERT INTO tbl_archived_guidance_accounts (Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Role,Status,DateTime) SELECT Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Role,Status,DateTime FROM tbl_guidance_accounts WHERE ID = @ID";
-                    using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
+                    // Check if a record with the same ID already exists in tbl_student_accounts
+                    string checkExistingQuery = "SELECT COUNT(*) FROM tbl_archived_guidance_accounts WHERE ID = @ID";
+                    using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
                     {
-                        sqlCommand.Parameters.AddWithValue("@ID", guidanceID);
-                        sqlCommand.ExecuteNonQuery();
-                    }
+                        checkExistingCommand.Parameters.AddWithValue("@ID", guidanceID);
+                        int existingRecordCount = (int)checkExistingCommand.ExecuteScalar();
 
-                    string deleteQuery = "DELETE FROM tbl_guidance_accounts WHERE ID = @ID";
+                        if (existingRecordCount == 0)
+                        {
+                            // Update the status to 1 before inserting
+                            string updateStatusQuery = "UPDATE tbl_guidance_accounts SET Status = 2 WHERE ID = @ID";
+                            using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                            {
+                                updateStatusCommand.Parameters.AddWithValue("@ID", guidanceID);
+                                updateStatusCommand.ExecuteNonQuery();
+                            }
 
-                    using (SqlCommand command = new SqlCommand(deleteQuery, cn))
-                    {
-                        command.Parameters.AddWithValue("@ID", guidanceID);
-                        command.ExecuteNonQuery();
+                            string insertQuery = "INSERT INTO tbl_archived_guidance_accounts (Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Role,Status,DateTime) SELECT Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Role,Status,DateTime FROM tbl_guidance_accounts WHERE ID = @ID";
+                            using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
+                            {
+                                sqlCommand.Parameters.AddWithValue("@ID", guidanceID);
+                                sqlCommand.ExecuteNonQuery();
+                            }
+
+                            string deleteQuery = "DELETE FROM tbl_guidance_accounts WHERE ID = @ID";
+
+                            using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                            {
+                                command.Parameters.AddWithValue("@ID", guidanceID);
+                                command.ExecuteNonQuery();
+                            }
+                            return true;
+                        }
+                        else
+                        {
+                            // A record with the same ID already exists in tbl_student_accounts
+                            MessageBox.Show("A record with the same ID already exists. No archiving performed.");
+                            return false;
+                        }
                     }
-                    return true;
                 }
                 catch (Exception ex)
                 {

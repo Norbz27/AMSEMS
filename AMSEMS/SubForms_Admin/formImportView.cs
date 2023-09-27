@@ -511,5 +511,10 @@ namespace AMSEMS.SubForms_Admin
             // Clean up the temporary file
             File.Delete(tempFilePath);
         }
+
+        private void tbFilePath_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

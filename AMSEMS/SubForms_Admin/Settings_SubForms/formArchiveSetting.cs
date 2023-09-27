@@ -76,7 +76,43 @@ namespace AMSEMS.SubForms_Admin
         private void btnViewArcStud_Click(object sender, EventArgs e)
         {
             formArchived_Accounts_Students formArchived_Accounts_Students = new formArchived_Accounts_Students();
+            formArchived_Accounts_Students.getForm(this);
             formArchived_Accounts_Students.ShowDialog();
+        }
+
+        private void btnViewArcDep_Click(object sender, EventArgs e)
+        {
+            formArchived_Accounts_DepHead formArchived_Accounts_DepHead = new formArchived_Accounts_DepHead();
+            formArchived_Accounts_DepHead.getForm(this);
+            formArchived_Accounts_DepHead.ShowDialog();
+        }
+
+        private void btnViewArcTeach_Click(object sender, EventArgs e)
+        {
+            formArchived_Accounts_Teachers formArchived_Accounts_Teachers = new formArchived_Accounts_Teachers();
+            formArchived_Accounts_Teachers.getForm(this);
+            formArchived_Accounts_Teachers.ShowDialog();
+        }
+
+        private void btnViewArcSAO_Click(object sender, EventArgs e)
+        {
+            formArchived_Accounts_SAO formArchived_Accounts_SAO = new formArchived_Accounts_SAO();
+            formArchived_Accounts_SAO.getForm(this);
+            formArchived_Accounts_SAO.ShowDialog();
+        }
+
+        private void btnViewArcGui_Click(object sender, EventArgs e)
+        {
+            formArchived_Accounts_Guidance formArchived_Accounts_Guidance = new formArchived_Accounts_Guidance();
+            formArchived_Accounts_Guidance.getForm(this);
+            formArchived_Accounts_Guidance.ShowDialog();
+        }
+
+        private void btnViewArcSub_Click(object sender, EventArgs e)
+        {
+            formArchived_Subjects formArchived_Subjects = new formArchived_Subjects();
+            formArchived_Subjects.getForm(this);
+            formArchived_Subjects.ShowDialog();
         }
     }
 }

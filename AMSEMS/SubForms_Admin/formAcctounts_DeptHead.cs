@@ -1006,22 +1006,46 @@ namespace AMSEMS.SubForms_Admin
                 try
                 {
                     cn.Open();
-
-                    string insertQuery = "INSERT INTO tbl_archived_deptHead_accounts (Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Department,Role,Status,DateTime) SELECT Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Department,Role,Status,DateTime FROM tbl_deptHead_accounts WHERE ID = @ID";
-                    using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
+                    // Check if a record with the same ID already exists in tbl_student_accounts
+                    string checkExistingQuery = "SELECT COUNT(*) FROM tbl_archived_deptHead_accounts WHERE ID = @ID";
+                    using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
                     {
-                        sqlCommand.Parameters.AddWithValue("@ID", teacherID);
-                        sqlCommand.ExecuteNonQuery();
-                    }
+                        checkExistingCommand.Parameters.AddWithValue("@ID", teacherID);
+                        int existingRecordCount = (int)checkExistingCommand.ExecuteScalar();
 
-                    string deleteQuery = "DELETE FROM tbl_deptHead_accounts WHERE ID = @ID";
+                        if (existingRecordCount == 0)
+                        {
+                            // Update the status to 1 before inserting
+                            string updateStatusQuery = "UPDATE tbl_deptHead_accounts SET Status = 2 WHERE ID = @ID";
+                            using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                            {
+                                updateStatusCommand.Parameters.AddWithValue("@ID", teacherID);
+                                updateStatusCommand.ExecuteNonQuery();
+                            }
 
-                    using (SqlCommand command = new SqlCommand(deleteQuery, cn))
-                    {
-                        command.Parameters.AddWithValue("@ID", teacherID);
-                        command.ExecuteNonQuery();
+                            string insertQuery = "INSERT INTO tbl_archived_deptHead_accounts (Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Department,Role,Status,DateTime) SELECT Unique_ID,ID,Firstname,Lastname,Middlename,Password,Profile_pic,Department,Role,Status,DateTime FROM tbl_deptHead_accounts WHERE ID = @ID";
+                            using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
+                            {
+                                sqlCommand.Parameters.AddWithValue("@ID", teacherID);
+                                sqlCommand.ExecuteNonQuery();
+                            }
+
+                            string deleteQuery = "DELETE FROM tbl_deptHead_accounts WHERE ID = @ID";
+
+                            using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                            {
+                                command.Parameters.AddWithValue("@ID", teacherID);
+                                command.ExecuteNonQuery();
+                            }
+                            return true;
+                        }
+                        else
+                        {
+                            // A record with the same ID already exists in tbl_student_accounts
+                            MessageBox.Show("A record with the same ID already exists. No archiving performed.");
+                            return false;
+                        }
                     }
-                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -1029,6 +1053,11 @@ namespace AMSEMS.SubForms_Admin
                     return false;
                 }
             }
+        }
+
+        private void cbET_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

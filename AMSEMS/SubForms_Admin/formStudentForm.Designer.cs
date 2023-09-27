@@ -223,6 +223,7 @@ namespace AMSEMS.SubForms_Admin
             this.cbDep.StateCommon.ComboBox.Content.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDep.StateCommon.Item.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbDep.TabIndex = 108;
+            this.cbDep.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbProgram_KeyPress);
             // 
             // kryptonLabel2
             // 
@@ -580,7 +581,7 @@ namespace AMSEMS.SubForms_Admin
             // 
             this.tbRFID.Location = new System.Drawing.Point(190, 270);
             this.tbRFID.Name = "tbRFID";
-            this.tbRFID.Size = new System.Drawing.Size(202, 32);
+            this.tbRFID.Size = new System.Drawing.Size(202, 28);
             this.tbRFID.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
             this.tbRFID.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
             this.tbRFID.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
