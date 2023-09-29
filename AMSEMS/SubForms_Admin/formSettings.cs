@@ -185,7 +185,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnBackup_Click(object sender, EventArgs e)
         {
-           
+            OpenChildForm(new formBackupSetting());
             this.btnBackup.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnBackup.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnBackup.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;

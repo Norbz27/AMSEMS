@@ -212,6 +212,7 @@
             this.btnRetSub.StateTracking.Content.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRetSub.TabIndex = 8;
             this.btnRetSub.Values.Text = "Retrieve All";
+            this.btnRetSub.Click += new System.EventHandler(this.btnRetSub_Click);
             // 
             // lblArchivedSub
             // 
@@ -369,6 +370,7 @@
             this.btnRetGui.StateTracking.Content.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRetGui.TabIndex = 8;
             this.btnRetGui.Values.Text = "Retrieve All";
+            this.btnRetGui.Click += new System.EventHandler(this.btnRetGui_Click);
             // 
             // lblArchivedGui
             // 
@@ -512,6 +514,7 @@
             this.btnRetSAO.StateTracking.Content.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRetSAO.TabIndex = 8;
             this.btnRetSAO.Values.Text = "Retrieve All";
+            this.btnRetSAO.Click += new System.EventHandler(this.btnRetSAO_Click);
             // 
             // lblArchivedSAO
             // 
@@ -655,6 +658,7 @@
             this.btnRetDep.StateTracking.Content.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRetDep.TabIndex = 8;
             this.btnRetDep.Values.Text = "Retrieve All";
+            this.btnRetDep.Click += new System.EventHandler(this.btnRetDep_Click);
             // 
             // lblArchivedDep
             // 
@@ -798,6 +802,7 @@
             this.btnRetStud.StateTracking.Content.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRetStud.TabIndex = 8;
             this.btnRetStud.Values.Text = "Retrieve All";
+            this.btnRetStud.Click += new System.EventHandler(this.btnRetStud_Click);
             // 
             // lblArchivedStud
             // 
@@ -941,6 +946,7 @@
             this.btnRetTeach.StateTracking.Content.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRetTeach.TabIndex = 9;
             this.btnRetTeach.Values.Text = "Retrieve All";
+            this.btnRetTeach.Click += new System.EventHandler(this.btnRetTeach_Click);
             // 
             // lblArchivedTeach
             // 

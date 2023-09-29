@@ -197,7 +197,7 @@ namespace AMSEMS.SubForms_Admin
             this.kryptonLabel1.Location = new System.Drawing.Point(481, 39);
             this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(85, 19);
+            this.kryptonLabel1.Size = new System.Drawing.Size(84, 19);
             this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonLabel1.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
@@ -337,7 +337,7 @@ namespace AMSEMS.SubForms_Admin
             this.kryptonLabel13.Location = new System.Drawing.Point(185, 106);
             this.kryptonLabel13.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel13.Name = "kryptonLabel13";
-            this.kryptonLabel13.Size = new System.Drawing.Size(36, 19);
+            this.kryptonLabel13.Size = new System.Drawing.Size(35, 19);
             this.kryptonLabel13.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonLabel13.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.kryptonLabel13.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
@@ -399,20 +399,20 @@ namespace AMSEMS.SubForms_Admin
             this.lblInfo.Location = new System.Drawing.Point(184, 4);
             this.lblInfo.Margin = new System.Windows.Forms.Padding(2);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(175, 25);
+            this.lblInfo.Size = new System.Drawing.Size(143, 25);
             this.lblInfo.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.lblInfo.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.lblInfo.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInfo.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.lblInfo.TabIndex = 78;
-            this.lblInfo.Values.Text = "Teacher Information";
+            this.lblInfo.Values.Text = "SAO Information";
             // 
             // kryptonLabel21
             // 
             this.kryptonLabel21.Location = new System.Drawing.Point(337, 39);
             this.kryptonLabel21.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel21.Name = "kryptonLabel21";
-            this.kryptonLabel21.Size = new System.Drawing.Size(71, 19);
+            this.kryptonLabel21.Size = new System.Drawing.Size(70, 19);
             this.kryptonLabel21.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonLabel21.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.kryptonLabel21.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
@@ -459,7 +459,7 @@ namespace AMSEMS.SubForms_Admin
             this.kryptonLabel22.Location = new System.Drawing.Point(185, 39);
             this.kryptonLabel22.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel22.Name = "kryptonLabel22";
-            this.kryptonLabel22.Size = new System.Drawing.Size(71, 19);
+            this.kryptonLabel22.Size = new System.Drawing.Size(70, 19);
             this.kryptonLabel22.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonLabel22.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.kryptonLabel22.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
@@ -503,7 +503,7 @@ namespace AMSEMS.SubForms_Admin
             this.kryptonLabel24.Location = new System.Drawing.Point(56, 183);
             this.kryptonLabel24.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel24.Name = "kryptonLabel24";
-            this.kryptonLabel24.Size = new System.Drawing.Size(63, 19);
+            this.kryptonLabel24.Size = new System.Drawing.Size(62, 19);
             this.kryptonLabel24.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonLabel24.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.kryptonLabel24.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);

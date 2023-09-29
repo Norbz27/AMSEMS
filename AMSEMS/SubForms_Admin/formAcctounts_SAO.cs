@@ -36,7 +36,6 @@ namespace AMSEMS.SubForms_Admin
         public static void setAccountName(String accountName1)
         {
             accountName = accountName1;
-
         }
         public static void setRole(int role1)
         {
@@ -63,6 +62,7 @@ namespace AMSEMS.SubForms_Admin
         {
             try
             {
+                query = query + " ORDER BY DateTime DESC";
                 dgvsao.Rows.Clear();
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -143,6 +143,7 @@ namespace AMSEMS.SubForms_Admin
         {
             formImportView form2 = new formImportView();
             form2.setRole(role);
+            form2.reloadFormSao(this);
             form2.ShowDialog();
         }
 

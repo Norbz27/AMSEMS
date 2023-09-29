@@ -87,6 +87,7 @@ namespace AMSEMS.SubForms_Admin
         {
             try
             {
+                query = query + " ORDER BY DateTime DESC";
                 dgvTeachers.Rows.Clear();
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -287,6 +288,7 @@ namespace AMSEMS.SubForms_Admin
         {
             formImportView form2 = new formImportView();
             form2.setRole(role);
+            form2.reloadFormDep(this);
             form2.ShowDialog();
         }
 

@@ -261,6 +261,12 @@
     <Compile Include="SubForms_Admin\formStudentForm.Designer.cs">
       <DependentUpon>formStudentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formBackupSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formBackupSetting.Designer.cs">
+      <DependentUpon>formBackupSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Guidance.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,6 +308,12 @@
     </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formAcademicYearSetting.Designer.cs">
       <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeAcademicYear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeAcademicYear.Designer.cs">
+      <DependentUpon>formChangeAcademicYear.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formNotificationSetting.cs">
       <SubType>Form</SubType>
@@ -537,6 +549,9 @@
     <EmbeddedResource Include="SubForms_Admin\formStudentForm.resx">
       <DependentUpon>formStudentForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formBackupSetting.resx">
+      <DependentUpon>formBackupSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Guidance.resx">
       <DependentUpon>formArchived_Accounts_Guidance.cs</DependentUpon>
     </EmbeddedResource>
@@ -557,6 +572,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formAcademicYearSetting.resx">
       <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangeAcademicYear.resx">
+      <DependentUpon>formChangeAcademicYear.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>

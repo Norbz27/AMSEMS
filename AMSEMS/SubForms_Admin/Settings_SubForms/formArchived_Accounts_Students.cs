@@ -791,5 +791,9 @@ namespace AMSEMS.SubForms_Admin
         {
             form.loadData();
         }
+        private void cb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
     }
 }

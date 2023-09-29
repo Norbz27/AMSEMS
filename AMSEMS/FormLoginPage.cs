@@ -132,15 +132,15 @@ namespace AMSEMS
                     await cn.OpenAsync();
 
                     using (SqlCommand cmd = new SqlCommand("SELECT Role, Unique_ID FROM (" +
-                        "SELECT Role, Unique_ID FROM tbl_admin_accounts WHERE ID = @ID AND Password = @Password " +
+                        "SELECT Role, Unique_ID FROM tbl_admin_accounts WHERE ID = @ID AND Password = @Password AND Status = 1 " +
                         "UNION " +
-                        "SELECT Role, Unique_ID FROM tbl_deptHead_accounts WHERE ID = @ID AND Password = @Password " +
+                        "SELECT Role, Unique_ID FROM tbl_deptHead_accounts WHERE ID = @ID AND Password = @Password AND Status = 1 " +
                         "UNION " +
-                        "SELECT Role, Unique_ID FROM tbl_guidance_accounts WHERE ID = @ID AND Password = @Password " +
+                        "SELECT Role, Unique_ID FROM tbl_guidance_accounts WHERE ID = @ID AND Password = @Password AND Status = 1 " +
                         "UNION " +
-                        "SELECT Role, Unique_ID FROM tbl_sao_accounts WHERE ID = @ID AND Password = @Password " +
+                        "SELECT Role, Unique_ID FROM tbl_sao_accounts WHERE ID = @ID AND Password = @Password AND Status = 1 " +
                         "UNION " +
-                        "SELECT Role, Unique_ID FROM tbl_teacher_accounts WHERE ID = @ID AND Password = @Password) AS CombinedRoles", cn))
+                        "SELECT Role, Unique_ID FROM tbl_teacher_accounts WHERE ID = @ID AND Password = @Password AND Status = 1) AS CombinedRoles", cn))
                     {
                         cmd.Parameters.AddWithValue("@ID", tbID.Text);
                         cmd.Parameters.AddWithValue("@Password", tbPass.Text);

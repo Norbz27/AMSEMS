@@ -396,7 +396,7 @@
             // 
             this.deleteToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(98, 26);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -404,7 +404,7 @@
             // 
             this.editToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(98, 26);
             this.editToolStripMenuItem.Text = "Retrieve";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
@@ -417,7 +417,7 @@
             this.CMSOptions.Name = "contextMenuStrip2";
             this.CMSOptions.ShowImageMargin = false;
             this.CMSOptions.ShowItemToolTips = false;
-            this.CMSOptions.Size = new System.Drawing.Size(156, 78);
+            this.CMSOptions.Size = new System.Drawing.Size(99, 56);
             // 
             // pnControl
             // 
@@ -561,6 +561,7 @@
             this.cbAcadLevel.Size = new System.Drawing.Size(177, 27);
             this.cbAcadLevel.TabIndex = 69;
             this.cbAcadLevel.SelectedIndexChanged += new System.EventHandler(this.cbAcad_SelectedIndexChanged);
+            this.cbAcadLevel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cb_KeyPress);
             // 
             // kryptonPalette1
             // 

@@ -29,6 +29,13 @@ namespace AMSEMS.SubForms_Admin
         private const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private static readonly Random RandomGenerator = new Random();
 
+        //forms
+        formAccounts_Teachers form1;
+        formAccounts_Students form2;
+        formAcctounts_DeptHead form3;
+        formAcctounts_Guidance form4;
+        formAccounts_SAO form5;
+
         public formImportView()
         {
             InitializeComponent();
@@ -45,6 +52,26 @@ namespace AMSEMS.SubForms_Admin
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+        public void reloadFormTeach(formAccounts_Teachers form)
+        {
+            this.form1 = form;
+        }
+        public void reloadFormStud(formAccounts_Students form)
+        {
+            this.form2= form;
+        }
+        public void reloadFormDep(formAcctounts_DeptHead form)
+        {
+            this.form3 = form;
+        }
+        public void reloadFormGui(formAcctounts_Guidance form)
+        {
+            this.form4 = form;
+        }
+        public void reloadFormSao(formAccounts_SAO form)
+        {
+            this.form5 = form;
         }
 
         private void formImportView_Load(object sender, EventArgs e)
@@ -115,9 +142,6 @@ namespace AMSEMS.SubForms_Admin
                     string column2Value = row.Cells[2].Value.ToString();
                     string column3Value = row.Cells[3].Value.ToString();
                     string column4Value = row.Cells[4].Value.ToString();
-                    //string column5Value = row.Cells[5].Value.ToString();
-                    //string column6Value = row.Cells[6].Value.ToString();
-                    //string column7Value = row.Cells[7].Value.ToString();
 
                     if (role == 2)
                     {
@@ -156,6 +180,8 @@ namespace AMSEMS.SubForms_Admin
                                 command.Parameters.AddWithValue("@DateTime", currentDateTime);
 
                                 command.ExecuteNonQuery();
+
+                                form3.displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
                             }
                         }
                         else
@@ -170,7 +196,6 @@ namespace AMSEMS.SubForms_Admin
 
                         cn.Open();
 
-                        // Check if the student is already present in the Students table based on a unique identifier (e.g., ID or name)
                         string checkQuery = "SELECT ID FROM tbl_guidance_accounts WHERE ID = @ID"; // Modify this query as needed
                         using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
                         {
@@ -201,6 +226,7 @@ namespace AMSEMS.SubForms_Admin
                                 command.Parameters.AddWithValue("@DateTime", currentDateTime);
 
                                 command.ExecuteNonQuery();
+                                form4.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
                             }
                         }
                         else
@@ -215,7 +241,7 @@ namespace AMSEMS.SubForms_Admin
 
                         cn.Open();
 
-                        // Check if the student is already present in the Students table based on a unique identifier (e.g., ID or name)
+
                         string checkQuery = "SELECT ID FROM tbl_sao_accounts WHERE ID = @ID"; // Modify this query as needed
                         using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
                         {
@@ -246,6 +272,7 @@ namespace AMSEMS.SubForms_Admin
                                 command.Parameters.AddWithValue("@DateTime", currentDateTime);
 
                                 command.ExecuteNonQuery();
+                                form5.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
                             }
                         }
                         else
@@ -261,7 +288,7 @@ namespace AMSEMS.SubForms_Admin
 
                         cn.Open();
 
-                        // Check if the student is already present in the Students table based on a unique identifier (e.g., ID or name)
+
                         string checkQuery = "SELECT ID FROM tbl_student_accounts WHERE ID = @ID"; // Modify this query as needed
                         using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
                         {
@@ -275,60 +302,6 @@ namespace AMSEMS.SubForms_Admin
 
                         if (studentId == -1)
                         {
-
-                            //// Check if Program exists in the Programs table
-                            //string programQuery = $"SELECT Program_ID FROM tbl_program WHERE Description = @ProgramName";
-                            //using (SqlCommand programCommand = new SqlCommand(programQuery, cn))
-                            //{
-                            //    programCommand.Parameters.AddWithValue("@ProgramName", column5Value);
-                            //    programId = (int?)programCommand.ExecuteScalar() ?? -1;
-                            //}
-
-                            //if (programId == -1)
-                            //{
-                            //    string insertProgramQuery = $"INSERT INTO tbl_program (Description) VALUES (@Description); SELECT SCOPE_IDENTITY();";
-                            //    using (SqlCommand insertProgramCommand = new SqlCommand(insertProgramQuery, cn))
-                            //    {
-                            //        insertProgramCommand.Parameters.AddWithValue("@Description", column5Value);
-                            //        programId = Convert.ToInt32(insertProgramCommand.ExecuteScalar());
-                            //    }
-                            //}
-
-                            //// Check if Program exists in the Section table
-                            //string sectionQuery = $"SELECT Section_ID FROM tbl_Section WHERE Description = @Description";
-                            //using (SqlCommand sectionCommand = new SqlCommand(sectionQuery, cn))
-                            //{
-                            //    sectionCommand.Parameters.AddWithValue("@Description", column6Value);
-                            //    sectionId = (int?)sectionCommand.ExecuteScalar() ?? -1;
-                            //}
-
-                            //if (sectionId == -1)
-                            //{
-                            //    string insertsectionQuery = $"INSERT INTO tbl_Section (Description) VALUES (@Description); SELECT SCOPE_IDENTITY();";
-                            //    using (SqlCommand insertsectionCommand = new SqlCommand(insertsectionQuery, cn))
-                            //    {
-                            //        insertsectionCommand.Parameters.AddWithValue("@Description", column6Value);
-                            //        sectionId = Convert.ToInt32(insertsectionCommand.ExecuteScalar());
-                            //    }
-                            //}
-
-                            //// Check if Program exists in the Year Level table
-                            //string yearLevelQuery = $"SELECT Level_ID FROM tbl_year_level WHERE Description = @Description";
-                            //using (SqlCommand yearLevelCommand = new SqlCommand(yearLevelQuery, cn))
-                            //{
-                            //    yearLevelCommand.Parameters.AddWithValue("@Description", column7Value);
-                            //    yearLevelId = (int?)yearLevelCommand.ExecuteScalar() ?? -1;
-                            //}
-
-                            //if (yearLevelId == -1)
-                            //{
-                            //    string insertyearLevelQuery = $"INSERT INTO tbl_year_level (Description) VALUES (@Description); SELECT SCOPE_IDENTITY();";
-                            //    using (SqlCommand insertyearLevelCommand = new SqlCommand(insertyearLevelQuery, cn))
-                            //    {
-                            //        insertyearLevelCommand.Parameters.AddWithValue("@Description", column7Value);
-                            //        yearLevelId = Convert.ToInt32(insertyearLevelCommand.ExecuteScalar());
-                            //    }
-                            //}
                             //Generated Password
                             int passwordLength = 12;
                             string generatedPass = GeneratePassword(passwordLength); ;
@@ -344,11 +317,9 @@ namespace AMSEMS.SubForms_Admin
                                 command.Parameters.AddWithValue("@Middlename", column4Value);
                                 command.Parameters.AddWithValue("@Password", generatedPass);
                                 command.Parameters.AddWithValue("@DateTime", currentDateTime);
-                                //command.Parameters.AddWithValue("@ProgramId", programId);
-                                //command.Parameters.AddWithValue("@SectionId", sectionId);
-                                //command.Parameters.AddWithValue("@YearLevelId", yearLevelId);
 
                                 command.ExecuteNonQuery();
+                                form2.displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
                             }
                         }
                         else
@@ -394,6 +365,8 @@ namespace AMSEMS.SubForms_Admin
                                 command.Parameters.AddWithValue("@DateTime", currentDateTime);
 
                                 command.ExecuteNonQuery();
+
+                                form1.displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
                             }
                         }
                         else

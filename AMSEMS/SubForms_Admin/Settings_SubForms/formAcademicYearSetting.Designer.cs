@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.lblAcadSem = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.btnEditAcadSem = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.lblFname = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.btnEditFname = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.lblAcadYear = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.btnEditAcad = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonLabel6 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonWrapLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonWrapLabel();
@@ -45,11 +45,11 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.kryptonLabel3);
-            this.panel1.Controls.Add(this.kryptonButton1);
+            this.panel1.Controls.Add(this.lblAcadSem);
+            this.panel1.Controls.Add(this.btnEditAcadSem);
             this.panel1.Controls.Add(this.kryptonLabel4);
-            this.panel1.Controls.Add(this.lblFname);
-            this.panel1.Controls.Add(this.btnEditFname);
+            this.panel1.Controls.Add(this.lblAcadYear);
+            this.panel1.Controls.Add(this.btnEditAcad);
             this.panel1.Controls.Add(this.kryptonLabel6);
             this.panel1.Controls.Add(this.kryptonLabel2);
             this.panel1.Controls.Add(this.tgbtnDisableAcc);
@@ -62,76 +62,77 @@
             this.panel1.Size = new System.Drawing.Size(676, 561);
             this.panel1.TabIndex = 132;
             // 
-            // kryptonLabel3
+            // lblAcadSem
             // 
-            this.kryptonLabel3.Location = new System.Drawing.Point(0, 156);
-            this.kryptonLabel3.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel3.Name = "kryptonLabel3";
-            this.kryptonLabel3.Size = new System.Drawing.Size(18, 22);
-            this.kryptonLabel3.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.kryptonLabel3.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
-            this.kryptonLabel3.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
-            this.kryptonLabel3.TabIndex = 163;
-            this.kryptonLabel3.Values.Text = "2";
+            this.lblAcadSem.Location = new System.Drawing.Point(0, 156);
+            this.lblAcadSem.Margin = new System.Windows.Forms.Padding(2);
+            this.lblAcadSem.Name = "lblAcadSem";
+            this.lblAcadSem.Size = new System.Drawing.Size(18, 22);
+            this.lblAcadSem.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.lblAcadSem.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.lblAcadSem.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
+            this.lblAcadSem.TabIndex = 163;
+            this.lblAcadSem.Values.Text = "2";
             // 
-            // kryptonButton1
+            // btnEditAcadSem
             // 
-            this.kryptonButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.kryptonButton1.Location = new System.Drawing.Point(269, 149);
-            this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton1.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton1.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnEditAcadSem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEditAcadSem.Location = new System.Drawing.Point(269, 149);
+            this.btnEditAcadSem.Name = "btnEditAcadSem";
+            this.btnEditAcadSem.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcadSem.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcadSem.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton1.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            this.kryptonButton1.OverrideDefault.Border.Rounding = 10;
-            this.kryptonButton1.OverrideDefault.Border.Width = 1;
-            this.kryptonButton1.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.kryptonButton1.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.kryptonButton1.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.kryptonButton1.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton1.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton1.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnEditAcadSem.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnEditAcadSem.OverrideDefault.Border.Rounding = 10;
+            this.btnEditAcadSem.OverrideDefault.Border.Width = 1;
+            this.btnEditAcadSem.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnEditAcadSem.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditAcadSem.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditAcadSem.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcadSem.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcadSem.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton1.OverrideFocus.Border.Rounding = 10;
-            this.kryptonButton1.Size = new System.Drawing.Size(37, 32);
-            this.kryptonButton1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton1.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton1.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.kryptonButton1.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.kryptonButton1.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnEditAcadSem.OverrideFocus.Border.Rounding = 10;
+            this.btnEditAcadSem.Size = new System.Drawing.Size(37, 32);
+            this.btnEditAcadSem.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcadSem.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcadSem.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnEditAcadSem.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnEditAcadSem.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton1.StateCommon.Border.Rounding = 10;
-            this.kryptonButton1.StateCommon.Border.Width = 1;
-            this.kryptonButton1.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
-            this.kryptonButton1.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.kryptonButton1.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.kryptonButton1.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
-            this.kryptonButton1.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
-            this.kryptonButton1.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton1.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton1.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnEditAcadSem.StateCommon.Border.Rounding = 10;
+            this.btnEditAcadSem.StateCommon.Border.Width = 1;
+            this.btnEditAcadSem.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            this.btnEditAcadSem.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditAcadSem.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditAcadSem.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.btnEditAcadSem.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnEditAcadSem.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcadSem.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcadSem.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton1.StatePressed.Border.Rounding = 10;
-            this.kryptonButton1.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.kryptonButton1.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.kryptonButton1.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.kryptonButton1.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.kryptonButton1.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.kryptonButton1.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnEditAcadSem.StatePressed.Border.Rounding = 10;
+            this.btnEditAcadSem.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnEditAcadSem.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditAcadSem.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditAcadSem.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnEditAcadSem.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnEditAcadSem.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton1.StateTracking.Border.Rounding = 10;
-            this.kryptonButton1.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.kryptonButton1.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.kryptonButton1.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.kryptonButton1.TabIndex = 162;
-            this.kryptonButton1.Values.Image = global::AMSEMS.Properties.Resources.edit;
-            this.kryptonButton1.Values.Text = "";
+            this.btnEditAcadSem.StateTracking.Border.Rounding = 10;
+            this.btnEditAcadSem.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnEditAcadSem.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditAcadSem.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditAcadSem.TabIndex = 162;
+            this.btnEditAcadSem.Values.Image = global::AMSEMS.Properties.Resources.edit;
+            this.btnEditAcadSem.Values.Text = "";
+            this.btnEditAcadSem.Click += new System.EventHandler(this.btnEditAcad_Click);
             // 
             // kryptonLabel4
             // 
@@ -146,76 +147,77 @@
             this.kryptonLabel4.TabIndex = 161;
             this.kryptonLabel4.Values.Text = "Academic Semester";
             // 
-            // lblFname
+            // lblAcadYear
             // 
-            this.lblFname.Location = new System.Drawing.Point(-1, 89);
-            this.lblFname.Margin = new System.Windows.Forms.Padding(2);
-            this.lblFname.Name = "lblFname";
-            this.lblFname.Size = new System.Drawing.Size(78, 22);
-            this.lblFname.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.lblFname.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
-            this.lblFname.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
-            this.lblFname.TabIndex = 160;
-            this.lblFname.Values.Text = "2022-2023";
+            this.lblAcadYear.Location = new System.Drawing.Point(-1, 89);
+            this.lblAcadYear.Margin = new System.Windows.Forms.Padding(2);
+            this.lblAcadYear.Name = "lblAcadYear";
+            this.lblAcadYear.Size = new System.Drawing.Size(78, 22);
+            this.lblAcadYear.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.lblAcadYear.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.lblAcadYear.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
+            this.lblAcadYear.TabIndex = 160;
+            this.lblAcadYear.Values.Text = "2022-2023";
             // 
-            // btnEditFname
+            // btnEditAcad
             // 
-            this.btnEditFname.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEditFname.Location = new System.Drawing.Point(268, 82);
-            this.btnEditFname.Name = "btnEditFname";
-            this.btnEditFname.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditFname.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditFname.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnEditAcad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEditAcad.Location = new System.Drawing.Point(268, 82);
+            this.btnEditAcad.Name = "btnEditAcad";
+            this.btnEditAcad.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcad.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcad.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnEditFname.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            this.btnEditFname.OverrideDefault.Border.Rounding = 10;
-            this.btnEditFname.OverrideDefault.Border.Width = 1;
-            this.btnEditFname.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnEditFname.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnEditFname.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnEditFname.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditFname.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditFname.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnEditAcad.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnEditAcad.OverrideDefault.Border.Rounding = 10;
+            this.btnEditAcad.OverrideDefault.Border.Width = 1;
+            this.btnEditAcad.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnEditAcad.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditAcad.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditAcad.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcad.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcad.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnEditFname.OverrideFocus.Border.Rounding = 10;
-            this.btnEditFname.Size = new System.Drawing.Size(37, 32);
-            this.btnEditFname.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditFname.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditFname.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnEditFname.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnEditFname.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnEditAcad.OverrideFocus.Border.Rounding = 10;
+            this.btnEditAcad.Size = new System.Drawing.Size(37, 32);
+            this.btnEditAcad.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcad.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcad.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnEditAcad.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnEditAcad.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnEditFname.StateCommon.Border.Rounding = 10;
-            this.btnEditFname.StateCommon.Border.Width = 1;
-            this.btnEditFname.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
-            this.btnEditFname.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnEditFname.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnEditFname.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
-            this.btnEditFname.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
-            this.btnEditFname.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditFname.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditFname.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnEditAcad.StateCommon.Border.Rounding = 10;
+            this.btnEditAcad.StateCommon.Border.Width = 1;
+            this.btnEditAcad.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            this.btnEditAcad.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditAcad.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditAcad.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.btnEditAcad.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnEditAcad.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcad.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditAcad.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnEditFname.StatePressed.Border.Rounding = 10;
-            this.btnEditFname.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnEditFname.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnEditFname.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnEditFname.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnEditFname.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnEditFname.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.btnEditAcad.StatePressed.Border.Rounding = 10;
+            this.btnEditAcad.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnEditAcad.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditAcad.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditAcad.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnEditAcad.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnEditAcad.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnEditFname.StateTracking.Border.Rounding = 10;
-            this.btnEditFname.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnEditFname.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnEditFname.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnEditFname.TabIndex = 158;
-            this.btnEditFname.Values.Image = global::AMSEMS.Properties.Resources.edit;
-            this.btnEditFname.Values.Text = "";
+            this.btnEditAcad.StateTracking.Border.Rounding = 10;
+            this.btnEditAcad.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnEditAcad.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditAcad.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditAcad.TabIndex = 158;
+            this.btnEditAcad.Values.Image = global::AMSEMS.Properties.Resources.edit;
+            this.btnEditAcad.Values.Text = "";
+            this.btnEditAcad.Click += new System.EventHandler(this.btnEditAcad_Click);
             // 
             // kryptonLabel6
             // 
@@ -295,7 +297,7 @@
             this.tgbtnDisableAcc.Size = new System.Drawing.Size(45, 22);
             this.tgbtnDisableAcc.TabIndex = 134;
             this.tgbtnDisableAcc.UseVisualStyleBackColor = true;
-            this.tgbtnDisableAcc.CheckedChanged += new System.EventHandler(this.tgbtnDisableAcc_CheckedChanged);
+            this.tgbtnDisableAcc.Click += new System.EventHandler(this.tgbtnDisableAcc_CheckedChanged);
             // 
             // formAcademicYearSetting
             // 
@@ -333,11 +335,11 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private RJToggleButton tgbtnDisableAcc;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblAcadSem;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditAcadSem;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel4;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblFname;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditFname;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblAcadYear;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditAcad;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel6;
     }
 }

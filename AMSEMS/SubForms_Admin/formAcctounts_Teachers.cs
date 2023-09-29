@@ -12,8 +12,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using static System.Collections.Specialized.BitVector32;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AMSEMS.SubForms_Admin
 {
@@ -91,8 +89,8 @@ namespace AMSEMS.SubForms_Admin
         {
             try
             {
+                query = query + " ORDER BY DateTime DESC";
                 dgvTeachers.Rows.Clear();
-                int count = 1;
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -293,6 +291,7 @@ namespace AMSEMS.SubForms_Admin
         {
             formImportView form2 = new formImportView();
             form2.setRole(role);
+            form2.reloadFormTeach(this);
             form2.ShowDialog();
         }
 

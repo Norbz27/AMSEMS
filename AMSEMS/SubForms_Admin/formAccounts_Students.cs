@@ -80,11 +80,11 @@ namespace AMSEMS.SubForms_Admin
 
             btnAll.Focus();
 
-            displayFilter();
+            
 
 
             displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
-
+            displayFilter();
             loadCMSControls();
         }
 
@@ -140,37 +140,45 @@ namespace AMSEMS.SubForms_Admin
 
         public void displayTable(string query)
         {
-            dgvStudents.Rows.Clear();
-
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            try
             {
-                cn.Open();
+                query = query + " ORDER BY DateTime DESC";
+                dgvStudents.Rows.Clear();
 
-                using (SqlCommand cmd = new SqlCommand(query, cn))
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    cn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
-                        while (dr.Read())
+                        using (SqlDataReader dr = cmd.ExecuteReader())
                         {
-                            // Add a row and set the checkbox column value to false (unchecked)
-                            int rowIndex = dgvStudents.Rows.Add(false);
+                            while (dr.Read())
+                            {
+                                // Add a row and set the checkbox column value to false (unchecked)
+                                int rowIndex = dgvStudents.Rows.Add(false);
 
-                            // Populate other columns, starting from index 1
-                            dgvStudents.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
+                                // Populate other columns, starting from index 1
+                                dgvStudents.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
-                            // Populate your control column here (change "ControlColumn" to your actual column name)
-                            dgvStudents.Rows[rowIndex].Cells["option"].Value = option.Image;
+                                // Populate your control column here (change "ControlColumn" to your actual column name)
+                                dgvStudents.Rows[rowIndex].Cells["option"].Value = option.Image;
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
         }
@@ -199,7 +207,6 @@ namespace AMSEMS.SubForms_Admin
                     UpdatePanelVisibility();
                 }
             }
-            //System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))))
         }
         private void UpdatePanelVisibility()
         {
@@ -402,6 +409,7 @@ namespace AMSEMS.SubForms_Admin
         {
             formImportView form2 = new formImportView();
             form2.setRole(role);
+            form2.reloadFormStud(this);
             form2.ShowDialog();
         }
 

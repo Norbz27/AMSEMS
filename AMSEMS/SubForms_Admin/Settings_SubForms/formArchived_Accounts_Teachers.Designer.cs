@@ -188,6 +188,7 @@
             this.cbDep.Size = new System.Drawing.Size(175, 27);
             this.cbDep.TabIndex = 49;
             this.cbDep.SelectedIndexChanged += new System.EventHandler(this.cbDep_SelectedIndexChanged);
+            this.cbDep.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cb_KeyPress);
             // 
             // btnSelUnarchive
             // 

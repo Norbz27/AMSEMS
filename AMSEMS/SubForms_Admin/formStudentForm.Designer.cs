@@ -862,6 +862,7 @@ namespace AMSEMS.SubForms_Admin
             this.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.formStudentForm_FormClosed);
             this.Load += new System.EventHandler(this.formStudentForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

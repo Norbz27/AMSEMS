@@ -439,5 +439,14 @@ namespace AMSEMS.SubForms_Admin
             formAddSchoolSetting.setDisplayData("Departments");
             formAddSchoolSetting.ShowDialog();
         }
+
+        private void formTeacherForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            form.displayFilter();
+            form.loadCMSControls();
+
+            form2.displayFilter();
+            form2.loadCMSControls();
+        }
     }
 }

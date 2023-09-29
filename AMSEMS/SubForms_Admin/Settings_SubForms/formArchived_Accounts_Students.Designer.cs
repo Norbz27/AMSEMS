@@ -373,6 +373,7 @@
             this.cbProgram.Size = new System.Drawing.Size(201, 27);
             this.cbProgram.TabIndex = 32;
             this.cbProgram.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
+            this.cbProgram.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cb_KeyPress);
             // 
             // kryptonLabel1
             // 
@@ -395,6 +396,7 @@
             this.cbSection.Size = new System.Drawing.Size(108, 27);
             this.cbSection.TabIndex = 34;
             this.cbSection.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
+            this.cbSection.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cb_KeyPress);
             // 
             // kryptonLabel3
             // 
@@ -424,6 +426,7 @@
             this.cbYearlvl.Size = new System.Drawing.Size(108, 27);
             this.cbYearlvl.TabIndex = 36;
             this.cbYearlvl.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
+            this.cbYearlvl.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cb_KeyPress);
             // 
             // CMSOptions
             // 
@@ -659,6 +662,7 @@
             this.cbDep.Size = new System.Drawing.Size(140, 27);
             this.cbDep.TabIndex = 41;
             this.cbDep.SelectedIndexChanged += new System.EventHandler(this.cbFilter_SelectedIndexChanged);
+            this.cbDep.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cb_KeyPress);
             // 
             // dataGridViewImageColumn1
             // 
