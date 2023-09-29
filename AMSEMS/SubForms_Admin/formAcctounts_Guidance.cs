@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace AMSEMS.SubForms_Admin
 {
@@ -766,6 +767,79 @@ namespace AMSEMS.SubForms_Admin
                     MessageBox.Show("Error updating record: " + ex.Message);
                     return false;
                 }
+            }
+        }
+
+        private void btnExpExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Excel Files|*.xlsx";
+                    saveFileDialog.Title = "Save As Excel File";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string filePath = saveFileDialog.FileName;
+
+                        // Create a new Excel application
+                        Excel.Application excelApp = new Excel.Application();
+                        excelApp.Visible = false; // You can set this to true for debugging purposes
+
+                        // Create a new Excel workbook
+                        Excel.Workbook workbook = excelApp.Workbooks.Add();
+
+                        // Create a new Excel worksheet
+                        Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets.Add();
+
+                        // Customizing the table appearance
+                        Excel.Range tableRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[dgvGuidance.Rows.Count + 1, dgvGuidance.Columns.Count - 2]]; // Exclude the first and last columns
+
+                        int excelColumnIndex = 1; // Start from the first Excel column
+                        foreach (DataGridViewColumn column in dgvGuidance.Columns)
+                        {
+                            if (column.Index > 0 && column.Index < dgvGuidance.Columns.Count - 1) // Skip the first and last columns
+                            {
+                                worksheet.Cells[1, excelColumnIndex] = column.HeaderText; // Set the header in the first row
+                                worksheet.Cells[1, excelColumnIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196)); // Background color: #4472C4
+                                worksheet.Cells[1, excelColumnIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White); // Text color: White
+                                excelColumnIndex++;
+                            }
+                        }
+
+                        int rowIndex = 2; // Start from the second row
+                        foreach (DataGridViewRow row in dgvGuidance.Rows)
+                        {
+                            excelColumnIndex = 1; // Reset Excel column index for each row
+                            for (int i = 1; i < row.Cells.Count - 1; i++) // Skip the first and last cell in each row
+                            {
+                                worksheet.Cells[rowIndex, excelColumnIndex] = row.Cells[i].Value.ToString();
+                                excelColumnIndex++;
+                            }
+                            rowIndex++;
+                        }
+
+                        // Apply the "Blue, Table Style Medium 2" table style
+                        tableRange.Worksheet.ListObjects.Add(Excel.XlListObjectSourceType.xlSrcRange, tableRange, null, Excel.XlYesNoGuess.xlYes, null).TableStyle = "TableStyleMedium2";
+
+                        // Save the Excel file
+                        workbook.SaveAs(filePath);
+
+                        // Close Excel and release resources
+                        workbook.Close();
+                        excelApp.Quit();
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+
+                        MessageBox.Show("Data exported to Excel successfully.", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

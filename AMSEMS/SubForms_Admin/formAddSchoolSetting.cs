@@ -444,5 +444,11 @@ namespace AMSEMS.SubForms_Admin
             btnCancel.Visible = false;
             this.btnAdd.Values.Image = global::AMSEMS.Properties.Resources.plus_16;
         }
+
+        private void formAddSchoolSetting_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            formStudentForm.displayPSY();
+            formTeacherForm.displayDept();
+        }
     }
 }

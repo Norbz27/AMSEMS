@@ -35,11 +35,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.PictureBox();
             this.btnDone = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.lblHeader3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.btnAdd = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.tbDes = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
@@ -54,16 +56,14 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.btnCancel = new System.Windows.Forms.PictureBox();
-            this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).BeginInit();
             this.kryptonGroupBox2.Panel.SuspendLayout();
             this.kryptonGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.contextMenuStrip2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonPalette1
@@ -142,6 +142,21 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(340, 328);
             this.panel1.TabIndex = 68;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.Image = global::AMSEMS.Properties.Resources.remove_16;
+            this.btnCancel.Location = new System.Drawing.Point(275, 46);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(12, 12);
+            this.btnCancel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnCancel.TabIndex = 94;
+            this.btnCancel.TabStop = false;
+            this.btnCancel.Visible = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnDone
             // 
@@ -293,12 +308,22 @@
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
+            // option
+            // 
+            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.option.Description = "Action";
+            this.option.HeaderText = "";
+            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.option.Name = "option";
+            this.option.ReadOnly = true;
+            this.option.Width = 5;
+            // 
             // lblHeader3
             // 
             this.lblHeader3.Location = new System.Drawing.Point(-2, 86);
             this.lblHeader3.Margin = new System.Windows.Forms.Padding(2);
             this.lblHeader3.Name = "lblHeader3";
-            this.lblHeader3.Size = new System.Drawing.Size(105, 21);
+            this.lblHeader3.Size = new System.Drawing.Size(104, 21);
             this.lblHeader3.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.lblHeader3.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.lblHeader3.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
@@ -453,32 +478,6 @@
             this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.delete_24;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.ReadOnly = true;
-            this.dataGridViewImageColumn1.Width = 5;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.BackColor = System.Drawing.Color.Gainsboro;
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Image = global::AMSEMS.Properties.Resources.remove_16;
-            this.btnCancel.Location = new System.Drawing.Point(275, 46);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(12, 12);
-            this.btnCancel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnCancel.TabIndex = 94;
-            this.btnCancel.TabStop = false;
-            this.btnCancel.Visible = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // option
-            // 
-            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.option.Description = "Action";
-            this.option.HeaderText = "";
-            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
-            this.option.Name = "option";
-            this.option.ReadOnly = true;
-            this.option.Width = 5;
             // 
             // formAddSchoolSetting
             // 
@@ -494,15 +493,16 @@
             this.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.formAddSchoolSetting_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).EndInit();
             this.kryptonGroupBox2.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).EndInit();
             this.kryptonGroupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.contextMenuStrip2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).EndInit();
             this.ResumeLayout(false);
 
         }

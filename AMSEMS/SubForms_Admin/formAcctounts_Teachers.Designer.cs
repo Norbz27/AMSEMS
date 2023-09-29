@@ -74,7 +74,7 @@
             this.CMSExport = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpPDF = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnExpExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.pnControl = new System.Windows.Forms.Panel();
             this.btnDepartment = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -868,7 +868,7 @@
             this.CMSExport.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportToToolStripMenuItem,
             this.btnExpPDF,
-            this.toolStripMenuItem2});
+            this.btnExpExcel});
             this.CMSExport.Name = "contextMenuStrip2";
             this.CMSExport.ShowImageMargin = false;
             this.CMSExport.ShowItemToolTips = false;
@@ -894,15 +894,16 @@
             this.btnExpPDF.Text = "PDF File";
             this.btnExpPDF.Click += new System.EventHandler(this.btnExpPDF_Click);
             // 
-            // toolStripMenuItem2
+            // btnExpExcel
             // 
-            this.toolStripMenuItem2.AutoSize = false;
-            this.toolStripMenuItem2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripMenuItem2.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem2.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(135, 26);
-            this.toolStripMenuItem2.Text = "Excel File";
+            this.btnExpExcel.AutoSize = false;
+            this.btnExpExcel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnExpExcel.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExpExcel.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
+            this.btnExpExcel.Name = "btnExpExcel";
+            this.btnExpExcel.Size = new System.Drawing.Size(135, 26);
+            this.btnExpExcel.Text = "Excel File";
+            this.btnExpExcel.Click += new System.EventHandler(this.btnExpExcel_Click);
             // 
             // pnControl
             // 
@@ -1387,7 +1388,7 @@
         private System.Windows.Forms.ContextMenuStrip CMSExport;
         private System.Windows.Forms.ToolStripMenuItem exportToToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnExpPDF;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem btnExpExcel;
         private System.Windows.Forms.Panel pnControl;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnMultiDel;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Select;

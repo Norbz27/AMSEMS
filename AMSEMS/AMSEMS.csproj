@@ -879,6 +879,7 @@
     <None Include="Resources\vertical-line %281%29.png" />
     <None Include="Resources\inbox.png" />
     <None Include="Resources\inbox1.png" />
+    <None Include="Resources\knowledge.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

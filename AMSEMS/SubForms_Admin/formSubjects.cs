@@ -49,6 +49,7 @@ namespace AMSEMS.SubForms_Admin
 
             btnAll.Focus();
             displayFilter();
+            loadCMSControls();
 
             displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
         }
@@ -470,12 +471,12 @@ namespace AMSEMS.SubForms_Admin
                         Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets.Add();
 
                         // Customizing the table appearance
-                        Excel.Range tableRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[dgvSubjects.Rows.Count + 1, dgvSubjects.Columns.Count - 1]];
+                        Excel.Range tableRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[dgvSubjects.Rows.Count + 1, dgvSubjects.Columns.Count - 2]]; // Exclude the first and last columns
 
                         int excelColumnIndex = 1; // Start from the first Excel column
                         foreach (DataGridViewColumn column in dgvSubjects.Columns)
                         {
-                            if (column.Index < dgvSubjects.Columns.Count - 1) // Exclude the last column
+                            if (column.Index > 0 && column.Index < dgvSubjects.Columns.Count - 1) // Skip the first and last columns
                             {
                                 worksheet.Cells[1, excelColumnIndex] = column.HeaderText; // Set the header in the first row
                                 worksheet.Cells[1, excelColumnIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196)); // Background color: #4472C4
@@ -488,7 +489,7 @@ namespace AMSEMS.SubForms_Admin
                         foreach (DataGridViewRow row in dgvSubjects.Rows)
                         {
                             excelColumnIndex = 1; // Reset Excel column index for each row
-                            for (int i = 0; i < row.Cells.Count - 1; i++) // Exclude the last column
+                            for (int i = 1; i < row.Cells.Count - 1; i++) // Skip the first and last cell in each row
                             {
                                 worksheet.Cells[rowIndex, excelColumnIndex] = row.Cells[i].Value.ToString();
                                 excelColumnIndex++;
@@ -498,9 +499,6 @@ namespace AMSEMS.SubForms_Admin
 
                         // Apply the "Blue, Table Style Medium 2" table style
                         tableRange.Worksheet.ListObjects.Add(Excel.XlListObjectSourceType.xlSrcRange, tableRange, null, Excel.XlYesNoGuess.xlYes, null).TableStyle = "TableStyleMedium2";
-
-                        // Delete the last column in the Excel worksheet
-                        worksheet.Cells[1, dgvSubjects.Columns.Count].EntireColumn.Delete();
 
                         // Save the Excel file
                         workbook.SaveAs(filePath);
@@ -520,6 +518,7 @@ namespace AMSEMS.SubForms_Admin
             {
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
         private void UpdatePanelVisibility()
         {
@@ -927,6 +926,155 @@ namespace AMSEMS.SubForms_Admin
                     return false;
                 }
             }
+        }
+
+        public void loadCMSControls()
+        {
+            // Assuming you have a ContextMenuStrip named "contextMenuStrip1"
+
+            int itemCount1 = CMSAcadLvl.Items.Count;
+
+            // Start from the last item (excluding the first item at index 0)
+            for (int i = itemCount1 - 1; i > 0; i--)
+            {
+                CMSAcadLvl.Items.RemoveAt(i);
+            }
+
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
+                    cm = new SqlCommand("Select Academic_Level_ID,Academic_Level_Description from tbl_academic_level", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        // Add a new ToolStripMenuItem
+                        int itemId = Convert.ToInt32(dr["Academic_Level_ID"]);
+                        var item = new ToolStripMenuItem(dr["Academic_Level_Description"].ToString());
+
+                        // Set margin for the item (adjust the values as needed)
+                        item.Margin = new Padding(10, 0, 0, 0);
+                        item.AutoSize = false;
+                        item.Width = 138;
+                        item.Height = 26;
+
+                        // Store the table name and ID in the Tag property
+                        item.Tag = new Tuple<string, int>("Academic_Level", itemId);
+
+                        // Assign a common event handler for all menu items
+                        item.Click += ContextMenuItem_Click;
+
+                        // Add the item to the context menu
+                        CMSAcadLvl.Items.Add(item);
+                    }
+                    dr.Close();
+                    cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+        private void ContextMenuItem_Click(object sender, EventArgs e)
+        {
+            // Cast the sender to ToolStripMenuItem to access its properties
+            ToolStripMenuItem clickedMenuItem = (ToolStripMenuItem)sender;
+
+            // Get the text of the clicked menu item
+            string menuItemText = clickedMenuItem.Text;
+
+            // Get the table name and ID from the Tag property
+            Tuple<string, int> tagInfo = (Tuple<string, int>)clickedMenuItem.Tag;
+            string column = tagInfo.Item1;
+            int itemId = tagInfo.Item2;
+
+            // Check if at least one row is selected
+            bool hasSelectedRow = false;
+
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvSubjects.Rows)
+            {
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                if (chk.Value != null && (bool)chk.Value)
+                {
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+                    break; // Exit the loop as soon as the first selected row is found
+                }
+            }
+
+            if (hasSelectedRow)
+            {
+                // Ask for confirmation from the user
+                DialogResult result = MessageBox.Show("Update Subjects Info?", "Confirm Update", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    // Create a list to store the rows to be removed
+                    List<DataGridViewRow> rows = new List<DataGridViewRow>();
+
+                    // Iterate through the DataGridView rows to update selected rows
+                    foreach (DataGridViewRow row in dgvSubjects.Rows)
+                    {
+                        // Check if the "Select" checkbox is checked in the current row
+                        DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                        if (chk.Value != null && (bool)chk.Value)
+                        {
+                            // Get the teacher ID or relevant data from the row
+                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
+                            // Call your UpdateSubjectStatus method to update the record
+                            bool success = UpdateTeacherInfo(id, itemId, column);
+
+                            if (success)
+                            {
+                                // Add the row to the list of rows to be removed
+                                rows.Add(row);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record with ID: " + id);
+                            }
+                        }
+                    }
+                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                }
+            }
+        }
+        private bool UpdateTeacherInfo(int teacherID, int itemID, string column)
+        {
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                try
+                {
+                    cn.Open();
+                    string updateQuery = "UPDATE tbl_subjects SET " + column + " = @ItemID WHERE Course_code = @ID";
+
+                    using (SqlCommand command = new SqlCommand(updateQuery, cn))
+                    {
+                        command.Parameters.AddWithValue("@ID", teacherID);
+                        command.Parameters.AddWithValue("@ItemID", itemID);
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating record: " + ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        private void btnMultiEditAcad_Click(object sender, EventArgs e)
+        {
+            CMSAcadLvl.Show(btnMultiEditAcad, new System.Drawing.Point(0, btnMultiEditAcad.Height));
+        }
+
+        private void cbAcadLevel_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

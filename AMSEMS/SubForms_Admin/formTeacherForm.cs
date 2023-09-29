@@ -442,11 +442,16 @@ namespace AMSEMS.SubForms_Admin
 
         private void formTeacherForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            form.displayFilter();
-            form.loadCMSControls();
-
-            form2.displayFilter();
-            form2.loadCMSControls();
+            if (roleID == 6)
+            {
+                form.displayFilter();
+                form.loadCMSControls();
+            }
+            else
+            {
+                form2.displayFilter();
+                form2.loadCMSControls();
+            }
         }
     }
 }

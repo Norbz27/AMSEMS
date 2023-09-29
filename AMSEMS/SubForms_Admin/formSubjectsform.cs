@@ -255,5 +255,11 @@ namespace AMSEMS.SubForms_Admin
         {
             e.Handled = true;
         }
+
+        private void formSubjectsForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            form.displayFilter();
+            form.loadCMSControls();
+        }
     }
 }
