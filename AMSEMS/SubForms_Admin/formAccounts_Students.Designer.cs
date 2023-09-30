@@ -565,7 +565,7 @@
             this.kryptonGroupBox5.StateCommon.Border.Width = 2;
             this.kryptonGroupBox5.TabIndex = 29;
             // 
-            // dgvStudents
+            // dgvImport
             // 
             this.dgvStudents.AllowUserToAddRows = false;
             this.dgvStudents.AllowUserToDeleteRows = false;

@@ -41,7 +41,8 @@ namespace AMSEMS.SubForms_Admin
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
-
+            backgroundWorker.DoWork += backgroundWorker1_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
         }
 
         public void setRole(int role)
@@ -112,16 +113,16 @@ namespace AMSEMS.SubForms_Admin
 
             object[,] data = (object[,])worksheet.Range[worksheet.Cells[2, 1], worksheet.Cells[rowCount, columnCount]].Value;
 
-            dgvStudents.RowCount = rowCount - 1; // Exclude the header row
-            dgvStudents.ColumnCount = columnCount + 1; // Add 1 for the row numbers column
+            dgvImport.RowCount = rowCount - 1; // Exclude the header row
+            dgvImport.ColumnCount = columnCount + 1; // Add 1 for the row numbers column
 
             for (int row = 0; row < rowCount - 1; row++)
             {
-                dgvStudents[0, row].Value = row + 1; // First column with row numbers
+                dgvImport[0, row].Value = row + 1; // First column with row numbers
 
                 for (int col = 0; col < columnCount; col++)
                 {
-                    dgvStudents[col + 1, row].Value = data[row + 1, col + 1];
+                    dgvImport[col + 1, row].Value = data[row + 1, col + 1];
                 }
             }
 
@@ -133,7 +134,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dgvStudents.Rows)
+            foreach (DataGridViewRow row in dgvImport.Rows)
             {
                 if (!row.IsNewRow) // Skip the new row at the bottom of the DataGridView
                 {
@@ -394,21 +395,30 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            UseWaitCursor = true;
-            using (OpenFileDialog openFileDialogEXL = new OpenFileDialog())
+            try
             {
-                openFileDialogEXL.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
-                if (openFileDialogEXL.ShowDialog() == DialogResult.OK)
+                using (OpenFileDialog openFileDialogEXL = new OpenFileDialog())
                 {
-                    string selectedFilePath = openFileDialogEXL.FileName;
+                    openFileDialogEXL.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+                    if (openFileDialogEXL.ShowDialog() == DialogResult.OK)
+                    {
+                        string selectedFilePath = openFileDialogEXL.FileName;
 
-                    // Pass the selectedFilePath to Form2 and show Form2
-                    tbFilePath.Text = selectedFilePath;
-                    displayTable();
+                        // Pass the selectedFilePath to Form2 and show Form2
+                        tbFilePath.Text = selectedFilePath;
+                        progressBar.Style = ProgressBarStyle.Marquee;
+                        progressBar.Visible = true;
+                        backgroundWorker.RunWorkerAsync(openFileDialogEXL.FileName);
+                    }
                 }
             }
-            UseWaitCursor = false;
+            catch (Exception ex)
+            {
+                // Handle any exceptions that may occur during file loading or data processing
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+                
 
         private void tbFilePath_TextChanged(object sender, EventArgs e)
         {
@@ -483,6 +493,20 @@ namespace AMSEMS.SubForms_Admin
 
             // Clean up the temporary file
             File.Delete(tempFilePath);
+        }
+
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            dgvImport.Invoke((MethodInvoker)delegate
+            {
+                displayTable();
+            });
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            progressBar.Visible = false;
         }
 
         private void tbFilePath_KeyPress(object sender, KeyPressEventArgs e)

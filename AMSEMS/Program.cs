@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AMSEMS.SubForms_Admin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace AMSEMS
         /// The main entry point for the application.
         /// </summary>
         /// 
-        [STAThread]
+        [STAThread] // Add this attribute to your main method
         static void Main()
         {
             Application.EnableVisualStyles();

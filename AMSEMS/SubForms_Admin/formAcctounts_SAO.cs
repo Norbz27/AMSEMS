@@ -25,6 +25,10 @@ namespace AMSEMS.SubForms_Admin
 
         static int role;
         static string accountName;
+
+        private bool headerCheckboxAdded = false; // Add this flag
+
+        private CheckBox headerCheckbox = new CheckBox();
         public formAccounts_SAO()
         {
             InitializeComponent();
@@ -33,6 +37,13 @@ namespace AMSEMS.SubForms_Admin
 
             dgvsao.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvsao.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+
+            // Initialize the header checkbox in the constructor
+            headerCheckbox.Size = new Size(15, 15);
+            headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
+
+            // Add the header checkbox to the DataGridView controls
+            dgvsao.Controls.Add(headerCheckbox);
         }
         public static void setAccountName(String accountName1)
         {
@@ -169,24 +180,21 @@ namespace AMSEMS.SubForms_Admin
             document.Add(titleParagraph);
 
             // Customizing the table appearance
-            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1); // Exclude the last column
+            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 2); // Exclude the first and last columns
             pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
             pdfTable.SpacingBefore = 10f; // Add space before the table
             pdfTable.DefaultCell.Padding = 3; // Cell padding
 
-
             // Set column widths for specific columns (2nd and 6th columns) to autosize
-            float[] columnWidths = new float[dataGridView.Columns.Count - 1];
-            columnWidths[0] = 25; // No column width
-            columnWidths[1] = 70; // ID column width
-            columnWidths[2] = 70; // First Name column autosize
-            columnWidths[3] = 70; // Last Name column autosize
-            columnWidths[4] = 45; // Status column width
+            float[] columnWidths = new float[dataGridView.Columns.Count - 2];
+            columnWidths[0] = 30; // ID column autosize
+            columnWidths[1] = 70; // First Name column autosize
+            columnWidths[2] = 70; // Last Name column autosize
             pdfTable.SetWidths(columnWidths);
 
             foreach (DataGridViewColumn column in dataGridView.Columns)
             {
-                if (column.Index < dataGridView.Columns.Count - 1) // Exclude the last column
+                if (column.Index > 0 && column.Index < dataGridView.Columns.Count - 1) // Exclude the first and last columns
                 {
                     PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
                     cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
@@ -196,7 +204,7 @@ namespace AMSEMS.SubForms_Admin
 
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
-                for (int i = 0; i < row.Cells.Count - 1; i++) // Exclude the last column
+                for (int i = 1; i < row.Cells.Count - 1; i++) // Skip the first and last columns
                 {
                     PdfPCell pdfCell = new PdfPCell(new Phrase(row.Cells[i].Value.ToString(), cellFont));
                     pdfTable.AddCell(pdfCell);
@@ -418,24 +426,21 @@ namespace AMSEMS.SubForms_Admin
                 e.PaintBackground(e.CellBounds, true);
                 e.PaintContent(e.CellBounds);
 
-                // Create a checkbox control and set its state
-                CheckBox headerCheckbox = new CheckBox();
-                headerCheckbox.Size = new Size(15, 15);
-
-                // Center the checkbox within the header cell
-                int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
-                int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
-
-                headerCheckbox.Location = new Point(x, y);
-                headerCheckbox.Checked = AreAllCheckboxesChecked();
-
-                // Handle the checkbox click event
-                headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
-
-                // Check if there are any rows in the DataGridView
-                if (dgvsao.Rows.Count != 0)
+                if (!headerCheckboxAdded) // Check if the checkbox has already been added
                 {
+
+
+                    // Center the checkbox within the header cell
+                    int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
+                    int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
+
+                    headerCheckbox.Location = new Point(x, y);
+                    headerCheckbox.Checked = AreAllCheckboxesChecked();
+
+
                     dgvsao.Controls.Add(headerCheckbox);
+
+                    headerCheckboxAdded = true; // Set the flag to true
                 }
             }
         }
@@ -513,6 +518,7 @@ namespace AMSEMS.SubForms_Admin
 
             displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
 
+            headerCheckbox.Checked = false;
             dgvsao.Refresh();
             pnControl.Hide();
 
@@ -569,6 +575,7 @@ namespace AMSEMS.SubForms_Admin
                     }
 
                     displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                    headerCheckbox.Checked = false;
                 }
             }
 
@@ -625,6 +632,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                     displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                    headerCheckbox.Checked = false;
                 }
             }
 
@@ -705,6 +713,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                     displayTable("Select ID,Firstname,Lastname,Password, st.Description as stDes from tbl_sao_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
+                    headerCheckbox.Checked = false;
                 }
             }
         }

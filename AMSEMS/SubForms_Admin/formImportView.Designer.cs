@@ -40,12 +40,13 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.btnDownload = new ComponentFactory.Krypton.Toolkit.KryptonLinkLabel();
             this.btnImport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.tbFilePath = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.btnDone = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.tblStudentImp = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.dgvStudents = new System.Windows.Forms.DataGridView();
+            this.dgvImport = new System.Windows.Forms.DataGridView();
             this.No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fname = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,12 +59,13 @@
             this.kryptonContextMenuHeading1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuHeading();
             this.kryptonContextMenuSeparator1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblStudentImp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblStudentImp.Panel)).BeginInit();
             this.tblStudentImp.Panel.SuspendLayout();
             this.tblStudentImp.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvImport)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonPalette1
@@ -129,6 +131,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.progressBar);
             this.panel1.Controls.Add(this.btnDownload);
             this.panel1.Controls.Add(this.btnImport);
             this.panel1.Controls.Add(this.tbFilePath);
@@ -141,6 +144,15 @@
             this.panel1.Size = new System.Drawing.Size(727, 357);
             this.panel1.TabIndex = 68;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(224, 190);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(278, 17);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar.TabIndex = 168;
+            this.progressBar.Visible = false;
             // 
             // btnDownload
             // 
@@ -306,7 +318,7 @@
             // 
             // tblStudentImp.Panel
             // 
-            this.tblStudentImp.Panel.Controls.Add(this.dgvStudents);
+            this.tblStudentImp.Panel.Controls.Add(this.dgvImport);
             this.tblStudentImp.Size = new System.Drawing.Size(727, 239);
             this.tblStudentImp.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.tblStudentImp.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -319,23 +331,23 @@
             this.tblStudentImp.StateCommon.Border.Width = 2;
             this.tblStudentImp.TabIndex = 84;
             // 
-            // dgvStudents
+            // dgvImport
             // 
-            this.dgvStudents.AllowUserToAddRows = false;
-            this.dgvStudents.AllowUserToDeleteRows = false;
-            this.dgvStudents.AllowUserToResizeColumns = false;
-            this.dgvStudents.AllowUserToResizeRows = false;
+            this.dgvImport.AllowUserToAddRows = false;
+            this.dgvImport.AllowUserToDeleteRows = false;
+            this.dgvImport.AllowUserToResizeColumns = false;
+            this.dgvImport.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGray;
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvStudents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvStudents.BackgroundColor = System.Drawing.Color.White;
-            this.dgvStudents.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvStudents.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dgvStudents.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dgvStudents.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dgvImport.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvImport.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvImport.BackgroundColor = System.Drawing.Color.White;
+            this.dgvImport.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvImport.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dgvImport.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dgvImport.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -343,16 +355,16 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Desktop;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStudents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvStudents.ColumnHeadersHeight = 50;
-            this.dgvStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvStudents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvImport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvImport.ColumnHeadersHeight = 50;
+            this.dgvImport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvImport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.No,
             this.ID,
             this.Fname,
             this.Lname,
             this.mname});
-            this.dgvStudents.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dgvImport.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle7.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -360,14 +372,14 @@
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.Desktop;
             dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStudents.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dgvStudents.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvStudents.EnableHeadersVisualStyles = false;
-            this.dgvStudents.GridColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.dgvStudents.Location = new System.Drawing.Point(0, 0);
-            this.dgvStudents.Name = "dgvStudents";
-            this.dgvStudents.ReadOnly = true;
-            this.dgvStudents.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgvImport.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvImport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvImport.EnableHeadersVisualStyles = false;
+            this.dgvImport.GridColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.dgvImport.Location = new System.Drawing.Point(0, 0);
+            this.dgvImport.Name = "dgvImport";
+            this.dgvImport.ReadOnly = true;
+            this.dgvImport.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle8.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -375,19 +387,19 @@
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStudents.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvStudents.RowHeadersVisible = false;
-            this.dgvStudents.RowHeadersWidth = 30;
-            this.dgvStudents.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgvImport.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.dgvImport.RowHeadersVisible = false;
+            this.dgvImport.RowHeadersWidth = 30;
+            this.dgvImport.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle9.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStudents.RowsDefaultCellStyle = dataGridViewCellStyle9;
-            this.dgvStudents.RowTemplate.Height = 30;
-            this.dgvStudents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStudents.Size = new System.Drawing.Size(717, 229);
-            this.dgvStudents.TabIndex = 12;
+            this.dgvImport.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            this.dgvImport.RowTemplate.Height = 30;
+            this.dgvImport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvImport.Size = new System.Drawing.Size(717, 229);
+            this.dgvImport.TabIndex = 12;
             // 
             // No
             // 
@@ -489,7 +501,7 @@
             this.tblStudentImp.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tblStudentImp)).EndInit();
             this.tblStudentImp.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvImport)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -509,12 +521,14 @@
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnImport;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbFilePath;
-        private System.Windows.Forms.DataGridView dgvStudents;
+        private System.Windows.Forms.DataGridView dgvImport;
         private ComponentFactory.Krypton.Toolkit.KryptonLinkLabel btnDownload;
         private System.Windows.Forms.DataGridViewTextBoxColumn No;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fname;
         private System.Windows.Forms.DataGridViewTextBoxColumn Lname;
         private System.Windows.Forms.DataGridViewTextBoxColumn mname;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
     }
 }

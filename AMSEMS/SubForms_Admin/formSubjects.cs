@@ -23,7 +23,9 @@ namespace AMSEMS.SubForms_Admin
         SqlDataAdapter ad;
         SqlCommand cm;
         SqlDataReader dr;
-
+        private bool headerCheckboxAdded = false; // Add this flag
+                                               
+        private CheckBox headerCheckbox = new CheckBox();
         public formSubjects()
         {
             InitializeComponent();
@@ -31,6 +33,12 @@ namespace AMSEMS.SubForms_Admin
 
             dgvSubjects.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvSubjects.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            // Initialize the header checkbox in the constructor
+            headerCheckbox.Size = new Size(15, 15);
+            headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
+
+            // Add the header checkbox to the DataGridView controls
+            dgvSubjects.Controls.Add(headerCheckbox);
         }
 
         private void formSubjects_Load(object sender, EventArgs e)
@@ -190,7 +198,7 @@ namespace AMSEMS.SubForms_Admin
 
             // Set column widths for specific columns (2nd and 6th columns) to autosize
             float[] columnWidths = new float[dataGridView.Columns.Count - 1];
-            columnWidths[0] = 25; // No column width
+            columnWidths[0] = 0; // No column width
             columnWidths[1] = 70; // ID column width
             columnWidths[2] = 70; // First Name column autosize
             columnWidths[3] = 70; // Last Name column autosize
@@ -583,24 +591,21 @@ namespace AMSEMS.SubForms_Admin
                 e.PaintBackground(e.CellBounds, true);
                 e.PaintContent(e.CellBounds);
 
-                // Create a checkbox control and set its state
-                CheckBox headerCheckbox = new CheckBox();
-                headerCheckbox.Size = new Size(15, 15);
-
-                // Center the checkbox within the header cell
-                int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
-                int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
-
-                headerCheckbox.Location = new Point(x, y);
-                headerCheckbox.Checked = AreAllCheckboxesChecked();
-
-                // Handle the checkbox click event
-                headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
-
-                // Check if there are any rows in the DataGridView
-                if (dgvSubjects.Rows.Count != 0)
+                if (!headerCheckboxAdded) // Check if the checkbox has already been added
                 {
+                   
+
+                    // Center the checkbox within the header cell
+                    int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
+                    int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
+
+                    headerCheckbox.Location = new Point(x, y);
+                    headerCheckbox.Checked = AreAllCheckboxesChecked();
+
+
                     dgvSubjects.Controls.Add(headerCheckbox);
+
+                    headerCheckboxAdded = true; // Set the flag to true
                 }
             }
         }
@@ -678,6 +683,7 @@ namespace AMSEMS.SubForms_Admin
 
             displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
 
+            headerCheckbox.Checked = false;
             dgvSubjects.Refresh();
             pnControl.Hide();
         }
@@ -733,6 +739,7 @@ namespace AMSEMS.SubForms_Admin
                     }
 
                     displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    headerCheckbox.Checked = false;
                 }
             }
 
@@ -789,6 +796,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                     displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    headerCheckbox.Checked = false;
                 }
             }
 
@@ -869,6 +877,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                     displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    headerCheckbox.Checked = false;
                 }
             }
         }
@@ -1056,6 +1065,7 @@ namespace AMSEMS.SubForms_Admin
                         command.Parameters.AddWithValue("@ID", teacherID);
                         command.Parameters.AddWithValue("@ItemID", itemID);
                         command.ExecuteNonQuery();
+                        headerCheckbox.Checked = false;
                         return true;
                     }
                 }

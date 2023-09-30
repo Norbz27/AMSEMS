@@ -26,6 +26,10 @@ namespace AMSEMS.SubForms_Admin
         string selectedItem;
         static string account;
         static int role;
+
+        private bool headerCheckboxAdded = false; // Add this flag
+
+        private CheckBox headerCheckbox = new CheckBox();
         public formAccounts_Students()
         {
             InitializeComponent();
@@ -43,6 +47,13 @@ namespace AMSEMS.SubForms_Admin
             //checkboxColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             //checkboxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             //dgvArch.Columns.Insert(0, checkboxColumn);
+
+            // Initialize the header checkbox in the constructor
+            headerCheckbox.Size = new Size(15, 15);
+            headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
+
+            // Add the header checkbox to the DataGridView controls
+            dgvStudents.Controls.Add(headerCheckbox);
         }
         public static void setAccountName(string accountName)
         {
@@ -359,15 +370,14 @@ namespace AMSEMS.SubForms_Admin
             document.Add(titleParagraph);
 
             // Customizing the table appearance
-            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1); // Exclude the last column
+            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 2); // Exclude the first and last columns
             pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
             pdfTable.SpacingBefore = 10f; // Add space before the table
             pdfTable.DefaultCell.Padding = 3; // Cell padding
 
-
             // Set column widths for specific columns (2nd and 6th columns) to autosize
-            float[] columnWidths = new float[dataGridView.Columns.Count - 1];
-            columnWidths[0] = 25; // No column width
+            float[] columnWidths = new float[dataGridView.Columns.Count - 2];
+            columnWidths[0] = 70; // No column width
             columnWidths[1] = 70; // ID column width
             columnWidths[2] = 70; // RFID column width
             columnWidths[3] = 70; // First Name column autosize
@@ -375,12 +385,11 @@ namespace AMSEMS.SubForms_Admin
             columnWidths[5] = 86; // Program column width
             columnWidths[6] = 60; // Section column width
             columnWidths[7] = 40; // Year Level column width
-            columnWidths[8] = 45; // Status column width
             pdfTable.SetWidths(columnWidths);
 
             foreach (DataGridViewColumn column in dataGridView.Columns)
             {
-                if (column.Index < dataGridView.Columns.Count - 1) // Exclude the last column
+                if (column.Index > 0 && column.Index < dataGridView.Columns.Count - 1) // Exclude the first and last columns
                 {
                     PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
                     cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
@@ -390,7 +399,7 @@ namespace AMSEMS.SubForms_Admin
 
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
-                for (int i = 0; i < row.Cells.Count - 1; i++) // Exclude the last column
+                for (int i = 1; i < row.Cells.Count - 1; i++) // Skip the first and last columns
                 {
                     PdfPCell pdfCell = new PdfPCell(new Phrase(row.Cells[i].Value.ToString(), cellFont));
                     pdfTable.AddCell(pdfCell);
@@ -684,29 +693,24 @@ namespace AMSEMS.SubForms_Admin
                 e.PaintBackground(e.CellBounds, true);
                 e.PaintContent(e.CellBounds);
 
-                // Create a checkbox control and set its state
-                CheckBox headerCheckbox = new CheckBox();
-                headerCheckbox.Size = new Size(15, 15);
-
-                // Center the checkbox within the header cell
-                int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
-                int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
-
-                headerCheckbox.Location = new Point(x, y);
-                headerCheckbox.Checked = AreAllCheckboxesChecked();
-
-                // Handle the checkbox click event
-                headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
-
-
-                // Check if there are any rows in the DataGridView
-                if (dgvStudents.Rows.Count != 0)
+                if (!headerCheckboxAdded) // Check if the checkbox has already been added
                 {
+
+
+                    // Center the checkbox within the header cell
+                    int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
+                    int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
+
+                    headerCheckbox.Location = new Point(x, y);
+                    headerCheckbox.Checked = AreAllCheckboxesChecked();
+
+
                     dgvStudents.Controls.Add(headerCheckbox);
+
+                    headerCheckboxAdded = true; // Set the flag to true
                 }
             }
         }
-
         private void HeaderCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox headerCheckbox = (CheckBox)sender;
@@ -781,6 +785,7 @@ namespace AMSEMS.SubForms_Admin
 
             displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
 
+            headerCheckbox.Checked = false;
             dgvStudents.Refresh();
 
             pnControl.Hide();
@@ -839,6 +844,7 @@ namespace AMSEMS.SubForms_Admin
                     }
 
                     displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    headerCheckbox.Checked = false;
                 }
             }
 
@@ -895,6 +901,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                     displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    headerCheckbox.Checked = false;
                 }
             }
 
@@ -1176,6 +1183,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                     displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    headerCheckbox.Checked = false;
                 }
             }
         }
@@ -1231,6 +1239,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                     displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                    headerCheckbox.Checked = false;
                 }
             }
         }
