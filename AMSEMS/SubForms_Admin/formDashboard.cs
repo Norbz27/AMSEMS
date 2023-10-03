@@ -42,6 +42,7 @@ namespace AMSEMS.SubForms_Admin
 
             displayChart();
             displayAccounts();
+            form.loadData();
         }
 
         public void displayChart()

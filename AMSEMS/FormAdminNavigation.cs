@@ -13,6 +13,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using AMSEMS.Properties;
 using System.Data.SqlClient;
 using AMSEMS.SubForm_Guidance;
+using System.IO;
 
 namespace AMSEMS
 {
@@ -47,7 +48,7 @@ namespace AMSEMS
 
         }
 
-        public void loadData(String id)
+        public void loadData()
         {
             cn.Open();
             cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where Unique_ID = '" + id + "'", cn);
@@ -55,6 +56,19 @@ namespace AMSEMS
             dr.Read();
             lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
             dr.Close();
+
+            cm = new SqlCommand("Select Profile_pic from tbl_admin_accounts where Unique_ID = " + id + "", cn);
+
+            byte[] imageData = (byte[])cm.ExecuteScalar();
+
+            if (imageData != null && imageData.Length > 0)
+            {
+                using (MemoryStream ms = new MemoryStream(imageData))
+                {
+                    Image image = Image.FromStream(ms);
+                    ptbProfile.Image = image;
+                }
+            }
             cn.Close();
         }
 
@@ -271,7 +285,7 @@ namespace AMSEMS
 
         private void FormAdminNavigation_Load(object sender, EventArgs e)
         {
-            loadData(id);
+            loadData();
         }
 
         public void Logout()

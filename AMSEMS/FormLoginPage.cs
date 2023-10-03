@@ -167,7 +167,7 @@ namespace AMSEMS
                                     mainForm = new FormAdminNavigation(uniqueID);
                                     break;
                                 case 2:
-                                    mainForm = new FormDeptHeadNavigation();
+                                    mainForm = new FormDeptHeadNavigation(uniqueID);
                                     break;
                                 case 3:
                                     mainForm = new FormGuidanceNavigation();

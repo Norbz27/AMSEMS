@@ -72,7 +72,7 @@
             // 
             this.btnLogout.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLogout.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLogout.Location = new System.Drawing.Point(20, 267);
+            this.btnLogout.Location = new System.Drawing.Point(20, 270);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnLogout.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -136,7 +136,7 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(20, 257);
+            this.panel3.Location = new System.Drawing.Point(20, 260);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(139, 10);
             this.panel3.TabIndex = 21;
@@ -145,7 +145,7 @@
             // 
             this.btnBackup.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBackup.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnBackup.Location = new System.Drawing.Point(20, 220);
+            this.btnBackup.Location = new System.Drawing.Point(20, 223);
             this.btnBackup.Name = "btnBackup";
             this.btnBackup.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnBackup.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -206,7 +206,7 @@
             // 
             this.btnAcPer.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAcPer.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnAcPer.Location = new System.Drawing.Point(20, 183);
+            this.btnAcPer.Location = new System.Drawing.Point(20, 186);
             this.btnAcPer.Name = "btnAcPer";
             this.btnAcPer.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnAcPer.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -267,7 +267,7 @@
             // 
             this.btnArch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnArch.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnArch.Location = new System.Drawing.Point(20, 146);
+            this.btnArch.Location = new System.Drawing.Point(20, 149);
             this.btnArch.Name = "btnArch";
             this.btnArch.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnArch.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -327,7 +327,7 @@
             // kryptonLabel2
             // 
             this.kryptonLabel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonLabel2.Location = new System.Drawing.Point(20, 127);
+            this.kryptonLabel2.Location = new System.Drawing.Point(20, 130);
             this.kryptonLabel2.Name = "kryptonLabel2";
             this.kryptonLabel2.Size = new System.Drawing.Size(139, 19);
             this.kryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -342,7 +342,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(20, 117);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(139, 10);
+            this.panel2.Size = new System.Drawing.Size(139, 13);
             this.panel2.TabIndex = 15;
             // 
             // btnNotif

@@ -87,7 +87,7 @@ namespace AMSEMS.SubForms_Admin
                 catch (Exception ex)
                 {
                     // Handle any database connection or query exceptions here
-                    MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

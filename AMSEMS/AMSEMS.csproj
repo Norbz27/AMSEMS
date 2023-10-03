@@ -358,6 +358,24 @@
       <DependentUpon>formArchived_Subjects.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\UserID.cs" />
+    <Compile Include="SubForms_DeptHead\Settings_Subforms\formAcademicYearSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\Settings_Subforms\formAcademicYearSetting.Designer.cs">
+      <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\Settings_Subforms\formAccountSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\Settings_Subforms\formAccountSetting.Designer.cs">
+      <DependentUpon>formAccountSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\Settings_Subforms\formNotificationSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\Settings_Subforms\formNotificationSetting.Designer.cs">
+      <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Teacher\formAttendanceRecord.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -596,6 +614,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Subjects.resx">
       <DependentUpon>formArchived_Subjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\Settings_Subforms\formAcademicYearSetting.resx">
+      <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\Settings_Subforms\formAccountSetting.resx">
+      <DependentUpon>formAccountSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\Settings_Subforms\formNotificationSetting.resx">
+      <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formAttendanceRecord.resx">
       <DependentUpon>formAttendanceRecord.cs</DependentUpon>
@@ -880,6 +907,8 @@
     <None Include="Resources\inbox.png" />
     <None Include="Resources\inbox1.png" />
     <None Include="Resources\knowledge.png" />
+    <None Include="Resources\teacher.png" />
+    <None Include="Resources\teacher-24.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

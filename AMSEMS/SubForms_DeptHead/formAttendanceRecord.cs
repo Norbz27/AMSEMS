@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AMSEMS.SubForm_DeptHead
+namespace AMSEMS.SubForms_DeptHead
 {
     public partial class formAttendanceRecord : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace AMSEMS.SubForm_DeptHead
+﻿namespace AMSEMS.SubForms_DeptHead
 {
     partial class formAttendanceReport
     {
