@@ -34,22 +34,14 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.dgvSubjects = new System.Windows.Forms.DataGridView();
-            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Des = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.units = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.teach = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.acad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.tbSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.btnAll = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnActive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -83,6 +75,14 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.CMSAcadLvl = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Des = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.units = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.teach = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.acad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.option = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
             this.kryptonGroupBox5.Panel.SuspendLayout();
@@ -155,7 +155,7 @@
             this.dgvSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvSubjects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Select,
-            this.ID,
+            this.code,
             this.Des,
             this.units,
             this.teach,
@@ -201,89 +201,6 @@
             this.dgvSubjects.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSubjects_CellContentClick);
             this.dgvSubjects.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvTeachers_CellFormatting);
             this.dgvSubjects.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvTeachers_CellPainting);
-            // 
-            // Select
-            // 
-            this.Select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.NullValue = false;
-            this.Select.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Select.HeaderText = "";
-            this.Select.Name = "Select";
-            this.Select.ReadOnly = true;
-            this.Select.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Select.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Select.Width = 17;
-            // 
-            // ID
-            // 
-            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ID.DefaultCellStyle = dataGridViewCellStyle4;
-            this.ID.HeaderText = "Course Code";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 103;
-            // 
-            // Des
-            // 
-            this.Des.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Des.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Des.HeaderText = "Description";
-            this.Des.Name = "Des";
-            this.Des.ReadOnly = true;
-            // 
-            // units
-            // 
-            this.units.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.units.HeaderText = "Units";
-            this.units.Name = "units";
-            this.units.ReadOnly = true;
-            this.units.Width = 65;
-            // 
-            // teach
-            // 
-            this.teach.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.teach.HeaderText = "Assigned Teacher";
-            this.teach.Name = "teach";
-            this.teach.ReadOnly = true;
-            // 
-            // acad
-            // 
-            this.acad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.acad.HeaderText = "Academic Level";
-            this.acad.Name = "acad";
-            this.acad.ReadOnly = true;
-            this.acad.Width = 120;
-            // 
-            // status
-            // 
-            this.status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.status.DefaultCellStyle = dataGridViewCellStyle6;
-            this.status.HeaderText = "Status";
-            this.status.Name = "status";
-            this.status.ReadOnly = true;
-            this.status.Width = 73;
-            // 
-            // option
-            // 
-            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.NullValue = null;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.option.DefaultCellStyle = dataGridViewCellStyle7;
-            this.option.HeaderText = "";
-            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
-            this.option.Name = "option";
-            this.option.ReadOnly = true;
-            this.option.ToolTipText = "Option";
-            this.option.Width = 5;
             // 
             // tbSearch
             // 
@@ -1322,6 +1239,89 @@
             this.toolStripMenuItem5.Size = new System.Drawing.Size(145, 26);
             this.toolStripMenuItem5.Text = "Set Academic Level to";
             // 
+            // Select
+            // 
+            this.Select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.NullValue = false;
+            this.Select.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Select.HeaderText = "";
+            this.Select.Name = "Select";
+            this.Select.ReadOnly = true;
+            this.Select.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Select.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Select.Width = 17;
+            // 
+            // code
+            // 
+            this.code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.code.DefaultCellStyle = dataGridViewCellStyle4;
+            this.code.HeaderText = "Course Code";
+            this.code.Name = "code";
+            this.code.ReadOnly = true;
+            this.code.Width = 103;
+            // 
+            // Des
+            // 
+            this.Des.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Des.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Des.HeaderText = "Description";
+            this.Des.Name = "Des";
+            this.Des.ReadOnly = true;
+            // 
+            // units
+            // 
+            this.units.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.units.HeaderText = "Units";
+            this.units.Name = "units";
+            this.units.ReadOnly = true;
+            this.units.Width = 65;
+            // 
+            // teach
+            // 
+            this.teach.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.teach.HeaderText = "Assigned Teacher";
+            this.teach.Name = "teach";
+            this.teach.ReadOnly = true;
+            // 
+            // acad
+            // 
+            this.acad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.acad.HeaderText = "Academic Level";
+            this.acad.Name = "acad";
+            this.acad.ReadOnly = true;
+            this.acad.Width = 120;
+            // 
+            // status
+            // 
+            this.status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.status.DefaultCellStyle = dataGridViewCellStyle6;
+            this.status.HeaderText = "Status";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
+            this.status.Width = 73;
+            // 
+            // option
+            // 
+            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.NullValue = null;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.option.DefaultCellStyle = dataGridViewCellStyle7;
+            this.option.HeaderText = "";
+            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.option.Name = "option";
+            this.option.ReadOnly = true;
+            this.option.ToolTipText = "Option";
+            this.option.Width = 5;
+            // 
             // formSubjects
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1395,19 +1395,19 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSelArchive;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnMultiDel;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Des;
-        private System.Windows.Forms.DataGridViewTextBoxColumn units;
-        private System.Windows.Forms.DataGridViewTextBoxColumn teach;
-        private System.Windows.Forms.DataGridViewTextBoxColumn acad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn status;
-        private System.Windows.Forms.DataGridViewImageColumn option;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private System.Windows.Forms.ComboBox cbAcadLevel;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnMultiEditAcad;
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton2;
         private System.Windows.Forms.ContextMenuStrip CMSAcadLvl;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
+        private System.Windows.Forms.DataGridViewTextBoxColumn code;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Des;
+        private System.Windows.Forms.DataGridViewTextBoxColumn units;
+        private System.Windows.Forms.DataGridViewTextBoxColumn teach;
+        private System.Windows.Forms.DataGridViewTextBoxColumn acad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn status;
+        private System.Windows.Forms.DataGridViewImageColumn option;
     }
 }

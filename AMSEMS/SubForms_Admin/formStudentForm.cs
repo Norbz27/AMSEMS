@@ -97,6 +97,7 @@ namespace AMSEMS.SubForms_Admin
             cbProgram.Items.Clear();
             cbSection.Items.Clear();
             cbYearlvl.Items.Clear();
+            cbDep.Items.Clear();
         }
 
         public void displayPSY()
@@ -274,8 +275,9 @@ namespace AMSEMS.SubForms_Admin
                             cm.ExecuteNonQuery();
                             cn.Close();
                             MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            clearTexts();
+                  
                             ds.Tables[0].Rows.Clear();
+                            clearTexts();
                         }
                     }
                 }
@@ -287,12 +289,13 @@ namespace AMSEMS.SubForms_Admin
                     form2.displayAccounts();
                     form2.displayChart();
                 }
-
+                
             }
         }
         public void clearTexts()
         {
             tbID.Text = "";
+            tbFname.Text = "";
             tbMname.Text = "";
             tbLname.Text = "";
             tbPass.Text = "";
@@ -300,6 +303,7 @@ namespace AMSEMS.SubForms_Admin
             cbProgram.Text = "";
             cbSection.Text = "";
             cbYearlvl.Text = "";
+            cbDep.Text = "";
             openFileDialog1.FileName = null;
             ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
 
@@ -366,8 +370,12 @@ namespace AMSEMS.SubForms_Admin
 
         private void formStudentForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            form1.displayFilter();
-            form1.loadCMSControls();
+            if (!istrue)
+            {
+                form1.displayFilter();
+                form1.loadCMSControls();
+            }
+            
         }
     }
 }

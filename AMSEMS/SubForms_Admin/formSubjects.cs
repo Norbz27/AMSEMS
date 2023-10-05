@@ -54,6 +54,7 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnSelArchive, "Archive");
             toolTip.SetToolTip(btnSetActive, "Set Active");
             toolTip.SetToolTip(btnSetInactive, "Set Inactive");
+            toolTip.SetToolTip(btnMultiEditAcad, "Set Academic Level");
 
             btnAll.Focus();
             displayFilter();
@@ -68,6 +69,7 @@ namespace AMSEMS.SubForms_Admin
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
+                    cbAcadLevel.Text = "";
                     cbAcadLevel.Items.Clear();
                     cn.Open();
                     cm = new SqlCommand("Select Academic_Level_Description from tbl_Academic_Level", cn);
@@ -106,7 +108,7 @@ namespace AMSEMS.SubForms_Admin
                                 int rowIndex = dgvSubjects.Rows.Add(false);
 
                                 // Populate other columns, starting from index 1
-                                dgvSubjects.Rows[rowIndex].Cells["ID"].Value = dr["Course_code"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["code"].Value = dr["Course_code"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString();
@@ -128,6 +130,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnAll_Click(object sender, EventArgs e)
         {
+            cbAcadLevel.Text = "";
             displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
         }
 
@@ -288,7 +291,7 @@ namespace AMSEMS.SubForms_Admin
 
                         if (confirmationResult == DialogResult.Yes)
                         {
-                            String primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
+                            String primaryKeyValue = rowToDelete.Cells["code"].Value.ToString();
                             bool deletionSuccessful = DeleteStudentRecord(primaryKeyValue);
 
                             if (deletionSuccessful)
@@ -388,7 +391,7 @@ namespace AMSEMS.SubForms_Admin
                                 int rowIndex = dgvSubjects.Rows.Add(false);
 
                                 // Populate other columns, starting from index 1
-                                dgvSubjects.Rows[rowIndex].Cells["ID"].Value = dr["Course_code"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["code"].Value = dr["Course_code"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString();
@@ -434,6 +437,7 @@ namespace AMSEMS.SubForms_Admin
             displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
 
             tbSearch.Text = String.Empty;
+            cbAcadLevel.Text = "";
             btnAll.Focus();
         }
 
@@ -660,7 +664,7 @@ namespace AMSEMS.SubForms_Admin
                     hasSelectedRow = true; // Set the flag to true if at least one row is selected
 
                     // Get the student ID or relevant data from the row
-                    string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
+                    string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
                                                                      // Ask for confirmation from the user
                     DialogResult result = MessageBox.Show($"Delete subject with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
@@ -721,7 +725,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the sao ID or relevant data from the row
-                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
+                            string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateSubjectStatus(id, 2);
@@ -779,7 +783,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the sao ID or relevant data from the row
-                            string id = row.Cells["ID"].Value.ToString();// Replace "ID" with the actual column name
+                            string id = row.Cells["code"].Value.ToString();// Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateSubjectStatus(id, 1);
@@ -860,7 +864,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the sao ID or relevant data from the row
-                            string id = row.Cells["ID"].Value.ToString();// Replace "ID" with the actual column name
+                            string id = row.Cells["code"].Value.ToString();// Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
                             bool success = AddtoArchive(id);
@@ -1017,7 +1021,7 @@ namespace AMSEMS.SubForms_Admin
             if (hasSelectedRow)
             {
                 // Ask for confirmation from the user
-                DialogResult result = MessageBox.Show("Update Subjects Info?", "Confirm Update", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Update Accounts Info?", "Confirm Update", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     // Create a list to store the rows to be removed
@@ -1031,7 +1035,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the teacher ID or relevant data from the row
-                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                            string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateTeacherInfo(id, itemId, column);
@@ -1051,7 +1055,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
         }
-        private bool UpdateTeacherInfo(int teacherID, int itemID, string column)
+        private bool UpdateTeacherInfo(string id, int itemID, string column)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
@@ -1062,7 +1066,7 @@ namespace AMSEMS.SubForms_Admin
 
                     using (SqlCommand command = new SqlCommand(updateQuery, cn))
                     {
-                        command.Parameters.AddWithValue("@ID", teacherID);
+                        command.Parameters.AddWithValue("@ID", id);
                         command.Parameters.AddWithValue("@ItemID", itemID);
                         command.ExecuteNonQuery();
                         headerCheckbox.Checked = false;

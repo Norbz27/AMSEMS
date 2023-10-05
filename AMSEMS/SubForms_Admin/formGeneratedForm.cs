@@ -178,7 +178,7 @@ namespace AMSEMS.SubForms_Admin
                             cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                             cm.ExecuteNonQuery();
                             cn.Close();
-                            MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Account Updated!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
@@ -219,8 +219,8 @@ namespace AMSEMS.SubForms_Admin
                                 cm.ExecuteNonQuery();
                                 cn.Close();
                                 MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                clearTexts();
                                 ds.Tables[0].Rows.Clear();
+                                clearTexts();
                             }
                         }
                         if (!istrue)
@@ -267,7 +267,7 @@ namespace AMSEMS.SubForms_Admin
                             cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                             cm.ExecuteNonQuery();
                             cn.Close();
-                            MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Account Updated!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
@@ -308,8 +308,8 @@ namespace AMSEMS.SubForms_Admin
                                 cm.ExecuteNonQuery();
                                 cn.Close();
                                 MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                clearTexts();
                                 ds.Tables[0].Rows.Clear();
+                                clearTexts();
                             }
                         }
                         if (!istrue)
@@ -317,6 +317,7 @@ namespace AMSEMS.SubForms_Admin
                         else
                             form3.DisplayData();
                     }
+                    
                 }
                 
             }
@@ -324,6 +325,7 @@ namespace AMSEMS.SubForms_Admin
         public void clearTexts()
         {
             tbID.Text = "";
+            tbFname.Text = "";
             tbMname.Text = "";
             tbLname.Text = "";
             tbPass.Text = "";
