@@ -26,6 +26,7 @@ namespace AMSEMS
         public bool isCollapsed;
         private Form activeForm;
         public static String id;
+        public static String dep;
         public FormDeptHeadNavigation(String id1)
         {
             InitializeComponent();
@@ -46,10 +47,12 @@ namespace AMSEMS
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("select Firstname, Lastname from tbl_deptHead_accounts where Unique_ID = '" + id + "'", cn);
+                cm = new SqlCommand("select Firstname, Lastname, dpa.Department as dep, dp.Description as depDes from tbl_deptHead_accounts as dpa join tbl_Departments dp on dpa.Role = dp.Department_ID where Unique_ID = '" + id + "'", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
                 lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+                lblRole.Text = dr["depDes"].ToString() + " Department Head";
+                dep = dr["dep"].ToString();
                 dr.Close();
 
                 cm = new SqlCommand("Select Profile_pic from tbl_deptHead_accounts where Unique_ID = " + id + "", cn);
@@ -180,7 +183,7 @@ namespace AMSEMS
         private void btnSubjects_Click(object sender, EventArgs e)
         {
             this.kryptonSplitContainer1.Panel2Collapsed = true;
-            OpenChildForm(new SubForm_DeptHead.formSubjects());
+            OpenChildForm(new SubForms_DeptHead.formSubjects());
 
             this.btnSubjects.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSubjects.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));

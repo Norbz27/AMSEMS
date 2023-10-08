@@ -743,8 +743,18 @@ namespace AMSEMS.SubForms_Admin
                 DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                 if (chk.Value != null && (bool)chk.Value)
                 {
-                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
-                    break; // Exit the loop as soon as the first selected row is found
+                    // Check if the "Department" column is not null and not empty
+                    object departmentValue = row.Cells["dept"].Value; // Replace "Department" with the actual column name
+                    if (departmentValue != DBNull.Value && !string.IsNullOrEmpty(departmentValue.ToString()))
+                    {
+                        hasSelectedRow = true; // Set the flag to true if at least one row is selected and the department is not null or empty
+                        break; // Exit the loop as soon as the first selected row is found
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cannot set account as active. Missing department information for selected account.");
+                        return; // Exit the method if a row is missing department information
+                    }
                 }
             }
 
@@ -764,20 +774,25 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                         if (chk.Value != null && (bool)chk.Value)
                         {
-                            // Get the teacher ID or relevant data from the row
-                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
-
-                            // Call your UpdateSubjectStatus method to update the record
-                            bool success = UpdateTeacherStatus(id, 1);
-
-                            if (success)
+                            // Check if the "Department" column is not null and not empty
+                            object departmentValue = row.Cells["dept"].Value; // Replace "Department" with the actual column name
+                            if (departmentValue != DBNull.Value && !string.IsNullOrEmpty(departmentValue.ToString()))
                             {
-                                // Add the row to the list of rows to be removed
-                                rowsToRemove.Add(row);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Failed to update record with ID: " + id);
+                                // Get the teacher ID or relevant data from the row
+                                int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
+                                // Call your UpdateTeacherStatus method to update the record
+                                bool success = UpdateTeacherStatus(id, 1);
+
+                                if (success)
+                                {
+                                    // Add the row to the list of rows to be removed
+                                    rowsToRemove.Add(row);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Failed to update record with ID: " + id);
+                                }
                             }
                         }
                     }
@@ -785,8 +800,9 @@ namespace AMSEMS.SubForms_Admin
                     headerCheckbox.Checked = false;
                 }
             }
-
         }
+
+
         private bool UpdateTeacherStatus(int teacherID, int status)
         {
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
@@ -1144,6 +1160,133 @@ namespace AMSEMS.SubForms_Admin
             {
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void activetoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        DialogResult confirmationResult = MessageBox.Show("Set accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmationResult == DialogResult.Yes)
+                        {
+                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            bool deletionSuccessful = UpdateTeacherStatus(primaryKeyValue, 1);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
+        }
+
+        private void inactiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        DialogResult confirmationResult = MessageBox.Show("Set accounts as Inactive?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmationResult == DialogResult.Yes)
+                        {
+                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            bool deletionSuccessful = UpdateTeacherStatus(primaryKeyValue, 2);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
+        }
+
+        private void archiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        // Ask for confirmation from the user
+                        DialogResult result = MessageBox.Show("Are you sure to archive this accounts?", "Confirm Update", MessageBoxButtons.YesNo);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            bool deletionSuccessful = AddtoArchive(primaryKeyValue);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                                MessageBox.Show("Account archived successfully.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error archiving account.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
         }
     }
 }

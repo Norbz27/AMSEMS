@@ -178,12 +178,15 @@ namespace AMSEMS.SubForms_Admin
             this.tbStatus.StateCommon.Border.Rounding = 5;
             this.tbStatus.StateCommon.Border.Width = 1;
             this.tbStatus.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
-            this.tbStatus.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.tbStatus.StateCommon.Content.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
             this.tbStatus.TabIndex = 106;
             this.tbStatus.Text = "Active";
+            this.tbStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ptbProfile
             // 
+            this.ptbProfile.BorderColor = System.Drawing.Color.LightGray;
+            this.ptbProfile.BorderWidth = 2;
             this.ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
             this.ptbProfile.Location = new System.Drawing.Point(3, 0);
             this.ptbProfile.Name = "ptbProfile";

@@ -181,7 +181,7 @@ namespace AMSEMS.SubForms_Admin
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                if (tbFname.Text == "" && tbLname.Text == "" && tbMname.Text == "" && tbID.Text == "" && tbPass.Text == "" && tbRole.Text == "" && cbProgram.Text == "" && cbYearlvl.Text == "" && cbSection.Text == "")
+                if (tbFname.Text == "" && tbLname.Text == "" && tbMname.Text == "" && tbID.Text == "" && tbPass.Text == "" && tbRole.Text == "" && cbProgram.Text == "" && cbYearlvl.Text == "" && cbSection.Text == "" && cbDep.Text == "")
                 {
                     MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }

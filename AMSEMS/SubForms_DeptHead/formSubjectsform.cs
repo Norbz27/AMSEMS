@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AMSEMS.SubForms_Admin
+namespace AMSEMS.SubForms_DeptHead
 {
     public partial class formSubjectsForm : KryptonForm
     {
@@ -53,26 +53,17 @@ namespace AMSEMS.SubForms_Admin
             else
             {
                 tbCcode.Enabled = true;
+                tbStatus.Text = "Active";
             }
 
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("Select Lastname from tbl_teacher_accounts where Status = 1", cn);
+                cm = new SqlCommand("Select Lastname from tbl_teacher_accounts", cn);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
                     cbTeacher.Items.Add(dr["Lastname"].ToString());
-                }
-                dr.Close();
-                cn.Close();
-
-                cn.Open();
-                cm = new SqlCommand("Select Academic_Level_Description from tbl_Academic_Level", cn);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    cbAcadLevel.Items.Add(dr["Academic_Level_Description"].ToString());
                 }
                 dr.Close();
                 cn.Close();
@@ -173,7 +164,7 @@ namespace AMSEMS.SubForms_Admin
                             ds.Tables[0].Rows.Clear();
                         }
                     }
-                    form.displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    form.displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1");
                 }
                 clearTexts();
             }

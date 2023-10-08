@@ -799,7 +799,7 @@ namespace AMSEMS.SubForms_Admin
             this.kryptonMaskedTextBox2.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
             this.kryptonMaskedTextBox2.TabIndex = 102;
             // 
-            // kryptonMaskedTextBox3
+            // cbAcadLevel
             // 
             this.kryptonMaskedTextBox3.Enabled = false;
             this.kryptonMaskedTextBox3.Location = new System.Drawing.Point(430, 133);

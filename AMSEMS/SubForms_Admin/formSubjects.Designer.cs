@@ -29,19 +29,27 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.dgvSubjects = new System.Windows.Forms.DataGridView();
+            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Des = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.units = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.teach = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.acad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.tbSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.btnAll = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnActive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -75,14 +83,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.CMSAcadLvl = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Des = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.units = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.teach = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.acad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.option = new System.Windows.Forms.DataGridViewImageColumn();
+            this.setActiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setInactiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.archiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
             this.kryptonGroupBox5.Panel.SuspendLayout();
@@ -132,25 +135,25 @@
             this.dgvSubjects.AllowUserToDeleteRows = false;
             this.dgvSubjects.AllowUserToResizeColumns = false;
             this.dgvSubjects.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvSubjects.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvSubjects.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvSubjects.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvSubjects.BackgroundColor = System.Drawing.Color.White;
             this.dgvSubjects.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvSubjects.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dgvSubjects.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvSubjects.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins", 8.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSubjects.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Poppins", 8.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSubjects.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.dgvSubjects.ColumnHeadersHeight = 50;
             this.dgvSubjects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvSubjects.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -163,14 +166,14 @@
             this.status,
             this.option});
             this.dgvSubjects.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvSubjects.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvSubjects.DefaultCellStyle = dataGridViewCellStyle19;
             this.dgvSubjects.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvSubjects.EnableHeadersVisualStyles = false;
             this.dgvSubjects.GridColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -178,22 +181,22 @@
             this.dgvSubjects.Name = "dgvSubjects";
             this.dgvSubjects.ReadOnly = true;
             this.dgvSubjects.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSubjects.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSubjects.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.dgvSubjects.RowHeadersVisible = false;
             this.dgvSubjects.RowHeadersWidth = 30;
             this.dgvSubjects.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvSubjects.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvSubjects.RowsDefaultCellStyle = dataGridViewCellStyle21;
             this.dgvSubjects.RowTemplate.Height = 30;
             this.dgvSubjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvSubjects.Size = new System.Drawing.Size(882, 428);
@@ -201,6 +204,89 @@
             this.dgvSubjects.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSubjects_CellContentClick);
             this.dgvSubjects.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvTeachers_CellFormatting);
             this.dgvSubjects.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvTeachers_CellPainting);
+            // 
+            // Select
+            // 
+            this.Select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle14.NullValue = false;
+            this.Select.DefaultCellStyle = dataGridViewCellStyle14;
+            this.Select.HeaderText = "";
+            this.Select.Name = "Select";
+            this.Select.ReadOnly = true;
+            this.Select.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Select.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Select.Width = 17;
+            // 
+            // code
+            // 
+            this.code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.code.DefaultCellStyle = dataGridViewCellStyle15;
+            this.code.HeaderText = "Course Code";
+            this.code.Name = "code";
+            this.code.ReadOnly = true;
+            this.code.Width = 103;
+            // 
+            // Des
+            // 
+            this.Des.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Des.DefaultCellStyle = dataGridViewCellStyle16;
+            this.Des.HeaderText = "Description";
+            this.Des.Name = "Des";
+            this.Des.ReadOnly = true;
+            // 
+            // units
+            // 
+            this.units.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.units.HeaderText = "Units";
+            this.units.Name = "units";
+            this.units.ReadOnly = true;
+            this.units.Width = 65;
+            // 
+            // teach
+            // 
+            this.teach.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.teach.HeaderText = "Assigned Teacher";
+            this.teach.Name = "teach";
+            this.teach.ReadOnly = true;
+            // 
+            // acad
+            // 
+            this.acad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.acad.HeaderText = "Academic Level";
+            this.acad.Name = "acad";
+            this.acad.ReadOnly = true;
+            this.acad.Width = 120;
+            // 
+            // status
+            // 
+            this.status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.status.DefaultCellStyle = dataGridViewCellStyle17;
+            this.status.HeaderText = "Status";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
+            this.status.Width = 73;
+            // 
+            // option
+            // 
+            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.NullValue = null;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.option.DefaultCellStyle = dataGridViewCellStyle18;
+            this.option.HeaderText = "";
+            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.option.Name = "option";
+            this.option.ReadOnly = true;
+            this.option.ToolTipText = "Option";
+            this.option.Width = 5;
             // 
             // tbSearch
             // 
@@ -729,7 +815,7 @@
             // 
             this.deleteToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(88, 26);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
@@ -737,7 +823,7 @@
             // 
             this.editToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(88, 26);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
             this.editToolStripMenuItem.Text = "Edit";
             this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
             // 
@@ -766,11 +852,14 @@
             this.CMSOptions.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.CMSOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editToolStripMenuItem,
-            this.deleteToolStripMenuItem});
+            this.deleteToolStripMenuItem,
+            this.setActiveToolStripMenuItem,
+            this.setInactiveToolStripMenuItem,
+            this.archiveToolStripMenuItem});
             this.CMSOptions.Name = "contextMenuStrip2";
             this.CMSOptions.ShowImageMargin = false;
             this.CMSOptions.ShowItemToolTips = false;
-            this.CMSOptions.Size = new System.Drawing.Size(89, 56);
+            this.CMSOptions.Size = new System.Drawing.Size(121, 134);
             // 
             // pnControl
             // 
@@ -1196,10 +1285,10 @@
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.NullValue = null;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.NullValue = null;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle22;
             this.dataGridViewImageColumn1.HeaderText = "Option";
             this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.options;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
@@ -1239,88 +1328,29 @@
             this.toolStripMenuItem5.Size = new System.Drawing.Size(145, 26);
             this.toolStripMenuItem5.Text = "Set Academic Level to";
             // 
-            // Select
+            // setActiveToolStripMenuItem
             // 
-            this.Select.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.NullValue = false;
-            this.Select.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Select.HeaderText = "";
-            this.Select.Name = "Select";
-            this.Select.ReadOnly = true;
-            this.Select.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Select.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Select.Width = 17;
+            this.setActiveToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F);
+            this.setActiveToolStripMenuItem.Name = "setActiveToolStripMenuItem";
+            this.setActiveToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
+            this.setActiveToolStripMenuItem.Text = "Set Active";
+            this.setActiveToolStripMenuItem.Click += new System.EventHandler(this.activetoolStripMenuItem2_Click);
             // 
-            // code
+            // setInactiveToolStripMenuItem
             // 
-            this.code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.code.DefaultCellStyle = dataGridViewCellStyle4;
-            this.code.HeaderText = "Course Code";
-            this.code.Name = "code";
-            this.code.ReadOnly = true;
-            this.code.Width = 103;
+            this.setInactiveToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F);
+            this.setInactiveToolStripMenuItem.Name = "setInactiveToolStripMenuItem";
+            this.setInactiveToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
+            this.setInactiveToolStripMenuItem.Text = "Set Inactive";
+            this.setInactiveToolStripMenuItem.Click += new System.EventHandler(this.inactiveToolStripMenuItem_Click);
             // 
-            // Des
+            // archiveToolStripMenuItem
             // 
-            this.Des.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Des.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Des.HeaderText = "Description";
-            this.Des.Name = "Des";
-            this.Des.ReadOnly = true;
-            // 
-            // units
-            // 
-            this.units.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.units.HeaderText = "Units";
-            this.units.Name = "units";
-            this.units.ReadOnly = true;
-            this.units.Width = 65;
-            // 
-            // teach
-            // 
-            this.teach.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.teach.HeaderText = "Assigned Teacher";
-            this.teach.Name = "teach";
-            this.teach.ReadOnly = true;
-            // 
-            // acad
-            // 
-            this.acad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.acad.HeaderText = "Academic Level";
-            this.acad.Name = "acad";
-            this.acad.ReadOnly = true;
-            this.acad.Width = 120;
-            // 
-            // status
-            // 
-            this.status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.status.DefaultCellStyle = dataGridViewCellStyle6;
-            this.status.HeaderText = "Status";
-            this.status.Name = "status";
-            this.status.ReadOnly = true;
-            this.status.Width = 73;
-            // 
-            // option
-            // 
-            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.NullValue = null;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.option.DefaultCellStyle = dataGridViewCellStyle7;
-            this.option.HeaderText = "";
-            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
-            this.option.Name = "option";
-            this.option.ReadOnly = true;
-            this.option.ToolTipText = "Option";
-            this.option.Width = 5;
+            this.archiveToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F);
+            this.archiveToolStripMenuItem.Name = "archiveToolStripMenuItem";
+            this.archiveToolStripMenuItem.Size = new System.Drawing.Size(120, 26);
+            this.archiveToolStripMenuItem.Text = "Archive";
+            this.archiveToolStripMenuItem.Click += new System.EventHandler(this.archiveToolStripMenuItem_Click);
             // 
             // formSubjects
             // 
@@ -1409,5 +1439,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn acad;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
         private System.Windows.Forms.DataGridViewImageColumn option;
+        private System.Windows.Forms.ToolStripMenuItem setActiveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setInactiveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem archiveToolStripMenuItem;
     }
 }

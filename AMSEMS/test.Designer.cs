@@ -1,4 +1,4 @@
-﻿using AMSEMS.SubForm_DeptHead;
+﻿using AMSEMS.SubForms_DeptHead;
 using System.Windows.Forms;
 
 namespace AMSEMS

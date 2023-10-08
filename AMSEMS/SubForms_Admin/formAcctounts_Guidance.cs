@@ -851,5 +851,132 @@ namespace AMSEMS.SubForms_Admin
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void activetoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        DialogResult confirmationResult = MessageBox.Show("Set accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmationResult == DialogResult.Yes)
+                        {
+                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            bool deletionSuccessful = UpdateGuidanceStatus(primaryKeyValue, 1);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
+        }
+
+        private void inactiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        DialogResult confirmationResult = MessageBox.Show("Set accounts as Inactive?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmationResult == DialogResult.Yes)
+                        {
+                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            bool deletionSuccessful = UpdateGuidanceStatus(primaryKeyValue, 2);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
+        }
+
+        private void archiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        // Ask for confirmation from the user
+                        DialogResult result = MessageBox.Show("Are you sure to archive this accounts?", "Confirm Update", MessageBoxButtons.YesNo);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            bool deletionSuccessful = AddtoArchive(primaryKeyValue);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                                MessageBox.Show("Account archived successfully.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error archiving account.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
+        }
     }
 }

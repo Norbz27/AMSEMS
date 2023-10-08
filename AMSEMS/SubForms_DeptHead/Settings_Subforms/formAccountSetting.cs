@@ -69,14 +69,14 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void btnChamgePass_Click(object sender, EventArgs e)
         {
-            //formChangePass formChangePass = new formChangePass();
-            //formChangePass.ShowDialog();
+            formChangePass formChangePass = new formChangePass();
+            formChangePass.ShowDialog();
         }
 
         private void btnEditID_Click(object sender, EventArgs e)
         {
-            //formChangeID formChangeID = new formChangeID(this);
-            //formChangeID.ShowDialog();
+            formChangeID formChangeID = new formChangeID(this);
+            formChangeID.ShowDialog();
         }
 
         private void btnChangeProf_Click(object sender, EventArgs e)
@@ -85,9 +85,9 @@ namespace AMSEMS.SubForms_DeptHead
 
             if (fileChosen)
             {
-                //formChangeImage formChangeImage = new formChangeImage(this, openFileDialog1.FileName);
-                //formChangeImage.ShowDialog();
-                //fileChosen = false; // Reset the flag
+                formChangeImage formChangeImage = new formChangeImage(this, openFileDialog1.FileName);
+                formChangeImage.ShowDialog();
+                fileChosen = false; // Reset the flag
             }
         }
 
@@ -119,20 +119,20 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void btnEditFname_Click(object sender, EventArgs e)
         {
-            //formChangeName formChangeName = new formChangeName(this);
-            //formChangeName.ShowDialog();
+            formChangeName formChangeName = new formChangeName(this);
+            formChangeName.ShowDialog();
         }
 
         private void btnEditMname_Click(object sender, EventArgs e)
         {
-            //formChangeName formChangeName = new formChangeName(this);
-            //formChangeName.ShowDialog();
+            formChangeName formChangeName = new formChangeName(this);
+            formChangeName.ShowDialog();
         }
 
         private void btEditLname_Click(object sender, EventArgs e)
         {
-            //formChangeName formChangeName = new formChangeName(this);
-            //formChangeName.ShowDialog();
+            formChangeName formChangeName = new formChangeName(this);
+            formChangeName.ShowDialog();
         }
     }
 }

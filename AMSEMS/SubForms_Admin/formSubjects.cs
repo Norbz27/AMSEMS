@@ -761,15 +761,25 @@ namespace AMSEMS.SubForms_Admin
                 DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                 if (chk.Value != null && (bool)chk.Value)
                 {
-                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
-                    break; // Exit the loop as soon as the first selected row is found
+                    // Check if the "Department" column is not null and not empty
+                    object acadValue = row.Cells["acad"].Value;
+                    if (acadValue != DBNull.Value && !string.IsNullOrEmpty(acadValue.ToString()))
+                    {
+                        hasSelectedRow = true; // Set the flag to true if at least one row is selected and the department is not null or empty
+                        break; // Exit the loop as soon as the first selected row is found
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cannot set subject as active. Missing academic level information for selected subject.");
+                        return; // Exit the method if a row is missing department information
+                    }
                 }
             }
 
             if (hasSelectedRow)
             {
                 // Ask for confirmation from the user
-                DialogResult result = MessageBox.Show("Set selected subjects as Active?", "Confirm Update", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Set selected accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     // Create a list to store the rows to be removed
@@ -782,20 +792,25 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                         if (chk.Value != null && (bool)chk.Value)
                         {
-                            // Get the sao ID or relevant data from the row
-                            string id = row.Cells["code"].Value.ToString();// Replace "ID" with the actual column name
-
-                            // Call your UpdateSubjectStatus method to update the record
-                            bool success = UpdateSubjectStatus(id, 1);
-
-                            if (success)
+                            // Check if the "Department" column is not null and not empty
+                            object acadValue = row.Cells["acad"].Value; 
+                            if (acadValue != DBNull.Value && !string.IsNullOrEmpty(acadValue.ToString()))
                             {
-                                // Add the row to the list of rows to be removed
-                                rowsToRemove.Add(row);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Failed to update record with ID: " + id);
+                                // Get the teacher ID or relevant data from the row
+                                string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
+
+                                // Call your UpdateTeacherStatus method to update the record
+                                bool success = UpdateSubjectStatus(id, 1);
+
+                                if (success)
+                                {
+                                    // Add the row to the list of rows to be removed
+                                    rowsToRemove.Add(row);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Failed to update record with ID: " + id);
+                                }
                             }
                         }
                     }
@@ -1089,6 +1104,133 @@ namespace AMSEMS.SubForms_Admin
         private void cbAcadLevel_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+        private void activetoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        DialogResult confirmationResult = MessageBox.Show("Set accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmationResult == DialogResult.Yes)
+                        {
+                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
+                            bool deletionSuccessful = UpdateSubjectStatus(primaryKeyValue, 1);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
+        }
+
+        private void inactiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        DialogResult confirmationResult = MessageBox.Show("Set accounts as Inactive?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmationResult == DialogResult.Yes)
+                        {
+                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
+                            bool deletionSuccessful = UpdateSubjectStatus(primaryKeyValue, 2);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
+        }
+
+        private void archiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        // Ask for confirmation from the user
+                        DialogResult result = MessageBox.Show("Are you sure to archive this accounts?", "Confirm Update", MessageBoxButtons.YesNo);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
+                            bool deletionSuccessful = AddtoArchive(primaryKeyValue);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                                MessageBox.Show("Account archived successfully.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error archiving account.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
         }
     }
 }

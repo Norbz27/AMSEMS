@@ -320,12 +320,11 @@ namespace AMSEMS.SubForms_Admin
                             {
                                 MessageBox.Show("Error deleting student.");
                             }
-                            UseWaitCursor = false;
-
                         }
                     }
                 }
             }
+            UseWaitCursor = false;
         }
 
         private bool DeleteStudentRecord(int studentID)
@@ -481,7 +480,6 @@ namespace AMSEMS.SubForms_Admin
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
                             dgvStudents.Rows.Clear();
-                            int count = 1;
                             while (dr.Read())
                             {
                                 // Add a row and set the checkbox column value to false (unchecked)
@@ -1377,6 +1375,134 @@ namespace AMSEMS.SubForms_Admin
             {
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void activetoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        DialogResult confirmationResult = MessageBox.Show("Set accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmationResult == DialogResult.Yes)
+                        {
+                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            bool deletionSuccessful = UpdateStudentStatus(primaryKeyValue,1);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
+        }
+
+        private void inactiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        DialogResult confirmationResult = MessageBox.Show("Set accounts as Inactive?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmationResult == DialogResult.Yes)
+                        {
+                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            bool deletionSuccessful = UpdateStudentStatus(primaryKeyValue, 2);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to update record.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
+        }
+
+        private void archiveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+
+                        // Ask for confirmation from the user
+                        DialogResult result = MessageBox.Show("Are you sure to archive this accounts?", "Confirm Update", MessageBoxButtons.YesNo);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            bool deletionSuccessful = AddtoArchive(primaryKeyValue);
+
+                            if (deletionSuccessful)
+                            {
+                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                                MessageBox.Show("Account archived successfully.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Error archiving account.");
+                            }
+                        }
+                    }
+                }
+            }
+            UseWaitCursor = false;
         }
     }
 }
