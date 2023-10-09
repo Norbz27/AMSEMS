@@ -11,13 +11,22 @@ using System.Runtime.InteropServices;
 using ComponentFactory.Krypton.Toolkit;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using AMSEMS.Properties;
+using System.Data.SqlClient;
+using System.IO;
+using System.Security.Cryptography;
 
 namespace AMSEMS
 {
     public partial class FormSAONavigation : KryptonForm
     {
+        SqlConnection cn;
+        SqlCommand cm;
+        SqlDataReader dr;
+
+        public bool isCollapsed;
         private Form activeForm;
-        public FormSAONavigation()
+        public static String id;
+        public FormSAONavigation(String id1)
         {
             InitializeComponent();
             this.btnDashboard.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -25,14 +34,45 @@ namespace AMSEMS
             this.btnDashboard.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnDashboard.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            OpenChildForm(new SubForms_SAO.formDashboard());
+
+            SubForms_SAO.formDashboard.setForm(this);
+            this.kryptonSplitContainer1.Panel2Collapsed = false;
+            OpenChildForm(new SubForms_SAO.formDashboard(id1));
+
+            id = id1;
+        }
+
+        public void loadData()
+        {
+            using (cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                cm = new SqlCommand("select Firstname, Lastname from tbl_sao_accounts where Unique_ID = '" + id + "'", cn);
+                dr = cm.ExecuteReader();
+                dr.Read();
+                lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+                dr.Close();
+
+                cm = new SqlCommand("Select Profile_pic from tbl_deptHead_accounts where Unique_ID = " + id + "", cn);
+
+                byte[] imageData = (byte[])cm.ExecuteScalar();
+
+                if (imageData != null && imageData.Length > 0)
+                {
+                    using (MemoryStream ms = new MemoryStream(imageData))
+                    {
+                        Image image = Image.FromStream(ms);
+                        ptbProfile.Image = image;
+                    }
+                }
+                cn.Close();
+            }
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForms_SAO.formDashboard());
-
             this.kryptonSplitContainer1.Panel2Collapsed = false;
+            OpenChildForm(new SubForms_SAO.formDashboard(id));
 
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
@@ -61,9 +101,8 @@ namespace AMSEMS
 
         private void btnAnnouncement_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForms_SAO.formAnnouncement());
-
             this.kryptonSplitContainer1.Panel2Collapsed = false;
+            OpenChildForm(new SubForms_SAO.formAnnouncement());
 
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
@@ -92,9 +131,8 @@ namespace AMSEMS
 
         private void btnEvents_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForms_SAO.formEvents());
-
             this.kryptonSplitContainer1.Panel2Collapsed = true;
+            OpenChildForm(new SubForms_SAO.formEvents());
 
             this.btnEvents.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnEvents.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -123,9 +161,8 @@ namespace AMSEMS
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForms_SAO.formSettings());
-
-            this.kryptonSplitContainer1.Panel2Collapsed = false;
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
+            OpenChildForm(new SubForms_SAO.formSettings(this));
 
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -168,16 +205,20 @@ namespace AMSEMS
             childForm.Show();
         }
 
-        private void btnLogout_Click(object sender, EventArgs e)
+        private void FormSAONavigation_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void FormSAONavigation_Load(object sender, EventArgs e)
+        {
+            loadData();
+        }
+        public void Logout()
         {
             this.Dispose();
             FormLoginPage formLoginPage = new FormLoginPage();
             formLoginPage.Show();
-        }
-
-        private void FormSAONavigation_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Application.Exit();
         }
     }
 }

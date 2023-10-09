@@ -31,11 +31,6 @@ namespace AMSEMS.SubForms_Admin
 
         }
 
-        private void ptbProfile_MouseHover(object sender, EventArgs e)
-        {
-
-        }
-
         private void formAccountSetting_Load(object sender, EventArgs e)
         {
             loadData();

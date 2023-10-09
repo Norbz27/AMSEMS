@@ -51,8 +51,9 @@ namespace AMSEMS.SubForms_DeptHead
                 else
                 {
                     cn.Open();
-                    cm = new SqlCommand("Select ID from tbl_deptHead_accounts where Password = @CurrentPassword", cn);
+                    cm = new SqlCommand("Select ID from tbl_deptHead_accounts where Password = @CurrentPassword AND Unique_ID = @ConditionID", cn);
                     cm.Parameters.AddWithValue("@CurrentPassword", tbCurPass.Text);
+                    cm.Parameters.AddWithValue("@ConditionID", FormDeptHeadNavigation.id);
 
                     using (SqlDataReader reader = cm.ExecuteReader())
                     {

@@ -173,7 +173,7 @@ namespace AMSEMS
                                     mainForm = new FormGuidanceNavigation();
                                     break;
                                 case 4:
-                                    mainForm = new FormSAONavigation();
+                                    mainForm = new FormSAONavigation(uniqueID);
                                     break;
                                 case 6:
                                     mainForm = new FormTeacherNavigation();

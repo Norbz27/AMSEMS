@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AMSEMS.SubForms_SAO
+namespace AMSEMS.SubForms_DeptHead
 {
     internal class UserID
     {

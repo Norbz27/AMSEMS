@@ -12,7 +12,7 @@ using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 using Microsoft.VisualBasic.ApplicationServices;
 
-namespace AMSEMS.SubForms_DeptHead
+namespace AMSEMS.SubForms_SAO
 {
     public partial class formAccountSetting : KryptonForm
     {
@@ -27,7 +27,7 @@ namespace AMSEMS.SubForms_DeptHead
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
-            id = FormDeptHeadNavigation.id;
+            id = FormSAONavigation.id;
         }
 
         private void formAccountSetting_Load(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace AMSEMS.SubForms_DeptHead
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("Select ID,Firstname,Middlename,Lastname from tbl_deptHead_accounts where Unique_ID = '" + id + "'", cn);
+                cm = new SqlCommand("Select ID,Firstname,Middlename,Lastname from tbl_sao_accounts where Unique_ID = '" + id + "'", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
                 lblFname.Text = dr["Firstname"].ToString();
@@ -51,7 +51,7 @@ namespace AMSEMS.SubForms_DeptHead
                 cn.Close();
 
                 cn.Open();
-                cm = new SqlCommand("Select Profile_pic from tbl_deptHead_accounts where Unique_ID = " + id + "", cn);
+                cm = new SqlCommand("Select Profile_pic from tbl_sao_accounts where Unique_ID = " + id + "", cn);
 
                 byte[] imageData = (byte[])cm.ExecuteScalar();
 
@@ -108,8 +108,8 @@ namespace AMSEMS.SubForms_DeptHead
                 if (MessageBox.Show("Are you sure you want to remove your Profile Picture?", "AMSEMS", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     cn.Open();
-                    cm = new SqlCommand("UPDATE tbl_deptHead_accounts SET Profile_pic = DEFAULT WHERE Unique_ID = @ConditionValue", cn);
-                    cm.Parameters.AddWithValue("@ConditionValue", FormDeptHeadNavigation.id);
+                    cm = new SqlCommand("UPDATE tbl_sao_accounts SET Profile_pic = DEFAULT WHERE Unique_ID = @ConditionValue", cn);
+                    cm.Parameters.AddWithValue("@ConditionValue", FormSAONavigation.id);
                     cm.ExecuteNonQuery();
                     cn.Close();
                     loadData();

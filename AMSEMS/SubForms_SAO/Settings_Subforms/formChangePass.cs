@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace AMSEMS.SubForms_DeptHead
+namespace AMSEMS.SubForms_SAO
 {
     public partial class formChangePass : KryptonForm
     {
@@ -70,7 +70,7 @@ namespace AMSEMS.SubForms_DeptHead
                     else
                     {
                         cn.Open();
-                        cm = new SqlCommand("Select ID from tbl_deptHead_accounts where Password = @CurrentPassword", cn);
+                        cm = new SqlCommand("Select ID from tbl_sao_accounts where Password = @CurrentPassword", cn);
                         cm.Parameters.AddWithValue("@CurrentPassword", tbCurPass.Text);
 
                         using (SqlDataReader reader = cm.ExecuteReader())
@@ -92,9 +92,9 @@ namespace AMSEMS.SubForms_DeptHead
                             else
                             {
                                 reader.Close();
-                                cm = new SqlCommand("UPDATE tbl_deptHead_accounts SET Password = @NewValue WHERE Unique_ID = @ConditionValue", cn);
+                                cm = new SqlCommand("UPDATE tbl_sao_accounts SET Password = @NewValue WHERE Unique_ID = @ConditionValue", cn);
                                 cm.Parameters.AddWithValue("@NewValue", tbNewPass.Text);
-                                cm.Parameters.AddWithValue("@ConditionValue", FormDeptHeadNavigation.id);
+                                cm.Parameters.AddWithValue("@ConditionValue", FormSAONavigation.id);
                                 cm.ExecuteNonQuery();
                                 MessageBox.Show("Password Changed!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 lblConNewPass.Text = "Confirm New Password";

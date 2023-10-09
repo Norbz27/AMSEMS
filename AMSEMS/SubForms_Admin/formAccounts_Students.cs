@@ -26,6 +26,7 @@ namespace AMSEMS.SubForms_Admin
         string selectedItem;
         static string account;
         static int role;
+        string sem;
 
         private bool headerCheckboxAdded = false; // Add this flag
 
@@ -92,12 +93,10 @@ namespace AMSEMS.SubForms_Admin
 
             btnAll.Focus();
 
-            
 
-
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
-            displayFilter();
             loadCMSControls();
+            displayFilter();
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
         }
 
         public void displayFilter()
@@ -141,6 +140,12 @@ namespace AMSEMS.SubForms_Admin
                         cbDep.Items.Add(dr["Description"].ToString());
                     }
                     dr.Close();
+                    
+                    cm = new SqlCommand("Select Academic_Sem from tbl_acad where Acad_ID = 1", cn);
+                    dr = cm.ExecuteReader();
+                    dr.Read();
+                    sem = dr["Academic_Sem"].ToString();
+                    dr.Close();
                     cn.Close();
                 }
             }
@@ -154,7 +159,7 @@ namespace AMSEMS.SubForms_Admin
         {
             try
             {
-                query = query + " ORDER BY DateTime DESC";
+                query = query + " ORDER BY DateTime DESC;";
                 dgvStudents.Rows.Clear();
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -178,10 +183,9 @@ namespace AMSEMS.SubForms_Admin
                                 dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
-                                dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + sem;
                                 dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
-                                // Populate your control column here (change "ControlColumn" to your actual column name)
                                 dgvStudents.Rows[rowIndex].Cells["option"].Value = option.Image;
                             }
                         }

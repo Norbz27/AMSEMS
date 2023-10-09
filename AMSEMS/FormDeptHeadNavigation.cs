@@ -47,7 +47,7 @@ namespace AMSEMS
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("select Firstname, Lastname, dpa.Department as dep, dp.Description as depDes from tbl_deptHead_accounts as dpa join tbl_Departments dp on dpa.Role = dp.Department_ID where Unique_ID = '" + id + "'", cn);
+                cm = new SqlCommand("select Firstname, Lastname, dpa.Department as dep, dp.Description as depDes from tbl_deptHead_accounts as dpa join tbl_Departments dp on dpa.Department = dp.Department_ID where Unique_ID = '" + id + "'", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
                 lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();

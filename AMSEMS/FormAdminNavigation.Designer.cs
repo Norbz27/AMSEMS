@@ -56,12 +56,12 @@
             this.x = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonMonthCalendar1 = new ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar();
             this.kryptonPanel4 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.ptbProfile = new AMSEMS.RoundPictureBox();
             this.lblRole = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnNotification = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
-            this.ptbProfile = new AMSEMS.RoundPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.Panel1)).BeginInit();
             this.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelCollapsed)).BeginInit();
@@ -880,7 +880,7 @@
             this.kryptonSplitContainer1.Panel2.StateCommon.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonSplitContainer1.Panel2MinSize = 290;
             this.kryptonSplitContainer1.Size = new System.Drawing.Size(1061, 611);
-            this.kryptonSplitContainer1.SplitterDistance = 766;
+            this.kryptonSplitContainer1.SplitterDistance = 767;
             this.kryptonSplitContainer1.SplitterWidth = 4;
             this.kryptonSplitContainer1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.kryptonSplitContainer1.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
@@ -910,7 +910,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(20, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(251, 611);
+            this.panel6.Size = new System.Drawing.Size(250, 611);
             this.panel6.TabIndex = 10;
             // 
             // kryptonGroupBox3
@@ -925,7 +925,7 @@
             // kryptonGroupBox3.Panel
             // 
             this.kryptonGroupBox3.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.kryptonGroupBox3.Size = new System.Drawing.Size(247, 82);
+            this.kryptonGroupBox3.Size = new System.Drawing.Size(246, 82);
             this.kryptonGroupBox3.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox3.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox3.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -1038,10 +1038,22 @@
             this.kryptonPanel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonPanel4.Location = new System.Drawing.Point(0, 0);
             this.kryptonPanel4.Name = "kryptonPanel4";
-            this.kryptonPanel4.Size = new System.Drawing.Size(251, 239);
+            this.kryptonPanel4.Size = new System.Drawing.Size(250, 239);
             this.kryptonPanel4.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonPanel4.StateCommon.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonPanel4.TabIndex = 9;
+            // 
+            // ptbProfile
+            // 
+            this.ptbProfile.BorderColor = System.Drawing.Color.LightGray;
+            this.ptbProfile.BorderWidth = 2;
+            this.ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
+            this.ptbProfile.Location = new System.Drawing.Point(63, 53);
+            this.ptbProfile.Name = "ptbProfile";
+            this.ptbProfile.Size = new System.Drawing.Size(129, 129);
+            this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProfile.TabIndex = 8;
+            this.ptbProfile.TabStop = false;
             // 
             // lblRole
             // 
@@ -1092,18 +1104,6 @@
             this.btnNotification.ToolTipTitle = "Notification";
             this.btnNotification.Type = ComponentFactory.Krypton.Toolkit.PaletteButtonSpecStyle.DropDown;
             this.btnNotification.UniqueName = "FB2E213F3DD14A2DC9A2486ABCD6CB81";
-            // 
-            // ptbProfile
-            // 
-            this.ptbProfile.BorderColor = System.Drawing.Color.LightGray;
-            this.ptbProfile.BorderWidth = 2;
-            this.ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
-            this.ptbProfile.Location = new System.Drawing.Point(63, 53);
-            this.ptbProfile.Name = "ptbProfile";
-            this.ptbProfile.Size = new System.Drawing.Size(129, 129);
-            this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProfile.TabIndex = 8;
-            this.ptbProfile.TabStop = false;
             // 
             // FormAdminNavigation
             // 

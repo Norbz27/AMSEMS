@@ -51,8 +51,9 @@ namespace AMSEMS.SubForms_Admin
                 else
                 {
                     cn.Open();
-                    cm = new SqlCommand("Select ID from tbl_admin_accounts where Password = @CurrentPassword", cn);
+                    cm = new SqlCommand("Select ID from tbl_admin_accounts where Password = @CurrentPassword AND Unique_ID = @ConditionID", cn);
                     cm.Parameters.AddWithValue("@CurrentPassword", tbCurPass.Text);
+                    cm.Parameters.AddWithValue("@ConditionID", FormAdminNavigation.id);
 
                     using (SqlDataReader reader = cm.ExecuteReader())
                     {
