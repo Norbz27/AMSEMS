@@ -27,7 +27,6 @@ namespace AMSEMS
         private Form activeForm;
         public static String id;
 
-
         public FormAdminNavigation(String id1)
         {
             InitializeComponent();
@@ -40,6 +39,8 @@ namespace AMSEMS
 
             cn = new SqlConnection(SQL_Connection.connection);
 
+    
+
 
             SubForms_Admin.formDashboard.setForm(this);
             OpenChildForm(new SubForms_Admin.formDashboard(id1));
@@ -48,10 +49,22 @@ namespace AMSEMS
 
         }
 
-        public async void loadData()
+        public void loadData()
+        {
+            // Create a new instance of BackgroundWorker for each data loading operation
+            BackgroundWorker dataLoader = new BackgroundWorker();
+            dataLoader.DoWork += (sender, e) => DataLoader_DoWork(sender, e, dataLoader);
+            dataLoader.RunWorkerCompleted += DataLoader_RunWorkerCompleted;
+
+            // Start the BackgroundWorker to load data in the background
+            dataLoader.RunWorkerAsync();
+        }
+
+        // Event handler for BackgroundWorker's DoWork event
+        private void DataLoader_DoWork(object sender, DoWorkEventArgs e, BackgroundWorker worker)
         {
             // Set the cursor to WaitCursor while loading data
-            Cursor.Current = Cursors.WaitCursor;
+            SetWaitCursor();
 
             try
             {
@@ -83,12 +96,27 @@ namespace AMSEMS
             finally
             {
                 cn.Close();
-
-                // Restore the cursor to the default cursor
-                Cursor.Current = Cursors.Default;
             }
         }
 
+        // Event handler for BackgroundWorker's RunWorkerCompleted event
+        private void DataLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // Restore the cursor to the default cursor
+            RestoreCursor();
+        }
+
+        // Method to set the cursor to WaitCursor
+        private void SetWaitCursor()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
+
+        // Method to restore the cursor to the default cursor
+        private void RestoreCursor()
+        {
+            Cursor.Current = Cursors.Default;
+        }
         private void btnDashboard_Click(object sender, EventArgs e)
         {
             isCollapsed = false;

@@ -664,6 +664,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formArchived_Accounts_Teachers_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.formArchived_Accounts_Teachers_FormClosed);
             this.Load += new System.EventHandler(this.formAccounts_Students_Load);
             this.pnControl.ResumeLayout(false);

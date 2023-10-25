@@ -27,14 +27,50 @@ namespace AMSEMS.SubForms_Admin
         static string account;
         static int role;
         formArchiveSetting form;
+        private BackgroundWorker backgroundWorker = new BackgroundWorker();
         public formArchived_Accounts_Students()
         {
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
 
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            backgroundWorker.WorkerSupportsCancellation = true;
+
             dgvArch.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvArch.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+        }
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // This method runs in a background thread
+            // Perform time-consuming operations here
+            displayFilter();
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+
+            // Simulate a time-consuming operation
+            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // This method runs on the UI thread
+            // Update the UI or perform other tasks after the background work completes
+            if (e.Error != null)
+            {
+                // Handle any errors that occurred during the background work
+                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (e.Cancelled)
+            {
+                // Handle the case where the background work was canceled
+            }
+            else
+            {
+                // Data has been loaded, update the UI
+                // Stop the wait cursor (optional)
+                this.Cursor = Cursors.Default;
+            }
         }
 
         public void getForm(formArchiveSetting form)
@@ -50,15 +86,22 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnMultiDel, "Delete");
             toolTip.SetToolTip(btnSelUnarchive, "Retrieve");
 
-            displayFilter();
 
-
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
-
+            backgroundWorker.RunWorkerAsync();
         }
 
         public void displayFilter()
         {
+            // Invoke the UI thread to update the ComboBoxes
+            if (cbProgram.InvokeRequired || cbSection.InvokeRequired || cbYearlvl.InvokeRequired || cbDep.InvokeRequired)
+            {
+                cbProgram.Invoke(new Action(() => displayFilter()));
+                cbSection.Invoke(new Action(() => displayFilter()));
+                cbYearlvl.Invoke(new Action(() => displayFilter()));
+                cbDep.Invoke(new Action(() => displayFilter()));
+                return;
+            }
+
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -66,7 +109,9 @@ namespace AMSEMS.SubForms_Admin
                     cbProgram.Items.Clear();
                     cbSection.Items.Clear();
                     cbYearlvl.Items.Clear();
+                    cbDep.Items.Clear();
                     cn.Open();
+
                     cm = new SqlCommand("Select Description from tbl_program", cn);
                     dr = cm.ExecuteReader();
                     while (dr.Read())
@@ -98,6 +143,7 @@ namespace AMSEMS.SubForms_Admin
                         cbDep.Items.Add(dr["Description"].ToString());
                     }
                     dr.Close();
+
                     cn.Close();
                 }
             }
@@ -109,6 +155,13 @@ namespace AMSEMS.SubForms_Admin
 
         public void displayTable(string query)
         {
+            // Invoke the UI thread to update the DataGridView
+            if (dgvArch.InvokeRequired)
+            {
+                dgvArch.Invoke(new Action(() => displayTable(query)));
+                return;
+            }
+
             dgvArch.Rows.Clear();
 
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -141,8 +194,8 @@ namespace AMSEMS.SubForms_Admin
                     }
                 }
             }
-
         }
+
 
         private void dgvStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -794,6 +847,14 @@ namespace AMSEMS.SubForms_Admin
         private void cb_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void formArchived_Accounts_Students_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+            }
         }
     }
 }

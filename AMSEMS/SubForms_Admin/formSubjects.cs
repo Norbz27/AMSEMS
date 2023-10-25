@@ -24,12 +24,16 @@ namespace AMSEMS.SubForms_Admin
         SqlCommand cm;
         SqlDataReader dr;
         private bool headerCheckboxAdded = false; // Add this flag
-                                               
+        private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private CheckBox headerCheckbox = new CheckBox();
         public formSubjects()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
+
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            backgroundWorker.WorkerSupportsCancellation = true;
 
             dgvSubjects.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvSubjects.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -39,6 +43,39 @@ namespace AMSEMS.SubForms_Admin
 
             // Add the header checkbox to the DataGridView controls
             dgvSubjects.Controls.Add(headerCheckbox);
+        }
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // This method runs in a background thread
+            // Perform time-consuming operations here
+            displayFilter();
+            loadCMSControls();
+
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+
+            // Simulate a time-consuming operation
+            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // This method runs on the UI thread
+            // Update the UI or perform other tasks after the background work completes
+            if (e.Error != null)
+            {
+                // Handle any errors that occurred during the background work
+                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (e.Cancelled)
+            {
+                // Handle the case where the background work was canceled
+            }
+            else
+            {
+                // Data has been loaded, update the UI
+                // Stop the wait cursor (optional)
+                this.Cursor = Cursors.Default;
+            }
         }
 
         private void formSubjects_Load(object sender, EventArgs e)
@@ -57,14 +94,16 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnMultiEditAcad, "Set Academic Level");
 
             btnAll.Focus();
-            displayFilter();
-            loadCMSControls();
-
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+            backgroundWorker.RunWorkerAsync();
         }
 
         public void displayFilter()
         {
+            if (cbAcadLevel.InvokeRequired)
+            {
+                cbAcadLevel.Invoke(new Action(() => displayFilter()));
+                return;
+            }
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -90,6 +129,11 @@ namespace AMSEMS.SubForms_Admin
 
         public void displayTable(string query)
         {
+            if (dgvSubjects.InvokeRequired)
+            {
+                dgvSubjects.Invoke(new Action(() => displayTable(query)));
+                return;
+            }
             try
             {
                 dgvSubjects.Rows.Clear();
@@ -1230,6 +1274,14 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
             UseWaitCursor = false;
+        }
+
+        private void formSubjects_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+            }
         }
     }
 }

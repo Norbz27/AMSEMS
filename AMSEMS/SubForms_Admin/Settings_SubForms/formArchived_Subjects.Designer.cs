@@ -660,6 +660,7 @@
             this.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formArchived_Subjects_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.formArchived_Subjects_FormClosed);
             this.Load += new System.EventHandler(this.formSubjects_Load);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).EndInit();

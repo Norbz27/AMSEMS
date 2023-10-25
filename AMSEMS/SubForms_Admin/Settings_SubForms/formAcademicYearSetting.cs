@@ -1,5 +1,6 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -14,12 +15,46 @@ namespace AMSEMS.SubForms_Admin
         SqlDataReader dr;
         private bool showMessageOnToggle = false;
         private bool previousToggleState; // Store the previous toggle state
+        private BackgroundWorker backgroundWorker = new BackgroundWorker();
 
         public formAcademicYearSetting()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            backgroundWorker.WorkerSupportsCancellation = true;
             GetCurrentStatusFromDatabase();
+        }
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // This method runs in a background thread
+            // Perform time-consuming operations here
+            loadAcad(); // Load data
+
+            // Simulate a time-consuming operation
+            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // This method runs on the UI thread
+            // Update the UI or perform other tasks after the background work completes
+            if (e.Error != null)
+            {
+                // Handle any errors that occurred during the background work
+                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (e.Cancelled)
+            {
+                // Handle the case where the background work was canceled
+            }
+            else
+            {
+                // Data has been loaded, update the UI
+                // Stop the wait cursor (optional)
+                this.Cursor = Cursors.Default;
+            }
         }
 
         private void ToggleAccountStatus(int newStatus)
@@ -159,7 +194,7 @@ namespace AMSEMS.SubForms_Admin
             // Ensure that showMessageOnToggle is set to false when the form1 loads
             showMessageOnToggle = false;
 
-            loadAcad();
+            backgroundWorker.RunWorkerAsync();
         }
 
         private void btnEditAcad_Click(object sender, EventArgs e)
@@ -180,6 +215,14 @@ namespace AMSEMS.SubForms_Admin
                 lblAcadSem.Text = dr["Academic_Sem"].ToString();
                 dr.Close();
                 cn.Close();
+            }
+        }
+
+        private void formAcademicYearSetting_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
             }
         }
     }

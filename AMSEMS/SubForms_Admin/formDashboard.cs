@@ -20,95 +20,144 @@ namespace AMSEMS.SubForms_Admin
         public String id;
         public static String id2 { get; set; }
         static FormAdminNavigation form;
+        private BackgroundWorker dataLoader;
+
         public formDashboard(String id1)
         {
 
             InitializeComponent();
 
+            dataLoader = new BackgroundWorker();
+            dataLoader.DoWork += DataLoader_DoWork;
+            dataLoader.RunWorkerCompleted += DataLoader_RunWorkerCompleted;
+            dataLoader.WorkerSupportsCancellation = true;
             id = id1;
         }
         public static void setForm(FormAdminNavigation form1)
         {
             form = form1;
         }
-
-        private void formDashboard_Load(object sender, EventArgs e)
+        private void DataLoader_DoWork(object sender, DoWorkEventArgs e)
         {
-            if(id.Equals(String.Empty))
+            // This is where you put your time-consuming data loading code
+            // For example, call your loadData(id) and other methods here
+            if (id.Equals(String.Empty))
                 loadData(id2);
             else
                 loadData(id);
-            DisplayData();
 
+            DisplayData();
             displayChart();
             displayAccounts();
-            form.loadData();
+
+            System.Threading.Thread.Sleep(2000);
+
+            // Any other work you want to do in the background
+        }
+
+        private void DataLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            if (e.Error != null)
+            {
+                // Handle any errors that occurred during the background work
+                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (e.Cancelled)
+            {
+                // Handle the case where the background work was canceled
+            }
+            else
+            {
+                // Data has been loaded, update the UI
+                // Stop the wait cursor (optional)
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        private void formDashboard_Load(object sender, EventArgs e)
+        {
+            dataLoader.RunWorkerAsync();
         }
 
         public void displayChart()
         {
-            chart1.Invalidate();
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            // Invoke the UI thread to update the chart
+            this.Invoke((MethodInvoker)delegate
             {
-                cn.Open();
-                chart1.Series["s1"].IsValueShownAsLabel = true;
-                string query = "SELECT d.Description as Dep, COUNT(*) AS StudentCount FROM tbl_student_accounts as sa inner join tbl_Departments as d on sa.Department = d.Department_ID GROUP BY d.Description";
-                using (SqlCommand command = new SqlCommand(query, cn))
+                chart1.Invalidate();
+                using (cn = new SqlConnection(SQL_Connection.connection))
                 {
-                    // Execute the query and retrieve data
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    cn.Open();
+                    chart1.Series["s1"].IsValueShownAsLabel = true;
+                    string query = "SELECT d.Description as Dep, COUNT(*) AS StudentCount FROM tbl_student_accounts as sa inner join tbl_Departments as d on sa.Department = d.Department_ID GROUP BY d.Description";
+                    using (SqlCommand command = new SqlCommand(query, cn))
                     {
-                        while (reader.Read())
+                        // Execute the query and retrieve data
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            // Retrieve data and display it on the chart
-                            string program = reader["Dep"].ToString();
-                            int studentCount = Convert.ToInt32(reader["StudentCount"]);
+                            while (reader.Read())
+                            {
+                                // Retrieve data and display it on the chart
+                                string program = reader["Dep"].ToString();
+                                int studentCount = Convert.ToInt32(reader["StudentCount"]);
 
-                            // Add data to the chart
-                            chart1.Series[0].Points.AddXY(program, studentCount);
+                                // Add data to the chart
+                                chart1.Series[0].Points.AddXY(program, studentCount);
+                            }
                         }
                     }
                 }
-            }
+            });
         }
+
 
         public void loadData(String id)
         {
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            try
             {
-                cn.Open();
-                cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where Unique_ID = '" + id + "'", cn);
-                dr = cm.ExecuteReader();
-                dr.Read();
-                lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
-                dr.Close();
-                cn.Close();
+                using (cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
+                    cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where Unique_ID = '" + id + "'", cn);
+                    dr = cm.ExecuteReader();
+                    dr.Read();
+                    lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+                    dr.Close();
+                    cn.Close();
 
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
         public void displayAccounts()
         {
-            dgvAccounts.Rows.Clear();
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            // Invoke the UI thread to update the DataGridView
+            this.Invoke((MethodInvoker)delegate
             {
-                cn.Open();
-                cm = new SqlCommand("SELECT TOP 10 ca.Firstname as Fname, ca.Lastname as Lname, r.Description AS RoleDescription, ca.DateTime FROM (SELECT Firstname, Lastname, Role, DateTime FROM tbl_student_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_deptHead_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_guidance_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_sao_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_teacher_accounts) AS ca JOIN tbl_role AS r ON ca.Role = r.Role_ID ORDER BY ca.DateTime DESC", cn);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
+                dgvAccounts.Rows.Clear();
+                using (cn = new SqlConnection(SQL_Connection.connection))
                 {
-                    dgvAccounts.Rows.Add(
-                        dr["Fname"].ToString() + " " + dr["Lname"].ToString(),
-                        dr["RoleDescription"].ToString()
-                    );
+                    cn.Open();
+                    cm = new SqlCommand("SELECT TOP 10 ca.Firstname as Fname, ca.Lastname as Lname, r.Description AS RoleDescription, ca.DateTime FROM (SELECT Firstname, Lastname, Role, DateTime FROM tbl_student_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_deptHead_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_guidance_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_sao_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_teacher_accounts) AS ca JOIN tbl_role AS r ON ca.Role = r.Role_ID ORDER BY ca.DateTime DESC", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        dgvAccounts.Rows.Add(
+                            dr["Fname"].ToString() + " " + dr["Lname"].ToString(),
+                            dr["RoleDescription"].ToString()
+                        );
+                    }
+                    dr.Close();
+                    cn.Close();
                 }
-                dr.Close();
-                cn.Close();
-            }
+            });
         }
         public void DisplayData()
         {
-            displayAccounts();
-
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 //Students
@@ -307,6 +356,15 @@ namespace AMSEMS.SubForms_Admin
             SubForms_Admin.formGeneratedForm formGeneratedForm = new formGeneratedForm();
             formGeneratedForm.setData3(4, "Submit", this, true);
             formGeneratedForm.ShowDialog();
+        }
+
+        private void formDashboard_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Check if the BackgroundWorker is running and stop it if needed.
+            if (dataLoader.IsBusy)
+            {
+                dataLoader.CancelAsync();
+            }
         }
     }
 }

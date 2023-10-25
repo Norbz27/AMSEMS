@@ -27,14 +27,51 @@ namespace AMSEMS.SubForms_Admin
         static string account;
         static int role;
         formArchiveSetting form;
+        private BackgroundWorker backgroundWorker = new BackgroundWorker();
         public formArchived_Accounts_Teachers()
         {
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
 
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            backgroundWorker.WorkerSupportsCancellation = true;
+
             dgvArch.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvArch.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+        }
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // This method runs in a background thread
+            // Perform time-consuming operations here
+            displayFilter();
+
+            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_archived_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+
+            // Simulate a time-consuming operation
+            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // This method runs on the UI thread
+            // Update the UI or perform other tasks after the background work completes
+            if (e.Error != null)
+            {
+                // Handle any errors that occurred during the background work
+                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (e.Cancelled)
+            {
+                // Handle the case where the background work was canceled
+            }
+            else
+            {
+                // Data has been loaded, update the UI
+                // Stop the wait cursor (optional)
+                this.Cursor = Cursors.Default;
+            }
         }
         public void getForm(formArchiveSetting form)
         {
@@ -49,15 +86,19 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnMultiDel, "Delete");
             toolTip.SetToolTip(btnSelUnarchive, "Retrieve");
 
-            displayFilter();
-
-
-            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_archived_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+            backgroundWorker.RunWorkerAsync();
 
         }
 
         public void displayFilter()
         {
+            // Invoke the UI thread to update the ComboBox
+            if (cbDep.InvokeRequired)
+            {
+                cbDep.Invoke(new Action(() => displayFilter()));
+                return;
+            }
+
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -79,8 +120,16 @@ namespace AMSEMS.SubForms_Admin
             }
         }
 
+
         public void displayTable(string query)
         {
+            // Invoke the UI thread to update the DataGridView
+            if (dgvArch.InvokeRequired)
+            {
+                dgvArch.Invoke(new Action(() => displayTable(query)));
+                return;
+            }
+
             dgvArch.Rows.Clear();
 
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -109,8 +158,8 @@ namespace AMSEMS.SubForms_Admin
                     }
                 }
             }
-
         }
+
 
         private void dgvStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -726,6 +775,14 @@ namespace AMSEMS.SubForms_Admin
         private void cb_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void formArchived_Accounts_Teachers_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+            }
         }
     }
 }

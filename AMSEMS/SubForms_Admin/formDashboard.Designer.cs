@@ -47,6 +47,8 @@
             this.kryptonGroupBox3 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.kryptonGroupBox10 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.dgvAccounts = new System.Windows.Forms.DataGridView();
+            this.Des = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.units = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel6 = new System.Windows.Forms.Panel();
             this.kryptonLabel9 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
@@ -89,8 +91,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.Des = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.units = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).BeginInit();
@@ -380,6 +380,24 @@
             this.dgvAccounts.RowTemplate.Height = 30;
             this.dgvAccounts.Size = new System.Drawing.Size(288, 224);
             this.dgvAccounts.TabIndex = 10;
+            // 
+            // Des
+            // 
+            this.Des.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Des.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Des.HeaderText = "Name";
+            this.Des.Name = "Des";
+            this.Des.ReadOnly = true;
+            // 
+            // units
+            // 
+            this.units.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.units.HeaderText = "Role";
+            this.units.Name = "units";
+            this.units.ReadOnly = true;
+            this.units.Width = 60;
             // 
             // panel6
             // 
@@ -1297,24 +1315,6 @@
             this.kryptonLabel1.TabIndex = 0;
             this.kryptonLabel1.Values.Text = "Welcome Back";
             // 
-            // Des
-            // 
-            this.Des.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Des.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Des.HeaderText = "Name";
-            this.Des.Name = "Des";
-            this.Des.ReadOnly = true;
-            // 
-            // units
-            // 
-            this.units.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.units.HeaderText = "Role";
-            this.units.Name = "units";
-            this.units.ReadOnly = true;
-            this.units.Width = 60;
-            // 
             // formDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1326,6 +1326,7 @@
             this.Name = "formDashboard";
             this.Padding = new System.Windows.Forms.Padding(20, 15, 0, 15);
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formDashboard_FormClosing);
             this.Load += new System.EventHandler(this.formDashboard_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).EndInit();

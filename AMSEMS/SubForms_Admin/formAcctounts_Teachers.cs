@@ -27,7 +27,7 @@ namespace AMSEMS.SubForms_Admin
         static string accountName;
 
         private bool headerCheckboxAdded = false; // Add this flag
-
+        private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private CheckBox headerCheckbox = new CheckBox();
         public formAccounts_Teachers()
         {
@@ -37,12 +37,48 @@ namespace AMSEMS.SubForms_Admin
             dgvTeachers.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvTeachers.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
 
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            backgroundWorker.WorkerSupportsCancellation = true;
+
             // Initialize the header checkbox in the constructor
             headerCheckbox.Size = new Size(15, 15);
             headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
 
             // Add the header checkbox to the DataGridView controls
             dgvTeachers.Controls.Add(headerCheckbox);
+        }
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // This method runs in a background thread
+            // Perform time-consuming operations here
+            displayFilter();
+            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+            loadCMSControls();
+
+            // Simulate a time-consuming operation
+            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // This method runs on the UI thread
+            // Update the UI or perform other tasks after the background work completes
+            if (e.Error != null)
+            {
+                // Handle any errors that occurred during the background work
+                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (e.Cancelled)
+            {
+                // Handle the case where the background work was canceled
+            }
+            else
+            {
+                // Data has been loaded, update the UI
+                // Stop the wait cursor (optional)
+                this.Cursor = Cursors.Default;
+            }
         }
         public static void setAccountName(String accountName1)
         {
@@ -68,13 +104,16 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnSetInactive, "Set Inactive");
 
             btnAll.Focus();
-            displayFilter();
-            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
-            loadCMSControls();
+            backgroundWorker.RunWorkerAsync();
         }
 
         public void displayFilter()
         {
+            if (cbET.InvokeRequired)
+            {
+                cbET.Invoke(new Action(() => displayFilter()));
+                return;
+            }
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -99,6 +138,11 @@ namespace AMSEMS.SubForms_Admin
 
         public void displayTable(string query)
         {
+            if (dgvTeachers.InvokeRequired)
+            {
+                dgvTeachers.Invoke(new Action(() => displayTable(query)));
+                return;
+            }
             try
             {
                 query = query + " ORDER BY DateTime DESC";
@@ -1310,6 +1354,14 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
             UseWaitCursor = false;
+        }
+
+        private void formAccounts_Teachers_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+            }
         }
     }
 }

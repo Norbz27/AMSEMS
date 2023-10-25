@@ -27,7 +27,7 @@ namespace AMSEMS.SubForms_Admin
         static string accountName;
 
         private bool headerCheckboxAdded = false; // Add this flag
-
+        private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private CheckBox headerCheckbox = new CheckBox();
         public formAccounts_SAO()
         {
@@ -38,12 +38,46 @@ namespace AMSEMS.SubForms_Admin
             dgvsao.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvsao.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
 
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            backgroundWorker.WorkerSupportsCancellation = true;
+
             // Initialize the header checkbox in the constructor
             headerCheckbox.Size = new Size(15, 15);
             headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
 
             // Add the header checkbox to the DataGridView controls
             dgvsao.Controls.Add(headerCheckbox);
+        }
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // This method runs in a background thread
+            // Perform time-consuming operations here
+            displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+
+            // Simulate a time-consuming operation
+            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // This method runs on the UI thread
+            // Update the UI or perform other tasks after the background work completes
+            if (e.Error != null)
+            {
+                // Handle any errors that occurred during the background work
+                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (e.Cancelled)
+            {
+                // Handle the case where the background work was canceled
+            }
+            else
+            {
+                // Data has been loaded, update the UI
+                // Stop the wait cursor (optional)
+                this.Cursor = Cursors.Default;
+            }
         }
         public static void setAccountName(String accountName1)
         {
@@ -68,10 +102,15 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnSetInactive, "Set Inactive");
 
             btnAll.Focus();
-            displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+            backgroundWorker.RunWorkerAsync();
         }
         public void displayTable(string query)
         {
+            if (dgvsao.InvokeRequired)
+            {
+                dgvsao.Invoke(new Action(() => displayTable(query)));
+                return;
+            }
             try
             {
                 query = query + " ORDER BY DateTime DESC";
@@ -971,6 +1010,14 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
             UseWaitCursor = false;
+        }
+
+        private void formAccounts_SAO_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+            }
         }
     }
 }

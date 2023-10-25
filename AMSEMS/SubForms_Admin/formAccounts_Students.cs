@@ -31,6 +31,7 @@ namespace AMSEMS.SubForms_Admin
         private bool headerCheckboxAdded = false; // Add this flag
 
         private CheckBox headerCheckbox = new CheckBox();
+        private BackgroundWorker backgroundWorker = new BackgroundWorker();
         public formAccounts_Students()
         {
             InitializeComponent();
@@ -38,6 +39,10 @@ namespace AMSEMS.SubForms_Admin
             cn = new SqlConnection(SQL_Connection.connection);
             lblAccountName.Text = account;
             btnAll.Focus();
+
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            backgroundWorker.WorkerSupportsCancellation = true;
 
             dgvStudents.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvStudents.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -55,6 +60,38 @@ namespace AMSEMS.SubForms_Admin
 
             // Add the header checkbox to the DataGridView controls
             dgvStudents.Controls.Add(headerCheckbox);
+        }
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // This method runs in a background thread
+            // Perform time-consuming operations here
+            loadCMSControls();
+            displayFilter();
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+
+            // Simulate a time-consuming operation
+            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // This method runs on the UI thread
+            // Update the UI or perform other tasks after the background work completes
+            if (e.Error != null)
+            {
+                // Handle any errors that occurred during the background work
+                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (e.Cancelled)
+            {
+                // Handle the case where the background work was canceled
+            }
+            else
+            {
+                // Data has been loaded, update the UI
+                // Stop the wait cursor (optional)
+                this.Cursor = Cursors.Default;
+            }
         }
         public static void setAccountName(string accountName)
         {
@@ -93,14 +130,20 @@ namespace AMSEMS.SubForms_Admin
 
             btnAll.Focus();
 
+            backgroundWorker.RunWorkerAsync();
 
-            loadCMSControls();
-            displayFilter();
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
         }
 
         public void displayFilter()
         {
+            if (cbProgram.InvokeRequired || cbSection.InvokeRequired || cbYearlvl.InvokeRequired || cbDep.InvokeRequired)
+            {
+                cbProgram.Invoke(new Action(() => displayFilter()));
+                cbSection.Invoke(new Action(() => displayFilter()));
+                cbYearlvl.Invoke(new Action(() => displayFilter()));
+                cbDep.Invoke(new Action(() => displayFilter()));
+                return;
+            }
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -158,6 +201,11 @@ namespace AMSEMS.SubForms_Admin
 
         public void displayTable(string query)
         {
+            if (dgvStudents.InvokeRequired)
+            {
+                dgvStudents.Invoke(new Action(() => displayTable(query)));
+                return;
+            }
             try
             {
                 query = query + " ORDER BY DateTime DESC;";
@@ -1517,6 +1565,14 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
             UseWaitCursor = false;
+        }
+
+        private void formAccounts_Students_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+            }
         }
     }
 }
