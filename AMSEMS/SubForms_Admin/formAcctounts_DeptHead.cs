@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace AMSEMS.SubForms_Admin
 {
@@ -707,7 +708,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the teacher ID or relevant data from the row
-                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateTeacherStatus(id, 2);
@@ -779,7 +780,7 @@ namespace AMSEMS.SubForms_Admin
                             if (departmentValue != DBNull.Value && !string.IsNullOrEmpty(departmentValue.ToString()))
                             {
                                 // Get the teacher ID or relevant data from the row
-                                int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                                string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
                                 // Call your UpdateTeacherStatus method to update the record
                                 bool success = UpdateTeacherStatus(id, 1);
@@ -803,7 +804,7 @@ namespace AMSEMS.SubForms_Admin
         }
 
 
-        private bool UpdateTeacherStatus(int teacherID, int status)
+        private bool UpdateTeacherStatus(string teacherID, int status)
         {
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
             {
@@ -1007,7 +1008,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the teacher ID or relevant data from the row
-                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
                             bool success = AddtoArchive(id);
@@ -1028,7 +1029,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
         }
-        private bool AddtoArchive(int teacherID)
+        private bool AddtoArchive(string teacherID)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
@@ -1165,6 +1166,7 @@ namespace AMSEMS.SubForms_Admin
         {
             UseWaitCursor = true;
             ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+            bool hasSelectedRow;
 
             if (menuItem != null)
             {
@@ -1179,22 +1181,41 @@ namespace AMSEMS.SubForms_Admin
                     if (dataGridView != null)
                     {
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
-                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+                        DataGridViewRow row = dataGridView.Rows[rowIndex];
+
+                        // Check if the "Department" column is not null and not empty
+                        object departmentValue = row.Cells["dept"].Value; // Replace "Department" with the actual column name
+                        if (departmentValue != DBNull.Value && !string.IsNullOrEmpty(departmentValue.ToString()))
+                        {
+                            hasSelectedRow = true; // Set the flag to true if at least one row is selected and the department is not null or empty
+                            UseWaitCursor = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cannot set account as active. Missing department information for selected account.");
+                            UseWaitCursor = false;
+                            return; // Exit the method if a row is missing department information
+
+                        }
 
                         DialogResult confirmationResult = MessageBox.Show("Set accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (confirmationResult == DialogResult.Yes)
                         {
-                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
-                            bool deletionSuccessful = UpdateTeacherStatus(primaryKeyValue, 1);
+                            // Check if the "Department" column is not null and not empty
+                            if (departmentValue != DBNull.Value && !string.IsNullOrEmpty(departmentValue.ToString()))
+                            {
+                                string primaryKeyValue = row.Cells["ID"].Value.ToString();
+                                bool deletionSuccessful = UpdateTeacherStatus(primaryKeyValue, 1);
 
-                            if (deletionSuccessful)
-                            {
-                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Failed to update record.");
+                                if (deletionSuccessful)
+                                {
+                                    displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Failed to update record.");
+                                }
                             }
                         }
                     }
@@ -1221,13 +1242,13 @@ namespace AMSEMS.SubForms_Admin
                     if (dataGridView != null)
                     {
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
-                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+                        DataGridViewRow row = dataGridView.Rows[rowIndex];
 
                         DialogResult confirmationResult = MessageBox.Show("Set accounts as Inactive?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (confirmationResult == DialogResult.Yes)
                         {
-                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            string primaryKeyValue = row.Cells["ID"].Value.ToString();
                             bool deletionSuccessful = UpdateTeacherStatus(primaryKeyValue, 2);
 
                             if (deletionSuccessful)
@@ -1270,7 +1291,7 @@ namespace AMSEMS.SubForms_Admin
 
                         if (result == DialogResult.Yes)
                         {
-                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
                             bool deletionSuccessful = AddtoArchive(primaryKeyValue);
 
                             if (deletionSuccessful)

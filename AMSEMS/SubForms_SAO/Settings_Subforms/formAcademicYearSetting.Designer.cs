@@ -1,4 +1,4 @@
-﻿namespace AMSEMS.SubForms_DeptHead
+﻿namespace AMSEMS.SubForms_SAO
 {
     partial class formAcademicYearSetting
     {

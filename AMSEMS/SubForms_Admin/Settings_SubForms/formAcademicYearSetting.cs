@@ -50,37 +50,56 @@ namespace AMSEMS.SubForms_Admin
 
         private void GetCurrentStatusFromDatabase()
         {
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 try
                 {
                     cn.Open();
                     string checkQuery = @"
-                    SELECT COUNT(*) FROM (
-                        SELECT Status FROM tbl_deptHead_accounts
-                        UNION
-                        SELECT Status FROM tbl_guidance_accounts
-                        UNION
-                        SELECT Status FROM tbl_sao_accounts
-                        UNION
-                        SELECT Status FROM tbl_teacher_accounts
-                        UNION
-                        SELECT Status FROM tbl_student_accounts
-                    ) AS CombinedRoles
-                    WHERE Status = 2";
+            SELECT COUNT(*) FROM (
+                SELECT Status FROM tbl_deptHead_accounts
+                UNION
+                SELECT Status FROM tbl_guidance_accounts
+                UNION
+                SELECT Status FROM tbl_sao_accounts
+                UNION
+                SELECT Status FROM tbl_teacher_accounts
+                UNION
+                SELECT Status FROM tbl_student_accounts
+            ) AS CombinedRoles
+            WHERE Status = 2";
 
                     using (SqlCommand command = new SqlCommand(checkQuery, cn))
                     {
                         int inactiveAccountCount = (int)command.ExecuteScalar();
 
-                        // If there are inactive accounts (Status = 2), set currentStatus to 2; otherwise, it remains 1 (active).
-                        if (inactiveAccountCount > 0)
+                        // Get the total count of all accounts across all tables
+                        string totalCountQuery = @"
+                SELECT COUNT(*) FROM (
+                    SELECT Status FROM tbl_deptHead_accounts
+                    UNION
+                    SELECT Status FROM tbl_guidance_accounts
+                    UNION
+                    SELECT Status FROM tbl_sao_accounts
+                    UNION
+                    SELECT Status FROM tbl_teacher_accounts
+                    UNION
+                    SELECT Status FROM tbl_student_accounts
+                ) AS CombinedRoles";
+
+                        using (SqlCommand totalCommand = new SqlCommand(totalCountQuery, cn))
                         {
-                            previousToggleState = true; // Set the previous state to "ON"
-                        }
-                        else
-                        {
-                            previousToggleState = false; // Set the previous state to "OFF"
+                            int totalAccountCount = (int)totalCommand.ExecuteScalar();
+
+                            // If all accounts are inactive (Status = 2) and the total count matches the inactive count, set previousToggleState to true (ON).
+                            if (inactiveAccountCount > 0 && inactiveAccountCount == totalAccountCount)
+                            {
+                                previousToggleState = true;
+                            }
+                            else
+                            {
+                                previousToggleState = false;
+                            }
                         }
                     }
                 }
@@ -90,6 +109,7 @@ namespace AMSEMS.SubForms_Admin
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+
         }
 
         private void tgbtnDisableAcc_CheckedChanged(object sender, EventArgs e)

@@ -563,7 +563,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the guidance ID or relevant data from the row
-                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateGuidanceStatus(id, 2);
@@ -621,7 +621,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the guidance ID or relevant data from the row
-                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateGuidanceStatus(id, 1);
@@ -643,7 +643,7 @@ namespace AMSEMS.SubForms_Admin
             }
 
         }
-        private bool UpdateGuidanceStatus(int guidanceID, int status)
+        private bool UpdateGuidanceStatus(string guidanceID, int status)
         {
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
             {
@@ -702,7 +702,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the guidance ID or relevant data from the row
-                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateGuidanceStatus method to update the record
                             bool success = AddtoArchive(id);
@@ -723,7 +723,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
         }
-        private bool AddtoArchive(int guidanceID)
+        private bool AddtoArchive(string guidanceID)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
@@ -875,7 +875,7 @@ namespace AMSEMS.SubForms_Admin
 
                         if (confirmationResult == DialogResult.Yes)
                         {
-                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
                             bool deletionSuccessful = UpdateGuidanceStatus(primaryKeyValue, 1);
 
                             if (deletionSuccessful)
@@ -917,7 +917,7 @@ namespace AMSEMS.SubForms_Admin
 
                         if (confirmationResult == DialogResult.Yes)
                         {
-                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
                             bool deletionSuccessful = UpdateGuidanceStatus(primaryKeyValue, 2);
 
                             if (deletionSuccessful)
@@ -960,7 +960,7 @@ namespace AMSEMS.SubForms_Admin
 
                         if (result == DialogResult.Yes)
                         {
-                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
                             bool deletionSuccessful = AddtoArchive(primaryKeyValue);
 
                             if (deletionSuccessful)

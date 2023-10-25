@@ -48,28 +48,45 @@ namespace AMSEMS
 
         }
 
-        public void loadData()
+        public async void loadData()
         {
-            cn.Open();
-            cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where Unique_ID = '" + id + "'", cn);
-            dr = cm.ExecuteReader();
-            dr.Read();
-            lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
-            dr.Close();
+            // Set the cursor to WaitCursor while loading data
+            Cursor.Current = Cursors.WaitCursor;
 
-            cm = new SqlCommand("Select Profile_pic from tbl_admin_accounts where Unique_ID = " + id + "", cn);
-
-            byte[] imageData = (byte[])cm.ExecuteScalar();
-
-            if (imageData != null && imageData.Length > 0)
+            try
             {
-                using (MemoryStream ms = new MemoryStream(imageData))
+                cn.Open();
+                cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where Unique_ID = '" + id + "'", cn);
+                dr = cm.ExecuteReader();
+                dr.Read();
+                lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+                dr.Close();
+
+                cm = new SqlCommand("Select Profile_pic from tbl_admin_accounts where Unique_ID = " + id + "", cn);
+
+                byte[] imageData = (byte[])cm.ExecuteScalar();
+
+                if (imageData != null && imageData.Length > 0)
                 {
-                    Image image = Image.FromStream(ms);
-                    ptbProfile.Image = image;
+                    using (MemoryStream ms = new MemoryStream(imageData))
+                    {
+                        Image image = Image.FromStream(ms);
+                        ptbProfile.Image = image;
+                    }
                 }
             }
-            cn.Close();
+            catch (Exception ex)
+            {
+                // Handle exceptions appropriately
+                MessageBox.Show("Error loading data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                cn.Close();
+
+                // Restore the cursor to the default cursor
+                Cursor.Current = Cursors.Default;
+            }
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)

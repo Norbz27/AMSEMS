@@ -134,11 +134,11 @@ namespace AMSEMS.SubForms_Admin
                             if (existingRecordCount == 0)
                             {
                                 // Update the status to 1 before inserting
-                                string updateStatusQuery = "UPDATE tbl_archived_teacher_accounts SET Status = 1";
-                                using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
-                                {
-                                    updateStatusCommand.ExecuteNonQuery();
-                                }
+                                //string updateStatusQuery = "UPDATE tbl_archived_teacher_accounts SET Status = 1";
+                                //using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                                //{
+                                //    updateStatusCommand.ExecuteNonQuery();
+                                //}
 
 
                                 // Insert the student record
@@ -193,11 +193,11 @@ namespace AMSEMS.SubForms_Admin
                             {
                                 // No existing record, proceed with unarchiving
                                 // Update the status to 1 before inserting
-                                string updateStatusQuery = "UPDATE tbl_archived_student_accounts SET Status = 1";
-                                using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
-                                {
-                                    updateStatusCommand.ExecuteNonQuery();
-                                }
+                                //string updateStatusQuery = "UPDATE tbl_archived_student_accounts SET Status = 1";
+                                //using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                                //{
+                                //    updateStatusCommand.ExecuteNonQuery();
+                                //}
 
                                 // Insert the student record
                                 string insertQuery = "SET IDENTITY_INSERT tbl_student_accounts ON; " +
@@ -250,11 +250,11 @@ namespace AMSEMS.SubForms_Admin
                             {
                                 // No existing record, proceed with unarchiving
                                 // Update the status to 1 before inserting
-                                string updateStatusQuery = "UPDATE tbl_archived_deptHead_accounts SET Status = 1";
-                                using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
-                                {
-                                    updateStatusCommand.ExecuteNonQuery();
-                                }
+                                //string updateStatusQuery = "UPDATE tbl_archived_deptHead_accounts SET Status = 1";
+                                //using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                                //{
+                                //    updateStatusCommand.ExecuteNonQuery();
+                                //}
 
 
                                 // Insert the student record
@@ -308,11 +308,11 @@ namespace AMSEMS.SubForms_Admin
                             {
                                 // No existing record, proceed with unarchiving
                                 // Update the status to 1 before inserting
-                                string updateStatusQuery = "UPDATE tbl_archived_sao_accounts SET Status = 1";
-                                using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
-                                {
-                                    updateStatusCommand.ExecuteNonQuery();
-                                }
+                                //string updateStatusQuery = "UPDATE tbl_archived_sao_accounts SET Status = 1";
+                                //using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                                //{
+                                //    updateStatusCommand.ExecuteNonQuery();
+                                //}
 
 
                                 // Insert the student record
@@ -367,11 +367,11 @@ namespace AMSEMS.SubForms_Admin
                             {
                                 // No existing record, proceed with unarchiving
                                 // Update the status to 1 before inserting
-                                string updateStatusQuery = "UPDATE tbl_archived_guidance_accounts SET Status = 1";
-                                using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
-                                {
-                                    updateStatusCommand.ExecuteNonQuery();
-                                }
+                                //string updateStatusQuery = "UPDATE tbl_archived_guidance_accounts SET Status = 1";
+                                //using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                                //{
+                                //    updateStatusCommand.ExecuteNonQuery();
+                                //}
 
 
                                 // Insert the student record
@@ -425,11 +425,11 @@ namespace AMSEMS.SubForms_Admin
                             {
                                 // No existing record, proceed with unarchiving
                                 // Update the status to 1 before inserting
-                                string updateStatusQuery = "UPDATE tbl_archived_subjects SET Status = 1";
-                                using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
-                                {
-                                    updateStatusCommand.ExecuteNonQuery();
-                                }
+                                //string updateStatusQuery = "UPDATE tbl_archived_subjects SET Status = 1";
+                                //using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                                //{
+                                //    updateStatusCommand.ExecuteNonQuery();
+                                //}
 
 
                                 // Insert the student record

@@ -956,6 +956,39 @@ namespace AMSEMS.SubForms_Admin
             }
         }
 
+        private void btnMultiEditAcad_Click(object sender, EventArgs e)
+        {
+            CMSAcadLvl.Show(btnMultiEditAcad, new System.Drawing.Point(0, btnMultiEditAcad.Height));
+        }
+
+        private void cbAcadLevel_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        private bool UpdateSubjectsInfo(string ID, int itemID, string column)
+        {
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                try
+                {
+                    cn.Open();
+                    string updateQuery = "UPDATE tbl_subjects SET " + column + " = @ItemID WHERE Course_code = @ID";
+
+                    using (SqlCommand command = new SqlCommand(updateQuery, cn))
+                    {
+                        command.Parameters.AddWithValue("@ID", ID);
+                        command.Parameters.AddWithValue("@ItemID", itemID);
+                        command.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error updating record: " + ex.Message);
+                    return false;
+                }
+            }
+        }
         public void loadCMSControls()
         {
             // Assuming you have a ContextMenuStrip named "contextMenuStrip1"
@@ -1036,7 +1069,7 @@ namespace AMSEMS.SubForms_Admin
             if (hasSelectedRow)
             {
                 // Ask for confirmation from the user
-                DialogResult result = MessageBox.Show("Update Accounts Info?", "Confirm Update", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Update Subject(s) Info?", "Confirm Update", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     // Create a list to store the rows to be removed
@@ -1053,7 +1086,7 @@ namespace AMSEMS.SubForms_Admin
                             string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
-                            bool success = UpdateTeacherInfo(id, itemId, column);
+                            bool success = UpdateSubjectsInfo(id, itemId, column);
 
                             if (success)
                             {
@@ -1062,48 +1095,14 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to update record with ID: " + id);
+                                MessageBox.Show("Failed to update record with Course code: " + id);
                             }
                         }
                     }
                     displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    headerCheckbox.Checked = false;
                 }
             }
-        }
-        private bool UpdateTeacherInfo(string id, int itemID, string column)
-        {
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-            {
-                try
-                {
-                    cn.Open();
-                    string updateQuery = "UPDATE tbl_subjects SET " + column + " = @ItemID WHERE Course_code = @ID";
-
-                    using (SqlCommand command = new SqlCommand(updateQuery, cn))
-                    {
-                        command.Parameters.AddWithValue("@ID", id);
-                        command.Parameters.AddWithValue("@ItemID", itemID);
-                        command.ExecuteNonQuery();
-                        headerCheckbox.Checked = false;
-                        return true;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error updating record: " + ex.Message);
-                    return false;
-                }
-            }
-        }
-
-        private void btnMultiEditAcad_Click(object sender, EventArgs e)
-        {
-            CMSAcadLvl.Show(btnMultiEditAcad, new System.Drawing.Point(0, btnMultiEditAcad.Height));
-        }
-
-        private void cbAcadLevel_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
         }
         private void activetoolStripMenuItem2_Click(object sender, EventArgs e)
         {
@@ -1125,16 +1124,16 @@ namespace AMSEMS.SubForms_Admin
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
                         DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
 
-                        DialogResult confirmationResult = MessageBox.Show("Set accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        DialogResult confirmationResult = MessageBox.Show("Set subject(s) as Active?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (confirmationResult == DialogResult.Yes)
                         {
-                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
+                            string primaryKeyValue = rowToDelete.Cells["code"].Value.ToString();
                             bool deletionSuccessful = UpdateSubjectStatus(primaryKeyValue, 1);
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
                             }
                             else
                             {
@@ -1167,16 +1166,16 @@ namespace AMSEMS.SubForms_Admin
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
                         DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
 
-                        DialogResult confirmationResult = MessageBox.Show("Set accounts as Inactive?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        DialogResult confirmationResult = MessageBox.Show("Set subject(s) as Inactive?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (confirmationResult == DialogResult.Yes)
                         {
-                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
+                            string primaryKeyValue = rowToDelete.Cells["code"].Value.ToString();
                             bool deletionSuccessful = UpdateSubjectStatus(primaryKeyValue, 2);
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
                             }
                             else
                             {
@@ -1210,17 +1209,17 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
 
                         // Ask for confirmation from the user
-                        DialogResult result = MessageBox.Show("Are you sure to archive this accounts?", "Confirm Update", MessageBoxButtons.YesNo);
+                        DialogResult result = MessageBox.Show("Are you sure to archive this record?", "Confirm Update", MessageBoxButtons.YesNo);
 
                         if (result == DialogResult.Yes)
                         {
-                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
+                            string primaryKeyValue = rowToDelete.Cells["code"].Value.ToString();
                             bool deletionSuccessful = AddtoArchive(primaryKeyValue);
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
-                                MessageBox.Show("Account archived successfully.");
+                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                                MessageBox.Show("Record's archived successfully.");
                             }
                             else
                             {

@@ -407,6 +407,12 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_DeptHead\UserID.cs" />
+    <Compile Include="SubForms_SAO\Settings_Subforms\formAcademicYearSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_SAO\Settings_Subforms\formAcademicYearSetting.Designer.cs">
+      <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_SAO\Settings_Subforms\formAccountSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -706,6 +712,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\Settings_Subforms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_SAO\Settings_Subforms\formAcademicYearSetting.resx">
+      <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_SAO\Settings_Subforms\formAccountSetting.resx">
       <DependentUpon>formAccountSetting.cs</DependentUpon>

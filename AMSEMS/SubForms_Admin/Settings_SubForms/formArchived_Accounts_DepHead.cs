@@ -619,7 +619,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
         }
-        private bool Unarchive(int studentID)
+        private bool Unarchive(int ID)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
@@ -630,19 +630,19 @@ namespace AMSEMS.SubForms_Admin
                     string checkExistingQuery = "SELECT COUNT(*) FROM tbl_sao_accounts WHERE ID = @ID";
                     using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
                     {
-                        checkExistingCommand.Parameters.AddWithValue("@ID", studentID);
+                        checkExistingCommand.Parameters.AddWithValue("@ID", ID);
                         int existingRecordCount = (int)checkExistingCommand.ExecuteScalar();
 
                         if (existingRecordCount == 0)
                         {
                             // No existing record, proceed with unarchiving
                             // Update the status to 1 before inserting
-                            string updateStatusQuery = "UPDATE tbl_archived_deptHead_accounts SET Status = 1 WHERE ID = @ID";
-                            using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
-                            {
-                                updateStatusCommand.Parameters.AddWithValue("@ID", studentID);
-                                updateStatusCommand.ExecuteNonQuery();
-                            }
+                            //string updateStatusQuery = "UPDATE tbl_archived_deptHead_accounts SET Status = 1 WHERE ID = @ID";
+                            //using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                            //{
+                            //    updateStatusCommand.Parameters.AddWithValue("@ID", ID);
+                            //    updateStatusCommand.ExecuteNonQuery();
+                            //}
 
 
                             // Insert the student record
@@ -651,7 +651,7 @@ namespace AMSEMS.SubForms_Admin
                                 "SET IDENTITY_INSERT tbl_deptHead_accounts OFF;";
                             using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
                             {
-                                sqlCommand.Parameters.AddWithValue("@ID", studentID);
+                                sqlCommand.Parameters.AddWithValue("@ID", ID);
                                 sqlCommand.ExecuteNonQuery();
                             }
 
@@ -659,7 +659,7 @@ namespace AMSEMS.SubForms_Admin
                             string deleteQuery = "DELETE FROM tbl_archived_deptHead_accounts WHERE ID = @ID";
                             using (SqlCommand command = new SqlCommand(deleteQuery, cn))
                             {
-                                command.Parameters.AddWithValue("@ID", studentID);
+                                command.Parameters.AddWithValue("@ID", ID);
                                 command.ExecuteNonQuery();
                             }
 

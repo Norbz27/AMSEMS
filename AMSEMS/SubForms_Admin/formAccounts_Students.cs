@@ -108,6 +108,7 @@ namespace AMSEMS.SubForms_Admin
                     cbProgram.Items.Clear();
                     cbSection.Items.Clear();
                     cbYearlvl.Items.Clear();
+                    cbDep.Items.Clear();
                     cn.Open();
                     cm = new SqlCommand("Select Description from tbl_program", cn);
                     dr = cm.ExecuteReader();
@@ -183,7 +184,16 @@ namespace AMSEMS.SubForms_Admin
                                 dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
-                                dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + sem;
+
+                                if (dr["yDes"] != DBNull.Value)
+                                {
+                                    dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + sem;
+                                }
+                                else
+                                {
+                                    dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
+                                }
+
                                 dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
                                 dgvStudents.Rows[rowIndex].Cells["option"].Value = option.Image;
@@ -828,7 +838,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the student ID or relevant data from the row
-                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateStudentStatus method to update the record
                             bool success = UpdateStudentStatus(id, 2);
@@ -886,7 +896,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the student ID or relevant data from the row
-                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateStudentStatus method to update the record
                             bool success = UpdateStudentStatus(id, 1);
@@ -908,7 +918,7 @@ namespace AMSEMS.SubForms_Admin
             }
 
         }
-        private bool UpdateStudentStatus(int studentID, int status)
+        private bool UpdateStudentStatus(string studentID, int status)
         {
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
             {
@@ -932,7 +942,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
         }
-        private bool UpdateStudentInfo(int studentID, int itemID, string column)
+        private bool UpdateStudentInfo(string studentID, int itemID, string column)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
@@ -1168,7 +1178,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the student ID or relevant data from the row
-                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateStudentStatus method to update the record
                             bool success = UpdateStudentInfo(id, itemId, column);
@@ -1224,7 +1234,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the teacher ID or relevant data from the row
-                            int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
                             bool success = AddtoArchive(id);
@@ -1245,7 +1255,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
         }
-        private bool AddtoArchive(int studentID)
+        private bool AddtoArchive(string studentID)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
@@ -1405,7 +1415,7 @@ namespace AMSEMS.SubForms_Admin
 
                         if (confirmationResult == DialogResult.Yes)
                         {
-                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
                             bool deletionSuccessful = UpdateStudentStatus(primaryKeyValue,1);
 
                             if (deletionSuccessful)
@@ -1447,7 +1457,7 @@ namespace AMSEMS.SubForms_Admin
 
                         if (confirmationResult == DialogResult.Yes)
                         {
-                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
                             bool deletionSuccessful = UpdateStudentStatus(primaryKeyValue, 2);
 
                             if (deletionSuccessful)
@@ -1490,7 +1500,7 @@ namespace AMSEMS.SubForms_Admin
 
                         if (result == DialogResult.Yes)
                         {
-                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
                             bool deletionSuccessful = AddtoArchive(primaryKeyValue);
 
                             if (deletionSuccessful)

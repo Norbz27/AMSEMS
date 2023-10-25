@@ -36,10 +36,10 @@
             this.btnEditAcad = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonLabel6 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.tgbtnDisableAcc = new AMSEMS.RJToggleButton();
             this.kryptonWrapLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonWrapLabel();
             this.kryptonLabel10 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.tgbtnDisableAcc = new AMSEMS.RJToggleButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +64,7 @@
             // 
             // lblAcadSem
             // 
-            this.lblAcadSem.Location = new System.Drawing.Point(0, 156);
+            this.lblAcadSem.Location = new System.Drawing.Point(0, 134);
             this.lblAcadSem.Margin = new System.Windows.Forms.Padding(2);
             this.lblAcadSem.Name = "lblAcadSem";
             this.lblAcadSem.Size = new System.Drawing.Size(18, 22);
@@ -77,7 +77,7 @@
             // btnEditAcadSem
             // 
             this.btnEditAcadSem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEditAcadSem.Location = new System.Drawing.Point(269, 149);
+            this.btnEditAcadSem.Location = new System.Drawing.Point(269, 127);
             this.btnEditAcadSem.Name = "btnEditAcadSem";
             this.btnEditAcadSem.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnEditAcadSem.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -136,7 +136,7 @@
             // 
             // kryptonLabel4
             // 
-            this.kryptonLabel4.Location = new System.Drawing.Point(0, 129);
+            this.kryptonLabel4.Location = new System.Drawing.Point(0, 107);
             this.kryptonLabel4.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel4.Name = "kryptonLabel4";
             this.kryptonLabel4.Size = new System.Drawing.Size(154, 23);
@@ -149,7 +149,7 @@
             // 
             // lblAcadYear
             // 
-            this.lblAcadYear.Location = new System.Drawing.Point(-1, 89);
+            this.lblAcadYear.Location = new System.Drawing.Point(-1, 67);
             this.lblAcadYear.Margin = new System.Windows.Forms.Padding(2);
             this.lblAcadYear.Name = "lblAcadYear";
             this.lblAcadYear.Size = new System.Drawing.Size(78, 22);
@@ -162,7 +162,7 @@
             // btnEditAcad
             // 
             this.btnEditAcad.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEditAcad.Location = new System.Drawing.Point(268, 82);
+            this.btnEditAcad.Location = new System.Drawing.Point(268, 60);
             this.btnEditAcad.Name = "btnEditAcad";
             this.btnEditAcad.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnEditAcad.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -221,7 +221,7 @@
             // 
             // kryptonLabel6
             // 
-            this.kryptonLabel6.Location = new System.Drawing.Point(-1, 62);
+            this.kryptonLabel6.Location = new System.Drawing.Point(-1, 40);
             this.kryptonLabel6.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel6.Name = "kryptonLabel6";
             this.kryptonLabel6.Size = new System.Drawing.Size(119, 23);
@@ -234,7 +234,7 @@
             // 
             // kryptonLabel2
             // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(-3, 226);
+            this.kryptonLabel2.Location = new System.Drawing.Point(-3, 204);
             this.kryptonLabel2.Name = "kryptonLabel2";
             this.kryptonLabel2.Size = new System.Drawing.Size(143, 25);
             this.kryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -243,6 +243,23 @@
             this.kryptonLabel2.TabIndex = 141;
             this.kryptonLabel2.Values.Text = "Clients Accounts";
             // 
+            // tgbtnDisableAcc
+            // 
+            this.tgbtnDisableAcc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.tgbtnDisableAcc.AutoSize = true;
+            this.tgbtnDisableAcc.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.tgbtnDisableAcc.Location = new System.Drawing.Point(628, 235);
+            this.tgbtnDisableAcc.MinimumSize = new System.Drawing.Size(45, 22);
+            this.tgbtnDisableAcc.Name = "tgbtnDisableAcc";
+            this.tgbtnDisableAcc.OffBackColor = System.Drawing.Color.Gray;
+            this.tgbtnDisableAcc.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tgbtnDisableAcc.OnBackColor = System.Drawing.Color.Green;
+            this.tgbtnDisableAcc.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tgbtnDisableAcc.Size = new System.Drawing.Size(45, 22);
+            this.tgbtnDisableAcc.TabIndex = 134;
+            this.tgbtnDisableAcc.UseVisualStyleBackColor = true;
+            this.tgbtnDisableAcc.Click += new System.EventHandler(this.tgbtnDisableAcc_CheckedChanged);
+            // 
             // kryptonWrapLabel1
             // 
             this.kryptonWrapLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -250,7 +267,7 @@
             this.kryptonWrapLabel1.AutoSize = false;
             this.kryptonWrapLabel1.Font = new System.Drawing.Font("Poppins", 8F);
             this.kryptonWrapLabel1.ForeColor = System.Drawing.Color.Black;
-            this.kryptonWrapLabel1.Location = new System.Drawing.Point(-1, 290);
+            this.kryptonWrapLabel1.Location = new System.Drawing.Point(-1, 268);
             this.kryptonWrapLabel1.Name = "kryptonWrapLabel1";
             this.kryptonWrapLabel1.Size = new System.Drawing.Size(674, 42);
             this.kryptonWrapLabel1.StateCommon.Font = new System.Drawing.Font("Poppins", 8F);
@@ -260,7 +277,7 @@
             // 
             // kryptonLabel10
             // 
-            this.kryptonLabel10.Location = new System.Drawing.Point(-3, 256);
+            this.kryptonLabel10.Location = new System.Drawing.Point(-3, 234);
             this.kryptonLabel10.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel10.Name = "kryptonLabel10";
             this.kryptonLabel10.Size = new System.Drawing.Size(155, 23);
@@ -281,23 +298,6 @@
             this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel1.TabIndex = 132;
             this.kryptonLabel1.Values.Text = "Academic Year";
-            // 
-            // tgbtnDisableAcc
-            // 
-            this.tgbtnDisableAcc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tgbtnDisableAcc.AutoSize = true;
-            this.tgbtnDisableAcc.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tgbtnDisableAcc.Location = new System.Drawing.Point(628, 257);
-            this.tgbtnDisableAcc.MinimumSize = new System.Drawing.Size(45, 22);
-            this.tgbtnDisableAcc.Name = "tgbtnDisableAcc";
-            this.tgbtnDisableAcc.OffBackColor = System.Drawing.Color.Gray;
-            this.tgbtnDisableAcc.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.tgbtnDisableAcc.OnBackColor = System.Drawing.Color.Green;
-            this.tgbtnDisableAcc.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.tgbtnDisableAcc.Size = new System.Drawing.Size(45, 22);
-            this.tgbtnDisableAcc.TabIndex = 134;
-            this.tgbtnDisableAcc.UseVisualStyleBackColor = true;
-            this.tgbtnDisableAcc.Click += new System.EventHandler(this.tgbtnDisableAcc_CheckedChanged);
             // 
             // formAcademicYearSetting
             // 

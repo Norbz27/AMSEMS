@@ -153,7 +153,7 @@ namespace AMSEMS
 
                         if (dt.Rows.Count == 0)
                         {
-                            MessageBox.Show("No Account Data Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Invalid Account, No Data Found!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                         {

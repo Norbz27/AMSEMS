@@ -512,12 +512,12 @@ namespace AMSEMS.SubForms_Admin
                         if (existingRecordCount == 0)
                         {
                             // Update the status to 1 before inserting
-                            string updateStatusQuery = "UPDATE tbl_archived_teacher_accounts SET Status = 1 WHERE ID = @ID";
-                            using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
-                            {
-                                updateStatusCommand.Parameters.AddWithValue("@ID", ID);
-                                updateStatusCommand.ExecuteNonQuery();
-                            }
+                            //string updateStatusQuery = "UPDATE tbl_archived_teacher_accounts SET Status = 1 WHERE ID = @ID";
+                            //using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                            //{
+                            //    updateStatusCommand.Parameters.AddWithValue("@ID", ID);
+                            //    updateStatusCommand.ExecuteNonQuery();
+                            //}
 
 
                             // Insert the student record

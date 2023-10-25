@@ -551,12 +551,12 @@ namespace AMSEMS.SubForms_Admin
                         {
                             // No existing record, proceed with unarchiving
                             // Update the status to 1 before inserting
-                            string updateStatusQuery = "UPDATE tbl_archived_subjects SET Status = 1 WHERE Course_code = @ID";
-                            using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
-                            {
-                                updateStatusCommand.Parameters.AddWithValue("@ID", courseCode);
-                                updateStatusCommand.ExecuteNonQuery();
-                            }
+                            //string updateStatusQuery = "UPDATE tbl_archived_subjects SET Status = 1 WHERE Course_code = @ID";
+                            //using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                            //{
+                            //    updateStatusCommand.Parameters.AddWithValue("@ID", courseCode);
+                            //    updateStatusCommand.ExecuteNonQuery();
+                            //}
 
 
                             // Insert the student record

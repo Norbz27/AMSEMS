@@ -434,6 +434,7 @@ namespace AMSEMS.SubForms_Admin
             this.tbUnits.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
             this.tbUnits.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
             this.tbUnits.TabIndex = 90;
+            this.tbUnits.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbUnits_KeyPress);
             // 
             // lblInfo
             // 

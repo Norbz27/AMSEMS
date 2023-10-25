@@ -86,7 +86,7 @@ namespace AMSEMS.SubForms_Admin
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                if (tbCourseDes.Text == "" && tbCcode.Text == "" && tbUnits.Text == "" && cbAcadLevel.Text == "" && cbTeacher.Text == "")
+                if (tbCourseDes.Text.Equals(String.Empty) || tbCcode.Text.Equals(String.Empty) || tbUnits.Text.Equals(String.Empty) || cbAcadLevel.Text.Equals(String.Empty) || cbTeacher.Text.Equals(String.Empty))
                 {
                     MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -172,10 +172,11 @@ namespace AMSEMS.SubForms_Admin
                             MessageBox.Show("Subject Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             ds.Tables[0].Rows.Clear();
                         }
+                        clearTexts();
                     }
                     form.displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    
                 }
-                clearTexts();
             }
         }
         public void clearTexts()
@@ -249,6 +250,14 @@ namespace AMSEMS.SubForms_Admin
         {
             form.displayFilter();
             form.loadCMSControls();
+        }
+
+        private void tbUnits_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

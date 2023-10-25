@@ -151,7 +151,7 @@ namespace AMSEMS.SubForms_Admin
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                if (tbFname.Text == "" && tbLname.Text == "" && tbMname.Text == "" && tbID.Text == "" && tbPass.Text == "" && tbRole.Text == "" && cbDepartment.Text == "")
+                if (tbFname.Text.Equals(String.Empty) || tbLname.Text.Equals(String.Empty) || tbMname.Text.Equals(String.Empty) || tbID.Text.Equals(String.Empty) || tbPass.Text.Equals(String.Empty) || tbRole.Text.Equals(String.Empty) || cbDepartment.Text.Equals(String.Empty))
                 {
                     MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -348,6 +348,7 @@ namespace AMSEMS.SubForms_Admin
         public void clearTexts()
         {
             tbID.Text = "";
+            tbFname.Text = "";
             tbMname.Text = "";
             tbLname.Text = "";
             tbPass.Text = "";
