@@ -407,6 +407,12 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_DeptHead\UserID.cs" />
+    <Compile Include="SubForms_SAO\formAddEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_SAO\formAddEvent.Designer.cs">
+      <DependentUpon>formAddEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_SAO\Settings_Subforms\formAcademicYearSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -712,6 +718,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\Settings_Subforms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_SAO\formAddEvent.resx">
+      <DependentUpon>formAddEvent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_SAO\Settings_Subforms\formAcademicYearSetting.resx">
       <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
@@ -1019,6 +1028,7 @@
     <None Include="Resources\knowledge.png" />
     <None Include="Resources\teacher.png" />
     <None Include="Resources\teacher-24.png" />
+    <None Include="Resources\event-clipart-12.jpg" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

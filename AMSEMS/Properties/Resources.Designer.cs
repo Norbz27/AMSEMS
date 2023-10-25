@@ -293,6 +293,16 @@ namespace AMSEMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap event_clipart_12 {
+            get {
+                object obj = ResourceManager.GetObject("event-clipart-12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap exit__1_ {
             get {
                 object obj = ResourceManager.GetObject("exit (1)", resourceCulture);

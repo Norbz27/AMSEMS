@@ -29,6 +29,9 @@ namespace AMSEMS
         public FormSAONavigation(String id1)
         {
             InitializeComponent();
+
+            cn = new SqlConnection(SQL_Connection.connection);
+
             this.btnDashboard.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDashboard.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDashboard.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
@@ -41,7 +44,7 @@ namespace AMSEMS
 
             id = id1;
         }
-
+        
         public void loadData()
         {
             using (cn = new SqlConnection(SQL_Connection.connection))

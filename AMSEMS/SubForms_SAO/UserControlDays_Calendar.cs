@@ -12,6 +12,7 @@ namespace AMSEMS.SubForms_SAO
 {
     public partial class UserControlDays_Calendar : UserControl
     {
+        public static int static_day, static_year, static_month;
         public UserControlDays_Calendar()
         {
             InitializeComponent();
@@ -35,10 +36,23 @@ namespace AMSEMS.SubForms_SAO
             else
             {
                 lblDays.Text = numdays.ToString();
+                lblmonth.Text = month.ToString();
+                lblyear.Text = year.ToString();
                 this.lblDays.Image = null;
                 this.lblDays.StateCommon.Font = new System.Drawing.Font("Poppins", 8.25F);
                 this.lblDays.StateCommon.TextColor = System.Drawing.Color.Black;
             }
+
+        }
+
+        private void addEventToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            static_day = Convert.ToInt32(lblDays.Text);
+            static_month = Convert.ToInt32(lblmonth.Text);
+            static_year = Convert.ToInt32(lblyear.Text);
+
+            formAddEvent formAddEvent = new formAddEvent();
+            formAddEvent.Show();
         }
     }
 }
