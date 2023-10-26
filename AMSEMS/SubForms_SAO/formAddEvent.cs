@@ -21,6 +21,7 @@ namespace AMSEMS.SubForms_SAO
         SqlCommand cm;
         SqlDataReader dr;
         DataSet ds = new DataSet();
+        UserControlDays_Calendar form;
 
         public formAddEvent()
         {
@@ -28,6 +29,10 @@ namespace AMSEMS.SubForms_SAO
 
             cn = new SqlConnection(SQL_Connection.connection);
 
+        }
+        public void getForm(UserControlDays_Calendar form)
+        {
+            this.form = form;
         }
 
         private void btnDone_Click(object sender, EventArgs e)
@@ -70,6 +75,8 @@ namespace AMSEMS.SubForms_SAO
                     }
                     finally
                     {
+
+                        form.refresh();
                         this.Dispose();
                     }
                 }
@@ -107,6 +114,16 @@ namespace AMSEMS.SubForms_SAO
             DateTime selectedDate = new DateTime(UserControlDays_Calendar.static_year, UserControlDays_Calendar.static_month, UserControlDays_Calendar.static_day);
             DtStart.Value = selectedDate;
             DtEnd.Value = selectedDate;
+        }
+
+        private void btnColorMarron_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
     }
 }

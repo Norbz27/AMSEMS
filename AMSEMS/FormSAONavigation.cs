@@ -44,33 +44,42 @@ namespace AMSEMS
 
             id = id1;
         }
-        
+
         public void loadData()
         {
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            try
             {
-                cn.Open();
-                cm = new SqlCommand("select Firstname, Lastname from tbl_sao_accounts where Unique_ID = '" + id + "'", cn);
-                dr = cm.ExecuteReader();
-                dr.Read();
-                lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
-                dr.Close();
-
-                cm = new SqlCommand("Select Profile_pic from tbl_deptHead_accounts where Unique_ID = " + id + "", cn);
-
-                byte[] imageData = (byte[])cm.ExecuteScalar();
-
-                if (imageData != null && imageData.Length > 0)
+                using (cn = new SqlConnection(SQL_Connection.connection))
                 {
-                    using (MemoryStream ms = new MemoryStream(imageData))
+                    cn.Open(); // Open the connection here
+
+                    cm = new SqlCommand("select Firstname, Lastname from tbl_sao_accounts where Unique_ID = '" + id + "'", cn);
+                    dr = cm.ExecuteReader();
+                    dr.Read();
+                    lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+                    dr.Close();
+
+                    cm = new SqlCommand("Select Profile_pic from tbl_deptHead_accounts where Unique_ID = " + id + "", cn);
+
+                    byte[] imageData = (byte[])cm.ExecuteScalar();
+
+                    if (imageData != null && imageData.Length > 0)
                     {
-                        Image image = Image.FromStream(ms);
-                        ptbProfile.Image = image;
+                        using (MemoryStream ms = new MemoryStream(imageData))
+                        {
+                            Image image = Image.FromStream(ms);
+                            ptbProfile.Image = image;
+                        }
                     }
-                }
-                cn.Close();
+                    cn.Close();
+                } // Close the connection here
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
+
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {

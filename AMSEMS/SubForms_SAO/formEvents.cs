@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -32,6 +33,12 @@ namespace AMSEMS.SubForms_SAO
             day = now.Day;
             calendar();
            
+        }
+        public void RefreshCalendar()
+        {
+            // Clear and refresh the calendar view
+            daysContainer.Controls.Clear();
+            calendar();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -92,7 +99,7 @@ namespace AMSEMS.SubForms_SAO
             }
             for (int i = 1; i < days; i++)
             {
-                UserControlDays_Calendar ucDays = new UserControlDays_Calendar();
+                UserControlDays_Calendar ucDays = new UserControlDays_Calendar(this);
                 ucDays.days(i, day, month, year);
                 daysContainer.Controls.Add(ucDays);
             }
@@ -120,10 +127,14 @@ namespace AMSEMS.SubForms_SAO
             }
             for (int i = 1; i < days; i++)
             {
-                UserControlDays_Calendar ucDays = new UserControlDays_Calendar();
+                UserControlDays_Calendar ucDays = new UserControlDays_Calendar(this);
                 ucDays.days(i, day, month, year);
+                DateTime eventday = new DateTime(year, month, i);
+                ucDays.DisplayEventsForDate(eventday);
+
                 daysContainer.Controls.Add(ucDays);
             }
+
         }
     }
 }

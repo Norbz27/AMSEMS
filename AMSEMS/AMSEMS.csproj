@@ -407,6 +407,7 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_DeptHead\UserID.cs" />
+    <Compile Include="SubForms_SAO\Event.cs" />
     <Compile Include="SubForms_SAO\formAddEvent.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1029,6 +1030,16 @@
     <None Include="Resources\teacher.png" />
     <None Include="Resources\teacher-24.png" />
     <None Include="Resources\event-clipart-12.jpg" />
+    <None Include="Resources\new-moon %281%29.png" />
+    <None Include="Resources\new-moon %282%29.png" />
+    <None Include="Resources\new-moon %283%29.png" />
+    <None Include="Resources\new-moon %284%29.png" />
+    <None Include="Resources\new-moon %285%29.png" />
+    <None Include="Resources\full-moon %284%29.png" />
+    <None Include="Resources\full-moon %283%29.png" />
+    <None Include="Resources\full-moon %282%29.png" />
+    <None Include="Resources\full-moon %281%29.png" />
+    <None Include="Resources\full-moon.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />
