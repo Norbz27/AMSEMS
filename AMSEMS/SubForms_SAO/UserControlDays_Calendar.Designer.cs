@@ -119,6 +119,7 @@
             // UserControlDays_Calendar
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ContextMenuStrip = this.contextMenuStrip1;
             this.Controls.Add(this.panel1);

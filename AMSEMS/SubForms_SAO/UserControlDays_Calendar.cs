@@ -63,7 +63,7 @@ namespace AMSEMS.SubForms_SAO
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("SELECT Event_Name FROM tbl_events WHERE Start_Date = @date", cn);
+                cm = new SqlCommand("SELECT Event_Name,Color FROM tbl_events WHERE Start_Date = @date", cn);
                 cm.Parameters.AddWithValue("@date", date);
                 dr = cm.ExecuteReader();
 
@@ -78,14 +78,16 @@ namespace AMSEMS.SubForms_SAO
                 int labelCount = 0;
                 while (dr.Read())
                 {
+                    Color color = ColorTranslator.FromHtml(dr["Color"].ToString());
                     // Create a new label for each event.
                     Label lblEvent = new Label();
                     panel1.Controls.Add(lblEvent);
-                    lblEvent.BackColor = System.Drawing.Color.Goldenrod;
+                    lblEvent.BackColor = color;
                     lblEvent.Dock = DockStyle.Top;
                     lblEvent.Name = $"lblEvent_{labelCount}";
                     lblEvent.Text = dr["Event_Name"].ToString();
                     lblEvent.Font = new System.Drawing.Font("Poppins", 8F);
+                    lblEvent.ForeColor = System.Drawing.Color.White;
                     lblEvent.TextAlign = ContentAlignment.MiddleCenter;
 
                     // Position the labels dynamically.
@@ -119,10 +121,6 @@ namespace AMSEMS.SubForms_SAO
             static_day = Convert.ToInt32(lblDays.Text);
             static_month = Convert.ToInt32(lblmonth.Text);
             static_year = Convert.ToInt32(lblyear.Text);
-
-            // Example usage of DisplayEventsForDate when a button is clicked
-            DateTime dateToDisplay = new DateTime(static_year, static_month, Convert.ToInt32(lblDays.Text));
-            DisplayEventsForDate(dateToDisplay);
 
             formAddEvent formAddEvent = new formAddEvent();
             formAddEvent.getForm(this);

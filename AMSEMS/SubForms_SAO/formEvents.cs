@@ -101,6 +101,9 @@ namespace AMSEMS.SubForms_SAO
             {
                 UserControlDays_Calendar ucDays = new UserControlDays_Calendar(this);
                 ucDays.days(i, day, month, year);
+                DateTime eventday = new DateTime(year, month, i);
+                ucDays.DisplayEventsForDate(eventday);
+
                 daysContainer.Controls.Add(ucDays);
             }
         }

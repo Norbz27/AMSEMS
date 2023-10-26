@@ -192,7 +192,7 @@
             this.tbDescription.StateCommon.Border.Rounding = 5;
             this.tbDescription.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
             this.tbDescription.TabIndex = 141;
-            this.tbDescription.Text = "kryptonRichTextBox1";
+            this.tbDescription.Text = "";
             // 
             // kryptonLabel1
             // 
@@ -551,6 +551,7 @@
             this.btnColorGreen.TabIndex = 147;
             this.btnColorGreen.Values.Image = global::AMSEMS.Properties.Resources.new_moon__2_;
             this.btnColorGreen.Values.Text = "";
+            this.btnColorGreen.Click += new System.EventHandler(this.btnColorGreen_Click);
             // 
             // btnColorBlue
             // 
@@ -603,6 +604,7 @@
             this.btnColorBlue.TabIndex = 148;
             this.btnColorBlue.Values.Image = global::AMSEMS.Properties.Resources.new_moon__3_;
             this.btnColorBlue.Values.Text = "";
+            this.btnColorBlue.Click += new System.EventHandler(this.btnColorBlue_Click);
             // 
             // btnColorPurple
             // 
@@ -655,6 +657,7 @@
             this.btnColorPurple.TabIndex = 149;
             this.btnColorPurple.Values.Image = global::AMSEMS.Properties.Resources.new_moon__4_;
             this.btnColorPurple.Values.Text = "";
+            this.btnColorPurple.Click += new System.EventHandler(this.btnColorPurple_Click);
             // 
             // btnColorOrange
             // 
@@ -707,6 +710,7 @@
             this.btnColorOrange.TabIndex = 150;
             this.btnColorOrange.Values.Image = global::AMSEMS.Properties.Resources.new_moon__5_;
             this.btnColorOrange.Values.Text = "";
+            this.btnColorOrange.Click += new System.EventHandler(this.btnColorOrange_Click);
             // 
             // pictureBox1
             // 
