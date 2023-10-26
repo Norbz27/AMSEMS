@@ -595,13 +595,13 @@
             this.kryptonGroupBox1.StateCommon.Border.Width = 1;
             this.kryptonGroupBox1.TabIndex = 49;
             // 
-            // flowLayoutPanel1
+            // panel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.btnAll);
             this.flowLayoutPanel1.Controls.Add(this.btnActive);
             this.flowLayoutPanel1.Controls.Add(this.btnInactive);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(-2, -4);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Name = "panel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(177, 26);
             this.flowLayoutPanel1.TabIndex = 0;
             // 

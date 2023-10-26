@@ -19,7 +19,7 @@ namespace AMSEMS
 {
     public partial class FormSAONavigation : KryptonForm
     {
-        SqlConnection cn;
+        SqlConnection cnn;
         SqlCommand cm;
         SqlDataReader dr;
 
@@ -30,7 +30,7 @@ namespace AMSEMS
         {
             InitializeComponent();
 
-            cn = new SqlConnection(SQL_Connection.connection);
+            cnn = new SqlConnection(SQL_Connection.connection);
 
             this.btnDashboard.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDashboard.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -49,17 +49,17 @@ namespace AMSEMS
         {
             try
             {
-                using (cn = new SqlConnection(SQL_Connection.connection))
+                using (cnn = new SqlConnection(SQL_Connection.connection))
                 {
-                    cn.Open(); // Open the connection here
+                    cnn.Open(); // Open the connection here
 
-                    cm = new SqlCommand("select Firstname, Lastname from tbl_sao_accounts where Unique_ID = '" + id + "'", cn);
+                    cm = new SqlCommand("select Firstname, Lastname from tbl_sao_accounts where Unique_ID = '" + id + "'", cnn);
                     dr = cm.ExecuteReader();
                     dr.Read();
                     lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
                     dr.Close();
 
-                    cm = new SqlCommand("Select Profile_pic from tbl_deptHead_accounts where Unique_ID = " + id + "", cn);
+                    cm = new SqlCommand("Select Profile_pic from tbl_deptHead_accounts where Unique_ID = " + id + "", cnn);
 
                     byte[] imageData = (byte[])cm.ExecuteScalar();
 
@@ -71,14 +71,14 @@ namespace AMSEMS
                             ptbProfile.Image = image;
                         }
                     }
-                    cn.Close();
-                } // Close the connection here
+                } // The connection is automatically closed when exiting the using block
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+          
             }
         }
+
 
 
         private void btnDashboard_Click(object sender, EventArgs e)

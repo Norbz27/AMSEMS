@@ -22,6 +22,7 @@ namespace AMSEMS.SubForms_SAO
         SqlDataReader dr;
         DataSet ds = new DataSet();
         UserControlDays_Calendar form;
+        formEvents form1;
         string selectedColor;
         public formAddEvent()
         {
@@ -35,6 +36,10 @@ namespace AMSEMS.SubForms_SAO
         public void getForm(UserControlDays_Calendar form)
         {
             this.form = form;
+        }
+        public void getForm2(formEvents form1)
+        {
+            this.form1 = form1;
         }
 
         private void btnDone_Click(object sender, EventArgs e)
@@ -78,8 +83,14 @@ namespace AMSEMS.SubForms_SAO
                     }
                     finally
                     {
-
-                        form.refresh();
+                        if (form != null)
+                        {
+                            form.refresh();
+                        }
+                        else
+                        {
+                            form1.calendar();
+                        }
                         this.Dispose();
                     }
                 }
