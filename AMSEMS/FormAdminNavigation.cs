@@ -26,6 +26,7 @@ namespace AMSEMS
         public bool isCollapsed;
         private Form activeForm;
         public static String id;
+        private BackgroundWorker backgroundWorker = new BackgroundWorker();
 
         public FormAdminNavigation(String id1)
         {
@@ -39,7 +40,9 @@ namespace AMSEMS
 
             cn = new SqlConnection(SQL_Connection.connection);
 
-    
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            backgroundWorker.WorkerSupportsCancellation = true;
 
 
             SubForms_Admin.formDashboard.setForm(this);
@@ -47,6 +50,35 @@ namespace AMSEMS
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             id = id1;
 
+        }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            // This method runs in a background thread
+            // Perform time-consuming operations here
+            loadData();
+
+            // Simulate a time-consuming operation
+            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                // Handle any errors that occurred during the background work
+                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (e.Cancelled)
+            {
+                // Handle the case where the background work was canceled
+            }
+            else
+            {
+                // Data has been loaded, update the UI
+                // Stop the wait cursor (optional)
+                this.Cursor = Cursors.Default;
+            }
         }
 
         public void loadData()
@@ -330,7 +362,7 @@ namespace AMSEMS
 
         private void FormAdminNavigation_Load(object sender, EventArgs e)
         {
-            loadData();
+            backgroundWorker.RunWorkerAsync();
         }
 
         public void Logout()
@@ -338,6 +370,14 @@ namespace AMSEMS
             this.Dispose();
             FormLoginPage formLoginPage = new FormLoginPage();
             formLoginPage.Show();
+        }
+
+        private void FormAdminNavigation_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+            }
         }
     }
 }

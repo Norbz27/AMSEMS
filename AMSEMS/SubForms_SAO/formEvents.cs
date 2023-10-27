@@ -227,25 +227,28 @@ namespace AMSEMS.SubForms_SAO
             {
                 flowLayoutPanel1.Controls.Clear(); // Clear existing event details
 
-                using (cn = new SqlConnection(SQL_Connection.connection))
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
-                    cm = new SqlCommand("SELECT Event_Name, Color, Start_Date FROM tbl_events WHERE Start_Date >= CAST(GETDATE() AS DATE) ORDER BY Start_Date DESC", cn);
-                    dr = cm.ExecuteReader();
-
-                    eventDetails = new KryptonGroupBox[0];
-
-                    int labelCount = 0;
-                    while (dr.Read())
+                    using (SqlCommand cm = new SqlCommand("SELECT Event_Name, Color, Start_Date FROM tbl_events WHERE Start_Date >= CAST(GETDATE() AS DATE) ORDER BY Start_Date DESC", cn))
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
-                        DateTime day = DateTime.Parse(dr["Start_Date"].ToString());
-                        string date = day.ToString("dddd, MMMM d, yyyy");
-                        string dayOfWeek = day.ToString("ddd");
-                        EventDetailsApperance(dr["Event_Name"].ToString(), dr["Color"].ToString(), date, day.Day.ToString());
+                        eventDetails = new KryptonGroupBox[0];
 
-                        labelCount++;
+                        int labelCount = 0;
+                        while (dr.Read())
+                        {
+                            string eventname = dr["Event_Name"].ToString();
+                            string color = dr["Color"].ToString();
+                            DateTime date = DateTime.Parse(dr["Start_Date"].ToString());
+                            string formattedDate = date.ToString("dddd, MMMM d, yyyy");
+                            string day = date.Day.ToString();
+
+                            EventDetailsApperance(eventname, color, formattedDate, day);
+
+                            labelCount++;
+                        }
                     }
-                    dr.Close();
                 }
             }
         }

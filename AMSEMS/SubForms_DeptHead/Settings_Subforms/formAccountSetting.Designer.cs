@@ -732,6 +732,7 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.StateCommon.Border.Width = 2;
             this.Text = "formSettings";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formAccountSetting_FormClosing);
             this.Load += new System.EventHandler(this.formAccountSetting_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

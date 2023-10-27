@@ -843,6 +843,7 @@
             this.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormDeptHeadNavigation_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormDeptHeadNavigation_FormClosed);
             this.Load += new System.EventHandler(this.FormDeptHeadNavigation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Panel1)).EndInit();
