@@ -20,6 +20,7 @@ namespace AMSEMS.SubForms_SAO
         public static int static_day, static_year, static_month;
         private Label[] eventLabels;
         formEvents form;
+
         public UserControlDays_Calendar(formEvents form)
         {
             InitializeComponent();
@@ -60,48 +61,59 @@ namespace AMSEMS.SubForms_SAO
 
         public void DisplayEventsForDate(DateTime date)
         {
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            if (this.InvokeRequired)
             {
-                cn.Open();
-                cm = new SqlCommand("SELECT Event_Name,Color FROM tbl_events WHERE Start_Date = @date", cn);
-                cm.Parameters.AddWithValue("@date", date);
-                dr = cm.ExecuteReader();
-
-                eventLabels = new Label[0];
-
-                // Clear existing event labels before adding new ones.
-                foreach (Label label in eventLabels)
+                this.Invoke((MethodInvoker)delegate
                 {
-                    this.Controls.Remove(label);
-                }
-
-                int labelCount = 0;
-                while (dr.Read())
+                    // Call the same method on the main thread
+                    DisplayEventsForDate(date);
+                });
+            }
+            else
+            {
+                using (cn = new SqlConnection(SQL_Connection.connection))
                 {
-                    Color color = ColorTranslator.FromHtml(dr["Color"].ToString());
-                    // Create a new label for each event.
-                    Label lblEvent = new Label();
-                    panel1.Controls.Add(lblEvent);
-                    lblEvent.BackColor = color;
-                    lblEvent.Dock = DockStyle.Top;
-                    lblEvent.Name = $"lblEvent_{labelCount}";
-                    lblEvent.Text = dr["Event_Name"].ToString();
-                    lblEvent.Font = new System.Drawing.Font("Poppins", 8F);
-                    lblEvent.ForeColor = System.Drawing.Color.White;
-                    lblEvent.TextAlign = ContentAlignment.MiddleCenter;
+                    cn.Open();
+                    cm = new SqlCommand("SELECT Event_Name,Color FROM tbl_events WHERE Start_Date = @date", cn);
+                    cm.Parameters.AddWithValue("@date", date);
+                    dr = cm.ExecuteReader();
 
-                    // Position the labels dynamically.
-                    int topOffset = 28 + labelCount * 19;
-                    lblEvent.Location = new System.Drawing.Point(0, topOffset);
+                    eventLabels = new Label[0];
 
-                    // Add the label to the array and the control.
-                    eventLabels = AddLabelToArray(eventLabels, lblEvent);
+                    // Clear existing event labels before adding new ones.
+                    foreach (Label label in eventLabels)
+                    {
+                        this.Controls.Remove(label);
+                    }
+
+                    int labelCount = 0;
+                    while (dr.Read())
+                    {
+                        Color color = ColorTranslator.FromHtml(dr["Color"].ToString());
+                        // Create a new label for each event.
+                        Label lblEvent = new Label();
+                        panel1.Controls.Add(lblEvent);
+                        lblEvent.BackColor = color;
+                        lblEvent.Dock = DockStyle.Top;
+                        lblEvent.Name = $"lblEvent_{labelCount}";
+                        lblEvent.Text = dr["Event_Name"].ToString();
+                        lblEvent.Font = new System.Drawing.Font("Poppins", 8F);
+                        lblEvent.ForeColor = System.Drawing.Color.White;
+                        lblEvent.TextAlign = ContentAlignment.MiddleCenter;
+
+                        // Position the labels dynamically.
+                        int topOffset = 28 + labelCount * 19;
+                        lblEvent.Location = new System.Drawing.Point(0, topOffset);
+
+                        // Add the label to the array and the control.
+                        eventLabels = AddLabelToArray(eventLabels, lblEvent);
 
 
-                    labelCount++;
+                        labelCount++;
+                    }
+                    dr.Close();
+                    cn.Close();
                 }
-                dr.Close();
-                cn.Close();
             }
         }
 
