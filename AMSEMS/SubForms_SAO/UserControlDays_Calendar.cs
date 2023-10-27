@@ -136,7 +136,7 @@ namespace AMSEMS.SubForms_SAO
 
             formAddEvent formAddEvent = new formAddEvent();
             formAddEvent.getForm(this);
-            formAddEvent.Show();
+            formAddEvent.ShowDialog();
         }
     }
 }

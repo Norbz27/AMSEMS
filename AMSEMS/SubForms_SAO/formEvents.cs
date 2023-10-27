@@ -202,7 +202,7 @@ namespace AMSEMS.SubForms_SAO
             DateTime date = DateTime.Now;
             formAddEvent formAddEvent = new formAddEvent();
             formAddEvent.getForm2(this);
-            formAddEvent.Show();
+            formAddEvent.ShowDialog();
         }
 
         private void formEvents_FormClosing(object sender, FormClosingEventArgs e)
@@ -230,7 +230,7 @@ namespace AMSEMS.SubForms_SAO
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
-                    using (SqlCommand cm = new SqlCommand("SELECT Event_Name, Color, Start_Date FROM tbl_events WHERE Start_Date >= CAST(GETDATE() AS DATE) ORDER BY Start_Date DESC", cn))
+                    using (SqlCommand cm = new SqlCommand("SELECT Event_ID,Event_Name, Color, Start_Date FROM tbl_events WHERE Start_Date >= CAST(GETDATE() AS DATE) ORDER BY Start_Date DESC", cn))
                     using (SqlDataReader dr = cm.ExecuteReader())
                     {
                         eventDetails = new KryptonGroupBox[0];
@@ -238,13 +238,14 @@ namespace AMSEMS.SubForms_SAO
                         int labelCount = 0;
                         while (dr.Read())
                         {
+                            string eventid = dr["Event_ID"].ToString();
                             string eventname = dr["Event_Name"].ToString();
                             string color = dr["Color"].ToString();
                             DateTime date = DateTime.Parse(dr["Start_Date"].ToString());
                             string formattedDate = date.ToString("dddd, MMMM d, yyyy");
                             string day = date.Day.ToString();
 
-                            EventDetailsApperance(eventname, color, formattedDate, day);
+                            EventDetailsApperance(eventid, eventname, color, formattedDate, day);
 
                             labelCount++;
                         }
@@ -253,7 +254,7 @@ namespace AMSEMS.SubForms_SAO
             }
         }
 
-        public void EventDetailsApperance(string eventname, string color, string date, string day)
+        public void EventDetailsApperance(string eventid, string eventname, string color, string date, string day)
         {
             
             Color Backcolor = ColorTranslator.FromHtml(color);
@@ -270,11 +271,14 @@ namespace AMSEMS.SubForms_SAO
             kryptonGroupBox6.CausesValidation = false;
 
             kryptonGroupBox6.Name = "kryptonGroupBox6";
+            kryptonGroupBox6.Click += (s, e) => KryptonGroupBox_Click(eventid);
+            kryptonGroupBox6.Panel.Click += (s, e) => KryptonGroupBox_Click(eventid);
 
             //kryptonGroupBox6.Panel.Controls.Add(kryptonLabel4);
             kryptonGroupBox6.Panel.Controls.Add(kryptonLabel2);
             kryptonGroupBox6.Panel.Controls.Add(kryptonLabel11);
             kryptonGroupBox6.Panel.Controls.Add(kryptonLabel10);
+            kryptonGroupBox6.Cursor = System.Windows.Forms.Cursors.Hand;
             kryptonGroupBox6.Dock = DockStyle.Top;
             kryptonGroupBox6.Margin = new System.Windows.Forms.Padding(5);
             kryptonGroupBox6.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
@@ -291,6 +295,7 @@ namespace AMSEMS.SubForms_SAO
 
             kryptonLabel2.Location = new System.Drawing.Point(15, 8);
             kryptonLabel2.Name = "kryptonLabel2";
+            kryptonLabel2.Cursor = System.Windows.Forms.Cursors.Hand;
             kryptonLabel2.Size = new System.Drawing.Size(44, 39);
             kryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             kryptonLabel2.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -317,6 +322,7 @@ namespace AMSEMS.SubForms_SAO
 
             kryptonLabel11.Location = new System.Drawing.Point(57, 16);
             kryptonLabel11.Name = "kryptonLabel11";
+            kryptonLabel11.Cursor = System.Windows.Forms.Cursors.Hand;
             kryptonLabel11.Size = new System.Drawing.Size(96, 23);
             kryptonLabel11.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             kryptonLabel11.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -326,6 +332,7 @@ namespace AMSEMS.SubForms_SAO
             kryptonLabel10.Cursor = System.Windows.Forms.Cursors.Default;
             kryptonLabel10.Location = new System.Drawing.Point(15, 53);
             kryptonLabel10.Name = "kryptonLabel10";
+            kryptonLabel10.Cursor = System.Windows.Forms.Cursors.Hand;
             kryptonLabel10.Size = new System.Drawing.Size(117, 19);
             kryptonLabel10.StateCommon.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
             kryptonLabel10.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
@@ -345,8 +352,14 @@ namespace AMSEMS.SubForms_SAO
             panel12.Dock = System.Windows.Forms.DockStyle.Top;
             panel12.Location = new System.Drawing.Point(0, 0);
             panel12.Name = "panel12";
+            panel12.Cursor = System.Windows.Forms.Cursors.Hand;
             panel12.Size = new System.Drawing.Size(234, 10);
             panel12.TabIndex = 19;
+
+            panel12.Click += (s, e) => KryptonGroupBox_Click(eventid);
+            kryptonLabel10.Click += (s, e) => KryptonGroupBox_Click(eventid);
+            kryptonLabel11.Click += (s, e) => KryptonGroupBox_Click(eventid);
+            kryptonLabel2.Click += (s, e) => KryptonGroupBox_Click(eventid);
 
             this.flowLayoutPanel1.Invoke((MethodInvoker)delegate
             {
@@ -354,6 +367,12 @@ namespace AMSEMS.SubForms_SAO
                 this.flowLayoutPanel1.Controls.Add(kryptonGroupBox6);
                 this.flowLayoutPanel1.Controls.Add(panel12);
             });
+        }
+        private void KryptonGroupBox_Click(string eventid)
+        {
+            formEventDetails formEventDetails = new formEventDetails();
+            formEventDetails.displayDetails(eventid);
+            formEventDetails.ShowDialog();
         }
     }
 }
