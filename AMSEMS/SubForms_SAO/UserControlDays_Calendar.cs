@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ComponentFactory.Krypton.Toolkit;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -74,24 +75,26 @@ namespace AMSEMS.SubForms_SAO
                 using (cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
-                    cm = new SqlCommand("SELECT Event_Name,Color FROM tbl_events WHERE Start_Date = @date", cn);
+                    cm = new SqlCommand("SELECT Event_ID, Event_Name, Color FROM tbl_events WHERE Start_Date = @date", cn);
                     cm.Parameters.AddWithValue("@date", date);
                     dr = cm.ExecuteReader();
 
-                    eventLabels = new Label[0];
-
                     // Clear existing event labels before adding new ones.
-                    foreach (Label label in eventLabels)
+                    foreach (Label label in panel1.Controls.OfType<Label>().ToList())
                     {
-                        this.Controls.Remove(label);
+                        panel1.Controls.Remove(label);
+                        label.Dispose();
                     }
 
                     int labelCount = 0;
                     while (dr.Read())
                     {
                         Color color = ColorTranslator.FromHtml(dr["Color"].ToString());
+                        string eventID = dr["Event_ID"].ToString(); // Capture the event ID here.
+
                         // Create a new label for each event.
                         Label lblEvent = new Label();
+                        lblEvent.Click += (s, e) => EventDetails_Click(eventID); // Use the captured event ID.
                         panel1.Controls.Add(lblEvent);
                         lblEvent.BackColor = color;
                         lblEvent.Dock = DockStyle.Top;
@@ -105,17 +108,16 @@ namespace AMSEMS.SubForms_SAO
                         int topOffset = 28 + labelCount * 19;
                         lblEvent.Location = new System.Drawing.Point(0, topOffset);
 
-                        // Add the label to the array and the control.
-                        eventLabels = AddLabelToArray(eventLabels, lblEvent);
-
-
                         labelCount++;
                     }
+
+                    // Close the data reader and connection after you're done with it.
                     dr.Close();
                     cn.Close();
                 }
             }
         }
+
 
         private Label[] AddLabelToArray(Label[] labelArray, Label newLabel)
         {
@@ -137,6 +139,12 @@ namespace AMSEMS.SubForms_SAO
             formAddEvent formAddEvent = new formAddEvent();
             formAddEvent.getForm(this);
             formAddEvent.ShowDialog();
+        }
+        private void EventDetails_Click(string eventid)
+        {
+            formEventDetails formEventDetails = new formEventDetails();
+            formEventDetails.displayDetails(eventid);
+            formEventDetails.ShowDialog();
         }
     }
 }

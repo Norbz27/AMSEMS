@@ -26,6 +26,7 @@ namespace AMSEMS.SubForms_SAO
         formEvents form1;
         string selectedColor;
         bool isTrue;
+        string eventid;
         public formEventDetails()
         {
             InitializeComponent();
@@ -67,7 +68,8 @@ namespace AMSEMS.SubForms_SAO
                         cm = new SqlCommand();
                         cm.Connection = cn;
                         cm.CommandType = CommandType.StoredProcedure;
-                        cm.CommandText = "sp_AddEvent";
+                        cm.CommandText = "sp_UpdateEvent";
+                        cm.Parameters.AddWithValue("@Event_ID", eventid);
                         cm.Parameters.AddWithValue("@Event_Name", tbEventName.Text);
                         cm.Parameters.AddWithValue("@Start_Date", DtStart.Value);
                         cm.Parameters.AddWithValue("@End_Date", DtEnd.Value);
@@ -76,7 +78,7 @@ namespace AMSEMS.SubForms_SAO
                         cm.Parameters.AddWithValue("@Color", selectedColor);
                         cm.ExecuteNonQuery();
                         cn.Close();
-                        MessageBox.Show("Event Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Event Information Updated!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
@@ -141,6 +143,7 @@ namespace AMSEMS.SubForms_SAO
         }
         public void displayDetails(string eventid)
         {
+            this.eventid = eventid;
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();

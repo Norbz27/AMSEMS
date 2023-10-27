@@ -135,6 +135,9 @@
     <Compile Include="RJToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="RoundPictureBoxRect.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RoundPictureBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -407,7 +410,6 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_DeptHead\UserID.cs" />
-    <Compile Include="SubForms_SAO\Event.cs" />
     <Compile Include="SubForms_SAO\formEventDetails.cs">
       <SubType>Form</SubType>
     </Compile>
