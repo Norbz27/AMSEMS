@@ -86,25 +86,27 @@ namespace AMSEMS
                 {
                     cnn.Open(); // Open the connection here
 
-                    cm = new SqlCommand("select Firstname, Lastname from tbl_sao_accounts where Unique_ID = '" + id + "'", cnn);
+                    cm = new SqlCommand("select Firstname, Lastname, Profile_pic from tbl_sao_accounts where Unique_ID = '" + id + "'", cnn);
                     dr = cm.ExecuteReader();
                     dr.Read();
                     lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
-                    dr.Close();
 
-                    cm = new SqlCommand("Select Profile_pic from tbl_deptHead_accounts where Unique_ID = " + id + "", cnn);
-
-                    byte[] imageData = (byte[])cm.ExecuteScalar();
-
-                    if (imageData != null && imageData.Length > 0)
+                    object imageData = dr["Profile_pic"];
+                    if (imageData != DBNull.Value) // Check if the column is not null
                     {
-                        using (MemoryStream ms = new MemoryStream(imageData))
+                        byte[] imageBytes = (byte[])imageData;
+                        if (imageBytes.Length > 0)
                         {
-                            Image image = Image.FromStream(ms);
-                            ptbProfile.Image = image;
+                            using (MemoryStream ms = new MemoryStream(imageBytes))
+                            {
+                                Image image = Image.FromStream(ms);
+                                ptbProfile.Image = image;
+                            }
                         }
                     }
+                    dr.Close();
                 } // The connection is automatically closed when exiting the using block
+
             }
             catch (Exception e)
             {

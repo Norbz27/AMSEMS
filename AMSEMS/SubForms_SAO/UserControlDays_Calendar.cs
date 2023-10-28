@@ -72,48 +72,54 @@ namespace AMSEMS.SubForms_SAO
             }
             else
             {
-                using (cn = new SqlConnection(SQL_Connection.connection))
+                try
                 {
-                    cn.Open();
-                    cm = new SqlCommand("SELECT Event_ID, Event_Name, Color FROM tbl_events WHERE Start_Date = @date", cn);
-                    cm.Parameters.AddWithValue("@date", date);
-                    dr = cm.ExecuteReader();
-
-                    // Clear existing event labels before adding new ones.
-                    foreach (Label label in panel1.Controls.OfType<Label>().ToList())
+                    using (cn = new SqlConnection(SQL_Connection.connection))
                     {
-                        panel1.Controls.Remove(label);
-                        label.Dispose();
+                        cn.Open();
+                        cm = new SqlCommand("SELECT Event_ID, Event_Name, Color FROM tbl_events WHERE Start_Date = @date", cn);
+                        cm.Parameters.AddWithValue("@date", date);
+                        dr = cm.ExecuteReader();
+
+                        // Clear existing event labels before adding new ones.
+                        foreach (Label label in panel1.Controls.OfType<Label>().ToList())
+                        {
+                            panel1.Controls.Remove(label);
+                            label.Dispose();
+                        }
+
+                        int labelCount = 0;
+                        while (dr.Read())
+                        {
+                            Color color = ColorTranslator.FromHtml(dr["Color"].ToString());
+                            string eventID = dr["Event_ID"].ToString(); // Capture the event ID here.
+
+                            // Create a new label for each event.
+                            Label lblEvent = new Label();
+                            lblEvent.Click += (s, e) => EventDetails_Click(eventID); // Use the captured event ID.
+                            panel1.Controls.Add(lblEvent);
+                            lblEvent.BackColor = color;
+                            lblEvent.Dock = DockStyle.Top;
+                            lblEvent.Name = $"lblEvent_{labelCount}";
+                            lblEvent.Text = dr["Event_Name"].ToString();
+                            lblEvent.Font = new System.Drawing.Font("Poppins", 8F);
+                            lblEvent.ForeColor = System.Drawing.Color.White;
+                            lblEvent.TextAlign = ContentAlignment.MiddleCenter;
+
+                            // Position the labels dynamically.
+                            int topOffset = 28 + labelCount * 19;
+                            lblEvent.Location = new System.Drawing.Point(0, topOffset);
+
+                            labelCount++;
+                        }
+
+                        // Close the data reader and connection after you're done with it.
+                        dr.Close();
+                        cn.Close();
                     }
-
-                    int labelCount = 0;
-                    while (dr.Read())
-                    {
-                        Color color = ColorTranslator.FromHtml(dr["Color"].ToString());
-                        string eventID = dr["Event_ID"].ToString(); // Capture the event ID here.
-
-                        // Create a new label for each event.
-                        Label lblEvent = new Label();
-                        lblEvent.Click += (s, e) => EventDetails_Click(eventID); // Use the captured event ID.
-                        panel1.Controls.Add(lblEvent);
-                        lblEvent.BackColor = color;
-                        lblEvent.Dock = DockStyle.Top;
-                        lblEvent.Name = $"lblEvent_{labelCount}";
-                        lblEvent.Text = dr["Event_Name"].ToString();
-                        lblEvent.Font = new System.Drawing.Font("Poppins", 8F);
-                        lblEvent.ForeColor = System.Drawing.Color.White;
-                        lblEvent.TextAlign = ContentAlignment.MiddleCenter;
-
-                        // Position the labels dynamically.
-                        int topOffset = 28 + labelCount * 19;
-                        lblEvent.Location = new System.Drawing.Point(0, topOffset);
-
-                        labelCount++;
-                    }
-
-                    // Close the data reader and connection after you're done with it.
-                    dr.Close();
-                    cn.Close();
+                }catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
         }

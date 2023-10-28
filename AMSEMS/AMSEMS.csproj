@@ -1052,6 +1052,7 @@
     <None Include="Resources\full-moon %281%29.png" />
     <None Include="Resources\full-moon.png" />
     <None Include="Resources\edit-text.png" />
+    <None Include="Resources\announcement1.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

@@ -697,6 +697,7 @@
             this.ptbProfile.Location = new System.Drawing.Point(58, 53);
             this.ptbProfile.Name = "ptbProfile";
             this.ptbProfile.Size = new System.Drawing.Size(129, 129);
+            this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ptbProfile.TabIndex = 8;
             this.ptbProfile.TabStop = false;
             // 
