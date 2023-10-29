@@ -339,5 +339,30 @@ namespace AMSEMS.SubForms_SAO
                 isTrue = true;
             }
         }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
+                    string deleteQuery = "DELETE FROM tbl_events WHERE Event_ID = @ID";
+
+                    using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                    {
+                        // Add parameter for the primary key value
+                        command.Parameters.AddWithValue("@ID", eventid);
+                        cn.Open();
+                        command.ExecuteNonQuery();
+
+                        MessageBox.Show("Deleted successfully.");
+                    }
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

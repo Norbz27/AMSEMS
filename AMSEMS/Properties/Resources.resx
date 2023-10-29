@@ -154,6 +154,9 @@
   <data name="exit-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exit-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="announcements" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\announcements.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="cancel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cancel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -208,9 +211,6 @@
   <data name="books" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\books.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="import-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\import-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="full-moon (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\full-moon (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -225,6 +225,9 @@
   </data>
   <data name="full-moon (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\full-moon (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="teacher-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\teacher-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="exit (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exit (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -256,6 +259,9 @@
   <data name="green-circular-shape" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\green-circular-shape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="announcement1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\announcement1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="new-moon (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new-moon (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -279,9 +285,6 @@
   </data>
   <data name="add-circle" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add-circle.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="refresh-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\refresh-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sections-16-2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sections-16-2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -307,8 +310,8 @@
   <data name="program-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\program-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="teacher-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\teacher-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="import-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\import-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="report-16-white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\report-16-white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -331,8 +334,8 @@
   <data name="new-moon-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new-moon-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="program-16-fill" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\program-16-fill.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="refresh-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\refresh-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="man (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\man (3)1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -354,6 +357,9 @@
   </data>
   <data name="user-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="program-16-fill" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\program-16-fill.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="option-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\option-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -388,7 +394,7 @@
   <data name="notification-24-dg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\notification-24-dg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="announcement1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\announcement1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="announcements1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\announcements1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

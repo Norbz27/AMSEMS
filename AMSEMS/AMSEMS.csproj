@@ -410,6 +410,12 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_DeptHead\UserID.cs" />
+    <Compile Include="SubForms_SAO\formAddAnnouncement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_SAO\formAddAnnouncement.Designer.cs">
+      <DependentUpon>formAddAnnouncement.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_SAO\formEventDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -727,6 +733,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\Settings_Subforms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_SAO\formAddAnnouncement.resx">
+      <DependentUpon>formAddAnnouncement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_SAO\formEventDetails.resx">
       <DependentUpon>formEventDetails.cs</DependentUpon>
@@ -1053,6 +1062,8 @@
     <None Include="Resources\full-moon.png" />
     <None Include="Resources\edit-text.png" />
     <None Include="Resources\announcement1.png" />
+    <None Include="Resources\announcements.png" />
+    <None Include="Resources\announcements1.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />
