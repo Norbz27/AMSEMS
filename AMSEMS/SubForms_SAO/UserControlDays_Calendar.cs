@@ -150,6 +150,7 @@ namespace AMSEMS.SubForms_SAO
         {
             formEventDetails formEventDetails = new formEventDetails();
             formEventDetails.displayDetails(eventid);
+            formEventDetails.getForm(this);
             formEventDetails.ShowDialog();
         }
     }

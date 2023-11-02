@@ -227,7 +227,7 @@ namespace AMSEMS.SubForms_SAO
             {
                 flowLayoutPanel1.Controls.Clear(); // Clear existing event details
 
-                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                using (cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
                     using (SqlCommand cm = new SqlCommand("SELECT Event_ID,Event_Name, Color, Start_Date FROM tbl_events WHERE Start_Date >= CAST(GETDATE() AS DATE) ORDER BY Start_Date DESC", cn))
@@ -372,6 +372,7 @@ namespace AMSEMS.SubForms_SAO
         {
             formEventDetails formEventDetails = new formEventDetails();
             formEventDetails.displayDetails(eventid);
+            formEventDetails.getForm2(this);
             formEventDetails.ShowDialog();
         }
     }

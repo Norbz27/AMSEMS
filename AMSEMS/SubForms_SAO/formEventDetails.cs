@@ -46,7 +46,7 @@ namespace AMSEMS.SubForms_SAO
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            try
             {
                 if (tbEventName.Text.Equals(String.Empty) && tbDescription.Text.Equals(String.Empty))
                 {
@@ -54,52 +54,51 @@ namespace AMSEMS.SubForms_SAO
                 }
                 else
                 {
-                    try
-                    {
-                        byte[] picData = null;
-                        DateTime startDate = DtStart.Value;
-                        // Now, check if an image file is selected using OpenFileDialog
-                        if (openFileDialog1.FileName != String.Empty)
-                        {
-                            picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
-                        }
+                    byte[] picData = null;
+                    DateTime startDate = DtStart.Value;
 
-                        cn.Open();
-                        cm = new SqlCommand();
-                        cm.Connection = cn;
-                        cm.CommandType = CommandType.StoredProcedure;
-                        cm.CommandText = "sp_UpdateEvent";
-                        cm.Parameters.AddWithValue("@Event_ID", eventid);
-                        cm.Parameters.AddWithValue("@Event_Name", tbEventName.Text);
-                        cm.Parameters.AddWithValue("@Start_Date", DtStart.Value);
-                        cm.Parameters.AddWithValue("@End_Date", DtEnd.Value);
-                        cm.Parameters.AddWithValue("@Image", picData);
-                        cm.Parameters.AddWithValue("@Description", tbDescription.Text);
-                        cm.Parameters.AddWithValue("@Color", selectedColor);
-                        cm.ExecuteNonQuery();
-                        cn.Close();
-                        MessageBox.Show("Event Information Updated!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
+                    // Now, check if an image file is selected using OpenFileDialog
+                    if (openFileDialog1.FileName != String.Empty)
                     {
-                        MessageBox.Show(ex.Message);
+                        picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
                     }
-                    finally
-                    {
-                        if (form != null)
-                        {
-                            form.refresh();
-                        }
-                        else
-                        {
-                            form1.calendar();
-                        }
-                        this.Dispose();
-                    }
+
+                    cm = new SqlCommand();
+                    cm.Connection = cn;
+                    cm.CommandType = CommandType.StoredProcedure;
+                    cm.CommandText = "sp_UpdateEvent";
+                    cm.Parameters.AddWithValue("@Event_ID", eventid);
+                    cm.Parameters.AddWithValue("@Event_Name", tbEventName.Text);
+                    cm.Parameters.AddWithValue("@Start_Date", DtStart.Value);
+                    cm.Parameters.AddWithValue("@End_Date", DtEnd.Value);
+                    cm.Parameters.AddWithValue("@Image", picData);
+                    cm.Parameters.AddWithValue("@Description", tbDescription.Text);
+                    cm.Parameters.AddWithValue("@Color", selectedColor);
+                    cm.ExecuteNonQuery();
+
+                    MessageBox.Show("Event Information Updated!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                cn.Close(); // Close the connection in the finally block
+                if (form != null)
+                {
+                    form.refresh();
+                }
+                else
+                {
+                    form1.calendar();
+                }
+                this.Dispose();
+            }
         }
+
+
 
         private void pictureBox1_MouseHover(object sender, EventArgs e)
         {
@@ -144,11 +143,11 @@ namespace AMSEMS.SubForms_SAO
         public void displayDetails(string eventid)
         {
             this.eventid = eventid;
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                using (SqlCommand cm = new SqlCommand("SELECT * FROM tbl_events WHERE Event_ID = "+eventid, cn))
-                using (SqlDataReader dr = cm.ExecuteReader())
+                using (cm = new SqlCommand("SELECT * FROM tbl_events WHERE Event_ID = "+eventid, cn))
+                using (dr = cm.ExecuteReader())
                 {
                     if (dr.Read())
                     {
@@ -342,27 +341,31 @@ namespace AMSEMS.SubForms_SAO
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            try
+            if (MessageBox.Show("Are you sure you want to delete this event?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                using (cn = new SqlConnection(SQL_Connection.connection))
+                try
                 {
-                    cn.Open();
-                    string deleteQuery = "DELETE FROM tbl_events WHERE Event_ID = @ID";
-
-                    using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                    using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                     {
-                        // Add parameter for the primary key value
-                        command.Parameters.AddWithValue("@ID", eventid);
                         cn.Open();
-                        command.ExecuteNonQuery();
+                        string deleteQuery = "DELETE FROM tbl_events WHERE Event_ID = @ID";
 
-                        MessageBox.Show("Deleted successfully.");
+                        using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                        {
+                            // Add parameter for the primary key value
+                            command.Parameters.AddWithValue("@ID", eventid);
+                            command.ExecuteNonQuery();
+
+                            MessageBox.Show("Deleted successfully.");
+                        }
                     }
                 }
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
+
     }
 }

@@ -17,6 +17,8 @@ namespace AMSEMS.SubForms_SAO
 {
     public partial class formAnnouncement : Form
     {
+        private string searchKeyword = string.Empty;
+        private DateTime filterDate = DateTime.MinValue;
         private KryptonGroupBox[] announcements;
         public formAnnouncement()
         {
@@ -30,13 +32,26 @@ namespace AMSEMS.SubForms_SAO
             formAddAnnouncement.ShowDialog();
         }
 
-        public void displayAnnouncements()
+        public void displayAnnouncements(string searchKeyword, DateTime filterDate)
         {
             panelAnnouncements.Controls.Clear();
+
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                using (SqlCommand cm = new SqlCommand("SELECT Announcement_Title,Announcement_Description,Date_Time, Announce_By FROM tbl_Announcement", cn))
+                string query = "SELECT Announcement_Title, Announcement_Description, Date_Time, Announce_By FROM tbl_Announcement WHERE 1 = 1";
+
+                if (!string.IsNullOrEmpty(searchKeyword))
+                {
+                    query += $" AND (Announcement_Title LIKE '%{searchKeyword}%' OR Announcement_Description LIKE '%{searchKeyword}%')";
+                }
+
+                if (filterDate != DateTime.MinValue)
+                {
+                    query += $" AND Date_Time >= '{filterDate.ToString("yyyy-MM-dd HH:mm:ss")}'";
+                }
+
+                using (SqlCommand cm = new SqlCommand(query, cn))
                 using (SqlDataReader dr = cm.ExecuteReader())
                 {
                     announcements = new KryptonGroupBox[0];
@@ -56,6 +71,23 @@ namespace AMSEMS.SubForms_SAO
                     }
                 }
             }
+        }
+
+        private void formAnnouncement_Load(object sender, EventArgs e)
+        {
+            displayAnnouncements(searchKeyword, filterDate);
+        }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            searchKeyword = tbSearch.Text;
+            displayAnnouncements(searchKeyword, filterDate);
+        }
+
+        private void DtEnd_ValueChanged(object sender, EventArgs e)
+        {
+            filterDate = Dt.Value;
+            displayAnnouncements(searchKeyword, filterDate);
         }
 
         public void announcementApperance(string title, string description, string dateTime, string announceby)
@@ -180,9 +212,6 @@ namespace AMSEMS.SubForms_SAO
             panelAnnouncements.Controls.Add(panel12);
         }
 
-        private void formAnnouncement_Load(object sender, EventArgs e)
-        {
-            displayAnnouncements();
-        }
+        
     }
 }
