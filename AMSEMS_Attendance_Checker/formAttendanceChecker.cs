@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,13 +19,17 @@ namespace AMSEMS_Attendance_Checker
         SqlCommand cm;
         SqlDataReader dr;
 
+        SQLite_Connection sQLite_Connection;
+
         public bool isCollapsed;
         public formAttendanceChecker()
         {
             InitializeComponent();
             this.splitContainer1.Panel2Collapsed = true;
             isCollapsed = true;
-      
+
+            sQLite_Connection = new SQLite_Connection("db_AMSEMS_CHECKER.db");
+
         }
 
         private void btnMenu_Click(object sender, EventArgs e)
@@ -53,6 +58,38 @@ namespace AMSEMS_Attendance_Checker
                 isCollapsed = true;
             }
         }
+        public void displayStudents()
+        {
+            dgvStudents.Rows.Clear();
+            DataTable allStudents = sQLite_Connection.GetAllStudents();
+
+            // Define the desired margin
+            int cellMargin = 5; // Adjust the margin size as needed
+
+            foreach (DataRow row in allStudents.Rows)
+            {
+                // Create a new DataGridViewRow
+                DataGridViewRow newRow = new DataGridViewRow();
+
+                if (row["Profile_pic"] is Image image)
+                {
+                    DataGridViewImageCell imageCell = new DataGridViewImageCell();
+                    imageCell.ImageLayout = DataGridViewImageCellLayout.Stretch; // Stretch the image
+                    imageCell.Value = image;
+                    imageCell.Style.Padding = new Padding(cellMargin);
+                    newRow.Cells.Add(imageCell);
+                }
+
+                // Add cells to the row, including the "Profile_pic" cell
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["ID"], Style = { Padding = new Padding(cellMargin) } });
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Name"], Style = { Padding = new Padding(cellMargin) } });
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["depdes"], Style = { Padding = new Padding(cellMargin) } });
+
+                // Add the row to the DataGridView
+                dgvStudents.Rows.Add(newRow);
+                dgvStudents.Rows[dgvStudents.Rows.Count - 1].Height = 100;
+            }
+        }
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
@@ -69,6 +106,42 @@ namespace AMSEMS_Attendance_Checker
         {
             formAttendanceCheckerSettings formAttendanceCheckerSettings = new formAttendanceCheckerSettings();
             formAttendanceCheckerSettings.ShowDialog();
+
+            displayStudents();
+            setDate();
+        }
+        public void setDate()
+        {
+            DateTime date = DateTime.Now;
+            string formattedDate = date.ToString("dddd, MMMM d, yyyy");
+            lblDate.Text = formattedDate;
+        }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            string searchKeyword = tbSearch.Text.Trim();
+            ApplySearchFilter(searchKeyword);
+        }
+        private void ApplySearchFilter(string searchKeyword)
+        {
+            // Loop through each row in the DataGridView
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                bool rowVisible = false;
+
+                // Loop through each cell in the row
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString().IndexOf(searchKeyword, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        rowVisible = true;
+                        break; // No need to check other cells in the row
+                    }
+                }
+
+                // Show or hide the row based on search result
+                row.Visible = rowVisible;
+            }
         }
     }
 }

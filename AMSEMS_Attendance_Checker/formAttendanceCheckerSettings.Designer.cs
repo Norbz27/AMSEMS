@@ -38,11 +38,11 @@
             this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.cbAttStatus = new System.Windows.Forms.ComboBox();
-            this.cbEvent = new System.Windows.Forms.ComboBox();
             this.kryptonButton2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.rjToggleButton1 = new AMSEMS.RJToggleButton();
             this.SuspendLayout();
             // 
@@ -174,13 +174,13 @@
             this.kryptonLabel4.Location = new System.Drawing.Point(12, 180);
             this.kryptonLabel4.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel4.Name = "kryptonLabel4";
-            this.kryptonLabel4.Size = new System.Drawing.Size(54, 23);
+            this.kryptonLabel4.Size = new System.Drawing.Size(94, 23);
             this.kryptonLabel4.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.kryptonLabel4.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
             this.kryptonLabel4.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel4.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.kryptonLabel4.TabIndex = 141;
-            this.kryptonLabel4.Values.Text = "Event:";
+            this.kryptonLabel4.Values.Text = "Event Code:";
             // 
             // kryptonButton1
             // 
@@ -220,19 +220,12 @@
             // 
             // cbAttStatus
             // 
+            this.cbAttStatus.Font = new System.Drawing.Font("Poppins", 9F);
             this.cbAttStatus.FormattingEnabled = true;
-            this.cbAttStatus.Location = new System.Drawing.Point(164, 136);
+            this.cbAttStatus.Location = new System.Drawing.Point(164, 131);
             this.cbAttStatus.Name = "cbAttStatus";
-            this.cbAttStatus.Size = new System.Drawing.Size(199, 27);
+            this.cbAttStatus.Size = new System.Drawing.Size(199, 30);
             this.cbAttStatus.TabIndex = 145;
-            // 
-            // cbEvent
-            // 
-            this.cbEvent.FormattingEnabled = true;
-            this.cbEvent.Location = new System.Drawing.Point(71, 178);
-            this.cbEvent.Name = "cbEvent";
-            this.cbEvent.Size = new System.Drawing.Size(292, 27);
-            this.cbEvent.TabIndex = 146;
             // 
             // kryptonButton2
             // 
@@ -307,6 +300,14 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Visible = false;
             // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("Poppins", 9F);
+            this.textBox1.Location = new System.Drawing.Point(111, 178);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(252, 25);
+            this.textBox1.TabIndex = 152;
+            // 
             // rjToggleButton1
             // 
             this.rjToggleButton1.AutoSize = true;
@@ -328,11 +329,11 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(376, 365);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.kryptonLabel5);
             this.Controls.Add(this.kryptonButton2);
-            this.Controls.Add(this.cbEvent);
             this.Controls.Add(this.cbAttStatus);
             this.Controls.Add(this.kryptonButton1);
             this.Controls.Add(this.kryptonLabel4);
@@ -373,10 +374,10 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel4;
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton1;
         private System.Windows.Forms.ComboBox cbAttStatus;
-        private System.Windows.Forms.ComboBox cbEvent;
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton2;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel5;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

@@ -185,11 +185,12 @@ namespace AMSEMS_Attendance_Checker
                         using (cnn = new SqlConnection(SQL_Connection.connection))
                         {
                             await cnn.OpenAsync();
+                            sQLite_Connection.ClearData();
                             cm = new SqlCommand("SELECT Unique_ID, ID, Firstname, Lastname, Middlename, Password, Profile_pic, Department, Role, Status, DateTime from tbl_teacher_accounts", cnn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertTeacherData(Convert.ToInt32(dr["Unique_ID"]), dr["ID"].ToString(), dr["Firstname"].ToString(), dr["Lastname"].ToString(), dr["Middlename"].ToString(), dr["Password"].ToString(), dr["Profile_pic"].ToString(), dr["Department"].ToString(), dr["Role"].ToString(), dr["Status"].ToString(), dr["DateTime"].ToString());
+                                sQLite_Connection.InsertTeacherData(Convert.ToInt32(dr["Unique_ID"]), dr["ID"].ToString(), dr["Firstname"].ToString(), dr["Lastname"].ToString(), dr["Middlename"].ToString(), dr["Password"].ToString(), (byte[])dr["Profile_pic"], dr["Department"].ToString(), dr["Role"].ToString(), dr["Status"].ToString(), dr["DateTime"].ToString());
                             }
                             dr.Close();
 
@@ -197,7 +198,7 @@ namespace AMSEMS_Attendance_Checker
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertStudentData(Convert.ToInt32(dr["Unique_ID"]), dr["ID"].ToString(), dr["Firstname"].ToString(), dr["Lastname"].ToString(), dr["Middlename"].ToString(), dr["Password"].ToString(), dr["Profile_pic"].ToString(), dr["Program"].ToString(), dr["Section"].ToString(), dr["Year_Level"].ToString(), dr["Department"].ToString(), dr["Role"].ToString(), dr["Status"].ToString(), dr["DateTime"].ToString());
+                                sQLite_Connection.InsertStudentData(Convert.ToInt32(dr["Unique_ID"]), dr["ID"].ToString(), dr["Firstname"].ToString(), dr["Lastname"].ToString(), dr["Middlename"].ToString(), dr["Password"].ToString(), (byte[])dr["Profile_pic"], dr["Program"].ToString(), dr["Section"].ToString(), dr["Year_Level"].ToString(), dr["Department"].ToString(), dr["Role"].ToString(), dr["Status"].ToString(), dr["DateTime"].ToString());
                             }
                             dr.Close();
 

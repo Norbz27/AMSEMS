@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.IO;
+using System.Drawing;
 
 namespace AMSEMS_Attendance_Checker
 {
@@ -82,8 +84,7 @@ namespace AMSEMS_Attendance_Checker
                 connection.Close();
             }
         }
-
-        public void InsertTeacherData(int unique_id, string id, string fname, string lname, string mname, string pass, string pic, string dep, string role, string status, string datetime)
+        public void ClearData()
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -91,11 +92,30 @@ namespace AMSEMS_Attendance_Checker
 
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    // Clear existing data in the table
-                    string clearSql = "DELETE FROM tbl_teachers_account;";
+                    string clearSql = @"DELETE FROM tbl_teachers_account;
+                                        DELETE FROM tbl_students_account;
+                                        DELETE FROM tbl_events;
+                                        DELETE FROM tbl_departments;
+                                        DELETE FROM tbl_program;
+                                        DELETE FROM tbl_section;
+                                        DELETE FROM tbl_year_level;";
                     command.CommandText = clearSql;
                     command.ExecuteNonQuery();
+                }
 
+                connection.Close();
+            }
+        }
+
+        public void InsertTeacherData(int unique_id, string id, string fname, string lname, string mname, string pass, byte[] pic, string dep, string role, string status, string datetime)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    byte[] imageBytes = pic;
                     // Insert new data
                     string insertSql = "INSERT INTO tbl_teachers_account (Unique_ID, ID, Firstname, Lastname, Middlename, Password, Profile_pic, Department, Role, Status, DateTime) VALUES (@UniqueID, @ID, @Fname, @Lname, @Mname, @Pass, @Pic, @Dep, @Role, @Status, @DateTime);";
 
@@ -106,7 +126,7 @@ namespace AMSEMS_Attendance_Checker
                     command.Parameters.AddWithValue("@Lname", lname);
                     command.Parameters.AddWithValue("@Mname", mname);
                     command.Parameters.AddWithValue("@Pass", pass);
-                    command.Parameters.AddWithValue("@Pic", pic);
+                    command.Parameters.Add("@Pic", DbType.Binary).Value = imageBytes;
                     command.Parameters.AddWithValue("@Dep", dep);
                     command.Parameters.AddWithValue("@Role", role);
                     command.Parameters.AddWithValue("@Status", status);
@@ -116,7 +136,7 @@ namespace AMSEMS_Attendance_Checker
                 connection.Close();
             }
         }
-        public void InsertStudentData(int unique_id, string id, string fname, string lname, string mname, string pass, string pic, string prog, string sec, string yearlvl, string dep, string role, string status, string datetime)
+        public void InsertStudentData(int unique_id, string id, string fname, string lname, string mname, string pass, byte[] pic, string prog, string sec, string yearlvl, string dep, string role, string status, string datetime)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -124,11 +144,7 @@ namespace AMSEMS_Attendance_Checker
 
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    // Clear existing data in the table
-                    string clearSql = "DELETE FROM tbl_students_account;";
-                    command.CommandText = clearSql;
-                    command.ExecuteNonQuery();
-
+                    byte[] imageBytes = pic;
                     // Insert new data
                     string insertSql = "INSERT INTO tbl_students_account (Unique_ID, ID, Firstname, Lastname, Middlename, Password, Profile_pic, Program, Section, Year_Level, Department, Role, Status, DateTime) VALUES (@UniqueID, @ID, @Fname, @Lname, @Mname, @Pass, @Pic, @Prog, @Sec, @YearLvl, @Dep, @Role, @Status, @DateTime);";
 
@@ -139,7 +155,7 @@ namespace AMSEMS_Attendance_Checker
                     command.Parameters.AddWithValue("@Lname", lname);
                     command.Parameters.AddWithValue("@Mname", mname);
                     command.Parameters.AddWithValue("@Pass", pass);
-                    command.Parameters.AddWithValue("@Pic", pic);
+                    command.Parameters.Add("@Pic", DbType.Binary).Value = imageBytes;
                     command.Parameters.AddWithValue("@Prog", prog);
                     command.Parameters.AddWithValue("@Sec", sec);
                     command.Parameters.AddWithValue("@YearLvl", yearlvl);
@@ -160,11 +176,6 @@ namespace AMSEMS_Attendance_Checker
 
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    // Clear existing data in the table
-                    string clearSql = "DELETE FROM tbl_events;";
-                    command.CommandText = clearSql;
-                    command.ExecuteNonQuery();
-
                     // Insert new data
                     string insertSql = "INSERT INTO tbl_events (Event_ID, Event_Name, Start_Date, End_Date, Description, Color, Image) VALUES (@EventID, @EventName, @StartDate, @EndDate, @Desc, @Color, @Image);";
 
@@ -189,11 +200,6 @@ namespace AMSEMS_Attendance_Checker
 
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    // Clear existing data in the table
-                    string clearSql = "DELETE FROM tbl_program;";
-                    command.CommandText = clearSql;
-                    command.ExecuteNonQuery();
-
                     // Insert new data
                     string insertSql = "INSERT INTO tbl_program (Prgram_ID, Description) VALUES (@ProgramID, @Desc);";
 
@@ -213,11 +219,6 @@ namespace AMSEMS_Attendance_Checker
 
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    // Clear existing data in the table
-                    string clearSql = "DELETE FROM tbl_section;";
-                    command.CommandText = clearSql;
-                    command.ExecuteNonQuery();
-
                     // Insert new data
                     string insertSql = "INSERT INTO tbl_section (Section_ID, Description) VALUES (@SectionID, @Desc);";
 
@@ -237,13 +238,8 @@ namespace AMSEMS_Attendance_Checker
 
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    // Clear existing data in the table
-                    string clearSql = "DELETE FROM tbl_year_level;";
-                    command.CommandText = clearSql;
-                    command.ExecuteNonQuery();
-
                     // Insert new data
-                    string insertSql = "INSERT INTO tbl_section (Level_ID, Description) VALUES (@LevelID, @Desc);";
+                    string insertSql = "INSERT INTO tbl_year_level (Level_ID, Description) VALUES (@LevelID, @Desc);";
 
                     command.CommandText = insertSql;
                     command.Parameters.AddWithValue("@LevelID", id);
@@ -261,11 +257,6 @@ namespace AMSEMS_Attendance_Checker
 
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    // Clear existing data in the table
-                    string clearSql = "DELETE FROM tbl_departments;";
-                    command.CommandText = clearSql;
-                    command.ExecuteNonQuery();
-
                     // Insert new data
                     string insertSql = "INSERT INTO tbl_departments (Department_ID, Description) VALUES (@DepartmentID, @Desc);";
 
@@ -297,6 +288,66 @@ namespace AMSEMS_Attendance_Checker
                 connection.Close();
             }
             return dataTable;
+        }
+        public DataTable GetAllStudents()
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT Profile_pic, ID, Firstname, Lastname, Middlename, dep.Description AS depdes FROM tbl_students_account as stud LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID ORDER BY depdes";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                {
+                    adapter.Fill(dataTable);
+                }
+            }
+
+            // Create a new DataTable with the desired columns
+            DataTable newDataTable = new DataTable();
+            newDataTable.Columns.Add("Profile_pic", typeof(Image));
+            newDataTable.Columns.Add("ID", typeof(string));
+            newDataTable.Columns.Add("Name", typeof(string));
+            newDataTable.Columns.Add("depdes", typeof(string));
+
+            // Populate the new DataTable with data
+            foreach (DataRow row in dataTable.Rows)
+            {
+                string name = $"{row["Firstname"]} {row["Middlename"]} {row["Lastname"]}";
+
+                object imageData = row["Profile_pic"];
+                if (imageData != DBNull.Value) // Check if the column is not null
+                {
+                    byte[] imageBytes = (byte[])imageData;
+                    if (imageBytes.Length > 0)
+                    {
+                        try
+                        {
+                            using (MemoryStream ms = new MemoryStream(imageBytes))
+                            {
+                                Image image = Image.FromStream(ms);
+                                newDataTable.Rows.Add(image, row["ID"], name, row["depdes"]);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // Handle the exception (e.g., log it, display an error message)
+                            // Optionally, you can add a placeholder image or null for the problematic data.
+                            newDataTable.Rows.Add(null, row["ID"], name, row["depdes"]);
+                        }
+                    }
+                }
+                else
+                {
+                    // Handle the case where the column is null
+                    newDataTable.Rows.Add(null, row["ID"], name, row["depdes"]);
+                }
+            }
+
+            return newDataTable;
         }
 
 
