@@ -100,7 +100,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RJToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RoundPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RoundPictureBoxRect.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RoundProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RoundProgressBar.Designer.cs">
+      <DependentUpon>RoundProgressBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="SQLite_Connection.cs" />
+    <Compile Include="SQL_Connection.cs" />
     <EmbeddedResource Include="formAttendanceChecker.resx">
       <DependentUpon>formAttendanceChecker.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,6 +136,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RoundProgressBar.resx">
+      <DependentUpon>RoundProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -253,6 +272,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\setting %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sync-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cloud-computing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sync-16-blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pulse-1s-200px.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pulse-1s-200px %281%29.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

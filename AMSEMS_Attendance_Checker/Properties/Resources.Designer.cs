@@ -153,6 +153,16 @@ namespace AMSEMS_Attendance_Checker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cloud_computing {
+            get {
+                object obj = ResourceManager.GetObject("cloud-computing", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap dashboard {
             get {
                 object obj = ResourceManager.GetObject("dashboard", resourceCulture);
@@ -313,6 +323,26 @@ namespace AMSEMS_Attendance_Checker.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Pulse_1s_200px {
+            get {
+                object obj = ResourceManager.GetObject("Pulse-1s-200px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Pulse_1s_200px__1_ {
+            get {
+                object obj = ResourceManager.GetObject("Pulse-1s-200px (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap red_circular_shape {
             get {
                 object obj = ResourceManager.GetObject("red-circular-shape", resourceCulture);
@@ -426,6 +456,26 @@ namespace AMSEMS_Attendance_Checker.Properties {
         internal static System.Drawing.Bitmap sync {
             get {
                 object obj = ResourceManager.GetObject("sync", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sync_16_blue {
+            get {
+                object obj = ResourceManager.GetObject("sync-16-blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sync_24 {
+            get {
+                object obj = ResourceManager.GetObject("sync-24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

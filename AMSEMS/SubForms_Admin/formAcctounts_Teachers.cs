@@ -411,7 +411,7 @@ namespace AMSEMS.SubForms_Admin
 
                         if (confirmationResult == DialogResult.Yes)
                         {
-                            int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
+                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
                             bool deletionSuccessful = DeleteTeacherRecord(primaryKeyValue);
 
                             if (deletionSuccessful)
@@ -430,7 +430,7 @@ namespace AMSEMS.SubForms_Admin
             }
         }
 
-        private bool DeleteTeacherRecord(int teacherID)
+        private bool DeleteTeacherRecord(string teacherID)
         {
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
             {
@@ -694,7 +694,7 @@ namespace AMSEMS.SubForms_Admin
                     hasSelectedRow = true; // Set the flag to true if at least one row is selected
 
                     // Get the teacher ID or relevant data from the row
-                    int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+                    string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
                                                                             // Ask for confirmation from the user
                     DialogResult result = MessageBox.Show($"Delete account with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)

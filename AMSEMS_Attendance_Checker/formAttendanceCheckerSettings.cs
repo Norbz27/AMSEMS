@@ -17,5 +17,10 @@ namespace AMSEMS_Attendance_Checker
         {
             InitializeComponent();
         }
+
+        private void formAttendanceCheckerSettings_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

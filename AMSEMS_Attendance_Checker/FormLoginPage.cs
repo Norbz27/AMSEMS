@@ -2,20 +2,49 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AMSEMS;
 using ComponentFactory.Krypton.Toolkit;
+using System.Net.NetworkInformation;
 
 namespace AMSEMS_Attendance_Checker
 {
     public partial class FormLoginPage : KryptonForm
     {
+        SQLite_Connection sQLite_Connection;
+        SqlConnection cnn;
+        SqlCommand cm;
+        SqlDataReader dr;
+        private BackgroundWorker backgroundWorker;
+        private bool isLoggingIn = false;
         public FormLoginPage()
         {
             InitializeComponent();
+            sQLite_Connection = new SQLite_Connection("db_AMSEMS_CHECKER.db");
+            sQLite_Connection.InitializeDatabase();
+            cnn = new SqlConnection(SQL_Connection.connection);
+
+            backgroundWorker = new BackgroundWorker();
+            backgroundWorker.DoWork += new DoWorkEventHandler(BackgroundWorker_DoWork);
+            backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(BackgroundWorker_RunWorkerCompleted);
+        }
+        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                ptLoading.Visible = true;
+            });
+        }
+
+        // BackgroundWorker RunWorkerCompleted event handler
+        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ptLoading.Visible = false;
         }
 
         private void tbID_Enter(object sender, EventArgs e)
@@ -63,27 +92,188 @@ namespace AMSEMS_Attendance_Checker
                 tbPass.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 10F);
                 tbPass.StateCommon.Border.Color1 = Color.Gray;
                 tbPass.StateCommon.Border.Color2 = Color.Gray;
-            }            
+            }      
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
-            login();
-        }
+            if (isLoggingIn) return; // If already logging in, exit
 
-        private void btnLogin_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode == Keys.Enter)
+            isLoggingIn = true;
+            UseWaitCursor = true;
+
+            try
             {
-                login();
+                await LoginAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                UseWaitCursor = false;
+                isLoggingIn = false;
             }
         }
 
-        public void login()
+        private async void btnLogin_KeyDown(object sender, KeyEventArgs e)
         {
-            formAttendanceChecker formAttendanceChecker = new formAttendanceChecker();
-            formAttendanceChecker.Show();
-            this.Hide();
+            if(e.KeyCode == Keys.Enter)
+            {
+                if (isLoggingIn) return; // If already logging in, exit
+
+                isLoggingIn = true;
+                UseWaitCursor = true;
+
+                try
+                {
+                    await LoginAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    UseWaitCursor = false;
+                    isLoggingIn = false;
+                }
+            }
+        }
+
+        private async Task LoginAsync()
+        {
+            string id = tbID.Text; // Get the ID from your form
+            string pass = tbPass.Text; // Get the password from your form
+
+            try
+            {
+                DataTable result = await sQLite_Connection.LoginTeacherDataAsync(id, pass);
+
+                if (result.Rows.Count > 0)
+                {
+                    // Successfully logged in, you can proceed with your logic here
+                    formAttendanceChecker formAttendanceChecker = new formAttendanceChecker();
+                    formAttendanceChecker.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Invalid credentials. Please try again.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while logging in: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private async void btnSync_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you want to sync data from the cloud?", "Cloud Sync Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                ptLoading.Visible = true; // Show loading image before starting the synchronization
+
+                if (IsInternetConnected())
+                {
+                    //try
+                    //{
+                        using (cnn = new SqlConnection(SQL_Connection.connection))
+                        {
+                            await cnn.OpenAsync();
+                            cm = new SqlCommand("SELECT Unique_ID, ID, Firstname, Lastname, Middlename, Password, Profile_pic, Department, Role, Status, DateTime from tbl_teacher_accounts", cnn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertTeacherData(Convert.ToInt32(dr["Unique_ID"]), dr["ID"].ToString(), dr["Firstname"].ToString(), dr["Lastname"].ToString(), dr["Middlename"].ToString(), dr["Password"].ToString(), dr["Profile_pic"].ToString(), dr["Department"].ToString(), dr["Role"].ToString(), dr["Status"].ToString(), dr["DateTime"].ToString());
+                            }
+                            dr.Close();
+
+                            cm = new SqlCommand("SELECT Unique_ID, ID, Firstname, Lastname, Middlename, Password, Profile_pic, Program, Section, Year_Level, Department, Role, Status, DateTime from tbl_student_accounts", cnn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertStudentData(Convert.ToInt32(dr["Unique_ID"]), dr["ID"].ToString(), dr["Firstname"].ToString(), dr["Lastname"].ToString(), dr["Middlename"].ToString(), dr["Password"].ToString(), dr["Profile_pic"].ToString(), dr["Program"].ToString(), dr["Section"].ToString(), dr["Year_Level"].ToString(), dr["Department"].ToString(), dr["Role"].ToString(), dr["Status"].ToString(), dr["DateTime"].ToString());
+                            }
+                            dr.Close();
+
+                            cm = new SqlCommand("SELECT Event_ID, Event_Name, Start_Date, End_Date, Description, Color, Image from tbl_events", cnn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertEventsData(dr["Event_ID"].ToString(), dr["Event_Name"].ToString(), dr["Start_Date"].ToString(), dr["End_Date"].ToString(), dr["Description"].ToString(), dr["Color"].ToString(), dr["Image"].ToString());
+                            }
+                            dr.Close();
+
+                            cm = new SqlCommand("SELECT Prgram_ID, Description from tbl_program", cnn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertProgramData(dr["Prgram_ID"].ToString(), dr["Description"].ToString());
+                            }
+                            dr.Close();
+
+                            cm = new SqlCommand("SELECT Section_ID, Description from tbl_section", cnn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertSectionData(dr["Section_ID"].ToString(), dr["Description"].ToString());
+                            }
+                            dr.Close();
+
+                            cm = new SqlCommand("SELECT Level_ID, Description from tbl_year_level", cnn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertYearLevelData(dr["Level_ID"].ToString(), dr["Description"].ToString());
+                            }
+                            dr.Close();
+
+                            cm = new SqlCommand("SELECT Department_ID, Description from tbl_departments", cnn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertDepartmentData(dr["Department_ID"].ToString(), dr["Description"].ToString());
+                            }
+                            dr.Close();
+
+                            await Task.Delay(3000);
+                            MessageBox.Show("Successfully Sync Data.", "Sync Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    MessageBox.Show(ex.Message);
+                    //}
+                }
+                else
+                {
+                    MessageBox.Show("No internet connection available. Please check your network connection.");
+                }
+                ptLoading.Visible = false;
+            }
+        }
+        private bool IsInternetConnected()
+        {
+            try
+            {
+                Ping ping = new Ping();
+                PingReply reply = ping.Send("www.google.com"); // You can use a reliable external host for testing connectivity.
+
+                if (reply != null && reply.Status == IPStatus.Success)
+                {
+                    return true; // Internet is reachable.
+                }
+                return false; // No internet connection.
+            }
+            catch
+            {
+                return false; 
+            }
         }
     }
 }

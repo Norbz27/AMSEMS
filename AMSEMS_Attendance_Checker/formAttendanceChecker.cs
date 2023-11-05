@@ -24,6 +24,7 @@ namespace AMSEMS_Attendance_Checker
             InitializeComponent();
             this.splitContainer1.Panel2Collapsed = true;
             isCollapsed = true;
+      
         }
 
         private void btnMenu_Click(object sender, EventArgs e)
@@ -51,6 +52,23 @@ namespace AMSEMS_Attendance_Checker
                 timer1.Stop();
                 isCollapsed = true;
             }
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            formAttendanceCheckerSettings formAttendanceCheckerSettings = new formAttendanceCheckerSettings();
+            formAttendanceCheckerSettings.ShowDialog();
+        }
+
+        private void formAttendanceChecker_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void formAttendanceChecker_Load(object sender, EventArgs e)
+        {
+            formAttendanceCheckerSettings formAttendanceCheckerSettings = new formAttendanceCheckerSettings();
+            formAttendanceCheckerSettings.ShowDialog();
         }
     }
 }
