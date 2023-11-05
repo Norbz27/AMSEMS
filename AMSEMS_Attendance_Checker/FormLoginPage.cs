@@ -180,8 +180,8 @@ namespace AMSEMS_Attendance_Checker
 
                 if (IsInternetConnected())
                 {
-                    //try
-                    //{
+                    try
+                    {
                         using (cnn = new SqlConnection(SQL_Connection.connection))
                         {
                             await cnn.OpenAsync();
@@ -209,11 +209,11 @@ namespace AMSEMS_Attendance_Checker
                             }
                             dr.Close();
 
-                            cm = new SqlCommand("SELECT Prgram_ID, Description from tbl_program", cnn);
+                            cm = new SqlCommand("SELECT Program_ID, Description from tbl_program", cnn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertProgramData(dr["Prgram_ID"].ToString(), dr["Description"].ToString());
+                                sQLite_Connection.InsertProgramData(dr["Program_ID"].ToString(), dr["Description"].ToString());
                             }
                             dr.Close();
 
@@ -244,12 +244,12 @@ namespace AMSEMS_Attendance_Checker
                             await Task.Delay(3000);
                             MessageBox.Show("Successfully Sync Data.", "Sync Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    MessageBox.Show(ex.Message);
-                    //}
                 }
+                    catch (Exception ex)
+                    {
+                    MessageBox.Show(ex.Message);
+                }
+            }
                 else
                 {
                     MessageBox.Show("No internet connection available. Please check your network connection.");
