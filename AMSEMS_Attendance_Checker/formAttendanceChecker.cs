@@ -21,6 +21,9 @@ namespace AMSEMS_Attendance_Checker
 
         SQLite_Connection sQLite_Connection;
 
+        string attendance_stat;
+        string event_code;
+
         public bool isCollapsed;
         public formAttendanceChecker()
         {
@@ -30,6 +33,11 @@ namespace AMSEMS_Attendance_Checker
 
             sQLite_Connection = new SQLite_Connection("db_AMSEMS_CHECKER.db");
 
+        }
+        public void getAttendanceSettings(string att, string code)
+        {
+            attendance_stat = att;
+            event_code = code;
         }
 
         private void btnMenu_Click(object sender, EventArgs e)
@@ -87,13 +95,15 @@ namespace AMSEMS_Attendance_Checker
 
                 // Add the row to the DataGridView
                 dgvStudents.Rows.Add(newRow);
-                dgvStudents.Rows[dgvStudents.Rows.Count - 1].Height = 100;
+                dgvStudents.Rows[dgvStudents.Rows.Count - 1].Height = 80;
             }
         }
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            formAttendanceCheckerSettings formAttendanceCheckerSettings = new formAttendanceCheckerSettings();
+            formAttendanceCheckerSettings2 formAttendanceCheckerSettings = new formAttendanceCheckerSettings2();
+            formAttendanceCheckerSettings.getSetting(event_code, attendance_stat);
+            formAttendanceCheckerSettings.getForm(this);
             formAttendanceCheckerSettings.ShowDialog();
         }
 
@@ -104,11 +114,12 @@ namespace AMSEMS_Attendance_Checker
 
         private void formAttendanceChecker_Load(object sender, EventArgs e)
         {
-            formAttendanceCheckerSettings formAttendanceCheckerSettings = new formAttendanceCheckerSettings();
-            formAttendanceCheckerSettings.ShowDialog();
-
             displayStudents();
             setDate();
+        }
+        public void setEvent(string eventname)
+        {
+            lblEventName.Text = eventname;
         }
         public void setDate()
         {

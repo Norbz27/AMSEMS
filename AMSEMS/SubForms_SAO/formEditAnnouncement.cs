@@ -6,18 +6,15 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static Microsoft.IO.RecyclableMemoryStreamManager;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace AMSEMS.SubForms_SAO
 {
-    public partial class formAddAnnouncement : KryptonForm
+    public partial class formEditAnnouncement : KryptonForm
     {
         SqlConnection cn;
         SqlDataAdapter ad;
@@ -25,15 +22,15 @@ namespace AMSEMS.SubForms_SAO
         SqlDataReader dr;
         DataSet ds = new DataSet();
         formAnnouncement form;
+        string id;
         string announceBy;
         private string searchKeyword = string.Empty;
         private DateTime filterDate = DateTime.MinValue;
-        public formAddAnnouncement()
+        public formEditAnnouncement()
         {
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
-            announceBy = "Student Association Office(SAO)";
         }
         public void getForm(formAnnouncement form)
         {
@@ -54,14 +51,13 @@ namespace AMSEMS.SubForms_SAO
                     {
                         DateTime dateTime = DateTime.Now;
                         cn.Open();
-                        cm = new SqlCommand("Insert Into tbl_Announcement Values (@Title,@Des,@DateTime,@AnnounceBy)", cn);
+                        cm = new SqlCommand("UPDATE tbl_Announcement SET Description = @Des WHERE Announcement_ID = @ID", cn);
+                        cm.Parameters.AddWithValue("@ID", id);
                         cm.Parameters.AddWithValue("@Title", tbAnnounceTitle.Text);
                         cm.Parameters.AddWithValue("@Des", tbDescription.Text);
-                        cm.Parameters.AddWithValue("@DateTime", dateTime);
-                        cm.Parameters.AddWithValue("@AnnounceBy", announceBy);
                         cm.ExecuteNonQuery();
 
-                        MessageBox.Show("Announcement Forwarded!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Announcement Updated!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
@@ -74,12 +70,27 @@ namespace AMSEMS.SubForms_SAO
                     }
                 }
             }
-
         }
-
+        public void dispayInfo(string id)
+        {
+            this.id = id;
+            using (cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                using (cm = new SqlCommand("SELECT * FROM tbl_Announcement WHERE Announcement_ID = " + id, cn))
+                using (dr = cm.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        tbAnnounceTitle.Text = dr["Announcement_Title"].ToString();
+                        tbDescription.Text = dr["Announcement_Description"].ToString();
+                    }
+                }
+            }
+        }
         private void formAddEvent_Load(object sender, EventArgs e)
         {
-
+      
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

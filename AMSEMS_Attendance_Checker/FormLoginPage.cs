@@ -154,8 +154,8 @@ namespace AMSEMS_Attendance_Checker
                 if (result.Rows.Count > 0)
                 {
                     // Successfully logged in, you can proceed with your logic here
-                    formAttendanceChecker formAttendanceChecker = new formAttendanceChecker();
-                    formAttendanceChecker.Show();
+                    formAttendanceCheckerSettings formAttendanceCheckerSettings = new formAttendanceCheckerSettings();
+                    formAttendanceCheckerSettings.ShowDialog();
                     this.Hide();
                 }
                 else

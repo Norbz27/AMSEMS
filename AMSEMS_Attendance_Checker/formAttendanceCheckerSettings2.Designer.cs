@@ -1,6 +1,6 @@
 ﻿namespace AMSEMS_Attendance_Checker
 {
-    partial class formAttendanceCheckerSettings
+    partial class formAttendanceCheckerSettings2
     {
         /// <summary>
         /// Required designer variable.

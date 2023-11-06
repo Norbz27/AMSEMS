@@ -39,7 +39,7 @@ namespace AMSEMS.SubForms_SAO
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                string query = "SELECT Announcement_Title, Announcement_Description, Date_Time, Announce_By FROM tbl_Announcement WHERE 1 = 1";
+                string query = "SELECT Announcement_ID, Announcement_Title, Announcement_Description, Date_Time, Announce_By FROM tbl_Announcement WHERE 1 = 1";
 
                 if (!string.IsNullOrEmpty(searchKeyword))
                 {
@@ -59,13 +59,14 @@ namespace AMSEMS.SubForms_SAO
                     int labelCount = 0;
                     while (dr.Read())
                     {
+                        string id = dr["Announcement_ID"].ToString();
                         string title = dr["Announcement_Title"].ToString();
                         string description = dr["Announcement_Description"].ToString();
                         string announceby = dr["Announce_By"].ToString();
                         DateTime datetime = DateTime.Parse(dr["Date_Time"].ToString());
                         string formattedDate = datetime.ToString("dddd, MMMM d, yyyy, h:mm tt");
 
-                        announcementApperance(title, description, formattedDate, announceby);
+                        announcementApperance(id, title, description, formattedDate, announceby);
 
                         labelCount++;
                     }
@@ -90,7 +91,7 @@ namespace AMSEMS.SubForms_SAO
             displayAnnouncements(searchKeyword, filterDate);
         }
 
-        public void announcementApperance(string title, string description, string dateTime, string announceby)
+        public void announcementApperance(string id, string title, string description, string dateTime, string announceby)
         {
             Panel panel12 = new Panel();
             KryptonGroupBox kryptonGroupBox4 = new KryptonGroupBox();
@@ -98,6 +99,8 @@ namespace AMSEMS.SubForms_SAO
             KryptonLabel kryptonLabel10 = new KryptonLabel();
             //KryptonLabel kryptonLabel6 = new KryptonLabel();
             RichTextBox richTextBox1 = new RichTextBox();
+            KryptonButton btnDelete = new KryptonButton();
+            KryptonButton btnEdit = new KryptonButton();
 
             kryptonGroupBox4.Dock = System.Windows.Forms.DockStyle.Top; // Use Dock property to fill the entire width
             kryptonGroupBox4.CaptionStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.GroupBoxCaption;
@@ -153,6 +156,108 @@ namespace AMSEMS.SubForms_SAO
             //kryptonLabel6.Values.Image = global::AMSEMS.Properties.Resources.right_arrow__1_;
             //kryptonLabel6.Values.Text = "View Details";
 
+            btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnDelete.Location = new System.Drawing.Point(705, 10);
+            btnDelete.Name = "btnDelete";
+            btnDelete.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.OverrideDefault.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.OverrideDefault.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            btnDelete.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnDelete.OverrideDefault.Border.Width = 1;
+            btnDelete.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            btnDelete.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            btnDelete.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            btnDelete.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.Size = new System.Drawing.Size(36, 34);
+            btnDelete.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            btnDelete.StateCommon.Border.Rounding = 10;
+            btnDelete.StateCommon.Border.Width = 1;
+            btnDelete.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            btnDelete.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            btnDelete.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            btnDelete.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            btnDelete.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            btnDelete.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnDelete.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            btnDelete.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            btnDelete.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            btnDelete.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            btnDelete.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            btnDelete.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            btnDelete.StateTracking.Border.Rounding = 10;
+            btnDelete.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            btnDelete.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            btnDelete.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            btnDelete.TabIndex = 153;
+            btnDelete.Values.Image = global::AMSEMS.Properties.Resources.delete_16;
+            btnDelete.Values.Text = "";
+
+            btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            btnEdit.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnEdit.Location = new System.Drawing.Point(666, 10);
+            btnEdit.Name = "btnEdit";
+            btnEdit.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.OverrideDefault.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.OverrideDefault.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            btnEdit.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            btnEdit.OverrideDefault.Border.Width = 1;
+            btnEdit.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            btnEdit.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            btnEdit.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            btnEdit.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.Size = new System.Drawing.Size(36, 34);
+            btnEdit.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            btnEdit.StateCommon.Border.Rounding = 10;
+            btnEdit.StateCommon.Border.Width = 1;
+            btnEdit.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            btnEdit.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            btnEdit.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            btnEdit.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            btnEdit.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            btnEdit.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            btnEdit.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            btnEdit.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            btnEdit.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            btnEdit.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            btnEdit.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            btnEdit.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            btnEdit.StateTracking.Border.Rounding = 10;
+            btnEdit.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            btnEdit.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            btnEdit.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            btnEdit.TabIndex = 153;
+            btnEdit.Values.Image = global::AMSEMS.Properties.Resources.edit1;
+            btnEdit.Values.Text = "";
+
             kryptonLabel10.Cursor = System.Windows.Forms.Cursors.Default;
             kryptonLabel10.Dock = System.Windows.Forms.DockStyle.Top;
             kryptonLabel10.Location = new System.Drawing.Point(15, 35);
@@ -203,15 +308,57 @@ namespace AMSEMS.SubForms_SAO
             panel12.Size = new System.Drawing.Size(234, 10);
             panel12.TabIndex = 19;
 
+            btnDelete.Click += (s, e) => btnDelete_Click(id);
+            btnEdit.Click += (s, e) => btnEdit_Click(id);
+
+            kryptonGroupBox4.Panel.Controls.Add(btnDelete);
+            kryptonGroupBox4.Panel.Controls.Add(btnEdit);
             kryptonGroupBox4.Panel.Controls.Add(richTextBox1);
             kryptonGroupBox4.Panel.Controls.Add(kryptonLabel10);
             //kryptonGroupBox4.Panel.Controls.Add(kryptonLabel6);
             kryptonGroupBox4.Panel.Controls.Add(kryptonLabel9);
 
+
             panelAnnouncements.Controls.Add(kryptonGroupBox4);
             panelAnnouncements.Controls.Add(panel12);
         }
+        private void btnDelete_Click(string id)
+        {
+            if (MessageBox.Show("Are you sure you want to delete this Announcement?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                    {
+                        cn.Open();
+                        string deleteQuery = "DELETE FROM tbl_Announcement WHERE Announcement_ID = @ID";
 
-        
+                        using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                        {
+                            // Add parameter for the primary key value
+                            command.Parameters.AddWithValue("@ID", id);
+                            command.ExecuteNonQuery();
+
+                            MessageBox.Show("Deleted successfully.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    displayAnnouncements(searchKeyword, filterDate);
+                }
+            }
+        }
+        private void btnEdit_Click(string id)
+        {
+            formEditAnnouncement formEditAnnouncement = new formEditAnnouncement();
+            formEditAnnouncement.getForm(this);
+            formEditAnnouncement.dispayInfo(id);
+            formEditAnnouncement.ShowDialog();
+        }
     }
 }

@@ -155,6 +155,7 @@ namespace AMSEMS.SubForms_SAO
                         tbDescription.Text = dr["Description"].ToString();
                         DtStart.Value = (DateTime)dr["Start_Date"];
                         DtEnd.Value = (DateTime)dr["End_Date"];
+                        lblCode.Text = dr["Event_ID"].ToString();
 
                         object imageData = dr["Image"];
                         if (imageData != DBNull.Value) // Check if the column is not null

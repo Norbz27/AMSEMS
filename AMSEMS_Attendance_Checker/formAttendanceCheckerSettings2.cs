@@ -12,21 +12,31 @@ using System.Windows.Forms;
 
 namespace AMSEMS_Attendance_Checker
 {
-    public partial class formAttendanceCheckerSettings : KryptonForm
+    public partial class formAttendanceCheckerSettings2 : KryptonForm
     {
-        formAttendanceChecker formAttendanceChecker;
         SQLite_Connection sQLite_Connection;
         string event_code = null;
-        public formAttendanceCheckerSettings()
+
+        formAttendanceChecker formAttendanceChecker; 
+        bool isFormAttendanceCheckerShown = false;
+        public formAttendanceCheckerSettings2()
         {
             InitializeComponent();
-            formAttendanceChecker = new formAttendanceChecker();
             sQLite_Connection = new SQLite_Connection("db_AMSEMS_CHECKER.db");
         }
 
         private void formAttendanceCheckerSettings_Load(object sender, EventArgs e)
         {
 
+        }
+        public void getForm(formAttendanceChecker formAttendanceChecker)
+        {
+            this.formAttendanceChecker = formAttendanceChecker;
+        }
+        public void getSetting(string code, string status)
+        {
+            tbEventCode.Text = code;
+            cbAttendanceStat.Text = status;
         }
 
         private void formAttendanceCheckerSettings_FormClosing(object sender, FormClosingEventArgs e)
@@ -47,9 +57,9 @@ namespace AMSEMS_Attendance_Checker
                 }
                 else
                 {
-                    formAttendanceChecker.Show();
+                    formAttendanceChecker.getAttendanceSettings(cbAttendanceStat.Text, tbEventCode.Text);
                 }
-                
+
             }
         }
 

@@ -86,6 +86,12 @@
     <Compile Include="formAttendanceChecker.Designer.cs">
       <DependentUpon>formAttendanceChecker.cs</DependentUpon>
     </Compile>
+    <Compile Include="formAttendanceCheckerSettings2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAttendanceCheckerSettings2.Designer.cs">
+      <DependentUpon>formAttendanceCheckerSettings2.cs</DependentUpon>
+    </Compile>
     <Compile Include="formAttendanceCheckerSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,9 @@
     <Compile Include="SQL_Connection.cs" />
     <EmbeddedResource Include="formAttendanceChecker.resx">
       <DependentUpon>formAttendanceChecker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formAttendanceCheckerSettings2.resx">
+      <DependentUpon>formAttendanceCheckerSettings2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formAttendanceCheckerSettings.resx">
       <DependentUpon>formAttendanceCheckerSettings.cs</DependentUpon>

@@ -349,6 +349,32 @@ namespace AMSEMS_Attendance_Checker
 
             return newDataTable;
         }
+        public string GetEvent(string id)
+        {
+            string event_name = null; // Initialize the variable
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT Event_Name FROM tbl_events WHERE Event_ID = @id";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id); // Use parameterized query to prevent SQL injection
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            event_name = reader["Event_Name"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return event_name;
+        }
+
 
 
         public void UpdateData(int id, string name, int age)
