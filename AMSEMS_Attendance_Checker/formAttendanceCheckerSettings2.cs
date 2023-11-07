@@ -104,6 +104,7 @@ namespace AMSEMS_Attendance_Checker
                 {
                     formAttendanceChecker.getAttendanceSettings(cbAttendanceStat.Text, tbEventCode.Text);
                     formAttendanceChecker.setEvent(event_name);
+                    formAttendanceChecker.displayAttendanceRecord();
                     this.Close();
                 }
                 else

@@ -812,21 +812,21 @@ namespace AMSEMS.SubForms_Admin
             // Create a list to store the rows to be removed
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
-            // Iterate through the DataGridView rows to find selected rows
-            foreach (DataGridViewRow row in dgvStudents.Rows)
+            DialogResult result = MessageBox.Show($"Do you want to delete selected account?", "Confirm Deletion", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                // Check if the "Select" checkbox is checked in the current row
-                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
-                if (chk.Value != null && (bool)chk.Value)
+                // Iterate through the DataGridView rows to find selected rows
+                foreach (DataGridViewRow row in dgvStudents.Rows)
                 {
-                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
-
-                    // Get the student ID or relevant data from the row
-                    int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
-                                                                            // Ask for confirmation from the user
-                    DialogResult result = MessageBox.Show($"Delete account with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
+                    // Check if the "Select" checkbox is checked in the current row
+                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                    if (chk.Value != null && (bool)chk.Value)
                     {
+                        hasSelectedRow = true; // Set the flag to true if at least one row is selected
+
+                        // Get the student ID or relevant data from the row
+                        int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
                         // Call your DeleteTeacherRecord method to delete the record
                         bool success = DeleteStudentRecord(id);
 
@@ -922,8 +922,26 @@ namespace AMSEMS.SubForms_Admin
                 DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                 if (chk.Value != null && (bool)chk.Value)
                 {
-                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
-                    break; // Exit the loop as soon as the first selected row is found
+                    // Check if the "Department" column is not null and not empty
+                    object departmentValue = row.Cells["Dep"].Value;
+                    object sectionValue = row.Cells["section"].Value;
+                    object levelValue = row.Cells["ylvl"].Value;
+                    object programValue = row.Cells["program"].Value;
+
+                    bool hasEmptyColumn = string.IsNullOrEmpty(departmentValue?.ToString()) ||
+                                          string.IsNullOrEmpty(sectionValue?.ToString()) ||
+                                          string.IsNullOrEmpty(levelValue?.ToString()) ||
+                                          string.IsNullOrEmpty(programValue?.ToString());
+
+                    if (!hasEmptyColumn)
+                    {
+                        hasSelectedRow = true; // Set the flag to true if at least one row is selected and there are no empty columns
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cannot set account as active. Missing some information for selected account.");
+                        return; // Exit the method if a row has empty columns
+                    }
                 }
             }
 
@@ -943,20 +961,34 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                         if (chk.Value != null && (bool)chk.Value)
                         {
-                            // Get the student ID or relevant data from the row
-                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
+                            // Check if the "Department" column is not null and not empty
+                            object departmentValue = row.Cells["Dep"].Value;
+                            object sectionValue = row.Cells["section"].Value;
+                            object levelValue = row.Cells["ylvl"].Value;
+                            object programValue = row.Cells["program"].Value;
 
-                            // Call your UpdateStudentStatus method to update the record
-                            bool success = UpdateStudentStatus(id, 1);
+                            bool hasEmptyColumn = string.IsNullOrEmpty(departmentValue?.ToString()) ||
+                                                  string.IsNullOrEmpty(sectionValue?.ToString()) ||
+                                                  string.IsNullOrEmpty(levelValue?.ToString()) ||
+                                                  string.IsNullOrEmpty(programValue?.ToString());
 
-                            if (success)
+                            if (!hasEmptyColumn)
                             {
-                                // Add the row to the list of rows to be removed
-                                rowsToRemove.Add(row);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Failed to update record with ID: " + id);
+                                // Get the student ID or relevant data from the row
+                                string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
+
+                                // Call your UpdateStudentStatus method to update the record
+                                bool success = UpdateStudentStatus(id, 1);
+
+                                if (success)
+                                {
+                                    // Add the row to the list of rows to be removed
+                                    rowsToRemove.Add(row);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Failed to update record with ID: " + id);
+                                }
                             }
                         }
                     }
@@ -964,8 +996,9 @@ namespace AMSEMS.SubForms_Admin
                     headerCheckbox.Checked = false;
                 }
             }
-
         }
+
+
         private bool UpdateStudentStatus(string studentID, int status)
         {
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
@@ -1457,22 +1490,40 @@ namespace AMSEMS.SubForms_Admin
                     if (dataGridView != null)
                     {
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
-                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+                        DataGridViewRow rowToUpdate = dataGridView.Rows[rowIndex];
 
-                        DialogResult confirmationResult = MessageBox.Show("Set accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        // Check if the "Department," "Section," "Year_Level," and "Program" columns are not null and not empty
+                        object departmentValue = rowToUpdate.Cells["Dep"].Value;
+                        object sectionValue = rowToUpdate.Cells["section"].Value;
+                        object levelValue = rowToUpdate.Cells["ylvl"].Value;
+                        object programValue = rowToUpdate.Cells["program"].Value;
 
-                        if (confirmationResult == DialogResult.Yes)
+                        bool hasEmptyColumn = string.IsNullOrEmpty(departmentValue?.ToString()) ||
+                                              string.IsNullOrEmpty(sectionValue?.ToString()) ||
+                                              string.IsNullOrEmpty(levelValue?.ToString()) ||
+                                              string.IsNullOrEmpty(programValue?.ToString());
+
+                        if (hasEmptyColumn)
                         {
-                            string primaryKeyValue = rowToDelete.Cells["ID"].Value.ToString();
-                            bool deletionSuccessful = UpdateStudentStatus(primaryKeyValue,1);
+                            MessageBox.Show("Cannot set the account as active. Missing some information for this account.");
+                        }
+                        else
+                        {
+                            DialogResult confirmationResult = MessageBox.Show("Set accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                            if (deletionSuccessful)
+                            if (confirmationResult == DialogResult.Yes)
                             {
-                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Failed to update record.");
+                                string primaryKeyValue = rowToUpdate.Cells["ID"].Value.ToString();
+                                bool updateSuccessful = UpdateStudentStatus(primaryKeyValue, 1);
+
+                                if (updateSuccessful)
+                                {
+                                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Failed to update record.");
+                                }
                             }
                         }
                     }
@@ -1480,6 +1531,7 @@ namespace AMSEMS.SubForms_Admin
             }
             UseWaitCursor = false;
         }
+
 
         private void inactiveToolStripMenuItem_Click(object sender, EventArgs e)
         {

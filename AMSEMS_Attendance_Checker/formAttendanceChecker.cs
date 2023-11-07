@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -15,15 +14,12 @@ namespace AMSEMS_Attendance_Checker
 {
     public partial class formAttendanceChecker : KryptonForm
     {
-        SqlConnection cn;
-        SqlCommand cm;
-        SqlDataReader dr;
-
         SQLite_Connection sQLite_Connection;
 
         string attendance_stat;
         string event_code;
-
+        string teach_id;
+        private string scannedRFIDData = "";
         public bool isCollapsed;
         public formAttendanceChecker()
         {
@@ -33,11 +29,74 @@ namespace AMSEMS_Attendance_Checker
 
             sQLite_Connection = new SQLite_Connection("db_AMSEMS_CHECKER.db");
 
+            this.KeyPreview = true; // Ensure form captures keyboard input
+            this.KeyPress += FormAttendanceChecker_KeyPress;
+        }
+        public void getTeachID(string id)
+        {
+            teach_id = id;
         }
         public void getAttendanceSettings(string att, string code)
         {
             attendance_stat = att;
             event_code = code;
+        }
+        private void FormAttendanceChecker_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Check if the RFID reader input is received
+            if (e.KeyChar == '\r') // Assuming the RFID input is terminated with Enter key
+            {
+                scannedRFIDData = tbAttendance.Text; // Store the RFID input in the variable
+                e.Handled = true; // Prevent the Enter key from being added to tbSearch
+
+                // Process the RFID input as needed (you can call a separate function here)
+                ProcessScannedData(scannedRFIDData);
+                displayAttendanceRecord();
+            }
+        }
+        public void displayAttendanceRecord()
+        {
+            dgvAttendance.Rows.Clear();
+            DateTime dateTimeNow = DateTime.Now;
+            string period = dateTimeNow.Hour < 12 ? "AM" : "PM";
+            DataTable attendance = sQLite_Connection.GetAttendanceRecord(event_code, period, attendance_stat);
+
+            foreach (DataRow row in attendance.Rows)
+            {
+                // Create a new DataGridViewRow
+                DataGridViewRow newRow = new DataGridViewRow();
+
+                // Add cells to the row, including the "Profile_pic" cell
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["ID"]});
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Name"]});
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["secdes"] });
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["depdes"] });
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Date"] });
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Time"] });
+
+                // Add the row to the DataGridView
+                dgvAttendance.Rows.Add(newRow);
+            }
+        }
+        private void ProcessScannedData(string data)
+        {
+            DateTime dateTimeNow = DateTime.Now;
+            string period = dateTimeNow.Hour < 12 ? "AM" : "PM";
+            if (period.Equals("AM"))
+            {
+                if(attendance_stat.Equals("IN"))
+                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow.ToString(), dateTimeNow.ToString(),null,null,null,teach_id);
+                else if(attendance_stat.Equals("OUT"))
+                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow.ToString(), null, dateTimeNow.ToString(), null, null, teach_id);
+            }
+            else if (period.Equals("PM"))
+            {
+                if (attendance_stat.Equals("IN"))
+                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow.ToString(), null, null, dateTimeNow.ToString(), null, teach_id);
+                else if (attendance_stat.Equals("OUT"))
+                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow.ToString(), null, null, null, dateTimeNow.ToString(), teach_id);
+            }
+            tbAttendance.Text = String.Empty;
         }
 
         private void btnMenu_Click(object sender, EventArgs e)
@@ -57,17 +116,20 @@ namespace AMSEMS_Attendance_Checker
                 this.splitContainer1.Panel2Collapsed = false;
                 timer1.Stop();
                 isCollapsed = false;
-                
+                tbSearch.Focus();
+                ActiveControl = tbSearch;
             }
             else
             {
                 this.splitContainer1.Panel2Collapsed = true;
                 timer1.Stop();
                 isCollapsed = true;
+                tbAttendance.Focus();
             }
         }
         public void displayStudents()
         {
+            tbAttendance.Focus();
             dgvStudents.Rows.Clear();
             DataTable allStudents = sQLite_Connection.GetAllStudents();
 
@@ -92,6 +154,7 @@ namespace AMSEMS_Attendance_Checker
                 newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["ID"], Style = { Padding = new Padding(cellMargin) } });
                 newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Name"], Style = { Padding = new Padding(cellMargin) } });
                 newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["depdes"], Style = { Padding = new Padding(cellMargin) } });
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["RFID"], Style = { Padding = new Padding(cellMargin) } });
 
                 // Add the row to the DataGridView
                 dgvStudents.Rows.Add(newRow);
@@ -105,6 +168,7 @@ namespace AMSEMS_Attendance_Checker
             formAttendanceCheckerSettings.getSetting(event_code, attendance_stat);
             formAttendanceCheckerSettings.getForm(this);
             formAttendanceCheckerSettings.ShowDialog();
+            tbAttendance.Focus();
         }
 
         private void formAttendanceChecker_FormClosed(object sender, FormClosedEventArgs e)
@@ -116,6 +180,7 @@ namespace AMSEMS_Attendance_Checker
         {
             displayStudents();
             setDate();
+            displayAttendanceRecord();
         }
         public void setEvent(string eventname)
         {
@@ -153,6 +218,22 @@ namespace AMSEMS_Attendance_Checker
                 // Show or hide the row based on search result
                 row.Visible = rowVisible;
             }
+        }
+
+        private void formAttendanceChecker_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Check if the RFID reader input is received
+            if (e.KeyChar == '\r') // Assuming the RFID input is terminated with Enter key
+            {
+                string rfidInput = tbSearch.Text; // Retrieve the RFID input from tbSearch
+                                                    // Process the RFID input as needed
+                e.Handled = true; // Prevent the Enter key from being added to tbSearch
+            }
+        }
+
+        private void dataGridView1_Click(object sender, EventArgs e)
+        {
+            tbAttendance.Focus();
         }
     }
 }

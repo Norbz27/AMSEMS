@@ -155,6 +155,7 @@ namespace AMSEMS_Attendance_Checker
                 {
                     // Successfully logged in, you can proceed with your logic here
                     formAttendanceCheckerSettings formAttendanceCheckerSettings = new formAttendanceCheckerSettings();
+                    formAttendanceCheckerSettings.getTeachID(id);
                     formAttendanceCheckerSettings.ShowDialog();
                     this.Hide();
                 }
@@ -194,11 +195,11 @@ namespace AMSEMS_Attendance_Checker
                             }
                             dr.Close();
 
-                            cm = new SqlCommand("SELECT Unique_ID, ID, Firstname, Lastname, Middlename, Password, Profile_pic, Program, Section, Year_Level, Department, Role, Status, DateTime from tbl_student_accounts", cnn);
+                            cm = new SqlCommand("SELECT Unique_ID, ID, RFID, Firstname, Lastname, Middlename, Password, Profile_pic, Program, Section, Year_Level, Department, Role, Status, DateTime from tbl_student_accounts", cnn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertStudentData(Convert.ToInt32(dr["Unique_ID"]), dr["ID"].ToString(), dr["Firstname"].ToString(), dr["Lastname"].ToString(), dr["Middlename"].ToString(), dr["Password"].ToString(), (byte[])dr["Profile_pic"], dr["Program"].ToString(), dr["Section"].ToString(), dr["Year_Level"].ToString(), dr["Department"].ToString(), dr["Role"].ToString(), dr["Status"].ToString(), dr["DateTime"].ToString());
+                                sQLite_Connection.InsertStudentData(Convert.ToInt32(dr["Unique_ID"]), dr["ID"].ToString(), dr["RFID"].ToString(), dr["Firstname"].ToString(), dr["Lastname"].ToString(), dr["Middlename"].ToString(), dr["Password"].ToString(), (byte[])dr["Profile_pic"], dr["Program"].ToString(), dr["Section"].ToString(), dr["Year_Level"].ToString(), dr["Department"].ToString(), dr["Role"].ToString(), dr["Status"].ToString(), dr["DateTime"].ToString());
                             }
                             dr.Close();
 

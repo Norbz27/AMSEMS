@@ -17,11 +17,16 @@ namespace AMSEMS_Attendance_Checker
         formAttendanceChecker formAttendanceChecker;
         SQLite_Connection sQLite_Connection;
         string event_code = null;
+        string teach_id;
         public formAttendanceCheckerSettings()
         {
             InitializeComponent();
             formAttendanceChecker = new formAttendanceChecker();
             sQLite_Connection = new SQLite_Connection("db_AMSEMS_CHECKER.db");
+        }
+        public void getTeachID(string id)
+        {
+            teach_id = id;
         }
 
         private void formAttendanceCheckerSettings_Load(object sender, EventArgs e)
@@ -47,6 +52,7 @@ namespace AMSEMS_Attendance_Checker
                 }
                 else
                 {
+                    formAttendanceChecker.getTeachID(teach_id);
                     formAttendanceChecker.Show();
                 }
                 
