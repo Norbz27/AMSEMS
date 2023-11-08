@@ -365,6 +365,18 @@ namespace AMSEMS.SubForms_SAO
                 {
                     MessageBox.Show(ex.Message);
                 }
+                finally
+                {
+                    if (form != null)
+                    {
+                        form.refresh();
+                    }
+                    else
+                    {
+                        form1.calendar();
+                    }
+                    this.Dispose();
+                }
             }
         }
 

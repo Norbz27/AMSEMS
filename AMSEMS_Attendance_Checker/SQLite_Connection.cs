@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.IO;
 using System.Drawing;
+using System.Globalization;
 
 namespace AMSEMS_Attendance_Checker
 {
@@ -363,7 +364,7 @@ namespace AMSEMS_Attendance_Checker
 
             return newDataTable;
         }
-        public DataTable GetAttendanceRecord(string eventID, string period, string status)
+        public DataTable GetAttendanceRecord(string eventID, string period, string status, string datetime)
         {
             DataTable dataTable = new DataTable();
             string query = null;
@@ -391,7 +392,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND AM_IN IS NOT NULL
+                            AND stud.Status = 1 AND AM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
                             AM_IN";
                     }
@@ -413,7 +414,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND AM_OUT IS NOT NULL
+                            AND stud.Status = 1 AND AM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
                             AM_OUT";
                     }
@@ -438,7 +439,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND PM_IN IS NOT NULL
+                            AND stud.Status = 1 AND PM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
                             PM_IN";
                     }
@@ -460,7 +461,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND PM_OUT IS NOT NULL
+                            AND stud.Status = 1 AND PM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
                             PM_OUT";
                     }
@@ -470,6 +471,7 @@ namespace AMSEMS_Attendance_Checker
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@eventID", eventID);
+                    command.Parameters.AddWithValue("@date", datetime);
                     using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
                     {
                         adapter.Fill(dataTable);
@@ -528,6 +530,8 @@ namespace AMSEMS_Attendance_Checker
         {
             string stud_id = null; // Initialize the variable
             string attendance_stud_id = null;
+            DateTime dateTimeNow = DateTime.ParseExact(date, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            string formattedDate = dateTimeNow.ToString("M/d/yyyy");
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -550,12 +554,14 @@ namespace AMSEMS_Attendance_Checker
 
                 if (!string.IsNullOrEmpty(stud_id))
                 {
-                    query = "SELECT Student_ID FROM tbl_attendance WHERE Student_ID = @id AND Event_ID = @event";
+                    
+                    query = "SELECT Student_ID FROM tbl_attendance WHERE Student_ID = @id AND Event_ID = @event AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date";
 
                     using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", stud_id);
                         command.Parameters.AddWithValue("@event", eventID);
+                        command.Parameters.AddWithValue("@date", formattedDate);
 
                         using (SQLiteDataReader reader = command.ExecuteReader())
                         {
@@ -647,6 +653,65 @@ namespace AMSEMS_Attendance_Checker
                 }
 
             }
+        }
+        public DataTable GetStudentByRFID(string rfid)
+        {
+            DataTable studentInfoTable = new DataTable();
+            string query = @"SELECT
+                            stud.Profile_Pic as pic,
+                            ID,
+                            sec.Description AS secdes, 
+                            dep.Description AS depdes, 
+                            stud.Firstname || ' ' || stud.Middlename || ' ' || stud.Lastname AS Name
+                        FROM 
+                            tbl_attendance AS att
+                        LEFT JOIN 
+                            tbl_students_account AS stud ON att.Student_ID = stud.ID
+                        LEFT JOIN 
+                            tbl_departments AS dep ON stud.Department = dep.Department_ID
+                        LEFT JOIN 
+                            tbl_section AS sec ON stud.Section = sec.Section_ID
+                        WHERE RFID = @rfid";
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@rfid", rfid);
+
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        adapter.Fill(studentInfoTable);
+                    }
+                }
+            }
+            
+
+            DataTable newDataTable = new DataTable();
+            newDataTable.Columns.Add("ID", typeof(string));
+            newDataTable.Columns.Add("Name", typeof(string));
+            newDataTable.Columns.Add("secdes", typeof(string));
+            newDataTable.Columns.Add("depdes", typeof(string));
+            newDataTable.Columns.Add("pic", typeof(Image));
+
+            foreach (DataRow row in studentInfoTable.Rows)
+            {
+                object imageData = row["pic"];
+                byte[] imageBytes = (byte[])imageData;
+                if (imageBytes.Length > 0)
+                {
+                        using (MemoryStream ms = new MemoryStream(imageBytes))
+                        {
+                            Image image = Image.FromStream(ms);
+                            newDataTable.Rows.Add(row["ID"], row["Name"], row["secdes"], row["depdes"], image);
+                        }
+                }
+                
+            }
+
+            return newDataTable;
         }
 
         public void UpdateData(int id, string name, int age)

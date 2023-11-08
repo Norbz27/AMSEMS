@@ -52,14 +52,48 @@ namespace AMSEMS_Attendance_Checker
                 // Process the RFID input as needed (you can call a separate function here)
                 ProcessScannedData(scannedRFIDData);
                 displayAttendanceRecord();
+                displayStudentInfo();
             }
         }
+        public void displayStudentInfo()
+        {
+            DataTable studentInfo = sQLite_Connection.GetStudentByRFID(scannedRFIDData);
+
+            if (studentInfo.Rows.Count > 0)
+            {
+                DataRow row = studentInfo.Rows[0]; // Assuming you want to display information for the first student
+
+                string studentID = row["ID"].ToString();
+                string studentName = row["Name"].ToString();
+                string department = row["depdes"].ToString();
+                string section = row["secdes"].ToString();
+
+                if (row["pic"] is Image image)
+                {
+                    ptbProfilePic.Image = image; // Assuming ptbProfilePic is a PictureBox
+                }
+
+                DateTime dateTime = DateTime.Now;
+                string time = dateTime.ToString("h:mm tt");
+                string date = dateTime.ToString("dddd, MMMM d, yyyy");
+
+                // Assuming you have labels named lblStudentID, lblStudentName, lblDepartment, lblSection, lblDate, and lblTime
+                lblID.Text = studentID;
+                lblName.Text = studentName;
+                lblDepartment.Text = department;
+                lblSection.Text = section;
+                lblAttDate.Text = date;
+                lblAttTime.Text = time;
+            }
+        }
+
         public void displayAttendanceRecord()
         {
             dgvAttendance.Rows.Clear();
             DateTime dateTimeNow = DateTime.Now;
+            string formattedDate = dateTimeNow.ToString("M/d/yyyy");
             string period = dateTimeNow.Hour < 12 ? "AM" : "PM";
-            DataTable attendance = sQLite_Connection.GetAttendanceRecord(event_code, period, attendance_stat);
+            DataTable attendance = sQLite_Connection.GetAttendanceRecord(event_code, period, attendance_stat, formattedDate);
 
             foreach (DataRow row in attendance.Rows)
             {
