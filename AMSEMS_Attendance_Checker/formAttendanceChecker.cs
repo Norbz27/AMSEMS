@@ -113,8 +113,9 @@ namespace AMSEMS_Attendance_Checker
             string period = dateTimeNow.Hour < 12 ? "AM" : "PM";
             DataTable attendance = sQLite_Connection.GetAttendanceRecord(event_code, period, attendance_stat, formattedDate);
 
-            if (attendance.Rows.Count > 1)
+            if (attendance.Rows.Count != 0)
             {
+                int displayedCount = 0;
                 for (int i = attendance.Rows.Count - 1; i >= 1; i--)
                 {
                     DataRow row = attendance.Rows[i];
@@ -126,9 +127,10 @@ namespace AMSEMS_Attendance_Checker
                         pic = image; // Assuming ptbProfilePic is a PictureBox
                     }
                     doneAttendanceApperance(studentName, pic);
+
+                    displayedCount++;
                 }
             }
-
 
             foreach (DataRow row in attendance.Rows)
             {
@@ -316,7 +318,7 @@ namespace AMSEMS_Attendance_Checker
             pnAttDone.Dock = System.Windows.Forms.DockStyle.Left;
             pnAttDone.Location = new System.Drawing.Point(0, 0);
             pnAttDone.Name = "pnAttDone";
-            pnAttDone.Size = new System.Drawing.Size(351, 312);
+            pnAttDone.Size = new System.Drawing.Size(300, 312);
             pnAttDone.TabIndex = 0;
 
             label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));

@@ -8,7 +8,7 @@ namespace AMSEMS
     internal class RoundPictureBoxRect : PictureBox
     {
         private int borderWidth = 2;
-        private Pen borderPen = new Pen(Color.White); // Change the color as needed
+        private Pen borderPen = new Pen(Color.Transparent); // Change the color as needed
         private int cornerRadius = 10;
 
         public int BorderWidth

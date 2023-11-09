@@ -292,7 +292,7 @@
             // 
             // ptLoading
             // 
-            this.ptLoading.BorderWidth = 2;
+            this.ptLoading.BorderWidth = 0;
             this.ptLoading.CornerRadius = 10;
             this.ptLoading.Image = global::AMSEMS_Attendance_Checker.Properties.Resources.Pulse_1s_200px;
             this.ptLoading.Location = new System.Drawing.Point(107, 184);
