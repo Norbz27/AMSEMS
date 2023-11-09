@@ -104,18 +104,45 @@ namespace AMSEMS_Attendance_Checker
 
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    string clearSql = @"DELETE FROM tbl_teachers_account;
-                                        DELETE FROM tbl_students_account;
+                    string clearSql = @"DELETE FROM tbl_students_account;
                                         DELETE FROM tbl_events;
                                         DELETE FROM tbl_departments;
                                         DELETE FROM tbl_program;
                                         DELETE FROM tbl_section;
-                                        DELETE FROM tbl_year_level;
-                                        DELETE FROM tbl_attendance;";
+                                        DELETE FROM tbl_year_level;";
                     command.CommandText = clearSql;
                     command.ExecuteNonQuery();
                 }
+                connection.Close();
+            }
+        }
+        public void ClearAttendaceData()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
 
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    string clearSql = @"DELETE FROM tbl_attendance;";
+                    command.CommandText = clearSql;
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        public void ClearTeachersData()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    string clearSql = @"DELETE FROM tbl_teachers_account;";
+                    command.CommandText = clearSql;
+                    command.ExecuteNonQuery();
+                }
                 connection.Close();
             }
         }
@@ -311,7 +338,7 @@ namespace AMSEMS_Attendance_Checker
             {
                 connection.Open();
 
-                string query = "SELECT Profile_pic, ID, RFID, Firstname, Lastname, Middlename, dep.Description AS depdes FROM tbl_students_account as stud LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID WHERE Status = 1 ORDER BY depdes";
+                string query = "SELECT Profile_pic, ID, RFID, UPPER(Firstname) AS Firstname, UPPER(Lastname) AS Lastname, UPPER(Middlename) AS Middlename, dep.Description AS depdes FROM tbl_students_account as stud LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID WHERE Status = 1 ORDER BY depdes";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
@@ -382,7 +409,7 @@ namespace AMSEMS_Attendance_Checker
                             AM_IN AS record,
                             sec.Description AS secdes, 
                             dep.Description AS depdes, 
-                            stud.Firstname || ' ' || stud.Middlename || ' ' || stud.Lastname AS Name
+                            UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
                         FROM 
                             tbl_attendance AS att
                         LEFT JOIN 
@@ -405,7 +432,7 @@ namespace AMSEMS_Attendance_Checker
                             AM_OUT AS record,
                             sec.Description AS secdes, 
                             dep.Description AS depdes, 
-                            stud.Firstname || ' ' || stud.Middlename || ' ' || stud.Lastname AS Name
+                            UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
                         FROM 
                             tbl_attendance AS att
                         LEFT JOIN 
@@ -431,7 +458,7 @@ namespace AMSEMS_Attendance_Checker
                             PM_IN AS record,
                             sec.Description AS secdes, 
                             dep.Description AS depdes, 
-                            stud.Firstname || ' ' || stud.Middlename || ' ' || stud.Lastname AS Name
+                            UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
                         FROM 
                             tbl_attendance AS att
                         LEFT JOIN 
@@ -454,7 +481,7 @@ namespace AMSEMS_Attendance_Checker
                             PM_OUT AS record,
                             sec.Description AS secdes, 
                             dep.Description AS depdes, 
-                            stud.Firstname || ' ' || stud.Middlename || ' ' || stud.Lastname AS Name
+                            UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
                         FROM 
                             tbl_attendance AS att
                         LEFT JOIN 
@@ -675,12 +702,13 @@ namespace AMSEMS_Attendance_Checker
         public DataTable GetStudentByRFID(string rfid)
         {
             DataTable studentInfoTable = new DataTable();
+            studentInfoTable.Rows.Clear();
             string query = @"SELECT
                             stud.Profile_Pic as pic,
                             ID,
                             sec.Description AS secdes, 
                             dep.Description AS depdes, 
-                            stud.Firstname || ' ' || stud.Middlename || ' ' || stud.Lastname AS Name
+                            UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
                         FROM 
                             tbl_attendance AS att
                         LEFT JOIN 
@@ -708,6 +736,7 @@ namespace AMSEMS_Attendance_Checker
             
 
             DataTable newDataTable = new DataTable();
+            newDataTable.Rows.Clear();
             newDataTable.Columns.Add("ID", typeof(string));
             newDataTable.Columns.Add("Name", typeof(string));
             newDataTable.Columns.Add("secdes", typeof(string));

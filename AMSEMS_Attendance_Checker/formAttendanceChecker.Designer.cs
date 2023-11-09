@@ -89,8 +89,8 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
             this.ptbProfilePic = new AMSEMS.RoundPictureBoxRect();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.pnStudentsList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -393,6 +393,7 @@
             this.tbAttendance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.tbAttendance.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbAttendance.Cursor = System.Windows.Forms.Cursors.Default;
+            this.tbAttendance.Enabled = false;
             this.tbAttendance.Font = new System.Drawing.Font("Poppins", 0.5F);
             this.tbAttendance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.tbAttendance.Location = new System.Drawing.Point(274, 76);
@@ -473,14 +474,13 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.label1.Font = new System.Drawing.Font("The Chieldren PERSONAL USE ONLY", 21.75F);
+            this.label1.Font = new System.Drawing.Font("The Chieldren PERSONAL USE ONLY", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.label1.Location = new System.Drawing.Point(92, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 44);
+            this.label1.Size = new System.Drawing.Size(103, 37);
             this.label1.TabIndex = 5;
             this.label1.Text = "AMSEMS";
-            this.label1.UseCompatibleTextRendering = true;
             // 
             // pictureBox1
             // 
@@ -797,6 +797,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(379, 89);
             this.panel6.Name = "panel6";
+            this.panel6.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.panel6.Size = new System.Drawing.Size(891, 312);
             this.panel6.TabIndex = 8;
             // 
@@ -859,7 +860,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(1270, 672);
             this.splitContainer1.SplitterDistance = 854;
             this.splitContainer1.TabIndex = 0;
-            this.splitContainer1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.formAttendanceChecker_KeyPress);
             // 
             // panel4
             // 
@@ -872,27 +872,29 @@
             this.panel4.Size = new System.Drawing.Size(362, 312);
             this.panel4.TabIndex = 6;
             // 
+            // ptbProfilePic
+            // 
+            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbProfilePic.BorderWidth = 2;
+            this.ptbProfilePic.CornerRadius = 10;
+            this.ptbProfilePic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbProfilePic.Image = global::AMSEMS_Attendance_Checker.Properties.Resources.Pulse_1s_200px__1_;
+            this.ptbProfilePic.InitialImage = global::AMSEMS_Attendance_Checker.Properties.Resources.Pulse_1s_200px__1_;
+            this.ptbProfilePic.Location = new System.Drawing.Point(12, 0);
+            this.ptbProfilePic.Name = "ptbProfilePic";
+            this.ptbProfilePic.Size = new System.Drawing.Size(350, 312);
+            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProfilePic.TabIndex = 9;
+            this.ptbProfilePic.TabStop = false;
+            // 
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.panel7.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel7.Location = new System.Drawing.Point(0, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(11, 312);
+            this.panel7.Size = new System.Drawing.Size(12, 312);
             this.panel7.TabIndex = 8;
-            // 
-            // ptbProfilePic
-            // 
-            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbProfilePic.BorderWidth = 2;
-            this.ptbProfilePic.CornerRadius = 20;
-            this.ptbProfilePic.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptbProfilePic.Location = new System.Drawing.Point(11, 0);
-            this.ptbProfilePic.Name = "ptbProfilePic";
-            this.ptbProfilePic.Size = new System.Drawing.Size(351, 312);
-            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProfilePic.TabIndex = 9;
-            this.ptbProfilePic.TabStop = false;
             // 
             // formAttendanceChecker
             // 
@@ -912,7 +914,6 @@
             this.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.formAttendanceChecker_FormClosed);
             this.Load += new System.EventHandler(this.formAttendanceChecker_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.formAttendanceChecker_KeyPress);
             this.pnStudentsList.ResumeLayout(false);
             this.pnStudentsList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).EndInit();

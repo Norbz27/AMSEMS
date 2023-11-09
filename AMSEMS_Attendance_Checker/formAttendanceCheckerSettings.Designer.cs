@@ -39,7 +39,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.tbEventCode = new System.Windows.Forms.TextBox();
-            this.rjToggleButton1 = new AMSEMS.RJToggleButton();
+            this.tgbtnEnable_Att = new AMSEMS.RJToggleButton();
             this.SuspendLayout();
             // 
             // kryptonPalette1
@@ -217,20 +217,22 @@
             this.tbEventCode.Size = new System.Drawing.Size(252, 25);
             this.tbEventCode.TabIndex = 3;
             this.tbEventCode.TextChanged += new System.EventHandler(this.tbEventCode_TextChanged);
+            this.tbEventCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbEventCode_KeyDown);
             // 
-            // rjToggleButton1
+            // tgbtnEnable_Att
             // 
-            this.rjToggleButton1.AutoSize = true;
-            this.rjToggleButton1.Location = new System.Drawing.Point(318, 40);
-            this.rjToggleButton1.MinimumSize = new System.Drawing.Size(45, 22);
-            this.rjToggleButton1.Name = "rjToggleButton1";
-            this.rjToggleButton1.OffBackColor = System.Drawing.Color.Gray;
-            this.rjToggleButton1.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.rjToggleButton1.OnBackColor = System.Drawing.Color.Green;
-            this.rjToggleButton1.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.rjToggleButton1.Size = new System.Drawing.Size(45, 22);
-            this.rjToggleButton1.TabIndex = 136;
-            this.rjToggleButton1.UseVisualStyleBackColor = true;
+            this.tgbtnEnable_Att.AutoSize = true;
+            this.tgbtnEnable_Att.Location = new System.Drawing.Point(318, 40);
+            this.tgbtnEnable_Att.MinimumSize = new System.Drawing.Size(45, 22);
+            this.tgbtnEnable_Att.Name = "tgbtnEnable_Att";
+            this.tgbtnEnable_Att.OffBackColor = System.Drawing.Color.Gray;
+            this.tgbtnEnable_Att.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tgbtnEnable_Att.OnBackColor = System.Drawing.Color.Green;
+            this.tgbtnEnable_Att.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tgbtnEnable_Att.Size = new System.Drawing.Size(45, 22);
+            this.tgbtnEnable_Att.TabIndex = 136;
+            this.tgbtnEnable_Att.UseVisualStyleBackColor = true;
+            this.tgbtnEnable_Att.CheckedChanged += new System.EventHandler(this.tgbtnEnable_Att_CheckedChanged);
             // 
             // formAttendanceCheckerSettings
             // 
@@ -247,7 +249,7 @@
             this.Controls.Add(this.kryptonLabel3);
             this.Controls.Add(this.kryptonWrapLabel1);
             this.Controls.Add(this.kryptonLabel2);
-            this.Controls.Add(this.rjToggleButton1);
+            this.Controls.Add(this.tgbtnEnable_Att);
             this.Controls.Add(this.kryptonLabel10);
             this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -273,7 +275,7 @@
 
         private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel10;
-        private AMSEMS.RJToggleButton rjToggleButton1;
+        private AMSEMS.RJToggleButton tgbtnEnable_Att;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private ComponentFactory.Krypton.Toolkit.KryptonWrapLabel kryptonWrapLabel1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;

@@ -18,6 +18,7 @@ namespace AMSEMS_Attendance_Checker
         SQLite_Connection sQLite_Connection;
         string event_code = null;
         string teach_id;
+        private bool showMessageOnToggle = false;
         public formAttendanceCheckerSettings()
         {
             InitializeComponent();
@@ -56,20 +57,6 @@ namespace AMSEMS_Attendance_Checker
                     formAttendanceChecker.Show();
                 }
                 
-            }
-        }
-
-        private void tbEventCode_TextChanged(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(tbEventCode.Text))
-            {
-                btnSave.Visible = true;
-                btnCancel.Visible = true;
-            }
-            else
-            {
-                btnSave.Visible = false;
-                btnCancel.Visible = false;
             }
         }
 
@@ -123,6 +110,65 @@ namespace AMSEMS_Attendance_Checker
         private void cbAttendanceStat_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void tgbtnEnable_Att_CheckedChanged(object sender, EventArgs e)
+        {
+            bool accountDisable = tgbtnEnable_Att.Checked;
+
+            if (accountDisable)
+            {
+                DialogResult result = MessageBox.Show("Are you sure you want to change the status?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Update the "Attendance" feature's enabled state in the OtherForm
+                    formAttendanceChecker.SetAttendanceEnabled(true);
+                }
+                else
+                {
+                    formAttendanceChecker.SetAttendanceEnabled(false);
+                }
+
+            }
+            else
+            {
+                formAttendanceChecker.SetAttendanceEnabled(false);
+            }
+        }
+
+        private void tbEventCode_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                string code = tbEventCode.Text;
+
+                // Check if the event code is valid
+                if (!string.IsNullOrWhiteSpace(code))
+                {
+                    string event_name = sQLite_Connection.GetEvent(code);
+
+                    if (!string.IsNullOrEmpty(event_name))
+                    {
+                        formAttendanceChecker.getAttendanceSettings(cbAttendanceStat.Text, tbEventCode.Text);
+                        formAttendanceChecker.setEvent(event_name);
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid event code. Please enter a valid event code.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please enter an event code.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void tbEventCode_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

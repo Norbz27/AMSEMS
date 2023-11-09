@@ -41,6 +41,10 @@ namespace AMSEMS_Attendance_Checker
             attendance_stat = att;
             event_code = code;
         }
+        public void SetAttendanceEnabled(bool enabled)
+        {
+            tbAttendance.Enabled = enabled;
+        }
         private void FormAttendanceChecker_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Check if the RFID reader input is received
@@ -49,10 +53,13 @@ namespace AMSEMS_Attendance_Checker
                 scannedRFIDData = tbAttendance.Text; // Store the RFID input in the variable
                 e.Handled = true; // Prevent the Enter key from being added to tbSearch
 
-                // Process the RFID input as needed (you can call a separate function here)
-                ProcessScannedData(scannedRFIDData);
-                displayAttendanceRecord();
-                displayStudentInfo();
+                if(tbAttendance.Enabled == true)
+                {
+                    // Process the RFID input as needed (you can call a separate function here)
+                    ProcessScannedData(scannedRFIDData);
+                    displayAttendanceRecord();
+                    displayStudentInfo();
+                }
             }
         }
         public void displayStudentInfo()
@@ -87,23 +94,6 @@ namespace AMSEMS_Attendance_Checker
             }
         }
 
-        //public void displayDoneStudentPic()
-        //{
-        //    DataTable attendance = sQLite_Connection.GetAttendanceRecord(scannedRFIDData);
-        //    Image pic = null;
-        //    foreach (DataRow row in attendance.Rows)
-        //    {
-        //        string studentID = row["ID"].ToString();
-        //        string studentName = row["Name"].ToString();
-
-        //        if (row["pic"] is Image image)
-        //        {
-        //            pic = image; // Assuming ptbProfilePic is a PictureBox
-        //        }
-        //        doneAttendanceApperance(studentName, pic);
-        //    }
-        //}
-
         public void displayAttendanceRecord()
         {
             dgvAttendance.Rows.Clear();
@@ -124,13 +114,14 @@ namespace AMSEMS_Attendance_Checker
 
                     if (row["pic"] is Image image)
                     {
-                        pic = image; // Assuming ptbProfilePic is a PictureBox
+                        pic = image;
                     }
-                    doneAttendanceApperance(studentName, pic);
 
+                    doneAttendanceApperance(studentName, pic);
                     displayedCount++;
                 }
             }
+
 
             foreach (DataRow row in attendance.Rows)
             {
@@ -237,6 +228,7 @@ namespace AMSEMS_Attendance_Checker
         {
             formAttendanceCheckerSettings2 formAttendanceCheckerSettings = new formAttendanceCheckerSettings2();
             formAttendanceCheckerSettings.getSetting(event_code, attendance_stat);
+            formAttendanceCheckerSettings.getAttendanceStatus(tbAttendance.Enabled);
             formAttendanceCheckerSettings.getForm(this);
             formAttendanceCheckerSettings.ShowDialog();
             tbAttendance.Focus();
@@ -290,18 +282,6 @@ namespace AMSEMS_Attendance_Checker
                 row.Visible = rowVisible;
             }
         }
-
-        private void formAttendanceChecker_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Check if the RFID reader input is received
-            if (e.KeyChar == '\r') // Assuming the RFID input is terminated with Enter key
-            {
-                string rfidInput = tbSearch.Text; // Retrieve the RFID input from tbSearch
-                                                    // Process the RFID input as needed
-                e.Handled = true; // Prevent the Enter key from being added to tbSearch
-            }
-        }
-
         private void dataGridView1_Click(object sender, EventArgs e)
         {
             tbAttendance.Focus();

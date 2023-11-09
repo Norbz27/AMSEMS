@@ -152,10 +152,9 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.label1.Location = new System.Drawing.Point(136, 62);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 44);
+            this.label1.Size = new System.Drawing.Size(103, 37);
             this.label1.TabIndex = 0;
             this.label1.Text = "AMSEMS";
-            this.label1.UseCompatibleTextRendering = true;
             // 
             // label2
             // 
