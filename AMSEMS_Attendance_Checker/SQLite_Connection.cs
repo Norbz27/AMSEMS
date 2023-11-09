@@ -377,6 +377,7 @@ namespace AMSEMS_Attendance_Checker
                     if (status.Equals("IN"))
                     {
                         query = @"SELECT 
+                            stud.Profile_Pic as pic,
                             ID,
                             AM_IN AS record,
                             sec.Description AS secdes, 
@@ -394,11 +395,12 @@ namespace AMSEMS_Attendance_Checker
                             Event_ID = @eventID
                             AND stud.Status = 1 AND AM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
-                            AM_IN";
+                            record DESC";
                     }
                     else if (status.Equals("OUT"))
                     {
                         query = @"SELECT 
+                            stud.Profile_Pic as pic,
                             ID,
                             AM_OUT AS record,
                             sec.Description AS secdes, 
@@ -416,7 +418,7 @@ namespace AMSEMS_Attendance_Checker
                             Event_ID = @eventID
                             AND stud.Status = 1 AND AM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
-                            AM_OUT";
+                            record DESC";
                     }
                 }
                 else if (period.Equals("PM"))
@@ -424,6 +426,7 @@ namespace AMSEMS_Attendance_Checker
                     if (status.Equals("IN"))
                     {
                         query = @"SELECT 
+                            stud.Profile_Pic as pic,
                             ID,
                             PM_IN AS record,
                             sec.Description AS secdes, 
@@ -441,11 +444,12 @@ namespace AMSEMS_Attendance_Checker
                             Event_ID = @eventID
                             AND stud.Status = 1 AND PM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
-                            PM_IN";
+                            record DESC";
                     }
                     else if (status.Equals("OUT"))
                     {
                         query = @"SELECT 
+                            stud.Profile_Pic as pic,
                             ID,
                             PM_OUT AS record,
                             sec.Description AS secdes, 
@@ -463,7 +467,7 @@ namespace AMSEMS_Attendance_Checker
                             Event_ID = @eventID
                             AND stud.Status = 1 AND PM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
-                            PM_OUT";
+                            record DESC";
                     }
                 }
                 
@@ -481,6 +485,7 @@ namespace AMSEMS_Attendance_Checker
 
             // Create a new DataTable with the desired columns
             DataTable newDataTable = new DataTable();
+            newDataTable.Columns.Add("pic", typeof(Image));
             newDataTable.Columns.Add("ID", typeof(string));
             newDataTable.Columns.Add("Name", typeof(string));
             newDataTable.Columns.Add("secdes", typeof(string));
@@ -495,7 +500,20 @@ namespace AMSEMS_Attendance_Checker
                 string time = dateTime.ToString("h:mm tt");
                 string date = dateTime.ToString("M-d-yyyy");
 
-                newDataTable.Rows.Add(row["ID"], row["Name"], row["secdes"], row["depdes"], date, time);
+                object imageData = row["pic"];
+                byte[] imageBytes = (byte[])imageData;
+                if (imageBytes.Length > 0)
+                {
+                    using (MemoryStream ms = new MemoryStream(imageBytes))
+                    {
+                        Image image = Image.FromStream(ms);
+                        newDataTable.Rows.Add(image, row["ID"], row["Name"], row["secdes"], row["depdes"], date, time);
+                    }
+                }
+                else
+                {
+                    newDataTable.Rows.Add(null, row["ID"], row["Name"], row["secdes"], row["depdes"], date, time);
+                }
             }
 
             return newDataTable;

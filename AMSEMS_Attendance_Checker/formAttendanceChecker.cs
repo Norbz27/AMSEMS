@@ -87,19 +87,54 @@ namespace AMSEMS_Attendance_Checker
             }
         }
 
+        //public void displayDoneStudentPic()
+        //{
+        //    DataTable attendance = sQLite_Connection.GetAttendanceRecord(scannedRFIDData);
+        //    Image pic = null;
+        //    foreach (DataRow row in attendance.Rows)
+        //    {
+        //        string studentID = row["ID"].ToString();
+        //        string studentName = row["Name"].ToString();
+
+        //        if (row["pic"] is Image image)
+        //        {
+        //            pic = image; // Assuming ptbProfilePic is a PictureBox
+        //        }
+        //        doneAttendanceApperance(studentName, pic);
+        //    }
+        //}
+
         public void displayAttendanceRecord()
         {
             dgvAttendance.Rows.Clear();
+            panel6.Controls.Clear();
             DateTime dateTimeNow = DateTime.Now;
             string formattedDate = dateTimeNow.ToString("M/d/yyyy");
             string period = dateTimeNow.Hour < 12 ? "AM" : "PM";
             DataTable attendance = sQLite_Connection.GetAttendanceRecord(event_code, period, attendance_stat, formattedDate);
 
+            if (attendance.Rows.Count > 1)
+            {
+                for (int i = attendance.Rows.Count - 1; i >= 1; i--)
+                {
+                    DataRow row = attendance.Rows[i];
+                    Image pic = null;
+                    string studentName = row["Name"].ToString();
+
+                    if (row["pic"] is Image image)
+                    {
+                        pic = image; // Assuming ptbProfilePic is a PictureBox
+                    }
+                    doneAttendanceApperance(studentName, pic);
+                }
+            }
+
+
             foreach (DataRow row in attendance.Rows)
             {
                 // Create a new DataGridViewRow
                 DataGridViewRow newRow = new DataGridViewRow();
-
+                
                 // Add cells to the row, including the "Profile_pic" cell
                 newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["ID"]});
                 newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Name"]});
@@ -268,6 +303,45 @@ namespace AMSEMS_Attendance_Checker
         private void dataGridView1_Click(object sender, EventArgs e)
         {
             tbAttendance.Focus();
+        }
+
+        public void doneAttendanceApperance(string name, Image image)
+        {
+            Panel pnAttDone = new Panel();
+            Label label3 = new Label();
+            PictureBox pictureBox4 = new PictureBox();
+
+            pnAttDone.Controls.Add(label3);
+            pnAttDone.Controls.Add(pictureBox4);
+            pnAttDone.Dock = System.Windows.Forms.DockStyle.Left;
+            pnAttDone.Location = new System.Drawing.Point(0, 0);
+            pnAttDone.Name = "pnAttDone";
+            pnAttDone.Size = new System.Drawing.Size(351, 312);
+            pnAttDone.TabIndex = 0;
+
+            label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            label3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            label3.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label3.ForeColor = System.Drawing.Color.White;
+            label3.Location = new System.Drawing.Point(0, 280);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(351, 32);
+            label3.TabIndex = 11;
+            label3.Text = name;
+            label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+            pictureBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            pictureBox4.Image = image;
+            pictureBox4.Location = new System.Drawing.Point(0, 0);
+            pictureBox4.Name = "pictureBox4";
+            pictureBox4.Size = new System.Drawing.Size(351, 312);
+            pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            pictureBox4.TabIndex = 10;
+            pictureBox4.TabStop = false;
+
+            panel6.Controls.Add(pnAttDone);
         }
     }
 }
