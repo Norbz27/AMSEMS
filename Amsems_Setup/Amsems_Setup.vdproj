@@ -6860,7 +6860,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Amsems_Setup"
         "ProductCode" = "8:{5F7BDE5F-6C4B-4836-B6F1-96A8DC7C3FF3}"
-        "PackageCode" = "8:{2971663F-F69F-4432-93CE-6D7F5FA41778}"
+        "PackageCode" = "8:{AA3E27C4-9F10-49FC-A25A-255B462EA22E}"
         "UpgradeCode" = "8:{AE62E803-4287-4A39-811D-29ECF1594153}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

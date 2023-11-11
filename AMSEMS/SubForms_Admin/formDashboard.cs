@@ -1,13 +1,6 @@
-﻿using ComponentFactory.Krypton.Toolkit;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_Admin
@@ -326,7 +319,7 @@ namespace AMSEMS.SubForms_Admin
         private void btnAddStud_Click(object sender, EventArgs e)
         {
             SubForms_Admin.formStudentForm formStudentForm = new formStudentForm();
-            formStudentForm.setData2(5,"Submit",this, true);
+            formStudentForm.setData2(5, "Submit", this, true);
             formStudentForm.ShowDialog();
         }
 

@@ -1,16 +1,12 @@
-﻿using iTextSharp.text.pdf;
-using iTextSharp.text;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -541,7 +537,7 @@ namespace AMSEMS.SubForms_Admin
 
                     // Get the student ID or relevant data from the row
                     int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
-                                                                            // Ask for confirmation from the user
+                                                                     // Ask for confirmation from the user
                     DialogResult result = MessageBox.Show($"Delete account with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {

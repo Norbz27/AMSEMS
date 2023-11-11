@@ -1,16 +1,10 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using Microsoft.Office.Interop.Excel;
-using OfficeOpenXml;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_Admin
@@ -134,7 +128,7 @@ namespace AMSEMS.SubForms_Admin
                         MessageBox.Show("Subject " + subjects + " is Active!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     cn.Close();
-                    
+
                 }
             }
             MessageBox.Show("Successfully Imported Data", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);

@@ -1,15 +1,11 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_Admin
@@ -35,7 +31,7 @@ namespace AMSEMS.SubForms_Admin
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
-            
+
         }
         public void setData(int roleID, String choice, formAccounts_Students form)
         {
@@ -275,7 +271,7 @@ namespace AMSEMS.SubForms_Admin
                             cm.ExecuteNonQuery();
                             cn.Close();
                             MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                  
+
                             ds.Tables[0].Rows.Clear();
                             clearTexts();
                         }
@@ -289,7 +285,7 @@ namespace AMSEMS.SubForms_Admin
                     form2.displayAccounts();
                     form2.displayChart();
                 }
-                
+
             }
         }
         public void clearTexts()
@@ -375,7 +371,7 @@ namespace AMSEMS.SubForms_Admin
                 form1.displayFilter();
                 form1.loadCMSControls();
             }
-            
+
         }
     }
 }

@@ -1,16 +1,10 @@
 ﻿using AMSEMS;
 using ComponentFactory.Krypton.Toolkit;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.SQLite;
-using System.Drawing;
-using System.Linq;
 using System.Net.NetworkInformation;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -29,12 +23,12 @@ namespace AMSEMS_Attendance_Checker
         SqlDataReader dr;
         private BackgroundWorker backgroundWorker;
 
-        formAttendanceChecker formAttendanceChecker; 
+        formAttendanceChecker formAttendanceChecker;
         bool isFormAttendanceCheckerShown = false;
         public formAttendanceCheckerSettings2()
         {
             InitializeComponent();
-            sQLite_Connection = new SQLite_Connection("db_AMSEMS_CHECKER.db");
+            sQLite_Connection = new SQLite_Connection();
             cnn = new SqlConnection(SQL_Connection.connection);
 
             backgroundWorker = new BackgroundWorker();

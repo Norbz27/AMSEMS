@@ -1,13 +1,5 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SQLite;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS_Attendance_Checker
@@ -23,7 +15,7 @@ namespace AMSEMS_Attendance_Checker
         {
             InitializeComponent();
             formAttendanceChecker = new formAttendanceChecker();
-            sQLite_Connection = new SQLite_Connection("db_AMSEMS_CHECKER.db");
+            sQLite_Connection = new SQLite_Connection();
         }
         public void getTeachID(string id)
         {
@@ -56,7 +48,7 @@ namespace AMSEMS_Attendance_Checker
                     formAttendanceChecker.getTeachID(teach_id);
                     formAttendanceChecker.Show();
                 }
-                
+
             }
         }
 
@@ -129,7 +121,7 @@ namespace AMSEMS_Attendance_Checker
 
         private void tbEventCode_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 string code = tbEventCode.Text;
 

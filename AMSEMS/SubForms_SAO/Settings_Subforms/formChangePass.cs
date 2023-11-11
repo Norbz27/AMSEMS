@@ -1,14 +1,7 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
-using iTextSharp.text.pdf;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_SAO
@@ -45,7 +38,7 @@ namespace AMSEMS.SubForms_SAO
                 lblNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
                 lblNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
             }
-            else if(tbNewPass.Text.Length < 6)
+            else if (tbNewPass.Text.Length < 6)
             {
                 lblConNewPass.Text = "Confirm New Password";
                 lblConNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;

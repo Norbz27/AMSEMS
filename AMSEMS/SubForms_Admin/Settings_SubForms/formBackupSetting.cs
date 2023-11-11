@@ -1,11 +1,8 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
 using System.ComponentModel;
-using System.Data.Entity;
 using System.Data.SqlClient;
-using System.IO;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AMSEMS.SubForms_Admin
 {
@@ -26,7 +23,7 @@ namespace AMSEMS.SubForms_Admin
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
             progressBar.Visible = false;
         }
-        
+
         private void formAcademicYearSetting_Load(object sender, EventArgs e)
         {
 

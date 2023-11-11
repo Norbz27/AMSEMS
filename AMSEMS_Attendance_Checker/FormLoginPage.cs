@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AMSEMS;
+using ComponentFactory.Krypton.Toolkit;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AMSEMS;
-using ComponentFactory.Krypton.Toolkit;
-using System.Net.NetworkInformation;
 
 namespace AMSEMS_Attendance_Checker
 {
@@ -25,9 +22,16 @@ namespace AMSEMS_Attendance_Checker
         public FormLoginPage()
         {
             InitializeComponent();
-            sQLite_Connection = new SQLite_Connection("db_AMSEMS_CHECKER.db");
-            sQLite_Connection.InitializeDatabase();
-            cnn = new SqlConnection(SQL_Connection.connection);
+            try
+            {
+                sQLite_Connection = new SQLite_Connection();
+                sQLite_Connection.InitializeDatabase();
+                cnn = new SqlConnection(SQL_Connection.connection);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             backgroundWorker = new BackgroundWorker();
             backgroundWorker.DoWork += new DoWorkEventHandler(BackgroundWorker_DoWork);
@@ -49,7 +53,7 @@ namespace AMSEMS_Attendance_Checker
 
         private void tbID_Enter(object sender, EventArgs e)
         {
-            if(tbID.Text == "School ID")
+            if (tbID.Text == "School ID")
             {
                 tbID.Text = string.Empty;
                 tbID.StateCommon.Content.Color1 = Color.DimGray;
@@ -92,7 +96,7 @@ namespace AMSEMS_Attendance_Checker
                 tbPass.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 10F);
                 tbPass.StateCommon.Border.Color1 = Color.Gray;
                 tbPass.StateCommon.Border.Color2 = Color.Gray;
-            }      
+            }
         }
 
         private async void btnLogin_Click(object sender, EventArgs e)
@@ -119,7 +123,7 @@ namespace AMSEMS_Attendance_Checker
 
         private async void btnLogin_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 if (isLoggingIn) return; // If already logging in, exit
 
@@ -249,12 +253,12 @@ namespace AMSEMS_Attendance_Checker
                             await Task.Delay(3000);
                             MessageBox.Show("Successfully Sync Data.", "Sync Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                }
+                    }
                     catch (Exception ex)
                     {
-                    MessageBox.Show(ex.Message);
+                        MessageBox.Show(ex.Message);
+                    }
                 }
-            }
                 else
                 {
                     MessageBox.Show("No internet connection available. Please check your network connection.");
@@ -277,7 +281,7 @@ namespace AMSEMS_Attendance_Checker
             }
             catch
             {
-                return false; 
+                return false;
             }
         }
     }

@@ -1,17 +1,14 @@
-﻿using iTextSharp.text.pdf;
-using iTextSharp.text;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace AMSEMS.SubForms_Admin
@@ -184,7 +181,7 @@ namespace AMSEMS.SubForms_Admin
                         cbDep.Items.Add(dr["Description"].ToString());
                     }
                     dr.Close();
-                    
+
                     cm = new SqlCommand("Select Academic_Sem from tbl_acad where Acad_ID = 1", cn);
                     dr = cm.ExecuteReader();
                     dr.Read();
@@ -486,7 +483,7 @@ namespace AMSEMS.SubForms_Admin
 
         private async void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UseWaitCursor = true;
+            fUseWaitCursor = true;
             ComboBox comboBox = (ComboBox)sender;
             string filtertbl = string.Empty;
 
@@ -686,8 +683,10 @@ namespace AMSEMS.SubForms_Admin
 
             cbProgram.Text = String.Empty;
             cbSection.Text = String.Empty;
+            cbDep.Text = String.Empty;
             cbYearlvl.Text = String.Empty;
             tbSearch.Text = String.Empty;
+
             btnAll.Focus();
         }
 
@@ -1030,7 +1029,7 @@ namespace AMSEMS.SubForms_Admin
                 try
                 {
                     cn.Open();
-                    string updateQuery = "UPDATE tbl_student_accounts SET "+ column +" = @ItemID WHERE ID = @ID";
+                    string updateQuery = "UPDATE tbl_student_accounts SET " + column + " = @ItemID WHERE ID = @ID";
 
                     using (SqlCommand command = new SqlCommand(updateQuery, cn))
                     {
@@ -1080,17 +1079,17 @@ namespace AMSEMS.SubForms_Admin
             {
                 CMSDepartment.Items.RemoveAt(i);
             }
-            
+
             for (int i = itemCount2 - 1; i > 0; i--)
             {
                 CMSProgram.Items.RemoveAt(i);
             }
-            
+
             for (int i = itemCount3 - 1; i > 0; i--)
             {
                 CMSLevel.Items.RemoveAt(i);
             }
-            
+
             for (int i = itemCount4 - 1; i > 0; i--)
             {
                 CMSSection.Items.RemoveAt(i);

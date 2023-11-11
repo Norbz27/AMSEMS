@@ -1,13 +1,7 @@
-﻿using ComponentFactory.Krypton.Toolkit;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_SAO
@@ -29,7 +23,7 @@ namespace AMSEMS.SubForms_SAO
         }
         private void UserControlDays_Calendar_Load(object sender, EventArgs e)
         {
-            
+
         }
         public void refresh()
         {
@@ -117,7 +111,8 @@ namespace AMSEMS.SubForms_SAO
                         dr.Close();
                         cn.Close();
                     }
-                }catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }

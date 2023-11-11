@@ -1,17 +1,12 @@
 ﻿
 using ComponentFactory.Krypton.Toolkit;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 namespace AMSEMS.SubForms_SAO
 {
@@ -146,7 +141,7 @@ namespace AMSEMS.SubForms_SAO
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                using (cm = new SqlCommand("SELECT * FROM tbl_events WHERE Event_ID = "+eventid, cn))
+                using (cm = new SqlCommand("SELECT * FROM tbl_events WHERE Event_ID = " + eventid, cn))
                 using (dr = cm.ExecuteReader())
                 {
                     if (dr.Read())
@@ -304,7 +299,7 @@ namespace AMSEMS.SubForms_SAO
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-           if(isTrue == true)
+            if (isTrue == true)
             {
                 btnDone.Visible = true;
                 btnCancel.Visible = true;

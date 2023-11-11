@@ -1,15 +1,10 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_DeptHead
@@ -48,7 +43,7 @@ namespace AMSEMS.SubForms_DeptHead
             if (choice.Equals("Update"))
             {
                 tbCcode.Enabled = false;
-                
+
             }
             else
             {
@@ -90,7 +85,7 @@ namespace AMSEMS.SubForms_DeptHead
 
                         ad = new SqlDataAdapter(cm);
                         DataSet ds = new DataSet();
-                        ad.Fill(ds);    
+                        ad.Fill(ds);
 
                         byte[] picData = null;
 

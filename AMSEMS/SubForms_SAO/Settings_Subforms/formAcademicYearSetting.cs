@@ -1,7 +1,6 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
 using System.ComponentModel;
-using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 

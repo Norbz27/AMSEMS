@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ComponentFactory.Krypton.Toolkit;
+using System;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using ComponentFactory.Krypton.Toolkit;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-using AMSEMS.Properties;
 using System.Data.SqlClient;
-using AMSEMS.SubForm_Guidance;
+using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 
 namespace AMSEMS
 {
@@ -273,7 +264,7 @@ namespace AMSEMS
 
         public void OpenChildForm(Form childForm)
         {
-            if(activeForm != null)
+            if (activeForm != null)
             {
                 activeForm.Close();
             }
@@ -320,7 +311,7 @@ namespace AMSEMS
             SubForms_Admin.formAccounts_Teachers.setRole(6);
             this.kryptonSplitContainer1.Panel2Collapsed = true;
             OpenChildForm(new SubForms_Admin.formAccounts_Teachers());
-            
+
         }
 
         private void btnDeptHead_Click(object sender, EventArgs e)

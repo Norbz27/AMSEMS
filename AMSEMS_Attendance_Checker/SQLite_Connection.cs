@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SQLite;
-using System.Windows.Forms;
-using System.Xml.Linq;
-using System.IO;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AMSEMS_Attendance_Checker
 {
@@ -17,8 +13,9 @@ namespace AMSEMS_Attendance_Checker
     {
         private string connectionString;
 
-        public SQLite_Connection(string databasePath)
+        public SQLite_Connection()
         {
+            string databasePath = Path.Combine(Application.StartupPath, "db_AMSEMS_CHECKER.db");
             connectionString = $"Data Source={databasePath};Version=3;";
         }
 
@@ -511,7 +508,7 @@ namespace AMSEMS_Attendance_Checker
                             record DESC";
                     }
                 }
-                
+
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
@@ -613,7 +610,7 @@ namespace AMSEMS_Attendance_Checker
 
                 if (!string.IsNullOrEmpty(stud_id))
                 {
-                    
+
                     query = "SELECT Student_ID FROM tbl_attendance WHERE Student_ID = @id AND Event_ID = @event AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date";
 
                     using (SQLiteCommand command = new SQLiteCommand(query, connection))
@@ -747,7 +744,7 @@ namespace AMSEMS_Attendance_Checker
                     }
                 }
             }
-            
+
 
             DataTable newDataTable = new DataTable();
             newDataTable.Rows.Clear();
@@ -763,13 +760,13 @@ namespace AMSEMS_Attendance_Checker
                 byte[] imageBytes = (byte[])imageData;
                 if (imageBytes.Length > 0)
                 {
-                        using (MemoryStream ms = new MemoryStream(imageBytes))
-                        {
-                            Image image = Image.FromStream(ms);
-                            newDataTable.Rows.Add(row["ID"], row["Name"], row["secdes"], row["depdes"], image);
-                        }
+                    using (MemoryStream ms = new MemoryStream(imageBytes))
+                    {
+                        Image image = Image.FromStream(ms);
+                        newDataTable.Rows.Add(row["ID"], row["Name"], row["secdes"], row["depdes"], image);
+                    }
                 }
-                
+
             }
 
             return newDataTable;

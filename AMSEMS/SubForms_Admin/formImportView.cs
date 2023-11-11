@@ -1,16 +1,11 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using Microsoft.Office.Interop.Excel;
-using OfficeOpenXml;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_Admin
@@ -60,7 +55,7 @@ namespace AMSEMS.SubForms_Admin
         }
         public void reloadFormStud(formAccounts_Students form)
         {
-            this.form2= form;
+            this.form2 = form;
         }
         public void reloadFormDep(formAcctounts_DeptHead form)
         {
@@ -431,7 +426,7 @@ namespace AMSEMS.SubForms_Admin
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-                
+
 
         private void tbFilePath_TextChanged(object sender, EventArgs e)
         {
@@ -462,7 +457,7 @@ namespace AMSEMS.SubForms_Admin
             //        cmd.ExecuteNonQuery();
             //    }
             //}
-          
+
             string query = "SELECT Blob FROM tbl_blob_files WHERE ID = @ID"; // Replace with your actual query
 
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))

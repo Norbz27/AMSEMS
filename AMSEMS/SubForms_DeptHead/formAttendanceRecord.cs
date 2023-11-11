@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_DeptHead
@@ -144,7 +137,6 @@ namespace AMSEMS.SubForms_DeptHead
             }
         }
 
-
         private void formAttendanceRecord_Load(object sender, EventArgs e)
         {
             displayFilter();
@@ -187,5 +179,36 @@ namespace AMSEMS.SubForms_DeptHead
             }
         }
 
+        private void cbSection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyCBFilter(cbSection.Text);
+        }
+
+        private void cbYlevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyCBFilter(cbYlevel.Text);
+        }
+
+        private void ApplyCBFilter(string selectedIndex)
+        {
+            // Loop through each row in the DataGridView
+            foreach (DataGridViewRow row in dgvRecord.Rows)
+            {
+                bool rowVisible = false;
+
+                // Loop through each cell in the row
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString().IndexOf(selectedIndex, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        rowVisible = true;
+                        break; // No need to check other cells in the row
+                    }
+                }
+
+                // Show or hide the row based on search result
+                row.Visible = rowVisible;
+            }
+        }
     }
 }

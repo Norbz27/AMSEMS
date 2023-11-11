@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ComponentFactory.Krypton.Toolkit;
+using System;
 using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ComponentFactory.Krypton.Toolkit;
 
 namespace AMSEMS.SubForms_SAO
 {
@@ -81,7 +75,7 @@ namespace AMSEMS.SubForms_SAO
             year = now.Year;
             day = now.Day;
             calendar();
-           
+
         }
         public void RefreshCalendar()
         {
@@ -93,7 +87,7 @@ namespace AMSEMS.SubForms_SAO
         private void btnNext_Click(object sender, EventArgs e)
         {
             daysContainer.Controls.Clear();
-            if(month >= 12) 
+            if (month >= 12)
             {
                 month = 1;
                 year++;
@@ -256,7 +250,7 @@ namespace AMSEMS.SubForms_SAO
 
         public void EventDetailsApperance(string eventid, string eventname, string color, string date, string day)
         {
-            
+
             Color Backcolor = ColorTranslator.FromHtml(color);
             KryptonGroupBox kryptonGroupBox6 = new KryptonGroupBox();
             Panel panel12 = new Panel();

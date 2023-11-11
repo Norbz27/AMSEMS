@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ComponentFactory.Krypton.Toolkit;
+using System;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using ComponentFactory.Krypton.Toolkit;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
-using AMSEMS.Properties;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.IO;
-using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace AMSEMS
 {
@@ -110,7 +101,7 @@ namespace AMSEMS
             }
             catch (Exception e)
             {
-          
+
             }
         }
 
@@ -238,7 +229,7 @@ namespace AMSEMS
 
         private void OpenChildForm(Form childForm)
         {
-            if(activeForm != null)
+            if (activeForm != null)
             {
                 activeForm.Close();
             }

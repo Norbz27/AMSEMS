@@ -1,15 +1,11 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_Admin
@@ -62,7 +58,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void formStudentForm_Load(object sender, EventArgs e)
         {
-            if(roleID == 3)
+            if (roleID == 3)
             {
                 lblInfo.Text = "Guidance Associate Information";
             }
@@ -317,9 +313,9 @@ namespace AMSEMS.SubForms_Admin
                         else
                             form3.DisplayData();
                     }
-                    
+
                 }
-                
+
             }
         }
         public void clearTexts()

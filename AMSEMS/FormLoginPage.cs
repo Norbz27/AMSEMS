@@ -1,12 +1,11 @@
-﻿using System;
+﻿using ComponentFactory.Krypton.Toolkit;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AMSEMS.SubForms_Admin;
-using ComponentFactory.Krypton.Toolkit;
 
 namespace AMSEMS
 {
@@ -25,7 +24,7 @@ namespace AMSEMS
 
         private void tbID_Enter(object sender, EventArgs e)
         {
-            if(tbID.Text == "School ID")
+            if (tbID.Text == "School ID")
             {
                 tbID.Text = string.Empty;
                 tbID.StateCommon.Content.Color1 = Color.DimGray;
@@ -68,7 +67,7 @@ namespace AMSEMS
                 tbPass.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 10F);
                 tbPass.StateCommon.Border.Color1 = Color.Gray;
                 tbPass.StateCommon.Border.Color2 = Color.Gray;
-            }            
+            }
         }
 
         private async void btnLogin_Click(object sender, EventArgs e)
@@ -192,7 +191,8 @@ namespace AMSEMS
                         }
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

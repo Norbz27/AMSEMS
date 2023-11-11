@@ -1,14 +1,7 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
-using iTextSharp.text.pdf;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_SAO
@@ -36,7 +29,7 @@ namespace AMSEMS.SubForms_SAO
             tbSchoolID.Text = dr["ID"].ToString();
             dr.Close();
             cn.Close();
-            
+
 
         }
 

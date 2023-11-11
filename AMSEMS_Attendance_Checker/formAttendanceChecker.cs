@@ -1,13 +1,7 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS_Attendance_Checker
@@ -27,7 +21,7 @@ namespace AMSEMS_Attendance_Checker
             this.splitContainer1.Panel2Collapsed = true;
             isCollapsed = true;
 
-            sQLite_Connection = new SQLite_Connection("db_AMSEMS_CHECKER.db");
+            sQLite_Connection = new SQLite_Connection();
 
             this.KeyPreview = true; // Ensure form captures keyboard input
             this.KeyPress += FormAttendanceChecker_KeyPress;
@@ -54,7 +48,7 @@ namespace AMSEMS_Attendance_Checker
                 scannedRFIDData = tbAttendance.Text; // Store the RFID input in the variable
                 e.Handled = true; // Prevent the Enter key from being added to tbSearch
 
-                if(tbAttendance.Enabled == true)
+                if (tbAttendance.Enabled == true)
                 {
                     // Process the RFID input as needed (you can call a separate function here)
                     ProcessScannedData(scannedRFIDData);
@@ -128,10 +122,10 @@ namespace AMSEMS_Attendance_Checker
             {
                 // Create a new DataGridViewRow
                 DataGridViewRow newRow = new DataGridViewRow();
-                
+
                 // Add cells to the row, including the "Profile_pic" cell
-                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["ID"]});
-                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Name"]});
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["ID"] });
+                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Name"] });
                 newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["secdes"] });
                 newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["depdes"] });
                 newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Date"] });
@@ -147,9 +141,9 @@ namespace AMSEMS_Attendance_Checker
             string period = dateTimeNow.Hour < 12 ? "AM" : "PM";
             if (period.Equals("AM"))
             {
-                if(attendance_stat.Equals("IN"))
-                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow.ToString(), dateTimeNow.ToString(),null,null,null,teach_id);
-                else if(attendance_stat.Equals("OUT"))
+                if (attendance_stat.Equals("IN"))
+                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow.ToString(), dateTimeNow.ToString(), null, null, null, teach_id);
+                else if (attendance_stat.Equals("OUT"))
                     sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow.ToString(), null, dateTimeNow.ToString(), null, null, teach_id);
             }
             else if (period.Equals("PM"))
@@ -406,7 +400,7 @@ namespace AMSEMS_Attendance_Checker
                         lblAttTime.Text = time;
                     }
                     displayAttendanceRecord();
-                    
+
                     tbAttendance.Text = String.Empty;
                 }
             }

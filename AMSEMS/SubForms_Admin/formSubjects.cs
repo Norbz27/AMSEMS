@@ -1,19 +1,15 @@
-﻿using iTextSharp.text.pdf;
-using iTextSharp.text;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
-using OfficeOpenXml;
 
 namespace AMSEMS.SubForms_Admin
 {
@@ -377,7 +373,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
         }
-        
+
         private async Task<string> GetSelectedItemDescriptionAsync(string selectedItem, string tbl)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -641,7 +637,7 @@ namespace AMSEMS.SubForms_Admin
 
                 if (!headerCheckboxAdded) // Check if the checkbox has already been added
                 {
-                   
+
 
                     // Center the checkbox within the header cell
                     int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
@@ -709,7 +705,7 @@ namespace AMSEMS.SubForms_Admin
 
                     // Get the student ID or relevant data from the row
                     string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
-                                                                     // Ask for confirmation from the user
+                                                                    // Ask for confirmation from the user
                     DialogResult result = MessageBox.Show($"Delete subject with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
@@ -837,7 +833,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Check if the "Department" column is not null and not empty
-                            object acadValue = row.Cells["acad"].Value; 
+                            object acadValue = row.Cells["acad"].Value;
                             if (acadValue != DBNull.Value && !string.IsNullOrEmpty(acadValue.ToString()))
                             {
                                 // Get the teacher ID or relevant data from the row

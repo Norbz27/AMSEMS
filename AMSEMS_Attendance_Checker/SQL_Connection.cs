@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AMSEMS
+﻿namespace AMSEMS
 {
     internal class SQL_Connection
     {
@@ -15,7 +9,8 @@ namespace AMSEMS
         //public static string connection = @"Data Source=LAPTOP-78S661F5;Initial Catalog=db_Amsems;Integrated Security=True";
 
         //Connect locally
-        public static string connection = @"Data Source=192.168.1.6;Initial Catalog=db_Amsems;Integrated Security=True";
+        public static string connection = @"Server=192.168.1.6;Database=db_Amsems;User Id=nor;Password=12345;
+";
 
         //ngrok
         //static string server = "0.tcp.ap.ngrok.io,18664"; // Ngrok tunnel URL

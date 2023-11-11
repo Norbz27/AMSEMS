@@ -1,17 +1,14 @@
-﻿using iTextSharp.text.pdf;
-using iTextSharp.text;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace AMSEMS.SubForms_Admin
@@ -223,17 +220,17 @@ namespace AMSEMS.SubForms_Admin
                         while (dr.Read())
                         {
                             // Add a row and set the checkbox column value to false (unchecked)
-                                int rowIndex = dgvTeachers.Rows.Add(false);
+                            int rowIndex = dgvTeachers.Rows.Add(false);
 
-                                // Populate other columns, starting from index 1
-                                dgvTeachers.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
-                                dgvTeachers.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
-                                dgvTeachers.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
-                                dgvTeachers.Rows[rowIndex].Cells["dept"].Value = dr["dDes"].ToString();
-                                dgvTeachers.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
+                            // Populate other columns, starting from index 1
+                            dgvTeachers.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
+                            dgvTeachers.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
+                            dgvTeachers.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                            dgvTeachers.Rows[rowIndex].Cells["dept"].Value = dr["dDes"].ToString();
+                            dgvTeachers.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
-                                // Populate your control column here (change "ControlColumn" to your actual column name)
-                                dgvTeachers.Rows[rowIndex].Cells["option"].Value = option.Image;
+                            // Populate your control column here (change "ControlColumn" to your actual column name)
+                            dgvTeachers.Rows[rowIndex].Cells["option"].Value = option.Image;
                         }
                     }
                 }
@@ -695,7 +692,7 @@ namespace AMSEMS.SubForms_Admin
 
                     // Get the teacher ID or relevant data from the row
                     string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
-                                                                            // Ask for confirmation from the user
+                                                                  // Ask for confirmation from the user
                     DialogResult result = MessageBox.Show($"Delete account with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes)
                     {
