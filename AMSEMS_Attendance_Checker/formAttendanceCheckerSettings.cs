@@ -87,6 +87,7 @@ namespace AMSEMS_Attendance_Checker
                 {
                     formAttendanceChecker.getAttendanceSettings(cbAttendanceStat.Text, tbEventCode.Text);
                     formAttendanceChecker.setEvent(event_name);
+                    formAttendanceChecker.displayAttendanceRecord();
                     this.Close();
                 }
                 else
@@ -118,18 +119,7 @@ namespace AMSEMS_Attendance_Checker
 
             if (accountDisable)
             {
-                DialogResult result = MessageBox.Show("Are you sure you want to change the status?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
-                {
-                    // Update the "Attendance" feature's enabled state in the OtherForm
-                    formAttendanceChecker.SetAttendanceEnabled(true);
-                }
-                else
-                {
-                    formAttendanceChecker.SetAttendanceEnabled(false);
-                }
-
+                formAttendanceChecker.SetAttendanceEnabled(true);
             }
             else
             {

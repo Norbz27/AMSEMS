@@ -157,9 +157,6 @@
   <data name="exit-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exit-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="delete-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\delete-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="announcements" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\announcements.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -187,6 +184,9 @@
   <data name="attendance-16-white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\attendance-16-white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="yellow-card (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yellow-card (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="xls-file-32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\xls-file-32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -211,11 +211,14 @@
   <data name="full-moon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\full-moon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="knowledge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\knowledge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="books" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\books.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="import-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\import-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="inbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\inbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="full-moon (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\full-moon (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -231,6 +234,9 @@
   </data>
   <data name="full-moon (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\full-moon (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="teacher-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\teacher-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="exit (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exit (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -259,6 +265,9 @@
   <data name="new-moon (5)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\new-moon (5).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="green-circular-shape" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\green-circular-shape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="announcement1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\announcement1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -271,8 +280,8 @@
   <data name="full-moon (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\full-moon (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="inbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\inbox.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="yellow-card" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yellow-card.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="teacher" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\teacher.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -310,11 +319,11 @@
   <data name="program-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\program-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="teacher-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\teacher-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="edit1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\edit1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="archive" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\archive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="import-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\import-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="report-16-white" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\report-16-white.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -324,9 +333,6 @@
   </data>
   <data name="reload" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\reload.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="search-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\search-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="dashboard-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dashboard-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -358,6 +364,9 @@
   <data name="full-moon (4)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\full-moon (4).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="green-circular-shape-121" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\green-circular-shape-12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="user-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\user-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -367,11 +376,11 @@
   <data name="option-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\option-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="knowledge" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\knowledge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="search-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\search-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="green-circular-shape" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\green-circular-shape.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="delete-24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\delete-24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="check (3)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\check (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -385,8 +394,8 @@
   <data name="setting-24-dg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\setting-24-dg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="green-circular-shape-121" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\green-circular-shape-12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="archive" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\archive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="event-clipart-12" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\event-clipart-12.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -397,7 +406,7 @@
   <data name="notification-24-dg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\notification-24-dg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="edit1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\edit1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="money" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\money.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

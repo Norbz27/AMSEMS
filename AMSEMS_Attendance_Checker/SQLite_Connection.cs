@@ -105,7 +105,6 @@ namespace AMSEMS_Attendance_Checker
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     string clearSql = @"DELETE FROM tbl_students_account;
-                                        DELETE FROM tbl_events;
                                         DELETE FROM tbl_departments;
                                         DELETE FROM tbl_program;
                                         DELETE FROM tbl_section;
@@ -140,6 +139,21 @@ namespace AMSEMS_Attendance_Checker
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     string clearSql = @"DELETE FROM tbl_teachers_account;";
+                    command.CommandText = clearSql;
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        public void ClearEventData()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    string clearSql = @"DELETE FROM tbl_events;";
                     command.CommandText = clearSql;
                     command.ExecuteNonQuery();
                 }
@@ -759,6 +773,214 @@ namespace AMSEMS_Attendance_Checker
             }
 
             return newDataTable;
+        }
+        public DataTable GetStudentByManual(string studid)
+        {
+            DataTable studentInfoTable = new DataTable();
+            studentInfoTable.Rows.Clear();
+            string query = @"SELECT
+                            stud.Profile_Pic as pic,
+                            ID,
+                            sec.Description AS secdes, 
+                            dep.Description AS depdes, 
+                            UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
+                        FROM 
+                            tbl_attendance AS att
+                        LEFT JOIN 
+                            tbl_students_account AS stud ON att.Student_ID = stud.ID
+                        LEFT JOIN 
+                            tbl_departments AS dep ON stud.Department = dep.Department_ID
+                        LEFT JOIN 
+                            tbl_section AS sec ON stud.Section = sec.Section_ID
+                        WHERE ID = @id";
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", studid);
+
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        adapter.Fill(studentInfoTable);
+                    }
+                }
+            }
+
+
+            DataTable newDataTable = new DataTable();
+            newDataTable.Rows.Clear();
+            newDataTable.Columns.Add("ID", typeof(string));
+            newDataTable.Columns.Add("Name", typeof(string));
+            newDataTable.Columns.Add("secdes", typeof(string));
+            newDataTable.Columns.Add("depdes", typeof(string));
+            newDataTable.Columns.Add("pic", typeof(Image));
+
+            foreach (DataRow row in studentInfoTable.Rows)
+            {
+                object imageData = row["pic"];
+                byte[] imageBytes = (byte[])imageData;
+                if (imageBytes.Length > 0)
+                {
+                    using (MemoryStream ms = new MemoryStream(imageBytes))
+                    {
+                        Image image = Image.FromStream(ms);
+                        newDataTable.Rows.Add(row["ID"], row["Name"], row["secdes"], row["depdes"], image);
+                    }
+                }
+
+            }
+
+            return newDataTable;
+        }
+        public void GetManualStudentForAttendance(string stud_id, string eventID, string date, string amIn, string amOut, string pmIn, string pmOut, string checker)
+        {
+            string attendance_stud_id = null;
+            DateTime dateTimeNow = DateTime.ParseExact(date, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
+            string formattedDate = dateTimeNow.ToString("M/d/yyyy");
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                // Retrieve student information
+                string query = "SELECT ID FROM tbl_students_account WHERE RFID = @rfid";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@rfid", stud_id); // Use parameterized query to prevent SQL injection
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            stud_id = reader["ID"].ToString();
+                        }
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(stud_id))
+                {
+
+                    query = "SELECT Student_ID FROM tbl_attendance WHERE Student_ID = @id AND Event_ID = @event AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", stud_id);
+                        command.Parameters.AddWithValue("@event", eventID);
+                        command.Parameters.AddWithValue("@date", formattedDate);
+
+                        using (SQLiteDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                attendance_stud_id = reader["Student_ID"].ToString();
+                            }
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(attendance_stud_id))
+                    {
+                        // Create SQL UPDATE statements to update the corresponding columns
+                        if (!string.IsNullOrEmpty(amIn))
+                        {
+                            // No existing record found, INSERT a new record
+                            query = "UPDATE tbl_attendance SET AM_IN = @amIn WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                        }
+                        else if (!string.IsNullOrEmpty(amOut))
+                        {
+                            // Existing record found, UPDATE the AM-OUT column
+                            query = "UPDATE tbl_attendance SET AM_OUT = @amOut WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                        }
+                        else if (!string.IsNullOrEmpty(pmIn))
+                        {
+                            // No existing record found, INSERT a new record
+                            query = "UPDATE tbl_attendance SET PM_IN = @pmIn WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                        }
+                        else if (!string.IsNullOrEmpty(pmOut))
+                        {
+                            // Existing record found, UPDATE the PM-OUT column
+                            query = "UPDATE tbl_attendance SET PM_OUT = @pmOut WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(amIn))
+                        {
+                            // No existing record found, INSERT a new record
+                            query = "INSERT INTO tbl_attendance (Student_ID, Event_ID, Date_Time, AM_IN, Checker) " +
+                                    "VALUES (@studentID, @eventID, @date, @amIn, @checker)";
+                        }
+                        else if (!string.IsNullOrEmpty(amOut))
+                        {
+                            // Existing record found, UPDATE the AM-OUT column
+                            query = "INSERT INTO tbl_attendance (Student_ID, Event_ID, Date_Time, AM_OUT, Checker) " +
+                                    "VALUES (@studentID, @eventID, @date, @amOut, @checker)";
+                        }
+                        else if (!string.IsNullOrEmpty(pmIn))
+                        {
+                            // No existing record found, INSERT a new record
+                            query = "INSERT INTO tbl_attendance (Student_ID, Event_ID, Date_Time, PM_IN, Checker) " +
+                                    "VALUES (@studentID, @eventID, @date, @pmIn, @checker)";
+                        }
+                        else if (!string.IsNullOrEmpty(pmOut))
+                        {
+                            // Existing record found, UPDATE the PM-OUT column
+                            query = "INSERT INTO tbl_attendance (Student_ID, Event_ID, Date_Time, PM_OUT, Checker) " +
+                                    "VALUES (@studentID, @eventID, @date, @pmOut, @checker)";
+                        }
+                    }
+
+                    using (SQLiteCommand updateCommand = new SQLiteCommand(query, connection))
+                    {
+                        updateCommand.Parameters.AddWithValue("@studentID", stud_id);
+                        updateCommand.Parameters.AddWithValue("@eventID", eventID);
+                        updateCommand.Parameters.AddWithValue("@date", date); // Include Date_Time in the UPDATE queries
+                        updateCommand.Parameters.AddWithValue("@amIn", amIn);
+                        updateCommand.Parameters.AddWithValue("@amOut", amOut);
+                        updateCommand.Parameters.AddWithValue("@pmIn", pmIn);
+                        updateCommand.Parameters.AddWithValue("@pmOut", pmOut);
+                        updateCommand.Parameters.AddWithValue("@checker", checker);
+
+                        int rowsAffected = updateCommand.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            // Update or insertion successful
+                        }
+                        else
+                        {
+                            // Update or insertion failed
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Student is Not Registered or Not Valid!!", "Attendance Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+        public DataTable GetAttendanceRecord()
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM tbl_attendance";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                {
+                    adapter.Fill(dataTable);
+                }
+            }
+
+            return dataTable;
         }
 
         public void UpdateData(int id, string name, int age)

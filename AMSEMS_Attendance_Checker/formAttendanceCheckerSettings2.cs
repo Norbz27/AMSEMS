@@ -9,6 +9,7 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,6 +21,8 @@ namespace AMSEMS_Attendance_Checker
         SQLite_Connection sQLite_Connection;
         string event_code = null;
         string att_status = null;
+
+        DataSet ds = new DataSet();
 
         SqlConnection cnn;
         SqlCommand cm;
@@ -312,6 +315,108 @@ namespace AMSEMS_Attendance_Checker
             {
                 return false;
             }
+        }
+
+        private async void btnUploadData_Click(object sender, EventArgs e)
+        {
+            ptLoading.Visible = true; // Show loading image before starting the synchronization
+
+            if (IsInternetConnected())
+            {
+                try
+                {
+                    using (cnn = new SqlConnection(SQL_Connection.connection))
+                    {
+                        await cnn.OpenAsync();
+                        DataTable attendance_record = sQLite_Connection.GetAttendanceRecord();
+
+                        if (attendance_record.Rows.Count > 0)
+                        {
+                            foreach (DataRow row in attendance_record.Rows)
+                            {
+                                string studID = row["Student_ID"].ToString();
+                                string eventID = row["Event_ID"].ToString();
+                                string datetime = row["Date_Time"].ToString();
+                                string amIn = row["AM_IN"] != DBNull.Value ? row["AM_IN"].ToString() : null;
+                                string amOut = row["AM_OUT"] != DBNull.Value ? row["AM_OUT"].ToString() : null;
+                                string pmIn = row["PM_IN"] != DBNull.Value ? row["PM_IN"].ToString() : null;
+                                string pmOut = row["PM_OUT"] != DBNull.Value ? row["PM_OUT"].ToString() : null;
+                                string checker = row["Checker"].ToString();
+
+                                using (SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM tbl_attendance WHERE Student_ID = @StudentID AND Event_ID = @EventID AND Date_Time = @DateTime", cnn))
+                                {
+                                    checkCmd.Parameters.AddWithValue("@StudentID", studID);
+                                    checkCmd.Parameters.AddWithValue("@EventID", eventID);
+                                    checkCmd.Parameters.AddWithValue("@DateTime", datetime);
+
+                                    int recordCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                                    if (recordCount == 0)
+                                    {
+                                        // If the record doesn't exist, insert it
+                                        string insertQuery = "INSERT INTO tbl_attendance (Student_ID, Event_ID, Date_Time, AM_IN, AM_OUT, PM_IN, PM_OUT, Checker) " +
+                                                            "VALUES (@StudentID, @EventID, @DateTime, @AmIn, @AmOut, @PmIn, @PmOut, @Checker)";
+
+                                        using (SqlCommand insertCmd = new SqlCommand(insertQuery, cnn))
+                                        {
+                                            insertCmd.Parameters.AddWithValue("@StudentID", studID);
+                                            insertCmd.Parameters.AddWithValue("@EventID", eventID);
+                                            insertCmd.Parameters.AddWithValue("@DateTime", datetime);
+                                            insertCmd.Parameters.AddWithValue("@AmIn", string.IsNullOrEmpty(amIn) ? (object)DBNull.Value : DateTime.Parse(amIn));
+                                            insertCmd.Parameters.AddWithValue("@AmOut", string.IsNullOrEmpty(amOut) ? (object)DBNull.Value : DateTime.Parse(amOut));
+                                            insertCmd.Parameters.AddWithValue("@PmIn", string.IsNullOrEmpty(pmIn) ? (object)DBNull.Value : DateTime.Parse(pmIn));
+                                            insertCmd.Parameters.AddWithValue("@PmOut", string.IsNullOrEmpty(pmOut) ? (object)DBNull.Value : DateTime.Parse(pmOut));
+                                            insertCmd.Parameters.AddWithValue("@Checker", checker);
+
+                                            insertCmd.ExecuteNonQuery();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // If the record exists, update it
+                                        string updateQuery = "UPDATE tbl_attendance SET " +
+                                            "AM_IN = ISNULL(AM_IN, @AmIn), " +
+                                            "AM_OUT = ISNULL(AM_OUT, @AmOut), " +
+                                            "PM_IN = ISNULL(PM_IN, @PmIn), " +
+                                            "PM_OUT = ISNULL(PM_OUT, @PmOut) " +
+                                            "WHERE Student_ID = @StudentID AND Event_ID = @EventID AND Date_Time = @DateTime";
+
+                                        using (SqlCommand updateCmd = new SqlCommand(updateQuery, cnn))
+                                        {
+                                            updateCmd.Parameters.AddWithValue("@StudentID", studID);
+                                            updateCmd.Parameters.AddWithValue("@EventID", eventID);
+                                            updateCmd.Parameters.AddWithValue("@DateTime", datetime);
+                                            updateCmd.Parameters.AddWithValue("@AmIn", string.IsNullOrEmpty(amIn) ? (object)DBNull.Value : DateTime.Parse(amIn));
+                                            updateCmd.Parameters.AddWithValue("@AmOut", string.IsNullOrEmpty(amOut) ? (object)DBNull.Value : DateTime.Parse(amOut));
+                                            updateCmd.Parameters.AddWithValue("@PmIn", string.IsNullOrEmpty(pmIn) ? (object)DBNull.Value : DateTime.Parse(pmIn));
+                                            updateCmd.Parameters.AddWithValue("@PmOut", string.IsNullOrEmpty(pmOut) ? (object)DBNull.Value : DateTime.Parse(pmOut));
+
+                                            updateCmd.ExecuteNonQuery();
+                                        }
+                                    }
+                                }
+                            }
+
+                            await Task.Delay(3000);
+                            MessageBox.Show("Successfully Upload Data.", "Sync Configuration", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No internet connection available. Please check your network connection.");
+            }
+            ptLoading.Visible = false;
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            formAttendanceChecker.Logout();
         }
     }
 }

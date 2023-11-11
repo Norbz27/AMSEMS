@@ -188,6 +188,8 @@ namespace AMSEMS_Attendance_Checker
                             await cnn.OpenAsync();
                             sQLite_Connection.ClearData();
                             sQLite_Connection.ClearTeachersData();
+                            sQLite_Connection.ClearAttendaceData();
+                            sQLite_Connection.ClearEventData();
                             cm = new SqlCommand("SELECT Unique_ID, ID, Firstname, Lastname, Middlename, Password, Profile_pic, Department, Role, Status, DateTime from tbl_teacher_accounts", cnn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())

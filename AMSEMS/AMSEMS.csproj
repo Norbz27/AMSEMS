@@ -1170,6 +1170,9 @@
     <None Include="Resources\announcements.png" />
     <None Include="Resources\announcements1.png" />
     <None Include="Resources\edit1.png" />
+    <None Include="Resources\yellow-card.png" />
+    <None Include="Resources\yellow-card %281%29.png" />
+    <None Include="Resources\money.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup />

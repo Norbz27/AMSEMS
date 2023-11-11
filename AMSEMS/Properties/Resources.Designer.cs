@@ -553,6 +553,16 @@ namespace AMSEMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap money {
+            get {
+                object obj = ResourceManager.GetObject("money", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap new_moon {
             get {
                 object obj = ResourceManager.GetObject("new-moon", resourceCulture);
@@ -976,6 +986,26 @@ namespace AMSEMS.Properties {
         internal static System.Drawing.Bitmap xls_file_64 {
             get {
                 object obj = ResourceManager.GetObject("xls-file-64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap yellow_card {
+            get {
+                object obj = ResourceManager.GetObject("yellow-card", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap yellow_card__1_ {
+            get {
+                object obj = ResourceManager.GetObject("yellow-card (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

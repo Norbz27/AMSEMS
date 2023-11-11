@@ -44,6 +44,7 @@ namespace AMSEMS_Attendance_Checker
         public void SetAttendanceEnabled(bool enabled)
         {
             tbAttendance.Enabled = enabled;
+            dgvStudents.Enabled = enabled;
         }
         private void FormAttendanceChecker_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -97,7 +98,7 @@ namespace AMSEMS_Attendance_Checker
         public void displayAttendanceRecord()
         {
             dgvAttendance.Rows.Clear();
-            panel6.Controls.Clear();
+            kryptonGroupBox3.Panel.Controls.Clear();
             DateTime dateTimeNow = DateTime.Now;
             string formattedDate = dateTimeNow.ToString("M/d/yyyy");
             string period = dateTimeNow.Hour < 12 ? "AM" : "PM";
@@ -260,6 +261,14 @@ namespace AMSEMS_Attendance_Checker
         {
             string searchKeyword = tbSearch.Text.Trim();
             ApplySearchFilter(searchKeyword);
+            if (!string.IsNullOrEmpty(tbSearch.Text))
+            {
+                btnCancel.Visible = true;
+            }
+            else
+            {
+                btnCancel.Visible = false;
+            }
         }
         private void ApplySearchFilter(string searchKeyword)
         {
@@ -323,7 +332,84 @@ namespace AMSEMS_Attendance_Checker
             pictureBox4.TabIndex = 10;
             pictureBox4.TabStop = false;
 
-            panel6.Controls.Add(pnAttDone);
+            kryptonGroupBox3.Panel.Controls.Add(pnAttDone);
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            tbSearch.Text = String.Empty;
+        }
+        public void Logout()
+        {
+            this.Dispose();
+            FormLoginPage formLoginPage = new FormLoginPage();
+            formLoginPage.Show();
+        }
+
+        private void dgvStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string col = dgvStudents.Columns[e.ColumnIndex].Name;
+            if (col == "check" && e.RowIndex >= 0)
+            {
+                // Get the value in the "IDColumn" for the clicked row
+                object idValue = dgvStudents["stud_id", e.RowIndex].Value;
+
+                // Check if the value is not null
+                if (idValue != null)
+                {
+                    // Convert the value to the appropriate data type (e.g., int)
+                    string studentID = idValue.ToString();
+
+                    DateTime dateTimeNow = DateTime.Now;
+                    string period = dateTimeNow.Hour < 12 ? "AM" : "PM";
+                    if (period.Equals("AM"))
+                    {
+                        if (attendance_stat.Equals("IN"))
+                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow.ToString(), dateTimeNow.ToString(), null, null, null, teach_id);
+                        else if (attendance_stat.Equals("OUT"))
+                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow.ToString(), null, dateTimeNow.ToString(), null, null, teach_id);
+                    }
+                    else if (period.Equals("PM"))
+                    {
+                        if (attendance_stat.Equals("IN"))
+                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow.ToString(), null, null, dateTimeNow.ToString(), null, teach_id);
+                        else if (attendance_stat.Equals("OUT"))
+                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow.ToString(), null, null, null, dateTimeNow.ToString(), teach_id);
+                    }
+
+                    DataTable studentInfo = sQLite_Connection.GetStudentByManual(studentID);
+
+                    if (studentInfo.Rows.Count > 0)
+                    {
+                        DataRow row = studentInfo.Rows[0]; // Assuming you want to display information for the first student
+
+                        string studID = row["ID"].ToString();
+                        string studentName = row["Name"].ToString();
+                        string department = row["depdes"].ToString();
+                        string section = row["secdes"].ToString();
+
+                        if (row["pic"] is Image image)
+                        {
+                            ptbProfilePic.Image = image; // Assuming ptbProfilePic is a PictureBox
+                        }
+
+                        DateTime dateTime = DateTime.Now;
+                        string time = dateTime.ToString("h:mm tt");
+                        string date = dateTime.ToString("dddd, MMMM d, yyyy");
+
+                        // Assuming you have labels named lblStudentID, lblStudentName, lblDepartment, lblSection, lblDate, and lblTime
+                        lblID.Text = studID;
+                        lblName.Text = studentName;
+                        lblDepartment.Text = department;
+                        lblSection.Text = section;
+                        lblAttDate.Text = date;
+                        lblAttTime.Text = time;
+                    }
+                    displayAttendanceRecord();
+                    
+                    tbAttendance.Text = String.Empty;
+                }
+            }
         }
     }
 }

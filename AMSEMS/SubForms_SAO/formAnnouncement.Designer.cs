@@ -361,14 +361,19 @@
             this.Dt.Location = new System.Drawing.Point(22, 57);
             this.Dt.Name = "Dt";
             this.Dt.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalSystem;
-            this.Dt.Size = new System.Drawing.Size(211, 31);
+            this.Dt.Size = new System.Drawing.Size(211, 29);
+            this.Dt.StateActive.Border.Color1 = System.Drawing.Color.Gray;
+            this.Dt.StateActive.Border.Color2 = System.Drawing.Color.Gray;
+            this.Dt.StateActive.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.Dt.StateCommon.Back.Color1 = System.Drawing.Color.White;
             this.Dt.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
             this.Dt.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
             this.Dt.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.Dt.StateCommon.Border.Rounding = 5;
+            this.Dt.StateCommon.Border.Rounding = 2;
             this.Dt.StateCommon.Content.Color1 = System.Drawing.Color.Black;
             this.Dt.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
             this.Dt.TabIndex = 140;
