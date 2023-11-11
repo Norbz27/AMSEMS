@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMSEMS_Attendance_Checker",
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Amsems_Setup", "Amsems_Setup\Amsems_Setup.vdproj", "{0496F0BE-F407-473A-837A-A94B687935D2}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "AMSEMS_Attendance_Checker_setup", "AMSEMS_Attendance_Checker_setup\AMSEMS_Attendance_Checker_setup.vdproj", "{FB575CA2-9354-48B8-8685-7D41552F7AC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,8 @@ Global
 		{52E5B991-F108-453D-AB2D-658EA0D33782}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0496F0BE-F407-473A-837A-A94B687935D2}.Debug|Any CPU.ActiveCfg = Debug
 		{0496F0BE-F407-473A-837A-A94B687935D2}.Release|Any CPU.ActiveCfg = Release
+		{FB575CA2-9354-48B8-8685-7D41552F7AC8}.Debug|Any CPU.ActiveCfg = Debug
+		{FB575CA2-9354-48B8-8685-7D41552F7AC8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

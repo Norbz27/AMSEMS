@@ -232,6 +232,7 @@ namespace AMSEMS_Attendance_Checker
                         using (cnn = new SqlConnection(SQL_Connection.connection))
                         {
                             sQLite_Connection.ClearData();
+                            sQLite_Connection.ClearEventData();
                             await cnn.OpenAsync();
                             cm = new SqlCommand("SELECT Unique_ID, ID, RFID, Firstname, Lastname, Middlename, Password, Profile_pic, Program, Section, Year_Level, Department, Role, Status, DateTime from tbl_student_accounts", cnn);
                             dr = cm.ExecuteReader();
