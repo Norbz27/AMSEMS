@@ -483,7 +483,7 @@ namespace AMSEMS.SubForms_Admin
 
         private async void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            fUseWaitCursor = true;
+            UseWaitCursor = true;
             ComboBox comboBox = (ComboBox)sender;
             string filtertbl = string.Empty;
 

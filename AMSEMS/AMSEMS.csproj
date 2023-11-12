@@ -534,6 +534,12 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_DeptHead\UserID.cs" />
+    <Compile Include="SubForms_SAO\formEventConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_SAO\formEventConfig.Designer.cs">
+      <DependentUpon>formEventConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_SAO\formEditAnnouncement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -863,6 +869,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\Settings_Subforms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_SAO\formEventConfig.resx">
+      <DependentUpon>formEventConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_SAO\formEditAnnouncement.resx">
       <DependentUpon>formEditAnnouncement.cs</DependentUpon>
@@ -1202,6 +1211,12 @@
     <None Include="Resources\yellow-card.png" />
     <None Include="Resources\yellow-card %281%29.png" />
     <None Include="Resources\money.png" />
+    <None Include="Resources\three-gears-of-configuration-tools.png" />
+    <None Include="Resources\cloud-computing.png" />
+    <None Include="Resources\Image1.bmp" />
+    <None Include="Resources\exit %283%29.png" />
+    <None Include="Resources\sync-24.png" />
+    <None Include="Resources\Pulse-1s-200px.gif" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup>

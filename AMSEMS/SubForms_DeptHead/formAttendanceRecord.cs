@@ -26,7 +26,6 @@ namespace AMSEMS.SubForms_DeptHead
                 {
                     cbEvents.Items.Clear();
                     cbSection.Items.Clear();
-                    cbYlevel.Items.Clear();
                     cn.Open();
                     cm = new SqlCommand("Select Event_ID, Event_Name from tbl_events ORDER BY Start_Date", cn);
                     dr = cm.ExecuteReader();
@@ -46,14 +45,6 @@ namespace AMSEMS.SubForms_DeptHead
                     while (dr.Read())
                     {
                         cbSection.Items.Add(dr["Description"].ToString());
-                    }
-                    dr.Close();
-
-                    cm = new SqlCommand("Select Description from tbl_year_level", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        cbYlevel.Items.Add(dr["Description"].ToString());
                     }
                     dr.Close();
                 }
@@ -83,9 +74,10 @@ namespace AMSEMS.SubForms_DeptHead
                                     UPPER(stud.Lastname) AS lname,
                                     sec.Description AS secdes,
                                     FORMAT(att.Date_Time, 'yyyy-MM-dd') AS Date_Time,
-                                    COALESCE(att.Penalty, 0) AS Penalty,
+                                    COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
                                     ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
                                     ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
+                                    COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
                                     ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
                                     UPPER(teach.Lastname) AS teachlname 
@@ -118,9 +110,10 @@ namespace AMSEMS.SubForms_DeptHead
                                 dgvRecord.Rows[rowIndex].Cells["name"].Value = name;
                                 dgvRecord.Rows[rowIndex].Cells["section"].Value = dr["secdes"].ToString();
                                 dgvRecord.Rows[rowIndex].Cells["event_date"].Value = dr["Date_Time"].ToString();
-                                dgvRecord.Rows[rowIndex].Cells["penalty"].Value = dr["Penalty"].ToString();
+                                dgvRecord.Rows[rowIndex].Cells["penalty_am"].Value = dr["Penalty_AM"].ToString();
                                 dgvRecord.Rows[rowIndex].Cells["am_login"].Value = dr["AM_IN"].ToString();
                                 dgvRecord.Rows[rowIndex].Cells["am_logout"].Value = dr["AM_OUT"].ToString();
+                                dgvRecord.Rows[rowIndex].Cells["penalty_pm"].Value = dr["Penalty_PM"].ToString();
                                 dgvRecord.Rows[rowIndex].Cells["pm_login"].Value = dr["PM_IN"].ToString();
                                 dgvRecord.Rows[rowIndex].Cells["pm_logout"].Value = dr["PM_OUT"].ToString();
                                 dgvRecord.Rows[rowIndex].Cells["checker"].Value = dr["teachlname"].ToString();
@@ -168,7 +161,6 @@ namespace AMSEMS.SubForms_DeptHead
                         event_id = dr["Event_ID"].ToString();
                         Dt.Value = (DateTime)dr["Start_Date"];
                         date = Dt.Value.ToString();
-                        displayTable();
                         dr.Close();
                     }
                 }
@@ -184,9 +176,10 @@ namespace AMSEMS.SubForms_DeptHead
             ApplyCBFilter(cbSection.Text);
         }
 
-        private void cbYlevel_SelectedIndexChanged(object sender, EventArgs e)
+        private void tbSearch_TextChanged(object sender, EventArgs e)
         {
-            ApplyCBFilter(cbYlevel.Text);
+            string searchKeyword = tbSearch.Text.Trim();
+            ApplyCBFilter(searchKeyword);
         }
 
         private void ApplyCBFilter(string selectedIndex)
