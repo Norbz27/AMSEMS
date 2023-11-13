@@ -27,12 +27,15 @@ namespace AMSEMS.SubForms_DeptHead
                     cbEvents.Items.Clear();
                     cbSection.Items.Clear();
                     cn.Open();
-                    cm = new SqlCommand("Select Event_ID, Event_Name from tbl_events ORDER BY Start_Date", cn);
+                    cm = new SqlCommand(@"SELECT Event_ID, Event_Name FROM tbl_events WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students') ORDER BY Start_Date;", cn);
+                    cm.Parameters.AddWithValue("@Department", FormDeptHeadNavigation.depdes);
                     dr = cm.ExecuteReader();
+
                     while (dr.Read())
                     {
                         cbEvents.Items.Add(dr["Event_Name"].ToString());
                     }
+
                     dr.Close();
 
                     if (cbEvents.Items.Count > 0)
@@ -69,29 +72,52 @@ namespace AMSEMS.SubForms_DeptHead
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
-                    string query = @"SELECT stud.ID AS id, UPPER(stud.Firstname) AS fname,
-                                    UPPER(stud.Middlename) AS mname,
-                                    UPPER(stud.Lastname) AS lname,
-                                    sec.Description AS secdes,
-                                    FORMAT(att.Date_Time, 'yyyy-MM-dd') AS Date_Time,
-                                    COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
-                                    ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
-                                    ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
-                                    COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
-                                    ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
-                                    ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
-                                    UPPER(teach.Lastname) AS teachlname 
-                                FROM 
-                                    tbl_attendance AS att
-                                LEFT JOIN 
-                                    tbl_student_accounts AS stud ON att.Student_ID = stud.ID
-                                LEFT JOIN 
-                                    tbl_Section AS sec ON stud.Section = sec.Section_ID
-                                LEFT JOIN 
-                                    tbl_teacher_accounts AS teach ON att.Checker = teach.ID 
-                                WHERE 
-                                    Event_ID = @EventID AND Date_Time >= CAST(@Date AS DATE) AND stud.Department = @Dep;
-                                ";
+                    string query = "";
+
+                    // Check if the event is for Specific Students
+                    if (IsEventForSpecificStudents(event_id))
+                    {
+                        query = @"SELECT e.Event_ID, s.ID AS id, UPPER(s.Firstname) AS fname,
+                                UPPER(s.Middlename) AS mname,
+                                UPPER(s.Lastname) AS lname,
+                                sec.Description AS secdes,
+                                FORMAT(att.Date_Time, 'yyyy-MM-dd') AS Date_Time,
+                                COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
+                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
+                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
+                                COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
+                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
+                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
+                                UPPER(teach.Lastname) AS teachlname 
+                                FROM tbl_events e
+                                LEFT JOIN tbl_student_accounts s ON CHARINDEX(s.FirstName + ' ' + s.LastName, e.Specific_Students) > 0
+                                LEFT JOIN tbl_attendance AS att ON att.Student_ID = s.ID
+                                LEFT JOIN tbl_departments d ON s.Department = d.Department_ID
+                                LEFT JOIN tbl_Section AS sec ON S.Section = sec.Section_ID
+                                LEFT JOIN tbl_teacher_accounts AS teach ON att.Checker = teach.ID
+                                WHERE e.Event_ID = @EventID AND e.Exclusive = 'Specific Students' AND s.ID IS NOT NULL AND s.Department = @Dep;";
+                    }
+                    else
+                    {
+                        query = @"SELECT stud.ID AS id, 
+                                UPPER(stud.Firstname) AS fname,
+                                UPPER(stud.Middlename) AS mname,
+                                UPPER(stud.Lastname) AS lname,
+                                sec.Description AS secdes,
+                                FORMAT(att.Date_Time, 'yyyy-MM-dd') AS Date_Time,
+                                COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
+                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
+                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
+                                COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
+                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
+                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
+                                UPPER(teach.Lastname) AS teachlname 
+                                FROM tbl_student_accounts AS stud
+                                LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND att.Date_Time = @Date
+                                LEFT JOIN tbl_Section AS sec ON stud.Section = sec.Section_ID
+                                LEFT JOIN tbl_teacher_accounts AS teach ON att.Checker = teach.ID 
+                                WHERE stud.Department = @Dep AND stud.Status = 1";
+                    }
 
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
@@ -127,6 +153,23 @@ namespace AMSEMS.SubForms_DeptHead
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private bool IsEventForSpecificStudents(string eventId)
+        {
+            // Implement your logic to check if the event is for Specific Students
+            // For example, check if the Exclusive column is 'Specific Students'
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                string query = "SELECT Exclusive FROM tbl_events WHERE Event_ID = @EventID";
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.AddWithValue("@EventID", eventId);
+                    object result = cmd.ExecuteScalar();
+                    return result != null && result.ToString() == "Specific Students";
+                }
             }
         }
 

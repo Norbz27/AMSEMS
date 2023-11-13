@@ -1,6 +1,7 @@
 ﻿
 using ComponentFactory.Krypton.Toolkit;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,12 +17,17 @@ namespace AMSEMS.SubForms_SAO
         SqlDataAdapter ad;
         SqlCommand cm;
         SqlDataReader dr;
-        DataSet ds = new DataSet();
         UserControlDays_Calendar form;
         formEvents form1;
         string selectedColor;
         bool isTrue;
         string eventid;
+        formEventEditConfig formEventEditConfig;
+
+        public static bool attendance;
+        public static bool penalty;
+        public static List<string> students = new List<string> { };
+        public static string exclusive;
         public formEventDetails()
         {
             InitializeComponent();
@@ -29,6 +35,7 @@ namespace AMSEMS.SubForms_SAO
             cn = new SqlConnection(SQL_Connection.connection);
             selectedColor = "#800000";
             isTrue = true;
+            formEventEditConfig = new formEventEditConfig();
         }
         public void getForm(UserControlDays_Calendar form)
         {
@@ -49,29 +56,48 @@ namespace AMSEMS.SubForms_SAO
                 }
                 else
                 {
-                    byte[] picData = null;
-                    DateTime startDate = DtStart.Value;
-
-                    // Now, check if an image file is selected using OpenFileDialog
-                    if (openFileDialog1.FileName != String.Empty)
+                    using (cn = new SqlConnection(SQL_Connection.connection))
                     {
-                        picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
+                        cn.Open();
+                        byte[] picData = null;
+                        DateTime startDate = DtStart.Value;
+
+                        // Now, check if an image file is selected using OpenFileDialog
+                        if (openFileDialog1.FileName != String.Empty)
+                        {
+                            picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
+                        }
+                        string selectedStudents = GetSelectedStudentsAsString();
+                        cm = new SqlCommand();
+                        cm.Connection = cn;
+                        cm.CommandType = CommandType.StoredProcedure;
+                        cm.CommandText = "sp_UpdateEvent";
+                        cm.Parameters.AddWithValue("@Event_ID", eventid);
+                        cm.Parameters.AddWithValue("@Event_Name", tbEventName.Text);
+                        cm.Parameters.AddWithValue("@Start_Date", DtStart.Value);
+                        cm.Parameters.AddWithValue("@End_Date", DtEnd.Value);
+                        cm.Parameters.AddWithValue("@Image", picData);
+                        cm.Parameters.AddWithValue("@Description", tbDescription.Text);
+                        cm.Parameters.AddWithValue("@Color", selectedColor);
+                        cm.Parameters.AddWithValue("@Attendance", attendance);
+                        cm.Parameters.AddWithValue("@Penalty", penalty);
+
+                        if (exclusive.Equals("Specific Students", StringComparison.OrdinalIgnoreCase))
+                        {
+                            cm.Parameters.AddWithValue("@Exclusive", exclusive);
+                            cm.Parameters.AddWithValue("@Specific_Students", selectedStudents);
+                        }
+                        else
+                        {
+                            cm.Parameters.AddWithValue("@Exclusive", exclusive);
+                            cm.Parameters.AddWithValue("@Specific_Students", DBNull.Value);
+                        }
+
+                        cm.ExecuteNonQuery();
+
+                        MessageBox.Show("Event Information Updated!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        cn.Close();
                     }
-
-                    cm = new SqlCommand();
-                    cm.Connection = cn;
-                    cm.CommandType = CommandType.StoredProcedure;
-                    cm.CommandText = "sp_UpdateEvent";
-                    cm.Parameters.AddWithValue("@Event_ID", eventid);
-                    cm.Parameters.AddWithValue("@Event_Name", tbEventName.Text);
-                    cm.Parameters.AddWithValue("@Start_Date", DtStart.Value);
-                    cm.Parameters.AddWithValue("@End_Date", DtEnd.Value);
-                    cm.Parameters.AddWithValue("@Image", picData);
-                    cm.Parameters.AddWithValue("@Description", tbDescription.Text);
-                    cm.Parameters.AddWithValue("@Color", selectedColor);
-                    cm.ExecuteNonQuery();
-
-                    MessageBox.Show("Event Information Updated!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
@@ -80,7 +106,6 @@ namespace AMSEMS.SubForms_SAO
             }
             finally
             {
-                cn.Close(); // Close the connection in the finally block
                 if (form != null)
                 {
                     form.refresh();
@@ -89,11 +114,8 @@ namespace AMSEMS.SubForms_SAO
                 {
                     form1.calendar();
                 }
-                this.Dispose();
             }
         }
-
-
 
         private void pictureBox1_MouseHover(object sender, EventArgs e)
         {
@@ -138,6 +160,8 @@ namespace AMSEMS.SubForms_SAO
         public void displayDetails(string eventid)
         {
             this.eventid = eventid;
+            formEventEditConfig.getEventID(eventid);
+            formEventEditConfig.displayConfig();
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
@@ -374,6 +398,22 @@ namespace AMSEMS.SubForms_SAO
                 }
             }
         }
+        private string GetSelectedStudentsAsString()
+        {
+            if (students != null)
+            {
+                List<string> selectedStudentIds = students;
 
+                return string.Join(",", selectedStudentIds);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            formEventEditConfig.ShowDialog();
+        }
     }
 }

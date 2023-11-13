@@ -298,9 +298,6 @@
     <EmbeddedResource Include="RoundProgressBar.resx">
       <DependentUpon>RoundProgressBar.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="db_AMSEMS_CHECKER.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Fonts\Poppins-Black.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -19,6 +19,7 @@ namespace AMSEMS
         private Form activeForm;
         public static String id;
         public static String dep;
+        public static String depdes;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         public FormDeptHeadNavigation(String id1)
         {
@@ -79,6 +80,7 @@ namespace AMSEMS
                 lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
                 lblRole.Text = dr["depDes"].ToString() + " Department Head";
                 dep = dr["dep"].ToString();
+                depdes = dr["depDes"].ToString();
                 dr.Close();
 
                 cm = new SqlCommand("Select Profile_pic from tbl_deptHead_accounts where Unique_ID = " + id + "", cn);

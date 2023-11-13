@@ -59,7 +59,7 @@ namespace AMSEMS_Attendance_Checker
         }
         public void displayStudentInfo()
         {
-            DataTable studentInfo = sQLite_Connection.GetStudentByRFID(scannedRFIDData);
+            DataTable studentInfo = sQLite_Connection.GetStudentByRFID(scannedRFIDData, event_code);
 
             if (studentInfo.Rows.Count > 0)
             {
@@ -188,7 +188,7 @@ namespace AMSEMS_Attendance_Checker
         {
             tbAttendance.Focus();
             dgvStudents.Rows.Clear();
-            DataTable allStudents = sQLite_Connection.GetAllStudents();
+            DataTable allStudents = sQLite_Connection.GetAllStudents(event_code);
 
             // Define the desired margin
             int cellMargin = 5; // Adjust the margin size as needed
@@ -371,7 +371,7 @@ namespace AMSEMS_Attendance_Checker
                             sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow.ToString(), null, null, null, dateTimeNow.ToString(), teach_id);
                     }
 
-                    DataTable studentInfo = sQLite_Connection.GetStudentByManual(studentID);
+                    DataTable studentInfo = sQLite_Connection.GetStudentByManual(studentID, event_code);
 
                     if (studentInfo.Rows.Count > 0)
                     {

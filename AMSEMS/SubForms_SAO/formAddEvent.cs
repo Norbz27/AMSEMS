@@ -1,6 +1,7 @@
 ﻿
 using ComponentFactory.Krypton.Toolkit;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -19,6 +20,13 @@ namespace AMSEMS.SubForms_SAO
         UserControlDays_Calendar form;
         formEvents form1;
         string selectedColor;
+        public static bool attendance = false;
+        public static bool penalty = false;
+        public static List<string> students = new List<string> { };
+        public static string exclusive = "All Students";
+
+        formEventAddConfig formEventConfig;
+
         public formAddEvent()
         {
             InitializeComponent();
@@ -26,8 +34,9 @@ namespace AMSEMS.SubForms_SAO
             cn = new SqlConnection(SQL_Connection.connection);
             selectedColor = "#800000";
             SetButtonAppearance(btnColorMarron);
-
+            formEventConfig = new formEventAddConfig();
         }
+        
         public void getForm(UserControlDays_Calendar form)
         {
             this.form = form;
@@ -56,7 +65,7 @@ namespace AMSEMS.SubForms_SAO
                         {
                             picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
                         }
-
+                        string selectedStudents = GetSelectedStudentsAsString();
                         cn.Open();
                         cm = new SqlCommand();
                         cm.Connection = cn;
@@ -68,27 +77,42 @@ namespace AMSEMS.SubForms_SAO
                         cm.Parameters.AddWithValue("@Image", picData);
                         cm.Parameters.AddWithValue("@Description", tbDescription.Text);
                         cm.Parameters.AddWithValue("@Color", selectedColor);
-                        cm.ExecuteNonQuery();
-                        cn.Close();
-                        MessageBox.Show("Event Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-                    finally
-                    {
-                        if (form != null)
+                        cm.Parameters.AddWithValue("@Attendance", attendance);
+                        cm.Parameters.AddWithValue("@Penalty", penalty);
+
+                        if(exclusive.Equals("Specific Students"))
                         {
-                            form.refresh();
+                            cm.Parameters.AddWithValue("@Exclusive", exclusive);
+                            cm.Parameters.AddWithValue("@Specific_Students", selectedStudents);
                         }
                         else
                         {
-                            form1.calendar();
+                            cm.Parameters.AddWithValue("@Exclusive", exclusive);
+                            cm.Parameters.AddWithValue("@Specific_Students", null);
                         }
-                        this.Dispose();
-                    }
+                        
+                                      
+                        cm.ExecuteNonQuery();
+                        cn.Close();
+                        MessageBox.Show("Event Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                    catch (Exception ex)
+                    {
+                    MessageBox.Show(ex.Message);
+                }
+                    finally
+                    {
+                    if (form != null)
+                    {
+                        form.refresh();
+                    }
+                    else
+                    {
+                        form1.calendar();
+                    }
+                    this.Dispose();
+                }
+            }
             }
 
         }
@@ -226,6 +250,25 @@ namespace AMSEMS.SubForms_SAO
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Dispose();
+        }
+
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            formEventConfig.ShowDialog();
+        }
+
+        private string GetSelectedStudentsAsString()
+        {
+            if(students != null)
+            {
+                List<string> selectedStudentIds = students;
+
+                return string.Join(",", selectedStudentIds);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

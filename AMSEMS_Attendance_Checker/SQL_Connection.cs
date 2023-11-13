@@ -9,7 +9,7 @@
         //public static string connection = @"Data Source=LAPTOP-78S661F5;Initial Catalog=db_Amsems;Integrated Security=True";
 
         //Connect locally
-        public static string connection = @"Server=192.168.1.6;Database=db_Amsems;User Id=nor;Password=12345;
+        public static string connection = @"Server=192.168.1.15;Database=db_Amsems;User Id=nor;Password=12345;
 ";
 
         //ngrok

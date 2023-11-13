@@ -531,11 +531,17 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_DeptHead\UserID.cs" />
-    <Compile Include="SubForms_SAO\formEventConfig.cs">
+    <Compile Include="SubForms_SAO\formEventEditConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_SAO\formEventConfig.Designer.cs">
-      <DependentUpon>formEventConfig.cs</DependentUpon>
+    <Compile Include="SubForms_SAO\formEventEditConfig.Designer.cs">
+      <DependentUpon>formEventEditConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_SAO\formEventAddConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_SAO\formEventAddConfig.Designer.cs">
+      <DependentUpon>formEventAddConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_SAO\formEditAnnouncement.cs">
       <SubType>Form</SubType>
@@ -867,8 +873,11 @@
     <EmbeddedResource Include="SubForms_DeptHead\Settings_Subforms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_SAO\formEventConfig.resx">
-      <DependentUpon>formEventConfig.cs</DependentUpon>
+    <EmbeddedResource Include="SubForms_SAO\formEventEditConfig.resx">
+      <DependentUpon>formEventEditConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_SAO\formEventAddConfig.resx">
+      <DependentUpon>formEventAddConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_SAO\formEditAnnouncement.resx">
       <DependentUpon>formEditAnnouncement.cs</DependentUpon>
@@ -1020,7 +1029,6 @@
     <EmbeddedResource Include="test.resx">
       <DependentUpon>test.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="AMSEMS_TemporaryKey.pfx" />
     <None Include="Fonts\TheChieldrenPersonalUseOnly-YzdJL.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

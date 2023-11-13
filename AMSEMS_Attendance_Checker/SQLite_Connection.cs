@@ -1,5 +1,7 @@
-﻿using System;
+﻿using AMSEMS;
+using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Globalization;
@@ -15,7 +17,7 @@ namespace AMSEMS_Attendance_Checker
 
         public SQLite_Connection()
         {
-            string databasePath = Path.Combine(Application.StartupPath, "db_AMSEMS_CHECKER.db");
+            string databasePath = Path.Combine(Application.StartupPath, "db_ATTENDANCE_CHECKER.db");
             connectionString = $"Data Source={databasePath};Version=3;";
         }
 
@@ -64,7 +66,11 @@ namespace AMSEMS_Attendance_Checker
                                                     End_Date TEXT, 
                                                     Description TEXT, 
                                                     Color TEXT,
-                                                    Image BLOB);
+                                                    Image BLOB,
+                                                    Attendance TEXT,
+                                                    Penalty TEXT,
+                                                    Exclusive TEXT,
+                                                    Specific_Students TEXT);
                                             CREATE TABLE IF NOT EXISTS tbl_departments (
                                                     Department_ID INTEGER PRIMARY KEY, 
                                                     Description TEXT);
@@ -220,7 +226,7 @@ namespace AMSEMS_Attendance_Checker
                 connection.Close();
             }
         }
-        public void InsertEventsData(string id, string eventname, string startdate, string enddate, string desc, string color, string image)
+        public void InsertEventsData(string id, string eventname, string startdate, string enddate, string desc, string color, string image, string attendance, string exclusive, string specific)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -229,7 +235,7 @@ namespace AMSEMS_Attendance_Checker
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     // Insert new data
-                    string insertSql = "INSERT INTO tbl_events (Event_ID, Event_Name, Start_Date, End_Date, Description, Color, Image) VALUES (@EventID, @EventName, @StartDate, @EndDate, @Desc, @Color, @Image);";
+                    string insertSql = "INSERT INTO tbl_events (Event_ID, Event_Name, Start_Date, End_Date, Description, Color, Image, Attendance, Exclusive, Specific_Students) VALUES (@EventID, @EventName, @StartDate, @EndDate, @Desc, @Color, @Image, @Attendance, @Exclusive, @Specific_Students);";
 
                     command.CommandText = insertSql;
                     command.Parameters.AddWithValue("@EventID", id);
@@ -239,6 +245,9 @@ namespace AMSEMS_Attendance_Checker
                     command.Parameters.AddWithValue("@Desc", desc);
                     command.Parameters.AddWithValue("@Color", color);
                     command.Parameters.AddWithValue("@Image", image);
+                    command.Parameters.AddWithValue("@Attendance", attendance);
+                    command.Parameters.AddWithValue("@Exclusive", exclusive);
+                    command.Parameters.AddWithValue("@Specific_Students", specific);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -341,15 +350,41 @@ namespace AMSEMS_Attendance_Checker
             }
             return dataTable;
         }
-        public DataTable GetAllStudents()
+        private bool IsEventForSpecificStudents(string eventId)
+        {
+            using (SQLiteConnection cn = new SQLiteConnection(connectionString))
+            {
+                cn.Open();
+                string query = "SELECT Exclusive FROM tbl_events WHERE Event_ID = @EventID";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, cn))
+                {
+                    cmd.Parameters.AddWithValue("@EventID", eventId);
+                    object result = cmd.ExecuteScalar();
+                    return result != null && result.ToString() == "Specific Students";
+                }
+            }
+        }
+        public DataTable GetAllStudents(string event_id)
         {
             DataTable dataTable = new DataTable();
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
+                string query;
+                if (IsEventForSpecificStudents(event_id))
+                {
+                    query = @"SELECT Profile_pic, s.ID, RFID, UPPER(s.Firstname) AS Firstname, UPPER(s.Lastname) AS Lastname, UPPER(s.Middlename) AS Middlename, dep.Description AS depdes 
+                        FROM tbl_events e
+                        LEFT JOIN tbl_students_account s ON instr(e.Specific_Students, s.FirstName || ' ' || s.LastName) > 0 
+                        LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
+                        WHERE Status = 1 AND Event_ID = '"+event_id+"' ORDER BY depdes;";
+                }
+                else
+                {
 
-                string query = "SELECT Profile_pic, ID, RFID, UPPER(Firstname) AS Firstname, UPPER(Lastname) AS Lastname, UPPER(Middlename) AS Middlename, dep.Description AS depdes FROM tbl_students_account as stud LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID WHERE Status = 1 ORDER BY depdes";
+                    query = "SELECT Profile_pic, ID, RFID, UPPER(Firstname) AS Firstname, UPPER(Lastname) AS Lastname, UPPER(Middlename) AS Middlename, dep.Description AS depdes FROM tbl_students_account as stud LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID WHERE Status = 1 ORDER BY depdes";
+                }
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
@@ -566,7 +601,7 @@ namespace AMSEMS_Attendance_Checker
             {
                 connection.Open();
 
-                string query = "SELECT Event_Name FROM tbl_events WHERE Event_ID = @id";
+                string query = "SELECT Event_Name FROM tbl_events WHERE Event_ID = @id AND Attendance = 'True'";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
@@ -594,7 +629,18 @@ namespace AMSEMS_Attendance_Checker
                 connection.Open();
 
                 // Retrieve student information
-                string query = "SELECT ID FROM tbl_students_account WHERE RFID = @rfid";
+                string query;
+                if (IsEventForSpecificStudents(eventID))
+                {
+                    query = @"SELECT s.ID FROM tbl_events e
+                            LEFT JOIN tbl_students_account s ON instr(e.Specific_Students, s.FirstName || ' ' || s.LastName) > 0 
+                            LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
+                            WHERE s.Status = 1 AND e.Event_ID = '" + eventID + "' AND s.RFID = @rfid ";
+                }
+                else
+                {
+                    query = "SELECT ID FROM tbl_students_account WHERE RFID = @rfid";
+                }
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
@@ -710,11 +756,28 @@ namespace AMSEMS_Attendance_Checker
 
             }
         }
-        public DataTable GetStudentByRFID(string rfid)
+        public DataTable GetStudentByRFID(string rfid, string event_id)
         {
             DataTable studentInfoTable = new DataTable();
             studentInfoTable.Rows.Clear();
-            string query = @"SELECT
+            string query;
+            if (IsEventForSpecificStudents(event_id))
+            {
+                query = @"SELECT stud.Profile_Pic AS pic,
+                               ID,
+                               sec.Description AS secdes, 
+                               dep.Description AS depdes, 
+                               UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
+                        FROM tbl_attendance AS att
+                        LEFT JOIN tbl_events AS e ON att.Event_ID = e.Event_ID
+                        LEFT JOIN tbl_students_account AS stud ON instr(e.Specific_Students, stud.FirstName || ' ' || stud.LastName) > 0
+                        LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID
+                        LEFT JOIN tbl_section AS sec ON stud.Section = sec.Section_ID
+                        WHERE RFID = @rfid AND Status = 1 AND e.Event_ID = '" + event_id+"'";
+            }
+            else
+            {
+                query = @"SELECT
                             stud.Profile_Pic as pic,
                             ID,
                             sec.Description AS secdes, 
@@ -728,7 +791,8 @@ namespace AMSEMS_Attendance_Checker
                             tbl_departments AS dep ON stud.Department = dep.Department_ID
                         LEFT JOIN 
                             tbl_section AS sec ON stud.Section = sec.Section_ID
-                        WHERE RFID = @rfid";
+                        WHERE RFID = @rfid AND Status = 1";
+            }
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -771,11 +835,29 @@ namespace AMSEMS_Attendance_Checker
 
             return newDataTable;
         }
-        public DataTable GetStudentByManual(string studid)
+        public DataTable GetStudentByManual(string studid, string event_id)
         {
             DataTable studentInfoTable = new DataTable();
             studentInfoTable.Rows.Clear();
-            string query = @"SELECT
+
+            string query;
+            if (IsEventForSpecificStudents(event_id))
+            {
+                query = @"SELECT stud.Profile_Pic AS pic,
+                               ID,
+                               sec.Description AS secdes, 
+                               dep.Description AS depdes, 
+                               UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
+                        FROM tbl_attendance AS att
+                        LEFT JOIN tbl_events AS e ON att.Event_ID = e.Event_ID
+                        LEFT JOIN tbl_students_account AS stud ON instr(e.Specific_Students, stud.FirstName || ' ' || stud.LastName) > 0
+                        LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID
+                        LEFT JOIN tbl_section AS sec ON stud.Section = sec.Section_ID
+                        WHERE ID = @id AND Status = 1 AND e.Event_ID = '" + event_id + "'";
+            }
+            else
+            {
+                query = @"SELECT
                             stud.Profile_Pic as pic,
                             ID,
                             sec.Description AS secdes, 
@@ -790,6 +872,7 @@ namespace AMSEMS_Attendance_Checker
                         LEFT JOIN 
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE ID = @id";
+            }
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -843,11 +926,22 @@ namespace AMSEMS_Attendance_Checker
                 connection.Open();
 
                 // Retrieve student information
-                string query = "SELECT ID FROM tbl_students_account WHERE RFID = @rfid";
+                string query;
+                if (IsEventForSpecificStudents(eventID))
+                {
+                    query = @"SELECT s.ID FROM tbl_events e
+                            LEFT JOIN tbl_students_account s ON instr(e.Specific_Students, s.FirstName || ' ' || s.LastName) > 0 
+                            LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
+                            WHERE s.Status = 1 AND e.Event_ID = '"+eventID+"' AND s.ID = @id ";
+                }
+                else
+                {
+                    query = "SELECT ID FROM tbl_students_account WHERE ID = @id";
+                }
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@rfid", stud_id); // Use parameterized query to prevent SQL injection
+                    command.Parameters.AddWithValue("@id", stud_id); // Use parameterized query to prevent SQL injection
                     using (SQLiteDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
@@ -940,16 +1034,7 @@ namespace AMSEMS_Attendance_Checker
                         updateCommand.Parameters.AddWithValue("@pmOut", pmOut);
                         updateCommand.Parameters.AddWithValue("@checker", checker);
 
-                        int rowsAffected = updateCommand.ExecuteNonQuery();
-
-                        if (rowsAffected > 0)
-                        {
-                            // Update or insertion successful
-                        }
-                        else
-                        {
-                            // Update or insertion failed
-                        }
+                        updateCommand.ExecuteNonQuery();
                     }
                 }
                 else
@@ -978,44 +1063,6 @@ namespace AMSEMS_Attendance_Checker
             }
 
             return dataTable;
-        }
-
-        public void UpdateData(int id, string name, int age)
-        {
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-
-                using (SQLiteCommand command = new SQLiteCommand(connection))
-                {
-                    string updateSql = "UPDATE MyTable SET Name = @Name, Age = @Age WHERE ID = @ID;";
-                    command.CommandText = updateSql;
-                    command.Parameters.AddWithValue("@Name", name);
-                    command.Parameters.AddWithValue("@Age", age);
-                    command.Parameters.AddWithValue("@ID", id);
-                    command.ExecuteNonQuery();
-                }
-
-                connection.Close();
-            }
-        }
-
-        public void DeleteData(int id)
-        {
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-
-                using (SQLiteCommand command = new SQLiteCommand(connection))
-                {
-                    string deleteSql = "DELETE FROM MyTable WHERE ID = @ID;";
-                    command.CommandText = deleteSql;
-                    command.Parameters.AddWithValue("@ID", id);
-                    command.ExecuteNonQuery();
-                }
-
-                connection.Close();
-            }
         }
     }
 }
