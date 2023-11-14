@@ -41,7 +41,7 @@ namespace AMSEMS.SubForms_Admin
         {
             // This method runs in a background thread
             // Perform time-consuming operations here
-            displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
+            displayTable("Select ID,Firstname,Lastname,Password,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_guidance_accounts");
 
             // Simulate a time-consuming operation
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
@@ -195,7 +195,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
+                                displayTable("Select ID,Firstname,Lastname,Password,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_guidance_accounts");
                                 MessageBox.Show("Account deleted successfully.");
                             }
                             else
@@ -324,7 +324,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
+            displayTable("Select ID,Firstname,Lastname,Password,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_guidance_accounts");
 
             tbSearch.Text = String.Empty;
         }
@@ -450,21 +450,21 @@ namespace AMSEMS.SubForms_Admin
             // Create a list to store the rows to be removed
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
-            // Iterate through the DataGridView rows to find selected rows
-            foreach (DataGridViewRow row in dgvArch.Rows)
+            DialogResult result = MessageBox.Show($"Do you want to delete selected archived account?", "Confirm Deletion", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                // Check if the "Select" checkbox is checked in the current row
-                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
-                if (chk.Value != null && (bool)chk.Value)
+                // Iterate through the DataGridView rows to find selected rows
+                foreach (DataGridViewRow row in dgvArch.Rows)
                 {
-                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
-
-                    // Get the student ID or relevant data from the row
-                    int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
-                                                                     // Ask for confirmation from the user
-                    DialogResult result = MessageBox.Show($"Delete account with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
+                    // Check if the "Select" checkbox is checked in the current row
+                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                    if (chk.Value != null && (bool)chk.Value)
                     {
+                        hasSelectedRow = true; // Set the flag to true if at least one row is selected
+
+                        // Get the student ID or relevant data from the row
+                        int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
                         // Call your DeleteTeacherRecord method to delete the record
                         bool success = DeleteStudentRecord(id);
 
@@ -478,11 +478,12 @@ namespace AMSEMS.SubForms_Admin
                         {
                             MessageBox.Show("Failed to delete record with ID: " + id);
                         }
+
                     }
                 }
             }
 
-            displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
+            displayTable("Select ID,Firstname,Lastname,Password,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_guidance_accounts");
 
             dgvArch.Refresh();
 
@@ -541,7 +542,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
+                    displayTable("Select ID,Firstname,Lastname,Password,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_guidance_accounts");
                 }
             }
         }
@@ -636,7 +637,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
+                                displayTable("Select ID,Firstname,Lastname,Password,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_guidance_accounts");
                                 MessageBox.Show("Account retrieved successfully.");
                             }
                             else

@@ -21,7 +21,7 @@ namespace AMSEMS.SubForms_Admin
         SqlDataReader dr;
         private bool headerCheckboxAdded = false; // Add this flag
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
-        private CheckBox headerCheckbox = new CheckBox();
+        private CheckBox headerCheckbox;
         public formSubjects()
         {
             InitializeComponent();
@@ -34,11 +34,11 @@ namespace AMSEMS.SubForms_Admin
             dgvSubjects.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvSubjects.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             // Initialize the header checkbox in the constructor
+            // Create a checkbox control and set its state
+            headerCheckbox = new CheckBox();
             headerCheckbox.Size = new Size(15, 15);
             headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
 
-            // Add the header checkbox to the DataGridView controls
-            dgvSubjects.Controls.Add(headerCheckbox);
         }
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -635,21 +635,17 @@ namespace AMSEMS.SubForms_Admin
                 e.PaintBackground(e.CellBounds, true);
                 e.PaintContent(e.CellBounds);
 
-                if (!headerCheckboxAdded) // Check if the checkbox has already been added
+                // Center the checkbox within the header cell
+                int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
+                int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
+
+                headerCheckbox.Location = new Point(x, y);
+                headerCheckbox.Checked = AreAllCheckboxesChecked();
+
+                // Check if there are any rows in the DataGridView
+                if (dgvSubjects.Rows.Count != 0)
                 {
-
-
-                    // Center the checkbox within the header cell
-                    int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
-                    int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
-
-                    headerCheckbox.Location = new Point(x, y);
-                    headerCheckbox.Checked = AreAllCheckboxesChecked();
-
-
                     dgvSubjects.Controls.Add(headerCheckbox);
-
-                    headerCheckboxAdded = true; // Set the flag to true
                 }
             }
         }
@@ -694,21 +690,21 @@ namespace AMSEMS.SubForms_Admin
             // Create a list to store the rows to be removed
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
-            // Iterate through the DataGridView rows to find selected rows
-            foreach (DataGridViewRow row in dgvSubjects.Rows)
+            DialogResult result = MessageBox.Show($"Do you want to delete selected subjects?", "Confirm Deletion", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                // Check if the "Select" checkbox is checked in the current row
-                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
-                if (chk.Value != null && (bool)chk.Value)
+                // Iterate through the DataGridView rows to find selected rows
+                foreach (DataGridViewRow row in dgvSubjects.Rows)
                 {
-                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
-
-                    // Get the student ID or relevant data from the row
-                    string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
-                                                                    // Ask for confirmation from the user
-                    DialogResult result = MessageBox.Show($"Delete subject with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
+                    // Check if the "Select" checkbox is checked in the current row
+                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                    if (chk.Value != null && (bool)chk.Value)
                     {
+                        hasSelectedRow = true; // Set the flag to true if at least one row is selected
+
+                        // Get the student ID or relevant data from the row
+                        string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
+
                         // Call your DeleteTeacherRecord method to delete the record
                         bool success = DeleteStudentRecord(id);
 

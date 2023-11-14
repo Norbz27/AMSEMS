@@ -43,7 +43,7 @@ namespace AMSEMS.SubForms_Admin
             // This method runs in a background thread
             // Perform time-consuming operations here
             displayFilter();
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
 
             // Simulate a time-consuming operation
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
@@ -268,7 +268,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
+                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
                                 MessageBox.Show("Account deleted successfully.");
                             }
                             else
@@ -505,7 +505,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
 
             cbProgram.Text = String.Empty;
             cbSection.Text = String.Empty;
@@ -634,21 +634,21 @@ namespace AMSEMS.SubForms_Admin
             // Create a list to store the rows to be removed
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
-            // Iterate through the DataGridView rows to find selected rows
-            foreach (DataGridViewRow row in dgvArch.Rows)
+            DialogResult result = MessageBox.Show($"Do you want to delete selected archived account?", "Confirm Deletion", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                // Check if the "Select" checkbox is checked in the current row
-                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
-                if (chk.Value != null && (bool)chk.Value)
+                // Iterate through the DataGridView rows to find selected rows
+                foreach (DataGridViewRow row in dgvArch.Rows)
                 {
-                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
-
-                    // Get the student ID or relevant data from the row
-                    int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
-                                                                     // Ask for confirmation from the user
-                    DialogResult result = MessageBox.Show($"Delete account with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
+                    // Check if the "Select" checkbox is checked in the current row
+                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                    if (chk.Value != null && (bool)chk.Value)
                     {
+                        hasSelectedRow = true; // Set the flag to true if at least one row is selected
+
+                        // Get the student ID or relevant data from the row
+                        int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
                         // Call your DeleteTeacherRecord method to delete the record
                         bool success = DeleteStudentRecord(id);
 
@@ -666,7 +666,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
 
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
+            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
 
             dgvArch.Refresh();
 
@@ -725,7 +725,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
+                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
                 }
             }
         }
@@ -822,7 +822,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
+                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate from tbl_archived_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID");
                                 MessageBox.Show("Account retrieved successfully.");
                             }
                             else

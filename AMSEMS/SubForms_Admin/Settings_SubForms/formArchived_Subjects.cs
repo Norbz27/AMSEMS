@@ -35,7 +35,7 @@ namespace AMSEMS.SubForms_Admin
             // Perform time-consuming operations here
             displayFilter();
 
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
 
             // Simulate a time-consuming operation
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
@@ -209,7 +209,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
                                 MessageBox.Show("Subject deleted successfully.");
                             }
                             else
@@ -347,7 +347,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
 
             tbSearch.Text = String.Empty;
 
@@ -478,21 +478,21 @@ namespace AMSEMS.SubForms_Admin
             // Create a list to store the rows to be removed
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
-            // Iterate through the DataGridView rows to find selected rows
-            foreach (DataGridViewRow row in dgvSubjects.Rows)
+            DialogResult result = MessageBox.Show($"Do you want to delete selected archived account?", "Confirm Deletion", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
             {
-                // Check if the "Select" checkbox is checked in the current row
-                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
-                if (chk.Value != null && (bool)chk.Value)
+                // Iterate through the DataGridView rows to find selected rows
+                foreach (DataGridViewRow row in dgvSubjects.Rows)
                 {
-                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
-
-                    // Get the student ID or relevant data from the row
-                    string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
-                                                                  // Ask for confirmation from the user
-                    DialogResult result = MessageBox.Show($"Delete subject with ID {id}?", "Confirm Deletion", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
+                    // Check if the "Select" checkbox is checked in the current row
+                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                    if (chk.Value != null && (bool)chk.Value)
                     {
+                        hasSelectedRow = true; // Set the flag to true if at least one row is selected
+
+                        // Get the student ID or relevant data from the row
+                        string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
+
                         // Call your DeleteTeacherRecord method to delete the record
                         bool success = DeleteStudentRecord(id);
 
@@ -505,11 +505,12 @@ namespace AMSEMS.SubForms_Admin
                         {
                             MessageBox.Show("Failed to delete record with ID: " + id);
                         }
+
                     }
                 }
             }
 
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
 
             dgvSubjects.Refresh();
             pnControl.Hide();
@@ -565,7 +566,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
                 }
             }
         }
@@ -669,7 +670,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,FORMAT(Archived_Date, 'yyyy-MM-dd') AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
                                 MessageBox.Show("Subject retrieved successfully.");
                             }
                             else

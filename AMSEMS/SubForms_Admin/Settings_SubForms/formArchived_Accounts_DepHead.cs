@@ -44,7 +44,7 @@ namespace AMSEMS.SubForms_Admin
             // This method runs in a background thread
             // Perform time-consuming operations here
             displayFilter();
-            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, CONVERT(DATE,Archived_Date) AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
+            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, FORMAT(Archived_Date, 'yyyy-MM-dd') AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
 
             // Simulate a time-consuming operation
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
@@ -229,7 +229,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, CONVERT(DATE,Archived_Date) AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
+                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, FORMAT(Archived_Date, 'yyyy-MM-dd') AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
                                 MessageBox.Show("Account deleted successfully.");
                             }
                             else
@@ -434,7 +434,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, CONVERT(DATE,Archived_Date) AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
+            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, FORMAT(Archived_Date, 'yyyy-MM-dd') AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
 
             cbDep.Text = String.Empty;
             tbSearch.Text = String.Empty;
@@ -566,7 +566,7 @@ namespace AMSEMS.SubForms_Admin
             // Create a list to store the rows to be removed
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
-            DialogResult result = MessageBox.Show($"Do you want to delete selected account?", "Confirm Deletion", MessageBoxButtons.YesNo);
+            DialogResult result = MessageBox.Show($"Do you want to delete selected archived account?", "Confirm Deletion", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
                 // Iterate through the DataGridView rows to find selected rows
@@ -598,7 +598,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
 
-            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, CONVERT(DATE,Archived_Date) AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
+            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, FORMAT(Archived_Date, 'yyyy-MM-dd') AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
 
             dgvArch.Refresh();
 
@@ -657,7 +657,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, CONVERT(DATE,Archived_Date) AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
+                    displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, FORMAT(Archived_Date, 'yyyy-MM-dd') AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
                 }
             }
         }
@@ -752,7 +752,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, CONVERT(DATE,Archived_Date) AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
+                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, FORMAT(Archived_Date, 'yyyy-MM-dd') AS arcdate from tbl_archived_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID");
                                 MessageBox.Show("Account retrieved successfully.");
                             }
                             else
