@@ -41,7 +41,7 @@ namespace AMSEMS.SubForms_Admin
         {
             // This method runs in a background thread
             // Perform time-consuming operations here
-            displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_guidance_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
+            displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
 
             // Simulate a time-consuming operation
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
@@ -110,7 +110,7 @@ namespace AMSEMS.SubForms_Admin
                             dgvArch.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
                             dgvArch.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
                             dgvArch.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
-                            dgvArch.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
+                            dgvArch.Rows[rowIndex].Cells["archived_date"].Value = dr["archdate"].ToString();
 
                             // Populate your control column here (change "ControlColumn" to your actual column name)
                             dgvArch.Rows[rowIndex].Cells["option"].Value = option.Image;
@@ -195,7 +195,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_guidance_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
+                                displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
                                 MessageBox.Show("Account deleted successfully.");
                             }
                             else
@@ -324,7 +324,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_guidance_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
+            displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
 
             tbSearch.Text = String.Empty;
         }
@@ -482,7 +482,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
 
-            displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_guidance_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
+            displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
 
             dgvArch.Refresh();
 
@@ -541,7 +541,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_guidance_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
+                    displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
                 }
             }
         }
@@ -636,7 +636,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_archived_guidance_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
+                                displayTable("Select ID,Firstname,Lastname,Password,CONVERT(DATE, Archived_Date) AS archdate from tbl_archived_guidance_accounts");
                                 MessageBox.Show("Account retrieved successfully.");
                             }
                             else

@@ -35,7 +35,7 @@ namespace AMSEMS.SubForms_Admin
             // Perform time-consuming operations here
             displayFilter();
 
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
 
             // Simulate a time-consuming operation
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
@@ -138,7 +138,7 @@ namespace AMSEMS.SubForms_Admin
                                 dgvSubjects.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["acad"].Value = dr["Acad"].ToString();
-                                dgvSubjects.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["archived_date"].Value = dr["archdate"].ToString();
 
                                 // Populate your control column here (change "ControlColumn" to your actual column name)
                                 dgvSubjects.Rows[rowIndex].Cells["option"].Value = option.Image;
@@ -209,7 +209,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
                                 MessageBox.Show("Subject deleted successfully.");
                             }
                             else
@@ -347,7 +347,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
 
             tbSearch.Text = String.Empty;
 
@@ -509,7 +509,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
 
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
 
             dgvSubjects.Refresh();
             pnControl.Hide();
@@ -565,7 +565,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                     }
-                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
                 }
             }
         }
@@ -669,7 +669,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach, CONVERT(DATE, Archived_Date) AS archdate, al.Academic_Level_Description as Acad from tbl_archived_subjects as s left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
                                 MessageBox.Show("Subject retrieved successfully.");
                             }
                             else

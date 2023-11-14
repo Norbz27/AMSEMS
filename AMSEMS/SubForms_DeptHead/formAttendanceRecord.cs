@@ -77,7 +77,10 @@ namespace AMSEMS.SubForms_DeptHead
                     // Check if the event is for Specific Students
                     if (IsEventForSpecificStudents(event_id))
                     {
-                        query = @"SELECT e.Event_ID, s.ID AS id, UPPER(s.Firstname) AS fname,
+                        query = @"SELECT
+                                e.Event_ID,
+                                s.ID AS id,
+                                UPPER(s.Firstname) AS fname,
                                 UPPER(s.Middlename) AS mname,
                                 UPPER(s.Lastname) AS lname,
                                 sec.Description AS secdes,
@@ -88,14 +91,26 @@ namespace AMSEMS.SubForms_DeptHead
                                 COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
                                 ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
                                 ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
-                                UPPER(teach.Lastname) AS teachlname 
-                                FROM tbl_events e
-                                LEFT JOIN tbl_student_accounts s ON CHARINDEX(s.FirstName + ' ' + s.LastName, e.Specific_Students) > 0
-                                LEFT JOIN tbl_attendance AS att ON att.Student_ID = s.ID
-                                LEFT JOIN tbl_departments d ON s.Department = d.Department_ID
-                                LEFT JOIN tbl_Section AS sec ON S.Section = sec.Section_ID
-                                LEFT JOIN tbl_teacher_accounts AS teach ON att.Checker = teach.ID
-                                WHERE e.Event_ID = @EventID AND e.Exclusive = 'Specific Students' AND s.ID IS NOT NULL AND s.Department = @Dep;";
+                                UPPER(teach.Lastname) AS teachlname
+                            FROM
+                                tbl_events e
+                            LEFT JOIN
+                                tbl_student_accounts s ON CHARINDEX(s.FirstName + ' ' + s.LastName, e.Specific_Students) > 0
+                            LEFT JOIN
+                                tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND CONVERT(DATE, att.Date_Time) = @Date
+                            LEFT JOIN
+                                tbl_departments d ON s.Department = d.Department_ID
+                            LEFT JOIN
+                                tbl_Section AS sec ON s.Section = sec.Section_ID
+                            LEFT JOIN
+                                tbl_teacher_accounts AS teach ON att.Checker = teach.ID
+                            WHERE
+                                e.Event_ID = @EventID
+                                AND e.Exclusive = 'Specific Students'
+                                AND s.ID IS NOT NULL
+                                AND s.Department = @Dep
+                            ORDER BY
+                                s.ID, att.Date_Time;";
                     }
                     else
                     {
@@ -113,7 +128,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
                                 UPPER(teach.Lastname) AS teachlname 
                                 FROM tbl_student_accounts AS stud
-                                LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND att.Date_Time = @Date
+                                LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND CONVERT(DATE, att.Date_Time) = @Date
                                 LEFT JOIN tbl_Section AS sec ON stud.Section = sec.Section_ID
                                 LEFT JOIN tbl_teacher_accounts AS teach ON att.Checker = teach.ID 
                                 WHERE stud.Department = @Dep AND stud.Status = 1";
