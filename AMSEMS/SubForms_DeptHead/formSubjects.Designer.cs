@@ -300,7 +300,7 @@
             // 
             // lblAccountName
             // 
-            this.lblAccountName.Location = new System.Drawing.Point(-5, 3);
+            this.lblAccountName.Location = new System.Drawing.Point(-4, 3);
             this.lblAccountName.Name = "lblAccountName";
             this.lblAccountName.Size = new System.Drawing.Size(85, 27);
             this.lblAccountName.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -432,7 +432,7 @@
             this.ID.HeaderText = "Course Code";
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
-            this.ID.Width = 103;
+            this.ID.Width = 102;
             // 
             // Des
             // 
@@ -450,7 +450,7 @@
             this.units.HeaderText = "Units";
             this.units.Name = "units";
             this.units.ReadOnly = true;
-            this.units.Width = 65;
+            this.units.Width = 64;
             // 
             // teach
             // 
@@ -467,7 +467,7 @@
             this.acad.HeaderText = "Academic Level";
             this.acad.Name = "acad";
             this.acad.ReadOnly = true;
-            this.acad.Width = 120;
+            this.acad.Width = 117;
             // 
             // option
             // 

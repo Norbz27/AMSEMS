@@ -144,6 +144,7 @@ namespace AMSEMS.SubForms_SAO
 
             // Add the label to the existing FlowLayoutPanel (flowLayoutPanel1)
             flowLayoutPanel1.Controls.Add(label);
+            formEventDetails.students.Add(suggestion);
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -276,7 +277,6 @@ namespace AMSEMS.SubForms_SAO
         }
         public void displayConfig()
         {
-            formEventDetails.students.Clear();
             flowLayoutPanel1.Controls.Clear();
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
@@ -304,6 +304,11 @@ namespace AMSEMS.SubForms_SAO
                             string[] studentsArray = selectedStudents.Split(',');
                             foreach (string student in studentsArray)
                             {
+                                if(formEventDetails.students == null)
+                                {
+                                    formEventDetails.students.Clear();
+                                }
+
                                 formEventDetails.students.Add(student.Trim());
                                 AddSuggestionToFlowLayoutPanel(student.Trim());
                             }

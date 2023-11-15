@@ -11,12 +11,15 @@ namespace AMSEMS.SubForms_DeptHead
         SqlCommand cm;
         SqlDataReader dr;
 
+        formConfigFee formConfigFee;
+
         string event_id, date;
 
         public formAttendanceRecord()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
+            formConfigFee = new formConfigFee();
         }
         public void displayFilter()
         {
@@ -57,6 +60,45 @@ namespace AMSEMS.SubForms_DeptHead
                 MessageBox.Show(ex.Message);
             }
         }
+        public void displayFees()
+        {
+            using (cn = new SqlConnection(SQL_Connection.connection))
+            {
+                string eventid = null;
+                cn.Open();
+                cm = new SqlCommand("Select Event_ID from tbl_events where Event_Name = @Eventname", cn);
+                cm.Parameters.AddWithValue("@Eventname", cbEvents.Text);
+                using (SqlDataReader reader = cm.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        eventid = reader["Event_ID"].ToString();
+                    }
+                }
+
+                cm = new SqlCommand("Select Penalty_AM, Penalty_PM from tbl_attendance where Event_ID = @eventid AND FORMAT(Date_Time, 'yyyy-MM-dd') = @date", cn);
+                cm.Parameters.AddWithValue("@eventid", eventid);
+                cm.Parameters.AddWithValue("@date", Dt.Value.ToString("yyyy-MM-dd"));
+                using (dr = cm.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        // Check for DBNull.Value and display "00.00" in that case
+                        string penaltyAM = dr["Penalty_AM"] != DBNull.Value ? Convert.ToDecimal(dr["Penalty_AM"]).ToString("0.00") : "00.00";
+                        string penaltyPM = dr["Penalty_PM"] != DBNull.Value ? Convert.ToDecimal(dr["Penalty_PM"]).ToString("0.00") : "00.00";
+
+                        lblAmPenaltyFee.Text = "₱ " + penaltyAM;
+                        lblPmPenaltyFee.Text = "₱ " + penaltyPM;
+                    }
+                    else
+                    {
+                        lblAmPenaltyFee.Text = "₱ 00.00";
+                        lblPmPenaltyFee.Text = "₱ 00.00";
+                    }
+                }
+            }
+        }
+
 
         public void displayTable()
         {
@@ -84,13 +126,17 @@ namespace AMSEMS.SubForms_DeptHead
                                 UPPER(s.Middlename) AS mname,
                                 UPPER(s.Lastname) AS lname,
                                 sec.Description AS secdes,
-                                FORMAT(att.Date_Time, 'yyyy-MM-dd') AS Date_Time,
+                                ISNULL(FORMAT(att.Date_Time, 'yyyy-MM-dd'), '-------') AS Date_Time,
                                 COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
                                 ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
+                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), @AM_Pen) AS AM_IN_Penalty,
                                 ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
+                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), @AM_Pen) AS AM_OUT_Penalty,
                                 COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
                                 ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
+                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
                                 ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
+                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
                                 UPPER(teach.Lastname) AS teachlname
                             FROM
                                 tbl_events e
@@ -122,10 +168,14 @@ namespace AMSEMS.SubForms_DeptHead
                                 FORMAT(att.Date_Time, 'yyyy-MM-dd') AS Date_Time,
                                 COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
                                 ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
+                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), @AM_Pen) AS AM_IN_Penalty,
                                 ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
+                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), @AM_Pen) AS AM_OUT_Penalty,
                                 COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
                                 ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
+                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
                                 ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
+                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
                                 UPPER(teach.Lastname) AS teachlname 
                                 FROM tbl_student_accounts AS stud
                                 LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND CONVERT(DATE, att.Date_Time) = @Date
@@ -136,8 +186,12 @@ namespace AMSEMS.SubForms_DeptHead
 
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
+                        string modifiedStringAM = lblAmPenaltyFee.Text.Replace("₱ ", "");
+                        string modifiedStringPM = lblPmPenaltyFee.Text.Replace("₱ ", "");
                         cmd.Parameters.AddWithValue("@EventID", event_id);
                         cmd.Parameters.AddWithValue("@Date", date);
+                        cmd.Parameters.AddWithValue("@AM_Pen", modifiedStringAM);
+                        cmd.Parameters.AddWithValue("@PM_Pen", modifiedStringPM);
                         cmd.Parameters.AddWithValue("@Dep", FormDeptHeadNavigation.dep);
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
@@ -147,17 +201,36 @@ namespace AMSEMS.SubForms_DeptHead
 
                                 string name = dr["fname"].ToString() + " " + dr["mname"].ToString() + " " + dr["lname"].ToString();
 
+                                double totalfee = 0;
+
+                                if (double.TryParse(dr["AM_IN_Penalty"].ToString(), out double amInPenalty) && !string.IsNullOrEmpty(dr["AM_IN"].ToString()))
+                                    totalfee += amInPenalty;
+
+                                if (double.TryParse(dr["AM_OUT_Penalty"].ToString(), out double amOutPenalty) && !string.IsNullOrEmpty(dr["AM_OUT"].ToString()))
+                                    totalfee += amOutPenalty;
+
+                                if (double.TryParse(dr["PM_IN_Penalty"].ToString(), out double pmInPenalty) && !string.IsNullOrEmpty(dr["PM_IN"].ToString()))
+                                    totalfee += pmInPenalty;
+
+                                if (double.TryParse(dr["PM_OUT_Penalty"].ToString(), out double pmOutPenalty) && !string.IsNullOrEmpty(dr["PM_OUT"].ToString()))
+                                    totalfee += pmOutPenalty;
+
+                                string formattedTotalFee = totalfee.ToString("F2");
+
+                                string formattedDate = Dt.Value.ToString("MM-dd-yyyy");
+
                                 dgvRecord.Rows[rowIndex].Cells["ID"].Value = dr["id"].ToString();
                                 dgvRecord.Rows[rowIndex].Cells["name"].Value = name;
                                 dgvRecord.Rows[rowIndex].Cells["section"].Value = dr["secdes"].ToString();
-                                dgvRecord.Rows[rowIndex].Cells["event_date"].Value = dr["Date_Time"].ToString();
-                                dgvRecord.Rows[rowIndex].Cells["penalty_am"].Value = dr["Penalty_AM"].ToString();
+                                dgvRecord.Rows[rowIndex].Cells["event_date"].Value = formattedDate;
+                                dgvRecord.Rows[rowIndex].Cells["penalty_am"].Value = lblAmPenaltyFee.Text;
                                 dgvRecord.Rows[rowIndex].Cells["am_login"].Value = dr["AM_IN"].ToString();
                                 dgvRecord.Rows[rowIndex].Cells["am_logout"].Value = dr["AM_OUT"].ToString();
-                                dgvRecord.Rows[rowIndex].Cells["penalty_pm"].Value = dr["Penalty_PM"].ToString();
+                                dgvRecord.Rows[rowIndex].Cells["penalty_pm"].Value = lblPmPenaltyFee.Text;
                                 dgvRecord.Rows[rowIndex].Cells["pm_login"].Value = dr["PM_IN"].ToString();
                                 dgvRecord.Rows[rowIndex].Cells["pm_logout"].Value = dr["PM_OUT"].ToString();
                                 dgvRecord.Rows[rowIndex].Cells["checker"].Value = dr["teachlname"].ToString();
+                                dgvRecord.Rows[rowIndex].Cells["penalty_total"].Value = "₱ " + formattedTotalFee;
 
                                 rowIndex++;
                             }
@@ -191,12 +264,14 @@ namespace AMSEMS.SubForms_DeptHead
         private void formAttendanceRecord_Load(object sender, EventArgs e)
         {
             displayFilter();
+            displayFees();
             displayTable();
         }
 
         private void Dt_ValueChanged(object sender, EventArgs e)
         {
             date = Dt.Value.ToString();
+            displayFees();
             displayTable();
         }
 
@@ -204,21 +279,41 @@ namespace AMSEMS.SubForms_DeptHead
         {
             try
             {
+                displayFees();
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
 
                     // Use parameterized query to avoid SQL injection
-                    string query = "SELECT Event_ID, Event_Name, Start_Date FROM tbl_events WHERE Event_Name = @EventName";
+                    string query = "SELECT Event_ID, Event_Name, Start_Date, End_Date FROM tbl_events WHERE Event_Name = @EventName";
                     using (SqlCommand cm = new SqlCommand(query, cn))
                     {
                         cm.Parameters.AddWithValue("@EventName", cbEvents.Text);
                         SqlDataReader dr = cm.ExecuteReader();
 
-                        dr.Read();
-                        event_id = dr["Event_ID"].ToString();
-                        Dt.Value = (DateTime)dr["Start_Date"];
-                        date = Dt.Value.ToString();
+                        if (dr.Read())
+                        {
+                            event_id = dr["Event_ID"].ToString();
+
+                            // Reset MinDate and MaxDate to their default values
+                            Dt.MinDate = DateTimePicker.MinimumDateTime;
+                            Dt.MaxDate = DateTimePicker.MaximumDateTime;
+
+                            // Ensure that the values are DateTime before assigning to MinDate and MaxDate
+                            DateTime startDate = (DateTime)dr["Start_Date"];
+                            DateTime endDate = (DateTime)dr["End_Date"];
+
+                            // Optionally, check if the dates are valid before setting
+                            if (startDate != DateTime.MinValue && endDate != DateTime.MinValue && startDate <= endDate)
+                            {
+                                Dt.Value = startDate;
+                                Dt.MinDate = startDate;
+                                Dt.MaxDate = endDate;
+                            }
+
+                            date = Dt.Value.ToString();
+                        }
+
                         dr.Close();
                     }
                 }
@@ -238,6 +333,12 @@ namespace AMSEMS.SubForms_DeptHead
         {
             string searchKeyword = tbSearch.Text.Trim();
             ApplyCBFilter(searchKeyword);
+        }
+
+        private void btnPenaltyFee_Click(object sender, EventArgs e)
+        {
+            formConfigFee.displayCBData(cbEvents.Text);
+            formConfigFee.ShowDialog();
         }
 
         private void ApplyCBFilter(string selectedIndex)

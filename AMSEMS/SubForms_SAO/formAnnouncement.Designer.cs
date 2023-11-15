@@ -63,7 +63,7 @@
             // 
             // lblAccountName
             // 
-            this.lblAccountName.Location = new System.Drawing.Point(3, 3);
+            this.lblAccountName.Location = new System.Drawing.Point(-1, 3);
             this.lblAccountName.Name = "lblAccountName";
             this.lblAccountName.Size = new System.Drawing.Size(154, 27);
             this.lblAccountName.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));

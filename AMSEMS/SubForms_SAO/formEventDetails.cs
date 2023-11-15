@@ -33,7 +33,6 @@ namespace AMSEMS.SubForms_SAO
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
-            selectedColor = "#800000";
             isTrue = true;
             formEventEditConfig = new formEventEditConfig();
         }
@@ -175,6 +174,7 @@ namespace AMSEMS.SubForms_SAO
                         DtStart.Value = (DateTime)dr["Start_Date"];
                         DtEnd.Value = (DateTime)dr["End_Date"];
                         lblCode.Text = dr["Event_ID"].ToString();
+                        selectedColor = dr["Color"].ToString();
 
                         object imageData = dr["Image"];
                         if (imageData != DBNull.Value) // Check if the column is not null

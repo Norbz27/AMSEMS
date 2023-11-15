@@ -71,7 +71,7 @@ namespace AMSEMS.SubForms_SAO
                     using (cn = new SqlConnection(SQL_Connection.connection))
                     {
                         cn.Open();
-                        cm = new SqlCommand("SELECT Event_ID, Event_Name, Color FROM tbl_events WHERE Start_Date = @date", cn);
+                        cm = new SqlCommand("SELECT Event_ID, Event_Name, Color FROM tbl_events WHERE Start_Date <= @date AND End_Date >= @date", cn);
                         cm.Parameters.AddWithValue("@date", date);
                         dr = cm.ExecuteReader();
 

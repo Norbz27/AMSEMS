@@ -649,7 +649,7 @@ namespace AMSEMS.SubForms_Admin
                             {
                                 // Add the row to the list of rows to be removed
                                 rowsToRemove.Add(row);
-                                MessageBox.Show("Account retrieved successfully.");
+                                //MessageBox.Show("Account retrieved successfully.");
                             }
                             else
                             {

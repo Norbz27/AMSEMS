@@ -132,13 +132,24 @@ namespace AMSEMS.SubForms_SAO
             Label label = new Label
             {
                 AutoSize = true,
-                Text = suggestion,
+                Text = suggestion + "  ×",
                 Margin = new Padding(5),
-                BorderStyle = BorderStyle.FixedSingle
+                BorderStyle = BorderStyle.FixedSingle,
+                Cursor = Cursors.Hand
             };
 
             // Add the label to the existing FlowLayoutPanel (flowLayoutPanel1)
             flowLayoutPanel1.Controls.Add(label);
+            formAddEvent.students.Add(suggestion);
+
+            // Add a click event handler to the label
+            label.Click += (sender, e) =>
+            {
+                string clickedSuggestion = label.Text.Replace("  ×", "");
+                // Remove the label when clicked
+                flowLayoutPanel1.Controls.Remove(label);
+                formAddEvent.students.Add(clickedSuggestion);
+            };
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -173,7 +184,7 @@ namespace AMSEMS.SubForms_SAO
             {
                 cn.Open();
 
-                string query = "SELECT CONCAT(Firstname, ' ', Lastname) AS FullName FROM tbl_student_accounts WHERE Status = 1";
+                string query = "SELECT UPPER(CONCAT(Firstname, ' ', Lastname)) AS FullName FROM tbl_student_accounts WHERE Status = 1";
                 using (SqlCommand command = new SqlCommand(query, cn))
                 {
                     using (SqlDataReader reader = command.ExecuteReader())

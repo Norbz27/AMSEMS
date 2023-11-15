@@ -524,6 +524,12 @@
     <Compile Include="SubForms_DeptHead\Settings_Subforms\formChangePass.Designer.cs">
       <DependentUpon>formChangePass.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_DeptHead\formConfigFee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formConfigFee.Designer.cs">
+      <DependentUpon>formConfigFee.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_DeptHead\Settings_Subforms\formNotificationSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -869,6 +875,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\Settings_Subforms\formChangePass.resx">
       <DependentUpon>formChangePass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\formConfigFee.resx">
+      <DependentUpon>formConfigFee.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\Settings_Subforms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
