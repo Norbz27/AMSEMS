@@ -26,7 +26,7 @@ namespace AMSEMS.SubForms_SAO
 
         public static bool attendance;
         public static bool penalty;
-        public static List<string> students = new List<string> { };
+        public static HashSet<string> students = new HashSet<string> { };
         public static string exclusive;
         public formEventDetails()
         {
@@ -402,7 +402,7 @@ namespace AMSEMS.SubForms_SAO
         {
             if (students != null)
             {
-                List<string> selectedStudentIds = students;
+                HashSet<string> selectedStudentIds = students;
 
                 return string.Join(",", selectedStudentIds);
             }

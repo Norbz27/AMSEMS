@@ -148,7 +148,7 @@ namespace AMSEMS.SubForms_SAO
                 string clickedSuggestion = label.Text.Replace("  ×", "");
                 // Remove the label when clicked
                 flowLayoutPanel1.Controls.Remove(label);
-                formAddEvent.students.Add(clickedSuggestion);
+                formAddEvent.students.Remove(clickedSuggestion);
             };
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -227,7 +227,8 @@ namespace AMSEMS.SubForms_SAO
         }
         private bool IsSuggestionInFlowLayoutPanel(string suggestion)
         {
-            return flowLayoutPanel1.Controls.OfType<Label>().Any(label => label.Text.Equals(suggestion));
+
+            return flowLayoutPanel1.Controls.OfType<Label>().Any(label => label.Text.Replace("  ×", "").Equals(suggestion));
         }
 
         private void tgbtnAtt_CheckedChanged(object sender, EventArgs e)

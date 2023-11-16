@@ -338,7 +338,14 @@ namespace AMSEMS.SubForms_DeptHead
         private void btnPenaltyFee_Click(object sender, EventArgs e)
         {
             formConfigFee.displayCBData(cbEvents.Text);
+            formConfigFee.getForm(this);
             formConfigFee.ShowDialog();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            displayFees();
+            displayTable();
         }
 
         private void ApplyCBFilter(string selectedIndex)

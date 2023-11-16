@@ -1,4 +1,5 @@
-﻿using ComponentFactory.Krypton.Toolkit;
+﻿using AMSEMS;
+using ComponentFactory.Krypton.Toolkit;
 using System;
 using System.Data;
 using System.Drawing;
@@ -86,24 +87,37 @@ namespace AMSEMS_Attendance_Checker
                 lblSection.Text = section;
                 lblAttDate.Text = date;
                 lblAttTime.Text = time;
+                ptbCheck.Image = Properties.Resources.check_64;
+            }
+            else
+            {
+                lblID.Text = "";
+                lblName.Text = "No Record Found";
+                lblDepartment.Text = "";
+                lblSection.Text = "";
+                lblAttDate.Text = "";
+                lblAttTime.Text = "";
+                ptbCheck.Image = Properties.Resources.ex;
+                ptbProfilePic.Image = Properties.Resources.empty_folder_9841555;
             }
         }
 
         public void displayAttendanceRecord()
         {
             dgvAttendance.Rows.Clear();
-            kryptonGroupBox3.Panel.Controls.Clear();
+            tableLayoutPanel1.Controls.Clear();
             DateTime dateTimeNow = DateTime.Now;
             string formattedDate = dateTimeNow.ToString("M/d/yyyy");
             string period = dateTimeNow.Hour < 12 ? "AM" : "PM";
             DataTable attendance = sQLite_Connection.GetAttendanceRecord(event_code, period, attendance_stat, formattedDate);
 
-            if (attendance.Rows.Count != 0)
+            DataTable attendancePics = sQLite_Connection.GetAttendanceRecordDone(event_code, period, attendance_stat, formattedDate);
+
+            if (attendancePics.Rows.Count != 0)
             {
-                int displayedCount = 0;
-                for (int i = attendance.Rows.Count - 1; i >= 1; i--)
+                for (int i = 1; i < attendancePics.Rows.Count; i++)
                 {
-                    DataRow row = attendance.Rows[i];
+                    DataRow row = attendancePics.Rows[attendancePics.Rows.Count - i - 1];
                     Image pic = null;
                     string studentName = row["Name"].ToString();
 
@@ -113,10 +127,8 @@ namespace AMSEMS_Attendance_Checker
                     }
 
                     doneAttendanceApperance(studentName, pic);
-                    displayedCount++;
                 }
             }
-
 
             foreach (DataRow row in attendance.Rows)
             {
@@ -294,11 +306,11 @@ namespace AMSEMS_Attendance_Checker
         {
             Panel pnAttDone = new Panel();
             Label label3 = new Label();
-            PictureBox pictureBox4 = new PictureBox();
+            RoundPictureBoxRect pictureBox4 = new RoundPictureBoxRect();
 
             pnAttDone.Controls.Add(label3);
             pnAttDone.Controls.Add(pictureBox4);
-            pnAttDone.Dock = System.Windows.Forms.DockStyle.Left;
+            pnAttDone.Dock = System.Windows.Forms.DockStyle.Fill;
             pnAttDone.Location = new System.Drawing.Point(0, 0);
             pnAttDone.Name = "pnAttDone";
             pnAttDone.Size = new System.Drawing.Size(300, 312);
@@ -326,7 +338,7 @@ namespace AMSEMS_Attendance_Checker
             pictureBox4.TabIndex = 10;
             pictureBox4.TabStop = false;
 
-            kryptonGroupBox3.Panel.Controls.Add(pnAttDone);
+            tableLayoutPanel1.Controls.Add(pnAttDone);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

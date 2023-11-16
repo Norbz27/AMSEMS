@@ -26,11 +26,16 @@ namespace AMSEMS.SubForms_DeptHead
         public bool isCollapsed;
         private List<string> suggestions = new List<string>{};
         private ListBox listBoxSuggestions;
+
+        formAttendanceRecord formAttendanceRecord;
         public formConfigFee()
         {
             InitializeComponent();
         }
-
+        public void getForm(formAttendanceRecord formAttendanceRecord)
+        {
+            this.formAttendanceRecord = formAttendanceRecord;
+        } 
         private void formEventConfig_Load(object sender, EventArgs e)
         {
             displayFees();
@@ -183,6 +188,9 @@ namespace AMSEMS.SubForms_DeptHead
                     cm.ExecuteNonQuery();
                     dr.Close();
                     cn.Close();
+                    formAttendanceRecord.displayFees();
+                    formAttendanceRecord.displayTable();
+                    this.Close();
                 }
             }
         }

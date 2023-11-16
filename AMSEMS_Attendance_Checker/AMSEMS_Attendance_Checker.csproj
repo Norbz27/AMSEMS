@@ -519,6 +519,8 @@
     <None Include="Resources\exit %283%29.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ex.png" />
+    <None Include="Resources\empty-folder_9841555.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup>

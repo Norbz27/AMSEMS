@@ -422,8 +422,6 @@ namespace AMSEMS_Attendance_Checker
                         }
                         catch (Exception ex)
                         {
-                            // Handle the exception (e.g., log it, display an error message)
-                            // Optionally, you can add a placeholder image or null for the problematic data.
                             newDataTable.Rows.Add(null, row["ID"], name, row["depdes"], row["RFID"]);
                         }
                     }
@@ -591,8 +589,150 @@ namespace AMSEMS_Attendance_Checker
 
             return newDataTable;
         }
+        public DataTable GetAttendanceRecordDone(string eventID, string period, string status, string datetime)
+        {
+            DataTable dataTable = new DataTable();
+            string query = null;
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                if (period.Equals("AM"))
+                {
+                    if (status.Equals("IN"))
+                    {
+                        query = @"SELECT 
+                            stud.Profile_Pic as pic,
+                            ID,
+                            AM_IN AS record,
+                            sec.Description AS secdes, 
+                            dep.Description AS depdes, 
+                            UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
+                        FROM 
+                            tbl_attendance AS att
+                        LEFT JOIN 
+                            tbl_students_account AS stud ON att.Student_ID = stud.ID
+                        LEFT JOIN 
+                            tbl_departments AS dep ON stud.Department = dep.Department_ID
+                        LEFT JOIN 
+                            tbl_section AS sec ON stud.Section = sec.Section_ID
+                        WHERE 
+                            Event_ID = @eventID
+                            AND stud.Status = 1 AND AM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                        ORDER BY 
+                            record ASC LIMIT 4";
+                    }
+                    else if (status.Equals("OUT"))
+                    {
+                        query = @"SELECT 
+                            stud.Profile_Pic as pic,
+                            ID,
+                            AM_OUT AS record,
+                            sec.Description AS secdes, 
+                            dep.Description AS depdes, 
+                            UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
+                        FROM 
+                            tbl_attendance AS att
+                        LEFT JOIN 
+                            tbl_students_account AS stud ON att.Student_ID = stud.ID
+                        LEFT JOIN 
+                            tbl_departments AS dep ON stud.Department = dep.Department_ID
+                        LEFT JOIN 
+                            tbl_section AS sec ON stud.Section = sec.Section_ID
+                        WHERE 
+                            Event_ID = @eventID
+                            AND stud.Status = 1 AND AM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                        ORDER BY 
+                            record ASC LIMIT 4";
+                    }
+                }
+                else if (period.Equals("PM"))
+                {
+                    if (status.Equals("IN"))
+                    {
+                        query = @"SELECT 
+                            stud.Profile_Pic as pic,
+                            ID,
+                            PM_IN AS record,
+                            sec.Description AS secdes, 
+                            dep.Description AS depdes, 
+                            UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
+                        FROM 
+                            tbl_attendance AS att
+                        LEFT JOIN 
+                            tbl_students_account AS stud ON att.Student_ID = stud.ID
+                        LEFT JOIN 
+                            tbl_departments AS dep ON stud.Department = dep.Department_ID
+                        LEFT JOIN 
+                            tbl_section AS sec ON stud.Section = sec.Section_ID
+                        WHERE 
+                            Event_ID = @eventID
+                            AND stud.Status = 1 AND PM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                        ORDER BY 
+                            record ASC LIMIT 4";
+                    }
+                    else if (status.Equals("OUT"))
+                    {
+                        query = @"SELECT
+                            stud.Profile_Pic as pic,
+                            ID,
+                            PM_OUT AS record,
+                            sec.Description AS secdes, 
+                            dep.Description AS depdes, 
+                            UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
+                        FROM 
+                            tbl_attendance AS att
+                        LEFT JOIN 
+                            tbl_students_account AS stud ON att.Student_ID = stud.ID
+                        LEFT JOIN 
+                            tbl_departments AS dep ON stud.Department = dep.Department_ID
+                        LEFT JOIN 
+                            tbl_section AS sec ON stud.Section = sec.Section_ID
+                        WHERE 
+                            Event_ID = @eventID
+                            AND stud.Status = 1 AND PM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                        ORDER BY 
+                            record ASC LIMIT 4";
+                    }
+                }
 
 
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@eventID", eventID);
+                    command.Parameters.AddWithValue("@date", datetime);
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+
+            // Create a new DataTable with the desired columns
+            DataTable newDataTable = new DataTable();
+            newDataTable.Columns.Add("pic", typeof(Image));
+            newDataTable.Columns.Add("Name", typeof(string));
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                object imageData = row["pic"];
+                byte[] imageBytes = (byte[])imageData;
+                if (imageBytes.Length > 0)
+                {
+                    using (MemoryStream ms = new MemoryStream(imageBytes))
+                    {
+                        Image image = Image.FromStream(ms);
+                        newDataTable.Rows.Add(image, row["Name"]);
+                    }
+                }
+                else
+                {
+                    newDataTable.Rows.Add(null, row["Name"]);
+                }
+            }
+
+            return newDataTable;
+        }
         public string GetEvent(string id)
         {
             string event_name = null; // Initialize the variable
@@ -676,26 +816,25 @@ namespace AMSEMS_Attendance_Checker
 
                     if (!string.IsNullOrEmpty(attendance_stud_id))
                     {
-                        // Create SQL UPDATE statements to update the corresponding columns
                         if (!string.IsNullOrEmpty(amIn))
                         {
                             // No existing record found, INSERT a new record
-                            query = "UPDATE tbl_attendance SET AM_IN = @amIn WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                            query = "UPDATE tbl_attendance SET AM_IN = @amIn WHERE Student_ID = @studentID AND Event_ID = @eventID AND AM_IN IS NULL;";
                         }
                         else if (!string.IsNullOrEmpty(amOut))
                         {
                             // Existing record found, UPDATE the AM-OUT column
-                            query = "UPDATE tbl_attendance SET AM_OUT = @amOut WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                            query = "UPDATE tbl_attendance SET AM_OUT = @amOut WHERE Student_ID = @studentID AND Event_ID = @eventID AND AM_OUT IS NULL;";
                         }
                         else if (!string.IsNullOrEmpty(pmIn))
                         {
                             // No existing record found, INSERT a new record
-                            query = "UPDATE tbl_attendance SET PM_IN = @pmIn WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                            query = "UPDATE tbl_attendance SET PM_IN = @pmIn WHERE Student_ID = @studentID AND Event_ID = @eventID AND PM_IN IS NULL;";
                         }
                         else if (!string.IsNullOrEmpty(pmOut))
                         {
                             // Existing record found, UPDATE the PM-OUT column
-                            query = "UPDATE tbl_attendance SET PM_OUT = @pmOut WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                            query = "UPDATE tbl_attendance SET PM_OUT = @pmOut WHERE Student_ID = @studentID AND Event_ID = @eventID AND AM_IN IS NULL;";
                         }
                     }
                     else
@@ -749,11 +888,10 @@ namespace AMSEMS_Attendance_Checker
                         }
                     }
                 }
-                else
-                {
-                    MessageBox.Show("RFID is Not Registered or Not Valid!!", "RFID Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
+                //else
+                //{
+                //    MessageBox.Show("RFID is Not Registered or Not Valid!!", "RFID Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
             }
         }
         public DataTable GetStudentByRFID(string rfid, string event_id)
@@ -773,7 +911,7 @@ namespace AMSEMS_Attendance_Checker
                         LEFT JOIN tbl_students_account AS stud ON instr(e.Specific_Students, stud.FirstName || ' ' || stud.LastName) > 0
                         LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID
                         LEFT JOIN tbl_section AS sec ON stud.Section = sec.Section_ID
-                        WHERE RFID = @rfid AND Status = 1 AND e.Event_ID = '" + event_id+"'";
+                        WHERE RFID = @rfid AND Status = 1 AND e.Event_ID = '" + event_id +"'";
             }
             else
             {
@@ -977,22 +1115,22 @@ namespace AMSEMS_Attendance_Checker
                         if (!string.IsNullOrEmpty(amIn))
                         {
                             // No existing record found, INSERT a new record
-                            query = "UPDATE tbl_attendance SET AM_IN = @amIn WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                            query = "UPDATE tbl_attendance SET AM_IN = @amIn WHERE Student_ID = @studentID AND Event_ID = @eventID AND AM_IN IS NULL;";
                         }
                         else if (!string.IsNullOrEmpty(amOut))
                         {
                             // Existing record found, UPDATE the AM-OUT column
-                            query = "UPDATE tbl_attendance SET AM_OUT = @amOut WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                            query = "UPDATE tbl_attendance SET AM_OUT = @amOut WHERE Student_ID = @studentID AND Event_ID = @eventID AND AM_OUT IS NULL;";
                         }
                         else if (!string.IsNullOrEmpty(pmIn))
                         {
                             // No existing record found, INSERT a new record
-                            query = "UPDATE tbl_attendance SET PM_IN = @pmIn WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                            query = "UPDATE tbl_attendance SET PM_IN = @pmIn WHERE Student_ID = @studentID AND Event_ID = @eventID AND PM_IN IS NULL;";
                         }
                         else if (!string.IsNullOrEmpty(pmOut))
                         {
                             // Existing record found, UPDATE the PM-OUT column
-                            query = "UPDATE tbl_attendance SET PM_OUT = @pmOut WHERE Student_ID = @studentID AND Event_ID = @eventID";
+                            query = "UPDATE tbl_attendance SET PM_OUT = @pmOut WHERE Student_ID = @studentID AND Event_ID = @eventID AND AM_IN IS NULL;";
                         }
                     }
                     else
@@ -1041,7 +1179,6 @@ namespace AMSEMS_Attendance_Checker
                 {
                     MessageBox.Show("Student is Not Registered or Not Valid!!", "Attendance Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
         }
 

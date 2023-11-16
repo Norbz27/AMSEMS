@@ -136,16 +136,34 @@ namespace AMSEMS.SubForms_SAO
             Label label = new Label
             {
                 AutoSize = true,
-                Text = suggestion.ToUpper(),
+                Text = suggestion + "  ×",
                 Margin = new Padding(5),
-                BorderStyle = BorderStyle.FixedSingle
-                
+                BorderStyle = BorderStyle.FixedSingle,
+                Cursor = Cursors.Hand
             };
 
             // Add the label to the existing FlowLayoutPanel (flowLayoutPanel1)
             flowLayoutPanel1.Controls.Add(label);
+
+            // Add the suggestion to the HashSet
             formEventDetails.students.Add(suggestion);
+
+            // Add a click event handler to the label
+            label.Click += (sender, e) =>
+            {
+                string clickedSuggestion = label.Text.Replace("  ×", "");
+
+                // Remove the label when clicked
+                flowLayoutPanel1.Controls.Remove(label);
+
+                // Remove the suggestion from the HashSet
+                formEventDetails.students.Remove(clickedSuggestion);
+
+                tbSearch.Text = string.Empty;
+            };
         }
+
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             CollapseForm();
@@ -222,7 +240,7 @@ namespace AMSEMS.SubForms_SAO
         }
         private bool IsSuggestionInFlowLayoutPanel(string suggestion)
         {
-            return flowLayoutPanel1.Controls.OfType<Label>().Any(label => label.Text.Equals(suggestion));
+            return flowLayoutPanel1.Controls.OfType<Label>().Any(label => label.Text.Replace("  ×", "").Equals(suggestion));
         }
 
         private void tgbtnAtt_CheckedChanged(object sender, EventArgs e)
@@ -304,7 +322,7 @@ namespace AMSEMS.SubForms_SAO
                             string[] studentsArray = selectedStudents.Split(',');
                             foreach (string student in studentsArray)
                             {
-                                if(formEventDetails.students == null)
+                                if(formEventDetails.students != null)
                                 {
                                     formEventDetails.students.Clear();
                                 }
