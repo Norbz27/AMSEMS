@@ -146,7 +146,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
-                                    UPPER(teach.Lastname) AS teachlname
+                                    ISNULL(UPPER(teach.Lastname) AS teachlname
                                 FROM
                                     tbl_events e
                                 LEFT JOIN
