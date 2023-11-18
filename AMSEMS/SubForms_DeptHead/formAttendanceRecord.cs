@@ -110,6 +110,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         public async void displayTable()
         {
+            dgvRecord.Rows.Clear();
             if (dgvRecord.InvokeRequired)
             {
                 dgvRecord.Invoke(new Action(() => displayTable()));
@@ -117,13 +118,13 @@ namespace AMSEMS.SubForms_DeptHead
             }
             try
             {
-                dgvRecord.Rows.Clear();
                 await Task.Run(() =>
                 {
                     using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                     {
                         cn.Open();
                         string query = "";
+                        double total = 0;
 
                         // Check if the event is for Specific Students
                         if (IsEventForSpecificStudents(event_id))
@@ -146,7 +147,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
-                                    ISNULL(UPPER(teach.Lastname) AS teachlname
+                                    ISNULL(UPPER(teach.Lastname), '-------') AS teachlname
                                 FROM
                                     tbl_events e
                                 LEFT JOIN
@@ -188,7 +189,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
-                                    UPPER(teach.Lastname) AS teachlname
+                                    ISNULL(UPPER(teach.Lastname), '-------') AS teachlname
                                 FROM
                                     tbl_events e
                                 LEFT JOIN
@@ -228,7 +229,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
-                                    UPPER(teach.Lastname) AS teachlname 
+                                    ISNULL(UPPER(teach.Lastname), '-------') AS teachlname
                                     FROM tbl_student_accounts AS stud
                                     LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND CONVERT(DATE, att.Date_Time) = @Date
                                     LEFT JOIN tbl_Section AS sec ON stud.Section = sec.Section_ID
@@ -290,6 +291,7 @@ namespace AMSEMS.SubForms_DeptHead
                                             dgvRecord.Rows[rowIndex].Cells["penalty_total"].Value = "₱ " + formattedTotalFee;
 
                                             rowIndex++;
+                                            total += totalfee;
                                         }));
                                     }
                                     else
@@ -330,11 +332,13 @@ namespace AMSEMS.SubForms_DeptHead
                                         dgvRecord.Rows[rowIndex].Cells["penalty_total"].Value = "₱ " + formattedTotalFee;
 
                                         rowIndex++;
-
+                                        total += totalfee;
                                     }
+                                    
                                 }
                             }
                         }
+                        lblTotalFees.Text = "₱ " + total.ToString();
                     }
                 });
             }
@@ -378,8 +382,6 @@ namespace AMSEMS.SubForms_DeptHead
         private void formAttendanceRecord_Load(object sender, EventArgs e)
         {
             displayFilter();
-            displayFees();
-            displayTable();
         }
 
         private void Dt_ValueChanged(object sender, EventArgs e)
@@ -560,6 +562,10 @@ namespace AMSEMS.SubForms_DeptHead
                 // Show or hide the row based on search result
                 row.Visible = rowVisible;
             }
+        }
+        public void saveStudentBalance()
+        {
+
         }
     }
 }

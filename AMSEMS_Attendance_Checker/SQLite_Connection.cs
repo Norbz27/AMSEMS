@@ -1136,7 +1136,7 @@ namespace AMSEMS_Attendance_Checker
                     query = @"SELECT s.ID FROM tbl_events e
                             LEFT JOIN tbl_students_account s ON instr(e.Selected_Departments, dep.Description) > 0 
                             LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
-                            WHERE s.Status = 1 AND e.Event_ID = '" + eventID + "' AND s.RFID = @rfid ";
+                            WHERE s.Status = 1 AND e.Event_ID = '" + eventID + "' AND s.ID = @id";
                 }
                 else
                 {
@@ -1241,10 +1241,10 @@ namespace AMSEMS_Attendance_Checker
                         updateCommand.ExecuteNonQuery();
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Student is Not Registered or Not Valid!!", "Attendance Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                //else
+                //{
+                //    MessageBox.Show("Student is Not Registered or Not Valid!!", "Attendance Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
             }
         }
 
