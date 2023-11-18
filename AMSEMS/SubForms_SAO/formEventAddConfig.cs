@@ -27,7 +27,7 @@ namespace AMSEMS.SubForms_SAO
         {
             InitializeComponent();
             InitializeListBox();
-            formAddEvent.students.Clear();
+            formAddEvent.selected.Clear();
 
             displayCBData();
             if (cbExclusive.Items.Count > 0)
@@ -51,6 +51,7 @@ namespace AMSEMS.SubForms_SAO
                 dr.Close();
             }
             cbExclusive.Items.Add("Specific Students");
+            cbExclusive.Items.Add("Selected Departments");
         }
 
         public void CollapseForm()
@@ -140,7 +141,7 @@ namespace AMSEMS.SubForms_SAO
 
             // Add the label to the existing FlowLayoutPanel (flowLayoutPanel1)
             flowLayoutPanel1.Controls.Add(label);
-            formAddEvent.students.Add(suggestion);
+            formAddEvent.selected.Add(suggestion);
 
             // Add a click event handler to the label
             label.Click += (sender, e) =>
@@ -148,7 +149,7 @@ namespace AMSEMS.SubForms_SAO
                 string clickedSuggestion = label.Text.Replace("  ×", "");
                 // Remove the label when clicked
                 flowLayoutPanel1.Controls.Remove(label);
-                formAddEvent.students.Remove(clickedSuggestion);
+                formAddEvent.selected.Remove(clickedSuggestion);
             };
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -158,7 +159,7 @@ namespace AMSEMS.SubForms_SAO
 
         private void cbExclusive_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbExclusive.Text.Equals("Specific Students"))
+            if (cbExclusive.Text.Equals("Specific Students") || cbExclusive.Text.Equals("Selected Departments"))
             {
                 isCollapsed = true;
                 timer1.Start();
@@ -179,19 +180,39 @@ namespace AMSEMS.SubForms_SAO
         private void UpdateSuggestions(string searchText)
         {
             suggestions.Clear();
-
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            if (cbExclusive.Text.Equals("Specific Students"))
             {
-                cn.Open();
-
-                string query = "SELECT UPPER(CONCAT(Firstname, ' ', Lastname)) AS FullName FROM tbl_student_accounts WHERE Status = 1";
-                using (SqlCommand command = new SqlCommand(query, cn))
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    cn.Open();
+
+                    string query = "SELECT UPPER(CONCAT(Firstname, ' ', Lastname)) AS FullName FROM tbl_student_accounts WHERE Status = 1";
+                    using (SqlCommand command = new SqlCommand(query, cn))
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            suggestions.Add(reader["FullName"].ToString());
+                            while (reader.Read())
+                            {
+                                suggestions.Add(reader["FullName"].ToString());
+                            }
+                        }
+                    }
+                }
+            }else if (cbExclusive.Text.Equals("Selected Departments"))
+            {
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
+
+                    string query = "SELECT Description FROM tbl_Departments";
+                    using (SqlCommand command = new SqlCommand(query, cn))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                suggestions.Add(reader["Description"].ToString());
+                            }
                         }
                     }
                 }

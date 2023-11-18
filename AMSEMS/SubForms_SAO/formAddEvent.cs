@@ -22,7 +22,7 @@ namespace AMSEMS.SubForms_SAO
         string selectedColor;
         public static bool attendance = false;
         public static bool penalty = false;
-        public static List<string> students = new List<string> { };
+        public static List<string> selected = new List<string> { };
         public static string exclusive = "All Students";
 
         formEventAddConfig formEventConfig;
@@ -65,7 +65,7 @@ namespace AMSEMS.SubForms_SAO
                         {
                             picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
                         }
-                        string selectedStudents = GetSelectedStudentsAsString();
+                        string selected = GetSelectedAsString();
                         cn.Open();
                         cm = new SqlCommand();
                         cm.Connection = cn;
@@ -83,18 +83,24 @@ namespace AMSEMS.SubForms_SAO
                         if(exclusive.Equals("Specific Students"))
                         {
                             cm.Parameters.AddWithValue("@Exclusive", exclusive);
-                            cm.Parameters.AddWithValue("@Specific_Students", selectedStudents);
+                            cm.Parameters.AddWithValue("@Specific_Students", selected);
+                        }
+                        else if (exclusive.Equals("Selected Departments"))
+                        {
+                            cm.Parameters.AddWithValue("@Exclusive", exclusive);
+                            cm.Parameters.AddWithValue("@Selected_Departments", selected);
                         }
                         else
                         {
                             cm.Parameters.AddWithValue("@Exclusive", exclusive);
                             cm.Parameters.AddWithValue("@Specific_Students", null);
+                            cm.Parameters.AddWithValue("@Selected_Departments", null);
                         }
                         
                                       
                         cm.ExecuteNonQuery();
                         cn.Close();
-                        MessageBox.Show("Event Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Event Created!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                     catch (Exception ex)
                     {
@@ -257,13 +263,13 @@ namespace AMSEMS.SubForms_SAO
             formEventConfig.ShowDialog();
         }
 
-        private string GetSelectedStudentsAsString()
+        private string GetSelectedAsString()
         {
-            if(students != null)
+            if(selected != null)
             {
-                List<string> selectedStudentIds = students;
+                List<string> selectedNamesAndDep = selected;
 
-                return string.Join(",", selectedStudentIds);
+                return string.Join(",", selectedNamesAndDep);
             }
             else
             {

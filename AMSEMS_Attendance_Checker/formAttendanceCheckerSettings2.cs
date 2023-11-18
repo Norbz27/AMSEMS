@@ -239,11 +239,11 @@ namespace AMSEMS_Attendance_Checker
                             }
                             dr.Close();
 
-                            cm = new SqlCommand("SELECT Event_ID, Event_Name, Start_Date, End_Date, Description, Color, Image, Attendance, Exclusive, Specific_Students from tbl_events", cnn);
+                            cm = new SqlCommand("SELECT Event_ID, Event_Name, Start_Date, End_Date, Description, Color, Image, Attendance, Exclusive, Specific_Students, Selected_Departments from tbl_events", cnn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertEventsData(dr["Event_ID"].ToString(), dr["Event_Name"].ToString(), dr["Start_Date"].ToString(), dr["End_Date"].ToString(), dr["Description"].ToString(), dr["Color"].ToString(), dr["Image"].ToString(), dr["Attendance"].ToString(), dr["Exclusive"].ToString(), dr["Specific_Students"].ToString());
+                                sQLite_Connection.InsertEventsData(dr["Event_ID"].ToString(), dr["Event_Name"].ToString(), dr["Start_Date"].ToString(), dr["End_Date"].ToString(), dr["Description"].ToString(), dr["Color"].ToString(), dr["Image"].ToString(), dr["Attendance"].ToString(), dr["Exclusive"].ToString(), dr["Specific_Students"].ToString(), dr["Selected_Departments"].ToString());
                             }
                             dr.Close();
 

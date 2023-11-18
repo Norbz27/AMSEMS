@@ -70,7 +70,8 @@ namespace AMSEMS_Attendance_Checker
                                                     Attendance TEXT,
                                                     Penalty TEXT,
                                                     Exclusive TEXT,
-                                                    Specific_Students TEXT);
+                                                    Specific_Students TEXT,
+                                                    Selected_Departments TEXT);
                                             CREATE TABLE IF NOT EXISTS tbl_departments (
                                                     Department_ID INTEGER PRIMARY KEY, 
                                                     Description TEXT);
@@ -226,7 +227,7 @@ namespace AMSEMS_Attendance_Checker
                 connection.Close();
             }
         }
-        public void InsertEventsData(string id, string eventname, string startdate, string enddate, string desc, string color, string image, string attendance, string exclusive, string specific)
+        public void InsertEventsData(string id, string eventname, string startdate, string enddate, string desc, string color, string image, string attendance, string exclusive, string specific, string selecteddep)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -235,7 +236,7 @@ namespace AMSEMS_Attendance_Checker
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     // Insert new data
-                    string insertSql = "INSERT INTO tbl_events (Event_ID, Event_Name, Start_Date, End_Date, Description, Color, Image, Attendance, Exclusive, Specific_Students) VALUES (@EventID, @EventName, @StartDate, @EndDate, @Desc, @Color, @Image, @Attendance, @Exclusive, @Specific_Students);";
+                    string insertSql = "INSERT INTO tbl_events (Event_ID, Event_Name, Start_Date, End_Date, Description, Color, Image, Attendance, Exclusive, Specific_Students, Selected_Departments) VALUES (@EventID, @EventName, @StartDate, @EndDate, @Desc, @Color, @Image, @Attendance, @Exclusive, @Specific_Students, @Selected_Departments);";
 
                     command.CommandText = insertSql;
                     command.Parameters.AddWithValue("@EventID", id);
@@ -248,6 +249,7 @@ namespace AMSEMS_Attendance_Checker
                     command.Parameters.AddWithValue("@Attendance", attendance);
                     command.Parameters.AddWithValue("@Exclusive", exclusive);
                     command.Parameters.AddWithValue("@Specific_Students", specific);
+                    command.Parameters.AddWithValue("@Selected_Departments", selecteddep);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -364,6 +366,20 @@ namespace AMSEMS_Attendance_Checker
                 }
             }
         }
+        private bool IsEventForSelectedDep(string eventId)
+        {
+            using (SQLiteConnection cn = new SQLiteConnection(connectionString))
+            {
+                cn.Open();
+                string query = "SELECT Exclusive FROM tbl_events WHERE Event_ID = @EventID";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, cn))
+                {
+                    cmd.Parameters.AddWithValue("@EventID", eventId);
+                    object result = cmd.ExecuteScalar();
+                    return result != null && result.ToString() == "Selected Departments";
+                }
+            }
+        }
         public DataTable GetAllStudents(string event_id)
         {
             DataTable dataTable = new DataTable();
@@ -379,6 +395,14 @@ namespace AMSEMS_Attendance_Checker
                         LEFT JOIN tbl_students_account s ON instr(e.Specific_Students, s.FirstName || ' ' || s.LastName) > 0 
                         LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
                         WHERE Status = 1 AND Event_ID = '"+event_id+"' ORDER BY depdes;";
+                }
+                else if (IsEventForSelectedDep(event_id))
+                {
+                    query = @"SELECT Profile_pic, s.ID, RFID, UPPER(s.Firstname) AS Firstname, UPPER(s.Lastname) AS Lastname, UPPER(s.Middlename) AS Middlename, dep.Description AS depdes 
+                        FROM tbl_events e
+                        LEFT JOIN tbl_students_account s ON instr(e.Selected_Departments, dep.Description) > 0 
+                        LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
+                        WHERE Status = 1 AND Event_ID = '"+event_id+"' ORDER BY depdes";
                 }
                 else
                 {
@@ -777,6 +801,13 @@ namespace AMSEMS_Attendance_Checker
                             LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
                             WHERE s.Status = 1 AND e.Event_ID = '" + eventID + "' AND s.RFID = @rfid ";
                 }
+                else if (IsEventForSelectedDep(eventID))
+                {
+                    query = @"SELECT s.ID FROM tbl_events e
+                            LEFT JOIN tbl_students_account s ON instr(e.Selected_Departments, dep.Description) > 0 
+                            LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
+                            WHERE s.Status = 1 AND e.Event_ID = '" + eventID + "' AND s.RFID = @rfid ";
+                }
                 else
                 {
                     query = "SELECT ID FROM tbl_students_account WHERE RFID = @rfid";
@@ -913,6 +944,20 @@ namespace AMSEMS_Attendance_Checker
                         LEFT JOIN tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE RFID = @rfid AND Status = 1 AND e.Event_ID = '" + event_id +"'";
             }
+            else if (IsEventForSelectedDep(event_id))
+            {
+                query = @"SELECT stud.Profile_Pic AS pic,
+                               ID,
+                               sec.Description AS secdes, 
+                               dep.Description AS depdes, 
+                               UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
+                        FROM tbl_events AS e
+                        LEFT JOIN tbl_attendance AS att ON e.Event_ID = att.Event_ID
+                        LEFT JOIN tbl_students_account AS stud ON instr(e.Selected_Departments, dep.Description) > 0
+                        LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID
+                        LEFT JOIN tbl_section AS sec ON stud.Section = sec.Section_ID
+                        WHERE Status = 1 AND e.Event_ID '" + event_id + "'";
+            }
             else
             {
                 query = @"SELECT
@@ -989,6 +1034,20 @@ namespace AMSEMS_Attendance_Checker
                         FROM tbl_attendance AS att
                         LEFT JOIN tbl_events AS e ON att.Event_ID = e.Event_ID
                         LEFT JOIN tbl_students_account AS stud ON instr(e.Specific_Students, stud.FirstName || ' ' || stud.LastName) > 0
+                        LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID
+                        LEFT JOIN tbl_section AS sec ON stud.Section = sec.Section_ID
+                        WHERE ID = @id AND Status = 1 AND e.Event_ID = '" + event_id + "'";
+            }
+            else if (IsEventForSelectedDep(event_id))
+            {
+                query = @"SELECT stud.Profile_Pic AS pic,
+                               ID,
+                               sec.Description AS secdes, 
+                               dep.Description AS depdes, 
+                               UPPER(stud.Firstname) || ' ' || UPPER(stud.Middlename) || ' ' || UPPER(stud.Lastname) AS Name
+                        FROM tbl_attendance AS att
+                        LEFT JOIN tbl_events AS e ON att.Event_ID = e.Event_ID
+                        LEFT JOIN tbl_students_account AS stud ON instr(e.Selected_Departments, dep.Description) > 0
                         LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID
                         LEFT JOIN tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE ID = @id AND Status = 1 AND e.Event_ID = '" + event_id + "'";
@@ -1071,6 +1130,13 @@ namespace AMSEMS_Attendance_Checker
                             LEFT JOIN tbl_students_account s ON instr(e.Specific_Students, s.FirstName || ' ' || s.LastName) > 0 
                             LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
                             WHERE s.Status = 1 AND e.Event_ID = '"+eventID+"' AND s.ID = @id ";
+                }
+                else if (IsEventForSelectedDep(eventID))
+                {
+                    query = @"SELECT s.ID FROM tbl_events e
+                            LEFT JOIN tbl_students_account s ON instr(e.Selected_Departments, dep.Description) > 0 
+                            LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
+                            WHERE s.Status = 1 AND e.Event_ID = '" + eventID + "' AND s.RFID = @rfid ";
                 }
                 else
                 {

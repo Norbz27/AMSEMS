@@ -48,7 +48,7 @@ namespace AMSEMS.SubForms_DeptHead
                 {
                     cbEvents.Items.Clear();
                     cn.Open();
-                    cm = new SqlCommand(@"SELECT Event_ID, Event_Name FROM tbl_events WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students') ORDER BY Start_Date;", cn);
+                    cm = new SqlCommand(@"SELECT Event_ID, Event_Name FROM tbl_events WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students' OR CHARINDEX(@Department, Selected_Departments) > 0) ORDER BY Start_Date;", cn);
                     cm.Parameters.AddWithValue("@Department", FormDeptHeadNavigation.depdes);
                     dr = cm.ExecuteReader();
 
@@ -71,13 +71,31 @@ namespace AMSEMS.SubForms_DeptHead
             {
                 string eventid = null;
                 cn.Open();
-                cm = new SqlCommand("Select Event_ID from tbl_events where Event_Name = @Eventname", cn);
+                cm = new SqlCommand("Select Event_ID, Penalty from tbl_events where Event_Name = @Eventname", cn);
                 cm.Parameters.AddWithValue("@Eventname", cbEvents.Text);
                 using (SqlDataReader reader = cm.ExecuteReader())
                 {
                     if (reader.Read())
                     {
                         eventid = reader["Event_ID"].ToString();
+                        if (Convert.ToInt32(reader["Penalty"]) == 1)
+                        {
+                            lblPenaltyStat.Text = "Enabled";
+                            lblPenaltyStat.StateCommon.ShortText.Color1 = Color.LimeGreen;
+                            lblPenaltyStat.StateCommon.ShortText.Color2 = Color.LimeGreen;
+                            tbAMFee.Enabled = true;
+                            tbPMFee.Enabled = true;
+                            btnDone.Enabled = true;
+                        }
+                        else
+                        {
+                            lblPenaltyStat.Text = "Disabled";
+                            lblPenaltyStat.StateCommon.ShortText.Color1 = Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+                            lblPenaltyStat.StateCommon.ShortText.Color2 = Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+                            tbAMFee.Enabled = false;
+                            tbPMFee.Enabled = false;
+                            btnDone.Enabled = false;
+                        }
                     }
                 }
 
@@ -168,8 +186,10 @@ namespace AMSEMS.SubForms_DeptHead
             {
                 string eventid = null;
                 cn.Open();
+
                 cm = new SqlCommand("Select Event_ID from tbl_events where Event_Name = @Eventname", cn);
                 cm.Parameters.AddWithValue("@Eventname", cbEvents.Text);
+
                 using (SqlDataReader reader = cm.ExecuteReader())
                 {
                     if (reader.Read())
@@ -185,15 +205,26 @@ namespace AMSEMS.SubForms_DeptHead
                     cm.Parameters.AddWithValue("@penaltyPm", tbPMFee.Text);
                     cm.Parameters.AddWithValue("@eventid", eventid);
                     cm.Parameters.AddWithValue("@date", Dt.Value.ToString("yyyy-MM-dd"));
-                    cm.ExecuteNonQuery();
-                    dr.Close();
-                    cn.Close();
-                    formAttendanceRecord.displayFees();
-                    formAttendanceRecord.displayTable();
-                    this.Close();
+
+                    int rowsAffected = cm.ExecuteNonQuery();
+
+                    if (rowsAffected == 0)
+                    {
+                        MessageBox.Show("Cannot update attendance fees. No attendance records found for the specified event and date.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        // Rows affected, update successful
+                        dr.Close();
+                        cn.Close();
+                        formAttendanceRecord.displayFees();
+                        formAttendanceRecord.displayTable();
+                        this.Close();
+                    }
                 }
             }
         }
+
 
         private void textBox_KeyPress(object sender, KeyPressEventArgs e)
         {

@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace AMSEMS.SubForms_DeptHead
 {
@@ -30,7 +34,7 @@ namespace AMSEMS.SubForms_DeptHead
                     cbEvents.Items.Clear();
                     cbSection.Items.Clear();
                     cn.Open();
-                    cm = new SqlCommand(@"SELECT Event_ID, Event_Name FROM tbl_events WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students') ORDER BY Start_Date;", cn);
+                    cm = new SqlCommand(@"SELECT Event_ID, Event_Name FROM tbl_events WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students' OR CHARINDEX(@Department, Selected_Departments) > 0) ORDER BY Start_Date;", cn);
                     cm.Parameters.AddWithValue("@Department", FormDeptHeadNavigation.depdes);
                     dr = cm.ExecuteReader();
 
@@ -155,6 +159,49 @@ namespace AMSEMS.SubForms_DeptHead
                                 AND e.Exclusive = 'Specific Students'
                                 AND s.ID IS NOT NULL
                                 AND s.Department = @Dep
+                                AND s.Status = 1
+                            ORDER BY
+                                s.ID, att.Date_Time;";
+                    }
+                    else if (IsEventForSelectedDep(event_id))
+                    {
+                        query = @"SELECT
+                                e.Event_ID,
+                                s.ID AS id,
+                                UPPER(s.Firstname) AS fname,
+                                UPPER(s.Middlename) AS mname,
+                                UPPER(s.Lastname) AS lname,
+                                sec.Description AS secdes,
+                                ISNULL(FORMAT(att.Date_Time, 'yyyy-MM-dd'), '-------') AS Date_Time,
+                                COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
+                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
+                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), @AM_Pen) AS AM_IN_Penalty,
+                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
+                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), @AM_Pen) AS AM_OUT_Penalty,
+                                COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
+                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
+                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
+                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
+                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
+                                UPPER(teach.Lastname) AS teachlname
+                            FROM
+                                tbl_events e
+                            LEFT JOIN
+                                tbl_student_accounts s ON s.ID IS NOT NULL
+                            LEFT JOIN
+                                tbl_departments dep ON s.Department = dep.Department_ID
+                            LEFT JOIN
+                                tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND CONVERT(DATE, att.Date_Time) = @Date
+                            LEFT JOIN
+                                tbl_Section sec ON s.Section = sec.Section_ID
+                            LEFT JOIN
+                                tbl_teacher_accounts teach ON att.Checker = teach.ID
+                            WHERE
+                                e.Event_ID = @EventID
+                                AND e.Exclusive = 'Selected Departments'
+                                AND CHARINDEX(CONVERT(VARCHAR, dep.Description), e.Selected_Departments) > 0
+	                            AND s.Department = 2
+                                AND s.Status = 1
                             ORDER BY
                                 s.ID, att.Date_Time;";
                     }
@@ -260,6 +307,22 @@ namespace AMSEMS.SubForms_DeptHead
                 }
             }
         }
+        private bool IsEventForSelectedDep(string eventId)
+        {
+            // Implement your logic to check if the event is for Specific Students
+            // For example, check if the Exclusive column is 'Specific Students'
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                string query = "SELECT Exclusive FROM tbl_events WHERE Event_ID = @EventID";
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    cmd.Parameters.AddWithValue("@EventID", eventId);
+                    object result = cmd.ExecuteScalar();
+                    return result != null && result.ToString() == "Selected Departments";
+                }
+            }
+        }
 
         private void formAttendanceRecord_Load(object sender, EventArgs e)
         {
@@ -347,6 +410,84 @@ namespace AMSEMS.SubForms_DeptHead
             displayFees();
             displayTable();
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ExportToPDF(dgvRecord, saveFileDialog.FileName);
+                MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Process.Start(saveFileDialog.FileName);
+            }
+        }
+        private void ExportToPDF(DataGridView dataGridView, string filePath)
+        {
+            Document document = new Document(PageSize.LETTER.Rotate());
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+
+            document.Open();
+
+            // Customizing the font and size
+            Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+            Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
+            Font headerFont2 = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            Font headerFont3 = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+            Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+
+            // Add title "List of Students:"
+            Paragraph titleParagraph = new Paragraph("Attendance Record", headerFont1);
+            Paragraph titleParagraph2 = new Paragraph(cbEvents.Text, headerFont2);
+            Paragraph titleParagraph3 = new Paragraph(Dt.Value.ToString(), headerFont3);
+            titleParagraph.Alignment = Element.ALIGN_CENTER;
+            titleParagraph2.Alignment = Element.ALIGN_CENTER;
+            titleParagraph3.Alignment = Element.ALIGN_CENTER;
+            document.Add(titleParagraph);
+            document.Add(titleParagraph2);
+            document.Add(titleParagraph3);
+
+            // Customizing the table appearance
+            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count);
+            pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
+            pdfTable.SpacingBefore = 10f; // Add space before the table
+            pdfTable.DefaultCell.Padding = 3; // Cell padding
+
+            float[] columnWidths = new float[dataGridView.Columns.Count];
+            columnWidths[0] = 50; 
+            columnWidths[1] = 90;
+            columnWidths[2] = 40;
+            columnWidths[3] = 40; 
+            columnWidths[4] = 50; 
+            columnWidths[5] = 40; 
+            columnWidths[6] = 40; 
+            columnWidths[7] = 50;
+            columnWidths[8] = 40;
+            columnWidths[9] = 40;
+            columnWidths[10] = 55;
+            pdfTable.SetWidths(columnWidths);
+
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
+                cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
+                pdfTable.AddCell(cell);
+            }
+
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value.ToString(), cellFont));
+                    pdfTable.AddCell(pdfCell);
+                }
+            }
+
+            document.Add(pdfTable);
+            document.Close();
+        }
+
 
         private void ApplyCBFilter(string selectedIndex)
         {

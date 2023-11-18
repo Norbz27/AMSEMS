@@ -26,7 +26,7 @@ namespace AMSEMS.SubForms_SAO
 
         public static bool attendance;
         public static bool penalty;
-        public static HashSet<string> students = new HashSet<string> { };
+        public static HashSet<string> selected = new HashSet<string> { };
         public static string exclusive;
         public formEventDetails()
         {
@@ -66,7 +66,7 @@ namespace AMSEMS.SubForms_SAO
                         {
                             picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
                         }
-                        string selectedStudents = GetSelectedStudentsAsString();
+                        string selectedStudents = GetSelectedAsString();
                         cm = new SqlCommand();
                         cm.Connection = cn;
                         cm.CommandType = CommandType.StoredProcedure;
@@ -81,15 +81,21 @@ namespace AMSEMS.SubForms_SAO
                         cm.Parameters.AddWithValue("@Attendance", attendance);
                         cm.Parameters.AddWithValue("@Penalty", penalty);
 
-                        if (exclusive.Equals("Specific Students", StringComparison.OrdinalIgnoreCase))
+                        if (exclusive.Equals("Specific Students"))
                         {
                             cm.Parameters.AddWithValue("@Exclusive", exclusive);
                             cm.Parameters.AddWithValue("@Specific_Students", selectedStudents);
                         }
+                        else if (exclusive.Equals("Selected Departments"))
+                        {
+                            cm.Parameters.AddWithValue("@Exclusive", exclusive);
+                            cm.Parameters.AddWithValue("@Selected_Departments", selectedStudents);
+                        }
                         else
                         {
                             cm.Parameters.AddWithValue("@Exclusive", exclusive);
-                            cm.Parameters.AddWithValue("@Specific_Students", DBNull.Value);
+                            cm.Parameters.AddWithValue("@Specific_Students", null);
+                            cm.Parameters.AddWithValue("@Selected_Departments", null);
                         }
 
                         cm.ExecuteNonQuery();
@@ -398,11 +404,11 @@ namespace AMSEMS.SubForms_SAO
                 }
             }
         }
-        private string GetSelectedStudentsAsString()
+        private string GetSelectedAsString()
         {
-            if (students != null)
+            if (selected != null)
             {
-                HashSet<string> selectedStudentIds = students;
+                HashSet<string> selectedStudentIds = selected;
 
                 return string.Join(",", selectedStudentIds);
             }

@@ -28,7 +28,7 @@ namespace AMSEMS.SubForms_SAO
         {
             InitializeComponent();
             InitializeListBox();
-            formEventDetails.students.Clear();
+            formEventDetails.selected.Clear();
             displayCBData();
             if (cbExclusive.Items.Count > 0)
             {
@@ -51,6 +51,7 @@ namespace AMSEMS.SubForms_SAO
                 dr.Close();
             }
             cbExclusive.Items.Add("Specific Students");
+            cbExclusive.Items.Add("Selected Departments");
         }
         public void getEventID(string eventid)
         {
@@ -146,7 +147,7 @@ namespace AMSEMS.SubForms_SAO
             flowLayoutPanel1.Controls.Add(label);
 
             // Add the suggestion to the HashSet
-            formEventDetails.students.Add(suggestion);
+            formEventDetails.selected.Add(suggestion);
 
             // Add a click event handler to the label
             label.Click += (sender, e) =>
@@ -157,7 +158,7 @@ namespace AMSEMS.SubForms_SAO
                 flowLayoutPanel1.Controls.Remove(label);
 
                 // Remove the suggestion from the HashSet
-                formEventDetails.students.Remove(clickedSuggestion);
+                formEventDetails.selected.Remove(clickedSuggestion);
 
                 tbSearch.Text = string.Empty;
             };
@@ -171,7 +172,7 @@ namespace AMSEMS.SubForms_SAO
 
         private void cbExclusive_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbExclusive.Text.Equals("Specific Students"))
+            if (cbExclusive.Text.Equals("Specific Students") || cbExclusive.Text.Equals("Selected Departments"))
             {
                 isCollapsed = true;
                 timer1.Start();
@@ -193,18 +194,40 @@ namespace AMSEMS.SubForms_SAO
         {
             suggestions.Clear();
 
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            if (cbExclusive.Text.Equals("Specific Students"))
             {
-                cn.Open();
-
-                string query = "SELECT CONCAT(Firstname, ' ', Lastname) AS FullName FROM tbl_student_accounts WHERE Status = 1";
-                using (SqlCommand command = new SqlCommand(query, cn))
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    cn.Open();
+
+                    string query = "SELECT UPPER(CONCAT(Firstname, ' ', Lastname)) AS FullName FROM tbl_student_accounts WHERE Status = 1";
+                    using (SqlCommand command = new SqlCommand(query, cn))
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            suggestions.Add(reader["FullName"].ToString());
+                            while (reader.Read())
+                            {
+                                suggestions.Add(reader["FullName"].ToString());
+                            }
+                        }
+                    }
+                }
+            }
+            else if (cbExclusive.Text.Equals("Selected Departments"))
+            {
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
+
+                    string query = "SELECT Description FROM tbl_Departments";
+                    using (SqlCommand command = new SqlCommand(query, cn))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                suggestions.Add(reader["Description"].ToString());
+                            }
                         }
                     }
                 }
@@ -300,7 +323,12 @@ namespace AMSEMS.SubForms_SAO
             {
                 cn.Open();
 
-                string query = "SELECT Exclusive, Attendance, Penalty, Specific_Students FROM tbl_events WHERE Event_ID = @EventID";
+                if (formEventDetails.selected != null)
+                {
+                    formEventDetails.selected.Clear();
+                }
+
+                string query = "SELECT Exclusive, Attendance, Penalty, Specific_Students, Selected_Departments FROM tbl_events WHERE Event_ID = @EventID";
                 using (SqlCommand command = new SqlCommand(query, cn))
                 {
                     command.Parameters.AddWithValue("@EventID", eventid);
@@ -310,25 +338,36 @@ namespace AMSEMS.SubForms_SAO
                         {
                             tgbtnAtt.Checked = (bool)reader["Attendance"];
                             tgbtnPenalty.Checked = (bool)reader["Penalty"];
-                            cbExclusive.Text = reader["Exclusive"].ToString();
+                            cbExclusive.Text = reader["Exclusive"] != DBNull.Value ? reader["Exclusive"].ToString() : string.Empty;
 
-                            formEventDetails.exclusive = reader["Exclusive"].ToString();
+                            formEventDetails.exclusive = reader["Exclusive"] != DBNull.Value ? reader["Exclusive"].ToString() : string.Empty;
                             formEventDetails.attendance = (bool)reader["Attendance"];
                             formEventDetails.penalty = (bool)reader["Penalty"];
 
-                            string selectedStudents = reader["Specific_Students"].ToString();
-
-                            // Split the comma-separated values and add them to the list
-                            string[] studentsArray = selectedStudents.Split(',');
-                            foreach (string student in studentsArray)
+                            string selectedStudents = null;
+                            if (formEventDetails.exclusive.Equals("Specific Students"))
                             {
-                                if(formEventDetails.students != null)
-                                {
-                                    formEventDetails.students.Clear();
-                                }
+                                selectedStudents = reader["Specific_Students"].ToString();
 
-                                formEventDetails.students.Add(student.Trim());
-                                AddSuggestionToFlowLayoutPanel(student.Trim());
+                                // Split the comma-separated values and add them to the list
+                                string[] studentsArray = selectedStudents.Split(',');
+                                foreach (string student in studentsArray)
+                                {
+                                    formEventDetails.selected.Add(student.Trim());
+                                    AddSuggestionToFlowLayoutPanel(student.Trim());
+                                }
+                            } 
+                            else if (formEventDetails.exclusive.Equals("Selected Departments"))
+                            {
+                                selectedStudents = reader["Selected_Departments"].ToString();
+
+                                // Split the comma-separated values and add them to the list
+                                string[] studentsArray = selectedStudents.Split(',');
+                                foreach (string student in studentsArray)
+                                {
+                                    formEventDetails.selected.Add(student.Trim());
+                                    AddSuggestionToFlowLayoutPanel(student.Trim());
+                                }
                             }
                         }
                     }
