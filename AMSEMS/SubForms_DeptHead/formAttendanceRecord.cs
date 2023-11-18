@@ -565,7 +565,27 @@ namespace AMSEMS.SubForms_DeptHead
         }
         public void saveStudentBalance()
         {
+            //try
+            //{
+            //    cn.Open();
+            //    cm = new SqlCommand("Insert Into tbl_balance_fees Values (@StudID,@EventID,@Date,@BalFee)", cn);
+            //    cm.Parameters.AddWithValue("@StudID", tbAnnounceTitle.Text);
+            //    cm.Parameters.AddWithValue("@EventID", tbDescription.Text);
+            //    cm.Parameters.AddWithValue("@Date", dateTime);
+            //    cm.Parameters.AddWithValue("@BalFee", announceBy);
+            //    cm.ExecuteNonQuery();
 
+            //    MessageBox.Show("Announcement Forwarded!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+            //finally
+            //{
+            //    form.displayAnnouncements(searchKeyword, filterDate);
+            //    this.Dispose();
+            //}
         }
     }
 }
