@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -48,6 +49,10 @@ namespace AMSEMS.SubForms_DeptHead
                     if (cbEvents.Items.Count > 0)
                     {
                         cbEvents.SelectedIndex = 0;
+                    }
+                    if (cbSection.Items.Count > 0)
+                    {
+                        cbSection.SelectedIndex = 0;
                     }
 
                     cm = new SqlCommand("Select Description from tbl_section", cn);
@@ -103,8 +108,7 @@ namespace AMSEMS.SubForms_DeptHead
             }
         }
 
-
-        public void displayTable()
+        public async void displayTable()
         {
             if (dgvRecord.InvokeRequired)
             {
@@ -114,176 +118,225 @@ namespace AMSEMS.SubForms_DeptHead
             try
             {
                 dgvRecord.Rows.Clear();
-
-                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                await Task.Run(() =>
                 {
-                    cn.Open();
-                    string query = "";
+                    using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                    {
+                        cn.Open();
+                        string query = "";
 
-                    // Check if the event is for Specific Students
-                    if (IsEventForSpecificStudents(event_id))
-                    {
-                        query = @"SELECT
-                                e.Event_ID,
-                                s.ID AS id,
-                                UPPER(s.Firstname) AS fname,
-                                UPPER(s.Middlename) AS mname,
-                                UPPER(s.Lastname) AS lname,
-                                sec.Description AS secdes,
-                                ISNULL(FORMAT(att.Date_Time, 'yyyy-MM-dd'), '-------') AS Date_Time,
-                                COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
-                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
-                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), @AM_Pen) AS AM_IN_Penalty,
-                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
-                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), @AM_Pen) AS AM_OUT_Penalty,
-                                COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
-                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
-                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
-                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
-                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
-                                UPPER(teach.Lastname) AS teachlname
-                            FROM
-                                tbl_events e
-                            LEFT JOIN
-                                tbl_student_accounts s ON CHARINDEX(s.FirstName + ' ' + s.LastName, e.Specific_Students) > 0
-                            LEFT JOIN
-                                tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND CONVERT(DATE, att.Date_Time) = @Date
-                            LEFT JOIN
-                                tbl_departments d ON s.Department = d.Department_ID
-                            LEFT JOIN
-                                tbl_Section AS sec ON s.Section = sec.Section_ID
-                            LEFT JOIN
-                                tbl_teacher_accounts AS teach ON att.Checker = teach.ID
-                            WHERE
-                                e.Event_ID = @EventID
-                                AND e.Exclusive = 'Specific Students'
-                                AND s.ID IS NOT NULL
-                                AND s.Department = @Dep
-                                AND s.Status = 1
-                            ORDER BY
-                                s.ID, att.Date_Time;";
-                    }
-                    else if (IsEventForSelectedDep(event_id))
-                    {
-                        query = @"SELECT
-                                e.Event_ID,
-                                s.ID AS id,
-                                UPPER(s.Firstname) AS fname,
-                                UPPER(s.Middlename) AS mname,
-                                UPPER(s.Lastname) AS lname,
-                                sec.Description AS secdes,
-                                ISNULL(FORMAT(att.Date_Time, 'yyyy-MM-dd'), '-------') AS Date_Time,
-                                COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
-                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
-                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), @AM_Pen) AS AM_IN_Penalty,
-                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
-                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), @AM_Pen) AS AM_OUT_Penalty,
-                                COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
-                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
-                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
-                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
-                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
-                                UPPER(teach.Lastname) AS teachlname
-                            FROM
-                                tbl_events e
-                            LEFT JOIN
-                                tbl_student_accounts s ON s.ID IS NOT NULL
-                            LEFT JOIN
-                                tbl_departments dep ON s.Department = dep.Department_ID
-                            LEFT JOIN
-                                tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND CONVERT(DATE, att.Date_Time) = @Date
-                            LEFT JOIN
-                                tbl_Section sec ON s.Section = sec.Section_ID
-                            LEFT JOIN
-                                tbl_teacher_accounts teach ON att.Checker = teach.ID
-                            WHERE
-                                e.Event_ID = @EventID
-                                AND e.Exclusive = 'Selected Departments'
-                                AND CHARINDEX(CONVERT(VARCHAR, dep.Description), e.Selected_Departments) > 0
-	                            AND s.Department = 2
-                                AND s.Status = 1
-                            ORDER BY
-                                s.ID, att.Date_Time;";
-                    }
-                    else
-                    {
-                        query = @"SELECT stud.ID AS id, 
-                                UPPER(stud.Firstname) AS fname,
-                                UPPER(stud.Middlename) AS mname,
-                                UPPER(stud.Lastname) AS lname,
-                                sec.Description AS secdes,
-                                FORMAT(att.Date_Time, 'yyyy-MM-dd') AS Date_Time,
-                                COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
-                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
-                                ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), @AM_Pen) AS AM_IN_Penalty,
-                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
-                                ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), @AM_Pen) AS AM_OUT_Penalty,
-                                COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
-                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
-                                ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
-                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
-                                ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
-                                UPPER(teach.Lastname) AS teachlname 
-                                FROM tbl_student_accounts AS stud
-                                LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND CONVERT(DATE, att.Date_Time) = @Date
-                                LEFT JOIN tbl_Section AS sec ON stud.Section = sec.Section_ID
-                                LEFT JOIN tbl_teacher_accounts AS teach ON att.Checker = teach.ID 
-                                WHERE stud.Department = @Dep AND stud.Status = 1";
-                    }
-
-                    using (SqlCommand cmd = new SqlCommand(query, cn))
-                    {
-                        string modifiedStringAM = lblAmPenaltyFee.Text.Replace("₱ ", "");
-                        string modifiedStringPM = lblPmPenaltyFee.Text.Replace("₱ ", "");
-                        cmd.Parameters.AddWithValue("@EventID", event_id);
-                        cmd.Parameters.AddWithValue("@Date", date);
-                        cmd.Parameters.AddWithValue("@AM_Pen", modifiedStringAM);
-                        cmd.Parameters.AddWithValue("@PM_Pen", modifiedStringPM);
-                        cmd.Parameters.AddWithValue("@Dep", FormDeptHeadNavigation.dep);
-                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        // Check if the event is for Specific Students
+                        if (IsEventForSpecificStudents(event_id))
                         {
-                            while (dr.Read())
+                            query = @"SELECT
+                                    e.Event_ID,
+                                    s.ID AS id,
+                                    UPPER(s.Firstname) AS fname,
+                                    UPPER(s.Middlename) AS mname,
+                                    UPPER(s.Lastname) AS lname,
+                                    sec.Description AS secdes,
+                                    ISNULL(FORMAT(att.Date_Time, 'yyyy-MM-dd'), '-------') AS Date_Time,
+                                    COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
+                                    ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
+                                    ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), @AM_Pen) AS AM_IN_Penalty,
+                                    ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
+                                    ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), @AM_Pen) AS AM_OUT_Penalty,
+                                    COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
+                                    ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
+                                    ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
+                                    ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
+                                    ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
+                                    UPPER(teach.Lastname) AS teachlname
+                                FROM
+                                    tbl_events e
+                                LEFT JOIN
+                                    tbl_student_accounts s ON CHARINDEX(s.FirstName + ' ' + s.LastName, e.Specific_Students) > 0
+                                LEFT JOIN
+                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND CONVERT(DATE, att.Date_Time) = @Date
+                                LEFT JOIN
+                                    tbl_departments d ON s.Department = d.Department_ID
+                                LEFT JOIN
+                                    tbl_Section AS sec ON s.Section = sec.Section_ID
+                                LEFT JOIN
+                                    tbl_teacher_accounts AS teach ON att.Checker = teach.ID
+                                WHERE
+                                    e.Event_ID = @EventID
+                                    AND e.Exclusive = 'Specific Students'
+                                    AND s.ID IS NOT NULL
+                                    AND s.Department = @Dep
+                                    AND s.Status = 1
+                                ORDER BY
+                                    s.ID, att.Date_Time;";
+                        }
+                        else if (IsEventForSelectedDep(event_id))
+                        {
+                            query = @"SELECT
+                                    e.Event_ID,
+                                    s.ID AS id,
+                                    UPPER(s.Firstname) AS fname,
+                                    UPPER(s.Middlename) AS mname,
+                                    UPPER(s.Lastname) AS lname,
+                                    sec.Description AS secdes,
+                                    ISNULL(FORMAT(att.Date_Time, 'yyyy-MM-dd'), '-------') AS Date_Time,
+                                    COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
+                                    ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
+                                    ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), @AM_Pen) AS AM_IN_Penalty,
+                                    ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
+                                    ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), @AM_Pen) AS AM_OUT_Penalty,
+                                    COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
+                                    ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
+                                    ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
+                                    ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
+                                    ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
+                                    UPPER(teach.Lastname) AS teachlname
+                                FROM
+                                    tbl_events e
+                                LEFT JOIN
+                                    tbl_student_accounts s ON s.ID IS NOT NULL
+                                LEFT JOIN
+                                    tbl_departments dep ON s.Department = dep.Department_ID
+                                LEFT JOIN
+                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND CONVERT(DATE, att.Date_Time) = @Date
+                                LEFT JOIN
+                                    tbl_Section sec ON s.Section = sec.Section_ID
+                                LEFT JOIN
+                                    tbl_teacher_accounts teach ON att.Checker = teach.ID
+                                WHERE
+                                    e.Event_ID = @EventID
+                                    AND e.Exclusive = 'Selected Departments'
+                                    AND CHARINDEX(CONVERT(VARCHAR, dep.Description), e.Selected_Departments) > 0
+	                                AND s.Department = @Dep
+                                    AND s.Status = 1
+                                ORDER BY
+                                    s.ID, att.Date_Time;";
+                        }
+                        else
+                        {
+                            query = @"SELECT stud.ID AS id, 
+                                    UPPER(stud.Firstname) AS fname,
+                                    UPPER(stud.Middlename) AS mname,
+                                    UPPER(stud.Lastname) AS lname,
+                                    sec.Description AS secdes,
+                                    FORMAT(att.Date_Time, 'yyyy-MM-dd') AS Date_Time,
+                                    COALESCE(att.Penalty_AM, 0) AS Penalty_AM,
+                                    ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), '-------') AS AM_IN,
+                                    ISNULL(FORMAT(att.AM_IN, 'hh:mm tt'), @AM_Pen) AS AM_IN_Penalty,
+                                    ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), '-------') AS AM_OUT,
+                                    ISNULL(FORMAT(att.AM_OUT, 'hh:mm tt'), @AM_Pen) AS AM_OUT_Penalty,
+                                    COALESCE(att.Penalty_PM, 0) AS Penalty_PM,
+                                    ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), '-------') AS PM_IN,
+                                    ISNULL(FORMAT(att.PM_IN, 'hh:mm tt'), @PM_Pen) AS PM_IN_Penalty,
+                                    ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), '-------') AS PM_OUT,
+                                    ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
+                                    UPPER(teach.Lastname) AS teachlname 
+                                    FROM tbl_student_accounts AS stud
+                                    LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND CONVERT(DATE, att.Date_Time) = @Date
+                                    LEFT JOIN tbl_Section AS sec ON stud.Section = sec.Section_ID
+                                    LEFT JOIN tbl_teacher_accounts AS teach ON att.Checker = teach.ID 
+                                    WHERE stud.Department = @Dep AND stud.Status = 1";
+                        }
+
+                        using (SqlCommand cmd = new SqlCommand(query, cn))
+                        {
+                            string modifiedStringAM = lblAmPenaltyFee.Text.Replace("₱ ", "");
+                            string modifiedStringPM = lblPmPenaltyFee.Text.Replace("₱ ", "");
+                            cmd.Parameters.AddWithValue("@EventID", event_id);
+                            cmd.Parameters.AddWithValue("@Date", date);
+                            cmd.Parameters.AddWithValue("@AM_Pen", modifiedStringAM);
+                            cmd.Parameters.AddWithValue("@PM_Pen", modifiedStringPM);
+                            cmd.Parameters.AddWithValue("@Dep", FormDeptHeadNavigation.dep);
+
+                            using (SqlDataReader dr = cmd.ExecuteReader())
                             {
-                                int rowIndex = dgvRecord.Rows.Add(false);
+                                while (dr.Read())
+                                {
+                                    if (dgvRecord.InvokeRequired)
+                                    {
+                                        dgvRecord.Invoke(new Action(() =>
+                                        {
+                                            int rowIndex = dgvRecord.Rows.Add(false);
 
-                                string name = dr["fname"].ToString() + " " + dr["mname"].ToString() + " " + dr["lname"].ToString();
+                                            string name = dr["fname"].ToString() + " " + dr["mname"].ToString() + " " + dr["lname"].ToString();
 
-                                double totalfee = 0;
+                                            double totalfee = 0;
 
-                                if (double.TryParse(dr["AM_IN_Penalty"].ToString(), out double amInPenalty) && !string.IsNullOrEmpty(dr["AM_IN"].ToString()))
-                                    totalfee += amInPenalty;
+                                            if (double.TryParse(dr["AM_IN_Penalty"].ToString(), out double amInPenalty) && !string.IsNullOrEmpty(dr["AM_IN"].ToString()))
+                                                totalfee += amInPenalty;
 
-                                if (double.TryParse(dr["AM_OUT_Penalty"].ToString(), out double amOutPenalty) && !string.IsNullOrEmpty(dr["AM_OUT"].ToString()))
-                                    totalfee += amOutPenalty;
+                                            if (double.TryParse(dr["AM_OUT_Penalty"].ToString(), out double amOutPenalty) && !string.IsNullOrEmpty(dr["AM_OUT"].ToString()))
+                                                totalfee += amOutPenalty;
 
-                                if (double.TryParse(dr["PM_IN_Penalty"].ToString(), out double pmInPenalty) && !string.IsNullOrEmpty(dr["PM_IN"].ToString()))
-                                    totalfee += pmInPenalty;
+                                            if (double.TryParse(dr["PM_IN_Penalty"].ToString(), out double pmInPenalty) && !string.IsNullOrEmpty(dr["PM_IN"].ToString()))
+                                                totalfee += pmInPenalty;
 
-                                if (double.TryParse(dr["PM_OUT_Penalty"].ToString(), out double pmOutPenalty) && !string.IsNullOrEmpty(dr["PM_OUT"].ToString()))
-                                    totalfee += pmOutPenalty;
+                                            if (double.TryParse(dr["PM_OUT_Penalty"].ToString(), out double pmOutPenalty) && !string.IsNullOrEmpty(dr["PM_OUT"].ToString()))
+                                                totalfee += pmOutPenalty;
 
-                                string formattedTotalFee = totalfee.ToString("F2");
+                                            string formattedTotalFee = totalfee.ToString("F2");
 
-                                string formattedDate = Dt.Value.ToString("MM-dd-yyyy");
+                                            string formattedDate = Dt.Value.ToString("MM-dd-yyyy");
 
-                                dgvRecord.Rows[rowIndex].Cells["ID"].Value = dr["id"].ToString();
-                                dgvRecord.Rows[rowIndex].Cells["name"].Value = name;
-                                dgvRecord.Rows[rowIndex].Cells["section"].Value = dr["secdes"].ToString();
-                                dgvRecord.Rows[rowIndex].Cells["event_date"].Value = formattedDate;
-                                dgvRecord.Rows[rowIndex].Cells["penalty_am"].Value = lblAmPenaltyFee.Text;
-                                dgvRecord.Rows[rowIndex].Cells["am_login"].Value = dr["AM_IN"].ToString();
-                                dgvRecord.Rows[rowIndex].Cells["am_logout"].Value = dr["AM_OUT"].ToString();
-                                dgvRecord.Rows[rowIndex].Cells["penalty_pm"].Value = lblPmPenaltyFee.Text;
-                                dgvRecord.Rows[rowIndex].Cells["pm_login"].Value = dr["PM_IN"].ToString();
-                                dgvRecord.Rows[rowIndex].Cells["pm_logout"].Value = dr["PM_OUT"].ToString();
-                                dgvRecord.Rows[rowIndex].Cells["checker"].Value = dr["teachlname"].ToString();
-                                dgvRecord.Rows[rowIndex].Cells["penalty_total"].Value = "₱ " + formattedTotalFee;
+                                            dgvRecord.Rows[rowIndex].Cells["ID"].Value = dr["id"].ToString();
+                                            dgvRecord.Rows[rowIndex].Cells["name"].Value = name;
+                                            dgvRecord.Rows[rowIndex].Cells["section"].Value = dr["secdes"].ToString();
+                                            dgvRecord.Rows[rowIndex].Cells["event_date"].Value = formattedDate;
+                                            dgvRecord.Rows[rowIndex].Cells["penalty_am"].Value = lblAmPenaltyFee.Text;
+                                            dgvRecord.Rows[rowIndex].Cells["am_login"].Value = dr["AM_IN"].ToString();
+                                            dgvRecord.Rows[rowIndex].Cells["am_logout"].Value = dr["AM_OUT"].ToString();
+                                            dgvRecord.Rows[rowIndex].Cells["penalty_pm"].Value = lblPmPenaltyFee.Text;
+                                            dgvRecord.Rows[rowIndex].Cells["pm_login"].Value = dr["PM_IN"].ToString();
+                                            dgvRecord.Rows[rowIndex].Cells["pm_logout"].Value = dr["PM_OUT"].ToString();
+                                            dgvRecord.Rows[rowIndex].Cells["checker"].Value = dr["teachlname"].ToString();
+                                            dgvRecord.Rows[rowIndex].Cells["penalty_total"].Value = "₱ " + formattedTotalFee;
 
-                                rowIndex++;
+                                            rowIndex++;
+                                        }));
+                                    }
+                                    else
+                                    {
+                                        int rowIndex = dgvRecord.Rows.Add(false);
+
+                                        string name = dr["fname"].ToString() + " " + dr["mname"].ToString() + " " + dr["lname"].ToString();
+
+                                        double totalfee = 0;
+
+                                        if (double.TryParse(dr["AM_IN_Penalty"].ToString(), out double amInPenalty) && !string.IsNullOrEmpty(dr["AM_IN"].ToString()))
+                                            totalfee += amInPenalty;
+
+                                        if (double.TryParse(dr["AM_OUT_Penalty"].ToString(), out double amOutPenalty) && !string.IsNullOrEmpty(dr["AM_OUT"].ToString()))
+                                            totalfee += amOutPenalty;
+
+                                        if (double.TryParse(dr["PM_IN_Penalty"].ToString(), out double pmInPenalty) && !string.IsNullOrEmpty(dr["PM_IN"].ToString()))
+                                            totalfee += pmInPenalty;
+
+                                        if (double.TryParse(dr["PM_OUT_Penalty"].ToString(), out double pmOutPenalty) && !string.IsNullOrEmpty(dr["PM_OUT"].ToString()))
+                                            totalfee += pmOutPenalty;
+
+                                        string formattedTotalFee = totalfee.ToString("F2");
+
+                                        string formattedDate = Dt.Value.ToString("MM-dd-yyyy");
+
+                                        dgvRecord.Rows[rowIndex].Cells["ID"].Value = dr["id"].ToString();
+                                        dgvRecord.Rows[rowIndex].Cells["name"].Value = name;
+                                        dgvRecord.Rows[rowIndex].Cells["section"].Value = dr["secdes"].ToString();
+                                        dgvRecord.Rows[rowIndex].Cells["event_date"].Value = formattedDate;
+                                        dgvRecord.Rows[rowIndex].Cells["penalty_am"].Value = lblAmPenaltyFee.Text;
+                                        dgvRecord.Rows[rowIndex].Cells["am_login"].Value = dr["AM_IN"].ToString();
+                                        dgvRecord.Rows[rowIndex].Cells["am_logout"].Value = dr["AM_OUT"].ToString();
+                                        dgvRecord.Rows[rowIndex].Cells["penalty_pm"].Value = lblPmPenaltyFee.Text;
+                                        dgvRecord.Rows[rowIndex].Cells["pm_login"].Value = dr["PM_IN"].ToString();
+                                        dgvRecord.Rows[rowIndex].Cells["pm_logout"].Value = dr["PM_OUT"].ToString();
+                                        dgvRecord.Rows[rowIndex].Cells["checker"].Value = dr["teachlname"].ToString();
+                                        dgvRecord.Rows[rowIndex].Cells["penalty_total"].Value = "₱ " + formattedTotalFee;
+
+                                        rowIndex++;
+
+                                    }
+                                }
                             }
                         }
                     }
-                }
+                });
             }
             catch (Exception ex)
             {
@@ -293,8 +346,6 @@ namespace AMSEMS.SubForms_DeptHead
 
         private bool IsEventForSpecificStudents(string eventId)
         {
-            // Implement your logic to check if the event is for Specific Students
-            // For example, check if the Exclusive column is 'Specific Students'
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();

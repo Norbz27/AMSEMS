@@ -1231,6 +1231,8 @@
     <None Include="Resources\exit %283%29.png" />
     <None Include="Resources\sync-24.png" />
     <None Include="Resources\Pulse-1s-200px.gif" />
+    <None Include="Resources\Pulse-1s-200px %281%29.gif" />
+    <None Include="Resources\Pulse-1s-200px1.gif" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup>
