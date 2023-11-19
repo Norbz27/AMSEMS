@@ -35,6 +35,7 @@ namespace AMSEMS.SubForms_SAO
             selectedColor = "#800000";
             SetButtonAppearance(btnColorMarron);
             formEventConfig = new formEventAddConfig();
+            DtEnd.MinDate = DtStart.Value;
         }
         
         public void getForm(UserControlDays_Calendar form)
@@ -275,6 +276,11 @@ namespace AMSEMS.SubForms_SAO
             {
                 return null;
             }
+        }
+
+        private void DtStart_ValueChanged(object sender, EventArgs e)
+        {
+            DtEnd.MinDate = DtStart.Value;
         }
     }
 }

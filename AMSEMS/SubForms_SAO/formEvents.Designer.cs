@@ -81,7 +81,7 @@
             // 
             this.btnCreateEvent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateEvent.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCreateEvent.Location = new System.Drawing.Point(904, 4);
+            this.btnCreateEvent.Location = new System.Drawing.Point(894, 4);
             this.btnCreateEvent.Name = "btnCreateEvent";
             this.btnCreateEvent.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnCreateEvent.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -429,7 +429,7 @@
             // 
             this.lblMonthYear.Location = new System.Drawing.Point(181, 3);
             this.lblMonthYear.Name = "lblMonthYear";
-            this.lblMonthYear.Size = new System.Drawing.Size(113, 33);
+            this.lblMonthYear.Size = new System.Drawing.Size(112, 33);
             this.lblMonthYear.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblMonthYear.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblMonthYear.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins ExtraBold", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

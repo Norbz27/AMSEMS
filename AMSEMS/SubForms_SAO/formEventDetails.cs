@@ -35,6 +35,7 @@ namespace AMSEMS.SubForms_SAO
             cn = new SqlConnection(SQL_Connection.connection);
             isTrue = true;
             formEventEditConfig = new formEventEditConfig();
+            DtEnd.MinDate = DtStart.Value;
         }
         public void getForm(UserControlDays_Calendar form)
         {
@@ -420,6 +421,11 @@ namespace AMSEMS.SubForms_SAO
         private void btnConfig_Click(object sender, EventArgs e)
         {
             formEventEditConfig.ShowDialog();
+        }
+
+        private void DtStart_ValueChanged(object sender, EventArgs e)
+        {
+            DtEnd.MinDate = DtStart.Value;
         }
     }
 }
