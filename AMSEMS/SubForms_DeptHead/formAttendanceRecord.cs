@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
@@ -20,11 +21,46 @@ namespace AMSEMS.SubForms_DeptHead
 
         string event_id, date;
 
+        private BackgroundWorker backgroundWorker = new BackgroundWorker();
+
         public formAttendanceRecord()
         {
             InitializeComponent();
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            backgroundWorker.WorkerSupportsCancellation = true;
+
             cn = new SqlConnection(SQL_Connection.connection);
             formConfigFee = new formConfigFee();
+        }
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            displayFilter();
+            displayTable();
+
+            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // This method runs on the UI thread
+            // Update the UI or perform other tasks after the background work completes
+            if (e.Error != null)
+            {
+                // Handle any errors that occurred during the background work
+                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (e.Cancelled)
+            {
+                // Handle the case where the background work was canceled
+            }
+            else
+            {
+                // Data has been loaded, update the UI
+                // Stop the wait cursor (optional)
+                this.Cursor = Cursors.Default;
+            }
         }
         public void displayFilter()
         {
@@ -50,10 +86,6 @@ namespace AMSEMS.SubForms_DeptHead
                     {
                         cbEvents.SelectedIndex = 0;
                     }
-                    if (cbSection.Items.Count > 0)
-                    {
-                        cbSection.SelectedIndex = 0;
-                    }
 
                     cm = new SqlCommand("Select Description from tbl_section", cn);
                     dr = cm.ExecuteReader();
@@ -62,6 +94,11 @@ namespace AMSEMS.SubForms_DeptHead
                         cbSection.Items.Add(dr["Description"].ToString());
                     }
                     dr.Close();
+
+                    if (cbSection.Items.Count > 0)
+                    {
+                        cbSection.SelectedIndex = 0;
+                    }
                 }
             }
             catch (Exception ex)
@@ -69,6 +106,7 @@ namespace AMSEMS.SubForms_DeptHead
                 MessageBox.Show(ex.Message);
             }
         }
+
         public void displayFees()
         {
             using (cn = new SqlConnection(SQL_Connection.connection))
@@ -338,13 +376,17 @@ namespace AMSEMS.SubForms_DeptHead
                                 }
                             }
                         }
-                        lblTotalFees.Text = "₱ " + total.ToString();
+                        lblTotalFees.Text = "₱ " + total.ToString("F2");
                     }
                 });
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                saveStudentBalance();
             }
         }
 
@@ -387,8 +429,7 @@ namespace AMSEMS.SubForms_DeptHead
         private void Dt_ValueChanged(object sender, EventArgs e)
         {
             date = Dt.Value.ToString();
-            displayFees();
-            displayTable();
+            backgroundWorker.RunWorkerAsync();
         }
 
         private void cbEvents_SelectedIndexChanged(object sender, EventArgs e)
@@ -565,27 +606,62 @@ namespace AMSEMS.SubForms_DeptHead
         }
         public void saveStudentBalance()
         {
-            //try
-            //{
-            //    cn.Open();
-            //    cm = new SqlCommand("Insert Into tbl_balance_fees Values (@StudID,@EventID,@Date,@BalFee)", cn);
-            //    cm.Parameters.AddWithValue("@StudID", tbAnnounceTitle.Text);
-            //    cm.Parameters.AddWithValue("@EventID", tbDescription.Text);
-            //    cm.Parameters.AddWithValue("@Date", dateTime);
-            //    cm.Parameters.AddWithValue("@BalFee", announceBy);
-            //    cm.ExecuteNonQuery();
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
 
-            //    MessageBox.Show("Announcement Forwarded!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-            //finally
-            //{
-            //    form.displayAnnouncements(searchKeyword, filterDate);
-            //    this.Dispose();
-            //}
+                    foreach (DataGridViewRow row in dgvRecord.Rows)
+                    {
+                        string studID = row.Cells["ID"].Value.ToString();
+                        string balFee = row.Cells["penalty_total"].Value.ToString().Replace("₱ ", "");
+
+                        double bal_fee = 0;
+
+                        // Check if the modified value can be converted to a decimal
+                        if (double.TryParse(balFee, out double cellValue))
+                        {
+                            bal_fee = cellValue;
+                        }
+
+                        // Check if bal_fee is greater than 0 before proceeding with insertion or update
+                        if (bal_fee > 0)
+                        {
+                            cm = new SqlCommand("SELECT COUNT(*) FROM tbl_balance_fees WHERE Student_ID = @StudID AND Event_ID = @EventID AND FORMAT(Date, 'yyyy-MM-dd') = @Date", cn);
+                            cm.Parameters.AddWithValue("@StudID", studID);
+                            cm.Parameters.AddWithValue("@EventID", event_id);
+                            cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
+
+                            int existingRecords = (int)cm.ExecuteScalar();
+
+                            if (existingRecords == 0)
+                            {
+                                cm = new SqlCommand("INSERT INTO tbl_balance_fees VALUES (@StudID, @EventID, @Date, @BalFee)", cn);
+                                cm.Parameters.AddWithValue("@StudID", studID);
+                                cm.Parameters.AddWithValue("@EventID", event_id);
+                                cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
+                                cm.Parameters.AddWithValue("@BalFee", bal_fee);
+                                cm.ExecuteNonQuery();
+                            }
+                            else
+                            {
+                                // Update the existing record
+                                cm = new SqlCommand("UPDATE tbl_balance_fees SET Balance_Fee = @BalFee WHERE Student_ID = @StudID AND Event_ID = @EventID AND FORMAT(Date, 'yyyy-MM-dd') = @Date", cn);
+                                cm.Parameters.AddWithValue("@StudID", studID);
+                                cm.Parameters.AddWithValue("@EventID", event_id);
+                                cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
+                                cm.Parameters.AddWithValue("@BalFee", bal_fee);
+                                cm.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
     }
 }

@@ -115,9 +115,10 @@ namespace AMSEMS_Attendance_Checker
 
             if (attendancePics.Rows.Count != 0)
             {
-                for (int i = 1; i < attendancePics.Rows.Count; i++)
+                int displayedCount = 0;
+                for (int i = attendancePics.Rows.Count - 1; i >= 1; i--)
                 {
-                    DataRow row = attendancePics.Rows[attendancePics.Rows.Count - i - 1];
+                    DataRow row = attendancePics.Rows[i];
                     Image pic = null;
                     string studentName = row["Name"].ToString();
 
@@ -127,6 +128,7 @@ namespace AMSEMS_Attendance_Checker
                     }
 
                     doneAttendanceApperance(studentName, pic);
+                    displayedCount++;
                 }
             }
 

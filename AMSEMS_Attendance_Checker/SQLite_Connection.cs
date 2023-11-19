@@ -644,7 +644,7 @@ namespace AMSEMS_Attendance_Checker
                             Event_ID = @eventID
                             AND stud.Status = 1 AND AM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
-                            record ASC LIMIT 4";
+                            record DESC LIMIT 4";
                     }
                     else if (status.Equals("OUT"))
                     {
@@ -667,7 +667,7 @@ namespace AMSEMS_Attendance_Checker
                             Event_ID = @eventID
                             AND stud.Status = 1 AND AM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
-                            record ASC LIMIT 4";
+                            record DESC LIMIT 4";
                     }
                 }
                 else if (period.Equals("PM"))
@@ -693,7 +693,7 @@ namespace AMSEMS_Attendance_Checker
                             Event_ID = @eventID
                             AND stud.Status = 1 AND PM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
-                            record ASC LIMIT 4";
+                            record DESC LIMIT 4";
                     }
                     else if (status.Equals("OUT"))
                     {
@@ -716,7 +716,7 @@ namespace AMSEMS_Attendance_Checker
                             Event_ID = @eventID
                             AND stud.Status = 1 AND PM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
                         ORDER BY 
-                            record ASC LIMIT 4";
+                            record DESC LIMIT 4";
                     }
                 }
 
