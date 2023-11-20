@@ -460,9 +460,6 @@ namespace AMSEMS.SubForms_Admin
 
                 if (!headerCheckboxAdded) // Check if the checkbox has already been added
                 {
-
-
-                    // Center the checkbox within the header cell
                     int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
                     int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
 

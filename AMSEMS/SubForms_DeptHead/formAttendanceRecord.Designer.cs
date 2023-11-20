@@ -43,6 +43,18 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.dgvRecord = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.section = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.event_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.penalty_am = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.am_login = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.am_logout = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.penalty_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pm_login = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pm_logout = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.penalty_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lblAmPenaltyFee = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -63,18 +75,6 @@
             this.btnPenaltyFee = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnExport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.lblAccountName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.section = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.event_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.penalty_am = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.am_login = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.am_logout = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.penalty_pm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pm_login = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pm_logout = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.checker = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.penalty_total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
@@ -192,6 +192,117 @@
             this.dgvRecord.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvRecord.Size = new System.Drawing.Size(896, 543);
             this.dgvRecord.TabIndex = 1;
+            // 
+            // ID
+            // 
+            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 45;
+            // 
+            // name
+            // 
+            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            // 
+            // section
+            // 
+            this.section.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.section.HeaderText = "Section";
+            this.section.Name = "section";
+            this.section.ReadOnly = true;
+            this.section.Width = 78;
+            // 
+            // event_date
+            // 
+            this.event_date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.event_date.HeaderText = "Date";
+            this.event_date.Name = "event_date";
+            this.event_date.ReadOnly = true;
+            this.event_date.Width = 62;
+            // 
+            // penalty_am
+            // 
+            this.penalty_am.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.penalty_am.DefaultCellStyle = dataGridViewCellStyle3;
+            this.penalty_am.HeaderText = "AM Penalty Fee";
+            this.penalty_am.Name = "penalty_am";
+            this.penalty_am.ReadOnly = true;
+            this.penalty_am.Width = 113;
+            // 
+            // am_login
+            // 
+            this.am_login.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.am_login.DefaultCellStyle = dataGridViewCellStyle4;
+            this.am_login.HeaderText = "AM IN";
+            this.am_login.Name = "am_login";
+            this.am_login.ReadOnly = true;
+            this.am_login.Width = 62;
+            // 
+            // am_logout
+            // 
+            this.am_logout.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.am_logout.DefaultCellStyle = dataGridViewCellStyle5;
+            this.am_logout.HeaderText = "AM OUT";
+            this.am_logout.Name = "am_logout";
+            this.am_logout.ReadOnly = true;
+            this.am_logout.Width = 73;
+            // 
+            // penalty_pm
+            // 
+            this.penalty_pm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.penalty_pm.DefaultCellStyle = dataGridViewCellStyle6;
+            this.penalty_pm.HeaderText = "PM Penalty Fee";
+            this.penalty_pm.Name = "penalty_pm";
+            this.penalty_pm.ReadOnly = true;
+            this.penalty_pm.Width = 112;
+            // 
+            // pm_login
+            // 
+            this.pm_login.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.pm_login.DefaultCellStyle = dataGridViewCellStyle7;
+            this.pm_login.HeaderText = "PM IN";
+            this.pm_login.Name = "pm_login";
+            this.pm_login.ReadOnly = true;
+            this.pm_login.Width = 60;
+            // 
+            // pm_logout
+            // 
+            this.pm_logout.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.pm_logout.DefaultCellStyle = dataGridViewCellStyle8;
+            this.pm_logout.HeaderText = "PM OUT";
+            this.pm_logout.Name = "pm_logout";
+            this.pm_logout.ReadOnly = true;
+            this.pm_logout.Width = 71;
+            // 
+            // checker
+            // 
+            this.checker.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.checker.HeaderText = "Checker";
+            this.checker.Name = "checker";
+            this.checker.ReadOnly = true;
+            this.checker.Width = 83;
+            // 
+            // penalty_total
+            // 
+            this.penalty_total.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.penalty_total.DefaultCellStyle = dataGridViewCellStyle9;
+            this.penalty_total.HeaderText = "Total Penalty Fee";
+            this.penalty_total.Name = "penalty_total";
+            this.penalty_total.ReadOnly = true;
+            this.penalty_total.Width = 104;
             // 
             // panel3
             // 
@@ -623,117 +734,6 @@
             this.lblAccountName.TabIndex = 4;
             this.lblAccountName.Values.Text = "Attendance Record";
             // 
-            // ID
-            // 
-            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Width = 45;
-            // 
-            // name
-            // 
-            this.name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.name.HeaderText = "Name";
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            // 
-            // section
-            // 
-            this.section.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.section.HeaderText = "Section";
-            this.section.Name = "section";
-            this.section.ReadOnly = true;
-            this.section.Width = 78;
-            // 
-            // event_date
-            // 
-            this.event_date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.event_date.HeaderText = "Date";
-            this.event_date.Name = "event_date";
-            this.event_date.ReadOnly = true;
-            this.event_date.Width = 62;
-            // 
-            // penalty_am
-            // 
-            this.penalty_am.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.penalty_am.DefaultCellStyle = dataGridViewCellStyle3;
-            this.penalty_am.HeaderText = "AM Penalty Fee";
-            this.penalty_am.Name = "penalty_am";
-            this.penalty_am.ReadOnly = true;
-            this.penalty_am.Width = 113;
-            // 
-            // am_login
-            // 
-            this.am_login.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.am_login.DefaultCellStyle = dataGridViewCellStyle4;
-            this.am_login.HeaderText = "AM IN";
-            this.am_login.Name = "am_login";
-            this.am_login.ReadOnly = true;
-            this.am_login.Width = 62;
-            // 
-            // am_logout
-            // 
-            this.am_logout.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.am_logout.DefaultCellStyle = dataGridViewCellStyle5;
-            this.am_logout.HeaderText = "AM OUT";
-            this.am_logout.Name = "am_logout";
-            this.am_logout.ReadOnly = true;
-            this.am_logout.Width = 73;
-            // 
-            // penalty_pm
-            // 
-            this.penalty_pm.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            this.penalty_pm.DefaultCellStyle = dataGridViewCellStyle6;
-            this.penalty_pm.HeaderText = "PM Penalty Fee";
-            this.penalty_pm.Name = "penalty_pm";
-            this.penalty_pm.ReadOnly = true;
-            this.penalty_pm.Width = 112;
-            // 
-            // pm_login
-            // 
-            this.pm_login.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.pm_login.DefaultCellStyle = dataGridViewCellStyle7;
-            this.pm_login.HeaderText = "PM IN";
-            this.pm_login.Name = "pm_login";
-            this.pm_login.ReadOnly = true;
-            this.pm_login.Width = 60;
-            // 
-            // pm_logout
-            // 
-            this.pm_logout.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.pm_logout.DefaultCellStyle = dataGridViewCellStyle8;
-            this.pm_logout.HeaderText = "PM OUT";
-            this.pm_logout.Name = "pm_logout";
-            this.pm_logout.ReadOnly = true;
-            this.pm_logout.Width = 71;
-            // 
-            // checker
-            // 
-            this.checker.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.checker.HeaderText = "Checker";
-            this.checker.Name = "checker";
-            this.checker.ReadOnly = true;
-            this.checker.Width = 83;
-            // 
-            // penalty_total
-            // 
-            this.penalty_total.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.penalty_total.DefaultCellStyle = dataGridViewCellStyle9;
-            this.penalty_total.HeaderText = "Total Penalty Fee";
-            this.penalty_total.Name = "penalty_total";
-            this.penalty_total.ReadOnly = true;
-            this.penalty_total.Width = 104;
-            // 
             // formAttendanceRecord
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -744,6 +744,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "formAttendanceRecord";
             this.Padding = new System.Windows.Forms.Padding(20, 15, 20, 15);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formAttendanceRecord_FormClosing);
             this.Load += new System.EventHandler(this.formAttendanceRecord_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).EndInit();

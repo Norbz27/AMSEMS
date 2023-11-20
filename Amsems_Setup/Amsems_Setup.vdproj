@@ -525,12 +525,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6C12571B9F508CFE6454D5B46E07D85F"
-        "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_6C85A43FD4DF0E97AB0D63770A63226E"
         "OwnerKey" = "8:_6A2B9F7323C74840BD465DCFF0DA7E90"
         "MsmSig" = "8:_UNDEFINED"
@@ -1337,12 +1331,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1381F132D6AA56F255345C8161EF8392"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6C12571B9F508CFE6454D5B46E07D85F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -4055,37 +4043,6 @@
                     }
                 }
             "SourcePath" = "8:System.Runtime.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_F7A6DAAC01024D8FA90E7EBCAAF8AD74"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6C12571B9F508CFE6454D5B46E07D85F"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Bunifu_UI_v1.5.3, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_6C12571B9F508CFE6454D5B46E07D85F"
-                    {
-                    "Name" = "8:Bunifu_UI_v1.5.3.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Bunifu_UI_v1.5.3.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F7A6DAAC01024D8FA90E7EBCAAF8AD74"
@@ -6860,7 +6817,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Amsems_Setup"
         "ProductCode" = "8:{5F7BDE5F-6C4B-4836-B6F1-96A8DC7C3FF3}"
-        "PackageCode" = "8:{AA3E27C4-9F10-49FC-A25A-255B462EA22E}"
+        "PackageCode" = "8:{E87E41C3-4FD4-45DD-96A2-CA18C63AADAB}"
         "UpgradeCode" = "8:{AE62E803-4287-4A39-811D-29ECF1594153}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -6877,7 +6834,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_41AAB583E20B4D0784763E4326184E68"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"

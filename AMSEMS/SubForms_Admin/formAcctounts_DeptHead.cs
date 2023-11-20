@@ -619,8 +619,6 @@ namespace AMSEMS.SubForms_Admin
 
                 if (!headerCheckboxAdded) // Check if the checkbox has already been added
                 {
-
-
                     // Center the checkbox within the header cell
                     int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
                     int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
@@ -628,8 +626,10 @@ namespace AMSEMS.SubForms_Admin
                     headerCheckbox.Location = new Point(x, y);
                     headerCheckbox.Checked = AreAllCheckboxesChecked();
 
-
-                    dgvTeachers.Controls.Add(headerCheckbox);
+                    if (dgvTeachers.Rows.Count != 0)
+                    {
+                        dgvTeachers.Controls.Add(headerCheckbox);
+                    }
 
                     headerCheckboxAdded = true; // Set the flag to true
                 }

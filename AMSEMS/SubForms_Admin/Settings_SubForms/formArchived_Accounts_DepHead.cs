@@ -518,7 +518,7 @@ namespace AMSEMS.SubForms_Admin
 
 
                 // Check if there are any rows in the DataGridView
-                if (dgvArch.Rows.Count != 0)
+                if (dgvArch.Rows.Count > 0)
                 {
                     dgvArch.Controls.Add(headerCheckbox);
                 }

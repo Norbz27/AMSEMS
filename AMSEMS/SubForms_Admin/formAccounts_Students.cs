@@ -25,7 +25,7 @@ namespace AMSEMS.SubForms_Admin
         static int role;
         string sem;
 
-        private bool headerCheckboxAdded = false; // Add this flag
+        private bool headerCheckboxAdded = true;
 
         private CheckBox headerCheckbox = new CheckBox();
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
@@ -43,13 +43,6 @@ namespace AMSEMS.SubForms_Admin
 
             dgvStudents.RowsDefaultCellStyle.BackColor = Color.White; // Default row color
             dgvStudents.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-
-            //DataGridViewCheckBoxColumn checkboxColumn = new DataGridViewCheckBoxColumn();
-            //checkboxColumn.Name = "Select";
-            //checkboxColumn.HeaderText = "";
-            //checkboxColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            //checkboxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            //dgvArch.Columns.Insert(0, checkboxColumn);
 
             // Initialize the header checkbox in the constructor
             headerCheckbox.Size = new Size(15, 15);
@@ -250,7 +243,10 @@ namespace AMSEMS.SubForms_Admin
             {
                 MessageBox.Show(ex.Message);
             }
-
+            finally
+            {
+                headerCheckboxAdded = false;
+            }
         }
 
         private void dgvStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)

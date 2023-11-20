@@ -11,17 +11,16 @@ using System.Windows.Forms;
 using static Microsoft.IO.RecyclableMemoryStreamManager;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Threading.Tasks;
-using System.ComponentModel;
 
 namespace AMSEMS.SubForms_DeptHead
 {
-    public partial class formAttendanceReport : Form
+    public partial class formStudentBalanceFee : Form
     {
         SqlConnection cn;
         SqlDataAdapter ad;
         SqlCommand cm;
         SqlDataReader dr;
-        public formAttendanceReport()
+        public formStudentBalanceFee()
         {
             InitializeComponent();
         }

@@ -34,10 +34,13 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.btnSubjects = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.btnAttReport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.btnAttRecord = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnStudBal = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panelCollapsed = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.btnAttReport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnAttRecord = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnAttendance = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.panel7 = new System.Windows.Forms.Panel();
             this.btnDashboard = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
@@ -55,10 +58,13 @@
             this.lblRole = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.btnNotification = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnNotification = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
             ((System.ComponentModel.ISupportInitialize)(this.Panel1)).BeginInit();
             this.Panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelCollapsed)).BeginInit();
+            this.panelCollapsed.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).BeginInit();
             this.kryptonPanel1.SuspendLayout();
@@ -86,10 +92,10 @@
             this.Panel1.Controls.Add(this.panel5);
             this.Panel1.Controls.Add(this.btnSubjects);
             this.Panel1.Controls.Add(this.panel3);
-            this.Panel1.Controls.Add(this.btnAttReport);
-            this.Panel1.Controls.Add(this.panel7);
-            this.Panel1.Controls.Add(this.btnAttRecord);
+            this.Panel1.Controls.Add(this.btnStudBal);
             this.Panel1.Controls.Add(this.panel2);
+            this.Panel1.Controls.Add(this.panelCollapsed);
+            this.Panel1.Controls.Add(this.panel7);
             this.Panel1.Controls.Add(this.btnDashboard);
             this.Panel1.Controls.Add(this.kryptonPanel2);
             this.Panel1.Controls.Add(this.kryptonPanel1);
@@ -137,7 +143,7 @@
             this.btnSettings.StateCommon.Border.Width = 1;
             this.btnSettings.StateCommon.Content.AdjacentGap = 20;
             this.btnSettings.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.btnSettings.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-58, -1, -1, -1);
+            this.btnSettings.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-62, -1, -1, -1);
             this.btnSettings.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.btnSettings.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.btnSettings.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
@@ -160,7 +166,7 @@
             this.btnSettings.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnSettings.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnSettings.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnSettings.TabIndex = 45;
+            this.btnSettings.TabIndex = 56;
             this.btnSettings.Values.Image = global::AMSEMS.Properties.Resources.setting_16;
             this.btnSettings.Values.Text = "Settings";
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
@@ -172,7 +178,7 @@
             this.panel5.Location = new System.Drawing.Point(20, 317);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(186, 10);
-            this.panel5.TabIndex = 44;
+            this.panel5.TabIndex = 55;
             // 
             // btnSubjects
             // 
@@ -209,7 +215,7 @@
             this.btnSubjects.StateCommon.Border.Width = 1;
             this.btnSubjects.StateCommon.Content.AdjacentGap = 20;
             this.btnSubjects.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.btnSubjects.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-55, -1, -1, -1);
+            this.btnSubjects.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-60, -1, -1, -1);
             this.btnSubjects.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.btnSubjects.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.DarkGray;
             this.btnSubjects.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
@@ -232,7 +238,7 @@
             this.btnSubjects.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnSubjects.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnSubjects.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnSubjects.TabIndex = 43;
+            this.btnSubjects.TabIndex = 54;
             this.btnSubjects.Values.Image = global::AMSEMS.Properties.Resources.books;
             this.btnSubjects.Values.Text = "Subjects";
             this.btnSubjects.Click += new System.EventHandler(this.btnSubjects_Click);
@@ -244,16 +250,103 @@
             this.panel3.Location = new System.Drawing.Point(20, 259);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(186, 10);
-            this.panel3.TabIndex = 42;
+            this.panel3.TabIndex = 53;
+            // 
+            // btnStudBal
+            // 
+            this.btnStudBal.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnStudBal.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnStudBal.Location = new System.Drawing.Point(20, 211);
+            this.btnStudBal.Name = "btnStudBal";
+            this.btnStudBal.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnStudBal.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnStudBal.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnStudBal.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnStudBal.OverrideDefault.Border.Rounding = 10;
+            this.btnStudBal.OverrideDefault.Border.Width = 1;
+            this.btnStudBal.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnStudBal.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnStudBal.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnStudBal.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnStudBal.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnStudBal.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnStudBal.OverrideFocus.Border.Rounding = 10;
+            this.btnStudBal.Size = new System.Drawing.Size(186, 48);
+            this.btnStudBal.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnStudBal.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnStudBal.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnStudBal.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnStudBal.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnStudBal.StateCommon.Border.Rounding = 10;
+            this.btnStudBal.StateCommon.Border.Width = 1;
+            this.btnStudBal.StateCommon.Content.AdjacentGap = 20;
+            this.btnStudBal.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+            this.btnStudBal.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-8, -1, -1, -1);
+            this.btnStudBal.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            this.btnStudBal.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnStudBal.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.btnStudBal.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnStudBal.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnStudBal.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnStudBal.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnStudBal.StatePressed.Border.Rounding = 10;
+            this.btnStudBal.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnStudBal.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnStudBal.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnStudBal.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnStudBal.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnStudBal.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnStudBal.StateTracking.Border.Rounding = 10;
+            this.btnStudBal.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnStudBal.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnStudBal.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnStudBal.TabIndex = 52;
+            this.btnStudBal.Values.Image = global::AMSEMS.Properties.Resources.peso;
+            this.btnStudBal.Values.Text = "Students Balance";
+            this.btnStudBal.Click += new System.EventHandler(this.btnStudBal_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(20, 201);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(186, 10);
+            this.panel2.TabIndex = 51;
+            // 
+            // panelCollapsed
+            // 
+            this.panelCollapsed.Controls.Add(this.btnAttReport);
+            this.panelCollapsed.Controls.Add(this.btnAttRecord);
+            this.panelCollapsed.Controls.Add(this.btnAttendance);
+            this.panelCollapsed.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelCollapsed.Location = new System.Drawing.Point(20, 153);
+            this.panelCollapsed.MaximumSize = new System.Drawing.Size(183, 144);
+            this.panelCollapsed.MinimumSize = new System.Drawing.Size(183, 48);
+            this.panelCollapsed.Name = "panelCollapsed";
+            this.panelCollapsed.Size = new System.Drawing.Size(183, 48);
+            this.panelCollapsed.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.panelCollapsed.StateCommon.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.panelCollapsed.TabIndex = 46;
             // 
             // btnAttReport
             // 
             this.btnAttReport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAttReport.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnAttReport.Location = new System.Drawing.Point(20, 211);
+            this.btnAttReport.Location = new System.Drawing.Point(0, 96);
             this.btnAttReport.Name = "btnAttReport";
-            this.btnAttReport.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnAttReport.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttReport.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
+            this.btnAttReport.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
             this.btnAttReport.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
@@ -263,15 +356,15 @@
             this.btnAttReport.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnAttReport.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnAttReport.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnAttReport.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnAttReport.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttReport.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
+            this.btnAttReport.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
             this.btnAttReport.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnAttReport.OverrideFocus.Border.Rounding = 10;
-            this.btnAttReport.Size = new System.Drawing.Size(186, 48);
-            this.btnAttReport.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnAttReport.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnAttReport.Size = new System.Drawing.Size(183, 48);
+            this.btnAttReport.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.btnAttReport.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
             this.btnAttReport.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnAttReport.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnAttReport.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
@@ -279,15 +372,17 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnAttReport.StateCommon.Border.Rounding = 10;
             this.btnAttReport.StateCommon.Border.Width = 1;
-            this.btnAttReport.StateCommon.Content.AdjacentGap = 20;
+            this.btnAttReport.StateCommon.Content.AdjacentGap = 10;
             this.btnAttReport.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.btnAttReport.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, -1, -1, -1);
+            this.btnAttReport.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.btnAttReport.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, -1, 15, -1);
             this.btnAttReport.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.btnAttReport.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnAttReport.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.DarkGray;
             this.btnAttReport.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
             this.btnAttReport.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
-            this.btnAttReport.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnAttReport.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttReport.StateCommon.Content.ShortText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.btnAttReport.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
+            this.btnAttReport.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
             this.btnAttReport.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
@@ -295,8 +390,8 @@
             this.btnAttReport.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnAttReport.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnAttReport.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnAttReport.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnAttReport.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnAttReport.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
+            this.btnAttReport.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
             this.btnAttReport.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
@@ -304,28 +399,19 @@
             this.btnAttReport.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnAttReport.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnAttReport.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnAttReport.TabIndex = 37;
-            this.btnAttReport.Values.Image = global::AMSEMS.Properties.Resources.attendance_16_white;
-            this.btnAttReport.Values.Text = "Attendance Report";
+            this.btnAttReport.TabIndex = 33;
+            this.btnAttReport.Values.Image = global::AMSEMS.Properties.Resources.right_arrow;
+            this.btnAttReport.Values.Text = "Report";
             this.btnAttReport.Click += new System.EventHandler(this.btnAttReport_Click);
-            // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel7.Location = new System.Drawing.Point(20, 201);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(186, 10);
-            this.panel7.TabIndex = 41;
             // 
             // btnAttRecord
             // 
             this.btnAttRecord.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAttRecord.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnAttRecord.Location = new System.Drawing.Point(20, 153);
+            this.btnAttRecord.Location = new System.Drawing.Point(0, 48);
             this.btnAttRecord.Name = "btnAttRecord";
-            this.btnAttRecord.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnAttRecord.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttRecord.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
+            this.btnAttRecord.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
             this.btnAttRecord.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
@@ -335,15 +421,15 @@
             this.btnAttRecord.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnAttRecord.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnAttRecord.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnAttRecord.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnAttRecord.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttRecord.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
+            this.btnAttRecord.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
             this.btnAttRecord.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnAttRecord.OverrideFocus.Border.Rounding = 10;
-            this.btnAttRecord.Size = new System.Drawing.Size(186, 48);
-            this.btnAttRecord.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnAttRecord.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnAttRecord.Size = new System.Drawing.Size(183, 48);
+            this.btnAttRecord.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
+            this.btnAttRecord.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(238)))), ((int)(((byte)(238)))));
             this.btnAttRecord.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnAttRecord.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnAttRecord.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
@@ -351,15 +437,17 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.btnAttRecord.StateCommon.Border.Rounding = 10;
             this.btnAttRecord.StateCommon.Border.Width = 1;
-            this.btnAttRecord.StateCommon.Content.AdjacentGap = 20;
+            this.btnAttRecord.StateCommon.Content.AdjacentGap = 10;
             this.btnAttRecord.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.btnAttRecord.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, -1, -1, -1);
+            this.btnAttRecord.StateCommon.Content.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.btnAttRecord.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, -1, 15, -1);
             this.btnAttRecord.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.btnAttRecord.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnAttRecord.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.DarkGray;
             this.btnAttRecord.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
             this.btnAttRecord.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
-            this.btnAttRecord.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnAttRecord.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttRecord.StateCommon.Content.ShortText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+            this.btnAttRecord.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
+            this.btnAttRecord.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
             this.btnAttRecord.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
@@ -367,8 +455,8 @@
             this.btnAttRecord.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnAttRecord.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnAttRecord.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnAttRecord.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnAttRecord.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnAttRecord.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
+            this.btnAttRecord.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(85)))), ((int)(((byte)(179)))));
             this.btnAttRecord.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
@@ -376,19 +464,82 @@
             this.btnAttRecord.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnAttRecord.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnAttRecord.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnAttRecord.TabIndex = 29;
-            this.btnAttRecord.Values.Image = global::AMSEMS.Properties.Resources.report_16_white;
-            this.btnAttRecord.Values.Text = "Attendance Record";
+            this.btnAttRecord.TabIndex = 32;
+            this.btnAttRecord.Values.Image = global::AMSEMS.Properties.Resources.right_arrow;
+            this.btnAttRecord.Values.Text = "Record";
             this.btnAttRecord.Click += new System.EventHandler(this.btnAttRecord_Click);
             // 
-            // panel2
+            // btnAttendance
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel2.Location = new System.Drawing.Point(20, 143);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(186, 10);
-            this.panel2.TabIndex = 17;
+            this.btnAttendance.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAttendance.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAttendance.Location = new System.Drawing.Point(0, 0);
+            this.btnAttendance.Name = "btnAttendance";
+            this.btnAttendance.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttendance.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttendance.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnAttendance.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnAttendance.OverrideDefault.Border.Rounding = 10;
+            this.btnAttendance.OverrideDefault.Border.Width = 1;
+            this.btnAttendance.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnAttendance.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnAttendance.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnAttendance.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttendance.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttendance.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnAttendance.OverrideFocus.Border.Rounding = 10;
+            this.btnAttendance.Size = new System.Drawing.Size(183, 48);
+            this.btnAttendance.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnAttendance.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnAttendance.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnAttendance.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnAttendance.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnAttendance.StateCommon.Border.Rounding = 10;
+            this.btnAttendance.StateCommon.Border.Width = 1;
+            this.btnAttendance.StateCommon.Content.AdjacentGap = 20;
+            this.btnAttendance.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+            this.btnAttendance.StateCommon.Content.Padding = new System.Windows.Forms.Padding(-40, -1, -1, -1);
+            this.btnAttendance.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            this.btnAttendance.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnAttendance.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.btnAttendance.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnAttendance.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttendance.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAttendance.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnAttendance.StatePressed.Border.Rounding = 10;
+            this.btnAttendance.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnAttendance.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnAttendance.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnAttendance.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnAttendance.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnAttendance.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnAttendance.StateTracking.Border.Rounding = 10;
+            this.btnAttendance.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnAttendance.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnAttendance.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnAttendance.TabIndex = 30;
+            this.btnAttendance.Values.Image = global::AMSEMS.Properties.Resources.report_16_white;
+            this.btnAttendance.Values.Text = "Attendance";
+            this.btnAttendance.Click += new System.EventHandler(this.btnAttendance_Click);
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel7.Location = new System.Drawing.Point(20, 143);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(186, 10);
+            this.panel7.TabIndex = 41;
             // 
             // btnDashboard
             // 
@@ -744,14 +895,6 @@
             this.kryptonLabel2.TabIndex = 3;
             this.kryptonLabel2.Values.Text = "Profile";
             // 
-            // btnNotification
-            // 
-            this.btnNotification.ColorMap = System.Drawing.Color.White;
-            this.btnNotification.Image = global::AMSEMS.Properties.Resources.notification_24_dg;
-            this.btnNotification.ToolTipTitle = "Notification";
-            this.btnNotification.Type = ComponentFactory.Krypton.Toolkit.PaletteButtonSpecStyle.DropDown;
-            this.btnNotification.UniqueName = "FB2E213F3DD14A2DC9A2486ABCD6CB81";
-            // 
             // kryptonPalette1
             // 
             this.kryptonPalette1.ButtonSpecs.FormClose.Image = global::AMSEMS.Properties.Resources.red_circular_shape_12;
@@ -827,6 +970,19 @@
             this.kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 7, -1, -1);
             this.kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins Medium", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 15;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btnNotification
+            // 
+            this.btnNotification.ColorMap = System.Drawing.Color.White;
+            this.btnNotification.Image = global::AMSEMS.Properties.Resources.notification_24_dg;
+            this.btnNotification.ToolTipTitle = "Notification";
+            this.btnNotification.Type = ComponentFactory.Krypton.Toolkit.PaletteButtonSpecStyle.DropDown;
+            this.btnNotification.UniqueName = "FB2E213F3DD14A2DC9A2486ABCD6CB81";
+            // 
             // FormDeptHeadNavigation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -848,6 +1004,8 @@
             this.Load += new System.EventHandler(this.FormDeptHeadNavigation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Panel1)).EndInit();
             this.Panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelCollapsed)).EndInit();
+            this.panelCollapsed.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
@@ -884,7 +1042,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
-        private System.Windows.Forms.Panel panel2;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnDashboard;
         private System.Windows.Forms.Panel panel6;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox3;
@@ -894,16 +1051,21 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblRole;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblName;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnAttReport;
         private System.Windows.Forms.Panel panel7;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnAttRecord;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSettings;
-        private System.Windows.Forms.Panel panel5;
         private ComponentFactory.Krypton.Toolkit.ButtonSpecAny btnNotification;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSubjects;
-        private System.Windows.Forms.Panel panel3;
         private RoundPictureBox ptbProfile;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
+        public ComponentFactory.Krypton.Toolkit.KryptonPanel panelCollapsed;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnAttendance;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnAttRecord;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnAttReport;
+        public System.Windows.Forms.Timer timer1;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSettings;
+        private System.Windows.Forms.Panel panel5;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSubjects;
+        private System.Windows.Forms.Panel panel3;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnStudBal;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 

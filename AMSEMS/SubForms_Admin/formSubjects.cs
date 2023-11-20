@@ -95,6 +95,10 @@ namespace AMSEMS.SubForms_Admin
 
         public void displayFilter()
         {
+            if (cbAcadLevel == null || cbAcadLevel.IsDisposed || !cbAcadLevel.IsHandleCreated)
+            {
+                return;
+            }
             if (cbAcadLevel.InvokeRequired)
             {
                 cbAcadLevel.Invoke(new Action(() => displayFilter()));
@@ -125,6 +129,10 @@ namespace AMSEMS.SubForms_Admin
 
         public void displayTable(string query)
         {
+            if (dgvSubjects == null || dgvSubjects.IsDisposed || !dgvSubjects.IsHandleCreated)
+            {
+                return;
+            }
             if (dgvSubjects.InvokeRequired)
             {
                 dgvSubjects.Invoke(new Action(() => displayTable(query)));

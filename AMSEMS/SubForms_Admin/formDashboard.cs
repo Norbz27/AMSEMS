@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Windows.Forms;
@@ -73,37 +74,63 @@ namespace AMSEMS.SubForms_Admin
             dataLoader.RunWorkerAsync();
         }
 
+        // Declare a class-level list to store data
+        private List<Tuple<string, int>> chartData = new List<Tuple<string, int>>();
+
+        // Update data in a separate method
+        private void UpdateChartData(string program, int studentCount)
+        {
+            chartData.Add(Tuple.Create(program, studentCount));
+        }
+
+        // Update chart in the UI thread
+        private void UpdateChartUI()
+        {
+            chart1.Series[0].Points.Clear();
+
+            foreach (var dataPoint in chartData)
+            {
+                chart1.Series[0].Points.AddXY(dataPoint.Item1, dataPoint.Item2);
+            }
+
+            chartData.Clear();
+        }
+
+        // Modify displayChart to call the update methods
         public void displayChart()
         {
-            // Invoke the UI thread to update the chart
-            this.Invoke((MethodInvoker)delegate
+            if (this.InvokeRequired)
             {
-                chart1.Invalidate();
-                using (cn = new SqlConnection(SQL_Connection.connection))
-                {
-                    cn.Open();
-                    chart1.Series["s1"].IsValueShownAsLabel = true;
-                    string query = "SELECT d.Description as Dep, COUNT(*) AS StudentCount FROM tbl_student_accounts as sa inner join tbl_Departments as d on sa.Department = d.Department_ID GROUP BY d.Description";
-                    using (SqlCommand command = new SqlCommand(query, cn))
-                    {
-                        // Execute the query and retrieve data
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                // Retrieve data and display it on the chart
-                                string program = reader["Dep"].ToString();
-                                int studentCount = Convert.ToInt32(reader["StudentCount"]);
+                this.Invoke((MethodInvoker)delegate { displayChart(); });
+                return;
+            }
 
-                                // Add data to the chart
-                                chart1.Series[0].Points.AddXY(program, studentCount);
-                            }
+            chart1.Invalidate();
+            using (cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                chart1.Series["s1"].IsValueShownAsLabel = true;
+                string query = "SELECT d.Description as Dep, COUNT(*) AS StudentCount FROM tbl_student_accounts as sa inner join tbl_Departments as d on sa.Department = d.Department_ID GROUP BY d.Description";
+                using (SqlCommand command = new SqlCommand(query, cn))
+                {
+                    // Execute the query and retrieve data
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string program = reader["Dep"].ToString();
+                            int studentCount = Convert.ToInt32(reader["StudentCount"]);
+
+                            // Update data in a separate method
+                            UpdateChartData(program, studentCount);
                         }
                     }
                 }
-            });
-        }
+            }
 
+            // Update the chart in the UI thread
+            UpdateChartUI();
+        }
 
         public void loadData(String id)
         {

@@ -29,6 +29,7 @@ namespace AMSEMS.SubForms_DeptHead
             backgroundWorker.DoWork += backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
             backgroundWorker.WorkerSupportsCancellation = true;
+            dgvRecord.Columns["penalty_total"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
 
             cn = new SqlConnection(SQL_Connection.connection);
             formConfigFee = new formConfigFee();
@@ -64,6 +65,11 @@ namespace AMSEMS.SubForms_DeptHead
         }
         public void displayFilter()
         {
+            if (cbEvents.InvokeRequired)
+            {
+                cbEvents.Invoke(new Action(() => displayFilter()));
+                return;
+            }
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -191,7 +197,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 LEFT JOIN
                                     tbl_student_accounts s ON CHARINDEX(s.FirstName + ' ' + s.LastName, e.Specific_Students) > 0
                                 LEFT JOIN
-                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND CONVERT(DATE, att.Date_Time) = @Date
+                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND TRY_CONVERT(DATE, att.Date_Time) = @Date
                                 LEFT JOIN
                                     tbl_departments d ON s.Department = d.Department_ID
                                 LEFT JOIN
@@ -235,7 +241,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 LEFT JOIN
                                     tbl_departments dep ON s.Department = dep.Department_ID
                                 LEFT JOIN
-                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND CONVERT(DATE, att.Date_Time) = @Date
+                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND TRY_CONVERT(DATE, att.Date_Time) = @Date
                                 LEFT JOIN
                                     tbl_Section sec ON s.Section = sec.Section_ID
                                 LEFT JOIN
@@ -269,7 +275,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
                                     ISNULL(UPPER(teach.Lastname), '-------') AS teachlname
                                     FROM tbl_student_accounts AS stud
-                                    LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND CONVERT(DATE, att.Date_Time) = @Date
+                                    LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND TRY_CONVERT(DATE, att.Date_Time) = @Date
                                     LEFT JOIN tbl_Section AS sec ON stud.Section = sec.Section_ID
                                     LEFT JOIN tbl_teacher_accounts AS teach ON att.Checker = teach.ID 
                                     WHERE stud.Department = @Dep AND stud.Status = 1";
@@ -604,6 +610,15 @@ namespace AMSEMS.SubForms_DeptHead
                 row.Visible = rowVisible;
             }
         }
+
+        private void formAttendanceRecord_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+            }
+        }
+
         public void saveStudentBalance()
         {
             try

@@ -472,6 +472,7 @@
             this.btnEditID.TabIndex = 149;
             this.btnEditID.Values.Image = global::AMSEMS.Properties.Resources.edit;
             this.btnEditID.Values.Text = "";
+            this.btnEditID.Visible = false;
             this.btnEditID.Click += new System.EventHandler(this.btnEditID_Click);
             // 
             // btnRemoveProf
