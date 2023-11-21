@@ -58,6 +58,17 @@ namespace AMSEMS_Attendance_Checker
                 }
             }
         }
+        public void clearStudInfo()
+        {
+            lblID.Text = "00000000";
+            lblName.Text = "Name";
+            lblDepartment.Text = "Department";
+            lblSection.Text = "Section";
+            lblAttDate.Text = "Date";
+            lblAttTime.Text = "Time";
+            ptbCheck.Image = Properties.Resources.check_64;
+            ptbProfilePic.Image = Properties.Resources.Pulse_1s_200px;
+        }
         public void displayStudentInfo()
         {
             DataTable studentInfo = sQLite_Connection.GetStudentByRFID(scannedRFIDData, event_code);
@@ -257,6 +268,7 @@ namespace AMSEMS_Attendance_Checker
         public void setEvent(string eventname)
         {
             lblEventName.Text = eventname;
+            lblAttStatus.Text = attendance_stat;
         }
         public void setDate()
         {

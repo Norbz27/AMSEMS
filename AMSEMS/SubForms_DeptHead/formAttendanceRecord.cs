@@ -35,10 +35,9 @@ namespace AMSEMS.SubForms_DeptHead
             formConfigFee = new formConfigFee();
         }
 
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        private async void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            displayFilter();
-            displayTable();
+            await displayTable();
 
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
         }
@@ -152,14 +151,18 @@ namespace AMSEMS.SubForms_DeptHead
             }
         }
 
-        public async void displayTable()
+        public async Task displayTable()
         {
-            dgvRecord.Rows.Clear();
             if (dgvRecord.InvokeRequired)
             {
                 dgvRecord.Invoke(new Action(() => displayTable()));
                 return;
             }
+
+            displayFees();
+            dgvRecord.Rows.Clear();
+            ptbLoading.Visible = true;
+            await Task.Delay(3000);
             try
             {
                 await Task.Run(() =>
@@ -393,6 +396,7 @@ namespace AMSEMS.SubForms_DeptHead
             finally
             {
                 saveStudentBalance();
+                ptbLoading.Visible = false;
             }
         }
 
@@ -435,14 +439,14 @@ namespace AMSEMS.SubForms_DeptHead
         private void Dt_ValueChanged(object sender, EventArgs e)
         {
             date = Dt.Value.ToString();
-            backgroundWorker.RunWorkerAsync();
+            displayTable();
         }
 
         private void cbEvents_SelectedIndexChanged(object sender, EventArgs e)
         {
+            backgroundWorker.RunWorkerAsync();
             try
             {
-                displayFees();
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
@@ -507,7 +511,6 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            displayFees();
             displayTable();
         }
 
@@ -641,16 +644,17 @@ namespace AMSEMS.SubForms_DeptHead
                         }
 
                         // Check if bal_fee is greater than 0 before proceeding with insertion or update
-                        if (bal_fee > 0)
+
+                        cm = new SqlCommand("SELECT COUNT(*) FROM tbl_balance_fees WHERE Student_ID = @StudID AND Event_ID = @EventID AND FORMAT(Date, 'yyyy-MM-dd') = @Date", cn);
+                        cm.Parameters.AddWithValue("@StudID", studID);
+                        cm.Parameters.AddWithValue("@EventID", event_id);
+                        cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
+
+                        int existingRecords = (int)cm.ExecuteScalar();
+
+                        if (existingRecords == 0)
                         {
-                            cm = new SqlCommand("SELECT COUNT(*) FROM tbl_balance_fees WHERE Student_ID = @StudID AND Event_ID = @EventID AND FORMAT(Date, 'yyyy-MM-dd') = @Date", cn);
-                            cm.Parameters.AddWithValue("@StudID", studID);
-                            cm.Parameters.AddWithValue("@EventID", event_id);
-                            cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
-
-                            int existingRecords = (int)cm.ExecuteScalar();
-
-                            if (existingRecords == 0)
+                            if (bal_fee > 0)
                             {
                                 cm = new SqlCommand("INSERT INTO tbl_balance_fees VALUES (@StudID, @EventID, @Date, @BalFee)", cn);
                                 cm.Parameters.AddWithValue("@StudID", studID);
@@ -659,17 +663,18 @@ namespace AMSEMS.SubForms_DeptHead
                                 cm.Parameters.AddWithValue("@BalFee", bal_fee);
                                 cm.ExecuteNonQuery();
                             }
-                            else
-                            {
-                                // Update the existing record
-                                cm = new SqlCommand("UPDATE tbl_balance_fees SET Balance_Fee = @BalFee WHERE Student_ID = @StudID AND Event_ID = @EventID AND FORMAT(Date, 'yyyy-MM-dd') = @Date", cn);
-                                cm.Parameters.AddWithValue("@StudID", studID);
-                                cm.Parameters.AddWithValue("@EventID", event_id);
-                                cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
-                                cm.Parameters.AddWithValue("@BalFee", bal_fee);
-                                cm.ExecuteNonQuery();
-                            }
                         }
+                        else
+                        {
+                            // Update the existing record
+                            cm = new SqlCommand("UPDATE tbl_balance_fees SET Balance_Fee = @BalFee WHERE Student_ID = @StudID AND Event_ID = @EventID AND FORMAT(Date, 'yyyy-MM-dd') = @Date", cn);
+                            cm.Parameters.AddWithValue("@StudID", studID);
+                            cm.Parameters.AddWithValue("@EventID", event_id);
+                            cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
+                            cm.Parameters.AddWithValue("@BalFee", bal_fee);
+                            cm.ExecuteNonQuery();
+                        }
+                        
                     }
                 }
             }

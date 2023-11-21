@@ -11,11 +11,13 @@ namespace AMSEMS_Attendance_Checker
         string event_code = null;
         string teach_id;
         private bool showMessageOnToggle = false;
+        FormLoginPage formLoginPage;
         public formAttendanceCheckerSettings()
         {
             InitializeComponent();
             formAttendanceChecker = new formAttendanceChecker();
             sQLite_Connection = new SQLite_Connection();
+            formLoginPage = new FormLoginPage();
         }
         public void getTeachID(string id)
         {
@@ -29,27 +31,27 @@ namespace AMSEMS_Attendance_Checker
 
         private void formAttendanceCheckerSettings_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (string.IsNullOrEmpty(tbEventCode.Text) && string.IsNullOrEmpty(cbAttendanceStat.Text))
-            {
-                MessageBox.Show("Please fill in the Event Code.", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                e.Cancel = true;
-            }
-            else
-            {
-                string event_name = sQLite_Connection.GetEvent(tbEventCode.Text);
+            //if (string.IsNullOrEmpty(tbEventCode.Text) && string.IsNullOrEmpty(cbAttendanceStat.Text))
+            //{
+            //    MessageBox.Show("Please fill in the Event Code.", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    e.Cancel = true;
+            //}
+            //else
+            //{
+            //string event_name = sQLite_Connection.GetEvent(tbEventCode.Text);
 
-                if (string.IsNullOrEmpty(event_name))
-                {
-                    MessageBox.Show("Invalid event code. Please enter a valid event code.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    e.Cancel = true; // Prevent the form from closing
-                }
-                else
-                {
-                    formAttendanceChecker.getTeachID(teach_id);
-                    formAttendanceChecker.Show();
-                }
+            //if (string.IsNullOrEmpty(event_name))
+            //{
+            //    MessageBox.Show("Invalid event code. Please enter a valid event code.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    e.Cancel = true; // Prevent the form from closing
+            //}
+            //else
+            //{
+                formAttendanceChecker.getTeachID(teach_id);
+                formAttendanceChecker.Show();
+            //}
 
-            }
+            //}
         }
 
         private void cbAttendanceStat_SelectedIndexChanged(object sender, EventArgs e)

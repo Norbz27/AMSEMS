@@ -240,7 +240,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ClientSize = new System.Drawing.Size(376, 229);
+            this.ClientSize = new System.Drawing.Size(376, 218);
+            this.ControlBox = false;
             this.Controls.Add(this.tbEventCode);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -256,7 +257,7 @@
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(392, 404);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(392, 268);
+            this.MinimumSize = new System.Drawing.Size(392, 234);
             this.Name = "formAttendanceCheckerSettings";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.Palette = this.kryptonPalette1;

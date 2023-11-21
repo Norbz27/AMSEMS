@@ -121,13 +121,14 @@ namespace AMSEMS.SubForms_DeptHead
             string selectedYear = cbYear.Text;
             string queryEvents = "SELECT Event_Name, Date_Time FROM tbl_attendance a " +
                                 "LEFT JOIN tbl_events e ON e.Event_ID = a.Event_ID " +
-                                "WHERE MONTH(Date_Time) = @SelectedMonth AND YEAR(Date_Time) = @SelectedYear " +
+                                "WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students' OR CHARINDEX(@Department, Selected_Departments) > 0) AND MONTH(Date_Time) = @SelectedMonth AND YEAR(Date_Time) = @SelectedYear " +
                                 "ORDER BY Event_Name, Date_Time";
 
             using (SqlCommand cm = new SqlCommand(queryEvents, cn))
             {
                 cm.Parameters.AddWithValue("@SelectedMonth", selectedMonth);
                 cm.Parameters.AddWithValue("@SelectedYear", selectedYear);
+                cm.Parameters.AddWithValue("@Department", FormDeptHeadNavigation.depdes);
 
                 using (SqlDataReader eventsReader = await cm.ExecuteReaderAsync())
                 {
@@ -166,7 +167,7 @@ namespace AMSEMS.SubForms_DeptHead
                         LEFT JOIN 
                             tbl_Section sec ON s.Section = sec.Section_ID
                         WHERE
-                            S.Department = 2
+                            S.Department = @Dep
                         GROUP BY 
                             s.ID, 
                             UPPER(CONCAT(s.Firstname, ' ', s.Middlename, ' ', UPPER(s.Lastname))),
@@ -336,9 +337,12 @@ namespace AMSEMS.SubForms_DeptHead
             document.Close();
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private async void btnRefresh_Click(object sender, EventArgs e)
         {
+            ptbLoading.Visible = true;
+            await Task.Delay(3000);
             displayReport();
+            ptbLoading.Visible = false;
         }
     }
 }

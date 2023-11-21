@@ -182,7 +182,7 @@ namespace AMSEMS_Attendance_Checker
             if (result == DialogResult.Yes)
             {
                 ptLoading.Visible = true; // Show loading image before starting the synchronization
-
+                await Task.Delay(3000);
                 if (IsInternetConnected())
                 {
                     try
@@ -250,7 +250,6 @@ namespace AMSEMS_Attendance_Checker
                             }
                             dr.Close();
 
-                            await Task.Delay(3000);
                             MessageBox.Show("Successfully Sync Data.", "Sync Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
