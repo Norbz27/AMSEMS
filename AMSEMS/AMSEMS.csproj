@@ -489,6 +489,12 @@
       <DependentUpon>formArchived_Subjects.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\UserID.cs" />
+    <Compile Include="SubForms_DeptHead\formMakePayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formMakePayment.Designer.cs">
+      <DependentUpon>formMakePayment.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_DeptHead\formStudentBalanceFee.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -867,6 +873,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Subjects.resx">
       <DependentUpon>formArchived_Subjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\formMakePayment.resx">
+      <DependentUpon>formMakePayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\formStudentBalanceFee.resx">
       <DependentUpon>formStudentBalanceFee.cs</DependentUpon>
@@ -1250,6 +1259,9 @@
     <None Include="Resources\Pulse-1s-200px %281%29.gif" />
     <None Include="Resources\Pulse-1s-200px1.gif" />
     <None Include="Resources\peso.png" />
+    <None Include="Resources\loading.gif" />
+    <None Include="Resources\magnifying-glass.png" />
+    <None Include="Resources\wallet.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,9 @@
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using iTextSharp.text;
@@ -19,7 +21,10 @@ namespace AMSEMS.SubForms_DeptHead
 
         formConfigFee formConfigFee;
 
-        string event_id, date;
+        string event_id, date, sec;
+        private readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
+
+        private CancellationTokenSource cancellationTokenSource;
 
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
 
@@ -33,6 +38,14 @@ namespace AMSEMS.SubForms_DeptHead
 
             cn = new SqlConnection(SQL_Connection.connection);
             formConfigFee = new formConfigFee();
+        }
+        private void CenterPictureBoxInDataGridView()
+        {
+            int x = (dgvRecord.Width - pictureBox1.Width) / 2;
+            int y = (dgvRecord.Height - pictureBox1.Height) / 2;
+
+            // Set the location of the PictureBox
+            pictureBox1.Location = new Point(x, y);
         }
 
         private async void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -150,19 +163,23 @@ namespace AMSEMS.SubForms_DeptHead
                 }
             }
         }
-
         public async Task displayTable()
         {
+            cancellationTokenSource = new CancellationTokenSource();
             if (dgvRecord.InvokeRequired)
             {
                 dgvRecord.Invoke(new Action(() => displayTable()));
                 return;
             }
-
+            if (cbSection.InvokeRequired)
+            {
+                cbSection.Invoke(new Action(() => displayTable()));
+                return;
+            }
             displayFees();
             dgvRecord.Rows.Clear();
             ptbLoading.Visible = true;
-            await Task.Delay(3000);
+            await Task.Delay(1000);
             try
             {
                 await Task.Run(() =>
@@ -198,7 +215,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 FROM
                                     tbl_events e
                                 LEFT JOIN
-                                    tbl_student_accounts s ON CHARINDEX(s.FirstName + ' ' + s.LastName, e.Specific_Students) > 0
+                                    tbl_student_accounts s ON CHARINDEX(s.FirstName + ' ' + s.LastName, e.Specific_Students) > 0 OR CHARINDEX(s.LastName + ' ' + s.FirstName, e.Specific_Students) > 0
                                 LEFT JOIN
                                     tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND TRY_CONVERT(DATE, att.Date_Time) = @Date
                                 LEFT JOIN
@@ -212,9 +229,10 @@ namespace AMSEMS.SubForms_DeptHead
                                     AND e.Exclusive = 'Specific Students'
                                     AND s.ID IS NOT NULL
                                     AND s.Department = @Dep
+                                    AND sec.Description = @sec
                                     AND s.Status = 1
                                 ORDER BY
-                                    s.ID, att.Date_Time;";
+                                    s.Lastname, att.Date_Time;";
                         }
                         else if (IsEventForSelectedDep(event_id))
                         {
@@ -254,9 +272,10 @@ namespace AMSEMS.SubForms_DeptHead
                                     AND e.Exclusive = 'Selected Departments'
                                     AND CHARINDEX(CONVERT(VARCHAR, dep.Description), e.Selected_Departments) > 0
 	                                AND s.Department = @Dep
+                                    AND sec.Description = @sec
                                     AND s.Status = 1
                                 ORDER BY
-                                    s.ID, att.Date_Time;";
+                                    s.Lastname, att.Date_Time;";
                         }
                         else
                         {
@@ -281,7 +300,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND TRY_CONVERT(DATE, att.Date_Time) = @Date
                                     LEFT JOIN tbl_Section AS sec ON stud.Section = sec.Section_ID
                                     LEFT JOIN tbl_teacher_accounts AS teach ON att.Checker = teach.ID 
-                                    WHERE stud.Department = @Dep AND stud.Status = 1";
+                                    WHERE stud.Department = @Dep AND sec.Description = @sec AND stud.Status = 1 ORDER BY stud.Lastname";
                         }
 
                         using (SqlCommand cmd = new SqlCommand(query, cn))
@@ -293,11 +312,16 @@ namespace AMSEMS.SubForms_DeptHead
                             cmd.Parameters.AddWithValue("@AM_Pen", modifiedStringAM);
                             cmd.Parameters.AddWithValue("@PM_Pen", modifiedStringPM);
                             cmd.Parameters.AddWithValue("@Dep", FormDeptHeadNavigation.dep);
+                            cmd.Parameters.AddWithValue("@sec", sec);
 
                             using (SqlDataReader dr = cmd.ExecuteReader())
                             {
                                 while (dr.Read())
                                 {
+                                    if (cancellationTokenSource.Token.IsCancellationRequested)
+                                    {
+                                        return;
+                                    }
                                     if (dgvRecord.InvokeRequired)
                                     {
                                         dgvRecord.Invoke(new Action(() =>
@@ -387,7 +411,11 @@ namespace AMSEMS.SubForms_DeptHead
                         }
                         lblTotalFees.Text = "₱ " + total.ToString("F2");
                     }
-                });
+                }, cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                // Handle cancellation if needed
             }
             catch (Exception ex)
             {
@@ -433,18 +461,24 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void formAttendanceRecord_Load(object sender, EventArgs e)
         {
+            CenterPictureBoxInDataGridView();
             displayFilter();
         }
 
-        private void Dt_ValueChanged(object sender, EventArgs e)
+        private async void Dt_ValueChanged(object sender, EventArgs e)
         {
             date = Dt.Value.ToString();
-            displayTable();
+            dgvRecord.Rows.Clear();
+            await DisplayTableWithCheck();
         }
 
-        private void cbEvents_SelectedIndexChanged(object sender, EventArgs e)
+        private async void cbEvents_SelectedIndexChanged(object sender, EventArgs e)
         {
-            backgroundWorker.RunWorkerAsync();
+            dgvRecord.Rows.Clear();
+            if (cbSection.InvokeRequired)
+            {
+                cbSection.Invoke(new Action(() => cbSection_SelectedIndexChanged(sender, e)));
+            }
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -484,6 +518,7 @@ namespace AMSEMS.SubForms_DeptHead
                         dr.Close();
                     }
                 }
+                await DisplayTableWithCheck();
             }
             catch (Exception ex)
             {
@@ -491,11 +526,31 @@ namespace AMSEMS.SubForms_DeptHead
             }
         }
 
-        private void cbSection_SelectedIndexChanged(object sender, EventArgs e)
+        private async void cbSection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyCBFilter(cbSection.Text);
+            dgvRecord.Rows.Clear();
+            sec = cbSection.Text;
+            await DisplayTableWithCheck();
         }
-
+        private async Task DisplayTableWithCheck()
+        {
+            // Use SemaphoreSlim to ensure that only one displayTable operation is in progress at a time
+            await semaphoreSlim.WaitAsync();
+            try
+            {
+                // Call the method
+                await displayTable();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                // Release the semaphore when the method is done
+                semaphoreSlim.Release();
+            }
+        }
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
             string searchKeyword = tbSearch.Text.Trim();
@@ -509,9 +564,10 @@ namespace AMSEMS.SubForms_DeptHead
             formConfigFee.ShowDialog();
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private async void btnRefresh_Click(object sender, EventArgs e)
         {
-            displayTable();
+            displayFilter();
+            await displayTable();
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -534,11 +590,11 @@ namespace AMSEMS.SubForms_DeptHead
             document.Open();
 
             // Customizing the font and size
-            Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
-            Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
-            Font headerFont2 = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-            Font headerFont3 = FontFactory.GetFont(FontFactory.HELVETICA, 9);
-            Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+            iTextSharp.text.Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
+            iTextSharp.text.Font headerFont2 = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            iTextSharp.text.Font headerFont3 = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+            iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
 
             // Add title "List of Students:"
             Paragraph titleParagraph = new Paragraph("Attendance Record", headerFont1);
@@ -620,6 +676,43 @@ namespace AMSEMS.SubForms_DeptHead
             {
                 backgroundWorker.CancelAsync();
             }
+            cancellationTokenSource?.Cancel();
+        }
+
+        private void formAttendanceRecord_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+            }
+        }
+
+        private void formAttendanceRecord_Resize(object sender, EventArgs e)
+        {
+            CenterPictureBoxInDataGridView();
+        }
+        private void ExecuteStoredProcedure()
+        {
+            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (SqlCommand command = new SqlCommand("GetTotalPenaltyFee", connection))
+                    {
+                        command.CommandType = System.Data.CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@dep",FormDeptHeadNavigation.dep);
+                        command.ExecuteNonQuery();
+
+                        //MessageBox.Show("Stored procedure executed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         public void saveStudentBalance()
@@ -676,6 +769,7 @@ namespace AMSEMS.SubForms_DeptHead
                         }
                         
                     }
+                    ExecuteStoredProcedure();
                 }
             }
             catch (Exception ex)

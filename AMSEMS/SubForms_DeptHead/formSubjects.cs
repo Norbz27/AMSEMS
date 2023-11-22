@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,10 +19,12 @@ namespace AMSEMS.SubForms_DeptHead
         private ContextMenuStrip newContextMenuStrip;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private CheckBox headerCheckbox = new CheckBox();
+        private CancellationTokenSource cancellationTokenSource;
         public formSubjects()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
+            cancellationTokenSource = new CancellationTokenSource();
 
             backgroundWorker.DoWork += backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
@@ -32,9 +35,6 @@ namespace AMSEMS.SubForms_DeptHead
             // Initialize the header checkbox in the constructor
             headerCheckbox.Size = new Size(15, 15);
             headerCheckbox.CheckedChanged += HeaderCheckbox_CheckedChanged;
-
-            // Add the header checkbox to the DataGridView controls
-            dgvSubjects.Controls.Add(headerCheckbox);
 
             // Initialize the new ContextMenuStrip
             newContextMenuStrip = new ContextMenuStrip();
@@ -147,7 +147,8 @@ namespace AMSEMS.SubForms_DeptHead
                 {
                     ClrearText();
                     cn.Open();
-                    cm = new SqlCommand("Select Lastname from tbl_teacher_accounts where Status = 1", cn);
+                    cm = new SqlCommand("Select Lastname from tbl_teacher_accounts where Status = 1 and Department = @dep", cn);
+                    cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                     dr = cm.ExecuteReader();
                     while (dr.Read())
                     {
@@ -178,7 +179,7 @@ namespace AMSEMS.SubForms_DeptHead
             cbAcadLevel.Text = "";
             tbSearch.Text = String.Empty;
         }
-        public void displayTable(string query)
+        public async void displayTable(string query)
         {
             if (dgvSubjects.InvokeRequired)
             {
@@ -188,7 +189,8 @@ namespace AMSEMS.SubForms_DeptHead
             try
             {
                 dgvSubjects.Rows.Clear();
-
+                ptbLoading.Visible = true;
+                await Task.Delay(3000);
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
@@ -199,6 +201,10 @@ namespace AMSEMS.SubForms_DeptHead
                         {
                             while (dr.Read())
                             {
+                                if (cancellationTokenSource.Token.IsCancellationRequested)
+                                {
+                                    return;
+                                }
                                 // Add a row and set the checkbox column value to false (unchecked)
                                 int rowIndex = dgvSubjects.Rows.Add(false);
 
@@ -215,10 +221,16 @@ namespace AMSEMS.SubForms_DeptHead
                         }
                     }
                 }
+                dgvSubjects.Controls.Add(headerCheckbox);
+                ptbLoading.Visible = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                headerCheckboxAdded = false;
             }
         }
         private void dgvSubjects_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -301,8 +313,6 @@ namespace AMSEMS.SubForms_DeptHead
                     headerCheckbox.Location = new Point(x, y);
                     headerCheckbox.Checked = AreAllCheckboxesChecked();
 
-
-                    dgvSubjects.Controls.Add(headerCheckbox);
 
                     headerCheckboxAdded = true; // Set the flag to true
                 }
@@ -426,9 +436,9 @@ namespace AMSEMS.SubForms_DeptHead
         }
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1");
-
             ClrearText();
+            displayFilter();
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1");
         }
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
@@ -643,6 +653,7 @@ namespace AMSEMS.SubForms_DeptHead
             {
                 backgroundWorker.CancelAsync();
             }
+            cancellationTokenSource?.Cancel();
         }
     }
 }

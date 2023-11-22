@@ -12,6 +12,7 @@ using static Microsoft.IO.RecyclableMemoryStreamManager;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Threading;
 
 namespace AMSEMS.SubForms_DeptHead
 {
@@ -21,9 +22,12 @@ namespace AMSEMS.SubForms_DeptHead
         SqlDataAdapter ad;
         SqlCommand cm;
         SqlDataReader dr;
+        private CancellationTokenSource cancellationTokenSource;
+
         public formAttendanceReport()
         {
             InitializeComponent();
+            cancellationTokenSource = new CancellationTokenSource();
         }
         public void displayFilter()
         {
@@ -117,7 +121,17 @@ namespace AMSEMS.SubForms_DeptHead
 
         private async Task DisplayColumnsAsync(SqlConnection cn, List<string> columnNames)
         {
-            int selectedMonth = DateTime.ParseExact(cbMonth.Text, "MMMM", CultureInfo.InvariantCulture).Month;
+            int selectedMonth = 0;
+            if (DateTime.TryParseExact(cbMonth.Text, "MMMM", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedMonth))
+            {
+                selectedMonth = parsedMonth.Month;
+                // Rest of your code
+            }
+            else
+            {
+                return;
+            }
+
             string selectedYear = cbYear.Text;
             string queryEvents = "SELECT Event_Name, Date_Time FROM tbl_attendance a " +
                                 "LEFT JOIN tbl_events e ON e.Event_ID = a.Event_ID " +
@@ -134,6 +148,10 @@ namespace AMSEMS.SubForms_DeptHead
                 {
                     while (await eventsReader.ReadAsync())
                     {
+                        if (cancellationTokenSource.Token.IsCancellationRequested)
+                        {
+                            return;
+                        }
                         string eventName = eventsReader["Event_Name"].ToString();
                         DateTime date = (DateTime)eventsReader["Date_Time"];
                         string eventDate = date.ToString("MM-dd-yy");
@@ -167,7 +185,7 @@ namespace AMSEMS.SubForms_DeptHead
                         LEFT JOIN 
                             tbl_Section sec ON s.Section = sec.Section_ID
                         WHERE
-                            S.Department = @Dep
+                            S.Department = @Dep AND sec.Description = @sec
                         GROUP BY 
                             s.ID, 
                             UPPER(CONCAT(s.Firstname, ' ', s.Middlename, ' ', UPPER(s.Lastname))),
@@ -178,12 +196,17 @@ namespace AMSEMS.SubForms_DeptHead
             using (SqlCommand cm = new SqlCommand(queryData, cn))
             {
                 cm.Parameters.AddWithValue("@Dep", FormDeptHeadNavigation.dep);
+                cm.Parameters.AddWithValue("@sec", cbSection.Text);
 
                 using (SqlDataReader dataReader = await cm.ExecuteReaderAsync())
                 {
                     double overallTotalBalanceFee = 0;
                     while (await dataReader.ReadAsync())
                     {
+                        if (cancellationTokenSource.Token.IsCancellationRequested)
+                        {
+                            return;
+                        }
                         int id = Convert.ToInt32(dataReader["ID"]);
                         string name = dataReader["Name"].ToString();
                         string section = dataReader["Section"].ToString();
@@ -253,7 +276,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void cbSection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyCBFilter(cbSection.Text);
+
         }
 
         private void cbMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -343,6 +366,11 @@ namespace AMSEMS.SubForms_DeptHead
             await Task.Delay(3000);
             displayReport();
             ptbLoading.Visible = false;
+        }
+
+        private void formAttendanceReport_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            cancellationTokenSource?.Cancel();
         }
     }
 }

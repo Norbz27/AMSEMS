@@ -35,6 +35,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             this.dgvReport = new System.Windows.Forms.DataGridView();
             this.panel5 = new System.Windows.Forms.Panel();
             this.btnRefresh = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -51,18 +52,17 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnExport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.lblAccountName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
             this.kryptonGroupBox5.Panel.SuspendLayout();
             this.kryptonGroupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).BeginInit();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -113,6 +113,23 @@
             this.kryptonGroupBox5.StateCommon.Border.Rounding = 10;
             this.kryptonGroupBox5.StateCommon.Border.Width = 2;
             this.kryptonGroupBox5.TabIndex = 28;
+            // 
+            // ptbLoading
+            // 
+            this.ptbLoading.BackColor = System.Drawing.Color.White;
+            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoading.BorderWidth = 0;
+            this.ptbLoading.CornerRadius = 10;
+            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.ImageLocation = "";
+            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(896, 552);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 4;
+            this.ptbLoading.TabStop = false;
+            this.ptbLoading.Visible = false;
             // 
             // dgvReport
             // 
@@ -525,20 +542,6 @@
             this.lblAccountName.TabIndex = 4;
             this.lblAccountName.Values.Text = "Attendance Report";
             // 
-            // ptbLoading
-            // 
-            this.ptbLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.ptbLoading.BorderWidth = 2;
-            this.ptbLoading.CornerRadius = 10;
-            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
-            this.ptbLoading.Location = new System.Drawing.Point(412, 203);
-            this.ptbLoading.Name = "ptbLoading";
-            this.ptbLoading.Size = new System.Drawing.Size(73, 146);
-            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbLoading.TabIndex = 4;
-            this.ptbLoading.TabStop = false;
-            this.ptbLoading.Visible = false;
-            // 
             // formAttendanceReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -550,6 +553,7 @@
             this.Name = "formAttendanceReport";
             this.Padding = new System.Windows.Forms.Padding(20, 15, 20, 15);
             this.Text = "formDashboard";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formAttendanceReport_FormClosing);
             this.Load += new System.EventHandler(this.formAttendanceReport_Load);
             this.panel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -557,13 +561,13 @@
             this.kryptonGroupBox5.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).EndInit();
             this.kryptonGroupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReport)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.ResumeLayout(false);
 
         }

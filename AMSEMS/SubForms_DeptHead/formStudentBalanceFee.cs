@@ -12,6 +12,8 @@ using static Microsoft.IO.RecyclableMemoryStreamManager;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Threading.Tasks;
 using Microsoft.Office.Interop.Excel;
+using System.Threading;
+using iTextSharp.xmp.options;
 
 namespace AMSEMS.SubForms_DeptHead
 {
@@ -21,15 +23,21 @@ namespace AMSEMS.SubForms_DeptHead
         SqlDataAdapter ad;
         SqlCommand cm;
         SqlDataReader dr;
+        private CancellationTokenSource cancellationTokenSource;
+        formMakePayment formMakePayment;
         public formStudentBalanceFee()
         {
             InitializeComponent();
+            cancellationTokenSource = new CancellationTokenSource();
+            lblDep.Text = FormDeptHeadNavigation.depdes.ToUpper();
+            formMakePayment = new formMakePayment();
         }
         public void displayFilter()
         {
-     
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
+                cbSection.Items.Clear();
+                cbSection.Items.Add("All");
                 cn.Open();
                 cm = new SqlCommand("Select Description from tbl_section", cn);
                 dr = cm.ExecuteReader();
@@ -38,13 +46,56 @@ namespace AMSEMS.SubForms_DeptHead
                     cbSection.Items.Add(dr["Description"].ToString());
                 }
                 dr.Close();
-            }
 
-            if (cbSection.Items.Count > 0)
-            {
-                cbSection.SelectedIndex = 0;
+                if (cbSection.Items.Count > 0)
+                {
+                    cbSection.SelectedIndex = 0;
+                }
             }
         }
+        public void displayOverallSummary()
+        {
+            using (cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+
+                // Calculate total balance fee
+                cm = new SqlCommand("SELECT ISNULL(SUM(b.Balance_Fee), 0) AS Total_Balance_Fee FROM tbl_student_accounts s LEFT JOIN tbl_balance_fees b ON s.ID = b.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec)", cn);
+                cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
+                cm.Parameters.AddWithValue("@sec", cbSection.Text);
+                decimal totalBalanceFee = Convert.ToDecimal(cm.ExecuteScalar());
+                lblCollectableFee.Text = totalBalanceFee.ToString("C");
+
+                // Calculate total paid amount
+                cm = new SqlCommand("SELECT ISNULL(SUM(t.Payment_Amount), 0) AS Total_Paid_Amount FROM tbl_student_accounts s LEFT JOIN tbl_transaction t ON s.ID = t.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec)", cn);
+                cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
+                cm.Parameters.AddWithValue("@sec", cbSection.Text);
+                decimal totalPaidAmount = Convert.ToDecimal(cm.ExecuteScalar());
+                lblCollectedFee.Text = totalPaidAmount.ToString("C");
+
+                // Calculate and display the difference
+                decimal remainingBalance = totalBalanceFee - totalPaidAmount;
+
+                // Count students who have paid and who have not
+                cm = new SqlCommand("SELECT COUNT(DISTINCT s.ID) AS TotalStudents, COUNT(DISTINCT t.Student_ID) AS StudentsWithPayments FROM tbl_student_accounts s LEFT JOIN tbl_transaction t ON s.ID = t.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec)", cn);
+                cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
+                cm.Parameters.AddWithValue("@sec", cbSection.Text);
+                dr = cm.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    int totalStudents = Convert.ToInt32(dr["TotalStudents"]);
+                    int studentsWithPayments = Convert.ToInt32(dr["StudentsWithPayments"]);
+                    int studentsWithoutPayments = totalStudents - studentsWithPayments;
+
+                    lblTotalStudents.Text = totalStudents.ToString();
+                    lblStudentPaid.Text = studentsWithPayments.ToString();
+                    lblStudentNotPaid.Text = studentsWithoutPayments.ToString();
+                }
+                dr.Close();
+            }
+        }
+
 
         private void ApplyCBFilter(string selectedIndex)
         {
@@ -67,26 +118,78 @@ namespace AMSEMS.SubForms_DeptHead
                 row.Visible = rowVisible;
             }
         }
-        public void displayBalanceFees()
+        public async void displayBalanceFees()
         {
+            dgvBalFees.Rows.Clear();
+            ptbLoading.Visible = true;
+            await Task.Delay(2000);
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("SELECT s.ID AS id, s.Lastname AS lname, s.Firstname AS fname, SUM(b.Balance_Fee) AS Total_Balance_Fee, ISNULL(SUM(distinct t.Payment_Amount), 0) AS amount_paid FROM tbl_student_accounts s LEFT JOIN tbl_balance_fees b ON s.ID = b.Student_ID LEFT JOIN tbl_transaction t ON s.ID = t.Student_ID WHERE s.Department = @dep GROUP BY s.ID, s.Lastname, s.Firstname ORDER BY s.Lastname;", cn);
+                cm = new SqlCommand(@"SELECT
+                                    COALESCE(bf.Student_ID, t.Student_ID) AS Student_ID,
+                                    s.Lastname AS lname,
+                                    s.Firstname AS fname,
+                                    sec.Description AS section,
+                                    COALESCE(SUM(bf.Balance_Fee), 0) AS Total_Balance_Fee,
+                                    COALESCE(SUM(t.Payment_Amount), 0) AS Total_Payment_Amount,
+                                    CASE
+                                        WHEN COALESCE(SUM(bf.Balance_Fee), 0) < COALESCE(SUM(t.Payment_Amount), 0)
+                                            THEN 0
+                                        ELSE COALESCE(SUM(bf.Balance_Fee), 0) - COALESCE(SUM(t.Payment_Amount), 0)
+                                    END AS Remaining_Balance
+                                FROM (
+                                    SELECT
+                                        Student_ID,
+                                        SUM(Balance_Fee) AS Balance_Fee
+                                    FROM
+                                        dbo.tbl_balance_fees
+                                    GROUP BY
+                                        Student_ID
+                                ) bf
+                                FULL JOIN (
+                                    SELECT
+                                        Student_ID,
+                                        SUM(Payment_Amount) AS Payment_Amount
+                                    FROM
+                                        dbo.tbl_transaction
+                                    GROUP BY
+                                        Student_ID
+                                ) t ON bf.Student_ID = t.Student_ID
+                                JOIN dbo.tbl_student_accounts s ON COALESCE(bf.Student_ID, t.Student_ID) = s.ID
+                                LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID
+                                WHERE
+                                    s.Status = 1
+                                    AND s.Department = @dep
+                                    AND (@sec = 'All' OR sec.Description = @sec)
+                                GROUP BY
+                                    COALESCE(bf.Student_ID, t.Student_ID),
+                                    s.Lastname,
+                                    s.Firstname,
+                                    sec.Description
+                                ORDER BY
+                                    s.Lastname;", cn);
                 cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
+                cm.Parameters.AddWithValue("@sec", cbSection.Text);
                 using (dr = cm.ExecuteReader())
                 {
+                    double totalCollectable = 0;
                     while (dr.Read())
                     {
+                        if (cancellationTokenSource.Token.IsCancellationRequested)
+                        {
+                            return;
+                        }
                         int rowIndex = dgvBalFees.Rows.Add(false);
 
-                        double balance = (Double)dr["Total_Balance_Fee"];
-                        double amount_paid = (Double)dr["amount_paid"];
-                        double updated_balance = balance - amount_paid;
+                        double balance = (dr["Remaining_Balance"] == DBNull.Value) ? 0 : Convert.ToDouble(dr["Remaining_Balance"]);
+                        double amount_paid = (dr["Total_Payment_Amount"] == DBNull.Value) ? 0 : Convert.ToDouble(dr["Total_Payment_Amount"]);
 
-                        dgvBalFees.Rows[rowIndex].Cells["ID"].Value = dr["id"].ToString();
+
+                        dgvBalFees.Rows[rowIndex].Cells["ID"].Value = dr["Student_ID"].ToString();
                         dgvBalFees.Rows[rowIndex].Cells["lname"].Value = dr["lname"].ToString();
                         dgvBalFees.Rows[rowIndex].Cells["fname"].Value = dr["fname"].ToString();
+                        dgvBalFees.Rows[rowIndex].Cells["section"].Value = dr["section"].ToString();
                         dgvBalFees.Rows[rowIndex].Cells["balancefee"].Value = "₱ " + Convert.ToDecimal(balance).ToString("F2");
                         dgvBalFees.Rows[rowIndex].Cells["paidfee"].Value = "₱ " + Convert.ToDecimal(amount_paid).ToString("F2");
 
@@ -94,10 +197,8 @@ namespace AMSEMS.SubForms_DeptHead
                         dgvBalFees.Columns["balancefee"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                         dgvBalFees.Columns["paidfee"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                         dgvBalFees.Columns["paidfee"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                        //dgvBalFees.Rows[rowIndex].Cells["balancefee"].Style.Font = new System.Drawing.Font("Poppins", 9F, FontStyle.Bold);
-                        //dgvBalFees.Rows[rowIndex].Cells["paidfee"].Style.Font = new System.Drawing.Font("Poppins", 9F, FontStyle.Bold);
                         dgvBalFees.Rows[rowIndex].Cells["status"].Style.Font = new System.Drawing.Font("Poppins", 9F, FontStyle.Bold);
-                        if (updated_balance <= 0)
+                        if (balance <= 0)
                         {
                             dgvBalFees.Rows[rowIndex].Cells["status"].Value = "Paid";
                         }
@@ -106,15 +207,19 @@ namespace AMSEMS.SubForms_DeptHead
                             dgvBalFees.Rows[rowIndex].Cells["status"].Value = "Unpaid";
                         }
                         rowIndex++;
+                        totalCollectable += balance;
                     }
+                    //kryptonLabel6.Text = cbSection.Text + " Collectable Fee";
+                    //lblCollectablefeeSec.Text = "₱ " + totalCollectable.ToString("F2");
                 }
             }
+            ptbLoading.Visible = false;
         }
 
         private void formAttendanceReport_Load(object sender, EventArgs e)
         {
             displayFilter();
-            displayBalanceFees();
+            displayOverallSummary();
         }
 
         private void tbSearch_TextChanged(object sender, EventArgs e)
@@ -187,22 +292,106 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void cbSection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyCBFilter(cbSection.Text);
+            displayBalanceFees();
+            displayOverallSummary();
         }
 
         private void btnPaid_Click(object sender, EventArgs e)
         {
-            ApplyCBFilter("Paid");
+            string targetStatus = "Paid";  // The status you want to search for
+
+            foreach (DataGridViewRow row in dgvBalFees.Rows)
+            {
+                // Get the value in the "Status" column
+                DataGridViewCell statusCell = row.Cells["status"]; // Replace "Status" with the actual column name
+                string statusValue = statusCell.Value?.ToString();
+
+                // Show or hide the row based on the search result
+                row.Visible = (statusValue != null && statusValue.Equals(targetStatus, StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         private void btnAll_Click(object sender, EventArgs e)
         {
-            displayBalanceFees();
+            foreach (DataGridViewRow row in dgvBalFees.Rows)
+            {
+                row.Visible = true;
+            }
         }
 
         private void btnNotPaid_Click(object sender, EventArgs e)
         {
-            ApplyCBFilter("Unpaid");
+            string targetStatus = "Unpaid";  // The status you want to search for
+
+            foreach (DataGridViewRow row in dgvBalFees.Rows)
+            {
+                // Get the value in the "Status" column
+                DataGridViewCell statusCell = row.Cells["status"]; // Replace "Status" with the actual column name
+                string statusValue = statusCell.Value?.ToString();
+
+                // Show or hide the row based on the search result
+                row.Visible = (statusValue != null && statusValue.Equals(targetStatus, StringComparison.OrdinalIgnoreCase));
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            displayFilter();
+            displayBalanceFees();
+            displayOverallSummary();
+        }
+
+        private void formStudentBalanceFee_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            cancellationTokenSource?.Cancel();
+        }
+
+        private void dgvBalFees_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string col = dgvBalFees.Columns[e.ColumnIndex].Name;
+            if (col == "option")
+            {
+                // Get the bounds of the cell
+                System.Drawing.Rectangle cellBounds = dgvBalFees.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+
+                // Show the context menu just below the cell
+                CMSOptions.Show(dgvBalFees, cellBounds.Left, cellBounds.Bottom);
+            }
+        }
+
+        private void btnMakePayment_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+                        formMakePayment.searchStudent(dgvBalFees.Rows[rowIndex].Cells[0].Value.ToString());
+                        formMakePayment.ShowDialog();
+                    }
+                }
+            }
+        }
+
+        private void btnTransacHistory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPay_Click(object sender, EventArgs e)
+        {
+            formMakePayment.ShowDialog();
         }
     }
 }

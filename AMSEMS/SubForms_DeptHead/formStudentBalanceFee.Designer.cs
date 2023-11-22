@@ -28,46 +28,57 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnRefresh = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnExport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.lblAccountName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.dgvBalFees = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.section = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.balancefee = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.paidfee = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lblDep = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAll = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnPaid = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnNotPaid = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.cbSection = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTotalStudents = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel8 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblStudentNotPaid = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel9 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel6 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lblStudentPaid = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel7 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lblCollectedFee = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.lblMonthlyTotalFees = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.balancefee = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.paidfee = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblCollectableFee = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnMakePayment = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnTransacHistory = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnPay = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             this.option = new System.Windows.Forms.DataGridViewImageColumn();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -82,12 +93,16 @@
             this.kryptonGroupBox1.Panel.SuspendLayout();
             this.kryptonGroupBox1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.CMSOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.btnPay);
+            this.panel3.Controls.Add(this.btnRefresh);
             this.panel3.Controls.Add(this.btnExport);
             this.panel3.Controls.Add(this.lblAccountName);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -96,11 +111,89 @@
             this.panel3.Size = new System.Drawing.Size(906, 33);
             this.panel3.TabIndex = 10;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.Location = new System.Drawing.Point(782, -1);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRefresh.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRefresh.OverrideDefault.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnRefresh.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnRefresh.OverrideDefault.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.OverrideDefault.Border.Rounding = 10;
+            this.btnRefresh.OverrideDefault.Border.Width = 1;
+            this.btnRefresh.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnRefresh.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnRefresh.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnRefresh.OverrideDefault.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.OverrideDefault.Content.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.btnRefresh.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRefresh.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRefresh.OverrideFocus.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnRefresh.OverrideFocus.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.OverrideFocus.Border.Rounding = 10;
+            this.btnRefresh.Size = new System.Drawing.Size(37, 34);
+            this.btnRefresh.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRefresh.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRefresh.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnRefresh.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnRefresh.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnRefresh.StateCommon.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.StateCommon.Border.Rounding = 10;
+            this.btnRefresh.StateCommon.Border.Width = 1;
+            this.btnRefresh.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            this.btnRefresh.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnRefresh.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnRefresh.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.btnRefresh.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnRefresh.StateCommon.Content.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.btnRefresh.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRefresh.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRefresh.StatePressed.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnRefresh.StatePressed.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.StatePressed.Border.Rounding = 10;
+            this.btnRefresh.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnRefresh.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnRefresh.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnRefresh.StatePressed.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.StatePressed.Content.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.btnRefresh.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnRefresh.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnRefresh.StateTracking.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnRefresh.StateTracking.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.StateTracking.Border.Rounding = 10;
+            this.btnRefresh.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnRefresh.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnRefresh.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnRefresh.StateTracking.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnRefresh.StateTracking.Content.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.btnRefresh.TabIndex = 12;
+            this.btnRefresh.Values.Image = global::AMSEMS.Properties.Resources.refresh_16;
+            this.btnRefresh.Values.Text = "";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // btnExport
             // 
             this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnExport.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnExport.Location = new System.Drawing.Point(868, 0);
+            this.btnExport.Location = new System.Drawing.Point(825, -1);
             this.btnExport.Name = "btnExport";
             this.btnExport.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnExport.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -218,6 +311,7 @@
             // 
             // kryptonGroupBox5.Panel
             // 
+            this.kryptonGroupBox5.Panel.Controls.Add(this.ptbLoading);
             this.kryptonGroupBox5.Panel.Controls.Add(this.dgvBalFees);
             this.kryptonGroupBox5.Size = new System.Drawing.Size(706, 562);
             this.kryptonGroupBox5.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -239,11 +333,11 @@
             this.dgvBalFees.AllowUserToDeleteRows = false;
             this.dgvBalFees.AllowUserToResizeColumns = false;
             this.dgvBalFees.AllowUserToResizeRows = false;
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvBalFees.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvBalFees.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvBalFees.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvBalFees.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvBalFees.BackgroundColor = System.Drawing.Color.White;
@@ -251,31 +345,33 @@
             this.dgvBalFees.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dgvBalFees.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvBalFees.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Poppins", 8.75F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvBalFees.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins", 8.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvBalFees.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvBalFees.ColumnHeadersHeight = 50;
             this.dgvBalFees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvBalFees.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.lname,
             this.fname,
+            this.section,
             this.balancefee,
             this.paidfee,
             this.status,
             this.option});
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvBalFees.DefaultCellStyle = dataGridViewCellStyle23;
+            this.dgvBalFees.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvBalFees.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvBalFees.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvBalFees.EnableHeadersVisualStyles = false;
             this.dgvBalFees.GridColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -286,16 +382,65 @@
             this.dgvBalFees.RowHeadersVisible = false;
             this.dgvBalFees.RowHeadersWidth = 30;
             this.dgvBalFees.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvBalFees.RowsDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvBalFees.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvBalFees.RowTemplate.Height = 30;
             this.dgvBalFees.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvBalFees.Size = new System.Drawing.Size(696, 552);
             this.dgvBalFees.TabIndex = 3;
+            this.dgvBalFees.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBalFees_CellContentClick);
+            // 
+            // id
+            // 
+            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Width = 45;
+            // 
+            // lname
+            // 
+            this.lname.HeaderText = "Last Name";
+            this.lname.Name = "lname";
+            this.lname.ReadOnly = true;
+            // 
+            // fname
+            // 
+            this.fname.HeaderText = "First Name";
+            this.fname.Name = "fname";
+            this.fname.ReadOnly = true;
+            // 
+            // section
+            // 
+            this.section.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.section.HeaderText = "Section";
+            this.section.Name = "section";
+            this.section.ReadOnly = true;
+            this.section.Width = 78;
+            // 
+            // balancefee
+            // 
+            this.balancefee.HeaderText = "Balance Fee";
+            this.balancefee.Name = "balancefee";
+            this.balancefee.ReadOnly = true;
+            // 
+            // paidfee
+            // 
+            this.paidfee.HeaderText = "Amount Paid";
+            this.paidfee.Name = "paidfee";
+            this.paidfee.ReadOnly = true;
+            // 
+            // status
+            // 
+            this.status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.status.HeaderText = "Status";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
+            this.status.Width = 73;
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.kryptonLabel1);
+            this.panel5.Controls.Add(this.lblDep);
             this.panel5.Controls.Add(this.kryptonGroupBox1);
             this.panel5.Controls.Add(this.pictureBox1);
             this.panel5.Controls.Add(this.tbSearch);
@@ -307,20 +452,20 @@
             this.panel5.Size = new System.Drawing.Size(706, 143);
             this.panel5.TabIndex = 10;
             // 
-            // kryptonLabel1
+            // lblDep
             // 
-            this.kryptonLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonLabel1.Location = new System.Drawing.Point(440, 27);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(266, 53);
-            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel1.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Black", 25F, System.Drawing.FontStyle.Bold);
-            this.kryptonLabel1.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
-            this.kryptonLabel1.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonLabel1.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
-            this.kryptonLabel1.TabIndex = 153;
-            this.kryptonLabel1.Values.Text = "WEB HUNTERS";
+            this.lblDep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDep.Location = new System.Drawing.Point(481, 25);
+            this.lblDep.Name = "lblDep";
+            this.lblDep.Size = new System.Drawing.Size(225, 47);
+            this.lblDep.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblDep.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblDep.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Black", 22F, System.Drawing.FontStyle.Bold);
+            this.lblDep.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.lblDep.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.lblDep.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.lblDep.TabIndex = 153;
+            this.lblDep.Values.Text = "DEPARTMENT";
             // 
             // kryptonGroupBox1
             // 
@@ -595,19 +740,6 @@
             this.btnNotPaid.Values.Text = "Unpaid";
             this.btnNotPaid.Click += new System.EventHandler(this.btnNotPaid_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.search_16;
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(489, 109);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 150;
-            this.pictureBox1.TabStop = false;
-            // 
             // tbSearch
             // 
             this.tbSearch.AcceptsReturn = true;
@@ -664,61 +796,85 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.lblTotalStudents);
             this.panel1.Controls.Add(this.kryptonLabel8);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.lblStudentNotPaid);
             this.panel1.Controls.Add(this.kryptonLabel9);
-            this.panel1.Controls.Add(this.kryptonLabel6);
+            this.panel1.Controls.Add(this.lblStudentPaid);
             this.panel1.Controls.Add(this.kryptonLabel7);
-            this.panel1.Controls.Add(this.kryptonLabel3);
+            this.panel1.Controls.Add(this.lblCollectedFee);
             this.panel1.Controls.Add(this.kryptonLabel4);
             this.panel1.Controls.Add(this.kryptonLabel5);
-            this.panel1.Controls.Add(this.lblMonthlyTotalFees);
+            this.panel1.Controls.Add(this.lblCollectableFee);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(726, 48);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 705);
             this.panel1.TabIndex = 11;
             // 
-            // label2
+            // lblTotalStudents
             // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.LightGray;
-            this.label2.Location = new System.Drawing.Point(43, 334);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(169, 13);
-            this.label2.TabIndex = 159;
-            this.label2.Text = "___________________________";
+            this.lblTotalStudents.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalStudents.Location = new System.Drawing.Point(171, 268);
+            this.lblTotalStudents.Margin = new System.Windows.Forms.Padding(2);
+            this.lblTotalStudents.Name = "lblTotalStudents";
+            this.lblTotalStudents.Size = new System.Drawing.Size(25, 31);
+            this.lblTotalStudents.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblTotalStudents.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblTotalStudents.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTotalStudents.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.lblTotalStudents.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.lblTotalStudents.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.lblTotalStudents.TabIndex = 161;
+            this.lblTotalStudents.Values.Text = "0";
+            // 
+            // kryptonLabel8
+            // 
+            this.kryptonLabel8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonLabel8.Location = new System.Drawing.Point(95, 245);
+            this.kryptonLabel8.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel8.Name = "kryptonLabel8";
+            this.kryptonLabel8.Size = new System.Drawing.Size(108, 23);
+            this.kryptonLabel8.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonLabel8.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.kryptonLabel8.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
+            this.kryptonLabel8.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.kryptonLabel8.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.kryptonLabel8.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.kryptonLabel8.TabIndex = 160;
+            this.kryptonLabel8.Values.Text = "Total Students";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.LightGray;
-            this.label1.Location = new System.Drawing.Point(43, 163);
+            this.label1.Location = new System.Drawing.Point(71, 215);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(169, 13);
             this.label1.TabIndex = 158;
             this.label1.Text = "___________________________";
             // 
-            // kryptonLabel8
+            // lblStudentNotPaid
             // 
-            this.kryptonLabel8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonLabel8.Location = new System.Drawing.Point(147, 299);
-            this.kryptonLabel8.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel8.Name = "kryptonLabel8";
-            this.kryptonLabel8.Size = new System.Drawing.Size(23, 29);
-            this.kryptonLabel8.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel8.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel8.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 13F, System.Drawing.FontStyle.Bold);
-            this.kryptonLabel8.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
-            this.kryptonLabel8.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel8.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
-            this.kryptonLabel8.TabIndex = 157;
-            this.kryptonLabel8.Values.Text = "0";
+            this.lblStudentNotPaid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStudentNotPaid.Location = new System.Drawing.Point(171, 419);
+            this.lblStudentNotPaid.Margin = new System.Windows.Forms.Padding(2);
+            this.lblStudentNotPaid.Name = "lblStudentNotPaid";
+            this.lblStudentNotPaid.Size = new System.Drawing.Size(25, 31);
+            this.lblStudentNotPaid.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblStudentNotPaid.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblStudentNotPaid.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 14F, System.Drawing.FontStyle.Bold);
+            this.lblStudentNotPaid.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.lblStudentNotPaid.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.lblStudentNotPaid.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.lblStudentNotPaid.TabIndex = 157;
+            this.lblStudentNotPaid.Values.Text = "0";
             // 
             // kryptonLabel9
             // 
             this.kryptonLabel9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonLabel9.Location = new System.Drawing.Point(44, 276);
+            this.kryptonLabel9.Location = new System.Drawing.Point(72, 396);
             this.kryptonLabel9.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel9.Name = "kryptonLabel9";
             this.kryptonLabel9.Size = new System.Drawing.Size(132, 23);
@@ -731,26 +887,26 @@
             this.kryptonLabel9.TabIndex = 156;
             this.kryptonLabel9.Values.Text = "Students not paid";
             // 
-            // kryptonLabel6
+            // lblStudentPaid
             // 
-            this.kryptonLabel6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonLabel6.Location = new System.Drawing.Point(147, 224);
-            this.kryptonLabel6.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel6.Name = "kryptonLabel6";
-            this.kryptonLabel6.Size = new System.Drawing.Size(23, 29);
-            this.kryptonLabel6.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel6.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel6.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 13F, System.Drawing.FontStyle.Bold);
-            this.kryptonLabel6.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
-            this.kryptonLabel6.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel6.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
-            this.kryptonLabel6.TabIndex = 155;
-            this.kryptonLabel6.Values.Text = "0";
+            this.lblStudentPaid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStudentPaid.Location = new System.Drawing.Point(171, 344);
+            this.lblStudentPaid.Margin = new System.Windows.Forms.Padding(2);
+            this.lblStudentPaid.Name = "lblStudentPaid";
+            this.lblStudentPaid.Size = new System.Drawing.Size(25, 31);
+            this.lblStudentPaid.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblStudentPaid.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblStudentPaid.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 14F, System.Drawing.FontStyle.Bold);
+            this.lblStudentPaid.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.lblStudentPaid.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.lblStudentPaid.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.lblStudentPaid.TabIndex = 155;
+            this.lblStudentPaid.Values.Text = "0";
             // 
             // kryptonLabel7
             // 
             this.kryptonLabel7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonLabel7.Location = new System.Drawing.Point(71, 201);
+            this.kryptonLabel7.Location = new System.Drawing.Point(99, 321);
             this.kryptonLabel7.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel7.Name = "kryptonLabel7";
             this.kryptonLabel7.Size = new System.Drawing.Size(104, 23);
@@ -763,26 +919,26 @@
             this.kryptonLabel7.TabIndex = 154;
             this.kryptonLabel7.Values.Text = "Students Paid";
             // 
-            // kryptonLabel3
+            // lblCollectedFee
             // 
-            this.kryptonLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonLabel3.Location = new System.Drawing.Point(92, 130);
-            this.kryptonLabel3.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel3.Name = "kryptonLabel3";
-            this.kryptonLabel3.Size = new System.Drawing.Size(78, 31);
-            this.kryptonLabel3.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel3.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel3.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 13F, System.Drawing.FontStyle.Bold);
-            this.kryptonLabel3.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
-            this.kryptonLabel3.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel3.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
-            this.kryptonLabel3.TabIndex = 153;
-            this.kryptonLabel3.Values.Text = "₱ 00.00";
+            this.lblCollectedFee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCollectedFee.Location = new System.Drawing.Point(120, 182);
+            this.lblCollectedFee.Margin = new System.Windows.Forms.Padding(2);
+            this.lblCollectedFee.Name = "lblCollectedFee";
+            this.lblCollectedFee.Size = new System.Drawing.Size(78, 31);
+            this.lblCollectedFee.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblCollectedFee.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblCollectedFee.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 13F, System.Drawing.FontStyle.Bold);
+            this.lblCollectedFee.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.lblCollectedFee.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.lblCollectedFee.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.lblCollectedFee.TabIndex = 153;
+            this.lblCollectedFee.Values.Text = "₱ 00.00";
             // 
             // kryptonLabel4
             // 
             this.kryptonLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonLabel4.Location = new System.Drawing.Point(58, 33);
+            this.kryptonLabel4.Location = new System.Drawing.Point(86, 85);
             this.kryptonLabel4.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel4.Name = "kryptonLabel4";
             this.kryptonLabel4.Size = new System.Drawing.Size(117, 23);
@@ -798,7 +954,7 @@
             // kryptonLabel5
             // 
             this.kryptonLabel5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonLabel5.Location = new System.Drawing.Point(71, 107);
+            this.kryptonLabel5.Location = new System.Drawing.Point(99, 159);
             this.kryptonLabel5.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel5.Name = "kryptonLabel5";
             this.kryptonLabel5.Size = new System.Drawing.Size(104, 23);
@@ -811,61 +967,165 @@
             this.kryptonLabel5.TabIndex = 152;
             this.kryptonLabel5.Values.Text = "Collected Fee";
             // 
-            // lblMonthlyTotalFees
+            // lblCollectableFee
             // 
-            this.lblMonthlyTotalFees.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblMonthlyTotalFees.Location = new System.Drawing.Point(92, 56);
-            this.lblMonthlyTotalFees.Margin = new System.Windows.Forms.Padding(2);
-            this.lblMonthlyTotalFees.Name = "lblMonthlyTotalFees";
-            this.lblMonthlyTotalFees.Size = new System.Drawing.Size(78, 31);
-            this.lblMonthlyTotalFees.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.lblMonthlyTotalFees.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.lblMonthlyTotalFees.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 13F, System.Drawing.FontStyle.Bold);
-            this.lblMonthlyTotalFees.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
-            this.lblMonthlyTotalFees.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.lblMonthlyTotalFees.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
-            this.lblMonthlyTotalFees.TabIndex = 147;
-            this.lblMonthlyTotalFees.Values.Text = "₱ 00.00";
+            this.lblCollectableFee.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCollectableFee.Location = new System.Drawing.Point(119, 108);
+            this.lblCollectableFee.Margin = new System.Windows.Forms.Padding(2);
+            this.lblCollectableFee.Name = "lblCollectableFee";
+            this.lblCollectableFee.Size = new System.Drawing.Size(78, 31);
+            this.lblCollectableFee.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblCollectableFee.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblCollectableFee.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 13F, System.Drawing.FontStyle.Bold);
+            this.lblCollectableFee.StateCommon.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.lblCollectableFee.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.lblCollectableFee.StateCommon.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.lblCollectableFee.TabIndex = 147;
+            this.lblCollectableFee.Values.Text = "₱ 00.00";
             // 
-            // id
+            // CMSOptions
             // 
-            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Width = 45;
+            this.CMSOptions.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.CMSOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnMakePayment,
+            this.btnTransacHistory});
+            this.CMSOptions.Name = "contextMenuStrip2";
+            this.CMSOptions.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.CMSOptions.ShowImageMargin = false;
+            this.CMSOptions.ShowItemToolTips = false;
+            this.CMSOptions.Size = new System.Drawing.Size(168, 56);
             // 
-            // lname
+            // btnMakePayment
             // 
-            this.lname.HeaderText = "Last Name";
-            this.lname.Name = "lname";
-            this.lname.ReadOnly = true;
+            this.btnMakePayment.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMakePayment.Name = "btnMakePayment";
+            this.btnMakePayment.Size = new System.Drawing.Size(167, 26);
+            this.btnMakePayment.Text = "Make Payment";
+            this.btnMakePayment.Click += new System.EventHandler(this.btnMakePayment_Click);
             // 
-            // fname
+            // btnTransacHistory
             // 
-            this.fname.HeaderText = "First Name";
-            this.fname.Name = "fname";
-            this.fname.ReadOnly = true;
+            this.btnTransacHistory.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTransacHistory.Name = "btnTransacHistory";
+            this.btnTransacHistory.Size = new System.Drawing.Size(167, 26);
+            this.btnTransacHistory.Text = "Transaction History";
+            this.btnTransacHistory.Click += new System.EventHandler(this.btnTransacHistory_Click);
             // 
-            // balancefee
+            // label2
             // 
-            this.balancefee.HeaderText = "Balance Fee";
-            this.balancefee.Name = "balancefee";
-            this.balancefee.ReadOnly = true;
+            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.label2.Font = new System.Drawing.Font("Poppins ExtraBold", 13F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.label2.Location = new System.Drawing.Point(5, 8);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(193, 70);
+            this.label2.TabIndex = 162;
+            this.label2.Text = "Students Penalty Fee Summary";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // paidfee
+            // btnPay
             // 
-            this.paidfee.HeaderText = "Amount Paid";
-            this.paidfee.Name = "paidfee";
-            this.paidfee.ReadOnly = true;
+            this.btnPay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPay.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPay.Location = new System.Drawing.Point(868, -1);
+            this.btnPay.Name = "btnPay";
+            this.btnPay.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnPay.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnPay.OverrideDefault.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnPay.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnPay.OverrideDefault.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.OverrideDefault.Border.Rounding = 10;
+            this.btnPay.OverrideDefault.Border.Width = 1;
+            this.btnPay.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnPay.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnPay.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnPay.OverrideDefault.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.OverrideDefault.Content.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.btnPay.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnPay.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnPay.OverrideFocus.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnPay.OverrideFocus.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.OverrideFocus.Border.Rounding = 10;
+            this.btnPay.Size = new System.Drawing.Size(37, 34);
+            this.btnPay.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnPay.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnPay.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnPay.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnPay.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnPay.StateCommon.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.StateCommon.Border.Rounding = 10;
+            this.btnPay.StateCommon.Border.Width = 1;
+            this.btnPay.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            this.btnPay.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnPay.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnPay.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.btnPay.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnPay.StateCommon.Content.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.btnPay.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnPay.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnPay.StatePressed.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnPay.StatePressed.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.StatePressed.Border.Rounding = 10;
+            this.btnPay.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnPay.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnPay.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnPay.StatePressed.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.StatePressed.Content.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.btnPay.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnPay.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnPay.StateTracking.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnPay.StateTracking.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.StateTracking.Border.Rounding = 10;
+            this.btnPay.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnPay.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnPay.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnPay.StateTracking.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnPay.StateTracking.Content.ShortText.Trim = ComponentFactory.Krypton.Toolkit.PaletteTextTrim.Inherit;
+            this.btnPay.TabIndex = 13;
+            this.btnPay.Values.Image = global::AMSEMS.Properties.Resources.wallet;
+            this.btnPay.Values.Text = "";
+            this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
             // 
-            // status
+            // dataGridViewImageColumn1
             // 
-            this.status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.status.HeaderText = "Status";
-            this.status.Name = "status";
-            this.status.ReadOnly = true;
-            this.status.Width = 73;
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.ReadOnly = true;
+            this.dataGridViewImageColumn1.Width = 5;
+            // 
+            // ptbLoading
+            // 
+            this.ptbLoading.BackColor = System.Drawing.Color.White;
+            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoading.BorderWidth = 0;
+            this.ptbLoading.CornerRadius = 10;
+            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.ImageLocation = "";
+            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(696, 552);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 4;
+            this.ptbLoading.TabStop = false;
+            this.ptbLoading.Visible = false;
             // 
             // option
             // 
@@ -875,6 +1135,19 @@
             this.option.Name = "option";
             this.option.ReadOnly = true;
             this.option.Width = 5;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.search_16;
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(489, 109);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 150;
+            this.pictureBox1.TabStop = false;
             // 
             // formStudentBalanceFee
             // 
@@ -889,6 +1162,7 @@
             this.Name = "formStudentBalanceFee";
             this.Padding = new System.Windows.Forms.Padding(20, 15, 20, 15);
             this.Text = "formDashboard";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formStudentBalanceFee_FormClosing);
             this.Load += new System.EventHandler(this.formAttendanceReport_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -906,9 +1180,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).EndInit();
             this.kryptonGroupBox1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.CMSOptions.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -928,28 +1204,38 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private System.Windows.Forms.ComboBox cbSection;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel8;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblStudentNotPaid;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel9;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel6;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblStudentPaid;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel7;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblCollectedFee;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel4;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel5;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblMonthlyTotalFees;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblCollectableFee;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnAll;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnPaid;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnNotPaid;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblDep;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnRefresh;
+        private RoundPictureBoxRect ptbLoading;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
+        private System.Windows.Forms.ContextMenuStrip CMSOptions;
+        private System.Windows.Forms.ToolStripMenuItem btnMakePayment;
+        private System.Windows.Forms.ToolStripMenuItem btnTransacHistory;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblTotalStudents;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel8;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn lname;
         private System.Windows.Forms.DataGridViewTextBoxColumn fname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn section;
         private System.Windows.Forms.DataGridViewTextBoxColumn balancefee;
         private System.Windows.Forms.DataGridViewTextBoxColumn paidfee;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
         private System.Windows.Forms.DataGridViewImageColumn option;
+        private System.Windows.Forms.Label label2;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnPay;
     }
 }
