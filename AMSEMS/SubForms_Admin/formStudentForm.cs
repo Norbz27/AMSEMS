@@ -181,6 +181,10 @@ namespace AMSEMS.SubForms_Admin
                 {
                     MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
+                else if (tbPass.Text.Length <= 6)
+                {
+                    MessageBox.Show("Password should be above 6 characters!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
                 else
                 {
                     if (btnSubmit.Text.Equals("Update"))

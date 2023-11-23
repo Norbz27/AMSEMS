@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -22,11 +23,12 @@ namespace AMSEMS.SubForms_Admin
         private bool headerCheckboxAdded = false; // Add this flag
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private CheckBox headerCheckbox;
+        private CancellationTokenSource cancellationTokenSource;
         public formSubjects()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
-
+            cancellationTokenSource = new CancellationTokenSource();
             backgroundWorker.DoWork += backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
             backgroundWorker.WorkerSupportsCancellation = true;
@@ -127,7 +129,7 @@ namespace AMSEMS.SubForms_Admin
             }
         }
 
-        public void displayTable(string query)
+        public async void displayTable(string query)
         {
             if (dgvSubjects == null || dgvSubjects.IsDisposed || !dgvSubjects.IsHandleCreated)
             {
@@ -141,7 +143,8 @@ namespace AMSEMS.SubForms_Admin
             try
             {
                 dgvSubjects.Rows.Clear();
-
+                ptbLoading.Visible = true;
+                await Task.Delay(2000);
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
@@ -152,6 +155,10 @@ namespace AMSEMS.SubForms_Admin
                         {
                             while (dr.Read())
                             {
+                                if (cancellationTokenSource.Token.IsCancellationRequested)
+                                {
+                                    return;
+                                }
                                 // Add a row and set the checkbox column value to false (unchecked)
                                 int rowIndex = dgvSubjects.Rows.Add(false);
 
@@ -173,6 +180,12 @@ namespace AMSEMS.SubForms_Admin
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                headerCheckboxAdded = false;
+                ptbLoading.Visible = false;
+                dgvSubjects.Controls.Add(headerCheckbox);
             }
         }
 
@@ -1282,6 +1295,7 @@ namespace AMSEMS.SubForms_Admin
             {
                 backgroundWorker.CancelAsync();
             }
+            cancellationTokenSource?.Cancel();
         }
     }
 }

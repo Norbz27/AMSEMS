@@ -86,6 +86,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.CMSAcadLvl = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
             this.kryptonGroupBox5.Panel.SuspendLayout();
@@ -102,6 +103,7 @@
             this.pnControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.CMSAcadLvl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonGroupBox5
@@ -116,6 +118,7 @@
             // 
             // kryptonGroupBox5.Panel
             // 
+            this.kryptonGroupBox5.Panel.Controls.Add(this.ptbLoading);
             this.kryptonGroupBox5.Panel.Controls.Add(this.dgvSubjects);
             this.kryptonGroupBox5.Size = new System.Drawing.Size(892, 438);
             this.kryptonGroupBox5.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -228,7 +231,7 @@
             this.code.HeaderText = "Course Code";
             this.code.Name = "code";
             this.code.ReadOnly = true;
-            this.code.Width = 103;
+            this.code.Width = 102;
             // 
             // Des
             // 
@@ -246,7 +249,7 @@
             this.units.HeaderText = "Units";
             this.units.Name = "units";
             this.units.ReadOnly = true;
-            this.units.Width = 65;
+            this.units.Width = 64;
             // 
             // teach
             // 
@@ -261,7 +264,7 @@
             this.acad.HeaderText = "Academic Level";
             this.acad.Name = "acad";
             this.acad.ReadOnly = true;
-            this.acad.Width = 120;
+            this.acad.Width = 117;
             // 
             // status
             // 
@@ -1355,6 +1358,23 @@
             this.toolStripMenuItem5.Size = new System.Drawing.Size(145, 26);
             this.toolStripMenuItem5.Text = "Set Academic Level to";
             // 
+            // ptbLoading
+            // 
+            this.ptbLoading.BackColor = System.Drawing.Color.White;
+            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoading.BorderWidth = 0;
+            this.ptbLoading.CornerRadius = 10;
+            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.ImageLocation = "";
+            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(882, 428);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 11;
+            this.ptbLoading.TabStop = false;
+            this.ptbLoading.Visible = false;
+            // 
             // formSubjects
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1393,6 +1413,7 @@
             this.pnControl.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.CMSAcadLvl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1446,5 +1467,6 @@
         private System.Windows.Forms.ToolStripMenuItem setActiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setInactiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem archiveToolStripMenuItem;
+        private RoundPictureBoxRect ptbLoading;
     }
 }

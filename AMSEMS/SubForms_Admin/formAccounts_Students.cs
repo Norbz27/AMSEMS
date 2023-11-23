@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -29,11 +30,13 @@ namespace AMSEMS.SubForms_Admin
 
         private CheckBox headerCheckbox = new CheckBox();
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
+        private CancellationTokenSource cancellationTokenSource;
         public formAccounts_Students()
         {
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
+            cancellationTokenSource = new CancellationTokenSource();
             lblAccountName.Text = account;
             btnAll.Focus();
 
@@ -188,7 +191,7 @@ namespace AMSEMS.SubForms_Admin
             }
         }
 
-        public void displayTable(string query)
+        public async void displayTable(string query)
         {
             if (dgvStudents.InvokeRequired)
             {
@@ -199,7 +202,8 @@ namespace AMSEMS.SubForms_Admin
             {
                 query = query + " ORDER BY DateTime DESC;";
                 dgvStudents.Rows.Clear();
-
+                ptbLoading.Visible = true;
+                await Task.Delay(2000);
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
@@ -210,6 +214,10 @@ namespace AMSEMS.SubForms_Admin
                         {
                             while (dr.Read())
                             {
+                                if (cancellationTokenSource.Token.IsCancellationRequested)
+                                {
+                                    return;
+                                }
                                 // Add a row and set the checkbox column value to false (unchecked)
                                 int rowIndex = dgvStudents.Rows.Add(false);
 
@@ -246,6 +254,8 @@ namespace AMSEMS.SubForms_Admin
             finally
             {
                 headerCheckboxAdded = false;
+                ptbLoading.Visible = false;
+                dgvStudents.Controls.Add(headerCheckbox);
             }
         }
 
@@ -1619,6 +1629,7 @@ namespace AMSEMS.SubForms_Admin
             {
                 backgroundWorker.CancelAsync();
             }
+            cancellationTokenSource?.Cancel();
         }
     }
 }

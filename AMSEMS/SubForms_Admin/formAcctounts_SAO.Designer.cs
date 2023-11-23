@@ -80,6 +80,7 @@
             this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSelArchive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnMultiDel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             this.contextMenuStrip2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -95,6 +96,7 @@
             this.kryptonGroupBox5.SuspendLayout();
             this.CMSExport.SuspendLayout();
             this.pnControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip2
@@ -358,13 +360,13 @@
             this.btnImport.Values.Text = "";
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
-            // panel1
+            // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.btnAll);
             this.flowLayoutPanel1.Controls.Add(this.btnActive);
             this.flowLayoutPanel1.Controls.Add(this.btnInactive);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(-2, -4);
-            this.flowLayoutPanel1.Name = "panel1";
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(177, 26);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
@@ -675,7 +677,7 @@
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
-            this.ID.Width = 46;
+            this.ID.Width = 45;
             // 
             // Fname
             // 
@@ -832,6 +834,7 @@
             // 
             // kryptonGroupBox5.Panel
             // 
+            this.kryptonGroupBox5.Panel.Controls.Add(this.ptbLoading);
             this.kryptonGroupBox5.Panel.Controls.Add(this.dgvsao);
             this.kryptonGroupBox5.Size = new System.Drawing.Size(892, 339);
             this.kryptonGroupBox5.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -1174,6 +1177,23 @@
             this.btnMultiDel.Values.Text = "";
             this.btnMultiDel.Click += new System.EventHandler(this.btnMultiDel_Click);
             // 
+            // ptbLoading
+            // 
+            this.ptbLoading.BackColor = System.Drawing.Color.White;
+            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoading.BorderWidth = 0;
+            this.ptbLoading.CornerRadius = 10;
+            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.ImageLocation = "";
+            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(882, 329);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 11;
+            this.ptbLoading.TabStop = false;
+            this.ptbLoading.Visible = false;
+            // 
             // formAccounts_SAO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1209,6 +1229,7 @@
             this.kryptonGroupBox5.ResumeLayout(false);
             this.CMSExport.ResumeLayout(false);
             this.pnControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1254,5 +1275,6 @@
         private System.Windows.Forms.ToolStripMenuItem setActiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setInactiveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem archiveToolStripMenuItem;
+        private RoundPictureBoxRect ptbLoading;
     }
 }
