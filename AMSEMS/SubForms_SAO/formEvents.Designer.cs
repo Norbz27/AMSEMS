@@ -33,7 +33,6 @@
             this.lblAccountName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.daysContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel11 = new System.Windows.Forms.Panel();
             this.kryptonLabel9 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -57,6 +56,9 @@
             this.btnNext = new System.Windows.Forms.Button();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.flowLayoutPanel1 = new System.Windows.Forms.Panel();
+            this.ptbLoading2 = new System.Windows.Forms.PictureBox();
+            this.ptbLoading = new System.Windows.Forms.PictureBox();
+            this.daysContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -65,6 +67,8 @@
             this.panel2.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -173,6 +177,8 @@
             // 
             // panel2
             // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel2.Controls.Add(this.daysContainer);
             this.panel2.Controls.Add(this.flowLayoutPanel2);
             this.panel2.Controls.Add(this.panel3);
@@ -180,16 +186,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(784, 631);
             this.panel2.TabIndex = 11;
-            // 
-            // daysContainer
-            // 
-            this.daysContainer.AutoScroll = true;
-            this.daysContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.daysContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.daysContainer.Location = new System.Drawing.Point(0, 69);
-            this.daysContainer.Name = "daysContainer";
-            this.daysContainer.Size = new System.Drawing.Size(784, 562);
-            this.daysContainer.TabIndex = 25;
             // 
             // flowLayoutPanel2
             // 
@@ -220,12 +216,12 @@
             this.panel11.Location = new System.Drawing.Point(0, 0);
             this.panel11.Margin = new System.Windows.Forms.Padding(0);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(26, 22);
+            this.panel11.Size = new System.Drawing.Size(23, 22);
             this.panel11.TabIndex = 30;
             // 
             // kryptonLabel9
             // 
-            this.kryptonLabel9.Location = new System.Drawing.Point(28, 2);
+            this.kryptonLabel9.Location = new System.Drawing.Point(25, 2);
             this.kryptonLabel9.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel9.Name = "kryptonLabel9";
             this.kryptonLabel9.Size = new System.Drawing.Size(60, 22);
@@ -238,15 +234,15 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.panel4.Location = new System.Drawing.Point(90, 0);
+            this.panel4.Location = new System.Drawing.Point(87, 0);
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(47, 22);
+            this.panel4.Size = new System.Drawing.Size(44, 22);
             this.panel4.TabIndex = 23;
             // 
             // kryptonLabel12
             // 
-            this.kryptonLabel12.Location = new System.Drawing.Point(139, 2);
+            this.kryptonLabel12.Location = new System.Drawing.Point(133, 2);
             this.kryptonLabel12.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel12.Name = "kryptonLabel12";
             this.kryptonLabel12.Size = new System.Drawing.Size(64, 22);
@@ -259,15 +255,15 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.panel5.Location = new System.Drawing.Point(205, 0);
+            this.panel5.Location = new System.Drawing.Point(199, 0);
             this.panel5.Margin = new System.Windows.Forms.Padding(0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(41, 22);
+            this.panel5.Size = new System.Drawing.Size(38, 22);
             this.panel5.TabIndex = 24;
             // 
             // kryptonLabel13
             // 
-            this.kryptonLabel13.Location = new System.Drawing.Point(248, 2);
+            this.kryptonLabel13.Location = new System.Drawing.Point(239, 2);
             this.kryptonLabel13.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel13.Name = "kryptonLabel13";
             this.kryptonLabel13.Size = new System.Drawing.Size(66, 22);
@@ -280,15 +276,15 @@
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.panel6.Location = new System.Drawing.Point(316, 0);
+            this.panel6.Location = new System.Drawing.Point(307, 0);
             this.panel6.Margin = new System.Windows.Forms.Padding(0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(33, 22);
+            this.panel6.Size = new System.Drawing.Size(30, 22);
             this.panel6.TabIndex = 25;
             // 
             // kryptonLabel14
             // 
-            this.kryptonLabel14.Location = new System.Drawing.Point(351, 2);
+            this.kryptonLabel14.Location = new System.Drawing.Point(339, 2);
             this.kryptonLabel14.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel14.Name = "kryptonLabel14";
             this.kryptonLabel14.Size = new System.Drawing.Size(89, 22);
@@ -301,15 +297,15 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.panel7.Location = new System.Drawing.Point(442, 0);
+            this.panel7.Location = new System.Drawing.Point(430, 0);
             this.panel7.Margin = new System.Windows.Forms.Padding(0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(30, 22);
+            this.panel7.Size = new System.Drawing.Size(27, 22);
             this.panel7.TabIndex = 26;
             // 
             // kryptonLabel15
             // 
-            this.kryptonLabel15.Location = new System.Drawing.Point(474, 2);
+            this.kryptonLabel15.Location = new System.Drawing.Point(459, 2);
             this.kryptonLabel15.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel15.Name = "kryptonLabel15";
             this.kryptonLabel15.Size = new System.Drawing.Size(71, 22);
@@ -322,15 +318,15 @@
             // panel8
             // 
             this.panel8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.panel8.Location = new System.Drawing.Point(547, 0);
+            this.panel8.Location = new System.Drawing.Point(532, 0);
             this.panel8.Margin = new System.Windows.Forms.Padding(0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(44, 22);
+            this.panel8.Size = new System.Drawing.Size(39, 22);
             this.panel8.TabIndex = 27;
             // 
             // kryptonLabel16
             // 
-            this.kryptonLabel16.Location = new System.Drawing.Point(593, 2);
+            this.kryptonLabel16.Location = new System.Drawing.Point(573, 2);
             this.kryptonLabel16.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel16.Name = "kryptonLabel16";
             this.kryptonLabel16.Size = new System.Drawing.Size(50, 22);
@@ -343,15 +339,15 @@
             // panel9
             // 
             this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.panel9.Location = new System.Drawing.Point(645, 0);
+            this.panel9.Location = new System.Drawing.Point(625, 0);
             this.panel9.Margin = new System.Windows.Forms.Padding(0);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(45, 22);
+            this.panel9.Size = new System.Drawing.Size(43, 22);
             this.panel9.TabIndex = 28;
             // 
             // kryptonLabel17
             // 
-            this.kryptonLabel17.Location = new System.Drawing.Point(692, 2);
+            this.kryptonLabel17.Location = new System.Drawing.Point(670, 2);
             this.kryptonLabel17.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel17.Name = "kryptonLabel17";
             this.kryptonLabel17.Size = new System.Drawing.Size(70, 22);
@@ -364,7 +360,7 @@
             // panel10
             // 
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.panel10.Location = new System.Drawing.Point(764, 0);
+            this.panel10.Location = new System.Drawing.Point(742, 0);
             this.panel10.Margin = new System.Windows.Forms.Padding(0);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(18, 22);
@@ -486,12 +482,49 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(234, 588);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
+            // ptbLoading2
+            // 
+            this.ptbLoading2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.ptbLoading2.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading2.Location = new System.Drawing.Point(110, 132);
+            this.ptbLoading2.Name = "ptbLoading2";
+            this.ptbLoading2.Size = new System.Drawing.Size(610, 546);
+            this.ptbLoading2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading2.TabIndex = 0;
+            this.ptbLoading2.TabStop = false;
+            // 
+            // ptbLoading
+            // 
+            this.ptbLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.Location = new System.Drawing.Point(808, 104);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(234, 586);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 1;
+            this.ptbLoading.TabStop = false;
+            // 
+            // daysContainer
+            // 
+            this.daysContainer.AutoScroll = true;
+            this.daysContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.daysContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.daysContainer.Location = new System.Drawing.Point(0, 69);
+            this.daysContainer.Name = "daysContainer";
+            this.daysContainer.Size = new System.Drawing.Size(784, 562);
+            this.daysContainer.TabIndex = 25;
+            // 
             // formEvents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(1061, 700);
+            this.Controls.Add(this.ptbLoading);
+            this.Controls.Add(this.ptbLoading2);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -512,6 +545,8 @@
             this.flowLayoutPanel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -544,8 +579,10 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel16;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel17;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnToday;
-        private System.Windows.Forms.FlowLayoutPanel daysContainer;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCreateEvent;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private System.Windows.Forms.PictureBox ptbLoading2;
+        private System.Windows.Forms.PictureBox ptbLoading;
+        private System.Windows.Forms.FlowLayoutPanel daysContainer;
     }
 }

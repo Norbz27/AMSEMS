@@ -1,6 +1,7 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_SAO
@@ -22,10 +23,11 @@ namespace AMSEMS.SubForms_SAO
             formAddAnnouncement.ShowDialog();
         }
 
-        public void displayAnnouncements(string searchKeyword, DateTime filterDate)
+        public async void displayAnnouncements(string searchKeyword, DateTime filterDate)
         {
             panelAnnouncements.Controls.Clear();
-
+            ptbLoading.Visible = true;
+            await Task.Delay(1000);
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
@@ -62,6 +64,7 @@ namespace AMSEMS.SubForms_SAO
                     }
                 }
             }
+            ptbLoading.Visible = false;
         }
 
         private void formAnnouncement_Load(object sender, EventArgs e)

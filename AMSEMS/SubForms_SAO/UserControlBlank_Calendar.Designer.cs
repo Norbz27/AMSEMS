@@ -35,8 +35,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MinimumSize = new System.Drawing.Size(103, 95);
             this.Name = "UserControlBlank_Calendar";
-            this.Size = new System.Drawing.Size(106, 87);
+            this.Size = new System.Drawing.Size(103, 123);
             this.ResumeLayout(false);
 
         }

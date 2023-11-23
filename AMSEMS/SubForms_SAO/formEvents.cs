@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_SAO
@@ -75,13 +76,14 @@ namespace AMSEMS.SubForms_SAO
             year = now.Year;
             day = now.Day;
             calendar();
-
+            DisplayEventsDetails();
         }
         public void RefreshCalendar()
         {
             // Clear and refresh the calendar view
             daysContainer.Controls.Clear();
             calendar();
+            DisplayEventsDetails();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -114,9 +116,11 @@ namespace AMSEMS.SubForms_SAO
             calendar();
         }
 
-        private void btnToday_Click(object sender, EventArgs e)
+        private async void btnToday_Click(object sender, EventArgs e)
         {
             daysContainer.Controls.Clear();
+            ptbLoading2.Visible = true;
+            await Task.Delay(2000);
             DateTime now = DateTime.Now;
 
             month = now.Month;
@@ -149,11 +153,11 @@ namespace AMSEMS.SubForms_SAO
 
                 daysContainer.Controls.Add(ucDays);
             }
+            ptbLoading2.Visible = false;
         }
 
-        public void calendar()
+        public async void calendar()
         {
-
             if (daysContainer.InvokeRequired)
             {
                 daysContainer.Invoke((MethodInvoker)delegate
@@ -166,7 +170,8 @@ namespace AMSEMS.SubForms_SAO
             {
                 // Your UI update code
                 daysContainer.Controls.Clear();
-                DisplayEventsDetails();
+                ptbLoading2.Visible = true;
+                await Task.Delay(1000);
                 lblMonthYear.Text = DateTimeFormatInfo.CurrentInfo.GetMonthName(month) + " " + year;
 
                 DateTime startofthemonth = new DateTime(year, month, 1);
@@ -187,6 +192,7 @@ namespace AMSEMS.SubForms_SAO
 
                     daysContainer.Controls.Add(ucDays);
                 }
+                ptbLoading2.Visible = false;
             }
 
         }
@@ -207,7 +213,7 @@ namespace AMSEMS.SubForms_SAO
             }
         }
 
-        public void DisplayEventsDetails()
+        public async void DisplayEventsDetails()
         {
             if (flowLayoutPanel1.InvokeRequired)
             {
@@ -220,7 +226,8 @@ namespace AMSEMS.SubForms_SAO
             else
             {
                 flowLayoutPanel1.Controls.Clear(); // Clear existing event details
-
+                ptbLoading.Visible = true;
+                await Task.Delay(2000);
                 using (cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
@@ -245,6 +252,7 @@ namespace AMSEMS.SubForms_SAO
                         }
                     }
                 }
+                ptbLoading.Visible = false;
             }
         }
 

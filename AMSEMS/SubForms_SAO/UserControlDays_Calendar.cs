@@ -53,7 +53,6 @@ namespace AMSEMS.SubForms_SAO
 
         }
 
-
         public void DisplayEventsForDate(DateTime date)
         {
             if (this.InvokeRequired)
@@ -96,13 +95,13 @@ namespace AMSEMS.SubForms_SAO
                             lblEvent.Dock = DockStyle.Top;
                             lblEvent.Name = $"lblEvent_{labelCount}";
                             lblEvent.Text = dr["Event_Name"].ToString();
-                            lblEvent.Font = new System.Drawing.Font("Poppins", 8F);
-                            lblEvent.ForeColor = System.Drawing.Color.White;
+                            lblEvent.Font = new Font("Poppins", 8F);
+                            lblEvent.ForeColor = Color.White;
                             lblEvent.TextAlign = ContentAlignment.MiddleCenter;
 
                             // Position the labels dynamically.
                             int topOffset = 28 + labelCount * 19;
-                            lblEvent.Location = new System.Drawing.Point(0, topOffset);
+                            lblEvent.Location = new Point(0, topOffset);
 
                             labelCount++;
                         }
@@ -117,18 +116,6 @@ namespace AMSEMS.SubForms_SAO
                     MessageBox.Show(ex.Message);
                 }
             }
-        }
-
-
-        private Label[] AddLabelToArray(Label[] labelArray, Label newLabel)
-        {
-            Label[] newArray = new Label[labelArray.Length + 1];
-            for (int i = 0; i < labelArray.Length; i++)
-            {
-                newArray[i] = labelArray[i];
-            }
-            newArray[labelArray.Length] = newLabel;
-            return newArray;
         }
 
         private void addEventToolStripMenuItem_Click(object sender, EventArgs e)

@@ -69,7 +69,7 @@
             this.lblmonth.Font = new System.Drawing.Font("Poppins", 8.25F);
             this.lblmonth.ForeColor = System.Drawing.Color.Black;
             this.lblmonth.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblmonth.Location = new System.Drawing.Point(42, 77);
+            this.lblmonth.Location = new System.Drawing.Point(28, 100);
             this.lblmonth.Name = "lblmonth";
             this.lblmonth.Size = new System.Drawing.Size(29, 10);
             this.lblmonth.StateCommon.Font = new System.Drawing.Font("Poppins", 8.25F);
@@ -84,7 +84,7 @@
             this.lblyear.Font = new System.Drawing.Font("Poppins", 8.25F);
             this.lblyear.ForeColor = System.Drawing.Color.Black;
             this.lblyear.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblyear.Location = new System.Drawing.Point(77, 77);
+            this.lblyear.Location = new System.Drawing.Point(63, 100);
             this.lblyear.Name = "lblyear";
             this.lblyear.Size = new System.Drawing.Size(29, 10);
             this.lblyear.StateCommon.Font = new System.Drawing.Font("Poppins", 8.25F);
@@ -102,7 +102,7 @@
             this.lblDays.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.lblDays.Location = new System.Drawing.Point(0, 0);
             this.lblDays.Name = "lblDays";
-            this.lblDays.Size = new System.Drawing.Size(106, 28);
+            this.lblDays.Size = new System.Drawing.Size(103, 28);
             this.lblDays.StateCommon.Font = new System.Drawing.Font("Poppins", 8.25F);
             this.lblDays.StateCommon.TextColor = System.Drawing.Color.Black;
             this.lblDays.Text = "00";
@@ -113,7 +113,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 28);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(106, 74);
+            this.panel1.Size = new System.Drawing.Size(103, 95);
             this.panel1.TabIndex = 4;
             // 
             // UserControlDays_Calendar
@@ -128,8 +128,9 @@
             this.Controls.Add(this.lblDays);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MinimumSize = new System.Drawing.Size(103, 95);
             this.Name = "UserControlDays_Calendar";
-            this.Size = new System.Drawing.Size(106, 102);
+            this.Size = new System.Drawing.Size(103, 123);
             this.Load += new System.EventHandler(this.UserControlDays_Calendar_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);

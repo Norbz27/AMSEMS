@@ -42,6 +42,7 @@
             this.tbSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.Dt = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.ptbLoading = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panelAnnouncements.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sample)).BeginInit();
@@ -49,6 +50,7 @@
             this.sample.Panel.SuspendLayout();
             this.sample.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -392,12 +394,26 @@
             this.pictureBox1.TabIndex = 61;
             this.pictureBox1.TabStop = false;
             // 
+            // ptbLoading
+            // 
+            this.ptbLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.Location = new System.Drawing.Point(28, 102);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(744, 332);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 141;
+            this.ptbLoading.TabStop = false;
+            // 
             // formAnnouncement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ptbLoading);
             this.Controls.Add(this.Dt);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tbSearch);
@@ -417,6 +433,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.sample)).EndInit();
             this.sample.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -437,5 +454,6 @@
         private System.Windows.Forms.RichTextBox richTextBox1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnEdit;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnDelete;
+        private System.Windows.Forms.PictureBox ptbLoading;
     }
 }
