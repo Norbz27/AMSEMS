@@ -743,6 +743,49 @@
     <Compile Include="SubForms_SAO\UserControlDays_Calendar.Designer.cs">
       <DependentUpon>UserControlDays_Calendar.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formAcademicYearSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formAcademicYearSetting.Designer.cs">
+      <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formAccountSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formAccountSetting.Designer.cs">
+      <DependentUpon>formAccountSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formChangeID.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formChangeID.Designer.cs">
+      <DependentUpon>formChangeID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formChangeImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formChangeImage.Designer.cs">
+      <DependentUpon>formChangeImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formChangeName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formChangeName.Designer.cs">
+      <DependentUpon>formChangeName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formChangePass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formChangePass.Designer.cs">
+      <DependentUpon>formChangePass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formNotificationSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formNotificationSetting.Designer.cs">
+      <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Teacher\UserID.cs" />
     <Compile Include="SubForm_Guidance\formAbsReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -761,6 +804,49 @@
     <Compile Include="SubForm_Guidance\formSettings.Designer.cs">
       <DependentUpon>formSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formAcademicYearSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formAcademicYearSetting.Designer.cs">
+      <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formAccountSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formAccountSetting.Designer.cs">
+      <DependentUpon>formAccountSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formChangeID.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formChangeID.Designer.cs">
+      <DependentUpon>formChangeID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formChangeImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formChangeImage.Designer.cs">
+      <DependentUpon>formChangeImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formChangeName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formChangeName.Designer.cs">
+      <DependentUpon>formChangeName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formChangePass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formChangePass.Designer.cs">
+      <DependentUpon>formChangePass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formNotificationSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formNotificationSetting.Designer.cs">
+      <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm_Guidance\UserID.cs" />
     <Compile Include="test.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1006,6 +1092,27 @@
     <EmbeddedResource Include="SubForms_SAO\UserControlDays_Calendar.resx">
       <DependentUpon>UserControlDays_Calendar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formAcademicYearSetting.resx">
+      <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formAccountSetting.resx">
+      <DependentUpon>formAccountSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formChangeID.resx">
+      <DependentUpon>formChangeID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formChangeImage.resx">
+      <DependentUpon>formChangeImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formChangeName.resx">
+      <DependentUpon>formChangeName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formChangePass.resx">
+      <DependentUpon>formChangePass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formNotificationSetting.resx">
+      <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm_Guidance\formAbsReport.resx">
       <DependentUpon>formAbsReport.cs</DependentUpon>
     </EmbeddedResource>
@@ -1069,6 +1176,27 @@
     <Content Include="Fonts\Poppins-ThinItalic.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formAcademicYearSetting.resx">
+      <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formAccountSetting.resx">
+      <DependentUpon>formAccountSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formChangeID.resx">
+      <DependentUpon>formChangeID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formChangeImage.resx">
+      <DependentUpon>formChangeImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formChangeName.resx">
+      <DependentUpon>formChangeName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formChangePass.resx">
+      <DependentUpon>formChangePass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formNotificationSetting.resx">
+      <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="test.resx">
       <DependentUpon>test.cs</DependentUpon>
     </EmbeddedResource>

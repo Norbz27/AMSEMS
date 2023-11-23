@@ -45,8 +45,6 @@ namespace AMSEMS
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            // This method runs in a background thread
-            // Perform time-consuming operations here
             loadData();
 
             // Simulate a time-consuming operation

@@ -191,7 +191,8 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnAll_Click(object sender, EventArgs e)
         {
-            cbAcadLevel.Text = "";
+            cbAcadLevel.Text = String.Empty;
+            tbSearch.Text = String.Empty;
             displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
         }
 
@@ -496,10 +497,6 @@ namespace AMSEMS.SubForms_Admin
         private void btnReload_Click(object sender, EventArgs e)
         {
             displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
-
-            tbSearch.Text = String.Empty;
-            cbAcadLevel.Text = "";
-            btnAll.Focus();
         }
 
         private void btnExportPDF_Click(object sender, EventArgs e)

@@ -119,11 +119,11 @@ namespace AMSEMS
 
         private async Task LoginAsync()
         {
-            //if (!CheckForInternetConnection())
-            //{
-            //    MessageBox.Show("No Internet Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            if (!CheckForInternetConnection())
+            {
+                MessageBox.Show("No Internet Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -169,13 +169,13 @@ namespace AMSEMS
                                     mainForm = new FormDeptHeadNavigation(uniqueID);
                                     break;
                                 case 3:
-                                    mainForm = new FormGuidanceNavigation();
+                                    mainForm = new FormGuidanceNavigation(uniqueID);
                                     break;
                                 case 4:
                                     mainForm = new FormSAONavigation(uniqueID);
                                     break;
                                 case 6:
-                                    mainForm = new FormTeacherNavigation();
+                                    mainForm = new FormTeacherNavigation(uniqueID);
                                     break;
                                 default:
                                     MessageBox.Show("Invalid Role!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
