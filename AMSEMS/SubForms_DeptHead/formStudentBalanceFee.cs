@@ -25,12 +25,14 @@ namespace AMSEMS.SubForms_DeptHead
         SqlDataReader dr;
         private CancellationTokenSource cancellationTokenSource;
         formMakePayment formMakePayment;
+        formTransactionHistory formTransactionHistory;
         public formStudentBalanceFee()
         {
             InitializeComponent();
             cancellationTokenSource = new CancellationTokenSource();
             lblDep.Text = FormDeptHeadNavigation.depdes.ToUpper();
             formMakePayment = new formMakePayment();
+            formTransactionHistory = new formTransactionHistory();
         }
         public void displayFilter()
         {
@@ -256,7 +258,7 @@ namespace AMSEMS.SubForms_DeptHead
             iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
 
             // Add title "List of Students:"
-            Paragraph titleParagraph = new Paragraph("Attendance Report", headerFont1);
+            Paragraph titleParagraph = new Paragraph("Students Balance Fee Report", headerFont1);
             Paragraph titleParagraph2 = new Paragraph(cbSection.Text, headerFont2);
             titleParagraph.Alignment = Element.ALIGN_CENTER;
             titleParagraph2.Alignment = Element.ALIGN_CENTER;
@@ -376,7 +378,6 @@ namespace AMSEMS.SubForms_DeptHead
                     if (dataGridView != null)
                     {
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
-                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
                         formMakePayment.searchStudent(dgvBalFees.Rows[rowIndex].Cells[0].Value.ToString());
                         formMakePayment.ShowDialog();
                     }
@@ -386,11 +387,31 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void btnTransacHistory_Click(object sender, EventArgs e)
         {
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
 
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        formTransactionHistory.displayStudInfo(dgvBalFees.Rows[rowIndex].Cells[0].Value.ToString());
+                        formTransactionHistory.ShowDialog();
+                    }
+                }
+            }
         }
 
         private void btnPay_Click(object sender, EventArgs e)
         {
+            formMakePayment.getForm(this);
             formMakePayment.ShowDialog();
         }
     }

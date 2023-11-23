@@ -158,6 +158,8 @@ namespace AMSEMS.SubForms_DeptHead
                         ExecuteStoredProcedure();
                         searchStudent(stud_id);
                         MessageBox.Show("Payment Done.", "Payment", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        formStudentBalanceFee.displayBalanceFees();
+                        formStudentBalanceFee.displayOverallSummary();
                     }
                     else
                     {
