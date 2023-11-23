@@ -260,6 +260,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FontInstaller.cs" />
     <Compile Include="RJToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -1200,7 +1201,9 @@
     <EmbeddedResource Include="test.resx">
       <DependentUpon>test.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Fonts\TheChieldrenPersonalUseOnly-YzdJL.ttf" />
+    <Content Include="Fonts\TheChieldrenPersonalUseOnly-YzdJL.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

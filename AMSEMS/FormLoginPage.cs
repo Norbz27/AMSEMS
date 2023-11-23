@@ -19,9 +19,32 @@ namespace AMSEMS
         private bool isLoggingIn = false;
         public FormLoginPage()
         {
+            //fontInstaller();
             InitializeComponent();
         }
-
+        //public async void fontInstaller()
+        //{
+        //    await Task.Run(() => { 
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-Black.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-BlackItalic.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-Bold.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-BoldItalic.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-ExtraBold.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-ExtraBoldItalic.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-ExtraLightItalic.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-Italic.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-Light.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-LightItalic.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-Medium.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-MediumItalic.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-Regular.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-SemiBold.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-SemiBoldItalic.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-Thin.ttf");
+        //        //FontInstaller.InstallFont("Fonts\\Poppins-ThinItalic.ttf");
+        //        FontInstaller.InstallFont("Fonts\\TheChieldrenPersonalUseOnly-YzdJL.ttf");
+        //    });
+        //}
         private void tbID_Enter(object sender, EventArgs e)
         {
             if (tbID.Text == "School ID")
