@@ -78,6 +78,7 @@ namespace AMSEMS.SubForms_SAO
         {
             // Clear and refresh the calendar view
             daysContainer.Controls.Clear();
+            flowLayoutPanel1.Controls.Clear();
             calendar();
             DisplayEventsDetails();
         }

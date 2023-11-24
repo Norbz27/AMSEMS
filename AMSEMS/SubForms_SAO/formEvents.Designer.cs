@@ -33,6 +33,7 @@
             this.lblAccountName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.daysContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel11 = new System.Windows.Forms.Panel();
             this.kryptonLabel9 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -58,7 +59,6 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.Panel();
             this.ptbLoading2 = new System.Windows.Forms.PictureBox();
             this.ptbLoading = new System.Windows.Forms.PictureBox();
-            this.daysContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -186,6 +186,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(784, 631);
             this.panel2.TabIndex = 11;
+            // 
+            // daysContainer
+            // 
+            this.daysContainer.AutoScroll = true;
+            this.daysContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.daysContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.daysContainer.Location = new System.Drawing.Point(0, 69);
+            this.daysContainer.Name = "daysContainer";
+            this.daysContainer.Size = new System.Drawing.Size(784, 562);
+            this.daysContainer.TabIndex = 25;
             // 
             // flowLayoutPanel2
             // 
@@ -507,16 +517,6 @@
             this.ptbLoading.TabIndex = 1;
             this.ptbLoading.TabStop = false;
             // 
-            // daysContainer
-            // 
-            this.daysContainer.AutoScroll = true;
-            this.daysContainer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.daysContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.daysContainer.Location = new System.Drawing.Point(0, 69);
-            this.daysContainer.Name = "daysContainer";
-            this.daysContainer.Size = new System.Drawing.Size(784, 562);
-            this.daysContainer.TabIndex = 25;
-            // 
             // formEvents
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -582,7 +582,7 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCreateEvent;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private System.Windows.Forms.PictureBox ptbLoading2;
-        private System.Windows.Forms.PictureBox ptbLoading;
         private System.Windows.Forms.FlowLayoutPanel daysContainer;
+        private System.Windows.Forms.PictureBox ptbLoading;
     }
 }
