@@ -27,6 +27,7 @@ namespace AMSEMS.SubForms_DeptHead
         private CancellationTokenSource cancellationTokenSource;
 
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
+        private bool isDisplayTableInProgress = false;
 
         public formAttendanceRecord()
         {
@@ -42,7 +43,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         private async void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            await displayTable();
+           
 
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
         }
@@ -502,8 +503,6 @@ namespace AMSEMS.SubForms_DeptHead
                                 Dt.MinDate = startDate;
                                 Dt.MaxDate = endDate;
                             }
-
-                            date = Dt.Value.ToString("yyyy-MM-dd");
                         }
 
                         dr.Close();
@@ -526,10 +525,16 @@ namespace AMSEMS.SubForms_DeptHead
         private async Task DisplayTableWithCheck()
         {
             // Use SemaphoreSlim to ensure that only one displayTable operation is in progress at a time
-            await semaphoreSlim.WaitAsync();
+            if (isDisplayTableInProgress)
+            {
+                return;
+            }
+
+            // Set the flag to indicate that displayTable is now in progress
+            isDisplayTableInProgress = true;
+
             try
             {
-                // Call the method
                 await displayTable();
             }
             catch (Exception ex)
@@ -538,8 +543,8 @@ namespace AMSEMS.SubForms_DeptHead
             }
             finally
             {
-                // Release the semaphore when the method is done
-                semaphoreSlim.Release();
+                // Reset the flag when displayTable is done
+                isDisplayTableInProgress = false;
             }
         }
         private void tbSearch_TextChanged(object sender, EventArgs e)
@@ -558,7 +563,7 @@ namespace AMSEMS.SubForms_DeptHead
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
             displayFilter();
-            await displayTable();
+            await DisplayTableWithCheck();
         }
 
         private void btnExport_Click(object sender, EventArgs e)
