@@ -12,7 +12,7 @@
         //public static string connection = @"Server=192.168.1.15;Database=db_Amsems;User Id=nor;Password=12345;";
 
         //ngrok
-        static string server = "0.tcp.ap.ngrok.io,16557"; // Ngrok tunnel URL
+        static string server = "0.tcp.ap.ngrok.io,14377"; // Ngrok tunnel URL
         static string database = "db_Amsems"; // Database name
         static string username = "nor"; // Database username
         static string password = "12345"; // Database password
