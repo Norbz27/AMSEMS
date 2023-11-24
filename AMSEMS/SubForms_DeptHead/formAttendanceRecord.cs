@@ -39,14 +39,6 @@ namespace AMSEMS.SubForms_DeptHead
             cn = new SqlConnection(SQL_Connection.connection);
             formConfigFee = new formConfigFee();
         }
-        private void CenterPictureBoxInDataGridView()
-        {
-            int x = (dgvRecord.Width - pictureBox1.Width) / 2;
-            int y = (dgvRecord.Height - pictureBox1.Height) / 2;
-
-            // Set the location of the PictureBox
-            pictureBox1.Location = new Point(x, y);
-        }
 
         private async void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -461,7 +453,6 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void formAttendanceRecord_Load(object sender, EventArgs e)
         {
-            CenterPictureBoxInDataGridView();
             displayFilter();
         }
 
@@ -689,7 +680,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void formAttendanceRecord_Resize(object sender, EventArgs e)
         {
-            CenterPictureBoxInDataGridView();
+
         }
         private void ExecuteStoredProcedure()
         {
