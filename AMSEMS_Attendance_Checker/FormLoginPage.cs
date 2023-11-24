@@ -25,7 +25,7 @@ namespace AMSEMS_Attendance_Checker
             try
             {
                 sQLite_Connection = new SQLite_Connection();
-                //sQLite_Connection.InitializeDatabase();
+                sQLite_Connection.InitializeDatabase();
             }
             catch (Exception ex)
             {
