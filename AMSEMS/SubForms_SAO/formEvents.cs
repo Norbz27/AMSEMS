@@ -77,7 +77,6 @@ namespace AMSEMS.SubForms_SAO
         {
             // Clear and refresh the calendar view
             daysContainer.Controls.Clear();
-            flowLayoutPanel1.Controls.Clear();
             calendar();
             DisplayEventsDetails();
         }
@@ -215,7 +214,7 @@ namespace AMSEMS.SubForms_SAO
             {
                 flowLayoutPanel1.Invoke((MethodInvoker)delegate
                 {
-                    // Call the same method on the main thread
+                    // Call the same method on the main threadz
                     DisplayEventsDetails();
                 });
             }
