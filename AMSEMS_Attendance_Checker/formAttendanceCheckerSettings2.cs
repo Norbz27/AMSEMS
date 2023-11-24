@@ -365,7 +365,7 @@ namespace AMSEMS_Attendance_Checker
                                             {
                                                 insertCmd.Parameters.AddWithValue("@StudentID", studID);
                                                 insertCmd.Parameters.AddWithValue("@EventID", eventID);
-                                                insertCmd.Parameters.AddWithValue("@DateTime", datetime);
+                                                insertCmd.Parameters.AddWithValue("@DateTime", formattedDateTime);
                                                 insertCmd.Parameters.AddWithValue("@AmIn", string.IsNullOrEmpty(amIn) ? (object)DBNull.Value : DateTime.Parse(amIn));
                                                 insertCmd.Parameters.AddWithValue("@AmOut", string.IsNullOrEmpty(amOut) ? (object)DBNull.Value : DateTime.Parse(amOut));
                                                 insertCmd.Parameters.AddWithValue("@PmIn", string.IsNullOrEmpty(pmIn) ? (object)DBNull.Value : DateTime.Parse(pmIn));
