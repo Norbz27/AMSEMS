@@ -21,7 +21,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         formConfigFee formConfigFee;
 
-        string event_id, date, sec;
+        string event_id, Attendancedate, sec;
         private readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
         private CancellationTokenSource cancellationTokenSource;
@@ -51,8 +51,7 @@ namespace AMSEMS.SubForms_DeptHead
         private async void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             await displayTable();
-
-            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+            Thread.Sleep(2000);
         }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -217,7 +216,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 LEFT JOIN
                                     tbl_student_accounts s ON CHARINDEX(s.FirstName + ' ' + s.LastName, e.Specific_Students) > 0 OR CHARINDEX(s.LastName + ' ' + s.FirstName, e.Specific_Students) > 0
                                 LEFT JOIN
-                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND TRY_CONVERT(DATE, att.Date_Time) = @Date
+                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND FORMAT(att.Date_Time, 'yyyy-MM-dd') = @Date
                                 LEFT JOIN
                                     tbl_departments d ON s.Department = d.Department_ID
                                 LEFT JOIN
@@ -262,7 +261,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 LEFT JOIN
                                     tbl_departments dep ON s.Department = dep.Department_ID
                                 LEFT JOIN
-                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND TRY_CONVERT(DATE, att.Date_Time) = @Date
+                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND FORMAT(att.Date_Time, 'yyyy-MM-dd') = @Date
                                 LEFT JOIN
                                     tbl_Section sec ON s.Section = sec.Section_ID
                                 LEFT JOIN
@@ -297,7 +296,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
                                     ISNULL(UPPER(teach.Lastname), '-------') AS teachlname
                                     FROM tbl_student_accounts AS stud
-                                    LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND TRY_CONVERT(DATE, att.Date_Time) = @Date
+                                    LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND FORMAT(att.Date_Time, 'yyyy-MM-dd') = @Date
                                     LEFT JOIN tbl_Section AS sec ON stud.Section = sec.Section_ID
                                     LEFT JOIN tbl_teacher_accounts AS teach ON att.Checker = teach.ID 
                                     WHERE stud.Department = @Dep AND sec.Description = @sec AND stud.Status = 1 ORDER BY stud.Lastname";
@@ -308,7 +307,7 @@ namespace AMSEMS.SubForms_DeptHead
                             string modifiedStringAM = lblAmPenaltyFee.Text.Replace("₱ ", "");
                             string modifiedStringPM = lblPmPenaltyFee.Text.Replace("₱ ", "");
                             cmd.Parameters.AddWithValue("@EventID", event_id);
-                            cmd.Parameters.AddWithValue("@Date", date);
+                            cmd.Parameters.AddWithValue("@Date", Attendancedate);
                             cmd.Parameters.AddWithValue("@AM_Pen", modifiedStringAM);
                             cmd.Parameters.AddWithValue("@PM_Pen", modifiedStringPM);
                             cmd.Parameters.AddWithValue("@Dep", FormDeptHeadNavigation.dep);
@@ -467,7 +466,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         private async void Dt_ValueChanged(object sender, EventArgs e)
         {
-            date = Dt.Value.ToString();
+            Attendancedate = Dt.Value.ToString();
             dgvRecord.Rows.Clear();
             await DisplayTableWithCheck();
         }
@@ -512,7 +511,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 Dt.MaxDate = endDate;
                             }
 
-                            date = Dt.Value.ToString();
+                            Attendancedate = Dt.Value.ToString();
                         }
 
                         dr.Close();

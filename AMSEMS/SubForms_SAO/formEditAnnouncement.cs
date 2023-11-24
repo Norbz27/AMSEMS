@@ -44,7 +44,7 @@ namespace AMSEMS.SubForms_SAO
                     {
                         DateTime dateTime = DateTime.Now;
                         cn.Open();
-                        cm = new SqlCommand("UPDATE tbl_Announcement SET Announcement_Description = @Des WHERE Announcement_ID = @ID", cn);
+                        cm = new SqlCommand("UPDATE tbl_Announcement SET Announcement_Title = @Title, Announcement_Description = @Des WHERE Announcement_ID = @ID", cn);
                         cm.Parameters.AddWithValue("@ID", id);
                         cm.Parameters.AddWithValue("@Title", tbAnnounceTitle.Text);
                         cm.Parameters.AddWithValue("@Des", tbDescription.Text);

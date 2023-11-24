@@ -153,11 +153,11 @@ namespace AMSEMS.SubForms_SAO
             try
             {
                 DateTime date = new DateTime(year, month, day);
-                return true; // The date is valid.
+                return true; // The Attendancedate is valid.
             }
             catch (ArgumentOutOfRangeException)
             {
-                return false; // The date is not valid.
+                return false; // The Attendancedate is not valid.
             }
         }
         private void formAddEvent_Load(object sender, EventArgs e)
