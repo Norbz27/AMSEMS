@@ -65,7 +65,6 @@ namespace AMSEMS.SubForms_SAO
         }
         private void display()
         {
-
             DateTime now = DateTime.Now;
 
             month = now.Month;
