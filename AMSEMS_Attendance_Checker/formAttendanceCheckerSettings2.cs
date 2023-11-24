@@ -338,16 +338,15 @@ namespace AMSEMS_Attendance_Checker
                                 {
                                     string studID = row["Student_ID"].ToString();
                                     string eventID = row["Event_ID"].ToString();
-                                    DateTime dateTimeValue = (DateTime)row["Date_Time"];
-                                    string formattedDateTime = dateTimeValue.ToString("yyyy-MM-dd'");
 
+                                    string formattedDateTime = row["Date_Time"] != DBNull.Value ? row["Date_Time"].ToString() : null;
                                     string amIn = row["AM_IN"] != DBNull.Value ? row["AM_IN"].ToString() : null;
                                     string amOut = row["AM_OUT"] != DBNull.Value ? row["AM_OUT"].ToString() : null;
                                     string pmIn = row["PM_IN"] != DBNull.Value ? row["PM_IN"].ToString() : null;
                                     string pmOut = row["PM_OUT"] != DBNull.Value ? row["PM_OUT"].ToString() : null;
                                     string checker = row["Checker"].ToString();
 
-                                    using (SqlCommand checkCmd = new SqlCommand(@"SELECT COUNT(*) FROM tbl_attendance WHERE Student_ID = @StudentID AND Event_ID = @EventID AND CONVERT(date, Date_Time) = CONVERT(date, @DateTime)", cnn))
+                                    using (SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM tbl_attendance WHERE Student_ID = @StudentID AND Event_ID = @EventID AND CONVERT(DATE, Date_Time) = CONVERT(DATE, @DateTime)", cnn))
                                     {
                                         checkCmd.Parameters.AddWithValue("@StudentID", studID);
                                         checkCmd.Parameters.AddWithValue("@EventID", eventID);
@@ -358,14 +357,13 @@ namespace AMSEMS_Attendance_Checker
                                         if (recordCount == 0)
                                         {
                                             // If the record doesn't exist, insert it
-                                            string insertQuery = "INSERT INTO tbl_attendance (Student_ID, Event_ID, Date_Time, AM_IN, AM_OUT, PM_IN, PM_OUT, Checker) " +
-                                                                "VALUES (@StudentID, @EventID, @DateTime, @AmIn, @AmOut, @PmIn, @PmOut, @Checker)";
+                                            string insertQuery = "INSERT INTO tbl_attendance (Student_ID, Event_ID, Date_Time, AM_IN, AM_OUT, PM_IN, PM_OUT, Checker) VALUES (@StudentID, @EventID, @DateTime, @AmIn, @AmOut, @PmIn, @PmOut, @Checker)";
 
                                             using (SqlCommand insertCmd = new SqlCommand(insertQuery, cnn))
                                             {
                                                 insertCmd.Parameters.AddWithValue("@StudentID", studID);
                                                 insertCmd.Parameters.AddWithValue("@EventID", eventID);
-                                                insertCmd.Parameters.AddWithValue("@DateTime", formattedDateTime);
+                                                insertCmd.Parameters.AddWithValue("@DateTime", string.IsNullOrEmpty(formattedDateTime) ? (object)DBNull.Value : DateTime.Parse(amIn));
                                                 insertCmd.Parameters.AddWithValue("@AmIn", string.IsNullOrEmpty(amIn) ? (object)DBNull.Value : DateTime.Parse(amIn));
                                                 insertCmd.Parameters.AddWithValue("@AmOut", string.IsNullOrEmpty(amOut) ? (object)DBNull.Value : DateTime.Parse(amOut));
                                                 insertCmd.Parameters.AddWithValue("@PmIn", string.IsNullOrEmpty(pmIn) ? (object)DBNull.Value : DateTime.Parse(pmIn));
@@ -375,33 +373,35 @@ namespace AMSEMS_Attendance_Checker
                                                 insertCmd.ExecuteNonQuery();
                                             }
                                         }
-                                        //else
-                                        //{
-                                        //    // If the record exists, update it
-                                        //    string updateQuery = "UPDATE tbl_attendance SET " +
-                                        //        "AM_IN = ISNULL(AM_IN, @AmIn), " +
-                                        //        "AM_OUT = ISNULL(AM_OUT, @AmOut), " +
-                                        //        "PM_IN = ISNULL(PM_IN, @PmIn), " +
-                                        //        "PM_OUT = ISNULL(PM_OUT, @PmOut) " +
-                                        //        "WHERE Student_ID = @StudentID AND Event_ID = @EventID AND Date_Time = @DateTime";
+                                        else
+                                        {
+                                            // If the record exists, update it
+                                            string updateQuery = "UPDATE tbl_attendance SET " +
+                                                "AM_IN = ISNULL(AM_IN, @AmIn), " +
+                                                "AM_OUT = ISNULL(AM_OUT, @AmOut), " +
+                                                "PM_IN = ISNULL(PM_IN, @PmIn), " +
+                                                "PM_OUT = ISNULL(PM_OUT, @PmOut) " +
+                                                "WHERE Student_ID = @StudentID AND Event_ID = @EventID AND Date_Time = @DateTime";
 
-                                        //    using (SqlCommand updateCmd = new SqlCommand(updateQuery, cnn))
-                                        //    {
-                                        //        updateCmd.Parameters.AddWithValue("@StudentID", studID);
-                                        //        updateCmd.Parameters.AddWithValue("@EventID", eventID);
-                                        //        updateCmd.Parameters.AddWithValue("@DateTime", datetime);
-                                        //        updateCmd.Parameters.AddWithValue("@AmIn", string.IsNullOrEmpty(amIn) ? (object)DBNull.Value : DateTime.Parse(amIn));
-                                        //        updateCmd.Parameters.AddWithValue("@AmOut", string.IsNullOrEmpty(amOut) ? (object)DBNull.Value : DateTime.Parse(amOut));
-                                        //        updateCmd.Parameters.AddWithValue("@PmIn", string.IsNullOrEmpty(pmIn) ? (object)DBNull.Value : DateTime.Parse(pmIn));
-                                        //        updateCmd.Parameters.AddWithValue("@PmOut", string.IsNullOrEmpty(pmOut) ? (object)DBNull.Value : DateTime.Parse(pmOut));
+                                            using (SqlCommand updateCmd = new SqlCommand(updateQuery, cnn))
+                                            {
+                                                updateCmd.Parameters.AddWithValue("@StudentID", studID);
+                                                updateCmd.Parameters.AddWithValue("@EventID", eventID);
+                                                updateCmd.Parameters.AddWithValue("@DateTime", formattedDateTime);
+                                                updateCmd.Parameters.AddWithValue("@AmIn", string.IsNullOrEmpty(amIn) ? (object)DBNull.Value : DateTime.Parse(amIn));
+                                                updateCmd.Parameters.AddWithValue("@AmOut", string.IsNullOrEmpty(amOut) ? (object)DBNull.Value : DateTime.Parse(amOut));
+                                                updateCmd.Parameters.AddWithValue("@PmIn", string.IsNullOrEmpty(pmIn) ? (object)DBNull.Value : DateTime.Parse(pmIn));
+                                                updateCmd.Parameters.AddWithValue("@PmOut", string.IsNullOrEmpty(pmOut) ? (object)DBNull.Value : DateTime.Parse(pmOut));
 
-                                        //        updateCmd.ExecuteNonQuery();
-                                        //    }
-                                        //}
+                                                updateCmd.ExecuteNonQuery();
+                                            }
+                                        }
                                     }
+
                                 }
 
-                                
+
+
                                 MessageBox.Show("Successfully Upload Data.", "Sync Configuration", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }

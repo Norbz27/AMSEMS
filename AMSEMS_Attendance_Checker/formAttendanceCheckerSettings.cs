@@ -138,6 +138,9 @@ namespace AMSEMS_Attendance_Checker
                     {
                         formAttendanceChecker.getAttendanceSettings(cbAttendanceStat.Text, tbEventCode.Text);
                         formAttendanceChecker.setEvent(event_name);
+                        formAttendanceChecker.displayAttendanceRecord();
+                        formAttendanceChecker.getTeachID(teach_id);
+                        formAttendanceChecker.Show();
                         this.Close();
                     }
                     else
