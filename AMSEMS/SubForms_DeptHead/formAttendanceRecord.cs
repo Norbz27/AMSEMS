@@ -22,7 +22,6 @@ namespace AMSEMS.SubForms_DeptHead
         formConfigFee formConfigFee;
 
         string event_id, date, sec;
-        private readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
         private CancellationTokenSource cancellationTokenSource;
 
@@ -43,8 +42,6 @@ namespace AMSEMS.SubForms_DeptHead
 
         private async void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-           
-
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
         }
 
@@ -98,6 +95,7 @@ namespace AMSEMS.SubForms_DeptHead
                         cbEvents.SelectedIndex = 0;
                     }
 
+                    cbSection.Items.Add("All");
                     cm = new SqlCommand("Select Description from tbl_section", cn);
                     dr = cm.ExecuteReader();
                     while (dr.Read())
@@ -117,7 +115,13 @@ namespace AMSEMS.SubForms_DeptHead
                 MessageBox.Show(ex.Message);
             }
         }
-
+        public void setSectionAll()
+        {
+            if (cbSection.Items.Count > 0)
+            {
+                cbSection.SelectedIndex = 0;
+            }
+        }
         public void displayFees()
         {
             using (cn = new SqlConnection(SQL_Connection.connection))
@@ -222,7 +226,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     AND e.Exclusive = 'Specific Students'
                                     AND s.ID IS NOT NULL
                                     AND s.Department = @Dep
-                                    AND sec.Description = @sec
+                                    AND (@sec = 'All' OR sec.Description = @sec)
                                     AND s.Status = 1
                                 ORDER BY
                                     s.Lastname, att.Date_Time;";
@@ -265,7 +269,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     AND e.Exclusive = 'Selected Departments'
                                     AND CHARINDEX(CONVERT(VARCHAR, dep.Description), e.Selected_Departments) > 0
 	                                AND s.Department = @Dep
-                                    AND sec.Description = @sec
+                                    AND (@sec = 'All' OR sec.Description = @sec)
                                     AND s.Status = 1
                                 ORDER BY
                                     s.Lastname, att.Date_Time;";
@@ -293,7 +297,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND FORMAT(att.Date_Time, 'yyyy-MM-dd') = @Date
                                     LEFT JOIN tbl_Section AS sec ON stud.Section = sec.Section_ID
                                     LEFT JOIN tbl_teacher_accounts AS teach ON att.Checker = teach.ID 
-                                    WHERE stud.Department = @Dep AND sec.Description = @sec AND stud.Status = 1 ORDER BY stud.Lastname";
+                                    WHERE stud.Department = @Dep AND (@sec = 'All' OR sec.Description = @sec) AND stud.Status = 1 ORDER BY stud.Lastname";
                         }
 
                         using (SqlCommand cmd = new SqlCommand(query, cn))
