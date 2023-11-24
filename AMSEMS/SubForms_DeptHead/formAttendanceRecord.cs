@@ -176,7 +176,7 @@ namespace AMSEMS.SubForms_DeptHead
                 cbSection.Invoke(new Action(() => displayTable()));
                 return;
             }
-
+            displayFees();
             dgvRecord.Rows.Clear();
             ptbLoading.Visible = true;
             await Task.Delay(1000);
@@ -423,7 +423,6 @@ namespace AMSEMS.SubForms_DeptHead
             }
             finally
             {
-                displayFees();
                 saveStudentBalance();
                 ptbLoading.Visible = false;
             }
