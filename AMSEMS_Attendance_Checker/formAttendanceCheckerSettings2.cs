@@ -347,7 +347,7 @@ namespace AMSEMS_Attendance_Checker
                                     string pmOut = row["PM_OUT"] != DBNull.Value ? row["PM_OUT"].ToString() : null;
                                     string checker = row["Checker"].ToString();
 
-                                    using (SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM tbl_attendance WHERE Student_ID = @StudentID AND Event_ID = @EventID AND FORMAT(att.Date_Time, 'yyyy-MM-dd') = @DateTime", cnn))
+                                    using (SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM tbl_attendance WHERE Student_ID = @StudentID AND Event_ID = @EventID AND FORMAT(Date_Time, 'yyyy-MM-dd') = @DateTime", cnn))
                                     {
                                         checkCmd.Parameters.AddWithValue("@StudentID", studID);
                                         checkCmd.Parameters.AddWithValue("@EventID", eventID);
