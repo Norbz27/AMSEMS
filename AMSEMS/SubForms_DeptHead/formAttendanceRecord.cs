@@ -458,7 +458,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         private async void Dt_ValueChanged(object sender, EventArgs e)
         {
-            date = Dt.Value.ToString();
+            date = Dt.Value.ToString("yyyy-MM-dd");
             dgvRecord.Rows.Clear();
             await DisplayTableWithCheck();
         }
@@ -503,7 +503,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 Dt.MaxDate = endDate;
                             }
 
-                            date = Dt.Value.ToString();
+                            date = Dt.Value.ToString("yyyy-MM-dd");
                         }
 
                         dr.Close();
