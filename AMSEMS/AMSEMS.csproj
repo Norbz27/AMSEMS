@@ -880,6 +880,9 @@
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Subjects.resx">
       <DependentUpon>formArchived_Subjects.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\formSubjects.resx">
+      <DependentUpon>formSubjects.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\formTransactionHistory.resx">
       <DependentUpon>formTransactionHistory.cs</DependentUpon>
     </EmbeddedResource>
