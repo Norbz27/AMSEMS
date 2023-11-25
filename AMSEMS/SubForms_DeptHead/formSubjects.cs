@@ -57,7 +57,7 @@ namespace AMSEMS.SubForms_DeptHead
         {
             // This method runs in a background thread
             // Perform time-consuming operations here
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1 WHERE al.Academic_Level_Description");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1 AND al.Academic_Level_Description = @acadlevel");
 
             displayFilter();
             loadCMSControls();
@@ -181,6 +181,7 @@ namespace AMSEMS.SubForms_DeptHead
 
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
+                        cmd.Parameters.AddWithValue("@acadlevel", FormDeptHeadNavigation.acadlevel);
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
                             while (dr.Read())
@@ -337,7 +338,7 @@ namespace AMSEMS.SubForms_DeptHead
 
                 // Construct the query based on the selected descriptions
                 string query = "Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID " +
-                    "where (@Teacher IS NULL OR t.Lastname = @Teacher)";
+                    "where (@Teacher IS NULL OR t.Lastname = @Teacher) AND (@acadlevel IS NULL OR alAcademic_Level_Description = @acadlevel)";
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -346,6 +347,7 @@ namespace AMSEMS.SubForms_DeptHead
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
                         cmd.Parameters.AddWithValue("@Teacher", string.IsNullOrEmpty(descriptionET) ? DBNull.Value : (object)descriptionET);
+                        cmd.Parameters.AddWithValue("@acadlevel", string.IsNullOrEmpty(FormDeptHeadNavigation.acadlevel) ? DBNull.Value : (object)FormDeptHeadNavigation.acadlevel);
 
 
                         using (SqlDataReader dr = cmd.ExecuteReader())
@@ -416,7 +418,7 @@ namespace AMSEMS.SubForms_DeptHead
         {
             ClrearText();
             displayFilter();
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1 AND al.Academic_Level_Description = @acadlevel");
         }
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
@@ -556,7 +558,7 @@ namespace AMSEMS.SubForms_DeptHead
                             }
                         }
                     }
-                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1");
+                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1 AND al.Academic_Level_Description = @acadlevel");
                 }
             }
         }
