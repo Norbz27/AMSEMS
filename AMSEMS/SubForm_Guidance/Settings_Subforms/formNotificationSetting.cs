@@ -1,0 +1,24 @@
+﻿using ComponentFactory.Krypton.Toolkit;
+using System.Data.SqlClient;
+
+namespace AMSEMS.SubForm_Guidance
+{
+    public partial class formNotificationSetting : KryptonForm
+    {
+        SqlConnection cn;
+        SqlDataAdapter ad;
+        SqlCommand cm;
+        SqlDataReader dr;
+        string id;
+        private bool fileChosen = false;
+
+        public formNotificationSetting()
+        {
+            InitializeComponent();
+            cn = new SqlConnection(SQL_Connection.connection);
+            id = FormAdminNavigation.id;
+
+        }
+
+    }
+}

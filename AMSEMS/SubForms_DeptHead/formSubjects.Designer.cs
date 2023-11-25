@@ -38,8 +38,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             this.CMSTeachers = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -52,7 +52,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblAccountName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             this.dgvSubjects = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,15 +59,14 @@
             this.units = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.teach = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acad = new ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn();
-            this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.tbSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cbteach = new System.Windows.Forms.ComboBox();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.cbAcadLevel = new System.Windows.Forms.ComboBox();
             this.btnReload = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
+            this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.pnControl = new System.Windows.Forms.Panel();
             this.btnSetTeach = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.CMSTeachers.SuspendLayout();
@@ -79,9 +77,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
             this.kryptonGroupBox5.Panel.SuspendLayout();
             this.kryptonGroupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.pnControl.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -277,23 +275,6 @@
             this.kryptonGroupBox5.StateCommon.Border.Width = 2;
             this.kryptonGroupBox5.TabIndex = 73;
             // 
-            // ptbLoading
-            // 
-            this.ptbLoading.BackColor = System.Drawing.Color.White;
-            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ptbLoading.BorderWidth = 0;
-            this.ptbLoading.CornerRadius = 10;
-            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
-            this.ptbLoading.ImageLocation = "";
-            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
-            this.ptbLoading.Name = "ptbLoading";
-            this.ptbLoading.Size = new System.Drawing.Size(885, 474);
-            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptbLoading.TabIndex = 11;
-            this.ptbLoading.TabStop = false;
-            this.ptbLoading.Visible = false;
-            // 
             // dgvSubjects
             // 
             this.dgvSubjects.AllowUserToAddRows = false;
@@ -429,20 +410,6 @@
             this.acad.ReadOnly = true;
             this.acad.Width = 117;
             // 
-            // option
-            // 
-            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle18.NullValue = null;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.option.DefaultCellStyle = dataGridViewCellStyle18;
-            this.option.HeaderText = "";
-            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
-            this.option.Name = "option";
-            this.option.ReadOnly = true;
-            this.option.ToolTipText = "Option";
-            this.option.Width = 5;
-            // 
             // tbSearch
             // 
             this.tbSearch.AcceptsReturn = true;
@@ -468,33 +435,6 @@
             this.tbSearch.TabIndex = 75;
             this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
             // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.NullValue = null;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle22;
-            this.dataGridViewImageColumn1.HeaderText = "Option";
-            this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.options;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.ReadOnly = true;
-            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewImageColumn1.ToolTipText = "Option";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.search_16;
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(724, 133);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 74;
-            this.pictureBox1.TabStop = false;
-            // 
             // cbteach
             // 
             this.cbteach.Font = new System.Drawing.Font("Poppins", 8F);
@@ -519,31 +459,6 @@
             this.kryptonLabel2.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
             this.kryptonLabel2.TabIndex = 79;
             this.kryptonLabel2.Values.Text = "Assigned Teacher";
-            // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(208, 62);
-            this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(114, 22);
-            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.kryptonLabel1.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
-            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
-            this.kryptonLabel1.TabIndex = 81;
-            this.kryptonLabel1.Values.Text = "Academic Level";
-            // 
-            // cbAcadLevel
-            // 
-            this.cbAcadLevel.Font = new System.Drawing.Font("Poppins", 8F);
-            this.cbAcadLevel.FormattingEnabled = true;
-            this.cbAcadLevel.Items.AddRange(new object[] {
-            "Senior High School",
-            "College"});
-            this.cbAcadLevel.Location = new System.Drawing.Point(212, 86);
-            this.cbAcadLevel.Name = "cbAcadLevel";
-            this.cbAcadLevel.Size = new System.Drawing.Size(153, 27);
-            this.cbAcadLevel.TabIndex = 80;
-            this.cbAcadLevel.SelectedIndexChanged += new System.EventHandler(this.cbAcad_SelectedIndexChanged);
             // 
             // btnReload
             // 
@@ -600,10 +515,69 @@
             this.btnReload.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnReload.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnReload.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnReload.TabIndex = 68;
+            this.btnReload.TabIndex = 84;
             this.btnReload.Values.Image = global::AMSEMS.Properties.Resources.reload;
             this.btnReload.Values.Text = "";
             this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.NullValue = null;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle22;
+            this.dataGridViewImageColumn1.HeaderText = "Option";
+            this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.options;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.ReadOnly = true;
+            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewImageColumn1.ToolTipText = "Option";
+            this.dataGridViewImageColumn1.Width = 5;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.search_16;
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(724, 133);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 74;
+            this.pictureBox1.TabStop = false;
+            // 
+            // ptbLoading
+            // 
+            this.ptbLoading.BackColor = System.Drawing.Color.White;
+            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoading.BorderWidth = 0;
+            this.ptbLoading.CornerRadius = 10;
+            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.ImageLocation = "";
+            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(885, 474);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 11;
+            this.ptbLoading.TabStop = false;
+            this.ptbLoading.Visible = false;
+            // 
+            // option
+            // 
+            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.NullValue = null;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.option.DefaultCellStyle = dataGridViewCellStyle18;
+            this.option.HeaderText = "";
+            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.option.Name = "option";
+            this.option.ReadOnly = true;
+            this.option.ToolTipText = "Option";
+            this.option.Width = 5;
             // 
             // pnControl
             // 
@@ -611,7 +585,7 @@
             this.pnControl.Location = new System.Drawing.Point(20, 126);
             this.pnControl.Name = "pnControl";
             this.pnControl.Size = new System.Drawing.Size(274, 34);
-            this.pnControl.TabIndex = 84;
+            this.pnControl.TabIndex = 85;
             this.pnControl.Visible = false;
             // 
             // btnSetTeach
@@ -666,6 +640,7 @@
             this.btnSetTeach.TabIndex = 42;
             this.btnSetTeach.Values.Image = global::AMSEMS.Properties.Resources.teacher_24;
             this.btnSetTeach.Values.Text = "";
+            this.btnSetTeach.Click += new System.EventHandler(this.btnSetTeach_Click);
             // 
             // formSubjects
             // 
@@ -675,8 +650,6 @@
             this.ClientSize = new System.Drawing.Size(932, 668);
             this.Controls.Add(this.pnControl);
             this.Controls.Add(this.btnReload);
-            this.Controls.Add(this.kryptonLabel1);
-            this.Controls.Add(this.cbAcadLevel);
             this.Controls.Add(this.cbteach);
             this.Controls.Add(this.kryptonLabel2);
             this.Controls.Add(this.pictureBox1);
@@ -698,9 +671,9 @@
             this.kryptonGroupBox5.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).EndInit();
             this.kryptonGroupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.pnControl.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -734,8 +707,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn teach;
         private ComponentFactory.Krypton.Toolkit.KryptonDataGridViewTextBoxColumn acad;
         private System.Windows.Forms.DataGridViewImageColumn option;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private System.Windows.Forms.ComboBox cbAcadLevel;
         private RoundPictureBoxRect ptbLoading;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnReload;
         private System.Windows.Forms.Panel pnControl;

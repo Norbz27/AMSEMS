@@ -57,7 +57,7 @@ namespace AMSEMS.SubForms_DeptHead
         {
             // This method runs in a background thread
             // Perform time-consuming operations here
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1");
+            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1 WHERE al.Academic_Level_Description");
 
             displayFilter();
             loadCMSControls();
@@ -136,11 +136,6 @@ namespace AMSEMS.SubForms_DeptHead
         }
         public void displayFilter()
         {
-            if (cbAcadLevel.InvokeRequired)
-            {
-                cbAcadLevel.Invoke(new Action(() => displayFilter()));
-                return;
-            }
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -155,15 +150,6 @@ namespace AMSEMS.SubForms_DeptHead
                         cbteach.Items.Add(dr["Lastname"].ToString());
                     }
                     dr.Close();
-
-                    cm = new SqlCommand("Select Academic_Level_Description from tbl_Academic_Level", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
-                    {
-                        cbAcadLevel.Items.Add(dr["Academic_Level_Description"].ToString());
-                    }
-                    dr.Close();
-                    cn.Close();
                 }
             }
             catch (Exception ex)
@@ -174,9 +160,7 @@ namespace AMSEMS.SubForms_DeptHead
         public void ClrearText()
         {
             cbteach.Items.Clear();
-            cbAcadLevel.Items.Clear();
             cbteach.Text = "";
-            cbAcadLevel.Text = "";
             tbSearch.Text = String.Empty;
         }
         public async void displayTable(string query)
@@ -341,25 +325,19 @@ namespace AMSEMS.SubForms_DeptHead
             {
                 filtertbl = "tbl_teacher_accounts";
             }
-            else if (comboBox == cbAcadLevel)
-            {
-                filtertbl = "tbl_Academic_Level";
-            }
 
             if (!string.IsNullOrEmpty(filtertbl))
             {
                 // Get the selected items from all ComboBoxes
                 string selectedItemET = cbteach.Text;
-                string selectedItemET1 = cbAcadLevel.Text;
 
                 // Get the corresponding descriptions for the selected items
                 string descriptionET = await GetSelectedItemDescriptionAsync(selectedItemET, "tbl_teacher_accounts");
-                string descriptionET1 = await GetSelectedItemDescriptionAsync(selectedItemET1, "tbl_Academic_Level");
+
 
                 // Construct the query based on the selected descriptions
                 string query = "Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID " +
-                    "where (@Teacher IS NULL OR t.Lastname = @Teacher) " +
-                    "AND (@AcadLevel IS NULL OR al.Academic_Level_Description = @AcadLevel)";
+                    "where (@Teacher IS NULL OR t.Lastname = @Teacher)";
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -368,7 +346,7 @@ namespace AMSEMS.SubForms_DeptHead
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
                         cmd.Parameters.AddWithValue("@Teacher", string.IsNullOrEmpty(descriptionET) ? DBNull.Value : (object)descriptionET);
-                        cmd.Parameters.AddWithValue("@AcadLevel", string.IsNullOrEmpty(descriptionET1) ? DBNull.Value : (object)descriptionET1);
+
 
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
