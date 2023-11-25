@@ -21,7 +21,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         formConfigFee formConfigFee;
 
-        string event_id, date, sec;
+        string event_id = null, date = null, sec = null;
 
         private CancellationTokenSource cancellationTokenSource;
 
@@ -128,36 +128,39 @@ namespace AMSEMS.SubForms_DeptHead
         {
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
-                string eventid = null;
-                cn.Open();
-                cm = new SqlCommand("Select Event_ID from tbl_events where Event_Name = @Eventname", cn);
-                cm.Parameters.AddWithValue("@Eventname", cbEvents.Text);
-                using (SqlDataReader reader = cm.ExecuteReader())
+                if (cbEvents != null || cbEvents.Text != String.Empty)
                 {
-                    if (reader.Read())
+                    string eventid = null;
+                    cn.Open();
+                    cm = new SqlCommand("Select Event_ID from tbl_events where Event_Name = @Eventname", cn);
+                    cm.Parameters.AddWithValue("@Eventname", (object)cbEvents.Text ?? DBNull.Value);
+                    using (SqlDataReader reader = cm.ExecuteReader())
                     {
-                        eventid = reader["Event_ID"].ToString();
-                    }
-                }
+                        if (reader.Read())
+                        {
+                            eventid = reader["Event_ID"].ToString();
 
-                cm = new SqlCommand("Select Penalty_AM, Penalty_PM from tbl_attendance where Event_ID = @eventid AND FORMAT(Date_Time, 'yyyy-MM-dd') = @date", cn);
-                cm.Parameters.AddWithValue("@eventid", eventid);
-                cm.Parameters.AddWithValue("@date", Dt.Value.ToString("yyyy-MM-dd"));
-                using (dr = cm.ExecuteReader())
-                {
-                    if (dr.Read())
-                    {
-                        // Check for DBNull.Value and display "00.00" in that case
-                        string penaltyAM = dr["Penalty_AM"] != DBNull.Value ? Convert.ToDecimal(dr["Penalty_AM"]).ToString("0.00") : "00.00";
-                        string penaltyPM = dr["Penalty_PM"] != DBNull.Value ? Convert.ToDecimal(dr["Penalty_PM"]).ToString("0.00") : "00.00";
+                            cm = new SqlCommand("Select Penalty_AM, Penalty_PM from tbl_attendance where (Event_ID = @eventid OR @eventid IS NULL) AND FORMAT(Date_Time, 'yyyy-MM-dd') = @date", cn);
+                            cm.Parameters.AddWithValue("@eventid", (object)eventid ?? DBNull.Value);
+                            cm.Parameters.AddWithValue("@date", Dt.Value.ToString("yyyy-MM-dd"));
+                            using (dr = cm.ExecuteReader())
+                            {
+                                if (dr.Read())
+                                {
+                                    // Check for DBNull.Value and display "00.00" in that case
+                                    string penaltyAM = dr["Penalty_AM"] != DBNull.Value ? Convert.ToDecimal(dr["Penalty_AM"]).ToString("0.00") : "00.00";
+                                    string penaltyPM = dr["Penalty_PM"] != DBNull.Value ? Convert.ToDecimal(dr["Penalty_PM"]).ToString("0.00") : "00.00";
 
-                        lblAmPenaltyFee.Text = "₱ " + penaltyAM;
-                        lblPmPenaltyFee.Text = "₱ " + penaltyPM;
-                    }
-                    else
-                    {
-                        lblAmPenaltyFee.Text = "₱ 00.00";
-                        lblPmPenaltyFee.Text = "₱ 00.00";
+                                    lblAmPenaltyFee.Text = "₱ " + penaltyAM;
+                                    lblPmPenaltyFee.Text = "₱ " + penaltyPM;
+                                }
+                                else
+                                {
+                                    lblAmPenaltyFee.Text = "₱ 00.00";
+                                    lblPmPenaltyFee.Text = "₱ 00.00";
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -306,12 +309,12 @@ namespace AMSEMS.SubForms_DeptHead
                         {
                             string modifiedStringAM = lblAmPenaltyFee.Text.Replace("₱ ", "");
                             string modifiedStringPM = lblPmPenaltyFee.Text.Replace("₱ ", "");
-                            cmd.Parameters.AddWithValue("@EventID", event_id);
-                            cmd.Parameters.AddWithValue("@Date", date);
+                            cmd.Parameters.AddWithValue("@EventID", (object)event_id ?? DBNull.Value);
+                            cmd.Parameters.AddWithValue("@Date", (object)date ?? DBNull.Value);
                             cmd.Parameters.AddWithValue("@AM_Pen", modifiedStringAM);
                             cmd.Parameters.AddWithValue("@PM_Pen", modifiedStringPM);
                             cmd.Parameters.AddWithValue("@Dep", FormDeptHeadNavigation.dep);
-                            cmd.Parameters.AddWithValue("@sec", sec);
+                            cmd.Parameters.AddWithValue("@sec", (object)sec ?? DBNull.Value);
 
                             using (SqlDataReader dr = cmd.ExecuteReader())
                             {
@@ -432,31 +435,31 @@ namespace AMSEMS.SubForms_DeptHead
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                string query = "SELECT Exclusive FROM tbl_events WHERE Event_ID = @EventID";
+                string query = "SELECT Exclusive FROM tbl_events WHERE Event_ID = @EventID OR @EventID IS NULL";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    cmd.Parameters.AddWithValue("@EventID", eventId);
+                    cmd.Parameters.AddWithValue("@EventID", (object)eventId ?? DBNull.Value);
                     object result = cmd.ExecuteScalar();
                     return result != null && result.ToString() == "Specific Students";
                 }
             }
         }
+
         private bool IsEventForSelectedDep(string eventId)
         {
-            // Implement your logic to check if the event is for Specific Students
-            // For example, check if the Exclusive column is 'Specific Students'
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                string query = "SELECT Exclusive FROM tbl_events WHERE Event_ID = @EventID";
+                string query = "SELECT Exclusive FROM tbl_events WHERE Event_ID = @EventID OR @EventID IS NULL";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    cmd.Parameters.AddWithValue("@EventID", eventId);
+                    cmd.Parameters.AddWithValue("@EventID", (object)eventId ?? DBNull.Value);
                     object result = cmd.ExecuteScalar();
                     return result != null && result.ToString() == "Selected Departments";
                 }
             }
         }
+
 
         private void formAttendanceRecord_Load(object sender, EventArgs e)
         {
@@ -725,53 +728,56 @@ namespace AMSEMS.SubForms_DeptHead
                 {
                     cn.Open();
 
-                    foreach (DataGridViewRow row in dgvRecord.Rows)
+                    if (cbEvents != null || cbEvents.Text != String.Empty)
                     {
-                        string studID = row.Cells["ID"].Value.ToString();
-                        string balFee = row.Cells["penalty_total"].Value.ToString().Replace("₱ ", "");
-
-                        double bal_fee = 0;
-
-                        // Check if the modified value can be converted to a decimal
-                        if (double.TryParse(balFee, out double cellValue))
+                        foreach (DataGridViewRow row in dgvRecord.Rows)
                         {
-                            bal_fee = cellValue;
-                        }
+                            string studID = row.Cells["ID"].Value.ToString();
+                            string balFee = row.Cells["penalty_total"].Value.ToString().Replace("₱ ", "");
 
-                        // Check if bal_fee is greater than 0 before proceeding with insertion or update
+                            double bal_fee = 0;
 
-                        cm = new SqlCommand("SELECT COUNT(*) FROM tbl_balance_fees WHERE Student_ID = @StudID AND Event_ID = @EventID AND FORMAT(Date, 'yyyy-MM-dd') = @Date", cn);
-                        cm.Parameters.AddWithValue("@StudID", studID);
-                        cm.Parameters.AddWithValue("@EventID", event_id);
-                        cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
-
-                        int existingRecords = (int)cm.ExecuteScalar();
-
-                        if (existingRecords == 0)
-                        {
-                            if (bal_fee > 0)
+                            // Check if the modified value can be converted to a decimal
+                            if (double.TryParse(balFee, out double cellValue))
                             {
-                                cm = new SqlCommand("INSERT INTO tbl_balance_fees VALUES (@StudID, @EventID, @Date, @BalFee)", cn);
-                                cm.Parameters.AddWithValue("@StudID", studID);
-                                cm.Parameters.AddWithValue("@EventID", event_id);
+                                bal_fee = cellValue;
+                            }
+
+                            // Check if bal_fee is greater than 0 before proceeding with insertion or update
+
+                            cm = new SqlCommand("SELECT COUNT(*) FROM tbl_balance_fees WHERE Student_ID = @StudID AND Event_ID = @EventID AND FORMAT(Date, 'yyyy-MM-dd') = @Date", cn);
+                            cm.Parameters.AddWithValue("@StudID", (object)studID ?? DBNull.Value);
+                            cm.Parameters.AddWithValue("@EventID", (object)event_id ?? DBNull.Value);
+                            cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
+
+                            int existingRecords = (int)cm.ExecuteScalar();
+
+                            if (existingRecords == 0)
+                            {
+                                if (bal_fee > 0)
+                                {
+                                    cm = new SqlCommand("INSERT INTO tbl_balance_fees VALUES (@StudID, @EventID, @Date, @BalFee)", cn);
+                                    cm.Parameters.AddWithValue("@StudID", (object)studID ?? DBNull.Value);
+                                    cm.Parameters.AddWithValue("@EventID", (object)event_id ?? DBNull.Value);
+                                    cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
+                                    cm.Parameters.AddWithValue("@BalFee", bal_fee);
+                                    cm.ExecuteNonQuery();
+                                }
+                            }
+                            else
+                            {
+                                // Update the existing record
+                                cm = new SqlCommand("UPDATE tbl_balance_fees SET Balance_Fee = @BalFee WHERE Student_ID = @StudID AND Event_ID = @EventID AND FORMAT(Date, 'yyyy-MM-dd') = @Date", cn);
+                                cm.Parameters.AddWithValue("@StudID", (object)studID ?? DBNull.Value);
+                                cm.Parameters.AddWithValue("@EventID", (object)event_id ?? DBNull.Value);
                                 cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
                                 cm.Parameters.AddWithValue("@BalFee", bal_fee);
                                 cm.ExecuteNonQuery();
                             }
+
                         }
-                        else
-                        {
-                            // Update the existing record
-                            cm = new SqlCommand("UPDATE tbl_balance_fees SET Balance_Fee = @BalFee WHERE Student_ID = @StudID AND Event_ID = @EventID AND FORMAT(Date, 'yyyy-MM-dd') = @Date", cn);
-                            cm.Parameters.AddWithValue("@StudID", studID);
-                            cm.Parameters.AddWithValue("@EventID", event_id);
-                            cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
-                            cm.Parameters.AddWithValue("@BalFee", bal_fee);
-                            cm.ExecuteNonQuery();
-                        }
-                        
+                        ExecuteStoredProcedure();
                     }
-                    ExecuteStoredProcedure();
                 }
             }
             catch (Exception ex)
