@@ -32,6 +32,7 @@ namespace AMSEMS.SubForms_DeptHead
         public void displayFilter()
         {
             cbMonth.Items.Clear();
+            cbSection.Items.Clear();
 
             for(int i = 1; i <= 12; i++)
             {
@@ -48,6 +49,7 @@ namespace AMSEMS.SubForms_DeptHead
 
             cbYear.SelectedItem = currentYear.ToString();
 
+            cbSection.Items.Add("All");
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
@@ -185,7 +187,7 @@ namespace AMSEMS.SubForms_DeptHead
                         LEFT JOIN 
                             tbl_Section sec ON s.Section = sec.Section_ID
                         WHERE
-                            S.Department = @Dep AND sec.Description = @sec
+                            S.Department = @Dep AND (@sec = 'All' OR sec.Description = @sec)
                         GROUP BY 
                             s.ID, 
                             UPPER(CONCAT(s.Firstname, ' ', s.Middlename, ' ', UPPER(s.Lastname))),
@@ -232,7 +234,6 @@ namespace AMSEMS.SubForms_DeptHead
                         dgvReport.Rows[dgvReport.Rows.Count - 1].Cells["total"].Style.Font = new System.Drawing.Font("Poppins", 9F, FontStyle.Bold);
                         overallTotalBalanceFee += totalBalanceFee;
                     }
-
                     lblMonthlyTotalFees.Text = "₱ " + overallTotalBalanceFee.ToString("F2");
                 }
             }

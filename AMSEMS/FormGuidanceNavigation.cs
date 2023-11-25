@@ -1,22 +1,133 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
+using System.ComponentModel;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace AMSEMS
 {
     public partial class FormGuidanceNavigation : KryptonForm
     {
-        private bool isCollapsed;
+        SqlConnection cn;
+        SqlCommand cm;
+        SqlDataReader dr;
+
         private Form activeForm;
-        public FormGuidanceNavigation()
+
+        public bool isCollapsed;
+        public static string id;
+        private BackgroundWorker backgroundWorker = new BackgroundWorker();
+        public FormGuidanceNavigation(string id1)
         {
             InitializeComponent();
+            cn = new SqlConnection(SQL_Connection.connection);
             this.btnDashboard.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDashboard.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDashboard.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnDashboard.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            backgroundWorker.DoWork += backgroundWorker_DoWork;
+            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            backgroundWorker.WorkerSupportsCancellation = true;
+            id = id1;
             OpenChildForm(new SubForm_Guidance.formDashboard());
+        }
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            loadData();
+
+            // Simulate a time-consuming operation
+            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                // Handle any errors that occurred during the background work
+                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (e.Cancelled)
+            {
+                // Handle the case where the background work was canceled
+            }
+            else
+            {
+                // Data has been loaded, update the UI
+                // Stop the wait cursor (optional)
+                this.Cursor = Cursors.Default;
+            }
+        }
+
+        public void loadData()
+        {
+            // Create a new instance of BackgroundWorker for each data loading operation
+            BackgroundWorker dataLoader = new BackgroundWorker();
+            dataLoader.DoWork += (sender, e) => DataLoader_DoWork(sender, e, dataLoader);
+            dataLoader.RunWorkerCompleted += DataLoader_RunWorkerCompleted;
+
+            // Start the BackgroundWorker to load data in the background
+            dataLoader.RunWorkerAsync();
+        }
+
+        // Event handler for BackgroundWorker's DoWork event
+        private void DataLoader_DoWork(object sender, DoWorkEventArgs e, BackgroundWorker worker)
+        {
+            // Set the cursor to WaitCursor while loading data
+            SetWaitCursor();
+
+            try
+            {
+                cn.Open();
+                cm = new SqlCommand("select Firstname, Lastname from tbl_guidance_accounts where Unique_ID = '" + id + "'", cn);
+                dr = cm.ExecuteReader();
+                dr.Read();
+                lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+                dr.Close();
+
+                cm = new SqlCommand("Select Profile_pic from tbl_guidance_accounts where Unique_ID = " + id + "", cn);
+
+                byte[] imageData = (byte[])cm.ExecuteScalar();
+
+                if (imageData != null && imageData.Length > 0)
+                {
+                    using (MemoryStream ms = new MemoryStream(imageData))
+                    {
+                        Image image = Image.FromStream(ms);
+                        ptbProfile.Image = image;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions appropriately
+                MessageBox.Show("Error loading data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
+        // Event handler for BackgroundWorker's RunWorkerCompleted event
+        private void DataLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            // Restore the cursor to the default cursor
+            RestoreCursor();
+        }
+
+        // Method to set the cursor to WaitCursor
+        private void SetWaitCursor()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+        }
+
+        // Method to restore the cursor to the default cursor
+        private void RestoreCursor()
+        {
+            Cursor.Current = Cursors.Default;
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -70,7 +181,7 @@ namespace AMSEMS
         {
             isCollapsed = false;
             timer1.Start();
-            OpenChildForm(new SubForm_Guidance.formSettings());
+            OpenChildForm(new SubForm_Guidance.formSettings(this));
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
@@ -138,7 +249,7 @@ namespace AMSEMS
             OpenChildForm(new SubForm_Guidance.formAbsReport("College Absenteeism Report"));
         }
 
-        private void btnLogout_Click(object sender, EventArgs e)
+        public void Logout()
         {
             this.Dispose();
             FormLoginPage formLoginPage = new FormLoginPage();
@@ -148,6 +259,19 @@ namespace AMSEMS
         private void FormGuidanceNavigation_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void FormGuidanceNavigation_Load(object sender, EventArgs e)
+        {
+            backgroundWorker.RunWorkerAsync();
+        }
+
+        private void FormGuidanceNavigation_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+            }
         }
     }
 }

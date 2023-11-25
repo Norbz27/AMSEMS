@@ -47,8 +47,7 @@ namespace AMSEMS_Attendance_Checker
             //}
             //else
             //{
-                formAttendanceChecker.getTeachID(teach_id);
-                formAttendanceChecker.Show();
+               
             //}
 
             //}
@@ -82,6 +81,8 @@ namespace AMSEMS_Attendance_Checker
                     formAttendanceChecker.getAttendanceSettings(cbAttendanceStat.Text, tbEventCode.Text);
                     formAttendanceChecker.setEvent(event_name);
                     formAttendanceChecker.displayAttendanceRecord();
+                    formAttendanceChecker.getTeachID(teach_id);
+                    formAttendanceChecker.Show();
                     this.Close();
                 }
                 else
@@ -100,6 +101,7 @@ namespace AMSEMS_Attendance_Checker
         {
             cbAttendanceStat.Text = String.Empty;
             tbEventCode.Text = String.Empty;
+            this.Close();
         }
 
         private void cbAttendanceStat_KeyPress(object sender, KeyPressEventArgs e)
@@ -136,6 +138,9 @@ namespace AMSEMS_Attendance_Checker
                     {
                         formAttendanceChecker.getAttendanceSettings(cbAttendanceStat.Text, tbEventCode.Text);
                         formAttendanceChecker.setEvent(event_name);
+                        formAttendanceChecker.displayAttendanceRecord();
+                        formAttendanceChecker.getTeachID(teach_id);
+                        formAttendanceChecker.Show();
                         this.Close();
                     }
                     else

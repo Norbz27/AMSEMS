@@ -66,14 +66,14 @@ namespace AMSEMS.SubForms_DeptHead
                 cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                 cm.Parameters.AddWithValue("@sec", cbSection.Text);
                 decimal totalBalanceFee = Convert.ToDecimal(cm.ExecuteScalar());
-                lblCollectableFee.Text = totalBalanceFee.ToString("C");
+                lblCollectableFee.Text = "₱ " + totalBalanceFee.ToString("F2");
 
                 // Calculate total paid amount
                 cm = new SqlCommand("SELECT ISNULL(SUM(t.Payment_Amount), 0) AS Total_Paid_Amount FROM tbl_student_accounts s LEFT JOIN tbl_transaction t ON s.ID = t.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec)", cn);
                 cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                 cm.Parameters.AddWithValue("@sec", cbSection.Text);
                 decimal totalPaidAmount = Convert.ToDecimal(cm.ExecuteScalar());
-                lblCollectedFee.Text = totalPaidAmount.ToString("C");
+                lblCollectedFee.Text = "₱ " + totalPaidAmount.ToString("F2");
 
                 // Calculate and display the difference
                 decimal remainingBalance = totalBalanceFee - totalPaidAmount;
@@ -200,7 +200,12 @@ namespace AMSEMS.SubForms_DeptHead
                         dgvBalFees.Columns["paidfee"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                         dgvBalFees.Columns["paidfee"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                         dgvBalFees.Rows[rowIndex].Cells["status"].Style.Font = new System.Drawing.Font("Poppins", 9F, FontStyle.Bold);
-                        if (balance <= 0)
+
+                        if (balance <= 0 && amount_paid <= 0)
+                        {
+                            dgvBalFees.Rows[rowIndex].Cells["status"].Value = "No balance";
+                        }
+                        else if (balance <= 0)
                         {
                             dgvBalFees.Rows[rowIndex].Cells["status"].Value = "Paid";
                         }

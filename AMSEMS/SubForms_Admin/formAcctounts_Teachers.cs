@@ -191,6 +191,8 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnAll_Click(object sender, EventArgs e)
         {
+            cbET.Text = String.Empty;
+            tbSearch.Text = String.Empty;
             displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
         }
 
@@ -551,10 +553,6 @@ namespace AMSEMS.SubForms_Admin
         private void btnReload_Click(object sender, EventArgs e)
         {
             displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
-
-            cbET.Text = String.Empty;
-            tbSearch.Text = String.Empty;
-            btnAll.Focus();
         }
 
         private void btnExpPDF_Click(object sender, EventArgs e)

@@ -20,7 +20,7 @@ namespace AMSEMS
         public static String id;
         public static String dep;
         public static String depdes;
-        public static String acaddes;
+        public static String acadlevel;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         public FormDeptHeadNavigation(String id1)
         {
@@ -72,14 +72,14 @@ namespace AMSEMS
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("select Firstname, Lastname, dpa.Department as dep, dp.Description as depDes from tbl_deptHead_accounts as dpa join tbl_Departments dp on dpa.Department = dp.Department_ID left join tbl_Academic_Level as al on dp.Academic_Level = al.Academic_Level_ID where Unique_ID = '" + id + "'", cn);
+                cm = new SqlCommand("select Firstname, Lastname, dpa.Department as dep, dp.Description as depDes, ac.Academic_Level_Description as acadDes from tbl_deptHead_accounts as dpa join tbl_Departments dp on dpa.Department = dp.Department_ID left join tbl_academic_level as ac on dp.AcadLevel_ID = ac.Academic_Level_ID where Unique_ID = '" + id + "'", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
                 lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
                 lblRole.Text = dr["depDes"].ToString() + " Department Head";
                 dep = dr["dep"].ToString();
                 depdes = dr["depDes"].ToString();
-                acaddes = dr["depDes"].ToString();
+                acadlevel = dr["acadDes"].ToString();
                 dr.Close();
 
                 cm = new SqlCommand("Select Profile_pic from tbl_deptHead_accounts where Unique_ID = " + id + "", cn);

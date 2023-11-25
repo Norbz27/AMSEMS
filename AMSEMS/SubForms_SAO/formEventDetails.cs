@@ -118,7 +118,7 @@ namespace AMSEMS.SubForms_SAO
                 }
                 else
                 {
-                    form1.calendar();
+                    form1.RefreshCalendar();
                 }
             }
         }
@@ -399,7 +399,7 @@ namespace AMSEMS.SubForms_SAO
                     }
                     else
                     {
-                        form1.calendar();
+                        form1.RefreshCalendar();
                     }
                     this.Dispose();
                 }

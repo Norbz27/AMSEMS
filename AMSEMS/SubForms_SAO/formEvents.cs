@@ -38,8 +38,6 @@ namespace AMSEMS.SubForms_SAO
             // This method runs in a background thread
             // Perform time-consuming operations here
             display(); // Load data
-
-            // Simulate a time-consuming operation
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
         }
 
@@ -56,8 +54,6 @@ namespace AMSEMS.SubForms_SAO
             }
             else
             {
-                // Data has been loaded, update the UI
-                // Stop the wait cursor (optional)
                 this.Cursor = Cursors.Default;
             }
         }
@@ -69,7 +65,6 @@ namespace AMSEMS.SubForms_SAO
         }
         private void display()
         {
-
             DateTime now = DateTime.Now;
 
             month = now.Month;
@@ -219,7 +214,7 @@ namespace AMSEMS.SubForms_SAO
             {
                 flowLayoutPanel1.Invoke((MethodInvoker)delegate
                 {
-                    // Call the same method on the main thread
+                    // Call the same method on the main threadz
                     DisplayEventsDetails();
                 });
             }

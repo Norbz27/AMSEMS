@@ -1,6 +1,7 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
 using System.ComponentModel;
+using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
@@ -25,6 +26,7 @@ namespace AMSEMS.SubForms_Admin
             backgroundWorker.WorkerSupportsCancellation = true;
             GetCurrentStatusFromDatabase();
         }
+
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             // This method runs in a background thread
@@ -63,16 +65,14 @@ namespace AMSEMS.SubForms_Admin
                 try
                 {
                     cn.Open();
-                    string updateQuery = @"UPDATE tbl_deptHead_accounts SET status = @NewValue;
-                        UPDATE tbl_guidance_accounts SET status = @NewValue;
-                        UPDATE tbl_sao_accounts SET status = @NewValue;
-                        UPDATE tbl_teacher_accounts SET status = @NewValue;
-                        UPDATE tbl_student_accounts SET status = @NewValue;";
-                    using (SqlCommand cm = new SqlCommand(updateQuery, cn))
+
+                    using (SqlCommand cmd = new SqlCommand("UpdateAccountStatus", cn))
                     {
-                        cm.Parameters.AddWithValue("@NewValue", newStatus);
-                        cm.ExecuteNonQuery();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@NewValue", newStatus);
+                        cmd.ExecuteNonQuery();
                     }
+
                 }
                 catch (Exception ex)
                 {
@@ -90,18 +90,18 @@ namespace AMSEMS.SubForms_Admin
                 {
                     cn.Open();
                     string checkQuery = @"
-            SELECT COUNT(*) FROM (
-                SELECT Status FROM tbl_deptHead_accounts
-                UNION
-                SELECT Status FROM tbl_guidance_accounts
-                UNION
-                SELECT Status FROM tbl_sao_accounts
-                UNION
-                SELECT Status FROM tbl_teacher_accounts
-                UNION
-                SELECT Status FROM tbl_student_accounts
-            ) AS CombinedRoles
-            WHERE Status = 2";
+                        SELECT COUNT(*) FROM (
+                            SELECT Status FROM tbl_teacher_accounts
+                            UNION
+                            SELECT Status FROM tbl_student_accounts
+                            UNION
+                            SELECT Status FROM tbl_sao_accounts
+                            UNION
+                            SELECT Status FROM tbl_guidance_accounts
+                            UNION
+                            SELECT Status FROM tbl_deptHead_accounts
+                        ) AS CombinedRoles
+                        WHERE Status = 2";
 
                     using (SqlCommand command = new SqlCommand(checkQuery, cn))
                     {
@@ -109,17 +109,17 @@ namespace AMSEMS.SubForms_Admin
 
                         // Get the total count of all accounts across all tables
                         string totalCountQuery = @"
-                SELECT COUNT(*) FROM (
-                    SELECT Status FROM tbl_deptHead_accounts
-                    UNION
-                    SELECT Status FROM tbl_guidance_accounts
-                    UNION
-                    SELECT Status FROM tbl_sao_accounts
-                    UNION
-                    SELECT Status FROM tbl_teacher_accounts
-                    UNION
-                    SELECT Status FROM tbl_student_accounts
-                ) AS CombinedRoles";
+                            SELECT COUNT(*) FROM (
+                                SELECT Status FROM tbl_teacher_accounts
+                                UNION
+                                SELECT Status FROM tbl_student_accounts
+                                UNION
+                                SELECT Status FROM tbl_sao_accounts
+                                UNION
+                                SELECT Status FROM tbl_guidance_accounts
+                                UNION
+                                SELECT Status FROM tbl_deptHead_accounts
+                            ) AS CombinedRoles";
 
                         using (SqlCommand totalCommand = new SqlCommand(totalCountQuery, cn))
                         {
@@ -143,7 +143,6 @@ namespace AMSEMS.SubForms_Admin
                     MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-
         }
 
         private void tgbtnDisableAcc_CheckedChanged(object sender, EventArgs e)
@@ -207,11 +206,12 @@ namespace AMSEMS.SubForms_Admin
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("Select Academic_Year_Start,Academic_Year_End,Academic_Sem from tbl_acad where Acad_ID = 1", cn);
+                cm = new SqlCommand("Select TOP 1 Academic_Year_Start,Academic_Year_End,Ter_Academic_Sem,SHS_Academic_Sem from tbl_acad ORDER BY 1 DESC;", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
                 lblAcadYear.Text = dr["Academic_Year_Start"].ToString() + "-" + dr["Academic_Year_End"].ToString();
-                lblAcadSem.Text = dr["Academic_Sem"].ToString();
+                lblTerAcadSem.Text = dr["Ter_Academic_Sem"].ToString();
+                lblshsAcadSem.Text = dr["SHS_Academic_Sem"].ToString();
                 dr.Close();
                 cn.Close();
             }
@@ -223,6 +223,12 @@ namespace AMSEMS.SubForms_Admin
             {
                 backgroundWorker.CancelAsync();
             }
+        }
+
+        private void btnEditSHSAcadSem_Click(object sender, EventArgs e)
+        {
+            formChangeAcademicYear formChangeAcademicYear = new formChangeAcademicYear(this);
+            formChangeAcademicYear.ShowDialog();
         }
     }
 }

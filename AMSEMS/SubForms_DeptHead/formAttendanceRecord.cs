@@ -22,11 +22,11 @@ namespace AMSEMS.SubForms_DeptHead
         formConfigFee formConfigFee;
 
         string event_id, date, sec;
-        private readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
         private CancellationTokenSource cancellationTokenSource;
 
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
+        private bool isDisplayTableInProgress = false;
 
         public formAttendanceRecord()
         {
@@ -39,19 +39,9 @@ namespace AMSEMS.SubForms_DeptHead
             cn = new SqlConnection(SQL_Connection.connection);
             formConfigFee = new formConfigFee();
         }
-        private void CenterPictureBoxInDataGridView()
-        {
-            int x = (dgvRecord.Width - pictureBox1.Width) / 2;
-            int y = (dgvRecord.Height - pictureBox1.Height) / 2;
-
-            // Set the location of the PictureBox
-            pictureBox1.Location = new Point(x, y);
-        }
 
         private async void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            await displayTable();
-
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
         }
 
@@ -105,6 +95,7 @@ namespace AMSEMS.SubForms_DeptHead
                         cbEvents.SelectedIndex = 0;
                     }
 
+                    cbSection.Items.Add("All");
                     cm = new SqlCommand("Select Description from tbl_section", cn);
                     dr = cm.ExecuteReader();
                     while (dr.Read())
@@ -124,7 +115,13 @@ namespace AMSEMS.SubForms_DeptHead
                 MessageBox.Show(ex.Message);
             }
         }
-
+        public void setSectionAll()
+        {
+            if (cbSection.Items.Count > 0)
+            {
+                cbSection.SelectedIndex = 0;
+            }
+        }
         public void displayFees()
         {
             using (cn = new SqlConnection(SQL_Connection.connection))
@@ -217,7 +214,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 LEFT JOIN
                                     tbl_student_accounts s ON CHARINDEX(s.FirstName + ' ' + s.LastName, e.Specific_Students) > 0 OR CHARINDEX(s.LastName + ' ' + s.FirstName, e.Specific_Students) > 0
                                 LEFT JOIN
-                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND TRY_CONVERT(DATE, att.Date_Time) = @Date
+                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND FORMAT(att.Date_Time, 'yyyy-MM-dd') = @Date
                                 LEFT JOIN
                                     tbl_departments d ON s.Department = d.Department_ID
                                 LEFT JOIN
@@ -229,7 +226,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     AND e.Exclusive = 'Specific Students'
                                     AND s.ID IS NOT NULL
                                     AND s.Department = @Dep
-                                    AND sec.Description = @sec
+                                    AND (@sec = 'All' OR sec.Description = @sec)
                                     AND s.Status = 1
                                 ORDER BY
                                     s.Lastname, att.Date_Time;";
@@ -262,7 +259,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 LEFT JOIN
                                     tbl_departments dep ON s.Department = dep.Department_ID
                                 LEFT JOIN
-                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND TRY_CONVERT(DATE, att.Date_Time) = @Date
+                                    tbl_attendance AS att ON s.ID = att.Student_ID AND e.Event_ID = att.Event_ID AND FORMAT(att.Date_Time, 'yyyy-MM-dd') = @Date
                                 LEFT JOIN
                                     tbl_Section sec ON s.Section = sec.Section_ID
                                 LEFT JOIN
@@ -272,7 +269,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     AND e.Exclusive = 'Selected Departments'
                                     AND CHARINDEX(CONVERT(VARCHAR, dep.Description), e.Selected_Departments) > 0
 	                                AND s.Department = @Dep
-                                    AND sec.Description = @sec
+                                    AND (@sec = 'All' OR sec.Description = @sec)
                                     AND s.Status = 1
                                 ORDER BY
                                     s.Lastname, att.Date_Time;";
@@ -297,10 +294,10 @@ namespace AMSEMS.SubForms_DeptHead
                                     ISNULL(FORMAT(att.PM_OUT, 'hh:mm tt'), @PM_Pen) AS PM_OUT_Penalty,
                                     ISNULL(UPPER(teach.Lastname), '-------') AS teachlname
                                     FROM tbl_student_accounts AS stud
-                                    LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND TRY_CONVERT(DATE, att.Date_Time) = @Date
+                                    LEFT JOIN tbl_attendance AS att ON stud.ID = att.Student_ID AND att.Event_ID = @EventID AND FORMAT(att.Date_Time, 'yyyy-MM-dd') = @Date
                                     LEFT JOIN tbl_Section AS sec ON stud.Section = sec.Section_ID
                                     LEFT JOIN tbl_teacher_accounts AS teach ON att.Checker = teach.ID 
-                                    WHERE stud.Department = @Dep AND sec.Description = @sec AND stud.Status = 1 ORDER BY stud.Lastname";
+                                    WHERE stud.Department = @Dep AND (@sec = 'All' OR sec.Description = @sec) AND stud.Status = 1 ORDER BY stud.Lastname";
                         }
 
                         using (SqlCommand cmd = new SqlCommand(query, cn))
@@ -461,13 +458,12 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void formAttendanceRecord_Load(object sender, EventArgs e)
         {
-            CenterPictureBoxInDataGridView();
             displayFilter();
         }
 
         private async void Dt_ValueChanged(object sender, EventArgs e)
         {
-            date = Dt.Value.ToString();
+            date = Dt.Value.ToString("yyyy-MM-dd");
             dgvRecord.Rows.Clear();
             await DisplayTableWithCheck();
         }
@@ -511,8 +507,6 @@ namespace AMSEMS.SubForms_DeptHead
                                 Dt.MinDate = startDate;
                                 Dt.MaxDate = endDate;
                             }
-
-                            date = Dt.Value.ToString();
                         }
 
                         dr.Close();
@@ -535,10 +529,16 @@ namespace AMSEMS.SubForms_DeptHead
         private async Task DisplayTableWithCheck()
         {
             // Use SemaphoreSlim to ensure that only one displayTable operation is in progress at a time
-            await semaphoreSlim.WaitAsync();
+            if (isDisplayTableInProgress)
+            {
+                return;
+            }
+
+            // Set the flag to indicate that displayTable is now in progress
+            isDisplayTableInProgress = true;
+
             try
             {
-                // Call the method
                 await displayTable();
             }
             catch (Exception ex)
@@ -547,8 +547,8 @@ namespace AMSEMS.SubForms_DeptHead
             }
             finally
             {
-                // Release the semaphore when the method is done
-                semaphoreSlim.Release();
+                // Reset the flag when displayTable is done
+                isDisplayTableInProgress = false;
             }
         }
         private void tbSearch_TextChanged(object sender, EventArgs e)
@@ -567,7 +567,7 @@ namespace AMSEMS.SubForms_DeptHead
         private async void btnRefresh_Click(object sender, EventArgs e)
         {
             displayFilter();
-            await displayTable();
+            await DisplayTableWithCheck();
         }
 
         private void btnExport_Click(object sender, EventArgs e)
@@ -689,7 +689,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void formAttendanceRecord_Resize(object sender, EventArgs e)
         {
-            CenterPictureBoxInDataGridView();
+
         }
         private void ExecuteStoredProcedure()
         {

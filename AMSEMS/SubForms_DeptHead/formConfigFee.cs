@@ -151,15 +151,12 @@ namespace AMSEMS.SubForms_DeptHead
                         {
                             event_id = dr["Event_ID"].ToString();
 
-                            // Reset MinDate and MaxDate to their default values
                             Dt.MinDate = DateTimePicker.MinimumDateTime;
                             Dt.MaxDate = DateTimePicker.MaximumDateTime;
 
-                            // Ensure that the values are DateTime before assigning to MinDate and MaxDate
                             DateTime startDate = (DateTime)dr["Start_Date"];
                             DateTime endDate = (DateTime)dr["End_Date"];
 
-                            // Optionally, check if the dates are valid before setting
                             if (startDate != DateTime.MinValue && endDate != DateTime.MinValue && startDate <= endDate)
                             {
                                 Dt.Value = startDate;
@@ -214,10 +211,9 @@ namespace AMSEMS.SubForms_DeptHead
                     }
                     else
                     {
-                        // Rows affected, update successful
                         dr.Close();
                         cn.Close();
-                        formAttendanceRecord.displayFees();
+                        formAttendanceRecord.setSectionAll();
                         formAttendanceRecord.displayTable();
                         this.Close();
                     }
