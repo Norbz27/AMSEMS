@@ -53,7 +53,9 @@ namespace AMSEMS.SubForms_DeptHead
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("Select Description from tbl_section", cn);
+                cm = new SqlCommand("Select Distinct Description from tbl_section s Join tbl_academic_level ac ON s.AcadLevel_ID = ac.Academic_Level_ID LEFT JOIN tbl_student_accounts st ON s.Section_ID = st.Section WHERE Academic_Level_Description = @acadlevel AND st.Department = @depid", cn);
+                cm.Parameters.AddWithValue("@acadlevel", FormDeptHeadNavigation.acadlevel);
+                cm.Parameters.AddWithValue("@depid", FormDeptHeadNavigation.dep);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {

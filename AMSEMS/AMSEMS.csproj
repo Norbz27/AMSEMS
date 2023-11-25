@@ -490,6 +490,18 @@
       <DependentUpon>formArchived_Subjects.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\UserID.cs" />
+    <Compile Include="SubForms_DeptHead\formAccounts_Students.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formAccounts_Students.Designer.cs">
+      <DependentUpon>formAccounts_Students.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formStudentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formStudentForm.Designer.cs">
+      <DependentUpon>formStudentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_DeptHead\formSubjects.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -966,6 +978,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Subjects.resx">
       <DependentUpon>formArchived_Subjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\formAccounts_Students.resx">
+      <DependentUpon>formAccounts_Students.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\formStudentForm.resx">
+      <DependentUpon>formStudentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\formSubjects.resx">
       <DependentUpon>formSubjects.cs</DependentUpon>

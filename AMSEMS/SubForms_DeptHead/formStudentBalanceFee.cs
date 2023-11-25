@@ -41,7 +41,9 @@ namespace AMSEMS.SubForms_DeptHead
                 cbSection.Items.Clear();
                 cbSection.Items.Add("All");
                 cn.Open();
-                cm = new SqlCommand("Select Description from tbl_section", cn);
+                cm = new SqlCommand("Select Distinct Description from tbl_section s Join tbl_academic_level ac ON s.AcadLevel_ID = ac.Academic_Level_ID LEFT JOIN tbl_student_accounts st ON s.Section_ID = st.Section WHERE Academic_Level_Description = @acadlevel AND st.Department = @depid", cn);
+                cm.Parameters.AddWithValue("@acadlevel", FormDeptHeadNavigation.acadlevel);
+                cm.Parameters.AddWithValue("@depid", FormDeptHeadNavigation.dep);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
@@ -259,7 +261,6 @@ namespace AMSEMS.SubForms_DeptHead
             iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
             iTextSharp.text.Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
             iTextSharp.text.Font headerFont2 = FontFactory.GetFont(FontFactory.HELVETICA, 10);
-            iTextSharp.text.Font headerFont3 = FontFactory.GetFont(FontFactory.HELVETICA, 9);
             iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
 
             // Add title "List of Students:"
