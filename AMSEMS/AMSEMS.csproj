@@ -860,12 +860,6 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm_Guidance\UserID.cs" />
-    <Compile Include="test.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="test.Designer.cs">
-      <DependentUpon>test.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="FormTeacherNavigation.resx">
       <DependentUpon>FormTeacherNavigation.cs</DependentUpon>
     </EmbeddedResource>
@@ -1216,9 +1210,6 @@
     <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="test.resx">
-      <DependentUpon>test.cs</DependentUpon>
-    </EmbeddedResource>
     <Content Include="Fonts\TheChieldrenPersonalUseOnly-YzdJL.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1420,6 +1411,7 @@
     <None Include="Resources\loading.gif" />
     <None Include="Resources\magnifying-glass.png" />
     <None Include="Resources\wallet.png" />
+    <None Include="Resources\down.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -29,6 +29,7 @@ namespace AMSEMS.SubForms_Admin
         private bool headerCheckboxAdded = true;
 
         private CheckBox headerCheckbox = new CheckBox();
+        private Button headerButton = new Button();
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private CancellationTokenSource cancellationTokenSource;
         public formAccounts_Students()
@@ -769,12 +770,25 @@ namespace AMSEMS.SubForms_Admin
                     headerCheckbox.Location = new Point(x, y);
                     headerCheckbox.Checked = AreAllCheckboxesChecked();
 
+                    int buttonX = x + headerCheckbox.Width + 5; // Adjust the distance as needed
+                    int buttonY = e.CellBounds.Y + (e.CellBounds.Height - headerButton.Height) / 2;
+
+                    headerButton.Location = new Point(buttonX, buttonY);
+                    headerButton.Text = "";
+                    headerButton.FlatStyle = FlatStyle.Flat;
+                    headerButton.FlatAppearance.BorderSize = 0;
+                    headerButton.Size = new System.Drawing.Size(20, 20);
+                    headerButton.Image = global::AMSEMS.Properties.Resources.down;
+                    headerButton.Click += HeaderButton_Click;
+
+
                     if (dgvStudents.Rows.Count != 0)
                     {
                         dgvStudents.Controls.Add(headerCheckbox);
+                        dgvStudents.Controls.Add(headerButton);
                     }
 
-                    headerCheckboxAdded = true; // Set the flag to true
+                    headerCheckboxAdded = true;
                 }
             }
         }
@@ -795,6 +809,11 @@ namespace AMSEMS.SubForms_Admin
 
             // Update the panel visibility based on checkbox states
             UpdatePanelVisibility();
+        }
+        private void HeaderButton_Click(object sender, EventArgs e)
+        {
+            // Show context menu near the header button
+            CMSSelection.Show(headerButton, new System.Drawing.Point(0, headerButton.Height));
         }
         private bool AreAllCheckboxesChecked()
         {
