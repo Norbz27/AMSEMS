@@ -50,7 +50,14 @@ namespace AMSEMS.SubForms_Admin
             // This method runs in a background thread
             // Perform time-consuming operations here
             displayFilter();
-            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+            if (cbStatus.InvokeRequired)
+            {
+                cbStatus.Invoke(new Action(() => { cbStatus.SelectedIndex = 0; }));
+            }
+            else
+            {
+                cbStatus.SelectedIndex = 0;
+            }
             loadCMSControls();
 
             // Simulate a time-consuming operation
@@ -100,7 +107,7 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnSetActive, "Set Active");
             toolTip.SetToolTip(btnSetInactive, "Set Inactive");
 
-            btnAll.Focus();
+            //btnAll.Focus();
             backgroundWorker.RunWorkerAsync();
         }
 
@@ -185,10 +192,26 @@ namespace AMSEMS.SubForms_Admin
             {
                 headerCheckboxAdded = false;
                 ptbLoading.Visible = false;
-                dgvTeachers.Controls.Add(headerCheckbox);
+                //dgvTeachers.Controls.Add(headerCheckbox);
             }
         }
-
+        private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbStatus.Text.Equals("Active"))
+            {
+                ApplyStatusFilter("Active");
+            }
+            else if (cbStatus.Text.Equals("Inactive"))
+            {
+                ApplyStatusFilter("Inactive");
+            }
+            else
+            {
+                cbET.Text = String.Empty;
+                tbSearch.Text = String.Empty;
+                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+            }
+        }
         private void btnAll_Click(object sender, EventArgs e)
         {
             cbET.Text = String.Empty;
@@ -635,31 +658,94 @@ namespace AMSEMS.SubForms_Admin
                 {
 
 
-                    // Center the checkbox within the header cell
-                    int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
-                    int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
+                    //// Center the checkbox within the header cell
+                    //int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
+                    //int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
 
-                    headerCheckbox.Location = new Point(x, y);
-                    headerCheckbox.Checked = AreAllCheckboxesChecked();
+                    //headerCheckbox.Location = new Point(x, y);
+                    //headerCheckbox.Checked = AreAllCheckboxesChecked();
 
-                    if (dgvTeachers.Rows.Count != 0)
-                    {
-                        dgvTeachers.Controls.Add(headerCheckbox);
-                    }
+                    //if (dgvTeachers.Rows.Count != 0)
+                    //{
+                    //    dgvTeachers.Controls.Add(headerCheckbox);
+                    //}
 
-                    headerCheckboxAdded = true; // Set the flag to true
+                    //headerCheckboxAdded = true; // Set the flag to true
                 }
             }
         }
         private void HeaderCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox headerCheckbox = (CheckBox)sender;
+            UpdateCheckBoxes(headerCheckbox.Checked);
+        }
 
+        private void HeaderButton_Click(object sender, EventArgs e)
+        {
+            cbSelection.Checked = true;
+            UpdateCheckBoxes(cbSelection.Checked);
+        }
+        private void btnCheckMissinginfo_Click(object sender, EventArgs e)
+        {
+            cbSelection.Checked = true;
+            foreach (DataGridViewRow row in dgvTeachers.Rows)
+            {
+                // Check if the row has data in the specified columns
+                object departmentValue = row.Cells["dept"].Value;
+
+                bool hasEmptyColumn = string.IsNullOrEmpty(departmentValue?.ToString());
+
+                // If none of the specified columns are empty, check the checkbox
+                if (hasEmptyColumn)
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["Select"] as DataGridViewCheckBoxCell;
+                    if (checkBoxCell != null)
+                    {
+                        checkBoxCell.Value = true;
+                    }
+                }
+            }
+
+            // Force a refresh of the DataGridView to update the highlighting
+            dgvTeachers.Refresh();
+
+            // Update the panel visibility based on checkbox states
+            UpdatePanelVisibility();
+        }
+        private void UpdateCheckBoxes(bool isChecked)
+        {
             foreach (DataGridViewRow row in dgvTeachers.Rows)
             {
                 if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell)
                 {
-                    checkBoxCell.Value = headerCheckbox.Checked;
+                    checkBoxCell.Value = isChecked;
+                }
+            }
+
+            // Force a refresh of the DataGridView to update the highlighting
+            dgvTeachers.Refresh();
+
+            // Update the panel visibility based on checkbox states
+            UpdatePanelVisibility();
+        }
+        private void btnCheckCompleteInfo_Click(object sender, EventArgs e)
+        {
+            cbSelection.Checked = true;
+            foreach (DataGridViewRow row in dgvTeachers.Rows)
+            {
+                // Check if the row has data in the specified columns
+                object departmentValue = row.Cells["dept"].Value;
+
+                bool hasEmptyColumn = string.IsNullOrEmpty(departmentValue?.ToString());
+
+                // If none of the specified columns are empty, check the checkbox
+                if (!hasEmptyColumn)
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["Select"] as DataGridViewCheckBoxCell;
+                    if (checkBoxCell != null)
+                    {
+                        checkBoxCell.Value = true;
+                    }
                 }
             }
 

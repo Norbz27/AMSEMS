@@ -29,7 +29,6 @@ namespace AMSEMS.SubForms_Admin
         private bool headerCheckboxAdded = true;
 
         private CheckBox headerCheckbox = new CheckBox();
-        private Button headerButton = new Button();
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private CancellationTokenSource cancellationTokenSource;
         public formAccounts_Students()
@@ -39,7 +38,7 @@ namespace AMSEMS.SubForms_Admin
             cn = new SqlConnection(SQL_Connection.connection);
             cancellationTokenSource = new CancellationTokenSource();
             lblAccountName.Text = account;
-            btnAll.Focus();
+            //btnAll.Focus();
 
             backgroundWorker.DoWork += backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
@@ -60,7 +59,14 @@ namespace AMSEMS.SubForms_Admin
             // Perform time-consuming operations here
             loadCMSControls();
             displayFilter();
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
+            if (cbStatus.InvokeRequired)
+            {
+                cbStatus.Invoke(new Action(() => { cbStatus.SelectedIndex = 0; }));
+            }
+            else
+            {
+                cbStatus.SelectedIndex = 0;
+            }
 
             // Simulate a time-consuming operation
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
@@ -121,7 +127,7 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnSetInactive, "Set Inactive");
 
 
-            btnAll.Focus();
+            //btnAll.Focus();
 
             backgroundWorker.RunWorkerAsync();
 
@@ -137,6 +143,7 @@ namespace AMSEMS.SubForms_Admin
                 cbDep.Invoke(new Action(() => displayFilter()));
                 return;
             }
+
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -146,44 +153,51 @@ namespace AMSEMS.SubForms_Admin
                     cbYearlvl.Items.Clear();
                     cbDep.Items.Clear();
                     cn.Open();
+
                     cm = new SqlCommand("Select Description from tbl_program", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
-                        cbProgram.Items.Add(dr["Description"].ToString());
+                        while (dr.Read())
+                        {
+                            cbProgram.Items.Add(dr["Description"].ToString());
+                        }
                     }
-                    dr.Close();
 
                     cm = new SqlCommand("Select Description from tbl_section", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
-                        cbSection.Items.Add(dr["Description"].ToString());
+                        while (dr.Read())
+                        {
+                            cbSection.Items.Add(dr["Description"].ToString());
+                        }
                     }
-                    dr.Close();
 
                     cm = new SqlCommand("Select Description from tbl_year_level", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
-                        cbYearlvl.Items.Add(dr["Description"].ToString());
+                        while (dr.Read())
+                        {
+                            cbYearlvl.Items.Add(dr["Description"].ToString());
+                        }
                     }
-                    dr.Close();
 
                     cm = new SqlCommand("Select Description from tbl_Departments", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
-                        cbDep.Items.Add(dr["Description"].ToString());
+                        while (dr.Read())
+                        {
+                            cbDep.Items.Add(dr["Description"].ToString());
+                        }
                     }
-                    dr.Close();
 
                     cm = new SqlCommand("Select Ter_Academic_Sem, SHS_Academic_Sem from tbl_acad where Acad_ID = 1", cn);
-                    dr = cm.ExecuteReader();
-                    dr.Read();
-                    tersem = dr["Ter_Academic_Sem"].ToString();
-                    shsquart = dr["SHS_Academic_Sem"].ToString();
-                    dr.Close();
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        dr.Read();
+                        tersem = dr["Ter_Academic_Sem"].ToString();
+                        shsquart = dr["SHS_Academic_Sem"].ToString();
+                    }
+
                     cn.Close();
                 }
             }
@@ -192,6 +206,7 @@ namespace AMSEMS.SubForms_Admin
                 MessageBox.Show(ex.Message);
             }
         }
+
 
         public async void displayTable(string query)
         {
@@ -260,7 +275,7 @@ namespace AMSEMS.SubForms_Admin
             {
                 headerCheckboxAdded = false;
                 ptbLoading.Visible = false;
-                dgvStudents.Controls.Add(headerCheckbox);
+                //dgvStudents.Controls.Add(headerCheckbox);
             }
         }
 
@@ -306,6 +321,28 @@ namespace AMSEMS.SubForms_Admin
 
             // Show or hide the panel based on the state of the checkboxes
             pnControl.Visible = anyChecked;
+        }
+        private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbStatus.Text.Equals("Active"))
+            {
+                ApplyStatusFilter("Active");
+            }
+            else if (cbStatus.Text.Equals("Inactive"))
+            {
+                ApplyStatusFilter("Inactive");
+            }
+            else
+            {
+                cbSection.Text = String.Empty;
+                cbProgram.Text = String.Empty;
+                cbDep.Text = String.Empty;
+                cbYearlvl.Text = String.Empty;
+                cbSection.Text = String.Empty;
+                tbSearch.Text = String.Empty;
+
+                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
+            }
         }
 
         private void btnAll_Click(object sender, EventArgs e)
@@ -764,43 +801,57 @@ namespace AMSEMS.SubForms_Admin
                 if (!headerCheckboxAdded) // Check if the checkbox has already been added
                 {
                     // Center the checkbox within the header cell
-                    int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
-                    int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
+                    //int x = e.CellBounds.X + (e.CellBounds.Width - headerCheckbox.Width) / 2;
+                    //int y = e.CellBounds.Y + (e.CellBounds.Height - headerCheckbox.Height) / 2;
 
-                    headerCheckbox.Location = new Point(x, y);
-                    headerCheckbox.Checked = AreAllCheckboxesChecked();
+                    //headerCheckbox.Location = new Point(x, y);
+                    //headerCheckbox.BackColor = Color.White;
+                    //headerCheckbox.Checked = AreAllCheckboxesChecked();
 
-                    int buttonX = x + headerCheckbox.Width + 5; // Adjust the distance as needed
-                    int buttonY = e.CellBounds.Y + (e.CellBounds.Height - headerButton.Height) / 2;
+                    //if (dgvStudents.Rows.Count != 0)
+                    //{
+                    //    dgvStudents.Controls.Add(headerCheckbox);
+                    //}
 
-                    headerButton.Location = new Point(buttonX, buttonY);
-                    headerButton.Text = "";
-                    headerButton.FlatStyle = FlatStyle.Flat;
-                    headerButton.FlatAppearance.BorderSize = 0;
-                    headerButton.Size = new System.Drawing.Size(20, 20);
-                    headerButton.Image = global::AMSEMS.Properties.Resources.down;
-                    headerButton.Click += HeaderButton_Click;
-
-
-                    if (dgvStudents.Rows.Count != 0)
-                    {
-                        dgvStudents.Controls.Add(headerCheckbox);
-                        dgvStudents.Controls.Add(headerButton);
-                    }
-
-                    headerCheckboxAdded = true;
+                    ////headerCheckboxAdded = true;
                 }
             }
         }
         private void HeaderCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox headerCheckbox = (CheckBox)sender;
+            UpdateCheckBoxes(headerCheckbox.Checked);
+        }
 
+        private void HeaderButton_Click(object sender, EventArgs e)
+        {
+            cbSelection.Checked = true;
+            UpdateCheckBoxes(cbSelection.Checked);
+        }
+        private void btnCheckMissinginfo_Click(object sender, EventArgs e)
+        {
+            cbSelection.Checked = true;
             foreach (DataGridViewRow row in dgvStudents.Rows)
             {
-                if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell)
+                // Check if the row has data in the specified columns
+                object departmentValue = row.Cells["Dep"].Value;
+                object sectionValue = row.Cells["section"].Value;
+                object levelValue = row.Cells["ylvl"].Value;
+                object programValue = row.Cells["program"].Value;
+
+                bool hasEmptyColumn = string.IsNullOrEmpty(departmentValue?.ToString()) ||
+                                      string.IsNullOrEmpty(sectionValue?.ToString()) ||
+                                      string.IsNullOrEmpty(levelValue?.ToString()) ||
+                                      string.IsNullOrEmpty(programValue?.ToString());
+
+                // If none of the specified columns are empty, check the checkbox
+                if (hasEmptyColumn)
                 {
-                    checkBoxCell.Value = headerCheckbox.Checked;
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["Select"] as DataGridViewCheckBoxCell;
+                    if (checkBoxCell != null)
+                    {
+                        checkBoxCell.Value = true;
+                    }
                 }
             }
 
@@ -810,10 +861,54 @@ namespace AMSEMS.SubForms_Admin
             // Update the panel visibility based on checkbox states
             UpdatePanelVisibility();
         }
-        private void HeaderButton_Click(object sender, EventArgs e)
+        private void btnCheckCompleteInfo_Click(object sender, EventArgs e)
         {
-            // Show context menu near the header button
-            CMSSelection.Show(headerButton, new System.Drawing.Point(0, headerButton.Height));
+            cbSelection.Checked = true;
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                // Check if the row has data in the specified columns
+                object departmentValue = row.Cells["Dep"].Value;
+                object sectionValue = row.Cells["section"].Value;
+                object levelValue = row.Cells["ylvl"].Value;
+                object programValue = row.Cells["program"].Value;
+
+                bool hasEmptyColumn = string.IsNullOrEmpty(departmentValue?.ToString()) ||
+                                      string.IsNullOrEmpty(sectionValue?.ToString()) ||
+                                      string.IsNullOrEmpty(levelValue?.ToString()) ||
+                                      string.IsNullOrEmpty(programValue?.ToString());
+
+                // If none of the specified columns are empty, check the checkbox
+                if (!hasEmptyColumn)
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["Select"] as DataGridViewCheckBoxCell;
+                    if (checkBoxCell != null)
+                    {
+                        checkBoxCell.Value = true;
+                    }
+                }
+            }
+
+            // Force a refresh of the DataGridView to update the highlighting
+            dgvStudents.Refresh();
+
+            // Update the panel visibility based on checkbox states
+            UpdatePanelVisibility();
+        }
+        private void UpdateCheckBoxes(bool isChecked)
+        {
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                if (row.Cells["Select"] is DataGridViewCheckBoxCell checkBoxCell)
+                {
+                    checkBoxCell.Value = isChecked;
+                }
+            }
+
+            // Force a refresh of the DataGridView to update the highlighting
+            dgvStudents.Refresh();
+
+            // Update the panel visibility based on checkbox states
+            UpdatePanelVisibility();
         }
         private bool AreAllCheckboxesChecked()
         {

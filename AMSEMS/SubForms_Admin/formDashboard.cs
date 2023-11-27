@@ -105,7 +105,7 @@ namespace AMSEMS.SubForms_Admin
                 return;
             }
 
-            chart1.Invalidate();
+            //chart1.Invalidate();
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
