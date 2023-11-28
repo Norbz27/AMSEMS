@@ -282,6 +282,8 @@ namespace AMSEMS.SubForms_Admin
         private async void cbET_SelectedIndexChanged(object sender, EventArgs e)
         {
             UseWaitCursor = true;
+            ptbLoading.Visible = true;
+            await Task.Delay(2000);
             ComboBox comboBox = (ComboBox)sender;
             string filtertbl = string.Empty;
             if (comboBox == cbET)
@@ -339,6 +341,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
             UseWaitCursor = false;
+            ptbLoading.Visible = false;
         }
 
         private void tbSearch_TextChanged(object sender, EventArgs e)

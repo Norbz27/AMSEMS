@@ -545,6 +545,8 @@ namespace AMSEMS.SubForms_Admin
         private async void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             UseWaitCursor = true;
+            ptbLoading.Visible = true;
+            await Task.Delay(2000);
             ComboBox comboBox = (ComboBox)sender;
             string filtertbl = string.Empty;
 
@@ -654,6 +656,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
             UseWaitCursor = false;
+            ptbLoading.Visible = false;
         }
 
         private async Task<string> GetSelectedItemDescriptionAsync(string selectedItem, string tbl)
