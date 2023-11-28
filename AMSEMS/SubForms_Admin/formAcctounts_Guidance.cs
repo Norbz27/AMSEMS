@@ -537,34 +537,40 @@ namespace AMSEMS.SubForms_Admin
             // Create a list to store the rows to be removed
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
-            DialogResult result = MessageBox.Show($"Do you want to delete selected account?", "Confirm Deletion", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvGuidance.Rows)
             {
-                // Iterate through the DataGridView rows to find selected rows
-                foreach (DataGridViewRow row in dgvGuidance.Rows)
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+
+                if (chk.Value != null && (bool)chk.Value)
                 {
-                    // Check if the "Select" checkbox is checked in the current row
-                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
-                    if (chk.Value != null && (bool)chk.Value)
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+
+                    // Get the ID or relevant data from the row
+                    int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
+                    // Call a method to perform the deletion of the record
+                    bool success = DeleteGuidanceRecord(id);
+
+                    if (success)
                     {
-                        hasSelectedRow = true; // Set the flag to true if at least one row is selected
-
-                        // Get the student ID or relevant data from the row
-                        int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
-
-                        // Call your DeleteGuidanceRecord method to delete the record
-                        bool success = DeleteGuidanceRecord(id);
-
-                        if (success)
-                        {
-                            // Add the row to the list of rows to be removed
-                            rowsToRemove.Add(row);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Failed to delete record with ID: " + id);
-                        }
+                        // Add the row to the list of rows to be removed
+                        rowsToRemove.Add(row);
                     }
+                }
+            }
+
+            // Show a MessageBox outside the loop based on the overall result
+            if (hasSelectedRow)
+            {
+                if (rowsToRemove.Count > 0)
+                {
+                    MessageBox.Show("Selected item(s) deleted successfully.", "Deletion Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("No items selected for deletion.", "Deletion Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
 
@@ -601,6 +607,8 @@ namespace AMSEMS.SubForms_Admin
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
+                    bool failedUpdate = false; // Flag to track whether any update operation fails
+
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvGuidance.Rows)
                     {
@@ -621,16 +629,28 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to update record with ID: " + id);
+                                failedUpdate = true; // Set the flag to true if any update operation fails
                             }
                         }
                     }
 
-                    displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                    // Refresh the displayed table after updating
+                    displayTable("Select ID, Firstname, Lastname, Password, st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+
+                    // Uncheck the header checkbox
                     headerCheckbox.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedUpdate)
+                    {
+                        MessageBox.Show("Some accounts failed to update. Please check and try again.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected accounts set as Inactive successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
-
         }
 
         private void btnSetActive_Click(object sender, EventArgs e)
@@ -659,6 +679,8 @@ namespace AMSEMS.SubForms_Admin
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
+                    bool failedUpdate = false; // Flag to track whether any update operation fails
+
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvGuidance.Rows)
                     {
@@ -679,15 +701,28 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to update record with ID: " + id);
+                                failedUpdate = true; // Set the flag to true if any update operation fails
                             }
                         }
                     }
-                    displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+
+                    // Refresh the displayed table after updating
+                    displayTable("Select ID, Firstname, Lastname, Password, st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+
+                    // Uncheck the header checkbox
                     headerCheckbox.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedUpdate)
+                    {
+                        MessageBox.Show("Some accounts failed to update. Please check and try again.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected accounts set as Active successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
-
         }
         private bool UpdateGuidanceStatus(string guidanceID, int status)
         {
@@ -740,6 +775,8 @@ namespace AMSEMS.SubForms_Admin
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
+                    bool failedArchive = false; // Flag to track whether any archive operation fails
+
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvGuidance.Rows)
                     {
@@ -760,12 +797,21 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
+                                failedArchive = true; // Set the flag to true if any archive operation fails
                                 MessageBox.Show("Failed to archive record with ID: " + id);
                             }
                         }
                     }
+
+                    // Refresh the displayed table after archiving
                     displayTable("Select ID,Firstname,Lastname,Password, st.Description as stDes from tbl_guidance_accounts as te left join tbl_status as st on te.Status = st.Status_ID");
                     headerCheckbox.Checked = false;
+
+                    // Show a message if any archive operation fails
+                    if (failedArchive)
+                    {
+                        MessageBox.Show("Some accounts failed to archive. Please check and try again.", "Archive Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }

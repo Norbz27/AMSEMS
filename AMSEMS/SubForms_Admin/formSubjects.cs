@@ -1,5 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.qrcode;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,9 +9,11 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace AMSEMS.SubForms_Admin
@@ -708,7 +712,9 @@ namespace AMSEMS.SubForms_Admin
             // Create a list to store the rows to be removed
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
-            DialogResult result = MessageBox.Show($"Do you want to delete selected subjects?", "Confirm Deletion", MessageBoxButtons.YesNo);
+            bool failedDeletion = false; // Flag to track whether any deletion operation fails
+
+            DialogResult result = MessageBox.Show("Do you want to delete selected subjects?", "Confirm Deletion", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
                 // Iterate through the DataGridView rows to find selected rows
@@ -720,10 +726,10 @@ namespace AMSEMS.SubForms_Admin
                     {
                         hasSelectedRow = true; // Set the flag to true if at least one row is selected
 
-                        // Get the student ID or relevant data from the row
+                        // Get the subject ID or relevant data from the row
                         string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
 
-                        // Call your DeleteTeacherRecord method to delete the record
+                        // Call your DeleteSubjectRecord method to delete the record
                         bool success = DeleteStudentRecord(id);
 
                         if (success)
@@ -733,17 +739,31 @@ namespace AMSEMS.SubForms_Admin
                         }
                         else
                         {
-                            MessageBox.Show("Failed to delete record with ID: " + id);
+                            failedDeletion = true;
                         }
                     }
                 }
             }
 
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+            // Refresh the displayed table after deletion
+            displayTable("Select Course_code, Course_Description, Units, t.Lastname as teach, st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
 
+            // Uncheck the header checkbox
             headerCheckbox.Checked = false;
-            dgvSubjects.Refresh();
+
+            // Hide the control panel
             pnControl.Hide();
+
+            // Show messages based on the results
+            if (failedDeletion)
+            {
+                MessageBox.Show("Some subjects failed to delete. Please check and try again.", "Deletion Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show("Selected subjects deleted successfully.", "Deletion Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
         private void btnSetInactive_Click(object sender, EventArgs e)
         {
@@ -771,6 +791,8 @@ namespace AMSEMS.SubForms_Admin
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
+                    bool failedUpdate = false; // Flag to track whether any update operation fails
+
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvSubjects.Rows)
                     {
@@ -778,7 +800,7 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                         if (chk.Value != null && (bool)chk.Value)
                         {
-                            // Get the sao ID or relevant data from the row
+                            // Get the subject ID or relevant data from the row
                             string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
@@ -791,21 +813,33 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to update record with ID: " + id);
+                                failedUpdate = true;
                             }
                         }
                     }
 
-                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    // Refresh the displayed table after updating
+                    displayTable("Select Course_code, Course_Description, Units, t.Lastname as teach, st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+
+                    // Uncheck the header checkbox
                     headerCheckbox.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedUpdate)
+                    {
+                        MessageBox.Show("Some subjects failed to update. Please check and try again.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected subjects updated successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
-
         }
 
         private void btnSetActive_Click(object sender, EventArgs e)
         {
-            // Check if at least one row is selected
+            
             bool hasSelectedRow = false;
 
             // Iterate through the DataGridView rows to find selected rows
@@ -815,17 +849,17 @@ namespace AMSEMS.SubForms_Admin
                 DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                 if (chk.Value != null && (bool)chk.Value)
                 {
-                    // Check if the "Department" column is not null and not empty
+                    // Check if the "Academic Level" column is not null and not empty
                     object acadValue = row.Cells["acad"].Value;
                     if (acadValue != DBNull.Value && !string.IsNullOrEmpty(acadValue.ToString()))
                     {
-                        hasSelectedRow = true; // Set the flag to true if at least one row is selected and the department is not null or empty
+                        hasSelectedRow = true; // Set the flag to true if at least one row is selected and the academic level is not null or empty
                         break; // Exit the loop as soon as the first selected row is found
                     }
                     else
                     {
-                        MessageBox.Show("Cannot set subject as active. Missing academic level information for selected subject.");
-                        return; // Exit the method if a row is missing department information
+                        MessageBox.Show("Cannot set subject as active. Missing academic level information for the selected subject.");
+                        return; // Exit the method if a row is missing academic level information
                     }
                 }
             }
@@ -833,11 +867,13 @@ namespace AMSEMS.SubForms_Admin
             if (hasSelectedRow)
             {
                 // Ask for confirmation from the user
-                DialogResult result = MessageBox.Show("Set selected accounts as Active?", "Confirm Update", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Set selected subjects as Active?", "Confirm Update", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
+
+                    bool failedUpdate = false; // Flag to track whether any update operation fails
 
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvSubjects.Rows)
@@ -846,14 +882,14 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                         if (chk.Value != null && (bool)chk.Value)
                         {
-                            // Check if the "Department" column is not null and not empty
+                            // Check if the "Academic Level" column is not null and not empty
                             object acadValue = row.Cells["acad"].Value;
                             if (acadValue != DBNull.Value && !string.IsNullOrEmpty(acadValue.ToString()))
                             {
-                                // Get the teacher ID or relevant data from the row
+                                // Get the subject ID or relevant data from the row
                                 string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
 
-                                // Call your UpdateTeacherStatus method to update the record
+                                // Call your UpdateSubjectStatus method to update the record
                                 bool success = UpdateSubjectStatus(id, 1);
 
                                 if (success)
@@ -863,16 +899,29 @@ namespace AMSEMS.SubForms_Admin
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Failed to update record with ID: " + id);
+                                    failedUpdate = true;
                                 }
                             }
                         }
                     }
-                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+
+                    // Refresh the displayed table after updating
+                    displayTable("Select Course_code, Course_Description, Units, t.Lastname as teach, st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+
+                    // Uncheck the header checkbox
                     headerCheckbox.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedUpdate)
+                    {
+                        MessageBox.Show("Some subjects failed to update. Please check and try again.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected subjects updated successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
-
         }
         private bool UpdateSubjectStatus(string saoID, int status)
         {
@@ -918,8 +967,10 @@ namespace AMSEMS.SubForms_Admin
 
             if (hasSelectedRow)
             {
+                bool failedArchive = false; // Flag to track whether any archive operation fails
+
                 // Ask for confirmation from the user
-                DialogResult result = MessageBox.Show("Are you sure to archive this Subjects?", "Confirm Update", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Are you sure to archive these subjects?", "Confirm Update", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     // Create a list to store the rows to be removed
@@ -932,10 +983,10 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                         if (chk.Value != null && (bool)chk.Value)
                         {
-                            // Get the sao ID or relevant data from the row
-                            string id = row.Cells["code"].Value.ToString();// Replace "ID" with the actual column name
+                            // Get the subject ID or relevant data from the row
+                            string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSubjectStatus method to update the record
+                            // Call your AddtoArchive method to update the record
                             bool success = AddtoArchive(id);
 
                             if (success)
@@ -945,14 +996,27 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to archive record with Course code: " + id);
+                                failedArchive = true;
                             }
                         }
                     }
-                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+
+                    // Refresh the displayed table after archiving
+                    displayTable("Select Course_code, Course_Description, Units, t.Lastname as teach, st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
                     headerCheckbox.Checked = false;
+
+                    // Show a message indicating the completion of the operation
+                    if (!failedArchive)
+                    {
+                        MessageBox.Show("Selected subjects archived successfully.", "Archive Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Some subjects failed to archive. Please check and try again.", "Archive Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+
         }
         private bool AddtoArchive(string courseCode)
         {
@@ -1129,6 +1193,8 @@ namespace AMSEMS.SubForms_Admin
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rows = new List<DataGridViewRow>();
 
+                    bool failedUpdate = false; // Flag to track whether any update operation fails
+
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvSubjects.Rows)
                     {
@@ -1136,10 +1202,10 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                         if (chk.Value != null && (bool)chk.Value)
                         {
-                            // Get the teacher ID or relevant data from the row
+                            // Get the subject ID or relevant data from the row
                             string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSubjectStatus method to update the record
+                            // Call your UpdateSubjectsInfo method to update the record
                             bool success = UpdateSubjectsInfo(id, itemId, column);
 
                             if (success)
@@ -1149,12 +1215,26 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to update record with Course code: " + id);
+                                failedUpdate = true;
                             }
                         }
                     }
-                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+
+                    // Refresh the displayed table after updating
+                    displayTable("Select Course_code, Course_Description, Units, t.Lastname as teach, st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+
+                    // Uncheck the header checkbox
                     headerCheckbox.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedUpdate)
+                    {
+                        MessageBox.Show("Some subjects failed to update. Please check and try again.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected subjects updated successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
         }

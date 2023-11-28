@@ -282,7 +282,7 @@ namespace AMSEMS.SubForms_Admin
                     }
                 }
                 if (!istrue)
-                    form1.displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
+                    form1.displayTable();
                 else
                 {
                     form2.DisplayData();

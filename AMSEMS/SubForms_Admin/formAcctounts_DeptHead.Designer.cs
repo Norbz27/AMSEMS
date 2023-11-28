@@ -56,6 +56,7 @@
             this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             this.btnExport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnImport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -85,26 +86,25 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cbSelection = new System.Windows.Forms.CheckBox();
             this.kryptonDropButton1 = new ComponentFactory.Krypton.Toolkit.KryptonDropButton();
-            this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.cbStatus = new System.Windows.Forms.ComboBox();
             this.CMSSelection = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
+            this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTeachers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
             this.kryptonGroupBox5.Panel.SuspendLayout();
             this.kryptonGroupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.panel1.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
             this.CMSExport.SuspendLayout();
             this.pnControl.SuspendLayout();
             this.CMSDepartment.SuspendLayout();
             this.CMSSelection.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // btnReload
@@ -304,7 +304,7 @@
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
-            this.ID.Width = 46;
+            this.ID.Width = 45;
             // 
             // Fname
             // 
@@ -399,6 +399,23 @@
             this.kryptonGroupBox5.StateCommon.Border.Rounding = 10;
             this.kryptonGroupBox5.StateCommon.Border.Width = 2;
             this.kryptonGroupBox5.TabIndex = 50;
+            // 
+            // ptbLoading
+            // 
+            this.ptbLoading.BackColor = System.Drawing.Color.White;
+            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoading.BorderWidth = 0;
+            this.ptbLoading.CornerRadius = 10;
+            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.ImageLocation = "";
+            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(882, 361);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 11;
+            this.ptbLoading.TabStop = false;
+            this.ptbLoading.Visible = false;
             // 
             // btnExport
             // 
@@ -680,7 +697,7 @@
             this.kryptonLabel2.Location = new System.Drawing.Point(125, 54);
             this.kryptonLabel2.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(90, 22);
+            this.kryptonLabel2.Size = new System.Drawing.Size(91, 22);
             this.kryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.kryptonLabel2.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.kryptonLabel2.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
@@ -1185,6 +1202,44 @@
             this.kryptonDropButton1.TabIndex = 57;
             this.kryptonDropButton1.Values.Text = "";
             // 
+            // CMSSelection
+            // 
+            this.CMSSelection.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.CMSSelection.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem10,
+            this.toolStripMenuItem7});
+            this.CMSSelection.Name = "contextMenuStrip2";
+            this.CMSSelection.ShowImageMargin = false;
+            this.CMSSelection.ShowItemToolTips = false;
+            this.CMSSelection.Size = new System.Drawing.Size(185, 82);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(184, 26);
+            this.toolStripMenuItem2.Text = "All";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.HeaderButton_Click);
+            // 
+            // toolStripMenuItem10
+            // 
+            this.toolStripMenuItem10.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(184, 26);
+            this.toolStripMenuItem10.Text = "Missing Information";
+            this.toolStripMenuItem10.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.toolStripMenuItem10.Click += new System.EventHandler(this.btnCheckMissinginfo_Click);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(184, 26);
+            this.toolStripMenuItem7.Text = "Complete Information";
+            this.toolStripMenuItem7.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.toolStripMenuItem7.Click += new System.EventHandler(this.btnCheckCompleteInfo_Click);
+            // 
             // kryptonLabel5
             // 
             this.kryptonLabel5.Location = new System.Drawing.Point(16, 54);
@@ -1209,62 +1264,8 @@
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(98, 27);
             this.cbStatus.TabIndex = 59;
-            this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbStatus_SelectedIndexChanged);
-            // 
-            // CMSSelection
-            // 
-            this.CMSSelection.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.CMSSelection.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2,
-            this.toolStripMenuItem10,
-            this.toolStripMenuItem7});
-            this.CMSSelection.Name = "contextMenuStrip2";
-            this.CMSSelection.ShowImageMargin = false;
-            this.CMSSelection.ShowItemToolTips = false;
-            this.CMSSelection.Size = new System.Drawing.Size(184, 82);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(183, 26);
-            this.toolStripMenuItem2.Text = "All";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.HeaderButton_Click);
-            // 
-            // toolStripMenuItem10
-            // 
-            this.toolStripMenuItem10.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(183, 26);
-            this.toolStripMenuItem10.Text = "Missing Information";
-            this.toolStripMenuItem10.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.toolStripMenuItem10.Click += new System.EventHandler(this.btnCheckMissinginfo_Click);
-            // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(183, 26);
-            this.toolStripMenuItem7.Text = "Complete Information";
-            this.toolStripMenuItem7.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.toolStripMenuItem7.Click += new System.EventHandler(this.btnCheckCompleteInfo_Click);
-            // 
-            // ptbLoading
-            // 
-            this.ptbLoading.BackColor = System.Drawing.Color.White;
-            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ptbLoading.BorderWidth = 0;
-            this.ptbLoading.CornerRadius = 10;
-            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
-            this.ptbLoading.ImageLocation = "";
-            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
-            this.ptbLoading.Name = "ptbLoading";
-            this.ptbLoading.Size = new System.Drawing.Size(882, 361);
-            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptbLoading.TabIndex = 11;
-            this.ptbLoading.TabStop = false;
-            this.ptbLoading.Visible = false;
+            this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbET_SelectedIndexChanged);
+            this.cbStatus.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbET_KeyPress);
             // 
             // formAcctounts_DeptHead
             // 
@@ -1296,6 +1297,7 @@
             this.kryptonGroupBox5.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).EndInit();
             this.kryptonGroupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.contextMenuStrip2.ResumeLayout(false);
@@ -1303,7 +1305,6 @@
             this.pnControl.ResumeLayout(false);
             this.CMSDepartment.ResumeLayout(false);
             this.CMSSelection.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

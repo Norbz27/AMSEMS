@@ -208,45 +208,74 @@ namespace AMSEMS.SubForms_Admin
         }
 
 
-        public async void displayTable(string query)
+        public async void displayTable()
         {
             if (dgvStudents.InvokeRequired)
             {
-                dgvStudents.Invoke(new Action(() => displayTable(query)));
+                dgvStudents.Invoke(new Action(() => displayTable()));
                 return;
             }
             try
             {
-                query = query + " ORDER BY DateTime DESC;";
-                dgvStudents.Rows.Clear();
+                UseWaitCursor = true;
                 ptbLoading.Visible = true;
                 await Task.Delay(2000);
+                string selectedItemP = cbProgram.Text;
+                string selectedItemY = cbYearlvl.Text;
+                string selectedItemS = cbSection.Text;
+                string selectedstatus = cbStatus.Text;
+
+                string descriptionP = await GetSelectedItemDescriptionAsync(selectedItemP, "tbl_program");
+                string descriptionY = await GetSelectedItemDescriptionAsync(selectedItemY, "tbl_year_level");
+                string descriptionS = await GetSelectedItemDescriptionAsync(selectedItemS, "tbl_Section");
+                string descriptionD = await GetSelectedItemDescriptionAsync(selectedItemS, "tbl_Departments");
+
+                string query = "SELECT ID, RFID, Firstname, Lastname, Password, " +
+                   "d.Description as dDes, p.Description as pDes, " +
+                   "se.Description as sDes, yl.Description as yDes, " +
+                   "st.Description as stDes, ac.Academic_Level_Description as acadDes " +
+                   "FROM tbl_student_accounts as sa " +
+                   "LEFT JOIN tbl_program as p ON sa.Program = p.Program_ID " +
+                   "LEFT JOIN tbl_Section as se ON sa.Section = se.Section_ID " +
+                   "LEFT JOIN tbl_year_level as yl ON sa.Year_level = yl.Level_ID " +
+                   "LEFT JOIN tbl_Departments as d ON sa.Department = d.Department_ID " +
+                   "LEFT JOIN tbl_status as st ON sa.Status = st.Status_ID " +
+                   "LEFT JOIN tbl_academic_level as ac ON d.AcadLevel_ID = ac.Academic_Level_ID " +
+                   "WHERE (@ProgramDescription IS NULL OR p.Description = @ProgramDescription) " +
+                   "AND (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
+                   "AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) " +
+                   "AND (@StatusDescription = 'All' OR st.Description = @StatusDescription) " +
+                   "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription)";
+
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
 
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
+                        cmd.Parameters.AddWithValue("@ProgramDescription", string.IsNullOrEmpty(descriptionP) ? DBNull.Value : (object)descriptionP);
+                        cmd.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(descriptionD) ? DBNull.Value : (object)descriptionD);
+                        cmd.Parameters.AddWithValue("@YearLevelDescription", string.IsNullOrEmpty(descriptionY) ? DBNull.Value : (object)descriptionY);
+                        cmd.Parameters.AddWithValue("@SectionDescription", string.IsNullOrEmpty(descriptionS) ? DBNull.Value : (object)descriptionS);
+                        cmd.Parameters.AddWithValue("@StatusDescription", selectedstatus);
+
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
+                            dgvStudents.Rows.Clear();
+                            int count = 1;
                             while (dr.Read())
                             {
-                                if (cancellationTokenSource.Token.IsCancellationRequested)
-                                {
-                                    return;
-                                }
                                 // Add a row and set the checkbox column value to false (unchecked)
                                 int rowIndex = dgvStudents.Rows.Add(false);
 
                                 // Populate other columns, starting from index 1
                                 dgvStudents.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
-                                dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString().ToUpper();
-                                dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString().ToUpper();
+                                dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
-
                                 if (dr["yDes"] != DBNull.Value)
                                 {
                                     if (dr["acadDes"].ToString().Equals("Tertiary"))
@@ -258,14 +287,15 @@ namespace AMSEMS.SubForms_Admin
                                 {
                                     dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
                                 }
-
                                 dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
+                                // Populate your control column here (change "ControlColumn" to your actual column name)
                                 dgvStudents.Rows[rowIndex].Cells["option"].Value = option.Image;
                             }
                         }
                     }
                 }
+                UseWaitCursor = false;
             }
             catch (Exception ex)
             {
@@ -322,50 +352,28 @@ namespace AMSEMS.SubForms_Admin
             // Show or hide the panel based on the state of the checkboxes
             pnControl.Visible = anyChecked;
         }
-        private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cbStatus.Text.Equals("Active"))
-            {
-                ApplyStatusFilter("Active");
-            }
-            else if (cbStatus.Text.Equals("Inactive"))
-            {
-                ApplyStatusFilter("Inactive");
-            }
-            else
-            {
-                cbSection.Text = String.Empty;
-                cbProgram.Text = String.Empty;
-                cbDep.Text = String.Empty;
-                cbYearlvl.Text = String.Empty;
-                cbSection.Text = String.Empty;
-                tbSearch.Text = String.Empty;
+        //private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    if (cbStatus.Text.Equals("Active"))
+        //    {
+        //        ApplyStatusFilter("Active");
+        //    }
+        //    else if (cbStatus.Text.Equals("Inactive"))
+        //    {
+        //        ApplyStatusFilter("Inactive");
+        //    }
+        //    else
+        //    {
+        //        cbSection.Text = String.Empty;
+        //        cbProgram.Text = String.Empty;
+        //        cbDep.Text = String.Empty;
+        //        cbYearlvl.Text = String.Empty;
+        //        cbSection.Text = String.Empty;
+        //        tbSearch.Text = String.Empty;
 
-                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
-            }
-        }
-
-        private void btnAll_Click(object sender, EventArgs e)
-        {
-            cbProgram.Text = String.Empty;
-            cbSection.Text = String.Empty;
-            cbDep.Text = String.Empty;
-            cbYearlvl.Text = String.Empty;
-            tbSearch.Text = String.Empty;
-
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
-        }
-
-        private void btnActive_Click(object sender, EventArgs e)
-        {
-            ApplyStatusFilter("Active");
-        }
-
-        private void btnInactive_Click(object sender, EventArgs e)
-        {
-            ApplyStatusFilter("Inactive");
-
-        }
+        //        displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
+        //    }
+        //}
 
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -425,7 +433,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
+                                displayTable();
                                 MessageBox.Show("Account deleted successfully.");
                             }
                             else
@@ -556,6 +564,10 @@ namespace AMSEMS.SubForms_Admin
             {
                 filtertbl = "tbl_Departments";
             }
+            else if (comboBox == cbStatus)
+            {
+                filtertbl = "tbl_status";
+            }
 
             if (!string.IsNullOrEmpty(filtertbl))
             {
@@ -564,6 +576,7 @@ namespace AMSEMS.SubForms_Admin
                 string selectedItemY = cbYearlvl.Text;
                 string selectedItemS = cbSection.Text;
                 string selectedItemD = cbDep.Text;
+                string selectedstatus = cbStatus.Text;
 
                 // Get the corresponding descriptions for the selected items
                 string descriptionP = await GetSelectedItemDescriptionAsync(selectedItemP, "tbl_program");
@@ -572,11 +585,23 @@ namespace AMSEMS.SubForms_Admin
                 string descriptionD = await GetSelectedItemDescriptionAsync(selectedItemD, "tbl_Departments");
 
                 // Construct the query based on the selected descriptions
-                string query = "Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID " +
-                "where (@ProgramDescription IS NULL OR p.Description = @ProgramDescription) " +
-                "AND (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
-                "AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) " +
-                "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription)";
+                string query = "SELECT ID, RFID, Firstname, Lastname, Password, " +
+               "d.Description as dDes, p.Description as pDes, " +
+               "se.Description as sDes, yl.Description as yDes, " +
+               "st.Description as stDes, ac.Academic_Level_Description as acadDes " +
+               "FROM tbl_student_accounts as sa " +
+               "LEFT JOIN tbl_program as p ON sa.Program = p.Program_ID " +
+               "LEFT JOIN tbl_Section as se ON sa.Section = se.Section_ID " +
+               "LEFT JOIN tbl_year_level as yl ON sa.Year_level = yl.Level_ID " +
+               "LEFT JOIN tbl_Departments as d ON sa.Department = d.Department_ID " +
+               "LEFT JOIN tbl_status as st ON sa.Status = st.Status_ID " +
+               "LEFT JOIN tbl_academic_level as ac ON d.AcadLevel_ID = ac.Academic_Level_ID " +
+               "WHERE (@ProgramDescription IS NULL OR p.Description = @ProgramDescription) " +
+               "AND (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
+               "AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) " +
+               "AND (@StatusDescription = 'All' OR st.Description = @StatusDescription) " +
+               "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription)";
+
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -587,6 +612,7 @@ namespace AMSEMS.SubForms_Admin
                         cmd.Parameters.AddWithValue("@ProgramDescription", string.IsNullOrEmpty(descriptionP) ? DBNull.Value : (object)descriptionP);
                         cmd.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(descriptionD) ? DBNull.Value : (object)descriptionD);
                         cmd.Parameters.AddWithValue("@YearLevelDescription", string.IsNullOrEmpty(descriptionY) ? DBNull.Value : (object)descriptionY);
+                        cmd.Parameters.AddWithValue("@StatusDescription", string.IsNullOrEmpty(selectedstatus) ? DBNull.Value : (object)selectedstatus);
                         cmd.Parameters.AddWithValue("@SectionDescription", string.IsNullOrEmpty(descriptionS) ? DBNull.Value : (object)descriptionS);
 
                         using (SqlDataReader dr = cmd.ExecuteReader())
@@ -605,7 +631,19 @@ namespace AMSEMS.SubForms_Admin
                                 dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
-                                dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
+
+                                if (dr["yDes"] != DBNull.Value)
+                                {
+                                    if (dr["acadDes"].ToString().Equals("Tertiary"))
+                                        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + tersem + "S";
+                                    else
+                                        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + shsquart + "Q";
+                                }
+                                else
+                                {
+                                    dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
+                                }
+
                                 dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
                                 // Populate your control column here (change "ControlColumn" to your actual column name)
@@ -641,66 +679,86 @@ namespace AMSEMS.SubForms_Admin
             }
         }
 
+        //private async void ApplyStatusFilter()
+        //{
+        //    UseWaitCursor = true;
+        //    string selectedItemP = cbProgram.Text;
+        //    string selectedItemY = cbYearlvl.Text;
+        //    string selectedItemS = cbSection.Text;
+        //    string selectedstatus = cbStatus.Text;
 
-        private async void ApplyStatusFilter(string statusDescription)
-        {
-            UseWaitCursor = true;
-            string selectedItemP = cbProgram.Text;
-            string selectedItemY = cbYearlvl.Text;
-            string selectedItemS = cbSection.Text;
+        //    string descriptionP = await GetSelectedItemDescriptionAsync(selectedItemP, "tbl_program");
+        //    string descriptionY = await GetSelectedItemDescriptionAsync(selectedItemY, "tbl_year_level");
+        //    string descriptionS = await GetSelectedItemDescriptionAsync(selectedItemS, "tbl_Section");
+        //    string descriptionD = await GetSelectedItemDescriptionAsync(selectedItemS, "tbl_Departments");
 
-            string descriptionP = await GetSelectedItemDescriptionAsync(selectedItemP, "tbl_program");
-            string descriptionY = await GetSelectedItemDescriptionAsync(selectedItemY, "tbl_year_level");
-            string descriptionS = await GetSelectedItemDescriptionAsync(selectedItemS, "tbl_Section");
-            string descriptionD = await GetSelectedItemDescriptionAsync(selectedItemS, "tbl_Departments");
+        //    string query = "SELECT ID, RFID, Firstname, Lastname, Password, " +
+        //       "d.Description as dDes, p.Description as pDes, " +
+        //       "se.Description as sDes, yl.Description as yDes, " +
+        //       "st.Description as stDes, ac.Academic_Level_Description as acadDes " +
+        //       "FROM tbl_student_accounts as sa " +
+        //       "LEFT JOIN tbl_program as p ON sa.Program = p.Program_ID " +
+        //       "LEFT JOIN tbl_Section as se ON sa.Section = se.Section_ID " +
+        //       "LEFT JOIN tbl_year_level as yl ON sa.Year_level = yl.Level_ID " +
+        //       "LEFT JOIN tbl_Departments as d ON sa.Department = d.Department_ID " +
+        //       "LEFT JOIN tbl_status as st ON sa.Status = st.Status_ID " +
+        //       "LEFT JOIN tbl_academic_level as ac ON d.AcadLevel_ID = ac.Academic_Level_ID " +
+        //       "WHERE (@ProgramDescription IS NULL OR p.Description = @ProgramDescription) " +
+        //       "AND (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
+        //       "AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) " +
+        //       "AND (@StatusDescription = 'All' OR st.Description = @StatusDescription) " +
+        //       "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription)";
 
-            string query = "Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID " +
-                "where (@ProgramDescription IS NULL OR p.Description = @ProgramDescription) " +
-                "AND (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
-                "AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) " +
-                "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription) " +
-                "AND (@StatusDescription IS NULL OR st.Description = @StatusDescription)";
+        //    using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+        //    {
+        //        cn.Open();
 
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-            {
-                cn.Open();
+        //        using (SqlCommand cmd = new SqlCommand(query, cn))
+        //        {
+        //            cmd.Parameters.AddWithValue("@ProgramDescription", string.IsNullOrEmpty(descriptionP) ? DBNull.Value : (object)descriptionP);
+        //            cmd.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(descriptionD) ? DBNull.Value : (object)descriptionD);
+        //            cmd.Parameters.AddWithValue("@YearLevelDescription", string.IsNullOrEmpty(descriptionY) ? DBNull.Value : (object)descriptionY);
+        //            cmd.Parameters.AddWithValue("@SectionDescription", string.IsNullOrEmpty(descriptionS) ? DBNull.Value : (object)descriptionS);
+        //            cmd.Parameters.AddWithValue("@StatusDescription", selectedstatus);
 
-                using (SqlCommand cmd = new SqlCommand(query, cn))
-                {
-                    cmd.Parameters.AddWithValue("@ProgramDescription", string.IsNullOrEmpty(descriptionP) ? DBNull.Value : (object)descriptionP);
-                    cmd.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(descriptionD) ? DBNull.Value : (object)descriptionD);
-                    cmd.Parameters.AddWithValue("@YearLevelDescription", string.IsNullOrEmpty(descriptionY) ? DBNull.Value : (object)descriptionY);
-                    cmd.Parameters.AddWithValue("@SectionDescription", string.IsNullOrEmpty(descriptionS) ? DBNull.Value : (object)descriptionS);
-                    cmd.Parameters.AddWithValue("@StatusDescription", statusDescription);
+        //            using (SqlDataReader dr = cmd.ExecuteReader())
+        //            {
+        //                dgvStudents.Rows.Clear();
+        //                int count = 1;
+        //                while (dr.Read())
+        //                {
+        //                    // Add a row and set the checkbox column value to false (unchecked)
+        //                    int rowIndex = dgvStudents.Rows.Add(false);
 
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        dgvStudents.Rows.Clear();
-                        int count = 1;
-                        while (dr.Read())
-                        {
-                            // Add a row and set the checkbox column value to false (unchecked)
-                            int rowIndex = dgvStudents.Rows.Add(false);
+        //                    // Populate other columns, starting from index 1
+        //                    dgvStudents.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
+        //                    dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
+        //                    dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
+        //                    dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+        //                    dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
+        //                    dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
+        //                    dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
+        //                    if (dr["yDes"] != DBNull.Value)
+        //                    {
+        //                        if (dr["acadDes"].ToString().Equals("Tertiary"))
+        //                            dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + tersem + "S";
+        //                        else
+        //                            dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + shsquart + "Q";
+        //                    }
+        //                    else
+        //                    {
+        //                        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
+        //                    }
+        //                    dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
-                            // Populate other columns, starting from index 1
-                            dgvStudents.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
-
-                            // Populate your control column here (change "ControlColumn" to your actual column name)
-                            dgvStudents.Rows[rowIndex].Cells["option"].Value = option.Image;
-                        }
-                    }
-                }
-            }
-            UseWaitCursor = false;
-        }
+        //                    // Populate your control column here (change "ControlColumn" to your actual column name)
+        //                    dgvStudents.Rows[rowIndex].Cells["option"].Value = option.Image;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    UseWaitCursor = false;
+        //}
 
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
@@ -732,8 +790,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
-
+            displayTable();
         }
 
         private void btnExpPDF_Click(object sender, EventArgs e)
@@ -853,6 +910,14 @@ namespace AMSEMS.SubForms_Admin
                         checkBoxCell.Value = true;
                     }
                 }
+                else
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["Select"] as DataGridViewCheckBoxCell;
+                    if (checkBoxCell != null)
+                    {
+                        checkBoxCell.Value = false;
+                    }
+                }
             }
 
             // Force a refresh of the DataGridView to update the highlighting
@@ -884,6 +949,14 @@ namespace AMSEMS.SubForms_Admin
                     if (checkBoxCell != null)
                     {
                         checkBoxCell.Value = true;
+                    }
+                }
+                else
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["Select"] as DataGridViewCheckBoxCell;
+                    if (checkBoxCell != null)
+                    {
+                        checkBoxCell.Value = false;
                     }
                 }
             }
@@ -933,40 +1006,51 @@ namespace AMSEMS.SubForms_Admin
             // Create a list to store the rows to be removed
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
-            DialogResult result = MessageBox.Show($"Do you want to delete selected account?", "Confirm Deletion", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvStudents.Rows)
             {
-                // Iterate through the DataGridView rows to find selected rows
-                foreach (DataGridViewRow row in dgvStudents.Rows)
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+
+                if (chk.Value != null && (bool)chk.Value)
                 {
-                    // Check if the "Select" checkbox is checked in the current row
-                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
-                    if (chk.Value != null && (bool)chk.Value)
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+
+                    // Get the ID or relevant data from the row
+                    int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
+
+                    // Call a method to perform the deletion of the record
+                    bool success = DeleteStudentRecord(id);
+
+                    if (success)
                     {
-                        hasSelectedRow = true; // Set the flag to true if at least one row is selected
-
-                        // Get the student ID or relevant data from the row
-                        int id = Convert.ToInt32(row.Cells["ID"].Value); // Replace "ID" with the actual column name
-
-                        // Call your DeleteTeacherRecord method to delete the record
-                        bool success = DeleteStudentRecord(id);
-
-                        if (success)
-                        {
-                            // Add the row to the list of rows to be removed
-                            rowsToRemove.Add(row);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Failed to delete record with ID: " + id);
-                        }
+                        // Add the row to the list of rows to be removed
+                        rowsToRemove.Add(row);
                     }
                 }
             }
 
-            displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
+            // Show a MessageBox outside the loop based on the overall result
+            if (hasSelectedRow)
+            {
+                if (rowsToRemove.Count > 0)
+                {
+                    MessageBox.Show("Selected item(s) deleted successfully.", "Deletion Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("No items selected for deletion.", "Deletion Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No items selected for deletion.", "Deletion Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
-            headerCheckbox.Checked = false;
+
+            displayTable();
+
+            cbSelection.Checked = false;
             dgvStudents.Refresh();
 
             pnControl.Hide();
@@ -999,6 +1083,8 @@ namespace AMSEMS.SubForms_Admin
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
+                    bool failedUpdate = false; // Flag to track whether any update operation fails
+
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvStudents.Rows)
                     {
@@ -1019,16 +1105,28 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to update record with ID: " + id);
+                                failedUpdate = true; // Set the flag to true if any update operation fails
                             }
                         }
                     }
 
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
-                    headerCheckbox.Checked = false;
+                    // Refresh the displayed table after updating
+                    displayTable();
+
+                    // Clear the "Select All" checkbox
+                    cbSelection.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedUpdate)
+                    {
+                        MessageBox.Show("Some accounts failed to update. Please check and try again.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected accounts set as Inactive successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
-
         }
 
         private void btnSetActive_Click(object sender, EventArgs e)
@@ -1075,6 +1173,8 @@ namespace AMSEMS.SubForms_Admin
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
+                    bool failedUpdate = false; // Flag to track whether any update operation fails
+
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvStudents.Rows)
                     {
@@ -1108,13 +1208,27 @@ namespace AMSEMS.SubForms_Admin
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Failed to update record with ID: " + id);
+                                    failedUpdate = true; // Set the flag to true if any update operation fails
                                 }
                             }
                         }
                     }
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
-                    headerCheckbox.Checked = false;
+
+                    // Refresh the displayed table after updating
+                    displayTable();
+
+                    // Clear the "Select All" checkbox
+                    cbSelection.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedUpdate)
+                    {
+                        MessageBox.Show("Some accounts failed to update. Please check and try again.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected accounts set as Active successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
         }
@@ -1372,6 +1486,8 @@ namespace AMSEMS.SubForms_Admin
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rows = new List<DataGridViewRow>();
 
+                    bool failedUpdate = false; // Flag to track whether any update operation fails
+
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvStudents.Rows)
                     {
@@ -1392,12 +1508,26 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to update record with ID: " + id);
+                                failedUpdate = true; // Set the flag to true if any update operation fails
                             }
                         }
                     }
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
-                    headerCheckbox.Checked = false;
+
+                    // Refresh the displayed table after updating
+                    displayTable();
+
+                    // Clear the "Select All" checkbox
+                    cbSelection.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedUpdate)
+                    {
+                        MessageBox.Show("Some accounts failed to update. Please check and try again.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected accounts updated successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
         }
@@ -1422,11 +1552,13 @@ namespace AMSEMS.SubForms_Admin
             if (hasSelectedRow)
             {
                 // Ask for confirmation from the user
-                DialogResult result = MessageBox.Show("Are you sure to archive this accounts?", "Confirm Update", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Are you sure you want to archive the selected accounts?", "Confirm Update", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
+
+                    bool failedArchive = false; // Flag to track whether any archive operation fails
 
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvStudents.Rows)
@@ -1435,10 +1567,10 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                         if (chk.Value != null && (bool)chk.Value)
                         {
-                            // Get the teacher ID or relevant data from the row
+                            // Get the ID or relevant data from the row
                             string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSubjectStatus method to update the record
+                            // Call your AddtoArchive method to update the record
                             bool success = AddtoArchive(id);
 
                             if (success)
@@ -1448,12 +1580,26 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to archive record with ID: " + id);
+                                failedArchive = true; // Set the flag to true if any archive operation fails
                             }
                         }
                     }
-                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
-                    headerCheckbox.Checked = false;
+
+                    // Refresh the displayed table after archiving
+                    displayTable();
+
+                    // Clear the "Select All" checkbox
+                    cbSelection.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedArchive)
+                    {
+                        MessageBox.Show("Some accounts failed to archive. Please check and try again.", "Archive Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected accounts archived successfully.", "Archive Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
         }
@@ -1639,7 +1785,7 @@ namespace AMSEMS.SubForms_Admin
 
                                 if (updateSuccessful)
                                 {
-                                    displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
+                                    displayTable();
                                 }
                                 else
                                 {
@@ -1683,7 +1829,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
+                                displayTable();
                             }
                             else
                             {
@@ -1726,7 +1872,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,RFID,Firstname,Lastname,Password,d.Description as dDes,p.Description as pDes,se.Description as sDes,yl.Description as yDes,st.Description as stDes, ac.Academic_Level_Description as acadDes from tbl_student_accounts as sa left join tbl_program as p on sa.Program = p.Program_ID left join tbl_Section as se on sa.Section = se.Section_ID left join tbl_year_level as yl on sa.Year_level = yl.Level_ID left join tbl_Departments as d on sa.Department = d.Department_ID left join tbl_status as st on sa.Status = st.Status_ID left join tbl_academic_level as ac on d.AcadLevel_ID = ac.Academic_Level_ID");
+                                displayTable();
                                 MessageBox.Show("Account archived successfully.");
                             }
                             else

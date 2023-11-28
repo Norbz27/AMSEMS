@@ -140,33 +140,44 @@ namespace AMSEMS.SubForms_Admin
             }
         }
 
-        public async void displayTable(string query)
+        public async void displayTable()
         {
             if (dgvTeachers.InvokeRequired)
             {
-                dgvTeachers.Invoke(new Action(() => displayTable(query)));
+                dgvTeachers.Invoke(new Action(() => displayTable()));
                 return;
             }
             try
             {
-                query = query + " ORDER BY DateTime DESC";
                 dgvTeachers.Rows.Clear();
                 ptbLoading.Visible = true;
                 await Task.Delay(2000);
+                UseWaitCursor = true;
+
+                string selectedItemET = cbET.Text;
+                string selectedStatus = cbStatus.Text;
+
+                string descriptionET = await GetSelectedItemDescriptionAsync(selectedItemET, "tbl_Departments");
+
+                string query = "Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID " +
+                  "where (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
+                  "AND (@StatusDescription IS NULL OR st.Description = @StatusDescription)";
+
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
 
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
+                        cmd.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(descriptionET) ? DBNull.Value : (object)descriptionET);
+                        cmd.Parameters.AddWithValue("@StatusDescription", selectedStatus);
+
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
+                            dgvTeachers.Rows.Clear();
+                            int count = 1;
                             while (dr.Read())
                             {
-                                if (cancellationTokenSource.Token.IsCancellationRequested)
-                                {
-                                    return;
-                                }
                                 // Add a row and set the checkbox column value to false (unchecked)
                                 int rowIndex = dgvTeachers.Rows.Add(false);
 
@@ -190,6 +201,7 @@ namespace AMSEMS.SubForms_Admin
             }
             finally
             {
+                UseWaitCursor = false;
                 headerCheckboxAdded = false;
                 ptbLoading.Visible = false;
                 //dgvTeachers.Controls.Add(headerCheckbox);
@@ -197,26 +209,13 @@ namespace AMSEMS.SubForms_Admin
         }
         private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbStatus.Text.Equals("Active"))
-            {
-                ApplyStatusFilter("Active");
-            }
-            else if (cbStatus.Text.Equals("Inactive"))
-            {
-                ApplyStatusFilter("Inactive");
-            }
-            else
-            {
-                cbET.Text = String.Empty;
-                tbSearch.Text = String.Empty;
-                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
-            }
+
         }
         private void btnAll_Click(object sender, EventArgs e)
         {
             cbET.Text = String.Empty;
             tbSearch.Text = String.Empty;
-            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+            displayTable();
         }
 
         private void btnActive_Click(object sender, EventArgs e)
@@ -233,6 +232,7 @@ namespace AMSEMS.SubForms_Admin
         {
             UseWaitCursor = true;
             string selectedItemET = cbET.Text;
+            string selectedStatus = cbStatus.Text;
 
             string descriptionET = await GetSelectedItemDescriptionAsync(selectedItemET, "tbl_Departments");
 
@@ -247,7 +247,7 @@ namespace AMSEMS.SubForms_Admin
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     cmd.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(descriptionET) ? DBNull.Value : (object)descriptionET);
-                    cmd.Parameters.AddWithValue("@StatusDescription", statusDescription);
+                    cmd.Parameters.AddWithValue("@StatusDescription", selectedStatus);
 
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
@@ -300,20 +300,29 @@ namespace AMSEMS.SubForms_Admin
         private async void cbET_SelectedIndexChanged(object sender, EventArgs e)
         {
             UseWaitCursor = true;
-            System.Windows.Forms.ComboBox comboBox = (System.Windows.Forms.ComboBox)sender;
-            string filtertbl = "tbl_Departments";
+            ComboBox comboBox = (ComboBox)sender;
+            string filtertbl = string.Empty;
+            if (comboBox == cbET)
+            {
+                filtertbl = "tbl_Departments";
+            }
+            else if (comboBox == cbStatus)
+            {
+                filtertbl = "tbl_status";
+            }
 
             if (!string.IsNullOrEmpty(filtertbl))
             {
                 // Get the selected items from all ComboBoxes
                 string selectedItemET = cbET.Text;
+                string selectedStatus = cbStatus.Text;
 
                 // Get the corresponding descriptions for the selected items
                 string descriptionET = await GetSelectedItemDescriptionAsync(selectedItemET, "tbl_Departments");
 
                 // Construct the query based on the selected descriptions
                 string query = "Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID " +
-                    "where (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription)";
+                    "where (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) AND (@StatusDescription = 'All' OR st.Description = @StatusDescription)";
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -322,6 +331,7 @@ namespace AMSEMS.SubForms_Admin
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
                         cmd.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(descriptionET) ? DBNull.Value : (object)descriptionET);
+                        cmd.Parameters.AddWithValue("@StatusDescription", string.IsNullOrEmpty(selectedStatus) ? DBNull.Value : (object)selectedStatus);
 
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
@@ -449,7 +459,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                                displayTable();
                                 MessageBox.Show("Account deleted successfully.");
                             }
                             else
@@ -575,7 +585,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+            displayTable();
         }
 
         private void btnExpPDF_Click(object sender, EventArgs e)
@@ -704,6 +714,14 @@ namespace AMSEMS.SubForms_Admin
                         checkBoxCell.Value = true;
                     }
                 }
+                else
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["Select"] as DataGridViewCheckBoxCell;
+                    if (checkBoxCell != null)
+                    {
+                        checkBoxCell.Value = false;
+                    }
+                }
             }
 
             // Force a refresh of the DataGridView to update the highlighting
@@ -747,6 +765,14 @@ namespace AMSEMS.SubForms_Admin
                         checkBoxCell.Value = true;
                     }
                 }
+                else
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["Select"] as DataGridViewCheckBoxCell;
+                    if (checkBoxCell != null)
+                    {
+                        checkBoxCell.Value = false;
+                    }
+                }
             }
 
             // Force a refresh of the DataGridView to update the highlighting
@@ -778,40 +804,46 @@ namespace AMSEMS.SubForms_Admin
             // Create a list to store the rows to be removed
             List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
-            DialogResult result = MessageBox.Show($"Do you want to delete selected account?", "Confirm Deletion", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
+            // Iterate through the DataGridView rows to find selected rows
+            foreach (DataGridViewRow row in dgvTeachers.Rows)
             {
-                // Iterate through the DataGridView rows to find selected rows
-                foreach (DataGridViewRow row in dgvTeachers.Rows)
+                // Check if the "Select" checkbox is checked in the current row
+                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+
+                if (chk.Value != null && (bool)chk.Value)
                 {
-                    // Check if the "Select" checkbox is checked in the current row
-                    DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
-                    if (chk.Value != null && (bool)chk.Value)
+                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
+
+                    // Get the ID or relevant data from the row
+                    string id = row.Cells["ID"].Value.ToString(); 
+
+                    // Call a method to perform the deletion of the record
+                    bool success = DeleteTeacherRecord(id);
+
+                    if (success)
                     {
-                        hasSelectedRow = true; // Set the flag to true if at least one row is selected
-
-                        // Get the teacher ID or relevant data from the row
-                        string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
-
-                        // Call your DeleteTeacherRecord method to delete the record
-                        bool success = DeleteTeacherRecord(id);
-
-                        if (success)
-                        {
-                            // Add the row to the list of rows to be removed
-                            rowsToRemove.Add(row);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Failed to delete record with ID: " + id);
-                        }
+                        // Add the row to the list of rows to be removed
+                        rowsToRemove.Add(row);
                     }
                 }
             }
 
-            displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+            // Show a MessageBox outside the loop based on the overall result
+            if (hasSelectedRow)
+            {
+                if (rowsToRemove.Count > 0)
+                {
+                    MessageBox.Show("Selected item(s) deleted successfully.", "Deletion Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("No items selected for deletion.", "Deletion Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
 
-            headerCheckbox.Checked = false;
+            displayTable();
+
+            cbSelection.Checked = false;
             dgvTeachers.Refresh();
             pnControl.Hide();
 
@@ -842,6 +874,8 @@ namespace AMSEMS.SubForms_Admin
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
+                    bool failedUpdate = false; // Flag to track whether any update operation fails
+
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvTeachers.Rows)
                     {
@@ -852,7 +886,7 @@ namespace AMSEMS.SubForms_Admin
                             // Get the teacher ID or relevant data from the row
                             string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSubjectStatus method to update the record
+                            // Call your UpdateTeacherStatus method to update the record
                             bool success = UpdateTeacherStatus(id, 2);
 
                             if (success)
@@ -862,16 +896,28 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to update record with ID: " + id);
+                                failedUpdate = true; // Set the flag to true if any update operation fails
                             }
                         }
                     }
 
-                    displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
-                    headerCheckbox.Checked = false;
+                    // Refresh the displayed table after updating
+                    displayTable();
+
+                    // Clear the "Select All" checkbox
+                    cbSelection.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedUpdate)
+                    {
+                        MessageBox.Show("Some accounts failed to update. Please check and try again.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected accounts set as Inactive successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
-
         }
 
         private void btnSetActive_Click(object sender, EventArgs e)
@@ -910,6 +956,8 @@ namespace AMSEMS.SubForms_Admin
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
 
+                    bool failedUpdate = false; // Flag to track whether any update operation fails
+
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvTeachers.Rows)
                     {
@@ -934,16 +982,29 @@ namespace AMSEMS.SubForms_Admin
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Failed to update record with ID: " + id);
+                                    failedUpdate = true; // Set the flag to true if any update operation fails
                                 }
                             }
                         }
                     }
-                    displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
-                    headerCheckbox.Checked = false;
+
+                    // Refresh the displayed table after updating
+                    displayTable();
+
+                    // Clear the "Select All" checkbox
+                    cbSelection.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedUpdate)
+                    {
+                        MessageBox.Show("Some accounts failed to update. Please check and try again.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected accounts set as Active successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
-
         }
         private bool UpdateTeacherStatus(string teacherID, int status)
         {
@@ -1139,6 +1200,8 @@ namespace AMSEMS.SubForms_Admin
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rows = new List<DataGridViewRow>();
 
+                    bool failedUpdate = false; // Flag to track whether any update operation fails
+
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvTeachers.Rows)
                     {
@@ -1147,7 +1210,7 @@ namespace AMSEMS.SubForms_Admin
                         if (chk.Value != null && (bool)chk.Value)
                         {
                             // Get the teacher ID or relevant data from the row
-                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
+                            string id = row.Cells["ID"].Value.ToString();  // Replace "ID" with the actual column name
 
                             // Call your UpdateSubjectStatus method to update the record
                             bool success = UpdateTeacherInfo(id, itemId, column);
@@ -1159,12 +1222,26 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to update record with ID: " + id);
+                                failedUpdate = true; // Set the flag to true if any update operation fails
                             }
                         }
                     }
-                    displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
-                    headerCheckbox.Checked = false;
+
+                    // Refresh the displayed table after updating
+                    displayTable();
+
+                    // Clear the "Select All" checkbox
+                    cbSelection.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedUpdate)
+                    {
+                        MessageBox.Show("Some accounts failed to update. Please check and try again.", "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected accounts updated successfully.", "Update Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
         }
@@ -1189,11 +1266,13 @@ namespace AMSEMS.SubForms_Admin
             if (hasSelectedRow)
             {
                 // Ask for confirmation from the user
-                DialogResult result = MessageBox.Show("Are you sure to archive this accounts?", "Confirm Update", MessageBoxButtons.YesNo);
+                DialogResult result = MessageBox.Show("Are you sure you want to archive the selected accounts?", "Confirm Update", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
                     // Create a list to store the rows to be removed
                     List<DataGridViewRow> rowsToRemove = new List<DataGridViewRow>();
+
+                    bool failedArchive = false; // Flag to track whether any archive operation fails
 
                     // Iterate through the DataGridView rows to update selected rows
                     foreach (DataGridViewRow row in dgvTeachers.Rows)
@@ -1202,10 +1281,10 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                         if (chk.Value != null && (bool)chk.Value)
                         {
-                            // Get the teacher ID or relevant data from the row
+                            // Get the ID or relevant data from the row
                             string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
 
-                            // Call your UpdateSubjectStatus method to update the record
+                            // Call your AddtoArchive method to update the record
                             bool success = AddtoArchive(id);
 
                             if (success)
@@ -1215,12 +1294,26 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Failed to archive record with ID: " + id);
+                                failedArchive = true; // Set the flag to true if any archive operation fails
                             }
                         }
                     }
-                    displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
-                    headerCheckbox.Checked = false;
+
+                    // Refresh the displayed table after archiving
+                    displayTable();
+
+                    // Clear the "Select All" checkbox
+                    cbSelection.Checked = false;
+
+                    // Show messages based on the results
+                    if (failedArchive)
+                    {
+                        MessageBox.Show("Some accounts failed to archive. Please check and try again.", "Archive Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Selected accounts archived successfully.", "Archive Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
         }
@@ -1350,7 +1443,7 @@ namespace AMSEMS.SubForms_Admin
 
                                 if (deletionSuccessful)
                                 {
-                                    displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                                    displayTable();
                                 }
                                 else
                                 {
@@ -1393,7 +1486,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                                displayTable();
                             }
                             else
                             {
@@ -1436,7 +1529,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                                displayTable();
                                 MessageBox.Show("Account archived successfully.");
                             }
                             else

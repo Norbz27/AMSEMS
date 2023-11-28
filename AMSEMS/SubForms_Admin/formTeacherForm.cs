@@ -273,7 +273,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                         if (!istrue)
-                            form.displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                            form.displayTable();
                         else
                             form3.DisplayData();
                     }
@@ -392,7 +392,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                         }
                         if (!istrue)
-                            form2.displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                            form2.displayTable();
                         else
                             form3.DisplayData();
                     }
