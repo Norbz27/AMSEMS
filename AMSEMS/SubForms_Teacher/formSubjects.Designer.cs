@@ -31,17 +31,18 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblAccountName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.lblSubjectName = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.btnOption = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
+            this.lblSubjectName = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).BeginInit();
             this.kryptonGroupBox2.Panel.SuspendLayout();
             this.kryptonGroupBox2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,49 +78,6 @@
             this.panel2.Size = new System.Drawing.Size(949, 456);
             this.panel2.TabIndex = 9;
             // 
-            // kryptonGroupBox2
-            // 
-            this.kryptonGroupBox2.CaptionStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.GroupBoxCaption;
-            this.kryptonGroupBox2.CaptionVisible = false;
-            this.kryptonGroupBox2.CausesValidation = false;
-            this.kryptonGroupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonGroupBox2.GroupBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.ControlGroupBox;
-            this.kryptonGroupBox2.GroupBorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.ControlGroupBox;
-            this.kryptonGroupBox2.Location = new System.Drawing.Point(0, 3);
-            this.kryptonGroupBox2.Margin = new System.Windows.Forms.Padding(0, 3, 6, 3);
-            this.kryptonGroupBox2.Name = "kryptonGroupBox2";
-            // 
-            // kryptonGroupBox2.Panel
-            // 
-            this.kryptonGroupBox2.Panel.Controls.Add(this.ptbSubjectPic);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.lblSubjectName);
-            this.kryptonGroupBox2.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.kryptonGroupBox2.Size = new System.Drawing.Size(231, 224);
-            this.kryptonGroupBox2.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonGroupBox2.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonGroupBox2.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
-            this.kryptonGroupBox2.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox2.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox2.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonGroupBox2.StateCommon.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
-            this.kryptonGroupBox2.StateCommon.Border.Rounding = 10;
-            this.kryptonGroupBox2.StateCommon.Border.Width = 2;
-            this.kryptonGroupBox2.TabIndex = 15;
-            // 
-            // lblSubjectName
-            // 
-            this.lblSubjectName.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblSubjectName.Font = new System.Drawing.Font("Poppins SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubjectName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.lblSubjectName.Location = new System.Drawing.Point(15, 154);
-            this.lblSubjectName.Name = "lblSubjectName";
-            this.lblSubjectName.Size = new System.Drawing.Size(191, 50);
-            this.lblSubjectName.TabIndex = 0;
-            this.lblSubjectName.Text = "Subject Name";
-            this.lblSubjectName.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoScroll = true;
@@ -138,6 +96,59 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(949, 456);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
+            // kryptonGroupBox2
+            // 
+            this.kryptonGroupBox2.CaptionStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.GroupBoxCaption;
+            this.kryptonGroupBox2.CaptionVisible = false;
+            this.kryptonGroupBox2.CausesValidation = false;
+            this.kryptonGroupBox2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.kryptonGroupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonGroupBox2.GroupBackStyle = ComponentFactory.Krypton.Toolkit.PaletteBackStyle.ControlGroupBox;
+            this.kryptonGroupBox2.GroupBorderStyle = ComponentFactory.Krypton.Toolkit.PaletteBorderStyle.ControlGroupBox;
+            this.kryptonGroupBox2.Location = new System.Drawing.Point(0, 3);
+            this.kryptonGroupBox2.Margin = new System.Windows.Forms.Padding(0, 3, 6, 3);
+            this.kryptonGroupBox2.Name = "kryptonGroupBox2";
+            // 
+            // kryptonGroupBox2.Panel
+            // 
+            this.kryptonGroupBox2.Panel.Controls.Add(this.btnOption);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.ptbSubjectPic);
+            this.kryptonGroupBox2.Panel.Controls.Add(this.lblSubjectName);
+            this.kryptonGroupBox2.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
+            this.kryptonGroupBox2.Size = new System.Drawing.Size(231, 224);
+            this.kryptonGroupBox2.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonGroupBox2.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonGroupBox2.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.kryptonGroupBox2.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox2.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox2.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonGroupBox2.StateCommon.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.kryptonGroupBox2.StateCommon.Border.Rounding = 10;
+            this.kryptonGroupBox2.StateCommon.Border.Width = 2;
+            this.kryptonGroupBox2.TabIndex = 15;
+            // 
+            // btnOption
+            // 
+            this.btnOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOption.Location = new System.Drawing.Point(185, 7);
+            this.btnOption.Name = "btnOption";
+            this.btnOption.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            this.btnOption.Size = new System.Drawing.Size(29, 24);
+            this.btnOption.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnOption.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnOption.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnOption.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnOption.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnOption.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnOption.StateCommon.Border.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
+            this.btnOption.TabIndex = 2;
+            this.btnOption.Values.Image = global::AMSEMS.Properties.Resources.option;
+            this.btnOption.Values.Text = "";
+            // 
             // ptbSubjectPic
             // 
             this.ptbSubjectPic.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -150,6 +161,18 @@
             this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ptbSubjectPic.TabIndex = 1;
             this.ptbSubjectPic.TabStop = false;
+            // 
+            // lblSubjectName
+            // 
+            this.lblSubjectName.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblSubjectName.Font = new System.Drawing.Font("Poppins SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubjectName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblSubjectName.Location = new System.Drawing.Point(15, 154);
+            this.lblSubjectName.Name = "lblSubjectName";
+            this.lblSubjectName.Size = new System.Drawing.Size(191, 50);
+            this.lblSubjectName.TabIndex = 0;
+            this.lblSubjectName.Text = "Subject Name";
+            this.lblSubjectName.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // formSubjects
             // 
@@ -167,11 +190,11 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).EndInit();
             this.kryptonGroupBox2.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).EndInit();
             this.kryptonGroupBox2.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).EndInit();
             this.ResumeLayout(false);
 
@@ -186,5 +209,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox2;
         private System.Windows.Forms.Label lblSubjectName;
         private RoundPictureBoxRect ptbSubjectPic;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnOption;
     }
 }

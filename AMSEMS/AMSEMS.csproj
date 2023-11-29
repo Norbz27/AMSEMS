@@ -884,6 +884,7 @@
     </Compile>
     <Compile Include="SubForm_Guidance\UserID.cs" />
     <None Include="Resources\sync-16-blue.png" />
+    <None Include="Resources\option.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
