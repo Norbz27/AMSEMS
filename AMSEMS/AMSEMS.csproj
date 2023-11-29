@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -36,11 +36,12 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -86,10 +87,10 @@
       <HintPath>C:\Users\nozur\Downloads\Krypton-master\Bin\ComponentFactory.Krypton.Workspace.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="EPPlus, Version=6.2.8.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.6.2.8\lib\net462\EPPlus.dll</HintPath>
@@ -147,6 +148,15 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\lib\net46\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.118.0\lib\net46\System.Data.SQLite.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.118.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.118.0\lib\net46\System.Data.SQLite.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Diagnostics.TraceSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.TraceSource.4.3.0\lib\net46\System.Diagnostics.TraceSource.dll</HintPath>
@@ -672,6 +682,12 @@
     <Compile Include="SubForms_Teacher\formAttendanceReport.Designer.cs">
       <DependentUpon>formAttendanceReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Teacher\formClassAttendanceChecker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\formClassAttendanceChecker.Designer.cs">
+      <DependentUpon>formClassAttendanceChecker.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Teacher\formDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -756,6 +772,12 @@
     <Compile Include="SubForms_SAO\UserControlDays_Calendar.Designer.cs">
       <DependentUpon>UserControlDays_Calendar.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formDataSync.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formDataSync.Designer.cs">
+      <DependentUpon>formDataSync.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Teacher\Settings_Subforms\formAcademicYearSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -798,6 +820,7 @@
     <Compile Include="SubForms_Teacher\Settings_Subforms\formNotificationSetting.Designer.cs">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Teacher\SQLite_Connection.cs" />
     <Compile Include="SubForms_Teacher\UserID.cs" />
     <Compile Include="SubForm_Guidance\formAbsReport.cs">
       <SubType>Form</SubType>
@@ -860,6 +883,13 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm_Guidance\UserID.cs" />
+    <None Include="Resources\sync-16-blue.png" />
+    <Content Include="x64\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\SQLite.Interop.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="FormTeacherNavigation.resx">
       <DependentUpon>FormTeacherNavigation.cs</DependentUpon>
     </EmbeddedResource>
@@ -1063,6 +1093,9 @@
     <EmbeddedResource Include="SubForms_Teacher\formAttendanceReport.resx">
       <DependentUpon>formAttendanceReport.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\formClassAttendanceChecker.resx">
+      <DependentUpon>formClassAttendanceChecker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formDashboard.resx">
       <DependentUpon>formDashboard.cs</DependentUpon>
     </EmbeddedResource>
@@ -1104,6 +1137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_SAO\UserControlDays_Calendar.resx">
       <DependentUpon>UserControlDays_Calendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formDataSync.resx">
+      <DependentUpon>formDataSync.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formAcademicYearSetting.resx">
       <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
@@ -1406,12 +1442,18 @@
     <None Include="Resources\sync-24.png" />
     <None Include="Resources\Pulse-1s-200px.gif" />
     <None Include="Resources\Pulse-1s-200px %281%29.gif" />
-    <None Include="Resources\Pulse-1s-200px1.gif" />
     <None Include="Resources\peso.png" />
     <None Include="Resources\loading.gif" />
     <None Include="Resources\magnifying-glass.png" />
     <None Include="Resources\wallet.png" />
     <None Include="Resources\down.png" />
+    <None Include="Resources\check-64.png" />
+    <None Include="Resources\ex.png" />
+    <None Include="Resources\menu-white-24.png" />
+    <None Include="Resources\setting %281%29.png" />
+    <None Include="Resources\sync.png" />
+    <None Include="Resources\close %281%29.png" />
+    <None Include="Resources\calendar.png" />
     <Content Include="time-management.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -1431,8 +1473,10 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <Import Project="..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets" Condition="Exists('..\packages\Stub.System.Data.SQLite.Core.NetFramework.1.0.118.0\build\net46\Stub.System.Data.SQLite.Core.NetFramework.targets')" />
 </Project>

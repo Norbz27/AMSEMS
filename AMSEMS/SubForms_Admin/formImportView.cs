@@ -372,7 +372,7 @@ namespace AMSEMS.SubForms_Admin
 
                                     command.ExecuteNonQuery();
 
-                                    form1.displayTable("Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID");
+                                    form1.displayTable();
                                 }
                             }
                             else

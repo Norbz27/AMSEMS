@@ -1011,7 +1011,7 @@ namespace AMSEMS.SubForms_Admin
                 }
             }
         }
-        private bool UpdateTeacherInfo(int teacherID, int itemID, string column)
+        private bool UpdateTeacherInfo(string teacherID, int itemID, string column)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {

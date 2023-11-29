@@ -106,6 +106,7 @@ namespace AMSEMS.SubForms_Teacher
 
         private void btnDataSync_Click(object sender, System.EventArgs e)
         {
+            OpenChildForm(new formDataSync());
             this.btnDataSync.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDataSync.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDataSync.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;

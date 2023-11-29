@@ -81,7 +81,7 @@ namespace AMSEMS.SubForms_Admin
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                if (tbCourseDes.Text.Equals(String.Empty) || tbCcode.Text.Equals(String.Empty) || tbUnits.Text.Equals(String.Empty) || cbAcadLevel.Text.Equals(String.Empty) || cbTeacher.Text.Equals(String.Empty))
+                if (tbCourseDes.Text.Equals(String.Empty) || tbCcode.Text.Equals(String.Empty) || ndUnits.Text.Equals(String.Empty) || cbAcadLevel.Text.Equals(String.Empty) || cbTeacher.Text.Equals(String.Empty))
                 {
                     MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -120,7 +120,7 @@ namespace AMSEMS.SubForms_Admin
                         cm.Parameters.AddWithValue("@Image", picData);
                         cm.Parameters.AddWithValue("@Teach", cbTeacher.Text);
                         cm.Parameters.AddWithValue("@AcadLevel", cbAcadLevel.Text);
-                        cm.Parameters.AddWithValue("@Units", tbUnits.Text);
+                        cm.Parameters.AddWithValue("@Units", ndUnits.Text);
                         cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                         cm.ExecuteNonQuery();
                         cn.Close();
@@ -160,7 +160,7 @@ namespace AMSEMS.SubForms_Admin
                             cm.Parameters.AddWithValue("@Image", picData);
                             cm.Parameters.AddWithValue("@Teach", cbTeacher.Text);
                             cm.Parameters.AddWithValue("@AcadLevel", cbAcadLevel.Text);
-                            cm.Parameters.AddWithValue("@Units", tbUnits.Text);
+                            cm.Parameters.AddWithValue("@Units", ndUnits.Text);
                             cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                             cm.ExecuteNonQuery();
                             cn.Close();
@@ -178,7 +178,7 @@ namespace AMSEMS.SubForms_Admin
         {
             tbCcode.Text = "";
             tbCourseDes.Text = "";
-            tbUnits.Text = "";
+            ndUnits.Text = "0";
             tbStatus.Text = "";
             cbTeacher.Text = "";
             cbAcadLevel.Text = "";
@@ -211,7 +211,7 @@ namespace AMSEMS.SubForms_Admin
                     dr.Read();
                     tbCcode.Text = dr["Course_code"].ToString();
                     tbCourseDes.Text = dr["Course_Description"].ToString();
-                    tbUnits.Text = dr["Units"].ToString();
+                    ndUnits.Text = dr["Units"].ToString();
                     cbTeacher.Text = dr["teach"].ToString();
                     cbAcadLevel.Text = dr["Acad"].ToString();
                     tbStatus.Text = dr["stDes"].ToString();
@@ -248,6 +248,14 @@ namespace AMSEMS.SubForms_Admin
         }
 
         private void tbUnits_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ndUnits_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {

@@ -16,6 +16,7 @@ namespace AMSEMS.SubForms_DeptHead
         SqlCommand cm;
         SqlDataReader dr;
         private bool headerCheckboxAdded = false; // Add this flag
+        string tersem, shsquart;
         private ContextMenuStrip newContextMenuStrip;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private CheckBox headerCheckbox = new CheckBox();
@@ -150,6 +151,8 @@ namespace AMSEMS.SubForms_DeptHead
                         cbteach.Items.Add(dr["Lastname"].ToString());
                     }
                     dr.Close();
+
+                    
                 }
             }
             catch (Exception ex)

@@ -179,6 +179,14 @@ namespace AMSEMS.SubForms_DeptHead
                 return;
             }
             displayFees();
+            if(cbEvents.Text == String.Empty)
+            {
+                btnPenaltyFee.Enabled = false;
+            }
+            else
+            {
+                btnPenaltyFee.Enabled = true;
+            }
             dgvRecord.Rows.Clear();
             ptbLoading.Visible = true;
             await Task.Delay(1000);

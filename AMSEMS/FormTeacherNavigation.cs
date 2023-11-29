@@ -198,7 +198,7 @@ namespace AMSEMS
         {
             isCollapsed = false;
             timer1.Start();
-            this.kryptonSplitContainer1.Panel2Collapsed = false;
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
             OpenChildForm(new SubForms_Teacher.formSubjects());
 
             this.btnSubjects.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
