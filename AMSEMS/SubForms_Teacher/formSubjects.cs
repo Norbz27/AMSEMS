@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 
@@ -6,11 +8,37 @@ namespace AMSEMS.SubForms_Teacher
 {
     public partial class formSubjects : Form
     {
+        SQLite_Connection sQLite_Connection;
         public formSubjects()
         {
             InitializeComponent();
+            sQLite_Connection = new SQLite_Connection();
         }
-        public void subjectsApperance()
+        private void formSubjects_Load(object sender, EventArgs e)
+        {
+            displaysubjects();
+        }
+        public void displaysubjects()
+        {
+            tableLayoutPanel1.Controls.Clear();
+            DataTable subjects = sQLite_Connection.GetAssignedSubjects(FormTeacherNavigation.id);
+
+            if (subjects.Rows.Count > 0)
+            {
+                foreach (DataRow row in subjects.Rows)
+                {
+                    Image img = null;
+                    string subjectname = row["Course_Description"].ToString();
+                    if (row["Image"] is Image image)
+                    {
+                        img = image;
+                    }
+
+                    subjectsApperance(subjectname, img);
+                }
+            }
+        }
+        public void subjectsApperance(string subjectname, Image image)
         {
             Label lblSubjectName = new Label();
             KryptonGroupBox kryptonGroupBox2 = new KryptonGroupBox();
@@ -44,7 +72,7 @@ namespace AMSEMS.SubForms_Teacher
             ptbSubjectPic.BorderWidth = 2;
             ptbSubjectPic.CornerRadius = 10;
             ptbSubjectPic.Anchor = AnchorStyles.None;
-            ptbSubjectPic.Image = Properties.Resources.book1;
+            ptbSubjectPic.Image = image;
             ptbSubjectPic.Location = new System.Drawing.Point(50, 24);
             ptbSubjectPic.Name = "ptbSubjectPic";
             ptbSubjectPic.Size = new System.Drawing.Size(118, 108);
@@ -59,21 +87,13 @@ namespace AMSEMS.SubForms_Teacher
             lblSubjectName.Name = "lblSubjectName";
             lblSubjectName.Size = new System.Drawing.Size(191, 50);
             lblSubjectName.TabIndex = 0;
-            lblSubjectName.Text = "Subject Name";
-            lblSubjectName.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            lblSubjectName.Text = subjectname;
+            lblSubjectName.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 
             kryptonGroupBox2.Panel.Controls.Add(ptbSubjectPic);
             kryptonGroupBox2.Panel.Controls.Add(lblSubjectName);
 
             tableLayoutPanel1.Controls.Add(kryptonGroupBox2, 0, 0);
-        }
-
-        private void formSubjects_Load(object sender, EventArgs e)
-        {
-            for(int i = 0; i <= 10; i++)
-            {
-                subjectsApperance();
-            }
         }
     }
 }

@@ -89,6 +89,15 @@ namespace AMSEMS.SubForms_Teacher
                             await cn.OpenAsync();
                             sQLite_Connection.ClearData();
                             sQLite_Connection.ClearSubjectsData();
+
+                            cm = new SqlCommand("SELECT Unique_ID, ID, Firstname, Lastname, Middlename, Password, Profile_pic, Department, Role, Status, DateTime from tbl_teacher_accounts", cn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertTeacherData(Convert.ToInt32(dr["Unique_ID"]), dr["ID"].ToString(), dr["Firstname"].ToString(), dr["Lastname"].ToString(), dr["Middlename"].ToString(), dr["Password"].ToString(), (byte[])dr["Profile_pic"], dr["Department"].ToString(), dr["Role"].ToString(), dr["Status"].ToString(), dr["DateTime"].ToString());
+                            }
+                            dr.Close();
+
                             cm = new SqlCommand("SELECT Course_code, Course_Description, Units, Image, Status, Assigned_Teacher, Academic_Level from tbl_subjects", cn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
