@@ -269,12 +269,12 @@ namespace AMSEMS
             this.kryptonSplitContainer1.Panel2Collapsed = true;
             OpenChildForm(new SubForms_Teacher.formAttendanceReport());
         }
-        public void otherformclick1()
+        public void otherformclick1(string ccode)
         {
             isCollapsed = false;
             timer1.Start();
             this.kryptonSplitContainer1.Panel2Collapsed = true;
-            SubForms_Teacher.formSubjectInformation.setForm(this);
+            SubForms_Teacher.formSubjectInformation.setForm(this, ccode);
             OpenChildForm(new SubForms_Teacher.formSubjectInformation());
             btnSubjects.Focus();
         }

@@ -114,35 +114,35 @@ namespace AMSEMS.SubForms_Teacher
                             }
                             dr.Close();
 
-                            cm = new SqlCommand("SELECT Program_ID, Description from tbl_program", cn);
+                            cm = new SqlCommand("SELECT Program_ID, Description, AcadLevel_ID from tbl_program", cn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertProgramData(dr["Program_ID"].ToString(), dr["Description"].ToString());
+                                sQLite_Connection.InsertProgramData(dr["Program_ID"].ToString(), dr["Description"].ToString(), dr["AcadLevel_ID"].ToString());
                             }
                             dr.Close();
 
-                            cm = new SqlCommand("SELECT Section_ID, Description from tbl_section", cn);
+                            cm = new SqlCommand("SELECT Section_ID, Description, AcadLevel_ID from tbl_section", cn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertSectionData(dr["Section_ID"].ToString(), dr["Description"].ToString());
+                                sQLite_Connection.InsertSectionData(dr["Section_ID"].ToString(), dr["Description"].ToString(), dr["AcadLevel_ID"].ToString());
                             }
                             dr.Close();
 
-                            cm = new SqlCommand("SELECT Level_ID, Description from tbl_year_level", cn);
+                            cm = new SqlCommand("SELECT Level_ID, Description, AcadLevel_ID from tbl_year_level", cn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertYearLevelData(dr["Level_ID"].ToString(), dr["Description"].ToString());
+                                sQLite_Connection.InsertYearLevelData(dr["Level_ID"].ToString(), dr["Description"].ToString(), dr["AcadLevel_ID"].ToString());
                             }
                             dr.Close();
 
-                            cm = new SqlCommand("SELECT Department_ID, Description from tbl_departments", cn);
+                            cm = new SqlCommand("SELECT Department_ID, Description, AcadLevel_ID from tbl_departments", cn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertDepartmentData(dr["Department_ID"].ToString(), dr["Description"].ToString());
+                                sQLite_Connection.InsertDepartmentData(dr["Department_ID"].ToString(), dr["Description"].ToString(), dr["AcadLevel_ID"].ToString());
                             }
                             dr.Close();
 

@@ -13,7 +13,7 @@ namespace AMSEMS
 {
     public class SQLite_Connection
     {
-        private string connectionString;
+        public string connectionString;
 
         public SQLite_Connection()
         {
@@ -69,16 +69,20 @@ namespace AMSEMS
                                                     DateTime TEXT);
                                             CREATE TABLE IF NOT EXISTS tbl_departments (
                                                     Department_ID INTEGER PRIMARY KEY, 
-                                                    Description TEXT);
+                                                    Description TEXT,
+                                                    AcadLevel_ID INTEGER);
                                             CREATE TABLE IF NOT EXISTS tbl_program (
                                                     Prgram_ID INTEGER PRIMARY KEY, 
-                                                    Description TEXT);
+                                                    Description TEXT,
+                                                    AcadLevel_ID INTEGER);
                                             CREATE TABLE IF NOT EXISTS tbl_section (
                                                     Section_ID INTEGER PRIMARY KEY, 
-                                                    Description TEXT);
+                                                    Description TEXT,
+                                                    AcadLevel_ID INTEGER);
                                             CREATE TABLE IF NOT EXISTS tbl_year_level (
                                                     Level_ID INTEGER PRIMARY KEY, 
-                                                    Description TEXT);
+                                                    Description TEXT,
+                                                    AcadLevel_ID INTEGER);
                                             CREATE TABLE IF NOT EXISTS tbl_academic_level (
                                                     Academic_Level_ID INTEGER PRIMARY KEY, 
                                                     Academic_Level_Description TEXT);
@@ -87,7 +91,15 @@ namespace AMSEMS
                                                     Academic_Year_Start TEXT,
                                                     Academic_Year_End TEXT,
                                                     Ter_Academic_Sem INTEGER,
-                                                    SHS_Academic_Sem INTEGER);";
+                                                    SHS_Academic_Sem INTEGER);
+                                            CREATE TABLE IF NOT EXISTS tbl_class_list (
+                                                    CLass_Code TEXT PRIMARY KEY,
+                                                    Section_ID INTEGER,
+                                                    Teacher_ID TEXT,
+                                                    Course_Code TEXT,
+                                                    School_Year TEXT,
+                                                    Semester TEXT,
+                                                    Acad_Level TEXT);";
                     command.CommandText = createTableSql;
                     command.ExecuteNonQuery();
                 }
@@ -219,7 +231,7 @@ namespace AMSEMS
             }
         }
         
-        public void InsertProgramData(string id, string desc)
+        public void InsertProgramData(string id, string desc, string acadlvl)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -228,17 +240,18 @@ namespace AMSEMS
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     // Insert new data
-                    string insertSql = "INSERT INTO tbl_program (Prgram_ID, Description) VALUES (@ProgramID, @Desc);";
+                    string insertSql = "INSERT INTO tbl_program (Prgram_ID, Description, AcadLevel_ID) VALUES (@ProgramID, @Desc, @Acadlvl);";
 
                     command.CommandText = insertSql;
                     command.Parameters.AddWithValue("@ProgramID", id);
                     command.Parameters.AddWithValue("@Desc", desc);
+                    command.Parameters.AddWithValue("@Acadlvl", acadlvl);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
             }
         }
-        public void InsertSectionData(string id, string desc)
+        public void InsertSectionData(string id, string desc, string acadlvl)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -247,17 +260,18 @@ namespace AMSEMS
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     // Insert new data
-                    string insertSql = "INSERT INTO tbl_section (Section_ID, Description) VALUES (@SectionID, @Desc);";
+                    string insertSql = "INSERT INTO tbl_section (Section_ID, Description, AcadLevel_ID) VALUES (@SectionID, @Desc, @Acadlvl);";
 
                     command.CommandText = insertSql;
                     command.Parameters.AddWithValue("@SectionID", id);
                     command.Parameters.AddWithValue("@Desc", desc);
+                    command.Parameters.AddWithValue("@Acadlvl", acadlvl);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
             }
         }
-        public void InsertYearLevelData(string id, string desc)
+        public void InsertYearLevelData(string id, string desc, string acadlvl)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -266,17 +280,18 @@ namespace AMSEMS
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     // Insert new data
-                    string insertSql = "INSERT INTO tbl_year_level (Level_ID, Description) VALUES (@LevelID, @Desc);";
+                    string insertSql = "INSERT INTO tbl_year_level (Level_ID, Description, AcadLevel_ID) VALUES (@LevelID, @Desc, @Acadlvl);";
 
                     command.CommandText = insertSql;
                     command.Parameters.AddWithValue("@LevelID", id);
                     command.Parameters.AddWithValue("@Desc", desc);
+                    command.Parameters.AddWithValue("@Acadlvl", acadlvl);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
             }
         }
-        public void InsertDepartmentData(string id, string desc)
+        public void InsertDepartmentData(string id, string desc, string acadlvl)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -285,11 +300,12 @@ namespace AMSEMS
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     // Insert new data
-                    string insertSql = "INSERT INTO tbl_departments (Department_ID, Description) VALUES (@DepartmentID, @Desc);";
+                    string insertSql = "INSERT INTO tbl_departments (Department_ID, Description, AcadLevel_ID) VALUES (@DepartmentID, @Desc, @Acadlvl);";
 
                     command.CommandText = insertSql;
                     command.Parameters.AddWithValue("@DepartmentID", id);
                     command.Parameters.AddWithValue("@Desc", desc);
+                    command.Parameters.AddWithValue("@Acadlvl", acadlvl);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -373,7 +389,7 @@ namespace AMSEMS
             return newDataTable;
         }
 
-        private Image ConvertToImage(object imageData)
+        public Image ConvertToImage(object imageData)
         {
             if (imageData != DBNull.Value) // Check if the column is not null
             {

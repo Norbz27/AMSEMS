@@ -778,6 +778,12 @@
     <Compile Include="SubForms_SAO\UserControlDays_Calendar.Designer.cs">
       <DependentUpon>UserControlDays_Calendar.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Teacher\formAddSectionToSubject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\formAddSectionToSubject.Designer.cs">
+      <DependentUpon>formAddSectionToSubject.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Teacher\Settings_Subforms\formDataSync.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1148,6 +1154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_SAO\UserControlDays_Calendar.resx">
       <DependentUpon>UserControlDays_Calendar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\formAddSectionToSubject.resx">
+      <DependentUpon>formAddSectionToSubject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formDataSync.resx">
       <DependentUpon>formDataSync.cs</DependentUpon>
