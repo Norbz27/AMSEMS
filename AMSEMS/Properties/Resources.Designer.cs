@@ -793,6 +793,16 @@ namespace AMSEMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap prev {
+            get {
+                object obj = ResourceManager.GetObject("prev", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap printer_16 {
             get {
                 object obj = ResourceManager.GetObject("printer_16", resourceCulture);

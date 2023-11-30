@@ -16,14 +16,14 @@ namespace AMSEMS
 
         private Form activeForm;
 
-        public bool isCollapsed;
+        public bool isCollapsed = false;
         public static string id;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         public FormTeacherNavigation(String id1)
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
-
+            isCollapsed = false;
             this.btnDashboard.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDashboard.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDashboard.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
@@ -199,6 +199,7 @@ namespace AMSEMS
             isCollapsed = false;
             timer1.Start();
             this.kryptonSplitContainer1.Panel2Collapsed = true;
+            SubForms_Teacher.formSubjects.setForm(this);
             OpenChildForm(new SubForms_Teacher.formSubjects());
 
             this.btnSubjects.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -268,8 +269,25 @@ namespace AMSEMS
             this.kryptonSplitContainer1.Panel2Collapsed = true;
             OpenChildForm(new SubForms_Teacher.formAttendanceReport());
         }
-
-        private void OpenChildForm(Form childForm)
+        public void otherformclick1()
+        {
+            isCollapsed = false;
+            timer1.Start();
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
+            SubForms_Teacher.formSubjectInformation.setForm(this);
+            OpenChildForm(new SubForms_Teacher.formSubjectInformation());
+            btnSubjects.Focus();
+        }
+        public void otherformclick()
+        {
+            isCollapsed = false;
+            timer1.Start();
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
+            SubForms_Teacher.formSubjects.setForm(this);
+            OpenChildForm(new SubForms_Teacher.formSubjects());
+            btnSubjects.Focus();
+        }
+        public void OpenChildForm(Form childForm)
         {
             if (activeForm != null)
             {

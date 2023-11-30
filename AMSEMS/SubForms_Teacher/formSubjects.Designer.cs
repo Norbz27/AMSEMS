@@ -34,8 +34,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.btnOption = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
             this.lblSubjectName = new System.Windows.Forms.Label();
+            this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -52,7 +52,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(20, 15);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(949, 46);
+            this.panel1.Size = new System.Drawing.Size(1016, 46);
             this.panel1.TabIndex = 8;
             // 
             // lblAccountName
@@ -75,7 +75,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(20, 61);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(949, 456);
+            this.panel2.Size = new System.Drawing.Size(1016, 534);
             this.panel2.TabIndex = 9;
             // 
             // tableLayoutPanel1
@@ -93,7 +93,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 230F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 230F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(949, 456);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1016, 534);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // kryptonGroupBox2
@@ -115,7 +115,7 @@
             this.kryptonGroupBox2.Panel.Controls.Add(this.ptbSubjectPic);
             this.kryptonGroupBox2.Panel.Controls.Add(this.lblSubjectName);
             this.kryptonGroupBox2.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.kryptonGroupBox2.Size = new System.Drawing.Size(231, 224);
+            this.kryptonGroupBox2.Size = new System.Drawing.Size(248, 224);
             this.kryptonGroupBox2.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox2.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox2.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
@@ -128,11 +128,12 @@
             this.kryptonGroupBox2.StateCommon.Border.Rounding = 10;
             this.kryptonGroupBox2.StateCommon.Border.Width = 2;
             this.kryptonGroupBox2.TabIndex = 15;
+            this.kryptonGroupBox2.Click += new System.EventHandler(this.ShowSubjectInfo_Click);
             // 
             // btnOption
             // 
             this.btnOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOption.Location = new System.Drawing.Point(185, 7);
+            this.btnOption.Location = new System.Drawing.Point(201, 7);
             this.btnOption.Name = "btnOption";
             this.btnOption.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalSystem;
             this.btnOption.Size = new System.Drawing.Size(29, 24);
@@ -149,19 +150,6 @@
             this.btnOption.Values.Image = global::AMSEMS.Properties.Resources.option;
             this.btnOption.Values.Text = "";
             // 
-            // ptbSubjectPic
-            // 
-            this.ptbSubjectPic.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ptbSubjectPic.BorderWidth = 2;
-            this.ptbSubjectPic.CornerRadius = 10;
-            this.ptbSubjectPic.Image = global::AMSEMS.Properties.Resources.book1;
-            this.ptbSubjectPic.Location = new System.Drawing.Point(50, 36);
-            this.ptbSubjectPic.Name = "ptbSubjectPic";
-            this.ptbSubjectPic.Size = new System.Drawing.Size(118, 108);
-            this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbSubjectPic.TabIndex = 1;
-            this.ptbSubjectPic.TabStop = false;
-            // 
             // lblSubjectName
             // 
             this.lblSubjectName.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -169,17 +157,30 @@
             this.lblSubjectName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.lblSubjectName.Location = new System.Drawing.Point(15, 154);
             this.lblSubjectName.Name = "lblSubjectName";
-            this.lblSubjectName.Size = new System.Drawing.Size(191, 50);
+            this.lblSubjectName.Size = new System.Drawing.Size(208, 50);
             this.lblSubjectName.TabIndex = 0;
             this.lblSubjectName.Text = "Subject Name";
             this.lblSubjectName.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // ptbSubjectPic
+            // 
+            this.ptbSubjectPic.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ptbSubjectPic.BorderWidth = 2;
+            this.ptbSubjectPic.CornerRadius = 10;
+            this.ptbSubjectPic.Image = global::AMSEMS.Properties.Resources.book1;
+            this.ptbSubjectPic.Location = new System.Drawing.Point(58, 36);
+            this.ptbSubjectPic.Name = "ptbSubjectPic";
+            this.ptbSubjectPic.Size = new System.Drawing.Size(118, 108);
+            this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbSubjectPic.TabIndex = 1;
+            this.ptbSubjectPic.TabStop = false;
             // 
             // formSubjects
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ClientSize = new System.Drawing.Size(989, 532);
+            this.ClientSize = new System.Drawing.Size(1056, 610);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

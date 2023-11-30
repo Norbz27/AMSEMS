@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using ComponentFactory.Krypton.Toolkit;
 
@@ -9,11 +10,15 @@ namespace AMSEMS.SubForms_Teacher
     public partial class formSubjects : Form
     {
         SQLite_Connection sQLite_Connection;
-  
+        static FormTeacherNavigation form;
         public formSubjects()
         {
             InitializeComponent();
             sQLite_Connection = new SQLite_Connection();
+        }
+        public static void setForm(FormTeacherNavigation form1)
+        {
+            form = form1;
         }
         private void formSubjects_Load(object sender, EventArgs e)
         {
@@ -71,6 +76,10 @@ namespace AMSEMS.SubForms_Teacher
             kryptonGroupBox2.StateCommon.Border.Rounding = 10;
             kryptonGroupBox2.StateCommon.Border.Width = 2;
             kryptonGroupBox2.TabIndex = 15;
+            kryptonGroupBox2.Click += (senderbtn, ebtn) =>
+            {
+                form.otherformclick1();
+            };
 
             ptbSubjectPic.BorderWidth = 2;
             ptbSubjectPic.CornerRadius = 10;
@@ -83,6 +92,10 @@ namespace AMSEMS.SubForms_Teacher
             ptbSubjectPic.TabIndex = 1;
             ptbSubjectPic.TabStop = false;
             ptbSubjectPic.Cursor = Cursors.Hand;
+            ptbSubjectPic.Click += (senderbtn, ebtn) =>
+            {
+                form.otherformclick1();
+            };
 
             lblSubjectName.Dock = DockStyle.Bottom;
             lblSubjectName.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
@@ -94,6 +107,10 @@ namespace AMSEMS.SubForms_Teacher
             lblSubjectName.Text = subjectname;
             lblSubjectName.TextAlign = ContentAlignment.TopCenter;
             lblSubjectName.Cursor = Cursors.Hand;
+            lblSubjectName.Click += (senderbtn, ebtn) =>
+            {
+                form.otherformclick1();
+            };
 
             btnOption.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
             btnOption.Location = new Point(185, 7);
@@ -122,9 +139,13 @@ namespace AMSEMS.SubForms_Teacher
                 toolStripMenuItem2.Name = "toolStripMenuItem2";
                 toolStripMenuItem2.Size = new System.Drawing.Size(148, 26);
                 toolStripMenuItem2.Text = "Manage Subject";
+                toolStripMenuItem2.Click += (senderbtn, ebtn) =>
+                {
+                    form.otherformclick1();
+                };
 
                 CMSOptions.Font = new System.Drawing.Font("Segoe UI", 9F);
-                CMSOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                CMSOptions.Items.AddRange(new ToolStripItem[] {
             toolStripMenuItem2});
                 CMSOptions.Name = "contextMenuStrip2";
                 CMSOptions.ShowImageMargin = false;
@@ -141,6 +162,14 @@ namespace AMSEMS.SubForms_Teacher
             kryptonGroupBox2.Panel.Controls.Add(btnOption);
 
             tableLayoutPanel1.Controls.Add(kryptonGroupBox2, 0, 0);
+        }
+
+        private void ShowSubjectInfo_Click(object sender, EventArgs e)
+        {
+            //form.OpenChildForm(new formSubjectInformation());
+            //form.isCollapsed = true;
+            //form.kryptonSplitContainer1.Panel2Collapsed = true;
+            //form.panelCollapsed.Size = form.panelCollapsed.MaximumSize;
         }
     }
 }
