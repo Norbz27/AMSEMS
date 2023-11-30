@@ -33,11 +33,13 @@ namespace AMSEMS.SubForms_Teacher
         private static readonly Random RandomGenerator = new Random();
         string ccode;
         string subacadlvl;
-        public formAddSectionToSubject()
+        formSubjectInformation form;
+        public formAddSectionToSubject(formSubjectInformation formSubjectInformation)
         {
             InitializeComponent();
             InitializeListBox();
             conn = new SQLite_Connection();
+            form = formSubjectInformation;
         }
         public void setSubject(string ccode, string subacadlvl)
         {
@@ -467,6 +469,8 @@ namespace AMSEMS.SubForms_Teacher
                 }
                 cn.Close();
                 btnDone.Enabled = false;
+                form.displaySectionOfSubject();
+                this.Close();
             }
         }
         string GeneratePassword(int length)

@@ -682,12 +682,6 @@
     <Compile Include="SubForms_Teacher\formAttendanceReport.Designer.cs">
       <DependentUpon>formAttendanceReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Teacher\formClassAttendanceChecker.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForms_Teacher\formClassAttendanceChecker.Designer.cs">
-      <DependentUpon>formClassAttendanceChecker.cs</DependentUpon>
-    </Compile>
     <Compile Include="SubForms_Teacher\formDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -699,6 +693,12 @@
     </Compile>
     <Compile Include="SubForms_Teacher\formSettings.Designer.cs">
       <DependentUpon>formSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Teacher\formSubjectOverview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\formSubjectOverview.Designer.cs">
+      <DependentUpon>formSubjectOverview.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Teacher\formSubjectInformation.cs">
       <SubType>Form</SubType>
@@ -898,6 +898,7 @@
     <None Include="Resources\sync-16-blue.png" />
     <None Include="Resources\option.png" />
     <None Include="Resources\prev.png" />
+    <None Include="Resources\add-user.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1107,14 +1108,14 @@
     <EmbeddedResource Include="SubForms_Teacher\formAttendanceReport.resx">
       <DependentUpon>formAttendanceReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Teacher\formClassAttendanceChecker.resx">
-      <DependentUpon>formClassAttendanceChecker.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formDashboard.resx">
       <DependentUpon>formDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formSettings.resx">
       <DependentUpon>formSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\formSubjectOverview.resx">
+      <DependentUpon>formSubjectOverview.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formSubjectInformation.resx">
       <DependentUpon>formSubjectInformation.cs</DependentUpon>

@@ -16,14 +16,14 @@ namespace AMSEMS.SubForms_Teacher
     {
         formAddSectionToSubject formAddSectionToSubject;
         SQLite_Connection conn;
-
+        private Form activeForm;
         static FormTeacherNavigation form;
         static string ccode;
         static string subjectAcadlvl;
         public formSubjectInformation()
         {
             InitializeComponent();
-            formAddSectionToSubject = new formAddSectionToSubject();
+            formAddSectionToSubject = new formAddSectionToSubject(this);
             conn = new SQLite_Connection();
         }
         public static void setForm(FormTeacherNavigation form1, string ccode1)
@@ -66,6 +66,7 @@ namespace AMSEMS.SubForms_Teacher
         }
         public void displaySectionOfSubject()
         {
+            panel4.Controls.Clear();
             using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
             {
                 con.Open();
@@ -96,10 +97,31 @@ namespace AMSEMS.SubForms_Teacher
             btnSection.Size = new System.Drawing.Size(169, 28);
             btnSection.TabIndex = 0;
             btnSection.Text = sectionName;
+            btnSection.Cursor = Cursors.Hand;
             btnSection.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             btnSection.UseVisualStyleBackColor = true;
+            btnSection.Click += (senderbtn, ebtn) =>
+            {
+                formSubjectOverview.setCode(ccode);
+                OpenChildForm(new formSubjectOverview());
+            };
 
             panel4.Controls.Add(btnSection);
+        }
+        public void OpenChildForm(Form childForm)
+        {
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.Dock = DockStyle.Fill;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            this.pnView.Controls.Add(childForm);
+            this.pnView.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
         }
         private void btnback_Click(object sender, EventArgs e)
         {
