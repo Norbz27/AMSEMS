@@ -18,14 +18,16 @@ namespace AMSEMS.SubForms_Teacher
 
         static FormTeacherNavigation form;
         static string ccode;
+        static string classcode;
         public formSubjectOverview()
         {
             InitializeComponent();
             conn = new SQLite_Connection();
         }
-        public static void setCode(string ccode1)
+        public static void setCode(string ccode1, string classcode1)
         {
             ccode = ccode1;
+            classcode = classcode1;
         }
         private void formSubjectInformation_Load(object sender, EventArgs e)
         {
@@ -57,6 +59,39 @@ namespace AMSEMS.SubForms_Teacher
                         }
                     }
                 }
+            }
+        }
+        public void displayStudents()
+        {
+            using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
+            {
+                con.Open();
+                string tblname = "tbl_" + classcode;
+                string query = $"SELECT StudentID, UPPER(s.Lastname || ', ' || s.Firstname || ' ' || s.Middlename) AS Name FROM {tblname} cl LEFT JOIN tbl_students_account s ON cl.StudentID = s.ID";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, con))
+                {
+                    using (SQLiteDataReader rd = command.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            string studid = rd["StudentID"].ToString();
+                            string studname = rd["Name"].ToString();
+                            int rowIndex = dgvStudents.Rows.Add(false);
+                            dgvStudents.Rows[rowIndex].Cells["studid"].Value = studid;
+                            dgvStudents.Rows[rowIndex].Cells["studname"].Value = studname;
+                            dgvStudents.Rows[rowIndex].Cells["role"].Value = "Student";
+                        }
+                    }
+                }
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab != null && tabControl1.SelectedTab.Text == "Students")
+            {
+                displayStudents();
             }
         }
     }

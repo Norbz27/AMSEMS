@@ -70,7 +70,7 @@ namespace AMSEMS.SubForms_Teacher
             using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
             {
                 con.Open();
-                string query = "SELECT sec.Description AS secdes FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode";
+                string query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
@@ -81,13 +81,14 @@ namespace AMSEMS.SubForms_Teacher
                         while(rd.Read())
                         {
                             string SectionDes = rd["secdes"].ToString();
-                            apperanceSectionOfSebject(SectionDes);
+                            string classcode = rd["Class_Code"].ToString();
+                            apperanceSectionOfSebject(SectionDes, classcode);
                         }
                     }
                 }
             }
         }
-        public void apperanceSectionOfSebject(String sectionName)
+        public void apperanceSectionOfSebject(string sectionName, string classcode)
         {
             System.Windows.Forms.Button btnSection = new System.Windows.Forms.Button();
             btnSection.Dock = System.Windows.Forms.DockStyle.Top;
@@ -102,7 +103,7 @@ namespace AMSEMS.SubForms_Teacher
             btnSection.UseVisualStyleBackColor = true;
             btnSection.Click += (senderbtn, ebtn) =>
             {
-                formSubjectOverview.setCode(ccode);
+                formSubjectOverview.setCode(ccode, classcode);
                 OpenChildForm(new formSubjectOverview());
             };
 
