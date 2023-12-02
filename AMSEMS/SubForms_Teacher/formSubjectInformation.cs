@@ -82,13 +82,13 @@ namespace AMSEMS.SubForms_Teacher
                         {
                             string SectionDes = rd["secdes"].ToString();
                             string classcode = rd["Class_Code"].ToString();
-                            apperanceSectionOfSebject(SectionDes, classcode);
+                            apperanceSectionOfSebject(SectionDes, classcode, subjectAcadlvl);
                         }
                     }
                 }
             }
         }
-        public void apperanceSectionOfSebject(string sectionName, string classcode)
+        public void apperanceSectionOfSebject(string sectionName, string classcode, string subacadlvl)
         {
             System.Windows.Forms.Button btnSection = new System.Windows.Forms.Button();
             btnSection.Dock = System.Windows.Forms.DockStyle.Top;
@@ -103,7 +103,7 @@ namespace AMSEMS.SubForms_Teacher
             btnSection.UseVisualStyleBackColor = true;
             btnSection.Click += (senderbtn, ebtn) =>
             {
-                formSubjectOverview.setCode(ccode, classcode);
+                formSubjectOverview.setCode(ccode, classcode, subjectAcadlvl);
                 OpenChildForm(new formSubjectOverview());
             };
 
