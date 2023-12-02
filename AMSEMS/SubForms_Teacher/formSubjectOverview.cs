@@ -60,7 +60,8 @@ namespace AMSEMS.SubForms_Teacher
 
                     // Remove the row from the DataGridView
                     dgvStudents.Rows.RemoveAt(rowIndex);
-                    btnSave1.Visible = true;
+                    btnSave1.Enabled = true;
+                    btnCancel1.Visible = true;
                 }
             }
         }
@@ -99,6 +100,8 @@ namespace AMSEMS.SubForms_Teacher
         }
         private void btnSave1_Click(object sender, EventArgs e)
         {
+            btnCancel1.Visible = false;
+            btnSave1.Enabled = false;
             if (rowsToDelete.Count > 0)
             {
                 // Ask the user for confirmation
@@ -189,32 +192,33 @@ namespace AMSEMS.SubForms_Teacher
         {
             dgvAttendanceReport.Rows.Clear();
 
+            for (int i = dgvAttendanceReport.Columns.Count - 1; i >= 2; i--)
+            {
+                dgvAttendanceReport.Columns.RemoveAt(i);
+            }
+
             using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
             {
                 con.Open();
 
-                string query = @"
+                // Fetch distinct attendance dates
+                string dateQuery = @"
             SELECT DISTINCT Attendance_date
             FROM tbl_subject_attendance
-            WHERE Class_Code = @Class_Code
-        ";
+            WHERE Class_Code = @Class_Code";
 
-                using (SQLiteCommand command = new SQLiteCommand(query, con))
+                using (SQLiteCommand dateCommand = new SQLiteCommand(dateQuery, con))
                 {
-                    command.Parameters.AddWithValue("@Class_Code", classcode);
+                    dateCommand.Parameters.AddWithValue("@Class_Code", classcode);
 
-                    using (SQLiteDataReader dateReader = command.ExecuteReader())
+                    using (SQLiteDataReader dateReader = dateCommand.ExecuteReader())
                     {
                         while (dateReader.Read())
                         {
                             string attendanceDate = dateReader["Attendance_date"].ToString();
 
-                            // Check if the column already exists
-                            if (!dgvAttendanceReport.Columns.Contains(attendanceDate))
-                            {
-                                // Dynamically add columns to the DataGridView
-                                dgvAttendanceReport.Columns.Add(attendanceDate, attendanceDate);
-                            }
+                            // Dynamically add columns to the DataGridView
+                            dgvAttendanceReport.Columns.Add(attendanceDate, attendanceDate);
                         }
                     }
                 }
@@ -227,14 +231,15 @@ namespace AMSEMS.SubForms_Teacher
                    sa.Student_Status
             FROM tbl_subject_attendance sa
             LEFT JOIN tbl_students_account s ON sa.Student_ID = s.ID
-            WHERE sa.Class_Code = @Class_Code
-        ";
+            WHERE sa.Class_Code = @Class_Code ORDER BY Name";
 
-                using (SQLiteCommand command = new SQLiteCommand(attendanceQuery, con))
+                Dictionary<string, int> studentRowIndexMap = new Dictionary<string, int>();
+
+                using (SQLiteCommand attendanceCommand = new SQLiteCommand(attendanceQuery, con))
                 {
-                    command.Parameters.AddWithValue("@Class_Code", classcode);
+                    attendanceCommand.Parameters.AddWithValue("@Class_Code", classcode);
 
-                    using (SQLiteDataReader rd = command.ExecuteReader())
+                    using (SQLiteDataReader rd = attendanceCommand.ExecuteReader())
                     {
                         while (rd.Read())
                         {
@@ -243,9 +248,23 @@ namespace AMSEMS.SubForms_Teacher
                             string attendanceDate = rd["Attendance_date"].ToString();
                             string studentStatus = rd["Student_Status"].ToString();
 
-                            int rowIndex = dgvAttendanceReport.Rows.Add(false);
-                            dgvAttendanceReport.Rows[rowIndex].Cells["attstudid"].Value = studid;
-                            dgvAttendanceReport.Rows[rowIndex].Cells["attstudname"].Value = studname;
+                            int rowIndex;
+
+                            // Check if the student is already added
+                            if (studentRowIndexMap.ContainsKey(studid))
+                            {
+                                rowIndex = studentRowIndexMap[studid];
+                            }
+                            else
+                            {
+                                // Add the student to the DataGridView
+                                rowIndex = dgvAttendanceReport.Rows.Add(false);
+                                dgvAttendanceReport.Rows[rowIndex].Cells["attstudid"].Value = studid;
+                                dgvAttendanceReport.Rows[rowIndex].Cells["attstudname"].Value = studname;
+
+                                // Update the map with the new row index
+                                studentRowIndexMap[studid] = rowIndex;
+                            }
 
                             // Check if the column exists before trying to set its value
                             if (dgvAttendanceReport.Columns.Contains(attendanceDate))
@@ -278,6 +297,8 @@ namespace AMSEMS.SubForms_Teacher
         private void btnNewAttendance_Click(object sender, EventArgs e)
         {
             btnNewAttendance.Enabled = false;
+            btnSave2.Enabled = true;
+            btnCancel2.Visible = true;
             DateTime dateTime = Dt.Value;
             string formattedDate = dateTime.ToString("MMM dd, yy");
             string formattedTime = dateTime.ToString("hh:mm tt");
@@ -440,6 +461,21 @@ namespace AMSEMS.SubForms_Teacher
             }
 
             MessageBox.Show("Data saved successfully.");
+        }
+
+        private void btnCancel1_Click(object sender, EventArgs e)
+        {
+            displayStudents();
+            btnCancel1.Visible = false;
+            btnSave1.Enabled = false;
+        }
+
+        private void btnCancel2_Click(object sender, EventArgs e)
+        {
+            displayStudentsAttendanceReport();
+            btnCancel2.Visible = false;
+            btnSave2.Enabled = false;
+            btnNewAttendance.Enabled = true;
         }
     }
 }
