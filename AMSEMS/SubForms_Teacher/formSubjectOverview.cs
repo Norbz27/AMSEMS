@@ -22,6 +22,8 @@ namespace AMSEMS.SubForms_Teacher
         static string classcode;
         static string subacadlvl;
         formAddStudentToSubject form2;
+
+        private List<DataGridViewRow> rowsToDelete = new List<DataGridViewRow>();
         public formSubjectOverview()
         {
             InitializeComponent();
@@ -40,6 +42,7 @@ namespace AMSEMS.SubForms_Teacher
         {
             displaysubjectinfo();
         }
+
         private void dgvStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             string col = dgvStudents.Columns[e.ColumnIndex].Name;
@@ -52,11 +55,83 @@ namespace AMSEMS.SubForms_Teacher
                 // Check if the clicked cell is in a valid row
                 if (rowIndex >= 0 && rowIndex < dgvStudents.Rows.Count)
                 {
+                    // Add the row to the list for deletion
+                    rowsToDelete.Add(dgvStudents.Rows[rowIndex]);
+
+                    // Remove the row from the DataGridView
                     dgvStudents.Rows.RemoveAt(rowIndex);
                     btnSave1.Visible = true;
                 }
             }
         }
+        private void btnAddStud_Click(object sender, EventArgs e)
+        {
+            form2.setSubject(ccode, subacadlvl, classcode);
+            form2.ShowDialog();
+        }
+
+        private void tbSearchStud1_TextChanged(object sender, EventArgs e)
+        {
+            string searchKeyword = tbSearchStud1.Text.Trim();
+            ApplySearchFilter(searchKeyword);
+        }
+
+        private void ApplySearchFilter(string searchKeyword)
+        {
+            // Loop through each row in the DataGridView
+            foreach (DataGridViewRow row in dgvStudents.Rows)
+            {
+                bool rowVisible = false;
+
+                // Loop through each cell in the row
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString().IndexOf(searchKeyword, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        rowVisible = true;
+                        break;
+                    }
+                }
+
+                // Show or hide the row based on search result
+                row.Visible = rowVisible;
+            }
+        }
+        private void btnSave1_Click(object sender, EventArgs e)
+        {
+            if (rowsToDelete.Count > 0)
+            {
+                // Ask the user for confirmation
+                DialogResult result = MessageBox.Show("Are you sure you want to delete the selected rows?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    using (SQLiteConnection cn = new SQLiteConnection(conn.connectionString))
+                    {
+                        cn.Open();
+                        using (SQLiteCommand command = new SQLiteCommand(cn))
+                        {
+                            string tableName = "tbl_" + classcode;
+                            string deleteSql = $"DELETE FROM {tableName} WHERE StudentID = @StudID;";
+
+                            command.CommandText = deleteSql;
+
+                            foreach (DataGridViewRow row in rowsToDelete)
+                            {
+                                string studentIDToDelete = row.Cells["id"].Value.ToString();
+
+                                command.Parameters.Clear();
+                                command.Parameters.AddWithValue("@StudID", studentIDToDelete);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                        cn.Close();
+                        rowsToDelete.Clear(); // Clear the list after deletion
+                    }
+                }
+            }
+        }
+
         public void displaysubjectinfo()
         {
             using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
@@ -113,28 +188,80 @@ namespace AMSEMS.SubForms_Teacher
         public void displayStudentsAttendanceReport()
         {
             dgvAttendanceReport.Rows.Clear();
+
             using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
             {
                 con.Open();
-                string tblname = "tbl_" + classcode;
-                string query = $"SELECT StudentID, UPPER(s.Lastname || ', ' || s.Firstname || ' ' || s.Middlename) AS Name FROM {tblname} cl LEFT JOIN tbl_students_account s ON cl.StudentID = s.ID";
+
+                string query = @"
+            SELECT DISTINCT Attendance_date
+            FROM tbl_subject_attendance
+            WHERE Class_Code = @Class_Code
+        ";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
+                    command.Parameters.AddWithValue("@Class_Code", classcode);
+
+                    using (SQLiteDataReader dateReader = command.ExecuteReader())
+                    {
+                        while (dateReader.Read())
+                        {
+                            string attendanceDate = dateReader["Attendance_date"].ToString();
+
+                            // Check if the column already exists
+                            if (!dgvAttendanceReport.Columns.Contains(attendanceDate))
+                            {
+                                // Dynamically add columns to the DataGridView
+                                dgvAttendanceReport.Columns.Add(attendanceDate, attendanceDate);
+                            }
+                        }
+                    }
+                }
+
+                // Fetch student attendance details
+                string attendanceQuery = @"
+            SELECT sa.Student_ID,
+                   UPPER(s.Lastname || ', ' || s.Firstname || ' ' || s.Middlename) AS Name,
+                   sa.Attendance_date,
+                   sa.Student_Status
+            FROM tbl_subject_attendance sa
+            LEFT JOIN tbl_students_account s ON sa.Student_ID = s.ID
+            WHERE sa.Class_Code = @Class_Code
+        ";
+
+                using (SQLiteCommand command = new SQLiteCommand(attendanceQuery, con))
+                {
+                    command.Parameters.AddWithValue("@Class_Code", classcode);
+
                     using (SQLiteDataReader rd = command.ExecuteReader())
                     {
                         while (rd.Read())
                         {
-                            string studid = rd["StudentID"].ToString();
+                            string studid = rd["Student_ID"].ToString();
                             string studname = rd["Name"].ToString();
+                            string attendanceDate = rd["Attendance_date"].ToString();
+                            string studentStatus = rd["Student_Status"].ToString();
+
                             int rowIndex = dgvAttendanceReport.Rows.Add(false);
                             dgvAttendanceReport.Rows[rowIndex].Cells["attstudid"].Value = studid;
                             dgvAttendanceReport.Rows[rowIndex].Cells["attstudname"].Value = studname;
+
+                            // Check if the column exists before trying to set its value
+                            if (dgvAttendanceReport.Columns.Contains(attendanceDate))
+                            {
+                                // Find the dynamically added column index
+                                int columnIndex = dgvAttendanceReport.Columns[attendanceDate].Index;
+
+                                // Set the student status in the corresponding column
+                                dgvAttendanceReport.Rows[rowIndex].Cells[columnIndex].Value = studentStatus;
+                            }
                         }
                     }
                 }
             }
         }
+
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -150,6 +277,7 @@ namespace AMSEMS.SubForms_Teacher
 
         private void btnNewAttendance_Click(object sender, EventArgs e)
         {
+            btnNewAttendance.Enabled = false;
             DateTime dateTime = Dt.Value;
             string formattedDate = dateTime.ToString("MMM dd, yy");
             string formattedTime = dateTime.ToString("hh:mm tt");
@@ -160,7 +288,7 @@ namespace AMSEMS.SubForms_Teacher
 
             // Auto-size the newly added column to fit its content
             int columnIndex = dgvAttendanceReport.Columns.Count - 1;
-            //dgvAttendanceReport.AutoResizeColumn(columnIndex, DataGridViewAutoSizeColumnMode.AllCells);
+            dgvAttendanceReport.AutoResizeColumn(columnIndex, DataGridViewAutoSizeColumnMode.AllCells);
 
             // Subscribe to the CellDoubleClick event only once
             dgvAttendanceReport.CellDoubleClick += dgvAttendanceReport_CellDoubleClick;
@@ -240,89 +368,78 @@ namespace AMSEMS.SubForms_Teacher
             return string.Empty;
         }
 
-        private void btnAddStud_Click(object sender, EventArgs e)
+        private void btnSave2_Click(object sender, EventArgs e)
         {
-            form2.setSubject(ccode, subacadlvl, classcode);
-            form2.ShowDialog();
-        }
-
-        private void tbSearchStud1_TextChanged(object sender, EventArgs e)
-        {
-            string searchKeyword = tbSearchStud1.Text.Trim();
-            ApplySearchFilter(searchKeyword);
-        }
-
-        private void ApplySearchFilter(string searchKeyword)
-        {
-            // Loop through each row in the DataGridView
-            foreach (DataGridViewRow row in dgvStudents.Rows)
+            btnNewAttendance.Enabled = true;
+            // Assuming your DataGridView is named dgvAttendanceReport
+            if (dgvAttendanceReport.Columns.Count < 3)
             {
-                bool rowVisible = false;
-
-                // Loop through each cell in the row
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    if (cell.Value != null && cell.Value.ToString().IndexOf(searchKeyword, StringComparison.OrdinalIgnoreCase) >= 0)
-                    {
-                        rowVisible = true;
-                        break;
-                    }
-                }
-
-                // Show or hide the row based on search result
-                row.Visible = rowVisible;
+                MessageBox.Show("No attendance.");
+                return;
             }
-        }
 
-        private void btnSave1_Click(object sender, EventArgs e)
-        {
-            if (dgvStudents.Rows.Count > 0)
+            using (SQLiteConnection connection = new SQLiteConnection(conn.connectionString))
             {
-                using (SQLiteConnection cn = new SQLiteConnection(conn.connectionString))
+                connection.Open();
+
+                foreach (DataGridViewColumn column in dgvAttendanceReport.Columns)
                 {
-                    cn.Open();
-                    using (SQLiteCommand command = new SQLiteCommand(cn))
+                    if (column.Index >= 2) // Start from the 3rd column
                     {
-                        string tableName = "tbl_" + classcode;
-                        string insertSql = $"INSERT INTO {tableName} (StudentID, Class_Code) VALUES (@StudID, @ClassCode)";
+                        string attendanceDate = column.HeaderText;
 
-                        foreach (DataGridViewRow row in dgvStudents.Rows)
+                        foreach (DataGridViewRow row in dgvAttendanceReport.Rows)
                         {
-                            if (!row.IsNewRow)
-                            {
-                                string studentID = row.Cells["id"].Value.ToString();
-                                string classCodeValue = classcode;
+                            string studentID = row.Cells["attstudid"].Value.ToString();
 
-                                // Check if the student is not already in the table
-                                if (!IsStudentInTable(cn, tableName, studentID))
+                            // Check if the cell value is null
+                            object cellValue = row.Cells[column.Index].Value;
+                            string studentStatus = (cellValue != null) ? cellValue.ToString() : "A";
+
+                            // Check if the record already exists
+                            string selectQuery = @"
+                        SELECT COUNT(*)
+                        FROM tbl_subject_attendance
+                        WHERE Attendance_date = @Attendance_date
+                        AND Student_ID = @Student_ID
+                        AND Student_Status = @Student_Status;
+                    ";
+
+                            using (SQLiteCommand selectCommand = new SQLiteCommand(selectQuery, connection))
+                            {
+                                selectCommand.Parameters.AddWithValue("@Attendance_date", attendanceDate);
+                                selectCommand.Parameters.AddWithValue("@Student_ID", studentID);
+                                selectCommand.Parameters.AddWithValue("@Student_Status", studentStatus);
+
+                                int existingRecords = Convert.ToInt32(selectCommand.ExecuteScalar());
+
+                                // If no duplicate record, insert the data
+                                if (existingRecords == 0)
                                 {
-                                    command.Parameters.Clear();
-                                    command.CommandText = insertSql;
-                                    command.Parameters.AddWithValue("@StudID", studentID);
-                                    command.Parameters.AddWithValue("@ClassCode", classCodeValue);
-                                    command.ExecuteNonQuery();
+                                    string insertQuery = @"
+                                INSERT INTO tbl_subject_attendance (Class_Code, Attendance_date, Student_ID, Student_Status)
+                                VALUES (@Class_Code, @Attendance_date, @Student_ID, @Student_Status);
+                            ";
+
+                                    using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
+                                    {
+                                        insertCommand.Parameters.AddWithValue("@Class_Code", classcode);
+                                        insertCommand.Parameters.AddWithValue("@Attendance_date", attendanceDate);
+                                        insertCommand.Parameters.AddWithValue("@Student_ID", studentID);
+                                        insertCommand.Parameters.AddWithValue("@Student_Status", studentStatus);
+
+                                        insertCommand.ExecuteNonQuery();
+                                    }
                                 }
                             }
                         }
                     }
-                    cn.Close();
-                    btnSave1.Visible = false;
-                    this.Close();
                 }
+
+                connection.Close();
             }
+
+            MessageBox.Show("Data saved successfully.");
         }
-
-        private bool IsStudentInTable(SQLiteConnection connection, string tableName, string studentID)
-        {
-            using (SQLiteCommand command = new SQLiteCommand(connection))
-            {
-                command.CommandText = $"SELECT COUNT(*) FROM {tableName} WHERE StudentID = @StudID";
-                command.Parameters.AddWithValue("@StudID", studentID);
-
-                int count = Convert.ToInt32(command.ExecuteScalar());
-                return count > 0;
-            }
-        }
-
     }
 }
