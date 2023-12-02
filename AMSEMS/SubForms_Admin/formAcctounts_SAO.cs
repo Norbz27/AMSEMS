@@ -133,8 +133,8 @@ namespace AMSEMS.SubForms_Admin
 
                                 // Populate other columns, starting from index 1
                                 dgvsao.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
-                                dgvsao.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
-                                dgvsao.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                                dgvsao.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString().ToUpper();
+                                dgvsao.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString().ToUpper();
                                 dgvsao.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
                                 // Populate your control column here (change "ControlColumn" to your actual column name)

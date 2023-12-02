@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblshsAcadSem = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.btnEditSHSAcadSem = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblTerAcadSem = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.btnEditTerAcadSem = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -40,14 +43,24 @@
             this.kryptonWrapLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonWrapLabel();
             this.kryptonLabel10 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.lblshsAcadSem = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.btnEditSHSAcadSem = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.rjToggleButton1 = new AMSEMS.RJToggleButton();
+            this.kryptonWrapLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonWrapLabel();
+            this.kryptonLabel8 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.rjToggleButton2 = new AMSEMS.RJToggleButton();
+            this.kryptonWrapLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonWrapLabel();
+            this.kryptonLabel9 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.rjToggleButton2);
+            this.panel1.Controls.Add(this.kryptonWrapLabel4);
+            this.panel1.Controls.Add(this.kryptonLabel9);
+            this.panel1.Controls.Add(this.rjToggleButton1);
+            this.panel1.Controls.Add(this.kryptonWrapLabel3);
+            this.panel1.Controls.Add(this.kryptonLabel8);
             this.panel1.Controls.Add(this.lblshsAcadSem);
             this.panel1.Controls.Add(this.btnEditSHSAcadSem);
             this.panel1.Controls.Add(this.kryptonLabel5);
@@ -65,8 +78,93 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(110, 10);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(676, 561);
+            this.panel1.Size = new System.Drawing.Size(676, 768);
             this.panel1.TabIndex = 132;
+            // 
+            // lblshsAcadSem
+            // 
+            this.lblshsAcadSem.Location = new System.Drawing.Point(0, 209);
+            this.lblshsAcadSem.Margin = new System.Windows.Forms.Padding(2);
+            this.lblshsAcadSem.Name = "lblshsAcadSem";
+            this.lblshsAcadSem.Size = new System.Drawing.Size(18, 22);
+            this.lblshsAcadSem.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.lblshsAcadSem.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.lblshsAcadSem.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
+            this.lblshsAcadSem.TabIndex = 167;
+            this.lblshsAcadSem.Values.Text = "2";
+            // 
+            // btnEditSHSAcadSem
+            // 
+            this.btnEditSHSAcadSem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEditSHSAcadSem.Location = new System.Drawing.Point(269, 201);
+            this.btnEditSHSAcadSem.Name = "btnEditSHSAcadSem";
+            this.btnEditSHSAcadSem.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditSHSAcadSem.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditSHSAcadSem.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnEditSHSAcadSem.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnEditSHSAcadSem.OverrideDefault.Border.Rounding = 10;
+            this.btnEditSHSAcadSem.OverrideDefault.Border.Width = 1;
+            this.btnEditSHSAcadSem.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnEditSHSAcadSem.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditSHSAcadSem.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditSHSAcadSem.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditSHSAcadSem.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditSHSAcadSem.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnEditSHSAcadSem.OverrideFocus.Border.Rounding = 10;
+            this.btnEditSHSAcadSem.Size = new System.Drawing.Size(37, 32);
+            this.btnEditSHSAcadSem.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditSHSAcadSem.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditSHSAcadSem.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnEditSHSAcadSem.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnEditSHSAcadSem.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnEditSHSAcadSem.StateCommon.Border.Rounding = 10;
+            this.btnEditSHSAcadSem.StateCommon.Border.Width = 1;
+            this.btnEditSHSAcadSem.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            this.btnEditSHSAcadSem.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditSHSAcadSem.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditSHSAcadSem.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.btnEditSHSAcadSem.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnEditSHSAcadSem.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditSHSAcadSem.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnEditSHSAcadSem.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnEditSHSAcadSem.StatePressed.Border.Rounding = 10;
+            this.btnEditSHSAcadSem.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnEditSHSAcadSem.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditSHSAcadSem.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditSHSAcadSem.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnEditSHSAcadSem.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnEditSHSAcadSem.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnEditSHSAcadSem.StateTracking.Border.Rounding = 10;
+            this.btnEditSHSAcadSem.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnEditSHSAcadSem.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnEditSHSAcadSem.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnEditSHSAcadSem.TabIndex = 166;
+            this.btnEditSHSAcadSem.Values.Image = global::AMSEMS.Properties.Resources.edit;
+            this.btnEditSHSAcadSem.Values.Text = "";
+            this.btnEditSHSAcadSem.Click += new System.EventHandler(this.btnEditSHSAcadSem_Click);
+            // 
+            // kryptonLabel5
+            // 
+            this.kryptonLabel5.Location = new System.Drawing.Point(0, 181);
+            this.kryptonLabel5.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel5.Name = "kryptonLabel5";
+            this.kryptonLabel5.Size = new System.Drawing.Size(171, 23);
+            this.kryptonLabel5.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            this.kryptonLabel5.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+            this.kryptonLabel5.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
+            this.kryptonLabel5.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonLabel5.TabIndex = 165;
+            this.kryptonLabel5.Values.Text = "SHS Academic Quarter";
             // 
             // lblTerAcadSem
             // 
@@ -305,90 +403,93 @@
             this.kryptonLabel1.TabIndex = 132;
             this.kryptonLabel1.Values.Text = "Academic Year";
             // 
-            // lblshsAcadSem
+            // rjToggleButton1
             // 
-            this.lblshsAcadSem.Location = new System.Drawing.Point(0, 209);
-            this.lblshsAcadSem.Margin = new System.Windows.Forms.Padding(2);
-            this.lblshsAcadSem.Name = "lblshsAcadSem";
-            this.lblshsAcadSem.Size = new System.Drawing.Size(18, 22);
-            this.lblshsAcadSem.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.lblshsAcadSem.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
-            this.lblshsAcadSem.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
-            this.lblshsAcadSem.TabIndex = 167;
-            this.lblshsAcadSem.Values.Text = "2";
+            this.rjToggleButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rjToggleButton1.AutoSize = true;
+            this.rjToggleButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rjToggleButton1.Location = new System.Drawing.Point(628, 385);
+            this.rjToggleButton1.MinimumSize = new System.Drawing.Size(45, 22);
+            this.rjToggleButton1.Name = "rjToggleButton1";
+            this.rjToggleButton1.OffBackColor = System.Drawing.Color.Gray;
+            this.rjToggleButton1.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.rjToggleButton1.OnBackColor = System.Drawing.Color.Green;
+            this.rjToggleButton1.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.rjToggleButton1.Size = new System.Drawing.Size(45, 22);
+            this.rjToggleButton1.TabIndex = 176;
+            this.rjToggleButton1.UseVisualStyleBackColor = true;
             // 
-            // btnEditSHSAcadSem
+            // kryptonWrapLabel3
             // 
-            this.btnEditSHSAcadSem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEditSHSAcadSem.Location = new System.Drawing.Point(269, 201);
-            this.btnEditSHSAcadSem.Name = "btnEditSHSAcadSem";
-            this.btnEditSHSAcadSem.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditSHSAcadSem.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditSHSAcadSem.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnEditSHSAcadSem.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            this.btnEditSHSAcadSem.OverrideDefault.Border.Rounding = 10;
-            this.btnEditSHSAcadSem.OverrideDefault.Border.Width = 1;
-            this.btnEditSHSAcadSem.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnEditSHSAcadSem.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnEditSHSAcadSem.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnEditSHSAcadSem.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditSHSAcadSem.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditSHSAcadSem.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnEditSHSAcadSem.OverrideFocus.Border.Rounding = 10;
-            this.btnEditSHSAcadSem.Size = new System.Drawing.Size(37, 32);
-            this.btnEditSHSAcadSem.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditSHSAcadSem.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditSHSAcadSem.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnEditSHSAcadSem.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnEditSHSAcadSem.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnEditSHSAcadSem.StateCommon.Border.Rounding = 10;
-            this.btnEditSHSAcadSem.StateCommon.Border.Width = 1;
-            this.btnEditSHSAcadSem.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
-            this.btnEditSHSAcadSem.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnEditSHSAcadSem.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnEditSHSAcadSem.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
-            this.btnEditSHSAcadSem.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
-            this.btnEditSHSAcadSem.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditSHSAcadSem.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnEditSHSAcadSem.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnEditSHSAcadSem.StatePressed.Border.Rounding = 10;
-            this.btnEditSHSAcadSem.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnEditSHSAcadSem.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnEditSHSAcadSem.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnEditSHSAcadSem.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnEditSHSAcadSem.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnEditSHSAcadSem.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnEditSHSAcadSem.StateTracking.Border.Rounding = 10;
-            this.btnEditSHSAcadSem.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnEditSHSAcadSem.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnEditSHSAcadSem.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnEditSHSAcadSem.TabIndex = 166;
-            this.btnEditSHSAcadSem.Values.Image = global::AMSEMS.Properties.Resources.edit;
-            this.btnEditSHSAcadSem.Values.Text = "";
-            this.btnEditSHSAcadSem.Click += new System.EventHandler(this.btnEditSHSAcadSem_Click);
+            this.kryptonWrapLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonWrapLabel3.AutoSize = false;
+            this.kryptonWrapLabel3.Font = new System.Drawing.Font("Poppins", 8F);
+            this.kryptonWrapLabel3.ForeColor = System.Drawing.Color.Black;
+            this.kryptonWrapLabel3.Location = new System.Drawing.Point(-1, 418);
+            this.kryptonWrapLabel3.Name = "kryptonWrapLabel3";
+            this.kryptonWrapLabel3.Size = new System.Drawing.Size(674, 42);
+            this.kryptonWrapLabel3.StateCommon.Font = new System.Drawing.Font("Poppins", 8F);
+            this.kryptonWrapLabel3.StateCommon.TextColor = System.Drawing.Color.Black;
+            this.kryptonWrapLabel3.Text = "Enable this toggle to globally disable all shs accounts with a single click, ensu" +
+    "ring no user can access their accounts temporarily.";
             // 
-            // kryptonLabel5
+            // kryptonLabel8
             // 
-            this.kryptonLabel5.Location = new System.Drawing.Point(0, 181);
-            this.kryptonLabel5.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel5.Name = "kryptonLabel5";
-            this.kryptonLabel5.Size = new System.Drawing.Size(171, 23);
-            this.kryptonLabel5.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel5.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel5.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
-            this.kryptonLabel5.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonLabel5.TabIndex = 165;
-            this.kryptonLabel5.Values.Text = "SHS Academic Quarter";
+            this.kryptonLabel8.Location = new System.Drawing.Point(-3, 384);
+            this.kryptonLabel8.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel8.Name = "kryptonLabel8";
+            this.kryptonLabel8.Size = new System.Drawing.Size(184, 23);
+            this.kryptonLabel8.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            this.kryptonLabel8.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+            this.kryptonLabel8.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
+            this.kryptonLabel8.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonLabel8.TabIndex = 175;
+            this.kryptonLabel8.Values.Text = "Disable All SHS Accounts";
+            // 
+            // rjToggleButton2
+            // 
+            this.rjToggleButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rjToggleButton2.AutoSize = true;
+            this.rjToggleButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rjToggleButton2.Location = new System.Drawing.Point(628, 474);
+            this.rjToggleButton2.MinimumSize = new System.Drawing.Size(45, 22);
+            this.rjToggleButton2.Name = "rjToggleButton2";
+            this.rjToggleButton2.OffBackColor = System.Drawing.Color.Gray;
+            this.rjToggleButton2.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.rjToggleButton2.OnBackColor = System.Drawing.Color.Green;
+            this.rjToggleButton2.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.rjToggleButton2.Size = new System.Drawing.Size(45, 22);
+            this.rjToggleButton2.TabIndex = 180;
+            this.rjToggleButton2.UseVisualStyleBackColor = true;
+            // 
+            // kryptonWrapLabel4
+            // 
+            this.kryptonWrapLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonWrapLabel4.AutoSize = false;
+            this.kryptonWrapLabel4.Font = new System.Drawing.Font("Poppins", 8F);
+            this.kryptonWrapLabel4.ForeColor = System.Drawing.Color.Black;
+            this.kryptonWrapLabel4.Location = new System.Drawing.Point(-1, 507);
+            this.kryptonWrapLabel4.Name = "kryptonWrapLabel4";
+            this.kryptonWrapLabel4.Size = new System.Drawing.Size(674, 42);
+            this.kryptonWrapLabel4.StateCommon.Font = new System.Drawing.Font("Poppins", 8F);
+            this.kryptonWrapLabel4.StateCommon.TextColor = System.Drawing.Color.Black;
+            this.kryptonWrapLabel4.Text = "Enable this toggle to globally disable all tertiary accounts with a single click," +
+    " ensuring no user can access their accounts temporarily.";
+            // 
+            // kryptonLabel9
+            // 
+            this.kryptonLabel9.Location = new System.Drawing.Point(-3, 473);
+            this.kryptonLabel9.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel9.Name = "kryptonLabel9";
+            this.kryptonLabel9.Size = new System.Drawing.Size(213, 23);
+            this.kryptonLabel9.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            this.kryptonLabel9.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+            this.kryptonLabel9.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
+            this.kryptonLabel9.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.kryptonLabel9.TabIndex = 179;
+            this.kryptonLabel9.Values.Text = "Disable All Tertiary Accounts";
             // 
             // formAcademicYearSetting
             // 
@@ -396,7 +497,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ClientSize = new System.Drawing.Size(896, 581);
+            this.ClientSize = new System.Drawing.Size(896, 788);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -436,5 +537,11 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblshsAcadSem;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditSHSAcadSem;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel5;
+        private RJToggleButton rjToggleButton1;
+        private ComponentFactory.Krypton.Toolkit.KryptonWrapLabel kryptonWrapLabel3;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel8;
+        private RJToggleButton rjToggleButton2;
+        private ComponentFactory.Krypton.Toolkit.KryptonWrapLabel kryptonWrapLabel4;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel9;
     }
 }

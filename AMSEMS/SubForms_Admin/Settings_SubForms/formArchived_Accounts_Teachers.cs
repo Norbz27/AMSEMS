@@ -144,8 +144,8 @@ namespace AMSEMS.SubForms_Admin
 
                             // Populate other columns, starting from index 1
                             dgvArch.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
-                            dgvArch.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
-                            dgvArch.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                            dgvArch.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString().ToUpper();
+                            dgvArch.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString().ToUpper();
                             dgvArch.Rows[rowIndex].Cells["dept"].Value = dr["dDes"].ToString();
                             dgvArch.Rows[rowIndex].Cells["archived_date"].Value = dr["archdate"].ToString();
 

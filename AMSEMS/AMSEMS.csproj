@@ -700,6 +700,12 @@
     <Compile Include="SubForms_Teacher\formSettings.Designer.cs">
       <DependentUpon>formSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Teacher\formSubjectMainPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\formSubjectMainPage.Designer.cs">
+      <DependentUpon>formSubjectMainPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Teacher\formSubjectOverview.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -905,6 +911,9 @@
     <None Include="Resources\option.png" />
     <None Include="Resources\prev.png" />
     <None Include="Resources\add-user.png" />
+    <None Include="Resources\diskette.png" />
+    <None Include="Resources\diskette-24.png" />
+    <None Include="Resources\bookslanscape.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1122,6 +1131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formSettings.resx">
       <DependentUpon>formSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\formSubjectMainPage.resx">
+      <DependentUpon>formSubjectMainPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formSubjectOverview.resx">
       <DependentUpon>formSubjectOverview.cs</DependentUpon>

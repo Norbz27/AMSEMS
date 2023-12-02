@@ -37,15 +37,15 @@
             this.btnOption = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnMainPage = new System.Windows.Forms.Button();
+            this.lblSubjectName = new System.Windows.Forms.Label();
             this.btnback = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
             this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblSubjectName = new System.Windows.Forms.Label();
-            this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.CMSOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).BeginInit();
+            this.CMSOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnView
@@ -79,7 +79,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Poppins SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.label2.Location = new System.Drawing.Point(17, 294);
+            this.label2.Location = new System.Drawing.Point(17, 279);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 23);
             this.label2.TabIndex = 0;
@@ -91,9 +91,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.AutoScroll = true;
-            this.panel4.Location = new System.Drawing.Point(21, 320);
+            this.panel4.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel4.Location = new System.Drawing.Point(21, 305);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(169, 218);
+            this.panel4.Size = new System.Drawing.Size(169, 227);
             this.panel4.TabIndex = 6;
             // 
             // label1
@@ -101,7 +102,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.label1.ForeColor = System.Drawing.Color.LightGray;
-            this.label1.Location = new System.Drawing.Point(18, 271);
+            this.label1.Location = new System.Drawing.Point(18, 256);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(175, 15);
             this.label1.TabIndex = 159;
@@ -134,7 +135,7 @@
             this.panel3.Controls.Add(this.btnMainPage);
             this.panel3.Location = new System.Drawing.Point(21, 213);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(169, 63);
+            this.panel3.Size = new System.Drawing.Size(169, 35);
             this.panel3.TabIndex = 5;
             // 
             // btnMainPage
@@ -142,6 +143,7 @@
             this.btnMainPage.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnMainPage.FlatAppearance.BorderSize = 0;
             this.btnMainPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMainPage.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMainPage.Location = new System.Drawing.Point(0, 0);
             this.btnMainPage.Name = "btnMainPage";
             this.btnMainPage.Size = new System.Drawing.Size(169, 28);
@@ -149,6 +151,18 @@
             this.btnMainPage.Text = "Main Page";
             this.btnMainPage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnMainPage.UseVisualStyleBackColor = true;
+            this.btnMainPage.Click += new System.EventHandler(this.btnMainPage_Click);
+            // 
+            // lblSubjectName
+            // 
+            this.lblSubjectName.AutoEllipsis = true;
+            this.lblSubjectName.Font = new System.Drawing.Font("Poppins SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubjectName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblSubjectName.Location = new System.Drawing.Point(20, 171);
+            this.lblSubjectName.Name = "lblSubjectName";
+            this.lblSubjectName.Size = new System.Drawing.Size(152, 24);
+            this.lblSubjectName.TabIndex = 4;
+            this.lblSubjectName.Text = "Subject Name";
             // 
             // btnback
             // 
@@ -164,6 +178,19 @@
             this.btnback.Values.Image = global::AMSEMS.Properties.Resources.prev;
             this.btnback.Values.Text = "All Subjects";
             this.btnback.Click += new System.EventHandler(this.btnback_Click);
+            // 
+            // ptbSubjectPic
+            // 
+            this.ptbSubjectPic.BackColor = System.Drawing.Color.White;
+            this.ptbSubjectPic.BorderWidth = 2;
+            this.ptbSubjectPic.CornerRadius = 10;
+            this.ptbSubjectPic.Image = global::AMSEMS.Properties.Resources.book1;
+            this.ptbSubjectPic.Location = new System.Drawing.Point(21, 67);
+            this.ptbSubjectPic.Name = "ptbSubjectPic";
+            this.ptbSubjectPic.Size = new System.Drawing.Size(92, 86);
+            this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbSubjectPic.TabIndex = 2;
+            this.ptbSubjectPic.TabStop = false;
             // 
             // CMSOptions
             // 
@@ -184,39 +211,13 @@
             this.addToolStripMenuItem.Text = "Add Section";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
             // 
-            // lblSubjectName
-            // 
-            this.lblSubjectName.AutoEllipsis = true;
-            this.lblSubjectName.Font = new System.Drawing.Font("Poppins SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubjectName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.lblSubjectName.Location = new System.Drawing.Point(20, 171);
-            this.lblSubjectName.Name = "lblSubjectName";
-            this.lblSubjectName.Size = new System.Drawing.Size(152, 24);
-            this.lblSubjectName.TabIndex = 4;
-            this.lblSubjectName.Text = "Subject Name";
-            // 
-            // ptbSubjectPic
-            // 
-            this.ptbSubjectPic.BackColor = System.Drawing.Color.White;
-            this.ptbSubjectPic.BorderWidth = 2;
-            this.ptbSubjectPic.CornerRadius = 10;
-            this.ptbSubjectPic.Image = global::AMSEMS.Properties.Resources.book1;
-            this.ptbSubjectPic.Location = new System.Drawing.Point(21, 67);
-            this.ptbSubjectPic.Name = "ptbSubjectPic";
-            this.ptbSubjectPic.Size = new System.Drawing.Size(92, 86);
-            this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbSubjectPic.TabIndex = 2;
-            this.ptbSubjectPic.TabStop = false;
-            // 
             // formSubjectInformation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 19F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(840, 550);
             this.Controls.Add(this.pnView);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "formSubjectInformation";
@@ -225,8 +226,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
-            this.CMSOptions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).EndInit();
+            this.CMSOptions.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

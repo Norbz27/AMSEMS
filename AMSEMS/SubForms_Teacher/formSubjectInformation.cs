@@ -15,6 +15,7 @@ namespace AMSEMS.SubForms_Teacher
     public partial class formSubjectInformation : Form
     {
         formAddSectionToSubject formAddSectionToSubject;
+        formSubjectMainPage subjectMainPage;
         SQLite_Connection conn;
         private Form activeForm;
         static FormTeacherNavigation form;
@@ -24,6 +25,7 @@ namespace AMSEMS.SubForms_Teacher
         {
             InitializeComponent();
             formAddSectionToSubject = new formAddSectionToSubject(this);
+            subjectMainPage = new formSubjectMainPage();
             conn = new SQLite_Connection();
         }
         public static void setForm(FormTeacherNavigation form1, string ccode1)
@@ -35,6 +37,7 @@ namespace AMSEMS.SubForms_Teacher
         {
             displaysubjectinfo();
             displaySectionOfSubject();
+            OpenChildForm(subjectMainPage);
         }
         public void displaysubjectinfo()
         {
@@ -138,6 +141,11 @@ namespace AMSEMS.SubForms_Teacher
         {
             formAddSectionToSubject.setSubject(ccode, subjectAcadlvl);
             formAddSectionToSubject.ShowDialog();
+        }
+
+        private void btnMainPage_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(subjectMainPage);
         }
     }
 }

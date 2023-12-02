@@ -10,6 +10,11 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using Microsoft.Office.Interop.Excel;
 using iTextSharp.text.html;
+using System.Diagnostics;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using static Microsoft.IO.RecyclableMemoryStreamManager;
+using System.IO;
 
 namespace AMSEMS.SubForms_Teacher
 {
@@ -22,6 +27,7 @@ namespace AMSEMS.SubForms_Teacher
         static string classcode;
         static string subacadlvl;
         formAddStudentToSubject form2;
+        private int selectedColumnIndex;
 
         private List<DataGridViewRow> rowsToDelete = new List<DataGridViewRow>();
         public formSubjectOverview()
@@ -31,6 +37,7 @@ namespace AMSEMS.SubForms_Teacher
             form2 = new formAddStudentToSubject(this);
             dgvStudents.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 9F);
             dgvAttendanceReport.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 9F);
+            dgvAttendance.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
         }
         public static void setCode(string ccode1, string classcode1, string subacadlvl1)
         {
@@ -153,9 +160,10 @@ namespace AMSEMS.SubForms_Teacher
                             string CourseDes = rd["Course_Description"].ToString();
                             string secDes = rd["secdes"].ToString();
                             object image = rd["Image"];
-                            Image img = conn.ConvertToImage(image);
+                            System.Drawing.Image img = conn.ConvertToImage(image);
 
                             lblSec.Text = secDes;
+                            lblSection.Text = secDes;
                             lblSubjectName.Text = CourseDes;
                             ptbSubjectPic.Image = img;
                         }
@@ -170,7 +178,7 @@ namespace AMSEMS.SubForms_Teacher
             {
                 con.Open();
                 string tblname = "tbl_" + classcode;
-                string query = $"SELECT StudentID, UPPER(s.Lastname || ', ' || s.Firstname || ' ' || s.Middlename) AS Name FROM {tblname} cl LEFT JOIN tbl_students_account s ON cl.StudentID = s.ID";
+                string query = $"SELECT StudentID, UPPER(s.Lastname || ', ' || s.Firstname || ' ' || s.Middlename) AS Name FROM {tblname} cl LEFT JOIN tbl_students_account s ON cl.StudentID = s.ID ORDER BY Name";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
@@ -223,17 +231,43 @@ namespace AMSEMS.SubForms_Teacher
                     }
                 }
 
+                // Fetch all students
+                string tblname = "tbl_" + classcode;
+                string studentsQuery = $@"
+            SELECT ID AS Student_ID,
+                   UPPER(Lastname || ', ' || Firstname || ' ' || Middlename) AS Name
+            FROM tbl_students_account s RIGHT JOIN {tblname} cl ON s.ID = cl.StudentID ORDER BY Name";
+
+                Dictionary<string, int> studentRowIndexMap = new Dictionary<string, int>();
+
+                using (SQLiteCommand studentsCommand = new SQLiteCommand(studentsQuery, con))
+                {
+                    using (SQLiteDataReader studentsReader = studentsCommand.ExecuteReader())
+                    {
+                        while (studentsReader.Read())
+                        {
+                            string studid = studentsReader["Student_ID"].ToString();
+                            string studname = studentsReader["Name"].ToString();
+
+                            // Add the student to the DataGridView
+                            int rowIndex = dgvAttendanceReport.Rows.Add(false);
+                            dgvAttendanceReport.Rows[rowIndex].Cells["attstudid"].Value = studid;
+                            dgvAttendanceReport.Rows[rowIndex].Cells["attstudname"].Value = studname;
+
+                            // Update the map with the new row index
+                            studentRowIndexMap[studid] = rowIndex;
+                        }
+                    }
+                }
+
                 // Fetch student attendance details
                 string attendanceQuery = @"
             SELECT sa.Student_ID,
-                   UPPER(s.Lastname || ', ' || s.Firstname || ' ' || s.Middlename) AS Name,
                    sa.Attendance_date,
                    sa.Student_Status
             FROM tbl_subject_attendance sa
-            LEFT JOIN tbl_students_account s ON sa.Student_ID = s.ID
-            WHERE sa.Class_Code = @Class_Code ORDER BY Name";
-
-                Dictionary<string, int> studentRowIndexMap = new Dictionary<string, int>();
+            WHERE sa.Class_Code = @Class_Code
+            ORDER BY sa.Attendance_date, sa.Student_ID";
 
                 using (SQLiteCommand attendanceCommand = new SQLiteCommand(attendanceQuery, con))
                 {
@@ -244,27 +278,10 @@ namespace AMSEMS.SubForms_Teacher
                         while (rd.Read())
                         {
                             string studid = rd["Student_ID"].ToString();
-                            string studname = rd["Name"].ToString();
                             string attendanceDate = rd["Attendance_date"].ToString();
                             string studentStatus = rd["Student_Status"].ToString();
 
-                            int rowIndex;
-
-                            // Check if the student is already added
-                            if (studentRowIndexMap.ContainsKey(studid))
-                            {
-                                rowIndex = studentRowIndexMap[studid];
-                            }
-                            else
-                            {
-                                // Add the student to the DataGridView
-                                rowIndex = dgvAttendanceReport.Rows.Add(false);
-                                dgvAttendanceReport.Rows[rowIndex].Cells["attstudid"].Value = studid;
-                                dgvAttendanceReport.Rows[rowIndex].Cells["attstudname"].Value = studname;
-
-                                // Update the map with the new row index
-                                studentRowIndexMap[studid] = rowIndex;
-                            }
+                            int rowIndex = studentRowIndexMap[studid];
 
                             // Check if the column exists before trying to set its value
                             if (dgvAttendanceReport.Columns.Contains(attendanceDate))
@@ -274,13 +291,13 @@ namespace AMSEMS.SubForms_Teacher
 
                                 // Set the student status in the corresponding column
                                 dgvAttendanceReport.Rows[rowIndex].Cells[columnIndex].Value = studentStatus;
+                                dgvAttendanceReport.Rows[rowIndex].Cells[columnIndex].ReadOnly = true;
                             }
                         }
                     }
                 }
             }
         }
-
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -291,6 +308,22 @@ namespace AMSEMS.SubForms_Teacher
             else if (tabControl1.SelectedTab != null && tabControl1.SelectedTab.Text == "Attendance Report")
             {
                 displayStudentsAttendanceReport();
+            }
+            else if (tabControl1.SelectedTab != null && tabControl1.SelectedTab.Text == "RFID Attendance Checker")
+            {
+                displayAttendanceChecker();
+                if (tgbtnEnable_Att.Checked)
+                {
+                    tbRFID.Enabled = true;
+                    tbSearchStudent.Enabled = false;
+                    tbRFID.Focus();
+                }
+                else
+                {
+                    tbRFID.Enabled = false;
+                    tbSearchStudent.Enabled = true;
+                    tbSearchStudent.Focus();
+                }
             }
         }
 
@@ -476,6 +509,488 @@ namespace AMSEMS.SubForms_Teacher
             btnCancel2.Visible = false;
             btnSave2.Enabled = false;
             btnNewAttendance.Enabled = true;
+        }
+        public void displayAttendanceChecker()
+        {
+            for (int i = dgvAttendance.Columns.Count - 1; i >= 3; i--)
+            {
+                dgvAttendance.Columns.RemoveAt(i);
+            }
+            
+            dgvAttendance.Rows.Clear();
+            DateTime dateTime = Dt.Value;
+            string formattedDate = dateTime.ToString("MMM dd, yy");
+            string formattedTime = dateTime.ToString("hh:mm tt");
+            string newColumnName = formattedDate + " " + formattedTime;
+
+            // Add a new column to the DataGridView
+            dgvAttendance.Columns.Add(newColumnName, newColumnName);
+
+            // Auto-size the newly added column to fit its content
+            int columnIndex = dgvAttendance.Columns.Count - 1;
+            dgvAttendance.AutoResizeColumn(columnIndex, DataGridViewAutoSizeColumnMode.AllCells);
+
+            using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
+            {
+                con.Open();
+                string tblname = "tbl_" + classcode;
+                string query = $"SELECT RFID, StudentID, UPPER(s.Lastname || ', ' || s.Firstname || ' ' || s.Middlename) AS Name FROM {tblname} cl LEFT JOIN tbl_students_account s ON cl.StudentID = s.ID";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, con))
+                {
+                    using (SQLiteDataReader rd = command.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            string rfid = rd["RFID"].ToString();
+                            string studid = rd["StudentID"].ToString();
+                            string studname = rd["Name"].ToString();
+                            int rowIndex = dgvAttendance.Rows.Add(false);
+                            dgvAttendance.Rows[rowIndex].Cells["ID"].Value = studid;
+                            dgvAttendance.Rows[rowIndex].Cells["Name_"].Value = studname;
+                            dgvAttendance.Rows[rowIndex].Cells["rfid"].Value = rfid;
+                        }
+                    }
+                }
+            }
+        }
+        public void checkRFID()
+        {
+            string rfid = tbRFID.Text;
+
+            // Check if tbRFID is empty
+            if (string.IsNullOrWhiteSpace(rfid))
+            {
+                return; // Exit the method if RFID is empty
+            }
+            displayStudInfo();
+            // Assuming your DataGridView is named dgvAttendance
+            foreach (DataGridViewRow row in dgvAttendance.Rows)
+            {
+                string studentID = row.Cells["ID"].Value.ToString();
+                string studentName = row.Cells["Name_"].Value.ToString();
+                string studentRFID = row.Cells["rfid"].Value.ToString();
+
+                // Check if the RFID in the row matches the RFID you are looking for
+                if (string.Equals(studentRFID, rfid, StringComparison.OrdinalIgnoreCase))
+                {
+                    // Find the index of the newly added column
+                    int columnIndex = dgvAttendance.Columns.Count - 1;
+
+                    // Mark the corresponding cell in the newly added column with a "P"
+                    row.Cells[columnIndex].Value = "P";
+
+                    // Clear the tbRFID text only after processing the RFID check
+                    tbRFID.Text = String.Empty;
+
+                    // Optionally, break out of the loop if you only want to mark the first occurrence
+                    break;
+                }
+            }
+            
+        }
+        public void displayStudInfo()
+        {
+            using (SQLiteConnection cn = new SQLiteConnection(conn.connectionString))
+            {
+                cn.Open();
+                string tblname = "tbl_" + classcode;
+                string query = $"SELECT RFID, StudentID, UPPER(s.Firstname || ' ' || s.Middlename || ' ' || s.Lastname) AS Name, Profile_pic FROM {tblname} cl LEFT JOIN tbl_students_account s ON cl.StudentID = s.ID WHERE RFID = @rfid";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, cn))
+                {
+                    command.Parameters.AddWithValue("@rfid", tbRFID.Text);
+                    using (SQLiteDataReader rd = command.ExecuteReader())
+                    {
+                        if (rd.Read())
+                        {
+                            object imageData = rd["Profile_pic"];
+                            string name = rd["Name"].ToString();
+                            string id = rd["StudentID"].ToString();
+
+                            System.Drawing.Image image = conn.ConvertToImage(imageData);
+
+                            ptbProfilePic.Image = image;
+                            lblName.Text = name;
+                            lblID.Text = id;
+
+                        }
+                    }
+                }
+            }
+        }
+
+        private void tbRFID_TextChanged(object sender, EventArgs e)
+        {
+            checkRFID();
+        }
+
+        private void dgvAttendanceReport_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            btnSave2.Enabled = true;
+        }
+
+        private void dgvAttendance_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            tbRFID.Focus();
+        }
+
+        private void tbSearchStudent_Leave(object sender, EventArgs e)
+        {
+            tbRFID.Focus();
+        }
+
+        private void dgvAttendance_Click(object sender, EventArgs e)
+        {
+            tbRFID.Focus();
+        }
+
+        private void tgbtnEnable_Att_CheckedChanged(object sender, EventArgs e)
+        {
+            if (tgbtnEnable_Att.Checked)
+            {
+                tbRFID.Enabled = true;
+                tbSearchStudent.Enabled = false;
+                tbRFID.Focus();
+            }
+            else
+            {
+                tbRFID.Enabled = false;
+                tbSearchStudent.Enabled = true;
+                tbSearchStudent.Focus();
+            }
+        }
+
+        private void tbSearchStudent_Enter(object sender, EventArgs e)
+        {
+            tbSearchStudent.Text = String.Empty;
+        }
+
+        private void tbSearchStudent_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string studID = tbSearchStudent.Text;
+
+                // Check if tbRFID is empty
+                if (string.IsNullOrWhiteSpace(studID))
+                {
+                    return; // Exit the method if RFID is empty
+                }
+
+                using (SQLiteConnection cn = new SQLiteConnection(conn.connectionString))
+                {
+                    cn.Open();
+                    string tblname = "tbl_" + classcode;
+                    string query = $"SELECT RFID, StudentID, UPPER(s.Firstname || ' ' || s.Middlename || ' ' || s.Lastname) AS Name, Profile_pic FROM {tblname} cl LEFT JOIN tbl_students_account s ON cl.StudentID = s.ID WHERE StudentID = @id";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, cn))
+                    {
+                        command.Parameters.AddWithValue("@id", tbSearchStudent.Text);
+                        using (SQLiteDataReader rd = command.ExecuteReader())
+                        {
+                            if (rd.Read())
+                            {
+                                object imageData = rd["Profile_pic"];
+                                string name = rd["Name"].ToString();
+                                string id = rd["StudentID"].ToString();
+
+                                System.Drawing.Image image = conn.ConvertToImage(imageData);
+
+                                ptbProfilePic.Image = image;
+                                lblName.Text = name;
+                                lblID.Text = id;
+
+                            }
+                        }
+                    }
+                }
+
+                // Assuming your DataGridView is named dgvAttendance
+                foreach (DataGridViewRow row in dgvAttendance.Rows)
+                {
+                    string studentID = row.Cells["ID"].Value.ToString();
+                    string studentName = row.Cells["Name_"].Value.ToString();
+                    string studentRFID = row.Cells["rfid"].Value.ToString();
+
+                    // Check if the RFID in the row matches the RFID you are looking for
+                    if (string.Equals(studentID, studID, StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Find the index of the newly added column
+                        int columnIndex = dgvAttendance.Columns.Count - 1;
+
+                        // Mark the corresponding cell in the newly added column with a "P"
+                        row.Cells[columnIndex].Value = "P";
+
+                        // Clear the tbRFID text only after processing the RFID check
+                        tbRFID.Text = String.Empty;
+
+                        // Optionally, break out of the loop if you only want to mark the first occurrence
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void btnRFIDSaveAtt_Click(object sender, EventArgs e)
+        {
+            if (dgvAttendance.Columns.Count < 4)
+            {
+                MessageBox.Show("No attendance.");
+                return;
+            }
+
+            using (SQLiteConnection connection = new SQLiteConnection(conn.connectionString))
+            {
+                connection.Open();
+
+                foreach (DataGridViewColumn column in dgvAttendance.Columns)
+                {
+                    if (column.Index >= 3) // Start from the 3rd column
+                    {
+                        string attendanceDate = column.HeaderText;
+
+                        foreach (DataGridViewRow row in dgvAttendance.Rows)
+                        {
+                            string studentID = row.Cells["ID"].Value.ToString();
+
+                            // Check if the cell value is null
+                            object cellValue = row.Cells[column.Index].Value;
+                            string studentStatus = (cellValue != null) ? cellValue.ToString() : "A";
+
+                            // Check if the record already exists
+                            string selectQuery = @"
+                        SELECT COUNT(*)
+                        FROM tbl_subject_attendance
+                        WHERE Attendance_date = @Attendance_date
+                        AND Student_ID = @Student_ID
+                        AND Student_Status = @Student_Status;
+                    ";
+
+                            using (SQLiteCommand selectCommand = new SQLiteCommand(selectQuery, connection))
+                            {
+                                selectCommand.Parameters.AddWithValue("@Attendance_date", attendanceDate);
+                                selectCommand.Parameters.AddWithValue("@Student_ID", studentID);
+                                selectCommand.Parameters.AddWithValue("@Student_Status", studentStatus);
+
+                                int existingRecords = Convert.ToInt32(selectCommand.ExecuteScalar());
+
+                                // If no duplicate record, insert the data
+                                if (existingRecords == 0)
+                                {
+                                    string insertQuery = @"
+                                INSERT INTO tbl_subject_attendance (Class_Code, Attendance_date, Student_ID, Student_Status)
+                                VALUES (@Class_Code, @Attendance_date, @Student_ID, @Student_Status);
+                            ";
+
+                                    using (SQLiteCommand insertCommand = new SQLiteCommand(insertQuery, connection))
+                                    {
+                                        insertCommand.Parameters.AddWithValue("@Class_Code", classcode);
+                                        insertCommand.Parameters.AddWithValue("@Attendance_date", attendanceDate);
+                                        insertCommand.Parameters.AddWithValue("@Student_ID", studentID);
+                                        insertCommand.Parameters.AddWithValue("@Student_Status", studentStatus);
+
+                                        insertCommand.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            MessageBox.Show("Data saved successfully.");
+        }
+        private void dgvAttendanceReport_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                // Store the selected column index
+                selectedColumnIndex = e.ColumnIndex;
+
+                // Display the context menu at the current mouse position
+                CMSOptions.Show(Cursor.Position);
+            }
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            // If there is no selected column, cancel the opening of the context menu
+            e.Cancel = selectedColumnIndex == -1;
+        }
+
+        private void delToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (selectedColumnIndex != -1)
+            {
+                // Get the column header text of the selected column
+                string columnHeader = dgvAttendanceReport.Columns[selectedColumnIndex].HeaderText;
+
+                // Ask for confirmation before deleting the column
+                DialogResult result = MessageBox.Show($"Are you sure you want to delete the record on '{columnHeader}'?", "Delete Column",
+                                                      MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Remove the selected column from the DataGridView
+                    dgvAttendanceReport.Columns.RemoveAt(selectedColumnIndex);
+
+                    using (SQLiteConnection connection = new SQLiteConnection(conn.connectionString))
+                    {
+                        connection.Open();
+
+                        using (SQLiteCommand command = new SQLiteCommand(connection))
+                        {
+                            string clearSql = @"DELETE FROM tbl_subject_attendance WHERE Attendance_date = @attdate;";
+                            command.CommandText = clearSql;
+                            command.Parameters.AddWithValue("@attdate", columnHeader);
+                            command.ExecuteNonQuery();
+                        }
+                        connection.Close();
+                    }
+
+                    MessageBox.Show($"Record on '{columnHeader}' deleted.", "Delete Record", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                // Reset the selected column index after deletion or if the user canceled
+                selectedColumnIndex = -1;
+            }
+        }
+
+        private void btnExportStudentList_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ExportToPDFStudentsList(dgvStudents, saveFileDialog.FileName);
+                MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Process.Start(saveFileDialog.FileName);
+            }
+        }
+        private void ExportToPDFStudentsList(DataGridView dataGridView, string filePath)
+        {
+            Document document = new Document(PageSize.LETTER);
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+
+            document.Open();
+
+            // Customizing the font and size
+            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+            iTextSharp.text.Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
+            iTextSharp.text.Font headerFont2 = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            iTextSharp.text.Font headerFont3 = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+            iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+
+            // Add title "List of Students:"
+            Paragraph titleParagraph = new Paragraph("List of Students on " + lblSubjectName.Text, headerFont1);
+            Paragraph titleParagraph2 = new Paragraph(lblSection.Text, headerFont2);
+            Paragraph titleParagraph3 = new Paragraph(DateTime.Now.ToString("MMM dd, yyyy"), headerFont3);
+            titleParagraph.Alignment = Element.ALIGN_CENTER;
+            titleParagraph2.Alignment = Element.ALIGN_CENTER;
+            titleParagraph3.Alignment = Element.ALIGN_CENTER;
+            document.Add(titleParagraph);
+            document.Add(titleParagraph2);
+            document.Add(titleParagraph3);
+
+            // Customizing the table appearance
+            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1); // Subtract 1 to exclude the last column
+            pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
+            pdfTable.SpacingBefore = 10f; // Add space before the table
+            pdfTable.DefaultCell.Padding = 3; // Cell padding
+
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                if (column.Index != dataGridView.Columns.Count - 1) // Skip the last column
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
+                    cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
+                    pdfTable.AddCell(cell);
+                }
+            }
+
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.ColumnIndex != dataGridView.Columns.Count - 1) // Skip the last column
+                    {
+                        PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value.ToString(), cellFont));
+                        pdfTable.AddCell(pdfCell);
+                    }
+                }
+            }
+
+            document.Add(pdfTable);
+            document.Close();
+        }
+
+        private void btnExportAttendance_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ExportToPDFAttendanceReport(dgvAttendanceReport, saveFileDialog.FileName);
+                MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Process.Start(saveFileDialog.FileName);
+            }
+        }
+        private void ExportToPDFAttendanceReport(DataGridView dataGridView, string filePath)
+        {
+            Document document = new Document(PageSize.LETTER);
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+
+            document.Open();
+
+            // Customizing the font and size
+            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+            iTextSharp.text.Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
+            iTextSharp.text.Font headerFont2 = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            iTextSharp.text.Font headerFont3 = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+            iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+
+            // Add title "List of Students:"
+            Paragraph titleParagraph = new Paragraph("Attendance Report", headerFont1);
+            Paragraph titleParagraph2 = new Paragraph(lblSubjectName.Text , headerFont2);
+            Paragraph titleParagraph4 = new Paragraph(lblSection.Text, headerFont2);
+            Paragraph titleParagraph3 = new Paragraph(DateTime.Now.ToString("yyyy"), headerFont3);
+            titleParagraph.Alignment = Element.ALIGN_CENTER;
+            titleParagraph2.Alignment = Element.ALIGN_CENTER;
+            titleParagraph4.Alignment = Element.ALIGN_CENTER;
+            titleParagraph3.Alignment = Element.ALIGN_CENTER;
+            document.Add(titleParagraph);
+            document.Add(titleParagraph2);
+            document.Add(titleParagraph4);
+            document.Add(titleParagraph3);
+
+            // Customizing the table appearance
+            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count); // Subtract 1 to exclude the last column
+            pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
+            pdfTable.SpacingBefore = 10f; // Add space before the table
+            pdfTable.DefaultCell.Padding = 3; // Cell padding
+
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
+                cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
+                pdfTable.AddCell(cell);
+            }
+
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value.ToString(), cellFont));
+                    pdfTable.AddCell(pdfCell);
+                }
+            }
+            document.Add(pdfTable);
+            document.Close();
         }
     }
 }

@@ -183,8 +183,8 @@ namespace AMSEMS.SubForms_Admin
 
                                 // Populate other columns, starting from index 1
                                 dgvTeachers.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
-                                dgvTeachers.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
-                                dgvTeachers.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                                dgvTeachers.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString().ToUpper();
+                                dgvTeachers.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString().ToUpper();
                                 dgvTeachers.Rows[rowIndex].Cells["dept"].Value = dr["dDes"].ToString();
                                 dgvTeachers.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
