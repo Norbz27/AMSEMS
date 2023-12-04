@@ -99,7 +99,13 @@ namespace AMSEMS
                                                     Course_Code TEXT,
                                                     School_Year TEXT,
                                                     Semester TEXT,
-                                                    Acad_Level TEXT);";
+                                                    Acad_Level TEXT);
+                                            CREATE TABLE IF NOT EXISTS tbl_subject_attendance (
+                                                    Attendance_id   INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                    Class_Code      TEXT,
+                                                    Attendance_date TEXT,
+                                                    Student_ID      TEXT,
+                                                    Student_Status  TEXT    DEFAULT A);";
                     command.CommandText = createTableSql;
                     command.ExecuteNonQuery();
                 }
@@ -411,6 +417,89 @@ namespace AMSEMS
             }
 
             return null; // Return null for cases where the column is null or image conversion fails
+        }
+        public DataTable GetAttendanceRecord()
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM tbl_subject_attendance";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                {
+                    adapter.Fill(dataTable);
+                }
+            }
+
+            return dataTable;
+        }
+        public DataTable GetClassList()
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM tbl_class_list";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                {
+                    adapter.Fill(dataTable);
+                }
+            }
+
+            return dataTable;
+        }
+
+        public DataTable GetAttendanceRecord(string classcode)
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM tbl_subject_attendance WHERE Class_Code = @ClassCode";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ClassCode", classcode);
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+
+            return dataTable;
+        }
+        public DataTable GetClassList(string classcode)
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT * FROM tbl_class_list WHERE Class_Code = @ClassCode";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ClassCode", classcode);
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+
+            return dataTable;
         }
     }
 }

@@ -65,11 +65,12 @@ namespace AMSEMS.SubForm_Guidance
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("Select Academic_Year_Start,Academic_Year_End,Academic_Sem from tbl_acad where Acad_ID = 1", cn);
+                cm = new SqlCommand("Select TOP 1 Academic_Year_Start,Academic_Year_End,Ter_Academic_Sem,SHS_Academic_Sem from tbl_acad ORDER BY 1 DESC;", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
                 lblAcadYear.Text = dr["Academic_Year_Start"].ToString() + "-" + dr["Academic_Year_End"].ToString();
-                lblAcadSem.Text = dr["Academic_Sem"].ToString();
+                lblTerAcadSem.Text = dr["Ter_Academic_Sem"].ToString();
+                lblshsAcadSem.Text = dr["SHS_Academic_Sem"].ToString();
                 dr.Close();
                 cn.Close();
             }

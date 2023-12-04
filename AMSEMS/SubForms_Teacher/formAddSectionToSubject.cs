@@ -364,7 +364,7 @@ namespace AMSEMS.SubForms_Teacher
                 string schYear = String.Empty;
                 string Tersem = String.Empty;
                 string Shssem = String.Empty;
-                string classCode = GeneratePassword(6);
+                string classCode = GeneratePassword(4) + ccode;
 
                 using (SQLiteCommand command = new SQLiteCommand(cn))
                 {

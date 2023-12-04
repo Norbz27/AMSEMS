@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -45,12 +48,20 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.kryptonGroupBox6 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label11 = new System.Windows.Forms.Label();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.kryptonGroupBox4 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel10 = new System.Windows.Forms.Panel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel9 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
@@ -59,6 +70,7 @@
             this.studname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.del = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.btnExportStudentList = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnCancel1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSave1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -72,6 +84,7 @@
             this.attstudid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.attstudname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnExportAttendance = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnCancel2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSave2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -97,35 +110,36 @@
             this.btnRFIDSaveAtt = new System.Windows.Forms.Button();
             this.tbSearchStudent = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.tgbtnEnable_Att = new AMSEMS.RJToggleButton();
+            this.ptbProfilePic = new AMSEMS.RoundPictureBoxRect();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ptbLoading = new System.Windows.Forms.ProgressBar();
+            this.btnOption = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.CMSSectionOption = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.uploadtoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.deltoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.lblSec = new System.Windows.Forms.Label();
             this.lblSubjectName = new System.Windows.Forms.Label();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
             this.CMSExport = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpPDF = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.delToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnExportStudentList = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.btnExportAttendance = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.tgbtnEnable_Att = new AMSEMS.RJToggleButton();
-            this.ptbProfilePic = new AMSEMS.RoundPictureBoxRect();
-            this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.kryptonGroupBox4 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.kryptonGroupBox6 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label11 = new System.Windows.Forms.Label();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6.Panel)).BeginInit();
+            this.kryptonGroupBox6.Panel.SuspendLayout();
+            this.kryptonGroupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).BeginInit();
+            this.kryptonGroupBox4.Panel.SuspendLayout();
+            this.kryptonGroupBox4.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
@@ -160,20 +174,12 @@
             this.kryptonGroupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbCheck)).BeginInit();
             this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).BeginInit();
             this.panel1.SuspendLayout();
+            this.CMSSectionOption.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).BeginInit();
             this.CMSExport.SuspendLayout();
             this.CMSOptions.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).BeginInit();
-            this.kryptonGroupBox4.Panel.SuspendLayout();
-            this.kryptonGroupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6.Panel)).BeginInit();
-            this.kryptonGroupBox6.Panel.SuspendLayout();
-            this.kryptonGroupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -218,6 +224,173 @@
             this.tabPage1.ToolTipText = "Overview";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // kryptonGroupBox6
+            // 
+            this.kryptonGroupBox6.CaptionVisible = false;
+            this.kryptonGroupBox6.CausesValidation = false;
+            this.kryptonGroupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonGroupBox6.Location = new System.Drawing.Point(3, 182);
+            this.kryptonGroupBox6.Name = "kryptonGroupBox6";
+            // 
+            // kryptonGroupBox6.Panel
+            // 
+            this.kryptonGroupBox6.Panel.Controls.Add(this.chart1);
+            this.kryptonGroupBox6.Panel.Controls.Add(this.label11);
+            this.kryptonGroupBox6.Size = new System.Drawing.Size(787, 326);
+            this.kryptonGroupBox6.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.kryptonGroupBox6.StateCommon.Back.Color2 = System.Drawing.Color.White;
+            this.kryptonGroupBox6.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox6.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox6.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonGroupBox6.StateCommon.Border.Rounding = 10;
+            this.kryptonGroupBox6.StateCommon.Border.Width = 2;
+            this.kryptonGroupBox6.TabIndex = 32;
+            // 
+            // chart1
+            // 
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(34, 69);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(711, 218);
+            this.chart1.TabIndex = 9;
+            this.chart1.Text = "chart1";
+            // 
+            // label11
+            // 
+            this.label11.AutoEllipsis = true;
+            this.label11.AutoSize = true;
+            this.label11.BackColor = System.Drawing.Color.White;
+            this.label11.Font = new System.Drawing.Font("Poppins SemiBold", 12F, System.Drawing.FontStyle.Bold);
+            this.label11.ForeColor = System.Drawing.Color.Black;
+            this.label11.Location = new System.Drawing.Point(29, 26);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(230, 28);
+            this.label11.TabIndex = 8;
+            this.label11.Text = "Students Individual Record";
+            // 
+            // panel11
+            // 
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel11.Location = new System.Drawing.Point(3, 172);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(787, 10);
+            this.panel11.TabIndex = 31;
+            // 
+            // kryptonGroupBox4
+            // 
+            this.kryptonGroupBox4.CaptionVisible = false;
+            this.kryptonGroupBox4.CausesValidation = false;
+            this.kryptonGroupBox4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.kryptonGroupBox4.Location = new System.Drawing.Point(3, 13);
+            this.kryptonGroupBox4.Name = "kryptonGroupBox4";
+            // 
+            // kryptonGroupBox4.Panel
+            // 
+            this.kryptonGroupBox4.Panel.Controls.Add(this.label5);
+            this.kryptonGroupBox4.Panel.Controls.Add(this.label6);
+            this.kryptonGroupBox4.Panel.Controls.Add(this.label4);
+            this.kryptonGroupBox4.Panel.Controls.Add(this.label3);
+            this.kryptonGroupBox4.Panel.Controls.Add(this.label1);
+            this.kryptonGroupBox4.Size = new System.Drawing.Size(787, 159);
+            this.kryptonGroupBox4.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.kryptonGroupBox4.StateCommon.Back.Color2 = System.Drawing.Color.White;
+            this.kryptonGroupBox4.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox4.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox4.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonGroupBox4.StateCommon.Border.Rounding = 10;
+            this.kryptonGroupBox4.StateCommon.Border.Width = 2;
+            this.kryptonGroupBox4.TabIndex = 30;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoEllipsis = true;
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.White;
+            this.label5.Font = new System.Drawing.Font("Poppins", 9F);
+            this.label5.ForeColor = System.Drawing.Color.Black;
+            this.label5.Location = new System.Drawing.Point(580, 101);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(165, 22);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Average Daily Attendance";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoEllipsis = true;
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.White;
+            this.label6.Font = new System.Drawing.Font("Poppins", 23F);
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(703, 57);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 54);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "10";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            this.label4.AutoEllipsis = true;
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.White;
+            this.label4.Font = new System.Drawing.Font("Poppins", 9F);
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(30, 101);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(62, 22);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Students";
+            // 
+            // label3
+            // 
+            this.label3.AutoEllipsis = true;
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.White;
+            this.label3.Font = new System.Drawing.Font("Poppins", 23F);
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(25, 57);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(51, 54);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "10";
+            // 
+            // label1
+            // 
+            this.label1.AutoEllipsis = true;
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Font = new System.Drawing.Font("Poppins SemiBold", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(29, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 28);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Summary";
+            // 
+            // panel10
+            // 
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel10.Location = new System.Drawing.Point(3, 3);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(787, 10);
+            this.panel10.TabIndex = 0;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.panel9);
@@ -226,7 +399,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 31);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(793, 465);
+            this.tabPage2.Size = new System.Drawing.Size(793, 511);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Students";
             this.tabPage2.ToolTipText = "Students";
@@ -239,7 +412,7 @@
             this.panel9.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel9.Location = new System.Drawing.Point(3, 47);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(787, 367);
+            this.panel9.Size = new System.Drawing.Size(787, 413);
             this.panel9.TabIndex = 2;
             // 
             // kryptonGroupBox5
@@ -253,7 +426,7 @@
             // kryptonGroupBox5.Panel
             // 
             this.kryptonGroupBox5.Panel.Controls.Add(this.dgvStudents);
-            this.kryptonGroupBox5.Size = new System.Drawing.Size(787, 367);
+            this.kryptonGroupBox5.Size = new System.Drawing.Size(787, 413);
             this.kryptonGroupBox5.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox5.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox5.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -326,7 +499,7 @@
             this.dgvStudents.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvStudents.RowTemplate.Height = 30;
             this.dgvStudents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStudents.Size = new System.Drawing.Size(777, 357);
+            this.dgvStudents.Size = new System.Drawing.Size(777, 403);
             this.dgvStudents.TabIndex = 1;
             this.dgvStudents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStudents_CellContentClick);
             // 
@@ -362,10 +535,72 @@
             this.panel7.Controls.Add(this.btnCancel1);
             this.panel7.Controls.Add(this.btnSave1);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel7.Location = new System.Drawing.Point(3, 414);
+            this.panel7.Location = new System.Drawing.Point(3, 460);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(787, 48);
             this.panel7.TabIndex = 1;
+            // 
+            // btnExportStudentList
+            // 
+            this.btnExportStudentList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExportStudentList.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExportStudentList.Location = new System.Drawing.Point(639, 6);
+            this.btnExportStudentList.Name = "btnExportStudentList";
+            this.btnExportStudentList.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportStudentList.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportStudentList.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExportStudentList.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnExportStudentList.OverrideDefault.Border.Rounding = 10;
+            this.btnExportStudentList.OverrideDefault.Border.Width = 1;
+            this.btnExportStudentList.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExportStudentList.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExportStudentList.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExportStudentList.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportStudentList.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportStudentList.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExportStudentList.OverrideFocus.Border.Rounding = 10;
+            this.btnExportStudentList.Size = new System.Drawing.Size(143, 36);
+            this.btnExportStudentList.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportStudentList.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportStudentList.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnExportStudentList.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnExportStudentList.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExportStudentList.StateCommon.Border.Rounding = 10;
+            this.btnExportStudentList.StateCommon.Border.Width = 1;
+            this.btnExportStudentList.StateCommon.Content.AdjacentGap = 5;
+            this.btnExportStudentList.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            this.btnExportStudentList.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExportStudentList.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExportStudentList.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.btnExportStudentList.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnExportStudentList.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportStudentList.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportStudentList.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExportStudentList.StatePressed.Border.Rounding = 10;
+            this.btnExportStudentList.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExportStudentList.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExportStudentList.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExportStudentList.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnExportStudentList.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnExportStudentList.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExportStudentList.StateTracking.Border.Rounding = 10;
+            this.btnExportStudentList.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExportStudentList.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExportStudentList.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExportStudentList.TabIndex = 184;
+            this.btnExportStudentList.Values.Image = global::AMSEMS.Properties.Resources.export_16;
+            this.btnExportStudentList.Values.Text = "Export to PDF";
+            this.btnExportStudentList.Click += new System.EventHandler(this.btnExportStudentList_Click);
             // 
             // btnCancel1
             // 
@@ -603,7 +838,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 31);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(793, 465);
+            this.tabPage4.Size = new System.Drawing.Size(793, 511);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Attendance Report";
             this.tabPage4.ToolTipText = "Attendance Report";
@@ -616,7 +851,7 @@
             this.panel6.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel6.Location = new System.Drawing.Point(3, 47);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(787, 367);
+            this.panel6.Size = new System.Drawing.Size(787, 413);
             this.panel6.TabIndex = 32;
             // 
             // kryptonGroupBox3
@@ -630,7 +865,7 @@
             // kryptonGroupBox3.Panel
             // 
             this.kryptonGroupBox3.Panel.Controls.Add(this.dgvAttendanceReport);
-            this.kryptonGroupBox3.Size = new System.Drawing.Size(787, 367);
+            this.kryptonGroupBox3.Size = new System.Drawing.Size(787, 413);
             this.kryptonGroupBox3.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox3.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox3.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -701,7 +936,7 @@
             this.dgvAttendanceReport.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dgvAttendanceReport.RowTemplate.Height = 30;
             this.dgvAttendanceReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAttendanceReport.Size = new System.Drawing.Size(777, 357);
+            this.dgvAttendanceReport.Size = new System.Drawing.Size(777, 403);
             this.dgvAttendanceReport.TabIndex = 1;
             this.dgvAttendanceReport.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAttendanceReport_CellValueChanged);
             this.dgvAttendanceReport.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvAttendanceReport_ColumnHeaderMouseClick);
@@ -728,10 +963,72 @@
             this.panel5.Controls.Add(this.btnCancel2);
             this.panel5.Controls.Add(this.btnSave2);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel5.Location = new System.Drawing.Point(3, 414);
+            this.panel5.Location = new System.Drawing.Point(3, 460);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(787, 48);
             this.panel5.TabIndex = 31;
+            // 
+            // btnExportAttendance
+            // 
+            this.btnExportAttendance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExportAttendance.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExportAttendance.Location = new System.Drawing.Point(639, 6);
+            this.btnExportAttendance.Name = "btnExportAttendance";
+            this.btnExportAttendance.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportAttendance.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportAttendance.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExportAttendance.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnExportAttendance.OverrideDefault.Border.Rounding = 10;
+            this.btnExportAttendance.OverrideDefault.Border.Width = 1;
+            this.btnExportAttendance.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExportAttendance.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExportAttendance.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExportAttendance.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportAttendance.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportAttendance.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExportAttendance.OverrideFocus.Border.Rounding = 10;
+            this.btnExportAttendance.Size = new System.Drawing.Size(143, 36);
+            this.btnExportAttendance.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportAttendance.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportAttendance.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnExportAttendance.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnExportAttendance.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExportAttendance.StateCommon.Border.Rounding = 10;
+            this.btnExportAttendance.StateCommon.Border.Width = 1;
+            this.btnExportAttendance.StateCommon.Content.AdjacentGap = 5;
+            this.btnExportAttendance.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            this.btnExportAttendance.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExportAttendance.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExportAttendance.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.btnExportAttendance.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnExportAttendance.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportAttendance.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExportAttendance.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExportAttendance.StatePressed.Border.Rounding = 10;
+            this.btnExportAttendance.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExportAttendance.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExportAttendance.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExportAttendance.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnExportAttendance.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnExportAttendance.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExportAttendance.StateTracking.Border.Rounding = 10;
+            this.btnExportAttendance.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExportAttendance.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExportAttendance.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExportAttendance.TabIndex = 185;
+            this.btnExportAttendance.Values.Image = global::AMSEMS.Properties.Resources.export_16;
+            this.btnExportAttendance.Values.Text = "Export to PDF";
+            this.btnExportAttendance.Click += new System.EventHandler(this.btnExportAttendance_Click);
             // 
             // btnCancel2
             // 
@@ -999,7 +1296,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 31);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(793, 465);
+            this.tabPage3.Size = new System.Drawing.Size(793, 511);
             this.tabPage3.TabIndex = 4;
             this.tabPage3.Text = "RFID Attendance Checker";
             this.tabPage3.ToolTipText = "Attendance Checker";
@@ -1018,7 +1315,7 @@
             // kryptonGroupBox1.Panel
             // 
             this.kryptonGroupBox1.Panel.Controls.Add(this.dgvAttendance);
-            this.kryptonGroupBox1.Size = new System.Drawing.Size(682, 162);
+            this.kryptonGroupBox1.Size = new System.Drawing.Size(682, 208);
             this.kryptonGroupBox1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox1.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox1.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -1089,7 +1386,7 @@
             this.dgvAttendance.RowsDefaultCellStyle = dataGridViewCellStyle15;
             this.dgvAttendance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAttendance.ShowEditingIcon = false;
-            this.dgvAttendance.Size = new System.Drawing.Size(672, 157);
+            this.dgvAttendance.Size = new System.Drawing.Size(672, 203);
             this.dgvAttendance.TabIndex = 2;
             this.dgvAttendance.TabStop = false;
             this.dgvAttendance.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAttendance_CellContentClick);
@@ -1292,8 +1589,39 @@
             this.label2.TabIndex = 138;
             this.label2.Text = "Manual/RFID Reader";
             // 
+            // tgbtnEnable_Att
+            // 
+            this.tgbtnEnable_Att.AutoSize = true;
+            this.tgbtnEnable_Att.Location = new System.Drawing.Point(281, 8);
+            this.tgbtnEnable_Att.MinimumSize = new System.Drawing.Size(45, 22);
+            this.tgbtnEnable_Att.Name = "tgbtnEnable_Att";
+            this.tgbtnEnable_Att.OffBackColor = System.Drawing.Color.Gray;
+            this.tgbtnEnable_Att.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tgbtnEnable_Att.OnBackColor = System.Drawing.Color.Green;
+            this.tgbtnEnable_Att.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tgbtnEnable_Att.Size = new System.Drawing.Size(45, 22);
+            this.tgbtnEnable_Att.TabIndex = 137;
+            this.tgbtnEnable_Att.UseVisualStyleBackColor = true;
+            this.tgbtnEnable_Att.CheckedChanged += new System.EventHandler(this.tgbtnEnable_Att_CheckedChanged);
+            // 
+            // ptbProfilePic
+            // 
+            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbProfilePic.BorderWidth = 2;
+            this.ptbProfilePic.CornerRadius = 10;
+            this.ptbProfilePic.Image = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
+            this.ptbProfilePic.InitialImage = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
+            this.ptbProfilePic.Location = new System.Drawing.Point(53, 46);
+            this.ptbProfilePic.Name = "ptbProfilePic";
+            this.ptbProfilePic.Size = new System.Drawing.Size(312, 250);
+            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProfilePic.TabIndex = 21;
+            this.ptbProfilePic.TabStop = false;
+            // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.ptbLoading);
+            this.panel1.Controls.Add(this.btnOption);
             this.panel1.Controls.Add(this.lblSec);
             this.panel1.Controls.Add(this.lblSubjectName);
             this.panel1.Controls.Add(this.ptbSubjectPic);
@@ -1302,6 +1630,62 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(801, 110);
             this.panel1.TabIndex = 6;
+            // 
+            // ptbLoading
+            // 
+            this.ptbLoading.Location = new System.Drawing.Point(641, 41);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(153, 23);
+            this.ptbLoading.TabIndex = 10;
+            this.ptbLoading.Visible = false;
+            // 
+            // btnOption
+            // 
+            this.btnOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOption.ContextMenuStrip = this.CMSSectionOption;
+            this.btnOption.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnOption.Location = new System.Drawing.Point(763, 2);
+            this.btnOption.Name = "btnOption";
+            this.btnOption.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.ProfessionalSystem;
+            this.btnOption.Size = new System.Drawing.Size(37, 33);
+            this.btnOption.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnOption.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnOption.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnOption.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnOption.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnOption.TabIndex = 9;
+            this.btnOption.Values.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.btnOption.Values.Text = "";
+            this.btnOption.Click += new System.EventHandler(this.btnOption_Click);
+            // 
+            // CMSSectionOption
+            // 
+            this.CMSSectionOption.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.CMSSectionOption.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.uploadtoolStripMenuItem2,
+            this.deltoolStripMenuItem1});
+            this.CMSSectionOption.Name = "contextMenuStrip2";
+            this.CMSSectionOption.ShowImageMargin = false;
+            this.CMSSectionOption.ShowItemToolTips = false;
+            this.CMSSectionOption.Size = new System.Drawing.Size(156, 78);
+            // 
+            // uploadtoolStripMenuItem2
+            // 
+            this.uploadtoolStripMenuItem2.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uploadtoolStripMenuItem2.Name = "uploadtoolStripMenuItem2";
+            this.uploadtoolStripMenuItem2.Size = new System.Drawing.Size(155, 26);
+            this.uploadtoolStripMenuItem2.Text = "Upload Record";
+            this.uploadtoolStripMenuItem2.Click += new System.EventHandler(this.uploadtoolStripMenuItem2_Click);
+            // 
+            // deltoolStripMenuItem1
+            // 
+            this.deltoolStripMenuItem1.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deltoolStripMenuItem1.Name = "deltoolStripMenuItem1";
+            this.deltoolStripMenuItem1.Size = new System.Drawing.Size(155, 26);
+            this.deltoolStripMenuItem1.Text = "Delete Section";
+            this.deltoolStripMenuItem1.Click += new System.EventHandler(this.deltoolStripMenuItem1_Click);
             // 
             // lblSec
             // 
@@ -1325,19 +1709,18 @@
             this.lblSubjectName.TabIndex = 7;
             this.lblSubjectName.Text = "Subject Name";
             // 
-            // dataGridViewImageColumn1
+            // ptbSubjectPic
             // 
-            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle16.NullValue = null;
-            dataGridViewCellStyle16.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle16;
-            this.dataGridViewImageColumn1.HeaderText = "Check";
-            this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.calendar;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.ReadOnly = true;
-            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.ptbSubjectPic.BackColor = System.Drawing.Color.White;
+            this.ptbSubjectPic.BorderWidth = 2;
+            this.ptbSubjectPic.CornerRadius = 10;
+            this.ptbSubjectPic.Image = global::AMSEMS.Properties.Resources.book1;
+            this.ptbSubjectPic.Location = new System.Drawing.Point(0, 0);
+            this.ptbSubjectPic.Name = "ptbSubjectPic";
+            this.ptbSubjectPic.Size = new System.Drawing.Size(107, 94);
+            this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbSubjectPic.TabIndex = 6;
+            this.ptbSubjectPic.TabStop = false;
             // 
             // CMSExport
             // 
@@ -1401,338 +1784,19 @@
             this.delToolStripMenuItem.Text = "Delete Record";
             this.delToolStripMenuItem.Click += new System.EventHandler(this.delToolStripMenuItem_Click);
             // 
-            // btnExportStudentList
+            // dataGridViewImageColumn1
             // 
-            this.btnExportStudentList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExportStudentList.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnExportStudentList.Location = new System.Drawing.Point(639, 6);
-            this.btnExportStudentList.Name = "btnExportStudentList";
-            this.btnExportStudentList.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportStudentList.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportStudentList.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExportStudentList.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            this.btnExportStudentList.OverrideDefault.Border.Rounding = 10;
-            this.btnExportStudentList.OverrideDefault.Border.Width = 1;
-            this.btnExportStudentList.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnExportStudentList.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExportStudentList.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExportStudentList.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportStudentList.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportStudentList.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExportStudentList.OverrideFocus.Border.Rounding = 10;
-            this.btnExportStudentList.Size = new System.Drawing.Size(143, 36);
-            this.btnExportStudentList.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportStudentList.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportStudentList.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnExportStudentList.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnExportStudentList.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExportStudentList.StateCommon.Border.Rounding = 10;
-            this.btnExportStudentList.StateCommon.Border.Width = 1;
-            this.btnExportStudentList.StateCommon.Content.AdjacentGap = 5;
-            this.btnExportStudentList.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
-            this.btnExportStudentList.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExportStudentList.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExportStudentList.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
-            this.btnExportStudentList.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
-            this.btnExportStudentList.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportStudentList.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportStudentList.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExportStudentList.StatePressed.Border.Rounding = 10;
-            this.btnExportStudentList.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnExportStudentList.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExportStudentList.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExportStudentList.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnExportStudentList.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnExportStudentList.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExportStudentList.StateTracking.Border.Rounding = 10;
-            this.btnExportStudentList.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnExportStudentList.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExportStudentList.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExportStudentList.TabIndex = 184;
-            this.btnExportStudentList.Values.Image = global::AMSEMS.Properties.Resources.export_16;
-            this.btnExportStudentList.Values.Text = "Export to PDF";
-            this.btnExportStudentList.Click += new System.EventHandler(this.btnExportStudentList_Click);
-            // 
-            // btnExportAttendance
-            // 
-            this.btnExportAttendance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExportAttendance.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnExportAttendance.Location = new System.Drawing.Point(639, 6);
-            this.btnExportAttendance.Name = "btnExportAttendance";
-            this.btnExportAttendance.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportAttendance.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportAttendance.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExportAttendance.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            this.btnExportAttendance.OverrideDefault.Border.Rounding = 10;
-            this.btnExportAttendance.OverrideDefault.Border.Width = 1;
-            this.btnExportAttendance.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnExportAttendance.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExportAttendance.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExportAttendance.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportAttendance.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportAttendance.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExportAttendance.OverrideFocus.Border.Rounding = 10;
-            this.btnExportAttendance.Size = new System.Drawing.Size(143, 36);
-            this.btnExportAttendance.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportAttendance.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportAttendance.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnExportAttendance.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnExportAttendance.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExportAttendance.StateCommon.Border.Rounding = 10;
-            this.btnExportAttendance.StateCommon.Border.Width = 1;
-            this.btnExportAttendance.StateCommon.Content.AdjacentGap = 5;
-            this.btnExportAttendance.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
-            this.btnExportAttendance.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExportAttendance.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExportAttendance.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
-            this.btnExportAttendance.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
-            this.btnExportAttendance.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportAttendance.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExportAttendance.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExportAttendance.StatePressed.Border.Rounding = 10;
-            this.btnExportAttendance.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnExportAttendance.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExportAttendance.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExportAttendance.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnExportAttendance.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnExportAttendance.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExportAttendance.StateTracking.Border.Rounding = 10;
-            this.btnExportAttendance.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnExportAttendance.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExportAttendance.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExportAttendance.TabIndex = 185;
-            this.btnExportAttendance.Values.Image = global::AMSEMS.Properties.Resources.export_16;
-            this.btnExportAttendance.Values.Text = "Export to PDF";
-            this.btnExportAttendance.Click += new System.EventHandler(this.btnExportAttendance_Click);
-            // 
-            // tgbtnEnable_Att
-            // 
-            this.tgbtnEnable_Att.AutoSize = true;
-            this.tgbtnEnable_Att.Location = new System.Drawing.Point(281, 8);
-            this.tgbtnEnable_Att.MinimumSize = new System.Drawing.Size(45, 22);
-            this.tgbtnEnable_Att.Name = "tgbtnEnable_Att";
-            this.tgbtnEnable_Att.OffBackColor = System.Drawing.Color.Gray;
-            this.tgbtnEnable_Att.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.tgbtnEnable_Att.OnBackColor = System.Drawing.Color.Green;
-            this.tgbtnEnable_Att.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.tgbtnEnable_Att.Size = new System.Drawing.Size(45, 22);
-            this.tgbtnEnable_Att.TabIndex = 137;
-            this.tgbtnEnable_Att.UseVisualStyleBackColor = true;
-            this.tgbtnEnable_Att.CheckedChanged += new System.EventHandler(this.tgbtnEnable_Att_CheckedChanged);
-            // 
-            // ptbProfilePic
-            // 
-            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbProfilePic.BorderWidth = 2;
-            this.ptbProfilePic.CornerRadius = 10;
-            this.ptbProfilePic.Image = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
-            this.ptbProfilePic.InitialImage = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
-            this.ptbProfilePic.Location = new System.Drawing.Point(53, 46);
-            this.ptbProfilePic.Name = "ptbProfilePic";
-            this.ptbProfilePic.Size = new System.Drawing.Size(312, 250);
-            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProfilePic.TabIndex = 21;
-            this.ptbProfilePic.TabStop = false;
-            // 
-            // ptbSubjectPic
-            // 
-            this.ptbSubjectPic.BackColor = System.Drawing.Color.White;
-            this.ptbSubjectPic.BorderWidth = 2;
-            this.ptbSubjectPic.CornerRadius = 10;
-            this.ptbSubjectPic.Image = global::AMSEMS.Properties.Resources.book1;
-            this.ptbSubjectPic.Location = new System.Drawing.Point(0, 0);
-            this.ptbSubjectPic.Name = "ptbSubjectPic";
-            this.ptbSubjectPic.Size = new System.Drawing.Size(107, 94);
-            this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbSubjectPic.TabIndex = 6;
-            this.ptbSubjectPic.TabStop = false;
-            // 
-            // panel10
-            // 
-            this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel10.Location = new System.Drawing.Point(3, 3);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(787, 10);
-            this.panel10.TabIndex = 0;
-            // 
-            // kryptonGroupBox4
-            // 
-            this.kryptonGroupBox4.CaptionVisible = false;
-            this.kryptonGroupBox4.CausesValidation = false;
-            this.kryptonGroupBox4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonGroupBox4.Location = new System.Drawing.Point(3, 13);
-            this.kryptonGroupBox4.Name = "kryptonGroupBox4";
-            // 
-            // kryptonGroupBox4.Panel
-            // 
-            this.kryptonGroupBox4.Panel.Controls.Add(this.label5);
-            this.kryptonGroupBox4.Panel.Controls.Add(this.label6);
-            this.kryptonGroupBox4.Panel.Controls.Add(this.label4);
-            this.kryptonGroupBox4.Panel.Controls.Add(this.label3);
-            this.kryptonGroupBox4.Panel.Controls.Add(this.label1);
-            this.kryptonGroupBox4.Size = new System.Drawing.Size(787, 159);
-            this.kryptonGroupBox4.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.kryptonGroupBox4.StateCommon.Back.Color2 = System.Drawing.Color.White;
-            this.kryptonGroupBox4.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox4.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox4.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonGroupBox4.StateCommon.Border.Rounding = 10;
-            this.kryptonGroupBox4.StateCommon.Border.Width = 2;
-            this.kryptonGroupBox4.TabIndex = 30;
-            // 
-            // label1
-            // 
-            this.label1.AutoEllipsis = true;
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.White;
-            this.label1.Font = new System.Drawing.Font("Poppins SemiBold", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(29, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 28);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Summary";
-            // 
-            // label3
-            // 
-            this.label3.AutoEllipsis = true;
-            this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.White;
-            this.label3.Font = new System.Drawing.Font("Poppins", 23F);
-            this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(25, 57);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 54);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "10";
-            // 
-            // label4
-            // 
-            this.label4.AutoEllipsis = true;
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.White;
-            this.label4.Font = new System.Drawing.Font("Poppins", 9F);
-            this.label4.ForeColor = System.Drawing.Color.Black;
-            this.label4.Location = new System.Drawing.Point(30, 101);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 22);
-            this.label4.TabIndex = 10;
-            this.label4.Text = "Students";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoEllipsis = true;
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.White;
-            this.label5.Font = new System.Drawing.Font("Poppins", 9F);
-            this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(580, 101);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(165, 22);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Average Daily Attendance";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoEllipsis = true;
-            this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.White;
-            this.label6.Font = new System.Drawing.Font("Poppins", 23F);
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(703, 57);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 54);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "10";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // panel11
-            // 
-            this.panel11.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel11.Location = new System.Drawing.Point(3, 172);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(787, 10);
-            this.panel11.TabIndex = 31;
-            // 
-            // kryptonGroupBox6
-            // 
-            this.kryptonGroupBox6.CaptionVisible = false;
-            this.kryptonGroupBox6.CausesValidation = false;
-            this.kryptonGroupBox6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonGroupBox6.Location = new System.Drawing.Point(3, 182);
-            this.kryptonGroupBox6.Name = "kryptonGroupBox6";
-            // 
-            // kryptonGroupBox6.Panel
-            // 
-            this.kryptonGroupBox6.Panel.Controls.Add(this.chart1);
-            this.kryptonGroupBox6.Panel.Controls.Add(this.label11);
-            this.kryptonGroupBox6.Size = new System.Drawing.Size(787, 326);
-            this.kryptonGroupBox6.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.kryptonGroupBox6.StateCommon.Back.Color2 = System.Drawing.Color.White;
-            this.kryptonGroupBox6.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox6.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox6.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonGroupBox6.StateCommon.Border.Rounding = 10;
-            this.kryptonGroupBox6.StateCommon.Border.Width = 2;
-            this.kryptonGroupBox6.TabIndex = 32;
-            // 
-            // chart1
-            // 
-            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(34, 69);
-            this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(711, 218);
-            this.chart1.TabIndex = 9;
-            this.chart1.Text = "chart1";
-            // 
-            // label11
-            // 
-            this.label11.AutoEllipsis = true;
-            this.label11.AutoSize = true;
-            this.label11.BackColor = System.Drawing.Color.White;
-            this.label11.Font = new System.Drawing.Font("Poppins SemiBold", 12F, System.Drawing.FontStyle.Bold);
-            this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(29, 26);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(230, 28);
-            this.label11.TabIndex = 8;
-            this.label11.Text = "Students Individual Record";
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle16.NullValue = null;
+            dataGridViewCellStyle16.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle16;
+            this.dataGridViewImageColumn1.HeaderText = "Check";
+            this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.calendar;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.ReadOnly = true;
+            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // formSubjectOverview
             // 
@@ -1749,6 +1813,17 @@
             this.panel2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6.Panel)).EndInit();
+            this.kryptonGroupBox6.Panel.ResumeLayout(false);
+            this.kryptonGroupBox6.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6)).EndInit();
+            this.kryptonGroupBox6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).EndInit();
+            this.kryptonGroupBox4.Panel.ResumeLayout(false);
+            this.kryptonGroupBox4.Panel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).EndInit();
+            this.kryptonGroupBox4.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).EndInit();
@@ -1788,23 +1863,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.ptbCheck)).EndInit();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.CMSSectionOption.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).EndInit();
             this.CMSExport.ResumeLayout(false);
             this.CMSOptions.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).EndInit();
-            this.kryptonGroupBox4.Panel.ResumeLayout(false);
-            this.kryptonGroupBox4.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).EndInit();
-            this.kryptonGroupBox4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6.Panel)).EndInit();
-            this.kryptonGroupBox6.Panel.ResumeLayout(false);
-            this.kryptonGroupBox6.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6)).EndInit();
-            this.kryptonGroupBox6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1885,5 +1950,10 @@
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnOption;
+        private System.Windows.Forms.ContextMenuStrip CMSSectionOption;
+        private System.Windows.Forms.ToolStripMenuItem uploadtoolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem deltoolStripMenuItem1;
+        private System.Windows.Forms.ProgressBar ptbLoading;
     }
 }

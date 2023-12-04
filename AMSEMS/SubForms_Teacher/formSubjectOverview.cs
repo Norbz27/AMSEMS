@@ -15,6 +15,8 @@ using iTextSharp.text.pdf;
 using iTextSharp.text;
 using static Microsoft.IO.RecyclableMemoryStreamManager;
 using System.IO;
+using System.Data.SqlClient;
+using System.Net.NetworkInformation;
 
 namespace AMSEMS.SubForms_Teacher
 {
@@ -22,7 +24,7 @@ namespace AMSEMS.SubForms_Teacher
     {
         SQLite_Connection conn;
 
-        static FormTeacherNavigation form;
+        static formSubjectInformation form;
         static string ccode;
         static string classcode;
         static string subacadlvl;
@@ -38,12 +40,14 @@ namespace AMSEMS.SubForms_Teacher
             dgvStudents.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 9F);
             dgvAttendanceReport.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 9F);
             dgvAttendance.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            ptbLoading.Style = ProgressBarStyle.Marquee;
         }
-        public static void setCode(string ccode1, string classcode1, string subacadlvl1)
+        public static void setCode(string ccode1, string classcode1, string subacadlvl1, formSubjectInformation form1)
         {
             ccode = ccode1;
             classcode = classcode1;
             subacadlvl = subacadlvl1;
+            form = form1;
         }
         private void formSubjectInformation_Load(object sender, EventArgs e)
         {
@@ -942,7 +946,7 @@ namespace AMSEMS.SubForms_Teacher
         }
         private void ExportToPDFAttendanceReport(DataGridView dataGridView, string filePath)
         {
-            Document document = new Document(PageSize.LETTER);
+            Document document = new Document(PageSize.LETTER.Rotate());
             PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
 
             document.Open();
@@ -992,5 +996,211 @@ namespace AMSEMS.SubForms_Teacher
             document.Add(pdfTable);
             document.Close();
         }
+
+        private void btnOption_Click(object sender, EventArgs e)
+        {
+            CMSSectionOption.Show(btnOption, new System.Drawing.Point(0, btnOption.Height));
+        }
+
+        private async void uploadtoolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you want to upload attendance record to cloud?", "Cloud Sync Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                ptbLoading.Visible = true; // Show loading image before starting the synchronization
+                await Task.Delay(3000);
+                if (IsInternetConnected())
+                {
+                    try
+                    {
+                        using (SqlConnection cnn = new SqlConnection(SQL_Connection.connection))
+                        {
+                            await cnn.OpenAsync();
+                            System.Data.DataTable attendance_record = conn.GetAttendanceRecord(classcode);
+                            System.Data.DataTable class_list = conn.GetClassList(classcode);
+
+                            if (attendance_record.Rows.Count > 0 || class_list.Rows.Count >0)
+                            {
+                                foreach (DataRow row in attendance_record.Rows)
+                                {
+                                    string classcode = row["Class_Code"].ToString();
+                                    string attendacedate = row["Attendance_date"].ToString();
+                                    string studid = row["Student_ID"].ToString();
+                                    string studstatus = row["Student_Status"].ToString();
+
+                                    using (SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM tbl_subject_attendance WHERE Student_ID = @StudentID AND Attendance_date = @AttDate AND Class_Code = @ClassCode", cnn))
+                                    {
+                                        checkCmd.Parameters.AddWithValue("@StudentID", studid);
+                                        checkCmd.Parameters.AddWithValue("@ClassCode", classcode);
+                                        checkCmd.Parameters.AddWithValue("@AttDate", attendacedate);
+
+                                        int recordCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                                        if (recordCount == 0)
+                                        {
+                                            // If the record doesn't exist, insert it
+                                            string insertQuery = "INSERT INTO tbl_subject_attendance (Class_Code, Attendance_date, Student_ID, Student_Status) VALUES (@ClassCode, @AttDate, @StudID, @StudStatus)";
+
+                                            using (SqlCommand insertCmd = new SqlCommand(insertQuery, cnn))
+                                            {
+                                                insertCmd.Parameters.AddWithValue("@ClassCode", classcode);
+                                                insertCmd.Parameters.AddWithValue("@AttDate", attendacedate);
+                                                insertCmd.Parameters.AddWithValue("@StudID", studid);
+                                                insertCmd.Parameters.AddWithValue("@StudStatus", studstatus);
+
+                                                insertCmd.ExecuteNonQuery();
+                                            }
+                                        }
+                                    }
+                                }
+                                foreach (DataRow row in class_list.Rows)
+                                {
+                                    string classcode = row["Class_Code"].ToString();
+                                    string secid = row["Section_ID"].ToString();
+                                    string teachid = row["Teacher_ID"].ToString();
+                                    string coursecode = row["Course_Code"].ToString();
+                                    string schyear = row["School_Year"].ToString();
+                                    string sem = row["Semester"].ToString();
+                                    string acadlvl = row["Acad_Level"].ToString();
+
+                                    using (SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM tbl_class_list WHERE Class_Code = @ClassCode AND Section_ID = @SecID AND Teacher_ID = @TeachID AND Course_Code = @Ccode AND School_Year = @SchYear AND Semester = @Sem AND Acad_Level = @AcadLvl", cnn))
+                                    {
+                                        checkCmd.Parameters.AddWithValue("@ClassCode", classcode);
+                                        checkCmd.Parameters.AddWithValue("@SecID", secid);
+                                        checkCmd.Parameters.AddWithValue("@TeachID", teachid);
+                                        checkCmd.Parameters.AddWithValue("@Ccode", coursecode);
+                                        checkCmd.Parameters.AddWithValue("@SchYear", schyear);
+                                        checkCmd.Parameters.AddWithValue("@Sem", sem);
+                                        checkCmd.Parameters.AddWithValue("@AcadLvl", acadlvl);
+
+                                        int recordCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                                        if (recordCount == 0)
+                                        {
+                                            // If the record doesn't exist, insert it
+                                            string insertQuery = "INSERT INTO tbl_class_list (CLass_Code,Section_ID,Teacher_ID,Course_Code,School_Year,Semester,Acad_Level) VALUES (@ClassCode, @SecID, @TeachID, @Ccode, @SchYear, @Sem, @AcadLvl)";
+
+                                            using (SqlCommand insertCmd = new SqlCommand(insertQuery, cnn))
+                                            {
+                                                insertCmd.Parameters.AddWithValue("@ClassCode", classcode);
+                                                insertCmd.Parameters.AddWithValue("@SecID", secid);
+                                                insertCmd.Parameters.AddWithValue("@TeachID", teachid);
+                                                insertCmd.Parameters.AddWithValue("@Ccode", coursecode);
+                                                insertCmd.Parameters.AddWithValue("@SchYear", schyear);
+                                                insertCmd.Parameters.AddWithValue("@Sem", sem);
+                                                insertCmd.Parameters.AddWithValue("@AcadLvl", acadlvl);
+
+                                                insertCmd.ExecuteNonQuery();
+                                            }
+                                        }
+                                    }
+                                }
+                                MessageBox.Show("Successfully Upload Data.", "Sync Configuration", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                }
+                    catch (Exception ex)
+                    {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+                else
+                {
+                    MessageBox.Show("No internet connection available. Please check your network connection.");
+                }
+                ptbLoading.Visible = false;
+            }
+        }
+        private bool IsInternetConnected()
+        {
+            try
+            {
+                Ping ping = new Ping();
+                PingReply reply = ping.Send("www.google.com"); // You can use a reliable external host for testing connectivity.
+
+                if (reply != null && reply.Status == IPStatus.Success)
+                {
+                    return true; // Internet is reachable.
+                }
+                return false; // No internet connection.
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void deltoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (IsInternetConnected())
+            {
+                using (SQLiteConnection connection = new SQLiteConnection(conn.connectionString))
+                {
+                    connection.Open();
+
+                    using (SQLiteTransaction transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            // SQLite deletion and table drop
+                            string clearSql = @"DELETE FROM tbl_class_list WHERE Class_Code = @classcode;";
+                            using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@classcode", classcode);
+                                command.ExecuteNonQuery();
+                            }
+
+                            clearSql = $@"DROP TABLE IF EXISTS tbl_{classcode};";
+                            using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
+                            {
+                                command.ExecuteNonQuery();
+                            }
+
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                        }
+                    }
+                }
+
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
+
+                    using (SqlTransaction transaction = cn.BeginTransaction())
+                    {
+                        try
+                        {
+                            // SQL Server deletion and table drop
+                            string clearSql = @"DELETE FROM tbl_class_list WHERE Class_Code = @classcode;";
+                            using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
+                            {
+                                cm.Parameters.AddWithValue("@classcode", classcode);
+                                cm.ExecuteNonQuery();
+                            }
+
+                            clearSql = $@"IF OBJECT_ID('tbl_{classcode}', 'U') IS NOT NULL DROP TABLE tbl_{classcode};";
+                            using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
+                            {
+                                cm.ExecuteNonQuery();
+                            }
+
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                        }
+                    }
+                }
+                this.Close();
+                form.OpenMainPage();
+                form.displaySectionOfSubject();
+            }
+        }
+
     }
 }

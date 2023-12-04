@@ -41,7 +41,8 @@
             this.btnback = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
             this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).BeginInit();
@@ -140,6 +141,7 @@
             // 
             // btnMainPage
             // 
+            this.btnMainPage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMainPage.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnMainPage.FlatAppearance.BorderSize = 0;
             this.btnMainPage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -196,20 +198,29 @@
             // 
             this.CMSOptions.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.CMSOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addToolStripMenuItem});
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2});
             this.CMSOptions.Name = "contextMenuStrip2";
             this.CMSOptions.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.CMSOptions.ShowImageMargin = false;
             this.CMSOptions.ShowItemToolTips = false;
-            this.CMSOptions.Size = new System.Drawing.Size(124, 30);
+            this.CMSOptions.Size = new System.Drawing.Size(164, 78);
             // 
-            // addToolStripMenuItem
+            // toolStripMenuItem1
             // 
-            this.addToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(123, 26);
-            this.addToolStripMenuItem.Text = "Add Section";
-            this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            this.toolStripMenuItem1.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(163, 26);
+            this.toolStripMenuItem1.Text = "Add Section";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(163, 26);
+            this.toolStripMenuItem2.Text = "Upload All Records";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // formSubjectInformation
             // 
@@ -244,7 +255,8 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ContextMenuStrip CMSOptions;
-        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
         private System.Windows.Forms.Label lblSubjectName;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
     }
 }

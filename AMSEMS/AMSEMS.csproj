@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>6</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -670,23 +670,17 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_SAO\UserID.cs" />
+    <Compile Include="SubForms_Teacher\formManageSections.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\formManageSections.Designer.cs">
+      <DependentUpon>formManageSections.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Teacher\formAddStudentToSubject.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SubForms_Teacher\formAddStudentToSubject.Designer.cs">
       <DependentUpon>formAddStudentToSubject.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SubForms_Teacher\formAttendanceRecord.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForms_Teacher\formAttendanceRecord.Designer.cs">
-      <DependentUpon>formAttendanceRecord.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SubForms_Teacher\formAttendanceReport.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForms_Teacher\formAttendanceReport.Designer.cs">
-      <DependentUpon>formAttendanceReport.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Teacher\formDashboard.cs">
       <SubType>Form</SubType>
@@ -796,17 +790,17 @@
     <Compile Include="SubForms_Teacher\formAddSectionToSubject.Designer.cs">
       <DependentUpon>formAddSectionToSubject.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Teacher\Settings_Subforms\formDataSync.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForms_Teacher\Settings_Subforms\formDataSync.Designer.cs">
-      <DependentUpon>formDataSync.cs</DependentUpon>
-    </Compile>
     <Compile Include="SubForms_Teacher\Settings_Subforms\formAcademicYearSetting.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SubForms_Teacher\Settings_Subforms\formAcademicYearSetting.Designer.cs">
       <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formDataSync.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Teacher\Settings_Subforms\formDataSync.Designer.cs">
+      <DependentUpon>formDataSync.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Teacher\Settings_Subforms\formAccountSetting.cs">
       <SubType>Form</SubType>
@@ -914,6 +908,7 @@
     <None Include="Resources\diskette.png" />
     <None Include="Resources\diskette-24.png" />
     <None Include="Resources\bookslanscape.png" />
+    <None Include="Resources\upload-white.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1117,14 +1112,11 @@
     <EmbeddedResource Include="SubForms_SAO\Settings_Subforms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\formManageSections.resx">
+      <DependentUpon>formManageSections.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formAddStudentToSubject.resx">
       <DependentUpon>formAddStudentToSubject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Teacher\formAttendanceRecord.resx">
-      <DependentUpon>formAttendanceRecord.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Teacher\formAttendanceReport.resx">
-      <DependentUpon>formAttendanceReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formDashboard.resx">
       <DependentUpon>formDashboard.cs</DependentUpon>
@@ -1180,11 +1172,11 @@
     <EmbeddedResource Include="SubForms_Teacher\formAddSectionToSubject.resx">
       <DependentUpon>formAddSectionToSubject.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formDataSync.resx">
-      <DependentUpon>formDataSync.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formAcademicYearSetting.resx">
       <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formDataSync.resx">
+      <DependentUpon>formDataSync.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\Settings_Subforms\formAccountSetting.resx">
       <DependentUpon>formAccountSetting.cs</DependentUpon>
