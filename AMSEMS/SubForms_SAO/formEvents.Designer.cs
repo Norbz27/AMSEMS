@@ -141,7 +141,7 @@
             this.btnCreateEvent.Values.Text = "Create Event";
             this.btnCreateEvent.Click += new System.EventHandler(this.btnCreateEvent_Click);
             // 
-            // lblAccountName
+            // lblRepHeader
             // 
             this.lblAccountName.Location = new System.Drawing.Point(3, 3);
             this.lblAccountName.Name = "lblAccountName";

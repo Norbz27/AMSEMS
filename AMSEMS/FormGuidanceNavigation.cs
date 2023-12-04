@@ -134,6 +134,7 @@ namespace AMSEMS
         {
             isCollapsed = false;
             timer1.Start();
+            this.kryptonSplitContainer1.Panel2Collapsed = false;
             OpenChildForm(new SubForm_Guidance.formDashboard());
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
@@ -181,6 +182,7 @@ namespace AMSEMS
         {
             isCollapsed = false;
             timer1.Start();
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
             OpenChildForm(new SubForm_Guidance.formSettings(this));
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -241,12 +243,14 @@ namespace AMSEMS
 
         private void btnSHS_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForm_Guidance.formAbsReport("SHS Absenteeism Report"));
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
+            OpenChildForm(new SubForm_Guidance.formAbsReport("SHS"));
         }
 
         private void btnCollege_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubForm_Guidance.formAbsReport("College Absenteeism Report"));
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
+            OpenChildForm(new SubForm_Guidance.formAbsReport("Tertiary"));
         }
 
         public void Logout()

@@ -345,7 +345,7 @@
             this.btnExport.Values.Text = "";
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
-            // lblAccountName
+            // lblRepHeader
             // 
             this.lblAccountName.Location = new System.Drawing.Point(-3, 3);
             this.lblAccountName.Name = "lblAccountName";
