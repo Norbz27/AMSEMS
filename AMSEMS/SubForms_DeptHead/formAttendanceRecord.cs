@@ -17,7 +17,6 @@ namespace AMSEMS.SubForms_DeptHead
         SqlConnection cn;
         SqlDataAdapter ad;
         SqlCommand cm;
-        SqlDataReader dr;
 
         formConfigFee formConfigFee;
 
@@ -81,14 +80,15 @@ namespace AMSEMS.SubForms_DeptHead
                     cn.Open();
                     cm = new SqlCommand(@"SELECT Event_ID, Event_Name FROM tbl_events WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students' OR CHARINDEX(@Department, Selected_Departments) > 0) ORDER BY Start_Date;", cn);
                     cm.Parameters.AddWithValue("@Department", FormDeptHeadNavigation.depdes);
-                    dr = cm.ExecuteReader();
-
-                    while (dr.Read())
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
-                        cbEvents.Items.Add(dr["Event_Name"].ToString());
-                    }
+                        while (dr.Read())
+                        {
+                            cbEvents.Items.Add(dr["Event_Name"].ToString());
+                        }
 
-                    dr.Close();
+                        dr.Close();
+                    }
 
                     if (cbEvents.Items.Count > 0)
                     {
@@ -99,13 +99,14 @@ namespace AMSEMS.SubForms_DeptHead
                     cm = new SqlCommand("Select Distinct Description from tbl_section s Join tbl_academic_level ac ON s.AcadLevel_ID = ac.Academic_Level_ID LEFT JOIN tbl_student_accounts st ON s.Section_ID = st.Section WHERE Academic_Level_Description = @acadlevel AND st.Department = @depid", cn);
                     cm.Parameters.AddWithValue("@acadlevel", FormDeptHeadNavigation.acadlevel);
                     cm.Parameters.AddWithValue("@depid", FormDeptHeadNavigation.dep);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
-                        cbSection.Items.Add(dr["Description"].ToString());
+                        while (dr.Read())
+                        {
+                            cbSection.Items.Add(dr["Description"].ToString());
+                        }
+                        dr.Close();
                     }
-                    dr.Close();
-
                     if (cbSection.Items.Count > 0)
                     {
                         cbSection.SelectedIndex = 0;
@@ -139,11 +140,12 @@ namespace AMSEMS.SubForms_DeptHead
                         if (reader.Read())
                         {
                             eventid = reader["Event_ID"].ToString();
+                            reader.Close();
 
                             cm = new SqlCommand("Select Penalty_AM, Penalty_PM from tbl_attendance where (Event_ID = @eventid OR @eventid IS NULL) AND FORMAT(Date_Time, 'yyyy-MM-dd') = @date", cn);
                             cm.Parameters.AddWithValue("@eventid", (object)eventid ?? DBNull.Value);
                             cm.Parameters.AddWithValue("@date", Dt.Value.ToString("yyyy-MM-dd"));
-                            using (dr = cm.ExecuteReader())
+                            using (SqlDataReader dr = cm.ExecuteReader())
                             {
                                 if (dr.Read())
                                 {
@@ -159,6 +161,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     lblAmPenaltyFee.Text = "₱ 00.00";
                                     lblPmPenaltyFee.Text = "₱ 00.00";
                                 }
+                                dr.Close();
                             }
                         }
                     }
@@ -178,7 +181,7 @@ namespace AMSEMS.SubForms_DeptHead
                 cbSection.Invoke(new Action(() => displayTable()));
                 return;
             }
-            displayFees();
+            //displayFees();
             if(cbEvents.Text == String.Empty)
             {
                 btnPenaltyFee.Enabled = false;
@@ -417,6 +420,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     }
                                     
                                 }
+                                dr.Close();
                             }
                         }
                         lblTotalFees.Text = "₱ " + total.ToString("F2");
@@ -539,7 +543,7 @@ namespace AMSEMS.SubForms_DeptHead
             sec = cbSection.Text;
             await DisplayTableWithCheck();
         }
-        private async Task DisplayTableWithCheck()
+        public async Task DisplayTableWithCheck()
         {
             // Use SemaphoreSlim to ensure that only one displayTable operation is in progress at a time
             if (isDisplayTableInProgress)
@@ -552,6 +556,7 @@ namespace AMSEMS.SubForms_DeptHead
 
             try
             {
+                displayFees();
                 await displayTable();
             }
             catch (Exception ex)

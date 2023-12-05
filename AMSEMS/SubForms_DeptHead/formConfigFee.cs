@@ -214,7 +214,7 @@ namespace AMSEMS.SubForms_DeptHead
                         dr.Close();
                         cn.Close();
                         formAttendanceRecord.setSectionAll();
-                        formAttendanceRecord.displayTable();
+                        formAttendanceRecord.DisplayTableWithCheck();
                         this.Close();
                     }
                 }

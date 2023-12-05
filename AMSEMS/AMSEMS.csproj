@@ -670,12 +670,6 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_SAO\UserID.cs" />
-    <Compile Include="SubForms_Teacher\formManageSections.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SubForms_Teacher\formManageSections.Designer.cs">
-      <DependentUpon>formManageSections.cs</DependentUpon>
-    </Compile>
     <Compile Include="SubForms_Teacher\formAddStudentToSubject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1111,9 +1105,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_SAO\Settings_Subforms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Teacher\formManageSections.resx">
-      <DependentUpon>formManageSections.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Teacher\formAddStudentToSubject.resx">
       <DependentUpon>formAddStudentToSubject.cs</DependentUpon>

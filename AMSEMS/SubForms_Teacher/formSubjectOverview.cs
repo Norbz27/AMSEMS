@@ -208,6 +208,15 @@ namespace AMSEMS.SubForms_Teacher
             {
                 dgvAttendanceReport.Columns.RemoveAt(i);
             }
+            dgvAttendanceReport.Columns.Add("present", "Classes Present");
+            dgvAttendanceReport.Columns["present"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgvAttendanceReport.Columns["present"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvAttendanceReport.Columns.Add("absent", "Classes Absent");
+            dgvAttendanceReport.Columns["absent"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgvAttendanceReport.Columns["absent"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvAttendanceReport.Columns.Add("total", "Total Classes");
+            dgvAttendanceReport.Columns["total"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgvAttendanceReport.Columns["total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
             {
@@ -265,13 +274,12 @@ namespace AMSEMS.SubForms_Teacher
                 }
 
                 // Fetch student attendance details
-                string attendanceQuery = @"
-            SELECT sa.Student_ID,
-                   sa.Attendance_date,
-                   sa.Student_Status
-            FROM tbl_subject_attendance sa
-            WHERE sa.Class_Code = @Class_Code
-            ORDER BY sa.Attendance_date, sa.Student_ID";
+                string attendanceQuery = @"SELECT sa.Student_ID,
+                                            sa.Attendance_date,
+                                            sa.Student_Status
+                                            FROM tbl_subject_attendance sa
+                                            WHERE sa.Class_Code = @Class_Code
+                                            ORDER BY sa.Attendance_date, sa.Student_ID";
 
                 using (SQLiteCommand attendanceCommand = new SQLiteCommand(attendanceQuery, con))
                 {
@@ -296,6 +304,22 @@ namespace AMSEMS.SubForms_Teacher
                                 // Set the student status in the corresponding column
                                 dgvAttendanceReport.Rows[rowIndex].Cells[columnIndex].Value = studentStatus;
                                 dgvAttendanceReport.Rows[rowIndex].Cells[columnIndex].ReadOnly = true;
+
+                                // Increment the corresponding counter based on student status
+                                if (studentStatus == "P")
+                                {
+                                    dgvAttendanceReport.Rows[rowIndex].Cells["present"].Value =
+                                        Convert.ToInt32(dgvAttendanceReport.Rows[rowIndex].Cells["present"].Value) + 1;
+                                }
+                                else if (studentStatus == "A")
+                                {
+                                    dgvAttendanceReport.Rows[rowIndex].Cells["absent"].Value =
+                                        Convert.ToInt32(dgvAttendanceReport.Rows[rowIndex].Cells["absent"].Value) + 1;
+                                }
+
+                                // Increment the total classes counter
+                                dgvAttendanceReport.Rows[rowIndex].Cells["total"].Value =
+                                    Convert.ToInt32(dgvAttendanceReport.Rows[rowIndex].Cells["total"].Value) + 1;
                             }
                         }
                     }
@@ -333,12 +357,23 @@ namespace AMSEMS.SubForms_Teacher
 
         private void btnNewAttendance_Click(object sender, EventArgs e)
         {
+            // Disable the "New Attendance" button
             btnNewAttendance.Enabled = false;
+
+            // Enable the "Save" button
             btnSave2.Enabled = true;
+
+            // Make the "Cancel" button visible
             btnCancel2.Visible = true;
+
+            // Get the selected date and time from the DateTimePicker
             DateTime dateTime = Dt.Value;
+
+            // Format the date and time strings
             string formattedDate = dateTime.ToString("MMM dd, yy");
             string formattedTime = dateTime.ToString("hh:mm tt");
+
+            // Create a new column name by combining formatted date and time
             string newColumnName = formattedDate + " " + formattedTime;
 
             // Add a new column to the DataGridView
@@ -348,12 +383,18 @@ namespace AMSEMS.SubForms_Teacher
             int columnIndex = dgvAttendanceReport.Columns.Count - 1;
             dgvAttendanceReport.AutoResizeColumn(columnIndex, DataGridViewAutoSizeColumnMode.AllCells);
 
-            // Subscribe to the CellDoubleClick event only once
+            // Set the newly added column as the first displayed scrolling column
+            dgvAttendanceReport.FirstDisplayedScrollingColumnIndex = columnIndex;
+
+            // Subscribe to the CellDoubleClick event only once (to avoid multiple subscriptions)
             dgvAttendanceReport.CellDoubleClick += dgvAttendanceReport_CellDoubleClick;
+
+            // Add the other event handlers as needed
             dgvAttendanceReport.CellValidating += dgvAttendanceReport_CellValidating;
             dgvAttendanceReport.CellEndEdit += dgvAttendanceReport_CellEndEdit;
             dgvAttendanceReport.EditingControlShowing += dgvAttendanceReport_EditingControlShowing;
         }
+
         private void dgvAttendanceReport_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             // Subscribe to the KeyPress event for the editing control
@@ -430,7 +471,7 @@ namespace AMSEMS.SubForms_Teacher
         {
             btnNewAttendance.Enabled = true;
             // Assuming your DataGridView is named dgvAttendanceReport
-            if (dgvAttendanceReport.Columns.Count < 3)
+            if (dgvAttendanceReport.Columns.Count < 6)
             {
                 MessageBox.Show("No attendance.");
                 return;
@@ -442,7 +483,7 @@ namespace AMSEMS.SubForms_Teacher
 
                 foreach (DataGridViewColumn column in dgvAttendanceReport.Columns)
                 {
-                    if (column.Index >= 2) // Start from the 3rd column
+                    if (column.Index >= 5) // Start from the 3rd column
                     {
                         string attendanceDate = column.HeaderText;
 
