@@ -45,6 +45,7 @@
             this.tbFilePath = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.btnDone = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.tblStudentImp = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.dgvImport = new System.Windows.Forms.DataGridView();
             this.No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,7 +58,6 @@
             this.kryptonContextMenuHeading1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuHeading();
             this.kryptonContextMenuSeparator1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblStudentImp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblStudentImp.Panel)).BeginInit();
@@ -320,6 +320,15 @@
             this.tblStudentImp.StateCommon.Border.Width = 2;
             this.tblStudentImp.TabIndex = 84;
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(219, 106);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(278, 17);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar.TabIndex = 169;
+            this.progressBar.Visible = false;
+            // 
             // dgvImport
             // 
             this.dgvImport.AllowUserToAddRows = false;
@@ -339,7 +348,7 @@
             this.dgvImport.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Desktop;
@@ -355,7 +364,7 @@
             this.dgvImport.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.Desktop;
@@ -365,12 +374,12 @@
             this.dgvImport.EnableHeadersVisualStyles = false;
             this.dgvImport.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.dgvImport.Location = new System.Drawing.Point(0, 0);
-            this.dgvImport.Name = "dgvStudents";
+            this.dgvImport.Name = "dgvImport";
             this.dgvImport.ReadOnly = true;
             this.dgvImport.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -430,7 +439,7 @@
             this.Lname.HeaderText = "Units";
             this.Lname.Name = "Lname";
             this.Lname.ReadOnly = true;
-            this.Lname.Width = 59;
+            this.Lname.Width = 60;
             // 
             // lblHeader1
             // 
@@ -462,15 +471,6 @@
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.ReadOnly = true;
             // 
-            // progressBar
-            // 
-            this.progressBar.Location = new System.Drawing.Point(219, 106);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(278, 17);
-            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.progressBar.TabIndex = 169;
-            this.progressBar.Visible = false;
-            // 
             // formImportViewSubjects
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -478,7 +478,6 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(767, 367);
             this.Controls.Add(this.panel1);
-            this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "formImportViewSubjects";
             this.Padding = new System.Windows.Forms.Padding(20, 0, 20, 10);

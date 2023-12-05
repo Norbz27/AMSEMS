@@ -217,7 +217,7 @@
             this.dgvGuidance.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Poppins", 8.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.Desktop;
@@ -325,7 +325,7 @@
             this.status.HeaderText = "Status";
             this.status.Name = "status";
             this.status.ReadOnly = true;
-            this.status.Width = 73;
+            this.status.Width = 72;
             // 
             // option
             // 
@@ -721,7 +721,7 @@
             this.panel1.Size = new System.Drawing.Size(892, 36);
             this.panel1.TabIndex = 48;
             // 
-            // lblRepHeader
+            // lblAccountName
             // 
             this.lblAccountName.Location = new System.Drawing.Point(-5, 3);
             this.lblAccountName.Name = "lblAccountName";
@@ -1190,7 +1190,7 @@
             this.ptbLoading.Name = "ptbLoading";
             this.ptbLoading.Size = new System.Drawing.Size(882, 329);
             this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptbLoading.TabIndex = 11;
+            this.ptbLoading.TabIndex = 12;
             this.ptbLoading.TabStop = false;
             this.ptbLoading.Visible = false;
             // 

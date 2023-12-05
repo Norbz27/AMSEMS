@@ -128,6 +128,8 @@
             this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.delToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -298,6 +300,8 @@
             // 
             // kryptonGroupBox4.Panel
             // 
+            this.kryptonGroupBox4.Panel.Controls.Add(this.label7);
+            this.kryptonGroupBox4.Panel.Controls.Add(this.label8);
             this.kryptonGroupBox4.Panel.Controls.Add(this.label5);
             this.kryptonGroupBox4.Panel.Controls.Add(this.label6);
             this.kryptonGroupBox4.Panel.Controls.Add(this.label4);
@@ -323,11 +327,11 @@
             this.label5.BackColor = System.Drawing.Color.White;
             this.label5.Font = new System.Drawing.Font("Poppins", 9F);
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(580, 101);
+            this.label5.Location = new System.Drawing.Point(658, 101);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(165, 22);
+            this.label5.Size = new System.Drawing.Size(87, 22);
             this.label5.TabIndex = 12;
-            this.label5.Text = "Average Daily Attendance";
+            this.label5.Text = "Total Classes";
             // 
             // label6
             // 
@@ -337,7 +341,7 @@
             this.label6.BackColor = System.Drawing.Color.White;
             this.label6.Font = new System.Drawing.Font("Poppins", 23F);
             this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(703, 57);
+            this.label6.Location = new System.Drawing.Point(653, 57);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(51, 54);
             this.label6.TabIndex = 11;
@@ -1669,13 +1673,13 @@
             this.CMSSectionOption.Name = "contextMenuStrip2";
             this.CMSSectionOption.ShowImageMargin = false;
             this.CMSSectionOption.ShowItemToolTips = false;
-            this.CMSSectionOption.Size = new System.Drawing.Size(156, 78);
+            this.CMSSectionOption.Size = new System.Drawing.Size(141, 56);
             // 
             // uploadtoolStripMenuItem2
             // 
             this.uploadtoolStripMenuItem2.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uploadtoolStripMenuItem2.Name = "uploadtoolStripMenuItem2";
-            this.uploadtoolStripMenuItem2.Size = new System.Drawing.Size(155, 26);
+            this.uploadtoolStripMenuItem2.Size = new System.Drawing.Size(140, 26);
             this.uploadtoolStripMenuItem2.Text = "Upload Record";
             this.uploadtoolStripMenuItem2.Click += new System.EventHandler(this.uploadtoolStripMenuItem2_Click);
             // 
@@ -1683,7 +1687,7 @@
             // 
             this.deltoolStripMenuItem1.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.deltoolStripMenuItem1.Name = "deltoolStripMenuItem1";
-            this.deltoolStripMenuItem1.Size = new System.Drawing.Size(155, 26);
+            this.deltoolStripMenuItem1.Size = new System.Drawing.Size(140, 26);
             this.deltoolStripMenuItem1.Text = "Delete Section";
             this.deltoolStripMenuItem1.Click += new System.EventHandler(this.deltoolStripMenuItem1_Click);
             // 
@@ -1797,6 +1801,36 @@
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoEllipsis = true;
+            this.label7.BackColor = System.Drawing.Color.White;
+            this.label7.Font = new System.Drawing.Font("Poppins", 9F);
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(304, 101);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(171, 22);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Average Attendee";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.AutoEllipsis = true;
+            this.label8.BackColor = System.Drawing.Color.White;
+            this.label8.Font = new System.Drawing.Font("Poppins", 23F);
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(299, 57);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(106, 54);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "10";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // formSubjectOverview
             // 
@@ -1955,5 +1989,7 @@
         private System.Windows.Forms.ToolStripMenuItem uploadtoolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem deltoolStripMenuItem1;
         private System.Windows.Forms.ProgressBar ptbLoading;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }

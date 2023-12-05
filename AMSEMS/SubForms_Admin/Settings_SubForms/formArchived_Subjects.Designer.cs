@@ -120,7 +120,7 @@
             this.dgvSubjects.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins", 8.75F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Desktop;
@@ -218,7 +218,7 @@
             this.units.HeaderText = "Units";
             this.units.Name = "units";
             this.units.ReadOnly = true;
-            this.units.Width = 64;
+            this.units.Width = 63;
             // 
             // teach
             // 
@@ -233,7 +233,7 @@
             this.acad.HeaderText = "Academic Level";
             this.acad.Name = "acad";
             this.acad.ReadOnly = true;
-            this.acad.Width = 117;
+            this.acad.Width = 116;
             // 
             // archived_date
             // 
@@ -244,7 +244,7 @@
             this.archived_date.HeaderText = "Archived Date";
             this.archived_date.Name = "archived_date";
             this.archived_date.ReadOnly = true;
-            this.archived_date.Width = 109;
+            this.archived_date.Width = 108;
             // 
             // option
             // 
@@ -381,7 +381,7 @@
             this.panel1.Size = new System.Drawing.Size(892, 36);
             this.panel1.TabIndex = 62;
             // 
-            // lblRepHeader
+            // lblAccountName
             // 
             this.lblAccountName.Location = new System.Drawing.Point(-5, 3);
             this.lblAccountName.Name = "lblAccountName";

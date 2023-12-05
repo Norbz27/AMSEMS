@@ -252,7 +252,9 @@
             this.kryptonLabel18.Location = new System.Drawing.Point(15, 10);
             this.kryptonLabel18.Name = "kryptonLabel18";
             this.kryptonLabel18.Size = new System.Drawing.Size(79, 25);
-            this.kryptonLabel18.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.kryptonLabel18.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel18.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel18.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10.25F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel18.TabIndex = 2;
             this.kryptonLabel18.Values.Text = "Subjects";
             // 
@@ -409,8 +411,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonLabel14.Location = new System.Drawing.Point(15, 10);
             this.kryptonLabel14.Name = "kryptonLabel14";
-            this.kryptonLabel14.Size = new System.Drawing.Size(164, 25);
-            this.kryptonLabel14.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.kryptonLabel14.Size = new System.Drawing.Size(153, 23);
+            this.kryptonLabel14.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel14.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel14.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10.25F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel14.TabIndex = 2;
             this.kryptonLabel14.Values.Text = "Guidance Accounts";
             // 
@@ -553,8 +557,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonLabel11.Location = new System.Drawing.Point(15, 10);
             this.kryptonLabel11.Name = "kryptonLabel11";
-            this.kryptonLabel11.Size = new System.Drawing.Size(121, 25);
-            this.kryptonLabel11.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.kryptonLabel11.Size = new System.Drawing.Size(113, 23);
+            this.kryptonLabel11.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel11.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel11.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10.25F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel11.TabIndex = 2;
             this.kryptonLabel11.Values.Text = "SAO Accounts";
             // 
@@ -697,8 +703,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonLabel8.Location = new System.Drawing.Point(15, 10);
             this.kryptonLabel8.Name = "kryptonLabel8";
-            this.kryptonLabel8.Size = new System.Drawing.Size(228, 25);
-            this.kryptonLabel8.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.kryptonLabel8.Size = new System.Drawing.Size(213, 23);
+            this.kryptonLabel8.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel8.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel8.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10.25F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel8.TabIndex = 2;
             this.kryptonLabel8.Values.Text = "Department Head Accounts";
             // 
@@ -841,8 +849,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonLabel5.Location = new System.Drawing.Point(15, 10);
             this.kryptonLabel5.Name = "kryptonLabel5";
-            this.kryptonLabel5.Size = new System.Drawing.Size(159, 25);
-            this.kryptonLabel5.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.kryptonLabel5.Size = new System.Drawing.Size(148, 23);
+            this.kryptonLabel5.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel5.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel5.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10.25F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel5.TabIndex = 2;
             this.kryptonLabel5.Values.Text = "Students Accounts";
             // 
@@ -985,8 +995,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonLabel25.Location = new System.Drawing.Point(15, 10);
             this.kryptonLabel25.Name = "kryptonLabel25";
-            this.kryptonLabel25.Size = new System.Drawing.Size(161, 25);
-            this.kryptonLabel25.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.kryptonLabel25.Size = new System.Drawing.Size(150, 23);
+            this.kryptonLabel25.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel25.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.kryptonLabel25.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10.25F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel25.TabIndex = 2;
             this.kryptonLabel25.Values.Text = "Teachers Accounts";
             // 

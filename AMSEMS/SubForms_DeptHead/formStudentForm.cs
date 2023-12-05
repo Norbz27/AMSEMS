@@ -67,21 +67,6 @@ namespace AMSEMS.SubForms_DeptHead
             }
         }
 
-        private void cbProgram_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-        }
-
-        private void btnUploadImage_Click(object sender, EventArgs e)
-        {
-            openFileDialog1.ShowDialog();
-        }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-            ptbProfile.Image = Image.FromFile(openFileDialog1.FileName);
-        }
-
         public void getStudID(String ID)
         {
             using (cn)

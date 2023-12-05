@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -37,12 +38,15 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.dgvAbesnteismRep = new System.Windows.Forms.DataGridView();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.cbSection = new System.Windows.Forms.ComboBox();
             this.studid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.studname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.section = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.absences = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.cbSection = new System.Windows.Forms.ComboBox();
+            this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
@@ -50,6 +54,7 @@
             this.kryptonGroupBox5.Panel.SuspendLayout();
             this.kryptonGroupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbesnteismRep)).BeginInit();
+            this.CMSOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblRepHeader
@@ -130,6 +135,7 @@
             this.section,
             this.absences,
             this.option});
+            this.dgvAbesnteismRep.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Poppins", 9F);
@@ -162,28 +168,7 @@
             this.dgvAbesnteismRep.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAbesnteismRep.Size = new System.Drawing.Size(777, 406);
             this.dgvAbesnteismRep.TabIndex = 1;
-            // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(19, 60);
-            this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(59, 22);
-            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.kryptonLabel1.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
-            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
-            this.kryptonLabel1.TabIndex = 39;
-            this.kryptonLabel1.Values.Text = "Section";
-            // 
-            // cbSection
-            // 
-            this.cbSection.Font = new System.Drawing.Font("Poppins", 8F);
-            this.cbSection.FormattingEnabled = true;
-            this.cbSection.Location = new System.Drawing.Point(24, 84);
-            this.cbSection.Name = "cbSection";
-            this.cbSection.Size = new System.Drawing.Size(108, 27);
-            this.cbSection.TabIndex = 38;
-            this.cbSection.SelectedIndexChanged += new System.EventHandler(this.cbSection_SelectedIndexChanged);
+            this.dgvAbesnteismRep.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAbesnteismRep_CellContentClick);
             // 
             // studid
             // 
@@ -211,16 +196,64 @@
             // absences
             // 
             this.absences.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.absences.HeaderText = "Absences";
+            this.absences.HeaderText = "Condecutive Absent Days";
             this.absences.Name = "absences";
             this.absences.ReadOnly = true;
-            this.absences.Width = 90;
+            this.absences.Width = 144;
+            // 
+            // kryptonLabel1
+            // 
+            this.kryptonLabel1.Location = new System.Drawing.Point(19, 60);
+            this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.Size = new System.Drawing.Size(59, 22);
+            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonLabel1.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
+            this.kryptonLabel1.TabIndex = 39;
+            this.kryptonLabel1.Values.Text = "Section";
+            // 
+            // cbSection
+            // 
+            this.cbSection.Font = new System.Drawing.Font("Poppins", 8F);
+            this.cbSection.FormattingEnabled = true;
+            this.cbSection.Location = new System.Drawing.Point(24, 84);
+            this.cbSection.Name = "cbSection";
+            this.cbSection.Size = new System.Drawing.Size(124, 27);
+            this.cbSection.TabIndex = 38;
+            this.cbSection.SelectedIndexChanged += new System.EventHandler(this.cbSection_SelectedIndexChanged);
+            // 
+            // CMSOptions
+            // 
+            this.CMSOptions.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.CMSOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewToolStripMenuItem});
+            this.CMSOptions.Name = "contextMenuStrip2";
+            this.CMSOptions.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.CMSOptions.ShowImageMargin = false;
+            this.CMSOptions.Size = new System.Drawing.Size(156, 52);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(155, 26);
+            this.viewToolStripMenuItem.Text = "View Record";
+            this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.Width = 5;
             // 
             // option
             // 
             this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.option.HeaderText = "";
-            this.option.Image = global::AMSEMS.Properties.Resources.option;
+            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
             this.option.Name = "option";
             this.option.ReadOnly = true;
             this.option.Width = 5;
@@ -247,6 +280,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).EndInit();
             this.kryptonGroupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbesnteismRep)).EndInit();
+            this.CMSOptions.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,5 +299,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn section;
         private System.Windows.Forms.DataGridViewTextBoxColumn absences;
         private System.Windows.Forms.DataGridViewImageColumn option;
+        private System.Windows.Forms.ContextMenuStrip CMSOptions;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
     }
 }

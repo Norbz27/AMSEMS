@@ -852,6 +852,12 @@
     <Compile Include="SubForm_Guidance\formSettings.Designer.cs">
       <DependentUpon>formSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm_Guidance\formStudAttRecord.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\formStudAttRecord.Designer.cs">
+      <DependentUpon>formStudAttRecord.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm_Guidance\Settings_Subforms\formAcademicYearSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1250,6 +1256,9 @@
     <Content Include="Fonts\Poppins-ThinItalic.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="SubForm_Guidance\formStudAttRecord.resx">
+      <DependentUpon>formStudAttRecord.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formAcademicYearSetting.resx">
       <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
     </EmbeddedResource>
