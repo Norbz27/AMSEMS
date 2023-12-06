@@ -93,8 +93,6 @@ namespace AMSEMS.SubForms_DeptHead
                     int studentsWithoutPayments = totalStudents - studentsWithPayments;
 
                     lblTotalStudents.Text = totalStudents.ToString();
-                    lblStudentPaid.Text = studentsWithPayments.ToString();
-                    lblStudentNotPaid.Text = studentsWithoutPayments.ToString();
                 }
                 dr.Close();
             }
@@ -127,6 +125,9 @@ namespace AMSEMS.SubForms_DeptHead
             dgvBalFees.Rows.Clear();
             ptbLoading.Visible = true;
             await Task.Delay(2000);
+            int noBalanceCount = 0;
+            int paidCount = 0;
+            int unpaidCount = 0;
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
@@ -206,20 +207,24 @@ namespace AMSEMS.SubForms_DeptHead
                         if (balance <= 0 && amount_paid <= 0)
                         {
                             dgvBalFees.Rows[rowIndex].Cells["status"].Value = "No balance";
+                            noBalanceCount++;
                         }
                         else if (balance <= 0)
                         {
                             dgvBalFees.Rows[rowIndex].Cells["status"].Value = "Paid";
+                            paidCount++;
                         }
                         else
                         {
                             dgvBalFees.Rows[rowIndex].Cells["status"].Value = "Unpaid";
+                            unpaidCount++;
                         }
                         rowIndex++;
                         totalCollectable += balance;
                     }
-                    //kryptonLabel6.Text = cbSection.Text + " Collectable Fee";
-                    //lblCollectablefeeSec.Text = "₱ " + totalCollectable.ToString("F2");
+                    int paid = noBalanceCount + paidCount;
+                    lblStudentPaid.Text = paid.ToString();
+                    lblStudentNotPaid.Text = unpaidCount.ToString();
                 }
             }
             ptbLoading.Visible = false;

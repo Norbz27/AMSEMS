@@ -50,14 +50,24 @@ namespace AMSEMS.SubForms_SAO
         }
         public async Task displayChartAsync()
         {
+            int currentYear = DateTime.Now.Year;
+
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                await cn.OpenAsync(); // Use OpenAsync to open the connection asynchronously
-                using (SqlCommand command = new SqlCommand(@"SELECT e.Event_ID, e.Event_Name, COUNT(a.Student_ID) AS AttendanceCount FROM tbl_events e LEFT JOIN tbl_attendance a ON e.Event_ID = a.Event_ID GROUP BY e.Event_ID, e.Event_Name", cn))
+                await cn.OpenAsync();
+
+                // Modify the SQL query to include a condition for the current year
+                using (SqlCommand command = new SqlCommand(@"SELECT e.Event_ID, e.Event_Name, COUNT(a.Student_ID) AS AttendanceCount
+                                                            FROM tbl_events e 
+                                                            LEFT JOIN tbl_attendance a ON e.Event_ID = a.Event_ID 
+                                                            WHERE YEAR(e.Start_Date) = @Year
+                                                            GROUP BY e.Event_ID, e.Event_Name", cn))
                 {
+                    command.Parameters.AddWithValue("@Year", currentYear);
+
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable dt = new DataTable();
-                    await Task.Run(() => adapter.Fill(dt)); // Use Task.Run to execute Fill asynchronously
+                    await Task.Run(() => adapter.Fill(dt));
 
                     chart1.DataSource = dt;
                     chart1.Series["Attendees"].XValueMember = "Event_Name";
@@ -69,6 +79,7 @@ namespace AMSEMS.SubForms_SAO
             chart1.ChartAreas[0].AxisX.Title = "Events";
             chart1.ChartAreas[0].AxisY.Title = "Attendance Count";
         }
+
         public async Task displayAnnouncementAsync()
         {
             pnAnnouncements.Controls.Clear();

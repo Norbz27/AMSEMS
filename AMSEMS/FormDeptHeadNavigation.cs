@@ -34,11 +34,10 @@ namespace AMSEMS
             backgroundWorker.DoWork += backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
             backgroundWorker.WorkerSupportsCancellation = true;
-
-            SubForms_DeptHead.formDashboard.setForm(this);
-            OpenChildForm(new SubForms_DeptHead.formDashboard(id1));
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             id = id1;
+
+
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -401,6 +400,8 @@ namespace AMSEMS
         private void FormDeptHeadNavigation_Load(object sender, EventArgs e)
         {
             backgroundWorker.RunWorkerAsync();
+            SubForms_DeptHead.formDashboard.setForm(this);
+            OpenChildForm(new SubForms_DeptHead.formDashboard(id));
         }
         public void Logout()
         {
