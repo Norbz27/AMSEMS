@@ -235,12 +235,12 @@ namespace AMSEMS
             this.btnDashboard.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
         }
-        public void otherformclick1(string ccode)
+        public void otherformclick1(string ccode, string acadlvl)
         {
             isCollapsed = false;
             timer1.Start();
             this.kryptonSplitContainer1.Panel2Collapsed = true;
-            SubForms_Teacher.formSubjectInformation.setForm(this, ccode);
+            SubForms_Teacher.formSubjectInformation.setForm(this, ccode, acadlvl);
             OpenChildForm(new SubForms_Teacher.formSubjectInformation());
             btnSubjects.Focus();
         }

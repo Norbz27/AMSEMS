@@ -293,7 +293,7 @@ namespace AMSEMS.SubForms_SAO
                 richTextBox1.Height = e.NewRectangle.Height;
             };
 
-            panel12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            panel12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             panel12.Dock = System.Windows.Forms.DockStyle.Top;
             panel12.Location = new System.Drawing.Point(0, 0);
             panel12.Name = "panel12";

@@ -22,16 +22,18 @@ namespace AMSEMS.SubForms_Teacher
         static FormTeacherNavigation form;
         static string ccode;
         static string subjectAcadlvl;
+        static string acadlvl;
         public formSubjectInformation()
         {
             InitializeComponent();
             formAddSectionToSubject = new formAddSectionToSubject(this);
             conn = new SQLite_Connection();
         }
-        public static void setForm(FormTeacherNavigation form1, string ccode1)
+        public static void setForm(FormTeacherNavigation form1, string ccode1, string acadlvl1)
         {
             form = form1;
             ccode = ccode1;
+            acadlvl = acadlvl1;
         }
         private void formSubjectInformation_Load(object sender, EventArgs e)
         {

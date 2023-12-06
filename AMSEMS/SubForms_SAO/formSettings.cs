@@ -66,11 +66,6 @@ namespace AMSEMS.SubForms_SAO
             this.btnNotif.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.btnNotif.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
 
-            this.btnFeed.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnFeed.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnFeed.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.btnFeed.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.btnFeed.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
         }
 
         private void btnAccountProf_Click(object sender, EventArgs e)
@@ -93,12 +88,6 @@ namespace AMSEMS.SubForms_SAO
             this.btnAcadPer.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
             this.btnAcadPer.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.btnAcadPer.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-
-            this.btnFeed.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnFeed.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnFeed.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.btnFeed.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.btnFeed.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
         }
 
         private void btnNotif_Click(object sender, EventArgs e)
@@ -122,11 +111,6 @@ namespace AMSEMS.SubForms_SAO
             this.btnAcadPer.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.btnAcadPer.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
 
-            this.btnFeed.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnFeed.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnFeed.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.btnFeed.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.btnFeed.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
         }
     }
 }

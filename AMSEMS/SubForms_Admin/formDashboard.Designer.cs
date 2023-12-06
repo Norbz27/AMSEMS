@@ -239,7 +239,7 @@
             this.kryptonLabel3.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.kryptonLabel3.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel3.TabIndex = 2;
-            this.kryptonLabel3.Values.Text = "Students Per Department Chart";
+            this.kryptonLabel3.Values.Text = "Students Per Department";
             // 
             // panel2
             // 

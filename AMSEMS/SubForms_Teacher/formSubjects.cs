@@ -36,16 +36,17 @@ namespace AMSEMS.SubForms_Teacher
                     Image img = null;
                     string subjectcode = row["Course_Code"].ToString();
                     string subjectname = row["Course_Description"].ToString();
+                    string subjectnacadlvl = row["Academic_Level"].ToString();
                     if (row["Image"] is Image image)
                     {
                         img = image;
                     }
 
-                    subjectsApperance(subjectcode, subjectname, img);
+                    subjectsApperance(subjectcode, subjectname, img, subjectnacadlvl);
                 }
             }
         }
-        public void subjectsApperance(string ccode, string subjectname, Image image)
+        public void subjectsApperance(string ccode, string subjectname, Image image, string subjectnacadlvl)
         {
             Label lblSubjectName = new Label();
             KryptonGroupBox kryptonGroupBox2 = new KryptonGroupBox();
@@ -64,7 +65,7 @@ namespace AMSEMS.SubForms_Teacher
             kryptonGroupBox2.Cursor = Cursors.Hand;
             kryptonGroupBox2.Panel.Click += (senderbtn, ebtn) =>
             {
-                form.otherformclick1(ccode);
+                form.otherformclick1(ccode, subjectnacadlvl);
             };
 
             kryptonGroupBox2.Panel.Padding = new Padding(15, 10, 15, 10);
@@ -83,7 +84,7 @@ namespace AMSEMS.SubForms_Teacher
             kryptonGroupBox2.TabIndex = 15;
             kryptonGroupBox2.Click += (senderbtn, ebtn) =>
             {
-                form.otherformclick1(ccode);
+                form.otherformclick1(ccode, subjectnacadlvl);
             };
 
             ptbSubjectPic.BorderWidth = 2;
@@ -99,7 +100,7 @@ namespace AMSEMS.SubForms_Teacher
             ptbSubjectPic.Cursor = Cursors.Hand;
             ptbSubjectPic.Click += (senderbtn, ebtn) =>
             {
-                form.otherformclick1(ccode);
+                form.otherformclick1(ccode, subjectnacadlvl);
             };
 
             lblSubjectName.Dock = DockStyle.Bottom;
@@ -114,7 +115,7 @@ namespace AMSEMS.SubForms_Teacher
             lblSubjectName.Cursor = Cursors.Hand;
             lblSubjectName.Click += (senderbtn, ebtn) =>
             {
-                form.otherformclick1(ccode);
+                form.otherformclick1(ccode, subjectnacadlvl);
             };
 
             btnOption.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
@@ -146,7 +147,7 @@ namespace AMSEMS.SubForms_Teacher
                 toolStripMenuItem2.Text = "Manage Subject";
                 toolStripMenuItem2.Click += (senderbtn, ebtn) =>
                 {
-                    form.otherformclick1(ccode);
+                    form.otherformclick1(ccode, subjectnacadlvl);
                 };
 
                 CMSOptions.Font = new System.Drawing.Font("Segoe UI", 9F);

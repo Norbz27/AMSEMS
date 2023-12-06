@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -35,10 +36,34 @@ namespace AMSEMS.SubForms_SAO
         }
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            // This method runs in a background thread
-            // Perform time-consuming operations here
-            display(); // Load data
-            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+            try
+            {
+                // This method runs in a background thread
+                DisplayOnMainThread(); // Load data and update UI on the main thread
+                System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void DisplayOnMainThread()
+        {
+            if (this.InvokeRequired)
+            {
+                // Call the same method on the main thread
+                this.Invoke((MethodInvoker)delegate
+                {
+                    DisplayOnMainThread();
+                });
+            }
+            else
+            {
+                // Your UI update code
+                display();
+            }
         }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -46,7 +71,15 @@ namespace AMSEMS.SubForms_SAO
             if (e.Error != null)
             {
                 // Handle any errors that occurred during the background work
-                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (e.Error is TargetInvocationException && e.Error.InnerException != null)
+                {
+                    // Unwrap and show the inner exception
+                    MessageBox.Show("An error occurred: " + e.Error.InnerException.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else if (e.Cancelled)
             {
@@ -205,6 +238,7 @@ namespace AMSEMS.SubForms_SAO
             if (backgroundWorker.IsBusy)
             {
                 backgroundWorker.CancelAsync();
+                e.Cancel = true;  
             }
         }
 

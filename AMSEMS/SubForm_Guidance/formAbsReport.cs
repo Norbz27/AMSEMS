@@ -15,6 +15,7 @@ namespace AMSEMS.SubForm_Guidance
     public partial class formAbsReport : Form
     {
         string rep;
+        string acadSchYeear, acadTerSem, acadShsSem;
         public formAbsReport(String rep)
         {
             InitializeComponent();
@@ -42,7 +43,23 @@ namespace AMSEMS.SubForm_Guidance
                         }
                     }
                 }
+
+                query = "SELECT * FROM tbl_acad";
+                using (SqlCommand cmd = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            acadSchYeear = dr["Academic_Year_Start"].ToString() +"-"+ dr["Academic_Year_End"].ToString();
+                            acadShsSem = dr["Ter_Academic_Sem"].ToString();
+                            acadTerSem = dr["SHS_Academic_Sem"].ToString();
+                        }
+                    }
+                }
+
                 cbSection.SelectedIndex = 0;
+                cbMonth.SelectedItem = DateTime.Now.ToString("MMMM");
             }
         }
         public void displayReport()
@@ -60,10 +77,14 @@ namespace AMSEMS.SubForm_Guidance
                                 LEFT JOIN tbl_student_accounts s ON sat.Student_ID = s.ID 
                                 LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID 
 	                            LEFT JOIN tbl_academic_level al ON sec.AcadLevel_ID = al.Academic_Level_ID
+                            	LEFT JOIN tbl_class_list cl ON sat.Class_Code = cl.CLass_Code
                             WHERE 
                                 al.Academic_Level_Description = @acadlvl 
                                 AND (@SectionDescription = 'All' OR sec.Description = @SectionDescription) 
+                                AND UPPER(FORMAT(CONVERT(DATE, sat.Attendance_date, 0), 'MMMM')) = @month
                                 AND s.Status = 1
+                                AND cl.School_Year = @schyear
+                                AND cl.Semester = @sem
                             GROUP BY 
                                 ID, s.Lastname, s.Firstname, s.Middlename, sec.Description
                             HAVING 
@@ -74,7 +95,13 @@ namespace AMSEMS.SubForm_Guidance
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     cmd.Parameters.AddWithValue("@acadlvl", rep);
+                    cmd.Parameters.AddWithValue("@schyear", acadSchYeear);
+                    if(rep.ToUpper().Equals("SHS"))
+                        cmd.Parameters.AddWithValue("@sem", acadShsSem); 
+                    else
+                        cmd.Parameters.AddWithValue("@sem", acadTerSem);
                     cmd.Parameters.AddWithValue("@SectionDescription", string.IsNullOrEmpty(cbSection.Text) ? DBNull.Value : (object)cbSection.Text);
+                    cmd.Parameters.AddWithValue("@month", string.IsNullOrEmpty(cbMonth.Text) ? DBNull.Value : (object)cbMonth.Text);
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         dgvAbesnteismRep.Rows.Clear();
@@ -221,5 +248,9 @@ namespace AMSEMS.SubForm_Guidance
             }
         }
 
+        private void cbMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            displayReport();
+        }
     }
 }

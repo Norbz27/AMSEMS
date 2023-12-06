@@ -63,7 +63,7 @@
             this.panel1.Size = new System.Drawing.Size(760, 36);
             this.panel1.TabIndex = 8;
             // 
-            // lblRepHeader
+            // lblAccountName
             // 
             this.lblAccountName.Location = new System.Drawing.Point(-1, 3);
             this.lblAccountName.Name = "lblAccountName";
