@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblRepHeader = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
@@ -48,6 +48,10 @@
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.option = new System.Windows.Forms.DataGridViewImageColumn();
+            this.btnExport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.CMSExport = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnExpPDF = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
@@ -55,6 +59,7 @@
             this.kryptonGroupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbesnteismRep)).BeginInit();
             this.CMSOptions.SuspendLayout();
+            this.CMSExport.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblRepHeader
@@ -70,6 +75,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnExport);
             this.panel1.Controls.Add(this.lblRepHeader);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(20, 15);
@@ -108,11 +114,11 @@
             this.dgvAbesnteismRep.AllowUserToDeleteRows = false;
             this.dgvAbesnteismRep.AllowUserToResizeColumns = false;
             this.dgvAbesnteismRep.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvAbesnteismRep.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle26.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvAbesnteismRep.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
             this.dgvAbesnteismRep.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAbesnteismRep.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvAbesnteismRep.BackgroundColor = System.Drawing.Color.White;
@@ -120,13 +126,13 @@
             this.dgvAbesnteismRep.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvAbesnteismRep.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvAbesnteismRep.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAbesnteismRep.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbesnteismRep.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle27;
             this.dgvAbesnteismRep.ColumnHeadersHeight = 50;
             this.dgvAbesnteismRep.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvAbesnteismRep.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -136,14 +142,14 @@
             this.absences,
             this.option});
             this.dgvAbesnteismRep.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Poppins", 9F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAbesnteismRep.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle28.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Poppins", 9F);
+            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAbesnteismRep.DefaultCellStyle = dataGridViewCellStyle28;
             this.dgvAbesnteismRep.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvAbesnteismRep.EnableHeadersVisualStyles = false;
             this.dgvAbesnteismRep.GridColor = System.Drawing.SystemColors.ControlLight;
@@ -152,18 +158,18 @@
             this.dgvAbesnteismRep.Name = "dgvAbesnteismRep";
             this.dgvAbesnteismRep.ReadOnly = true;
             this.dgvAbesnteismRep.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAbesnteismRep.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle29.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle29.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle29.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbesnteismRep.RowHeadersDefaultCellStyle = dataGridViewCellStyle29;
             this.dgvAbesnteismRep.RowHeadersVisible = false;
             this.dgvAbesnteismRep.RowHeadersWidth = 30;
             this.dgvAbesnteismRep.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAbesnteismRep.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbesnteismRep.RowsDefaultCellStyle = dataGridViewCellStyle30;
             this.dgvAbesnteismRep.RowTemplate.Height = 30;
             this.dgvAbesnteismRep.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAbesnteismRep.Size = new System.Drawing.Size(777, 406);
@@ -231,7 +237,7 @@
             this.CMSOptions.Name = "contextMenuStrip2";
             this.CMSOptions.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.CMSOptions.ShowImageMargin = false;
-            this.CMSOptions.Size = new System.Drawing.Size(156, 52);
+            this.CMSOptions.Size = new System.Drawing.Size(126, 30);
             // 
             // viewToolStripMenuItem
             // 
@@ -258,6 +264,100 @@
             this.option.ReadOnly = true;
             this.option.Width = 5;
             // 
+            // btnExport
+            // 
+            this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExport.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExport.Location = new System.Drawing.Point(751, 0);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExport.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExport.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExport.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnExport.OverrideDefault.Border.Rounding = 10;
+            this.btnExport.OverrideDefault.Border.Width = 1;
+            this.btnExport.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExport.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExport.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExport.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExport.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExport.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExport.OverrideFocus.Border.Rounding = 10;
+            this.btnExport.Size = new System.Drawing.Size(37, 34);
+            this.btnExport.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExport.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExport.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnExport.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnExport.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExport.StateCommon.Border.Rounding = 10;
+            this.btnExport.StateCommon.Border.Width = 1;
+            this.btnExport.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            this.btnExport.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExport.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExport.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.btnExport.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnExport.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExport.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExport.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExport.StatePressed.Border.Rounding = 10;
+            this.btnExport.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExport.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExport.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExport.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnExport.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnExport.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExport.StateTracking.Border.Rounding = 10;
+            this.btnExport.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExport.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExport.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExport.TabIndex = 9;
+            this.btnExport.Values.Image = global::AMSEMS.Properties.Resources.export_16;
+            this.btnExport.Values.Text = "";
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // CMSExport
+            // 
+            this.CMSExport.AutoSize = false;
+            this.CMSExport.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.CMSExport.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportToToolStripMenuItem,
+            this.btnExpPDF});
+            this.CMSExport.Name = "contextMenuStrip2";
+            this.CMSExport.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.CMSExport.ShowImageMargin = false;
+            this.CMSExport.ShowItemToolTips = false;
+            this.CMSExport.Size = new System.Drawing.Size(146, 70);
+            // 
+            // exportToToolStripMenuItem
+            // 
+            this.exportToToolStripMenuItem.AutoSize = false;
+            this.exportToToolStripMenuItem.Enabled = false;
+            this.exportToToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 7.55F);
+            this.exportToToolStripMenuItem.Name = "exportToToolStripMenuItem";
+            this.exportToToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
+            this.exportToToolStripMenuItem.Text = "Export to";
+            // 
+            // btnExpPDF
+            // 
+            this.btnExpPDF.AutoSize = false;
+            this.btnExpPDF.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnExpPDF.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExpPDF.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
+            this.btnExpPDF.Name = "btnExpPDF";
+            this.btnExpPDF.Size = new System.Drawing.Size(135, 26);
+            this.btnExpPDF.Text = "PDF File";
+            this.btnExpPDF.Click += new System.EventHandler(this.btnExpPDF_Click);
+            // 
             // formAbsReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -281,6 +381,7 @@
             this.kryptonGroupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbesnteismRep)).EndInit();
             this.CMSOptions.ResumeLayout(false);
+            this.CMSExport.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,5 +403,9 @@
         private System.Windows.Forms.ContextMenuStrip CMSOptions;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnExport;
+        private System.Windows.Forms.ContextMenuStrip CMSExport;
+        private System.Windows.Forms.ToolStripMenuItem exportToToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnExpPDF;
     }
 }

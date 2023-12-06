@@ -1,7 +1,13 @@
-﻿using iTextSharp.xmp.options;
+﻿using iTextSharp.text.pdf;
+using iTextSharp.text;
+using iTextSharp.xmp.options;
 using System;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForm_Guidance
@@ -139,5 +145,81 @@ namespace AMSEMS.SubForm_Guidance
                 }
             }
         }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            CMSExport.Show(btnExport, new System.Drawing.Point(0, btnExport.Height));
+        }
+
+        private void btnExpPDF_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ExportToPDF(dgvAbesnteismRep, saveFileDialog.FileName);
+                MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                Process.Start(saveFileDialog.FileName);
+            }
+        }
+        private void ExportToPDF(DataGridView dataGridView, string filePath)
+        {
+            try
+            {
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+
+                document.Open();
+
+                // Customizing the font and size
+                iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+                iTextSharp.text.Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
+                iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+
+                // Add title "List of Students:"
+                Paragraph titleParagraph = new Paragraph("Absenteeism Report", headerFont1);
+                titleParagraph.Alignment = Element.ALIGN_CENTER;
+                document.Add(titleParagraph);
+
+                Paragraph titleParagraph1 = new Paragraph(DateTime.Now.ToString("dddd MMM dd, yyyy"), cellFont);
+                titleParagraph1.Alignment = Element.ALIGN_CENTER;
+                document.Add(titleParagraph1);
+
+                PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1);
+                pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
+                pdfTable.SpacingBefore = 10f; // Add space before the table
+                pdfTable.DefaultCell.Padding = 3; // Cell padding
+
+                // Add header cells excluding the last column
+                foreach (DataGridViewColumn column in dataGridView.Columns)
+                {
+                    if (column.Index != dataGridView.Columns.Count - 1) // Exclude the last column
+                    {
+                        PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
+                        cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
+                        pdfTable.AddCell(cell);
+                    }
+                }
+
+                // Add data cells excluding the last column
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    for (int i = 0; i < row.Cells.Count - 1; i++) // Exclude the last column
+                    {
+                        PdfPCell pdfCell = new PdfPCell(new Phrase(row.Cells[i].Value.ToString(), cellFont));
+                        pdfTable.AddCell(pdfCell);
+                    }
+                }
+
+                document.Add(pdfTable);
+                document.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error exporting to PDF: " + ex.Message, "Export to PDF Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }

@@ -157,46 +157,114 @@ namespace AMSEMS.SubForm_Guidance
         }
         private void ExportToPDF(DataGridView dataGridView, string filePath)
         {
-            Document document = new Document(PageSize.LETTER);
-            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
-
-            document.Open();
-
-            // Customizing the font and size
-            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
-            iTextSharp.text.Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
-            iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
-
-            // Add title "List of Students:"
-            Paragraph titleParagraph = new Paragraph("Attendance Report", headerFont1);
-            titleParagraph.Alignment = Element.ALIGN_CENTER;
-            document.Add(titleParagraph);
-
-            // Customizing the table appearance
-            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count);
-            pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
-            pdfTable.SpacingBefore = 10f; // Add space before the table
-            pdfTable.DefaultCell.Padding = 3; // Cell padding
-
-
-            foreach (DataGridViewColumn column in dataGridView.Columns)
+            try
             {
-                PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
-                cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
-                pdfTable.AddCell(cell);
-            }
+                Document document = new Document(PageSize.LETTER);
+                PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
 
-            foreach (DataGridViewRow row in dataGridView.Rows)
-            {
-                foreach (DataGridViewCell cell in row.Cells)
+                document.Open();
+
+                // Customizing the font and size
+                iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+                iTextSharp.text.Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
+                iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+
+                // Add title "List of Students:"
+                Paragraph titleParagraph = new Paragraph("Absenteeism Report", headerFont1);
+                titleParagraph.Alignment = Element.ALIGN_CENTER;
+                document.Add(titleParagraph);
+
+                // Add the student picture if available
+                if (ptbProfile.Image != null)
                 {
-                    PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value.ToString(), cellFont));
-                    pdfTable.AddCell(pdfCell);
-                }
-            }
+                    // Convert Image to iTextSharp.text.Image
+                    iTextSharp.text.Image profileImage = iTextSharp.text.Image.GetInstance((Bitmap)ptbProfile.Image, BaseColor.WHITE);
+                    profileImage.Alignment = Element.ALIGN_RIGHT | Element.ALIGN_TOP;
 
-            document.Add(pdfTable);
-            document.Close();
+                    // Set the image size to a square (adjust the size as needed)
+                    profileImage.ScaleAbsolute(90f, 90f);
+
+                    document.Add(profileImage);
+                }
+
+                // Add student details section as a title
+                document.Add(new Paragraph("\nStudent Information", headerFont));
+                
+                // Add student information on separate lines
+                Paragraph studentInfoLine1 = new Paragraph();
+                studentInfoLine1.Add(new Chunk("Student ID: " + tbID.Text, cellFont));
+                studentInfoLine1.Alignment = Element.ALIGN_LEFT;  // Align to the left
+                document.Add(studentInfoLine1);
+
+                Paragraph studentInfoLine2 = new Paragraph();
+                studentInfoLine2.Add(new Chunk("First Name: " + tbFname.Text, cellFont));
+                studentInfoLine2.Alignment = Element.ALIGN_LEFT;  // Align to the left
+                document.Add(studentInfoLine2);
+
+                Paragraph studentInfoLine3 = new Paragraph();
+                studentInfoLine3.Add(new Chunk("Middle Name: " + tbMname.Text, cellFont));
+                studentInfoLine3.Alignment = Element.ALIGN_LEFT;  // Align to the left
+                document.Add(studentInfoLine3);
+
+                Paragraph studentInfoLine4 = new Paragraph();
+                studentInfoLine4.Add(new Chunk("Last Name: " + tbLname.Text, cellFont));
+                studentInfoLine4.Alignment = Element.ALIGN_LEFT;  // Align to the left
+                document.Add(studentInfoLine4);
+
+                Paragraph studentInfoLine5 = new Paragraph();
+                studentInfoLine5.Add(new Chunk("Program: " + tbProgram.Text, cellFont));
+                studentInfoLine5.Alignment = Element.ALIGN_LEFT;  // Align to the left
+                document.Add(studentInfoLine5);
+
+                Paragraph studentInfoLine6 = new Paragraph();
+                studentInfoLine6.Add(new Chunk("Section: " + tbSec.Text, cellFont));
+                studentInfoLine6.Alignment = Element.ALIGN_LEFT;  // Align to the left
+                document.Add(studentInfoLine6);
+
+                Paragraph studentInfoLine7 = new Paragraph();
+                studentInfoLine7.Add(new Chunk("Year Level: " + tbYlevel.Text, cellFont));
+                studentInfoLine7.Alignment = Element.ALIGN_LEFT;  // Align to the left
+                document.Add(studentInfoLine7);
+
+                Paragraph studentInfoLine8 = new Paragraph();
+                studentInfoLine8.Add(new Chunk("Department: " + tbDep.Text, cellFont));
+                studentInfoLine8.Alignment = Element.ALIGN_LEFT;  // Align to the left
+                document.Add(studentInfoLine8);
+
+                
+
+                // Add attendance table
+                document.Add(new Paragraph("\nAttendance Table", headerFont));
+
+                PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count);
+                pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
+                pdfTable.SpacingBefore = 10f; // Add space before the table
+                pdfTable.DefaultCell.Padding = 3; // Cell padding
+
+                foreach (DataGridViewColumn column in dataGridView.Columns)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
+                    cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
+                    pdfTable.AddCell(cell);
+                }
+
+                foreach (DataGridViewRow row in dataGridView.Rows)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value.ToString(), cellFont));
+                        pdfTable.AddCell(pdfCell);
+                    }
+                }
+
+                document.Add(pdfTable);
+                document.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error exporting to PDF: " + ex.Message, "Export to PDF Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
     }
 }
