@@ -56,11 +56,11 @@ namespace AMSEMS.SubForms_DeptHead
         public async Task displayChartAsync()
         {
             int currentYear = DateTime.Now.Year;
-
+            //Chart1
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 await cn.OpenAsync(); // Use OpenAsync to open the connection asynchronously
-                using (SqlCommand command = new SqlCommand(@"SELECT e.Event_ID, e.Event_Name, COUNT(a.Student_ID) AS AttendanceCount FROM tbl_events e LEFT JOIN tbl_attendance a ON e.Event_ID = a.Event_ID LEFT JOIN tbl_student_accounts s ON a.Student_ID = s.ID WHERE YEAR(e.Start_Date) = @Year AND s.Department = @dep GROUP BY e.Event_ID, e.Event_Name", cn))
+                using (SqlCommand command = new SqlCommand(@"SELECT e.Event_ID, e.Event_Name, COUNT(a.Student_ID) AS AttendanceCount FROM tbl_events e LEFT JOIN tbl_attendance a ON e.Event_ID = a.Event_ID LEFT JOIN tbl_student_accounts s ON a.Student_ID = s.ID  WHERE e.Attendance = 'true' AND YEAR(e.Start_Date) = @Year AND s.Department = @dep GROUP BY e.Event_ID, e.Event_Name", cn))
                 {
                     command.Parameters.AddWithValue("@Year", currentYear);
                     command.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
@@ -76,8 +76,9 @@ namespace AMSEMS.SubForms_DeptHead
 
             // Step 5: Customize Chart
             chart1.ChartAreas[0].AxisX.Title = "Events";
-            chart1.ChartAreas[0].AxisY.Title = "Attendance Count";
+            chart1.ChartAreas[0].AxisY.Title = "Students Attended";
 
+            //Chart2
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
             {
                 connection.Open();
@@ -85,15 +86,16 @@ namespace AMSEMS.SubForms_DeptHead
                 (SELECT a.[Event_ID], a.[Student_ID], MAX(a.[Date_Time]) AS [RecentDate] 
                  FROM [db_Amsems].[dbo].[tbl_attendance] a 
                  GROUP BY a.[Event_ID], a.[Student_ID])
-                 SELECT Top 1 e.[Event_ID], e.[Event_Name], 
+                 SELECT  e.[Event_ID], e.[Event_Name],
                  COUNT(DISTINCT ra.[Student_ID]) AS [RecentAttendees], 
                  COUNT(DISTINCT s.[ID]) AS [TotalStudentsInDepartment], 
                  CAST(COUNT(DISTINCT ra.[Student_ID]) AS FLOAT) / NULLIF(COUNT(DISTINCT s.[ID]), 0) * 100 AS [PercentageRecentAttendees] 
                  FROM [db_Amsems].[dbo].[tbl_events] e 
                  LEFT JOIN RecentAttendance ra ON e.[Event_ID] = ra.[Event_ID] 
                  LEFT JOIN [db_Amsems].[dbo].[tbl_student_accounts] s ON s.[Department] = @dep
-                 GROUP BY e.[Event_ID], e.[Event_Name] 
-                 ORDER BY [RecentAttendees] DESC", connection))
+				 WHERE e.Attendance = 'true'
+                 GROUP BY e.[Event_ID], e.[Event_Name], e.End_Date
+                 ORDER BY e.End_Date DESC", connection))
                 {
                     command.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -133,7 +135,7 @@ namespace AMSEMS.SubForms_DeptHead
                     chart2.Series["AttendanceRateSeries"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
                 }
             }
-
+            //Chart3
             using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
             {
                 connection.Open();
@@ -171,10 +173,11 @@ namespace AMSEMS.SubForms_DeptHead
                 JOIN dbo.tbl_student_accounts s ON COALESCE(bf.Student_ID, t.Student_ID) = s.ID
                 WHERE
                     s.Status = 1
-                    AND s.Department = 2 -- Replace 2 with the desired department ID
+                    AND s.Department = @dep
                 GROUP BY
                     COALESCE(bf.Student_ID, t.Student_ID)) AS subquery;", connection))
                 {
+                    command.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);

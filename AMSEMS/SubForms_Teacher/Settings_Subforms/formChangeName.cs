@@ -23,7 +23,7 @@ namespace AMSEMS.SubForms_Teacher
             this.form = form;
 
             cn.Open();
-            cm = new SqlCommand("Select Firstname,Middlename,Lastname from tbl_teacher_accounts where Unique_ID = '" + FormSAONavigation.id + "'", cn);
+            cm = new SqlCommand("Select Firstname,Middlename,Lastname from tbl_teacher_accounts where Unique_ID = '" + FormTeacherNavigation.id + "'", cn);
             dr = cm.ExecuteReader();
             dr.Read();
             tbFname.Text = dr["Firstname"].ToString();

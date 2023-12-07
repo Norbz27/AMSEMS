@@ -28,24 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox4 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.kryptonLabel9 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.kryptonGroupBox3 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonGroupBox6 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel11 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel10 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.vScrollBar2 = new System.Windows.Forms.VScrollBar();
+            this.lblStud = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lbltotalSub = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.kryptonLabel12 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel13 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.kryptonButton2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -57,22 +58,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).BeginInit();
             this.kryptonGroupBox4.Panel.SuspendLayout();
             this.kryptonGroupBox4.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3.Panel)).BeginInit();
             this.kryptonGroupBox3.Panel.SuspendLayout();
             this.kryptonGroupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).BeginInit();
-            this.kryptonPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6.Panel)).BeginInit();
-            this.kryptonGroupBox6.Panel.SuspendLayout();
-            this.kryptonGroupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).BeginInit();
-            this.kryptonGroupBox2.Panel.SuspendLayout();
-            this.kryptonGroupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
             this.kryptonGroupBox1.Panel.SuspendLayout();
@@ -85,7 +76,7 @@
             this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.kryptonGroupBox4);
             this.panel1.Controls.Add(this.panel5);
-            this.panel1.Controls.Add(this.tableLayoutPanel1);
+            this.panel1.Controls.Add(this.kryptonGroupBox3);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.kryptonGroupBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -100,15 +91,16 @@
             this.kryptonGroupBox4.CaptionVisible = false;
             this.kryptonGroupBox4.CausesValidation = false;
             this.kryptonGroupBox4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonGroupBox4.Location = new System.Drawing.Point(0, 452);
+            this.kryptonGroupBox4.Location = new System.Drawing.Point(0, 515);
             this.kryptonGroupBox4.Margin = new System.Windows.Forms.Padding(3, 3, 5, 3);
             this.kryptonGroupBox4.Name = "kryptonGroupBox4";
             // 
             // kryptonGroupBox4.Panel
             // 
+            this.kryptonGroupBox4.Panel.Controls.Add(this.chart1);
             this.kryptonGroupBox4.Panel.Controls.Add(this.kryptonLabel9);
             this.kryptonGroupBox4.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.kryptonGroupBox4.Size = new System.Drawing.Size(758, 259);
+            this.kryptonGroupBox4.Size = new System.Drawing.Size(758, 369);
             this.kryptonGroupBox4.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox4.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox4.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -118,7 +110,47 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.kryptonGroupBox4.StateCommon.Border.Rounding = 10;
             this.kryptonGroupBox4.StateCommon.Border.Width = 2;
-            this.kryptonGroupBox4.TabIndex = 26;
+            this.kryptonGroupBox4.TabIndex = 29;
+            // 
+            // chart1
+            // 
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea1.AxisX.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisX2.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea1.AxisY.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisY2.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea1.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend1.IsTextAutoFit = false;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(18, 41);
+            this.chart1.Name = "chart1";
+            series1.BorderColor = System.Drawing.Color.Gainsboro;
+            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            series1.ChartArea = "ChartArea1";
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            series1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series1.Legend = "Legend1";
+            series1.Name = "StudPerSub";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(697, 305);
+            this.chart1.TabIndex = 8;
+            this.chart1.Text = "chart1";
+            this.chart1.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.Normal;
             // 
             // kryptonLabel9
             // 
@@ -135,43 +167,31 @@
             // panel5
             // 
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel5.Location = new System.Drawing.Point(0, 442);
+            this.panel5.Location = new System.Drawing.Point(0, 505);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(758, 10);
-            this.panel5.TabIndex = 22;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 41.2844F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 58.7156F));
-            this.tableLayoutPanel1.Controls.Add(this.kryptonGroupBox3, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.kryptonGroupBox2, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 159);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(758, 283);
-            this.tableLayoutPanel1.TabIndex = 21;
+            this.panel5.TabIndex = 28;
             // 
             // kryptonGroupBox3
             // 
-            this.kryptonGroupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonGroupBox3.CaptionVisible = false;
             this.kryptonGroupBox3.CausesValidation = false;
-            this.kryptonGroupBox3.Location = new System.Drawing.Point(318, 3);
+            this.kryptonGroupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.kryptonGroupBox3.Location = new System.Drawing.Point(0, 159);
             this.kryptonGroupBox3.Margin = new System.Windows.Forms.Padding(6, 3, 0, 3);
             this.kryptonGroupBox3.Name = "kryptonGroupBox3";
             // 
             // kryptonGroupBox3.Panel
             // 
-            this.kryptonGroupBox3.Panel.Controls.Add(this.kryptonPanel2);
+            this.kryptonGroupBox3.Panel.Controls.Add(this.lblStud);
+            this.kryptonGroupBox3.Panel.Controls.Add(this.label4);
+            this.kryptonGroupBox3.Panel.Controls.Add(this.label2);
+            this.kryptonGroupBox3.Panel.Controls.Add(this.lbltotalSub);
+            this.kryptonGroupBox3.Panel.Controls.Add(this.label1);
+            this.kryptonGroupBox3.Panel.Controls.Add(this.chart2);
             this.kryptonGroupBox3.Panel.Controls.Add(this.kryptonLabel12);
-            this.kryptonGroupBox3.Panel.Controls.Add(this.kryptonLabel13);
             this.kryptonGroupBox3.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.kryptonGroupBox3.Size = new System.Drawing.Size(440, 277);
+            this.kryptonGroupBox3.Size = new System.Drawing.Size(758, 346);
             this.kryptonGroupBox3.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox3.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox3.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -181,259 +201,124 @@
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
             this.kryptonGroupBox3.StateCommon.Border.Rounding = 10;
             this.kryptonGroupBox3.StateCommon.Border.Width = 2;
-            this.kryptonGroupBox3.TabIndex = 12;
+            this.kryptonGroupBox3.TabIndex = 27;
             // 
-            // kryptonPanel2
+            // lblStud
             // 
-            this.kryptonPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.lblStud.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStud.AutoSize = true;
+            this.lblStud.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStud.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblStud.Location = new System.Drawing.Point(701, 135);
+            this.lblStud.Name = "lblStud";
+            this.lblStud.Size = new System.Drawing.Size(28, 28);
+            this.lblStud.TabIndex = 16;
+            this.lblStud.Text = "10";
+            this.lblStud.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(638, 113);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(98, 22);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Total Students";
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label2.Font = new System.Drawing.Font("Poppins Light", 6.75F, System.Drawing.FontStyle.Italic);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label2.Location = new System.Drawing.Point(15, 312);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(718, 14);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "The chart displays the percentage distribution of students across subjects based " +
+    "on the total enrollment in those subjects.";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbltotalSub
+            // 
+            this.lbltotalSub.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbltotalSub.AutoSize = true;
+            this.lbltotalSub.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltotalSub.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lbltotalSub.Location = new System.Drawing.Point(700, 73);
+            this.lbltotalSub.Name = "lbltotalSub";
+            this.lbltotalSub.Size = new System.Drawing.Size(28, 28);
+            this.lbltotalSub.TabIndex = 13;
+            this.lbltotalSub.Text = "10";
+            this.lbltotalSub.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(637, 51);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 22);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Total Subjects";
+            // 
+            // chart2
+            // 
+            this.chart2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonPanel2.Controls.Add(this.kryptonGroupBox6);
-            this.kryptonPanel2.Controls.Add(this.vScrollBar2);
-            this.kryptonPanel2.Location = new System.Drawing.Point(15, 52);
-            this.kryptonPanel2.Name = "kryptonPanel2";
-            this.kryptonPanel2.Size = new System.Drawing.Size(399, 207);
-            this.kryptonPanel2.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonPanel2.StateCommon.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonPanel2.TabIndex = 4;
-            // 
-            // kryptonGroupBox6
-            // 
-            this.kryptonGroupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonGroupBox6.CaptionVisible = false;
-            this.kryptonGroupBox6.CausesValidation = false;
-            this.kryptonGroupBox6.Location = new System.Drawing.Point(3, 3);
-            this.kryptonGroupBox6.Name = "kryptonGroupBox6";
-            // 
-            // kryptonGroupBox6.Panel
-            // 
-            this.kryptonGroupBox6.Panel.Controls.Add(this.kryptonLabel3);
-            this.kryptonGroupBox6.Panel.Controls.Add(this.kryptonLabel11);
-            this.kryptonGroupBox6.Panel.Controls.Add(this.kryptonLabel10);
-            this.kryptonGroupBox6.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.kryptonGroupBox6.Size = new System.Drawing.Size(380, 99);
-            this.kryptonGroupBox6.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonGroupBox6.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonGroupBox6.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox6.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox6.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonGroupBox6.StateCommon.Border.Rounding = 10;
-            this.kryptonGroupBox6.StateCommon.Border.Width = 1;
-            this.kryptonGroupBox6.TabIndex = 4;
-            // 
-            // kryptonLabel3
-            // 
-            this.kryptonLabel3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.kryptonLabel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonLabel3.Location = new System.Drawing.Point(15, 50);
-            this.kryptonLabel3.Name = "kryptonLabel3";
-            this.kryptonLabel3.Size = new System.Drawing.Size(342, 19);
-            this.kryptonLabel3.StateCommon.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
-            this.kryptonLabel3.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.kryptonLabel3.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel3.StateCommon.LongText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
-            this.kryptonLabel3.StateCommon.LongText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.kryptonLabel3.StateCommon.LongText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.kryptonLabel3.StateCommon.ShortText.Color1 = System.Drawing.Color.Gray;
-            this.kryptonLabel3.StateCommon.ShortText.Color2 = System.Drawing.Color.Gray;
-            this.kryptonLabel3.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
-            this.kryptonLabel3.StateCommon.ShortText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
-            this.kryptonLabel3.StateCommon.ShortText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.kryptonLabel3.StateCommon.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.kryptonLabel3.TabIndex = 8;
-            this.kryptonLabel3.Values.Text = "Announcement Details";
-            // 
-            // kryptonLabel11
-            // 
-            this.kryptonLabel11.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonLabel11.Location = new System.Drawing.Point(15, 29);
-            this.kryptonLabel11.Name = "kryptonLabel11";
-            this.kryptonLabel11.Size = new System.Drawing.Size(342, 21);
-            this.kryptonLabel11.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel11.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel11.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold);
-            this.kryptonLabel11.TabIndex = 7;
-            this.kryptonLabel11.Values.Text = "Announcement Title";
-            // 
-            // kryptonLabel10
-            // 
-            this.kryptonLabel10.Cursor = System.Windows.Forms.Cursors.Default;
-            this.kryptonLabel10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonLabel10.Location = new System.Drawing.Point(15, 10);
-            this.kryptonLabel10.Name = "kryptonLabel10";
-            this.kryptonLabel10.Size = new System.Drawing.Size(342, 19);
-            this.kryptonLabel10.StateCommon.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
-            this.kryptonLabel10.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.kryptonLabel10.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel10.StateCommon.LongText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
-            this.kryptonLabel10.StateCommon.LongText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.kryptonLabel10.StateCommon.LongText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.kryptonLabel10.StateCommon.ShortText.Color1 = System.Drawing.Color.Gray;
-            this.kryptonLabel10.StateCommon.ShortText.Color2 = System.Drawing.Color.Gray;
-            this.kryptonLabel10.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
-            this.kryptonLabel10.StateCommon.ShortText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
-            this.kryptonLabel10.StateCommon.ShortText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.kryptonLabel10.StateCommon.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
-            this.kryptonLabel10.TabIndex = 6;
-            this.kryptonLabel10.Values.Text = "07 July, 2023";
-            // 
-            // vScrollBar2
-            // 
-            this.vScrollBar2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.vScrollBar2.Location = new System.Drawing.Point(384, 0);
-            this.vScrollBar2.Name = "vScrollBar2";
-            this.vScrollBar2.Size = new System.Drawing.Size(15, 207);
-            this.vScrollBar2.TabIndex = 0;
+            chartArea2.AxisX.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisX.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea2.AxisX2.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisX2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisX2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea2.AxisY.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisY.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisY.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea2.AxisY2.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisY2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea2.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            legend2.Alignment = System.Drawing.StringAlignment.Far;
+            legend2.Enabled = false;
+            legend2.Font = new System.Drawing.Font("Poppins", 8F);
+            legend2.IsTextAutoFit = false;
+            legend2.Name = "Legend1";
+            this.chart2.Legends.Add(legend2);
+            this.chart2.Location = new System.Drawing.Point(15, 35);
+            this.chart2.Name = "chart2";
+            series2.BorderColor = System.Drawing.Color.Gainsboro;
+            series2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            series2.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series2.LabelForeColor = System.Drawing.Color.White;
+            series2.Legend = "Legend1";
+            series2.Name = "SubjectStudents";
+            series2.YValuesPerPoint = 2;
+            this.chart2.Series.Add(series2);
+            this.chart2.Size = new System.Drawing.Size(624, 274);
+            this.chart2.TabIndex = 11;
+            this.chart2.Text = "chart2";
+            this.chart2.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.Normal;
             // 
             // kryptonLabel12
             // 
+            this.kryptonLabel12.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonLabel12.Location = new System.Drawing.Point(15, 10);
             this.kryptonLabel12.Name = "kryptonLabel12";
-            this.kryptonLabel12.Size = new System.Drawing.Size(183, 25);
+            this.kryptonLabel12.Size = new System.Drawing.Size(718, 25);
             this.kryptonLabel12.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.kryptonLabel12.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.kryptonLabel12.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel12.TabIndex = 3;
-            this.kryptonLabel12.Values.Text = "Announcement Board";
-            // 
-            // kryptonLabel13
-            // 
-            this.kryptonLabel13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonLabel13.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.kryptonLabel13.Location = new System.Drawing.Point(339, 10);
-            this.kryptonLabel13.Name = "kryptonLabel13";
-            this.kryptonLabel13.Size = new System.Drawing.Size(74, 21);
-            this.kryptonLabel13.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.kryptonLabel13.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel13.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel13.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel13.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonLabel13.TabIndex = 4;
-            this.kryptonLabel13.Values.Image = global::AMSEMS.Properties.Resources.right_arrow__1_;
-            this.kryptonLabel13.Values.Text = "View all";
-            // 
-            // kryptonGroupBox2
-            // 
-            this.kryptonGroupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonGroupBox2.CaptionVisible = false;
-            this.kryptonGroupBox2.CausesValidation = false;
-            this.kryptonGroupBox2.Location = new System.Drawing.Point(0, 3);
-            this.kryptonGroupBox2.Margin = new System.Windows.Forms.Padding(0, 3, 6, 3);
-            this.kryptonGroupBox2.Name = "kryptonGroupBox2";
-            // 
-            // kryptonGroupBox2.Panel
-            // 
-            this.kryptonGroupBox2.Panel.Controls.Add(this.pictureBox2);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.kryptonButton2);
-            this.kryptonGroupBox2.Panel.Controls.Add(this.kryptonLabel4);
-            this.kryptonGroupBox2.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
-            this.kryptonGroupBox2.Size = new System.Drawing.Size(306, 277);
-            this.kryptonGroupBox2.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonGroupBox2.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonGroupBox2.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox2.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox2.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonGroupBox2.StateCommon.Border.Rounding = 10;
-            this.kryptonGroupBox2.StateCommon.Border.Width = 2;
-            this.kryptonGroupBox2.TabIndex = 11;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox2.Image = global::AMSEMS.Properties.Resources.verified_account;
-            this.pictureBox2.Location = new System.Drawing.Point(3, 41);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(290, 139);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 9;
-            this.pictureBox2.TabStop = false;
-            // 
-            // kryptonButton2
-            // 
-            this.kryptonButton2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.kryptonButton2.Location = new System.Drawing.Point(55, 186);
-            this.kryptonButton2.Name = "kryptonButton2";
-            this.kryptonButton2.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.OverrideDefault.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.OverrideDefault.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton2.OverrideDefault.Border.Rounding = 10;
-            this.kryptonButton2.OverrideDefault.Border.Width = 1;
-            this.kryptonButton2.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.kryptonButton2.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.kryptonButton2.OverrideDefault.Content.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
-            this.kryptonButton2.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.OverrideFocus.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.OverrideFocus.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton2.OverrideFocus.Border.Rounding = 10;
-            this.kryptonButton2.OverrideFocus.Border.Width = 1;
-            this.kryptonButton2.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Office2010Blue;
-            this.kryptonButton2.Size = new System.Drawing.Size(184, 44);
-            this.kryptonButton2.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton2.StateCommon.Border.Rounding = 10;
-            this.kryptonButton2.StateCommon.Border.Width = 1;
-            this.kryptonButton2.StateCommon.Content.AdjacentGap = 0;
-            this.kryptonButton2.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.kryptonButton2.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.kryptonButton2.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
-            this.kryptonButton2.StateCommon.Content.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonButton2.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.StatePressed.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.StatePressed.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton2.StatePressed.Border.Rounding = 10;
-            this.kryptonButton2.StatePressed.Border.Width = 1;
-            this.kryptonButton2.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.kryptonButton2.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.kryptonButton2.StatePressed.Content.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
-            this.kryptonButton2.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.StateTracking.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.StateTracking.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonButton2.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonButton2.StateTracking.Border.Rounding = 10;
-            this.kryptonButton2.StateTracking.Border.Width = 1;
-            this.kryptonButton2.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.kryptonButton2.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.kryptonButton2.StateTracking.Content.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
-            this.kryptonButton2.TabIndex = 8;
-            this.kryptonButton2.Values.Text = "Start Attendance";
-            // 
-            // kryptonLabel4
-            // 
-            this.kryptonLabel4.Location = new System.Drawing.Point(15, 10);
-            this.kryptonLabel4.Name = "kryptonLabel4";
-            this.kryptonLabel4.Size = new System.Drawing.Size(146, 25);
-            this.kryptonLabel4.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel4.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel4.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
-            this.kryptonLabel4.TabIndex = 3;
-            this.kryptonLabel4.Values.Text = "Daily Attendance";
+            this.kryptonLabel12.Values.Text = "Subjects Overview";
             // 
             // panel4
             // 
@@ -472,21 +357,21 @@
             this.kryptonLabel2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.kryptonLabel2.Location = new System.Drawing.Point(22, 92);
             this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(155, 21);
+            this.kryptonLabel2.Size = new System.Drawing.Size(134, 21);
             this.kryptonLabel2.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
             this.kryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.White;
             this.kryptonLabel2.StateCommon.ShortText.Color2 = System.Drawing.Color.White;
             this.kryptonLabel2.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kryptonLabel2.TabIndex = 3;
             this.kryptonLabel2.Values.Image = global::AMSEMS.Properties.Resources.right_arrow__1_;
-            this.kryptonLabel2.Values.Text = "Manage Attendance";
+            this.kryptonLabel2.Values.Text = "Manage Subjects";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.Image = global::AMSEMS.Properties.Resources.discussion;
-            this.pictureBox1.Location = new System.Drawing.Point(448, -8);
+            this.pictureBox1.Location = new System.Drawing.Point(431, -8);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(243, 224);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -534,25 +419,13 @@
             this.kryptonGroupBox4.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).EndInit();
             this.kryptonGroupBox4.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3.Panel)).EndInit();
             this.kryptonGroupBox3.Panel.ResumeLayout(false);
             this.kryptonGroupBox3.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3)).EndInit();
             this.kryptonGroupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).EndInit();
-            this.kryptonPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6.Panel)).EndInit();
-            this.kryptonGroupBox6.Panel.ResumeLayout(false);
-            this.kryptonGroupBox6.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox6)).EndInit();
-            this.kryptonGroupBox6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).EndInit();
-            this.kryptonGroupBox2.Panel.ResumeLayout(false);
-            this.kryptonGroupBox2.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).EndInit();
-            this.kryptonGroupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).EndInit();
             this.kryptonGroupBox1.Panel.ResumeLayout(false);
             this.kryptonGroupBox1.Panel.PerformLayout();
@@ -572,22 +445,17 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblName;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox3;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel2;
-        private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox6;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel11;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel10;
-        private System.Windows.Forms.VScrollBar vScrollBar2;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel12;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel13;
-        private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox2;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel4;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton2;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox4;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel9;
+        private System.Windows.Forms.Panel panel5;
+        private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox3;
+        private System.Windows.Forms.Label lblStud;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lbltotalSub;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel12;
     }
 }

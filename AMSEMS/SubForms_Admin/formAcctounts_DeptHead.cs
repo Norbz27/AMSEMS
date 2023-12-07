@@ -165,7 +165,7 @@ namespace AMSEMS.SubForms_Admin
 
                 string query = "Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID " +
                   "where (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
-                  "AND (@StatusDescription IS NULL OR st.Description = @StatusDescription)";
+                  "AND (@StatusDescription = 'All' OR st.Description = @StatusDescription)";
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -221,7 +221,7 @@ namespace AMSEMS.SubForms_Admin
 
             string query = "Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_deptHead_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID " +
               "where (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
-              "AND (@StatusDescription IS NULL OR st.Description = @StatusDescription)";
+              "AND (@StatusDescription = 'All' OR st.Description = @StatusDescription)";
 
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {

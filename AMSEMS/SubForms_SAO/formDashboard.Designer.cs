@@ -117,6 +117,9 @@
             // 
             // chart1
             // 
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.AxisX.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisX.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -132,6 +135,7 @@
             chartArea1.BorderColor = System.Drawing.Color.Gainsboro;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
             legend1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             legend1.IsTextAutoFit = false;
             legend1.Name = "Legend1";
