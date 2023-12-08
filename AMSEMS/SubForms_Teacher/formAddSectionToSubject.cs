@@ -449,7 +449,9 @@ namespace AMSEMS.SubForms_Teacher
                 using (SQLiteCommand command = new SQLiteCommand(cn))
                 {
                     string tableName = "tbl_" + classCode;
-                    string insertSql = $"INSERT INTO {tableName} (StudentID, Class_Code) VALUES (@StudID, @ClassCode);";
+                    string insertSql = $@"INSERT INTO {tableName} (StudentID, Class_Code)
+                    SELECT @StudID, @ClassCode
+                    WHERE NOT EXISTS (SELECT 1 FROM {tableName} WHERE StudentID = @StudID);";
 
                     command.CommandText = insertSql;
 

@@ -37,7 +37,7 @@ namespace AMSEMS
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             id = id1;
 
-
+     
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -402,6 +402,7 @@ namespace AMSEMS
             backgroundWorker.RunWorkerAsync();
             SubForms_DeptHead.formDashboard.setForm(this);
             OpenChildForm(new SubForms_DeptHead.formDashboard(id));
+
         }
         public void Logout()
         {

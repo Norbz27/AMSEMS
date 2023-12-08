@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AMSEMS.SubForms_Teacher;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.SQLite;
@@ -146,6 +147,125 @@ namespace AMSEMS
                     command.CommandText = clearSql;
                     command.ExecuteNonQuery();
                 }
+                connection.Close();
+            }
+        }
+        public void InsertClassListData(string clCode, string secID, string teachID, string cCode, string schYear, string sem, string acadlvl)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand checkCommand = new SQLiteCommand(connection))
+                {
+                    // Check if the record already exists
+                    string checkSql = "SELECT COUNT(*) FROM tbl_class_list WHERE CLass_Code = @CLass_Code AND Section_ID = @Section_ID AND Teacher_ID = @Teacher_ID AND Course_Code = @Course_Code AND School_Year = @School_Year AND Semester = @Semester AND Acad_Level = @Acad_Level;";
+
+                    checkCommand.CommandText = checkSql;
+                    checkCommand.Parameters.AddWithValue("@CLass_Code", clCode);
+                    checkCommand.Parameters.AddWithValue("@Section_ID", secID);
+                    checkCommand.Parameters.AddWithValue("@Teacher_ID", teachID);
+                    checkCommand.Parameters.AddWithValue("@Course_Code", cCode);
+                    checkCommand.Parameters.AddWithValue("@School_Year", schYear);
+                    checkCommand.Parameters.AddWithValue("@Semester", sem);
+                    checkCommand.Parameters.AddWithValue("@Acad_Level", acadlvl);
+
+                    int recordCount = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+                    if (recordCount == 0)
+                    {
+                        // If the record doesn't exist, insert it
+                        using (SQLiteCommand insertCommand = new SQLiteCommand(connection))
+                        {
+                            string insertSql = "INSERT INTO tbl_class_list (CLass_Code, Section_ID, Teacher_ID, Course_Code, School_Year, Semester, Acad_Level) VALUES (@CLass_Code, @Section_ID, @Teacher_ID, @Course_Code, @School_Year, @Semester, @Acad_Level);";
+
+                            insertCommand.CommandText = insertSql;
+                            insertCommand.Parameters.AddWithValue("@CLass_Code", clCode);
+                            insertCommand.Parameters.AddWithValue("@Section_ID", secID);
+                            insertCommand.Parameters.AddWithValue("@Teacher_ID", teachID);
+                            insertCommand.Parameters.AddWithValue("@Course_Code", cCode);
+                            insertCommand.Parameters.AddWithValue("@School_Year", schYear);
+                            insertCommand.Parameters.AddWithValue("@Semester", sem);
+                            insertCommand.Parameters.AddWithValue("@Acad_Level", acadlvl);
+
+                            insertCommand.ExecuteNonQuery();
+                        }
+                    }
+                }
+
+                string tableName = "tbl_" + clCode;
+                DataTable class_stud_list = formDataSync.GetStudList(tableName);
+
+                if (class_stud_list != null && class_stud_list.Rows.Count > 0)
+                {
+                    string createTableSql = $@"CREATE TABLE IF NOT EXISTS {tableName} (
+                            StudentID INTEGER PRIMARY KEY, 
+                            Class_Code TEXT);";
+
+                    using (SQLiteCommand command = new SQLiteCommand(createTableSql, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+
+                    string insertSql2 = $@"INSERT INTO {tableName} (StudentID, Class_Code)
+                        SELECT @StudID, @ClassCode
+                        WHERE NOT EXISTS (SELECT 1 FROM {tableName} WHERE StudentID = @StudID);";
+
+                    using (SQLiteCommand insertCommand = new SQLiteCommand(insertSql2, connection))
+                    {
+                        foreach (DataRow row1 in class_stud_list.Rows)
+                        {
+                            string studentID = row1["StudentID"].ToString();
+                            string classCodeValue = row1["Class_Code"].ToString(); ;
+
+                            insertCommand.Parameters.Clear();
+                            insertCommand.Parameters.AddWithValue("@StudID", studentID);
+                            insertCommand.Parameters.AddWithValue("@ClassCode", classCodeValue);
+                            insertCommand.ExecuteNonQuery();
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+        }
+        public void InsertAttendancetData(string clCode, string attdate, string studID, string studStat)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand checkCommand = new SQLiteCommand(connection))
+                {
+                    // Check if the record already exists
+                    string checkSql = "SELECT COUNT(*) FROM tbl_subject_attendance WHERE Class_Code = @ClCode AND Attendance_date = @AttDate AND Student_ID = @StudID AND Student_Status = @StudStat;";
+
+                    checkCommand.CommandText = checkSql;
+                    checkCommand.Parameters.AddWithValue("@ClCode", clCode);
+                    checkCommand.Parameters.AddWithValue("@AttDate", attdate);
+                    checkCommand.Parameters.AddWithValue("@StudID", studID);
+                    checkCommand.Parameters.AddWithValue("@StudStat", studStat);
+
+                    int recordCount = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+                    if (recordCount == 0)
+                    {
+                        // If the record doesn't exist, insert it
+                        using (SQLiteCommand insertCommand = new SQLiteCommand(connection))
+                        {
+                            string insertSql = "INSERT INTO tbl_subject_attendance (Class_Code, Attendance_date, Student_ID, Student_Status) VALUES (@ClCode, @AttDate, @StudID, @StudStat);";
+
+                            insertCommand.CommandText = insertSql;
+                            insertCommand.Parameters.AddWithValue("@ClCode", clCode);
+                            insertCommand.Parameters.AddWithValue("@AttDate", attdate);
+                            insertCommand.Parameters.AddWithValue("@StudID", studID);
+                            insertCommand.Parameters.AddWithValue("@StudStat", studStat);
+
+                            insertCommand.ExecuteNonQuery();
+                        }
+                    }
+                }
+
                 connection.Close();
             }
         }
@@ -489,6 +609,49 @@ namespace AMSEMS
                 connection.Open();
 
                 string query = "SELECT * FROM tbl_class_list WHERE Class_Code = @ClassCode";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ClassCode", classcode);
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+
+            return dataTable;
+        }
+        public DataTable GetStudList(string tblname)
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = $"SELECT * FROM {tblname}";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+
+            return dataTable;
+        }
+        public DataTable GetStudListSingle(string tblname, string classcode)
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = $"SELECT * FROM {tblname} WHERE  Class_Code = @ClassCode";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {

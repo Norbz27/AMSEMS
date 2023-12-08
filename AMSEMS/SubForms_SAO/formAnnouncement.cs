@@ -11,9 +11,11 @@ namespace AMSEMS.SubForms_SAO
         private string searchKeyword = string.Empty;
         private DateTime filterDate = DateTime.MinValue;
         private KryptonGroupBox[] announcements;
+        private Timer searchTimer;
         public formAnnouncement()
         {
             InitializeComponent();
+            InitializeSearchTimer();
         }
 
         private void btnAnnounce_Click(object sender, EventArgs e)
@@ -22,7 +24,18 @@ namespace AMSEMS.SubForms_SAO
             formAddAnnouncement.getForm(this);
             formAddAnnouncement.ShowDialog();
         }
+        public void InitializeSearchTimer()
+        {
+            searchTimer = new Timer();
+            searchTimer.Interval = 1000; // Set the delay in milliseconds
+            searchTimer.Tick += SearchTimer_Tick;
+        }
 
+        private void SearchTimer_Tick(object sender, EventArgs e)
+        {
+            searchTimer.Stop();
+            displayAnnouncements(searchKeyword, filterDate);
+        }
         public async void displayAnnouncements(string searchKeyword, DateTime filterDate)
         {
             panelAnnouncements.Controls.Clear();
@@ -75,7 +88,8 @@ namespace AMSEMS.SubForms_SAO
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
             searchKeyword = tbSearch.Text;
-            displayAnnouncements(searchKeyword, filterDate);
+            searchTimer.Stop();
+            searchTimer.Start();
         }
 
         private void DtEnd_ValueChanged(object sender, EventArgs e)

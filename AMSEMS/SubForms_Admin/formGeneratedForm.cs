@@ -364,9 +364,9 @@ namespace AMSEMS.SubForms_Admin
                         dr = cm.ExecuteReader();
                         dr.Read();
                         tbID.Text = dr["ID"].ToString();
-                        tbFname.Text = dr["Firstname"].ToString();
-                        tbLname.Text = dr["Lastname"].ToString();
-                        tbMname.Text = dr["Middlename"].ToString();
+                        tbFname.Text = dr["Firstname"].ToString().ToUpper();
+                        tbLname.Text = dr["Lastname"].ToString().ToUpper();
+                        tbMname.Text = dr["Middlename"].ToString().ToUpper();
                         Pass = dr["Password"].ToString();
                         tbStatus.Text = dr["stDes"].ToString();
                         dr.Close();
@@ -394,9 +394,9 @@ namespace AMSEMS.SubForms_Admin
                         dr = cm.ExecuteReader();
                         dr.Read();
                         tbID.Text = dr["ID"].ToString();
-                        tbFname.Text = dr["Firstname"].ToString();
-                        tbLname.Text = dr["Lastname"].ToString();
-                        tbMname.Text = dr["Middlename"].ToString();
+                        tbFname.Text = dr["Firstname"].ToString().ToUpper();
+                        tbLname.Text = dr["Lastname"].ToString().ToUpper();
+                        tbMname.Text = dr["Middlename"].ToString().ToUpper();
                         Pass = dr["Password"].ToString();
                         tbStatus.Text = dr["stDes"].ToString();
                         dr.Close();

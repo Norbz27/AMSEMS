@@ -136,7 +136,7 @@ namespace AMSEMS.SubForms_Admin
                                 dgvSubjects.Rows[rowIndex].Cells["ID"].Value = dr["Course_code"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
-                                dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString().ToUpper();
                                 dgvSubjects.Rows[rowIndex].Cells["acad"].Value = dr["Acad"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["archived_date"].Value = dr["archdate"].ToString();
 
@@ -307,7 +307,7 @@ namespace AMSEMS.SubForms_Admin
                                 dgvSubjects.Rows[rowIndex].Cells["ID"].Value = dr["Course_code"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
-                                dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString().ToUpper();
                                 dgvSubjects.Rows[rowIndex].Cells["acad"].Value = dr["Acad"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 

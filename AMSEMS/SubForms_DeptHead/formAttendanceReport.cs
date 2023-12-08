@@ -182,7 +182,7 @@ namespace AMSEMS.SubForms_DeptHead
         {
             string queryData = @"SELECT
                             s.ID AS ID,
-                            UPPER(CONCAT(s.Firstname, ' ', s.Middlename, ' ', UPPER(s.Lastname))) AS Name,
+                            UPPER(CONCAT(s.Lastname, ', ', s.Firstname, ' ', s.Middlename)) AS Name,
                             Description AS Section
                         FROM 
                             tbl_student_accounts s
@@ -192,7 +192,7 @@ namespace AMSEMS.SubForms_DeptHead
                             S.Department = @Dep AND (@sec = 'All' OR sec.Description = @sec)
                         GROUP BY 
                             s.ID, 
-                            UPPER(CONCAT(s.Firstname, ' ', s.Middlename, ' ', UPPER(s.Lastname))),
+                            UPPER(CONCAT(s.Firstname, ' ', s.Middlename, ' ', s.Lastname)),
                             Description
                         ORDER BY 
                             Name";
@@ -212,7 +212,7 @@ namespace AMSEMS.SubForms_DeptHead
                             return;
                         }
                         int id = Convert.ToInt32(dataReader["ID"]);
-                        string name = dataReader["Name"].ToString();
+                        string name = dataReader["Name"].ToString().ToUpper();
                         string section = dataReader["Section"].ToString();
 
                         dgvReport.Rows.Add(id, name, section);

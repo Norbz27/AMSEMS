@@ -187,7 +187,7 @@ namespace AMSEMS.SubForms_Teacher
                             await cnn.OpenAsync();
                             System.Data.DataTable attendance_record = conn.GetAttendanceRecord();
                             System.Data.DataTable class_list = conn.GetClassList();
-
+                            
                             if (attendance_record.Rows.Count > 0 || class_list.Rows.Count > 0)
                             {
                                 foreach (DataRow row in attendance_record.Rows)
@@ -263,6 +263,42 @@ namespace AMSEMS.SubForms_Teacher
                                             }
                                         }
                                     }
+
+                                    string tableName = "tbl_" + classcode;
+                                    string createTableSql = $@"IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName}')
+                                    BEGIN
+                                        CREATE TABLE {tableName} (
+                                            StudentID INT PRIMARY KEY,
+                                            Class_Code NVARCHAR(MAX)
+                                        );
+                                    END;";
+                                    using (SqlCommand command = new SqlCommand(createTableSql, cnn))
+                                    {
+                                        command.ExecuteNonQuery();
+                                    }
+
+                                    // Insert data into the table only if the StudentID doesn't exist
+                                    System.Data.DataTable class_stud_list = conn.GetStudList(tableName);
+                                    string insertSql = $@"
+                                    INSERT INTO {tableName} (StudentID, Class_Code)
+                                    SELECT @StudID, @ClassCode
+                                    WHERE NOT EXISTS (SELECT 1 FROM {tableName} WHERE StudentID = @StudID);";
+
+                                    using (SqlCommand insertCommand = new SqlCommand(insertSql, cnn))
+                                    {
+
+                                        foreach (DataRow row1 in class_stud_list.Rows)
+                                        {
+                                                string studentID = row1["StudentID"].ToString();
+                                                string classCodeValue = row1["Class_Code"].ToString(); ;
+
+                                                insertCommand.Parameters.Clear();
+                                                insertCommand.Parameters.AddWithValue("@StudID", studentID);
+                                                insertCommand.Parameters.AddWithValue("@ClassCode", classCodeValue);
+                                                insertCommand.ExecuteNonQuery();
+                                        }
+                                    }
+
                                 }
                                 MessageBox.Show("Successfully Upload Data.", "Sync Configuration", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }

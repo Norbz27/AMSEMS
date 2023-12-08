@@ -342,9 +342,9 @@ namespace AMSEMS.SubForms_Admin
                     dr.Read();
                     tbID.Text = dr["ID"].ToString();
                     tbRFID.Text = dr["RFID"].ToString();
-                    tbFname.Text = dr["Firstname"].ToString();
-                    tbLname.Text = dr["Lastname"].ToString();
-                    tbMname.Text = dr["Middlename"].ToString();
+                    tbFname.Text = dr["Firstname"].ToString().ToUpper();
+                    tbLname.Text = dr["Lastname"].ToString().ToUpper();
+                    tbMname.Text = dr["Middlename"].ToString().ToUpper();
                     Pass = dr["Password"].ToString();
                     cbProgram.Text = dr["pDes"].ToString();
                     cbSection.Text = dr["sDes"].ToString();

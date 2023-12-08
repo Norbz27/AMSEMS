@@ -58,7 +58,7 @@ namespace AMSEMS.SubForms_DeptHead
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
-                    cbTeacher.Items.Add(dr["Lastname"].ToString());
+                    cbTeacher.Items.Add(dr["Lastname"].ToString().ToUpper());
                 }
                 dr.Close();
                 cn.Close();

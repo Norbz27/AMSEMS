@@ -147,16 +147,17 @@ namespace AMSEMS.SubForms_DeptHead
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     ClrearText();
+                    cbteach.Items.Add("All");
                     cn.Open();
                     cm = new SqlCommand("Select Lastname from tbl_teacher_accounts where Status = 1", cn);
                     cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                     dr = cm.ExecuteReader();
                     while (dr.Read())
                     {
-                        cbteach.Items.Add(dr["Lastname"].ToString());
+                        cbteach.Items.Add(dr["Lastname"].ToString().ToUpper());
                     }
                     dr.Close();
-
+                    cbteach.SelectedIndex = 0;
                     
                 }
             }
@@ -168,6 +169,7 @@ namespace AMSEMS.SubForms_DeptHead
         public void ClrearText()
         {
             cbteach.Items.Clear();
+            dgvSubjects.Rows.Clear();
             cbteach.Text = "";
             tbSearch.Text = String.Empty;
         }
@@ -205,7 +207,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 dgvSubjects.Rows[rowIndex].Cells["ID"].Value = dr["Course_code"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
-                                dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString().ToUpper();
                                 dgvSubjects.Rows[rowIndex].Cells["acad"].Value = dr["Acad"].ToString();
 
                                 // Populate your control column here (change "ControlColumn" to your actual column name)
@@ -337,6 +339,8 @@ namespace AMSEMS.SubForms_DeptHead
 
             if (!string.IsNullOrEmpty(filtertbl))
             {
+                ptbLoading.Visible = true;
+                await Task.Delay(3000);
                 // Get the selected items from all ComboBoxes
                 string selectedItemET = cbteach.Text;
 
@@ -346,7 +350,7 @@ namespace AMSEMS.SubForms_DeptHead
 
                 // Construct the query based on the selected descriptions
                 string query = "Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID " +
-                    "where (@Teacher IS NULL OR t.Lastname = @Teacher) AND (@acadlevel IS NULL OR alAcademic_Level_Description = @acadlevel)";
+                    "where (@Teacher IS NULL OR t.Lastname = @Teacher) AND (@acadlevel = 'All' OR al.Academic_Level_Description = @acadlevel)";
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -363,6 +367,10 @@ namespace AMSEMS.SubForms_DeptHead
                             dgvSubjects.Rows.Clear();
                             while (dr.Read())
                             {
+                                if (cancellationTokenSource.Token.IsCancellationRequested)
+                                {
+                                    return;
+                                }
                                 // Add a row and set the checkbox column value to false (unchecked)
                                 int rowIndex = dgvSubjects.Rows.Add(false);
 
@@ -371,6 +379,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 dgvSubjects.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["acad"].Value = dr["Acad"].ToString();
 
                                 // Populate your control column here (change "ControlColumn" to your actual column name)
                                 dgvSubjects.Rows[rowIndex].Cells["option"].Value = option.Image;
@@ -380,6 +389,7 @@ namespace AMSEMS.SubForms_DeptHead
                 }
             }
             UseWaitCursor = false;
+            ptbLoading.Visible = false;
         }
         private async Task<string> GetSelectedItemDescriptionAsync(string selectedItem, string tbl)
         {
@@ -426,7 +436,6 @@ namespace AMSEMS.SubForms_DeptHead
         {
             ClrearText();
             displayFilter();
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1 AND al.Academic_Level_Description = @acadlevel");
         }
         private void tbSearch_TextChanged(object sender, EventArgs e)
         {
@@ -513,63 +522,79 @@ namespace AMSEMS.SubForms_DeptHead
             // Get the text of the clicked menu item
             string menuItemText = clickedMenuItem.Text;
 
-            // Get the table name and ID from the Tag property
-            Tuple<string, int> tagInfo = (Tuple<string, int>)clickedMenuItem.Tag;
-            string column = tagInfo.Item1;
-            int itemId = tagInfo.Item2;
-
-            // Check if at least one row is selected
-            bool hasSelectedRow = false;
-
-            // Iterate through the DataGridView rows to find selected rows
-            foreach (DataGridViewRow row in dgvSubjects.Rows)
+            // Check if the Tag property is a Tuple<string, string>
+            if (clickedMenuItem.Tag is Tuple<string, string> tagInfo)
             {
-                // Check if the "Select" checkbox is checked in the current row
-                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
-                if (chk.Value != null && (bool)chk.Value)
+                // Convert the string value to an int if necessary
+                int itemId;
+                if (int.TryParse(tagInfo.Item2, out itemId))
                 {
-                    hasSelectedRow = true; // Set the flag to true if at least one row is selected
-                    break; // Exit the loop as soon as the first selected row is found
-                }
-            }
+                    // Now you can use itemId as an int
+                    string column = tagInfo.Item1;
 
-            if (hasSelectedRow)
-            {
-                // Ask for confirmation from the user
-                DialogResult result = MessageBox.Show("Update Accounts Info?", "Confirm Update", MessageBoxButtons.YesNo);
-                if (result == DialogResult.Yes)
-                {
-                    // Create a list to store the rows to be removed
-                    List<DataGridViewRow> rows = new List<DataGridViewRow>();
+                    // Check if at least one row is selected
+                    bool hasSelectedRow = false;
 
-                    // Iterate through the DataGridView rows to update selected rows
+                    // Iterate through the DataGridView rows to find selected rows
                     foreach (DataGridViewRow row in dgvSubjects.Rows)
                     {
                         // Check if the "Select" checkbox is checked in the current row
                         DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
                         if (chk.Value != null && (bool)chk.Value)
                         {
-                            // Get the teacher ID or relevant data from the row
-                            string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
-
-                            // Call your UpdateSubjectStatus method to update the record
-                            bool success = UpdateSubjectInfo(id, itemId, column);
-
-                            if (success)
-                            {
-                                // Add the row to the list of rows to be removed
-                                rows.Add(row);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Failed to update record with ID: " + id);
-                            }
+                            hasSelectedRow = true; // Set the flag to true if at least one row is selected
+                            break; // Exit the loop as soon as the first selected row is found
                         }
                     }
-                    displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1 AND al.Academic_Level_Description = @acadlevel");
+
+                    if (hasSelectedRow)
+                    {
+                        // Ask for confirmation from the user
+                        DialogResult result = MessageBox.Show("Update Accounts Info?", "Confirm Update", MessageBoxButtons.YesNo);
+                        if (result == DialogResult.Yes)
+                        {
+                            // Create a list to store the rows to be removed
+                            List<DataGridViewRow> rows = new List<DataGridViewRow>();
+
+                            // Iterate through the DataGridView rows to update selected rows
+                            foreach (DataGridViewRow row in dgvSubjects.Rows)
+                            {
+                                // Check if the "Select" checkbox is checked in the current row
+                                DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)row.Cells["Select"]; // Replace "Select" with the actual checkbox column name
+                                if (chk.Value != null && (bool)chk.Value)
+                                {
+                                    // Get the teacher ID or relevant data from the row
+                                    string id = row.Cells["ID"].Value.ToString(); // Replace "ID" with the actual column name
+
+                                    // Call your UpdateSubjectStatus method to update the record
+                                    bool success = UpdateSubjectInfo(id, itemId, column);
+
+                                    if (success)
+                                    {
+                                        // Add the row to the list of rows to be removed
+                                        rows.Add(row);
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Failed to update record with ID: " + id);
+                                    }
+                                }
+                            }
+                            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1 AND al.Academic_Level_Description = @acadlevel");
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Unable to convert Item2 to int.");
                 }
             }
+            else
+            {
+                MessageBox.Show("Tag property is not of type Tuple<string, string>.");
+            }
         }
+
         private bool UpdateSubjectInfo(string id, int itemID, string column)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))

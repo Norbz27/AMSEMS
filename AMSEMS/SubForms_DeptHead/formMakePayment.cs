@@ -102,7 +102,7 @@ namespace AMSEMS.SubForms_DeptHead
                             double balance = (dr["Remaining_Balance"] == DBNull.Value) ? 0 : Convert.ToDouble(dr["Remaining_Balance"]);
                             double amount_paid = (dr["Total_Payment_Amount"] == DBNull.Value) ? 0 : Convert.ToDouble(dr["Total_Payment_Amount"]);
 
-                            lblName.Text = name;
+                            lblName.Text = name.ToUpper();
                             lblBalanceFee.Text = "₱ " + balance.ToString("F2");
                             lblAmountPaid.Text = "₱ " + amount_paid.ToString("F2");
                             btnPay.Enabled = true;

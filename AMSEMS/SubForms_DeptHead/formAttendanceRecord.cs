@@ -362,7 +362,7 @@ namespace AMSEMS.SubForms_DeptHead
                                             string formattedDate = Dt.Value.ToString("MM-dd-yyyy");
 
                                             dgvRecord.Rows[rowIndex].Cells["ID"].Value = dr["id"].ToString();
-                                            dgvRecord.Rows[rowIndex].Cells["name"].Value = name;
+                                            dgvRecord.Rows[rowIndex].Cells["name"].Value = name.ToUpper();
                                             dgvRecord.Rows[rowIndex].Cells["section"].Value = dr["secdes"].ToString();
                                             dgvRecord.Rows[rowIndex].Cells["event_date"].Value = formattedDate;
                                             dgvRecord.Rows[rowIndex].Cells["penalty_am"].Value = lblAmPenaltyFee.Text;
@@ -403,7 +403,7 @@ namespace AMSEMS.SubForms_DeptHead
                                         string formattedDate = Dt.Value.ToString("MM-dd-yyyy");
 
                                         dgvRecord.Rows[rowIndex].Cells["ID"].Value = dr["id"].ToString();
-                                        dgvRecord.Rows[rowIndex].Cells["name"].Value = name;
+                                        dgvRecord.Rows[rowIndex].Cells["name"].Value = name.ToUpper();
                                         dgvRecord.Rows[rowIndex].Cells["section"].Value = dr["secdes"].ToString();
                                         dgvRecord.Rows[rowIndex].Cells["event_date"].Value = formattedDate;
                                         dgvRecord.Rows[rowIndex].Cells["penalty_am"].Value = lblAmPenaltyFee.Text;

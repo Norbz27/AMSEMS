@@ -192,8 +192,8 @@ namespace AMSEMS.SubForms_DeptHead
 
 
                         dgvBalFees.Rows[rowIndex].Cells["ID"].Value = dr["Student_ID"].ToString();
-                        dgvBalFees.Rows[rowIndex].Cells["lname"].Value = dr["lname"].ToString();
-                        dgvBalFees.Rows[rowIndex].Cells["fname"].Value = dr["fname"].ToString();
+                        dgvBalFees.Rows[rowIndex].Cells["lname"].Value = dr["lname"].ToString().ToUpper();
+                        dgvBalFees.Rows[rowIndex].Cells["fname"].Value = dr["fname"].ToString().ToUpper();
                         dgvBalFees.Rows[rowIndex].Cells["section"].Value = dr["section"].ToString();
                         dgvBalFees.Rows[rowIndex].Cells["balancefee"].Value = "₱ " + Convert.ToDecimal(balance).ToString("F2");
                         dgvBalFees.Rows[rowIndex].Cells["paidfee"].Value = "₱ " + Convert.ToDecimal(amount_paid).ToString("F2");

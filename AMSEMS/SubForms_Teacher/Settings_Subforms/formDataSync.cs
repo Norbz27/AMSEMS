@@ -1,7 +1,9 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
 using System.ComponentModel;
+using System.Data;
 using System.Data.SqlClient;
+using System.Data.SQLite;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -162,6 +164,22 @@ namespace AMSEMS.SubForms_Teacher
                             }
                             dr.Close();
 
+                            cm = new SqlCommand("SELECT CLass_Code, Section_ID, Teacher_ID, Course_Code, School_Year, Semester, Acad_Level FROM tbl_class_list", cn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertClassListData(dr["CLass_Code"].ToString(), dr["Section_ID"].ToString(), dr["Teacher_ID"].ToString(), dr["Course_Code"].ToString(), dr["School_Year"].ToString(), dr["Semester"].ToString(), dr["Acad_Level"].ToString());
+                            }
+                            dr.Close();
+
+                            cm = new SqlCommand("SELECT Class_Code, Attendance_date, Student_ID, Student_Status FROM tbl_subject_attendance;", cn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertAttendancetData(dr["CLass_Code"].ToString(), dr["Attendance_date"].ToString(), dr["Student_ID"].ToString(), dr["Student_Status"].ToString());
+                            }
+                            dr.Close();
+
                             MessageBox.Show("Successfully Sync Data.", "Sync Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
@@ -177,6 +195,43 @@ namespace AMSEMS.SubForms_Teacher
                 ptLoading.Visible = false;
             }
         }
+        public static DataTable GetStudList(string tblname)
+        {
+            DataTable dataTable = new DataTable();
+
+            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+            {
+                connection.Open();
+
+                // Check if the table exists
+                string checkTableQuery = $"SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tblname}';";
+
+                using (SqlCommand checkTableCommand = new SqlCommand(checkTableQuery, connection))
+                {
+                    int tableCount = Convert.ToInt32(checkTableCommand.ExecuteScalar());
+
+                    // If the table does not exist, return null
+                    if (tableCount == 0)
+                    {
+                        return null;
+                    }
+                }
+
+                // Table exists, proceed with the original query
+                string query = $"SELECT * FROM {tblname}";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+
+            return dataTable;
+        }
+
         public static bool CheckForInternetConnection()
         {
             try

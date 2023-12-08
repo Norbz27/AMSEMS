@@ -175,7 +175,7 @@ namespace AMSEMS.SubForms_DeptHead
             }
             try
             {
-                query = query + " ORDER BY DateTime DESC;";
+                query = query + " ORDER BY Lastname;";
                 dgvStudents.Rows.Clear();
                 ptbLoading.Visible = true;
                 await Task.Delay(2000);
@@ -465,8 +465,8 @@ namespace AMSEMS.SubForms_DeptHead
                                 // Populate other columns, starting from index 1
                                 dgvStudents.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
-                                dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
-                                dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                                dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString().ToUpper();
+                                dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString().ToUpper();
                                 dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
@@ -546,8 +546,8 @@ namespace AMSEMS.SubForms_DeptHead
                             // Populate other columns, starting from index 1
                             dgvStudents.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString();
-                            dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString();
+                            dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString().ToUpper();
+                            dgvStudents.Rows[rowIndex].Cells["Lname"].Value = dr["Lastname"].ToString().ToUpper();
                             dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
                             dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();

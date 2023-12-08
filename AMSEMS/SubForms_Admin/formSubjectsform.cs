@@ -212,7 +212,7 @@ namespace AMSEMS.SubForms_Admin
                     tbCcode.Text = dr["Course_code"].ToString();
                     tbCourseDes.Text = dr["Course_Description"].ToString();
                     ndUnits.Text = dr["Units"].ToString();
-                    cbTeacher.Text = dr["teach"].ToString();
+                    cbTeacher.Text = dr["teach"].ToString().ToUpper();
                     cbAcadLevel.Text = dr["Acad"].ToString();
                     tbStatus.Text = dr["stDes"].ToString();
 

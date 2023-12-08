@@ -108,10 +108,10 @@ namespace AMSEMS.SubForms_DeptHead
                     // Step 4: Bind Data to Chart
                     if (highestRecentAttendeesRow != null)
                     {
-                        string eventName = highestRecentAttendeesRow["Event_Name"].ToString();
-                        string attendees = highestRecentAttendeesRow["RecentAttendees"].ToString();
-                        string totalStud = highestRecentAttendeesRow["TotalStudentsInDepartment"].ToString();
-                        double percentageRecentAttendees = Convert.ToDouble(highestRecentAttendeesRow["PercentageRecentAttendees"]);
+                        string eventName = highestRecentAttendeesRow["Event_Name"] != DBNull.Value ? highestRecentAttendeesRow["Event_Name"].ToString() : "";
+                        string attendees = highestRecentAttendeesRow["RecentAttendees"] != DBNull.Value ? highestRecentAttendeesRow["RecentAttendees"].ToString() : "0";
+                        string totalStud = highestRecentAttendeesRow["TotalStudentsInDepartment"] != DBNull.Value ? highestRecentAttendeesRow["TotalStudentsInDepartment"].ToString() : "0";
+                        double percentageRecentAttendees = Convert.ToDouble(highestRecentAttendeesRow["PercentageRecentAttendees"] != DBNull.Value ? highestRecentAttendeesRow["PercentageRecentAttendees"].ToString() : "0");
 
                         // Calculate the remaining percentage
                         double remainingPercentage = 100 - percentageRecentAttendees;
@@ -185,9 +185,9 @@ namespace AMSEMS.SubForms_DeptHead
                     // Display the data on chart3
                     if (dt.Rows.Count > 0)
                     {
-                        double totalStudents = Convert.ToDouble(dt.Rows[0]["Total_Students"]);
-                        double averagePercentagePaid = Convert.ToDouble(dt.Rows[0]["Average_PercentagePaid"]);
-                        double paidstud = Convert.ToDouble(dt.Rows[0]["Paid_Students"]);
+                        double totalStudents = Convert.ToDouble(dt.Rows[0]["Total_Students"] != DBNull.Value ? dt.Rows[0]["Total_Students"].ToString() : "0");
+                        double averagePercentagePaid = Convert.ToDouble(dt.Rows[0]["Average_PercentagePaid"] != DBNull.Value ? dt.Rows[0]["Average_PercentagePaid"].ToString() : "0");
+                        double paidstud = Convert.ToDouble(dt.Rows[0]["Paid_Students"] != DBNull.Value ? dt.Rows[0]["Paid_Students"].ToString() : "0");
 
                         lblPaidStud.Text = paidstud.ToString();
                         // Add data points to the chart

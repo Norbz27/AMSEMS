@@ -140,7 +140,7 @@ namespace AMSEMS.SubForms_DeptHead
                             double amount_paid = (dr["Total_Payment_Amount"] == DBNull.Value) ? 0 : Convert.ToDouble(dr["Total_Payment_Amount"]);
 
                             lblID.Text = stud_id;
-                            lblName.Text = name;
+                            lblName.Text = name.ToUpper();
                             lblSection.Text = dr["secdes"].ToString();
                             lblBalanceFee.Text = "₱ " + balance.ToString("F2");
                             lblAmountPaid.Text = "₱ " + amount_paid.ToString("F2");

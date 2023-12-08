@@ -17,6 +17,7 @@ using static Microsoft.IO.RecyclableMemoryStreamManager;
 using System.IO;
 using System.Data.SqlClient;
 using System.Net.NetworkInformation;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace AMSEMS.SubForms_Teacher
 {
@@ -109,6 +110,33 @@ namespace AMSEMS.SubForms_Teacher
                 row.Visible = rowVisible;
             }
         }
+        private void tbSearchstudRep_TextChanged(object sender, EventArgs e)
+        {
+            string searchKeyword = tbSearchstudRep.Text.Trim();
+            ApplySearchFilterRep(searchKeyword);
+        }
+
+        private void ApplySearchFilterRep(string searchKeyword)
+        {
+            // Loop through each row in the DataGridView
+            foreach (DataGridViewRow row in dgvAttendanceReport.Rows)
+            {
+                bool rowVisible = false;
+
+                // Loop through each cell in the row
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString().IndexOf(searchKeyword, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        rowVisible = true;
+                        break;
+                    }
+                }
+
+                // Show or hide the row based on search result
+                row.Visible = rowVisible;
+            }
+        }
         private void btnSave1_Click(object sender, EventArgs e)
         {
             btnCancel1.Visible = false;
@@ -151,11 +179,12 @@ namespace AMSEMS.SubForms_Teacher
             using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
             {
                 con.Open();
-                string query = "SELECT s.Course_Code AS Ccode, Course_Description, sec.Description AS secdes,Image FROM tbl_subjects s RIGHT JOIN tbl_class_list cl ON s.Course_code = cl.Course_Code LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE s.Course_Code = @Ccode";
+                string query = "SELECT s.Course_Code AS Ccode, Course_Description, sec.Description AS secdes,Image FROM tbl_subjects s RIGHT JOIN tbl_class_list cl ON s.Course_code = cl.Course_Code LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE s.Course_Code = @Ccode AND cl.Class_Code = @ClCode";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
                     command.Parameters.AddWithValue("@Ccode", ccode);
+                    command.Parameters.AddWithValue("@ClCode", classcode);
                     using (SQLiteDataReader rd = command.ExecuteReader())
                     {
                         if (rd.Read())
@@ -579,7 +608,7 @@ namespace AMSEMS.SubForms_Teacher
             {
                 con.Open();
                 string tblname = "tbl_" + classcode;
-                string query = $"SELECT RFID, StudentID, UPPER(s.Lastname || ', ' || s.Firstname || ' ' || s.Middlename) AS Name FROM {tblname} cl LEFT JOIN tbl_students_account s ON cl.StudentID = s.ID";
+                string query = $"SELECT RFID, StudentID, UPPER(s.Lastname || ', ' || s.Firstname || ' ' || s.Middlename) AS Name FROM {tblname} cl LEFT JOIN tbl_students_account s ON cl.StudentID = s.ID ORDER BY Name";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
@@ -599,10 +628,10 @@ namespace AMSEMS.SubForms_Teacher
                 }
             }
         }
-        public void checkRFID()
+        public async void checkRFID()
         {
             string rfid = tbRFID.Text;
-
+            //MessageBox.Show(rfid);
             // Check if tbRFID is empty
             if (string.IsNullOrWhiteSpace(rfid))
             {
@@ -625,14 +654,14 @@ namespace AMSEMS.SubForms_Teacher
                     // Mark the corresponding cell in the newly added column with a "P"
                     row.Cells[columnIndex].Value = "P";
 
-                    // Clear the tbRFID text only after processing the RFID check
-                    tbRFID.Text = String.Empty;
-
                     // Optionally, break out of the loop if you only want to mark the first occurrence
                     break;
                 }
             }
-            
+
+            await Task.Delay(1000);
+            // Clear the tbRFID text only after processing the RFID check
+            tbRFID.Text = String.Empty;
         }
         public void displayStudInfo()
         {
@@ -856,7 +885,7 @@ namespace AMSEMS.SubForms_Teacher
                 selectedColumnIndex = e.ColumnIndex;
 
                 // Display the context menu at the current mouse position
-                CMSOptions.Show(Cursor.Position);
+                CMSOptions.Show(System.Windows.Forms.Cursor.Position);
             }
         }
 
@@ -1136,16 +1165,52 @@ namespace AMSEMS.SubForms_Teacher
                                             }
                                         }
                                     }
+
+                                    string tableName = "tbl_" + classcode;
+                                    string createTableSql = $@"IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName}')
+                                    BEGIN
+                                        CREATE TABLE {tableName} (
+                                            StudentID INT PRIMARY KEY,
+                                            Class_Code NVARCHAR(MAX)
+                                        );
+                                    END;";
+                                    using (SqlCommand command = new SqlCommand(createTableSql, cnn))
+                                    {
+                                        command.ExecuteNonQuery();
+                                    }
+
+                                    // Insert data into the table only if the StudentID doesn't exist
+                                    System.Data.DataTable class_stud_list = conn.GetStudListSingle(tableName, classcode);
+                                    string insertSql = $@"
+                                    INSERT INTO {tableName} (StudentID, Class_Code)
+                                    SELECT @StudID, @ClassCode
+                                    WHERE NOT EXISTS (SELECT 1 FROM {tableName} WHERE StudentID = @StudID);";
+
+                                    using (SqlCommand insertCommand = new SqlCommand(insertSql, cnn))
+                                    {
+                                        insertCommand.CommandText = insertSql;
+
+                                        foreach (DataRow row1 in class_stud_list.Rows)
+                                        {
+                                            string studentID = row1["StudentID"].ToString();
+                                            string classCodeValue = row1["Class_Code"].ToString(); ;
+
+                                            insertCommand.Parameters.Clear();
+                                            insertCommand.Parameters.AddWithValue("@StudID", studentID);
+                                            insertCommand.Parameters.AddWithValue("@ClassCode", classCodeValue);
+                                            insertCommand.ExecuteNonQuery();
+                                        }
+                                    }
                                 }
                                 MessageBox.Show("Successfully Upload Data.", "Sync Configuration", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
-                }
+                    }
                     catch (Exception ex)
                     {
-                    MessageBox.Show(ex.Message);
+                        MessageBox.Show(ex.Message);
+                    }
                 }
-            }
                 else
                 {
                     MessageBox.Show("No internet connection available. Please check your network connection.");
@@ -1169,6 +1234,95 @@ namespace AMSEMS.SubForms_Teacher
             catch
             {
                 return false;
+            }
+        }
+        public void displayChart()
+        {
+            chart1.Series.Clear();
+            chart1.Titles.Clear();
+
+            using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
+            {
+                con.Open();
+
+                // Fetch distinct attendance dates
+                string dateQuery = @"
+            SELECT DISTINCT Attendance_date
+            FROM tbl_subject_attendance
+            WHERE Class_Code = @Class_Code";
+
+                using (SQLiteCommand dateCommand = new SQLiteCommand(dateQuery, con))
+                {
+                    dateCommand.Parameters.AddWithValue("@Class_Code", classcode);
+
+                    using (SQLiteDataReader dateReader = dateCommand.ExecuteReader())
+                    {
+                        while (dateReader.Read())
+                        {
+                            string attendanceDate = dateReader["Attendance_date"].ToString();
+
+                            // Dynamically add series to the existing Chart for each attendance date
+                            System.Windows.Forms.DataVisualization.Charting.Series series = new System.Windows.Forms.DataVisualization.Charting.Series(attendanceDate);
+                            series.ChartType = SeriesChartType.Column;
+                            chart1.Series.Add(series);
+                        }
+                    }
+                }
+
+                // Fetch student attendance details
+                string attendanceQuery = @"SELECT sa.Student_ID,
+                                    sa.Attendance_date,
+                                    sa.Student_Status
+                                    FROM tbl_subject_attendance sa
+                                    WHERE sa.Class_Code = @Class_Code
+                                    ORDER BY sa.Attendance_date, sa.Student_ID";
+
+                using (SQLiteCommand attendanceCommand = new SQLiteCommand(attendanceQuery, con))
+                {
+                    attendanceCommand.Parameters.AddWithValue("@Class_Code", classcode);
+
+                    using (SQLiteDataReader rd = attendanceCommand.ExecuteReader())
+                    {
+                        while (rd.Read())
+                        {
+                            string studid = rd["Student_ID"].ToString();
+                            string attendanceDate = rd["Attendance_date"].ToString();
+                            string studentStatus = rd["Student_Status"].ToString();
+
+                            // Find the corresponding series in the existing Chart
+                            System.Windows.Forms.DataVisualization.Charting.Series series = chart1.Series[attendanceDate];
+
+                            // Add a data point to the series for each student
+                            series.Points.AddXY(studid, (studentStatus == "P") ? 1 : 0);
+
+                            // Set the data point label
+                            DataPoint dataPoint = series.Points.Last();
+                            dataPoint.Label = studentStatus;
+
+                            // Increment the total classes counter for each student
+                            DataPoint totalDataPoint = null;
+                            foreach (DataPoint point in chart1.Series["Total Classes"].Points)
+                            {
+                                if (point.AxisLabel == studid)
+                                {
+                                    totalDataPoint = point;
+                                    break;
+                                }
+                            }
+                            if (totalDataPoint == null)
+                            {
+                                totalDataPoint = new DataPoint();
+                                totalDataPoint.AxisLabel = studid;
+                                totalDataPoint.SetValueY(1);
+                                chart1.Series["Total Classes"].Points.Add(totalDataPoint);
+                            }
+                            else
+                            {
+                                totalDataPoint.SetValueY(totalDataPoint.YValues[0] + 1);
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -1242,6 +1396,5 @@ namespace AMSEMS.SubForms_Teacher
                 form.displaySectionOfSubject();
             }
         }
-
     }
 }
