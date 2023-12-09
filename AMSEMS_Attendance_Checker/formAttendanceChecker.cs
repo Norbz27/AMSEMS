@@ -120,44 +120,52 @@ namespace AMSEMS_Attendance_Checker
             DateTime dateTimeNow = DateTime.Now;
             string formattedDate = dateTimeNow.ToString("M/d/yyyy");
             string period = dateTimeNow.Hour < 12 ? "AM" : "PM";
+            try
+            {
             DataTable attendance = sQLite_Connection.GetAttendanceRecord(event_code, period, attendance_stat, formattedDate);
 
             DataTable attendancePics = sQLite_Connection.GetAttendanceRecordDone(event_code, period, attendance_stat, formattedDate);
 
-            if (attendancePics.Rows.Count != 0)
-            {
-                int displayedCount = 0;
-                for (int i = attendancePics.Rows.Count - 1; i >= 1; i--)
+                if (attendancePics.Rows.Count != 0)
                 {
-                    DataRow row = attendancePics.Rows[i];
-                    Image pic = null;
-                    string studentName = row["Name"].ToString();
-
-                    if (row["pic"] is Image image)
+                    int displayedCount = 0;
+                    for (int i = attendancePics.Rows.Count - 1; i >= 1; i--)
                     {
-                        pic = image;
-                    }
+                        DataRow row = attendancePics.Rows[i];
+                        Image pic = null;
+                        string studentName = row["Name"].ToString();
 
-                    doneAttendanceApperance(studentName, pic);
-                    displayedCount++;
+                        if (row["pic"] is Image image)
+                        {
+                            pic = image;
+                        }
+
+                        doneAttendanceApperance(studentName, pic);
+                        displayedCount++;
+                    }
+                }
+
+                foreach (DataRow row in attendance.Rows)
+                {
+                    // Create a new DataGridViewRow
+                    DataGridViewRow newRow = new DataGridViewRow();
+
+                    // Add cells to the row, including the "Profile_pic" cell
+                    newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["ID"] });
+                    newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Name"] });
+                    newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["secdes"] });
+                    newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["depdes"] });
+                    newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Date"] });
+                    newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Time"] });
+
+                    // Add the row to the DataGridView
+                    dgvAttendance.Rows.Add(newRow);
                 }
             }
-
-            foreach (DataRow row in attendance.Rows)
+            catch (Exception ex)
             {
-                // Create a new DataGridViewRow
-                DataGridViewRow newRow = new DataGridViewRow();
-
-                // Add cells to the row, including the "Profile_pic" cell
-                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["ID"] });
-                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Name"] });
-                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["secdes"] });
-                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["depdes"] });
-                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Date"] });
-                newRow.Cells.Add(new DataGridViewTextBoxCell { Value = row["Time"] });
-
-                // Add the row to the DataGridView
-                dgvAttendance.Rows.Add(newRow);
+                // Log or print the exception message
+                Console.WriteLine("Error fetching attendance records: " + ex.Message);
             }
         }
         private void ProcessScannedData(string data)
