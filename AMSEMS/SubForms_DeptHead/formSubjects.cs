@@ -1,11 +1,16 @@
-﻿using System;
+﻿using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace AMSEMS.SubForms_DeptHead
 {
@@ -659,7 +664,145 @@ namespace AMSEMS.SubForms_DeptHead
                 }
             }
         }
+        private void btnExportPDF_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ExportToPDF(dgvSubjects, saveFileDialog.FileName);
+                MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                Process.Start(saveFileDialog.FileName);
+            }
+        }
+        void ExportToPDF(DataGridView dataGridView, string filePath)
+        {
+            Document document = new Document();
+            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+
+            document.Open();
+
+            // Customizing the font and size
+            iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
+            iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+
+            // Add title "List of Students:"
+            Paragraph titleParagraph = new Paragraph("List of Subjects:", headerFont);
+            titleParagraph.Alignment = Element.ALIGN_CENTER;
+            document.Add(titleParagraph);
+
+            // Customizing the table appearance
+            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1); // Exclude the last column
+            pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
+            pdfTable.SpacingBefore = 10f; // Add space before the table
+            pdfTable.DefaultCell.Padding = 3; // Cell padding
+
+
+            // Set column widths for specific columns (2nd and 6th columns) to autosize
+            float[] columnWidths = new float[dataGridView.Columns.Count - 1];
+            columnWidths[0] = 0; // No column width
+            columnWidths[1] = 70; // ID column width
+            columnWidths[2] = 70; // First Name column autosize
+            columnWidths[3] = 70; // Last Name column autosize
+            columnWidths[4] = 45; // Status column width
+            pdfTable.SetWidths(columnWidths);
+
+            foreach (DataGridViewColumn column in dataGridView.Columns)
+            {
+                if (column.Index < dataGridView.Columns.Count - 1) // Exclude the last column
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
+                    cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
+                    pdfTable.AddCell(cell);
+                }
+            }
+
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                for (int i = 0; i < row.Cells.Count - 1; i++) // Exclude the last column
+                {
+                    PdfPCell pdfCell = new PdfPCell(new Phrase(row.Cells[i].Value.ToString(), cellFont));
+                    pdfTable.AddCell(pdfCell);
+                }
+            }
+
+            document.Add(pdfTable);
+            document.Close();
+        }
+        private void btnExpExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Excel Files|*.xlsx";
+                    saveFileDialog.Title = "Save As Excel File";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string filePath = saveFileDialog.FileName;
+
+                        // Create a new Excel application
+                        Excel.Application excelApp = new Excel.Application();
+                        excelApp.Visible = false; // You can set this to true for debugging purposes
+
+                        // Create a new Excel workbook
+                        Excel.Workbook workbook = excelApp.Workbooks.Add();
+
+                        // Create a new Excel worksheet
+                        Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets.Add();
+
+                        // Customizing the table appearance
+                        Excel.Range tableRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[dgvSubjects.Rows.Count + 1, dgvSubjects.Columns.Count - 2]]; // Exclude the first and last columns
+
+                        int excelColumnIndex = 1; // Start from the first Excel column
+                        foreach (DataGridViewColumn column in dgvSubjects.Columns)
+                        {
+                            if (column.Index > 0 && column.Index < dgvSubjects.Columns.Count - 1) // Skip the first and last columns
+                            {
+                                worksheet.Cells[1, excelColumnIndex] = column.HeaderText; // Set the header in the first row
+                                worksheet.Cells[1, excelColumnIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196)); // Background color: #4472C4
+                                worksheet.Cells[1, excelColumnIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White); // Text color: White
+                                excelColumnIndex++;
+                            }
+                        }
+
+                        int rowIndex = 2; // Start from the second row
+                        foreach (DataGridViewRow row in dgvSubjects.Rows)
+                        {
+                            excelColumnIndex = 1; // Reset Excel column index for each row
+                            for (int i = 1; i < row.Cells.Count - 1; i++) // Skip the first and last cell in each row
+                            {
+                                worksheet.Cells[rowIndex, excelColumnIndex] = row.Cells[i].Value.ToString();
+                                excelColumnIndex++;
+                            }
+                            rowIndex++;
+                        }
+
+                        // Apply the "Blue, Table Style Medium 2" table style
+                        tableRange.Worksheet.ListObjects.Add(Excel.XlListObjectSourceType.xlSrcRange, tableRange, null, Excel.XlYesNoGuess.xlYes, null).TableStyle = "TableStyleMedium2";
+
+                        // Save the Excel file
+                        workbook.SaveAs(filePath);
+
+                        // Close Excel and release resources
+                        workbook.Close();
+                        excelApp.Quit();
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+
+                        MessageBox.Show("Data exported to Excel successfully.", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
         private void formSubjects_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (backgroundWorker.IsBusy)

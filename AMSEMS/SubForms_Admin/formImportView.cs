@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_Admin
@@ -401,7 +402,7 @@ namespace AMSEMS.SubForms_Admin
             return password.ToString();
         }
 
-        private void btnImport_Click(object sender, EventArgs e)
+        private async void btnImport_Click(object sender, EventArgs e)
         {
             try
             {
@@ -416,6 +417,7 @@ namespace AMSEMS.SubForms_Admin
                         tbFilePath.Text = selectedFilePath;
                         progressBar.Style = ProgressBarStyle.Marquee;
                         progressBar.Visible = true;
+                        await Task.Delay(2000);
                         backgroundWorker.RunWorkerAsync(openFileDialogEXL.FileName);
                     }
                 }
@@ -426,7 +428,58 @@ namespace AMSEMS.SubForms_Admin
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //private void btnImport_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        using (OpenFileDialog openFileDialogEXL = new OpenFileDialog())
+        //        {
+        //            openFileDialogEXL.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+        //            if (openFileDialogEXL.ShowDialog() == DialogResult.OK)
+        //            {
+        //                string selectedFilePath = openFileDialogEXL.FileName;
 
+        //                Check the number of columns in the selected Excel file
+        //                int columnCount = GetExcelColumnCount(selectedFilePath);
+
+        //                if (columnCount == 3)
+        //                {
+        //                    Pass the selectedFilePath to Form2 and show Form2
+        //                    tbFilePath.Text = selectedFilePath;
+        //                    progressBar.Style = ProgressBarStyle.Marquee;
+        //                    progressBar.Visible = true;
+        //                    backgroundWorker.RunWorkerAsync(selectedFilePath);
+        //                }
+        //                else
+        //                {
+        //                    MessageBox.Show("The selected Excel file must have exactly 3 columns.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Handle any exceptions that may occur during file loading or data processing
+        //        MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
+        //private int GetExcelColumnCount(string filePath)
+        //{
+        //    Excel.Application excelApp = new Excel.Application();
+        //    Excel.Workbook workbook = excelApp.Workbooks.Open(filePath);
+        //    Excel.Worksheet worksheet = workbook.Sheets[1];
+
+        //    int columnCount = worksheet.UsedRange.Columns.Count;
+
+        //    // Close Excel and release resources
+        //    workbook.Close();
+        //    excelApp.Quit();
+        //    System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
+        //    System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+        //    System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+
+        //    return columnCount;
+        //}
 
         private void tbFilePath_TextChanged(object sender, EventArgs e)
         {

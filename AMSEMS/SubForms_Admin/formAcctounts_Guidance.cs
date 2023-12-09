@@ -884,6 +884,10 @@ namespace AMSEMS.SubForms_Admin
                     {
                         string filePath = saveFileDialog.FileName;
 
+
+                        // Your SQL query to retrieve data from the database
+                        string query = "SELECT ID, UPPER(Firstname) as Firstname, UPPER(Middlename) as Middlename, UPPER(Lastname) as Lastname FROM tbl_guidance_accounts";
+
                         // Create a new Excel application
                         Excel.Application excelApp = new Excel.Application();
                         excelApp.Visible = false; // You can set this to true for debugging purposes
@@ -895,30 +899,35 @@ namespace AMSEMS.SubForms_Admin
                         Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets.Add();
 
                         // Customizing the table appearance
-                        Excel.Range tableRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[dgvGuidance.Rows.Count + 1, dgvGuidance.Columns.Count - 2]]; // Exclude the first and last columns
+                        Excel.Range tableRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[1, 4]]; // Assuming there are four columns
 
-                        int excelColumnIndex = 1; // Start from the first Excel column
-                        foreach (DataGridViewColumn column in dgvGuidance.Columns)
+                        // Execute the query and populate the Excel worksheet
+                        using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
                         {
-                            if (column.Index > 0 && column.Index < dgvGuidance.Columns.Count - 1) // Skip the first and last columns
+                            connection.Open();
+                            using (SqlCommand command = new SqlCommand(query, connection))
                             {
-                                worksheet.Cells[1, excelColumnIndex] = column.HeaderText; // Set the header in the first row
-                                worksheet.Cells[1, excelColumnIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196)); // Background color: #4472C4
-                                worksheet.Cells[1, excelColumnIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White); // Text color: White
-                                excelColumnIndex++;
-                            }
-                        }
+                                SqlDataReader reader = command.ExecuteReader();
 
-                        int rowIndex = 2; // Start from the second row
-                        foreach (DataGridViewRow row in dgvGuidance.Rows)
-                        {
-                            excelColumnIndex = 1; // Reset Excel column index for each row
-                            for (int i = 1; i < row.Cells.Count - 1; i++) // Skip the first and last cell in each row
-                            {
-                                worksheet.Cells[rowIndex, excelColumnIndex] = row.Cells[i].Value.ToString();
-                                excelColumnIndex++;
+                                for (int i = 1; i <= reader.FieldCount; i++)
+                                {
+                                    worksheet.Cells[1, i] = reader.GetName(i - 1);
+                                    worksheet.Cells[1, i].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196));
+                                    worksheet.Cells[1, i].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White);
+                                }
+
+                                int rowIndex = 2;
+                                while (reader.Read())
+                                {
+                                    for (int i = 1; i <= reader.FieldCount; i++)
+                                    {
+                                        worksheet.Cells[rowIndex, i] = reader.GetValue(i - 1).ToString();
+                                    }
+                                    rowIndex++;
+                                }
+
+                                reader.Close();
                             }
-                            rowIndex++;
                         }
 
                         // Apply the "Blue, Table Style Medium 2" table style

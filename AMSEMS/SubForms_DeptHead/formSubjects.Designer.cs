@@ -52,6 +52,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblAccountName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             this.dgvSubjects = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,7 +69,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnControl = new System.Windows.Forms.Panel();
             this.btnSetTeach = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             this.CMSTeachers.SuspendLayout();
             this.CMSExport.SuspendLayout();
             this.CMSOptions.SuspendLayout();
@@ -77,10 +77,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
             this.kryptonGroupBox5.Panel.SuspendLayout();
             this.kryptonGroupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.pnControl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // CMSTeachers
@@ -175,7 +175,6 @@
             this.btnExpPDF,
             this.btnExpExcel});
             this.CMSExport.Name = "contextMenuStrip2";
-            this.CMSExport.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.CMSExport.ShowImageMargin = false;
             this.CMSExport.ShowItemToolTips = false;
             this.CMSExport.Size = new System.Drawing.Size(146, 87);
@@ -198,6 +197,7 @@
             this.btnExpPDF.Name = "btnExpPDF";
             this.btnExpPDF.Size = new System.Drawing.Size(135, 26);
             this.btnExpPDF.Text = "PDF File";
+            this.btnExpPDF.Click += new System.EventHandler(this.btnExportPDF_Click);
             // 
             // btnExpExcel
             // 
@@ -208,6 +208,7 @@
             this.btnExpExcel.Name = "btnExpExcel";
             this.btnExpExcel.Size = new System.Drawing.Size(135, 26);
             this.btnExpExcel.Text = "Excel File";
+            this.btnExpExcel.Click += new System.EventHandler(this.btnExpExcel_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -274,6 +275,23 @@
             this.kryptonGroupBox5.StateCommon.Border.Rounding = 10;
             this.kryptonGroupBox5.StateCommon.Border.Width = 2;
             this.kryptonGroupBox5.TabIndex = 73;
+            // 
+            // ptbLoading
+            // 
+            this.ptbLoading.BackColor = System.Drawing.Color.White;
+            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoading.BorderWidth = 0;
+            this.ptbLoading.CornerRadius = 10;
+            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.ImageLocation = "";
+            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(885, 474);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 12;
+            this.ptbLoading.TabStop = false;
+            this.ptbLoading.Visible = false;
             // 
             // dgvSubjects
             // 
@@ -625,23 +643,6 @@
             this.btnSetTeach.Values.Text = "";
             this.btnSetTeach.Click += new System.EventHandler(this.btnSetTeach_Click);
             // 
-            // ptbLoading
-            // 
-            this.ptbLoading.BackColor = System.Drawing.Color.White;
-            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ptbLoading.BorderWidth = 0;
-            this.ptbLoading.CornerRadius = 10;
-            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
-            this.ptbLoading.ImageLocation = "";
-            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
-            this.ptbLoading.Name = "ptbLoading";
-            this.ptbLoading.Size = new System.Drawing.Size(885, 474);
-            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptbLoading.TabIndex = 12;
-            this.ptbLoading.TabStop = false;
-            this.ptbLoading.Visible = false;
-            // 
             // formSubjects
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -671,10 +672,10 @@
             this.kryptonGroupBox5.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).EndInit();
             this.kryptonGroupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubjects)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.pnControl.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
