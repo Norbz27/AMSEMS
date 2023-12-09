@@ -2,7 +2,9 @@
 using ComponentFactory.Krypton.Toolkit;
 using System;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace AMSEMS_Attendance_Checker
@@ -118,7 +120,7 @@ namespace AMSEMS_Attendance_Checker
             dgvAttendance.Rows.Clear();
             tableLayoutPanel1.Controls.Clear();
             DateTime dateTimeNow = DateTime.Now;
-            string formattedDate = dateTimeNow.ToString("M/d/yyyy");
+            string formattedDate = dateTimeNow.ToString("yyyy-MM-dd");
             string period = dateTimeNow.Hour < 12 ? "AM" : "PM";
             try
             {
@@ -129,7 +131,7 @@ namespace AMSEMS_Attendance_Checker
                 if (attendancePics.Rows.Count != 0)
                 {
                     int displayedCount = 0;
-                    for (int i = attendancePics.Rows.Count - 1; i >= 1; i--)
+                    for (int i = 1; i < attendancePics.Rows.Count; i++)
                     {
                         DataRow row = attendancePics.Rows[i];
                         Image pic = null;
@@ -144,6 +146,7 @@ namespace AMSEMS_Attendance_Checker
                         displayedCount++;
                     }
                 }
+
 
                 foreach (DataRow row in attendance.Rows)
                 {
@@ -175,16 +178,16 @@ namespace AMSEMS_Attendance_Checker
             if (period.Equals("AM"))
             {
                 if (attendance_stat.Equals("IN"))
-                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow.ToString(), dateTimeNow.ToString(), null, null, null, teach_id);
+                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow, dateTimeNow.ToString(), null, null, null, teach_id);
                 else if (attendance_stat.Equals("OUT"))
-                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow.ToString(), null, dateTimeNow.ToString(), null, null, teach_id);
+                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow, null, dateTimeNow.ToString(), null, null, teach_id);
             }
             else if (period.Equals("PM"))
             {
                 if (attendance_stat.Equals("IN"))
-                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow.ToString(), null, null, dateTimeNow.ToString(), null, teach_id);
+                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow, null, null, dateTimeNow.ToString(), null, teach_id);
                 else if (attendance_stat.Equals("OUT"))
-                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow.ToString(), null, null, null, dateTimeNow.ToString(), teach_id);
+                    sQLite_Connection.GetStudentForAttendance(data, event_code, dateTimeNow, null, null, null, dateTimeNow.ToString(), teach_id);
             }
             tbAttendance.Text = String.Empty;
         }
@@ -393,16 +396,16 @@ namespace AMSEMS_Attendance_Checker
                     if (period.Equals("AM"))
                     {
                         if (attendance_stat.Equals("IN"))
-                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow.ToString(), dateTimeNow.ToString(), null, null, null, teach_id);
+                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow, dateTimeNow.ToString(), null, null, null, teach_id);
                         else if (attendance_stat.Equals("OUT"))
-                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow.ToString(), null, dateTimeNow.ToString(), null, null, teach_id);
+                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow, null, dateTimeNow.ToString(), null, null, teach_id);
                     }
                     else if (period.Equals("PM"))
                     {
                         if (attendance_stat.Equals("IN"))
-                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow.ToString(), null, null, dateTimeNow.ToString(), null, teach_id);
+                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow, null, null, dateTimeNow.ToString(), null, teach_id);
                         else if (attendance_stat.Equals("OUT"))
-                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow.ToString(), null, null, null, dateTimeNow.ToString(), teach_id);
+                            sQLite_Connection.GetManualStudentForAttendance(studentID, event_code, dateTimeNow, null, null, null, dateTimeNow.ToString(), teach_id);
                     }
 
                     DataTable studentInfo = sQLite_Connection.GetStudentByManual(studentID, event_code);
@@ -439,5 +442,6 @@ namespace AMSEMS_Attendance_Checker
                 }
             }
         }
+        
     }
 }

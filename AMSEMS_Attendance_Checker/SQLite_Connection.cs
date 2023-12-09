@@ -1,4 +1,5 @@
 ﻿using AMSEMS;
+using Microsoft.Data.Sqlite;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,11 +14,22 @@ namespace AMSEMS_Attendance_Checker
 {
     public class SQLite_Connection
     {
-        private string connectionString;
+        public string connectionString;
 
         public SQLite_Connection()
         {
             string databasePath = Path.Combine(Application.StartupPath, "db_ATTENDANCE_CHECKER.db");
+            //if (File.Exists(databasePath))
+            //{
+            //    FileAttributes attributes = File.GetAttributes(databasePath);
+
+            //    if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+            //    {
+            //        // Remove read-only attribute
+            //        File.SetAttributes(databasePath, attributes & ~FileAttributes.ReadOnly);
+            //    }
+            //}
+
             connectionString = $"Data Source={databasePath};Version=3;";
         }
 
@@ -352,7 +364,7 @@ namespace AMSEMS_Attendance_Checker
             }
             return dataTable;
         }
-        private bool IsEventForSpecificStudents(string eventId)
+        public bool IsEventForSpecificStudents(string eventId)
         {
             using (SQLiteConnection cn = new SQLiteConnection(connectionString))
             {
@@ -366,7 +378,7 @@ namespace AMSEMS_Attendance_Checker
                 }
             }
         }
-        private bool IsEventForSelectedDep(string eventId)
+        public bool IsEventForSelectedDep(string eventId)
         {
             using (SQLiteConnection cn = new SQLiteConnection(connectionString))
             {
@@ -394,7 +406,7 @@ namespace AMSEMS_Attendance_Checker
                         FROM tbl_events e
                         LEFT JOIN tbl_students_account s ON instr(e.Specific_Students, s.FirstName || ' ' || s.LastName) > 0 
                         LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
-                        WHERE Status = 1 AND Event_ID = '"+event_id+"' ORDER BY depdes;";
+                        WHERE Status = 1 AND Event_ID = '" + event_id + "' ORDER BY depdes;";
                 }
                 else if (IsEventForSelectedDep(event_id))
                 {
@@ -402,7 +414,7 @@ namespace AMSEMS_Attendance_Checker
                         FROM tbl_events e
                         LEFT JOIN tbl_students_account s ON instr(e.Selected_Departments, dep.Description) > 0 
                         LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
-                        WHERE Status = 1 AND Event_ID = '"+event_id+"' ORDER BY depdes";
+                        WHERE Status = 1 AND Event_ID = '" + event_id + "' ORDER BY depdes";
                 }
                 else
                 {
@@ -488,7 +500,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND AM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                            AND stud.Status = 1 AND AM_IN IS NOT NULL AND strftime('%m-%d-%Y', Date_Time) = strftime('%m-%d-%Y', @date)
                         ORDER BY 
                             record DESC";
                     }
@@ -511,7 +523,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND AM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                            AND stud.Status = 1 AND AM_OUT IS NOT NULL AND strftime('%m-%d-%Y', Date_Time) = strftime('%m-%d-%Y', @date)
                         ORDER BY 
                             record DESC";
                     }
@@ -537,7 +549,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND PM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                            AND stud.Status = 1 AND PM_IN IS NOT NULL AND strftime('%m-%d-%Y', Date_Time) = strftime('%m-%d-%Y', @date)
                         ORDER BY 
                             record DESC";
                     }
@@ -560,7 +572,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND PM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                            AND stud.Status = 1 AND PM_OUT IS NOT NULL AND strftime('%m-%d-%Y', Date_Time) = strftime('%m-%d-%Y', @date)
                         ORDER BY 
                             record DESC";
                     }
@@ -642,7 +654,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND AM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                            AND stud.Status = 1 AND AM_IN IS NOT NULL AND strftime('%m-%d-%Y', Date_Time) = strftime('%m-%d-%Y', @date)
                         ORDER BY 
                             record DESC LIMIT 4";
                     }
@@ -665,7 +677,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND AM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                            AND stud.Status = 1 AND AM_OUT IS NOT NULL AND strftime('%m-%d-%Y', Date_Time) = strftime('%m-%d-%Y', @date)
                         ORDER BY 
                             record DESC LIMIT 4";
                     }
@@ -691,7 +703,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND PM_IN IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                            AND stud.Status = 1 AND PM_IN IS NOT NULL AND strftime('%m-%d-%Y', Date_Time) = strftime('%m-%d-%Y', @date)
                         ORDER BY 
                             record DESC LIMIT 4";
                     }
@@ -714,7 +726,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_section AS sec ON stud.Section = sec.Section_ID
                         WHERE 
                             Event_ID = @eventID
-                            AND stud.Status = 1 AND PM_OUT IS NOT NULL AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date
+                            AND stud.Status = 1 AND PM_OUT IS NOT NULL AND strftime('%m-%d-%Y', Date_Time) = strftime('%m-%d-%Y', @date)
                         ORDER BY 
                             record DESC LIMIT 4";
                     }
@@ -781,12 +793,11 @@ namespace AMSEMS_Attendance_Checker
             }
             return event_name;
         }
-        public void GetStudentForAttendance(string rfid, string eventID, string date, string amIn, string amOut, string pmIn, string pmOut, string checker)
+        public void GetStudentForAttendance(string rfid, string eventID, DateTime date, string amIn, string amOut, string pmIn, string pmOut, string checker)
         {
             string stud_id = null; // Initialize the variable
             string attendance_stud_id = null;
-            DateTime dateTimeNow = DateTime.ParseExact(date, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-            string formattedDate = dateTimeNow.ToString("M/d/yyyy");
+            string formattedDate = date.ToString("yyyy-MM-dd");
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -900,7 +911,7 @@ namespace AMSEMS_Attendance_Checker
                     {
                         updateCommand.Parameters.AddWithValue("@studentID", stud_id);
                         updateCommand.Parameters.AddWithValue("@eventID", eventID);
-                        updateCommand.Parameters.AddWithValue("@date", date); // Include Date_Time in the UPDATE queries
+                        updateCommand.Parameters.AddWithValue("@date", formattedDate);
                         updateCommand.Parameters.AddWithValue("@amIn", amIn);
                         updateCommand.Parameters.AddWithValue("@amOut", amOut);
                         updateCommand.Parameters.AddWithValue("@pmIn", pmIn);
@@ -942,7 +953,7 @@ namespace AMSEMS_Attendance_Checker
                         LEFT JOIN tbl_students_account AS stud ON instr(e.Specific_Students, stud.FirstName || ' ' || stud.LastName) > 0
                         LEFT JOIN tbl_departments AS dep ON stud.Department = dep.Department_ID
                         LEFT JOIN tbl_section AS sec ON stud.Section = sec.Section_ID
-                        WHERE RFID = @rfid AND Status = 1 AND e.Event_ID = '" + event_id +"'";
+                        WHERE RFID = @rfid AND Status = 1 AND e.Event_ID = '" + event_id + "'";
             }
             else if (IsEventForSelectedDep(event_id))
             {
@@ -1112,11 +1123,12 @@ namespace AMSEMS_Attendance_Checker
 
             return newDataTable;
         }
-        public void GetManualStudentForAttendance(string stud_id, string eventID, string date, string amIn, string amOut, string pmIn, string pmOut, string checker)
+        public void GetManualStudentForAttendance(string stud_id, string eventID, DateTime date, string amIn, string amOut, string pmIn, string pmOut, string checker)
         {
             string attendance_stud_id = null;
-            DateTime dateTimeNow = DateTime.ParseExact(date, "M/d/yyyy h:mm:ss tt", CultureInfo.InvariantCulture);
-            string formattedDate = dateTimeNow.ToString("M/d/yyyy");
+
+            string formattedDate = date.ToString("yyyy-MM-dd");
+
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -1129,7 +1141,7 @@ namespace AMSEMS_Attendance_Checker
                     query = @"SELECT s.ID FROM tbl_events e
                             LEFT JOIN tbl_students_account s ON instr(e.Specific_Students, s.FirstName || ' ' || s.LastName) > 0 
                             LEFT JOIN tbl_departments AS dep ON s.Department = dep.Department_ID 
-                            WHERE s.Status = 1 AND e.Event_ID = '"+eventID+"' AND s.ID = @id ";
+                            WHERE s.Status = 1 AND e.Event_ID = '" + eventID + "' AND s.ID = @id ";
                 }
                 else if (IsEventForSelectedDep(eventID))
                 {
@@ -1231,7 +1243,7 @@ namespace AMSEMS_Attendance_Checker
                     {
                         updateCommand.Parameters.AddWithValue("@studentID", stud_id);
                         updateCommand.Parameters.AddWithValue("@eventID", eventID);
-                        updateCommand.Parameters.AddWithValue("@date", date); // Include Date_Time in the UPDATE queries
+                        updateCommand.Parameters.AddWithValue("@date", formattedDate); // Include Date_Time in the UPDATE queries
                         updateCommand.Parameters.AddWithValue("@amIn", amIn);
                         updateCommand.Parameters.AddWithValue("@amOut", amOut);
                         updateCommand.Parameters.AddWithValue("@pmIn", pmIn);
@@ -1241,10 +1253,6 @@ namespace AMSEMS_Attendance_Checker
                         updateCommand.ExecuteNonQuery();
                     }
                 }
-                //else
-                //{
-                //    MessageBox.Show("Student is Not Registered or Not Valid!!", "Attendance Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //}
             }
         }
 
