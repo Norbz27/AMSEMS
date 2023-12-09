@@ -53,6 +53,7 @@ namespace AMSEMS.SubForms_Teacher
         private void formSubjectInformation_Load(object sender, EventArgs e)
         {
             displaysubjectinfo();
+            displayChart();
         }
 
         private void dgvStudents_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -1241,6 +1242,10 @@ namespace AMSEMS.SubForms_Teacher
             chart1.Series.Clear();
             chart1.Titles.Clear();
 
+            int totalStudents = 0;
+            int totalClasses = 0;
+            int totalAttendees = 0;
+
             using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
             {
                 con.Open();
@@ -1257,25 +1262,43 @@ namespace AMSEMS.SubForms_Teacher
 
                     using (SQLiteDataReader dateReader = dateCommand.ExecuteReader())
                     {
+                        // Add a single series named "StudentRecord"
+                        System.Windows.Forms.DataVisualization.Charting.Series series = chart1.Series.Add("StudentRecord");
+                        series.ChartType = SeriesChartType.Column;
+
                         while (dateReader.Read())
                         {
                             string attendanceDate = dateReader["Attendance_date"].ToString();
 
-                            // Dynamically add series to the existing Chart for each attendance date
-                            System.Windows.Forms.DataVisualization.Charting.Series series = new System.Windows.Forms.DataVisualization.Charting.Series(attendanceDate);
-                            series.ChartType = SeriesChartType.Column;
-                            chart1.Series.Add(series);
+                            // Add the date as a data point to the series
+                            series.Points.AddXY(attendanceDate, 0);
+                            totalClasses++;
+                        }
+                    }
+                }
+                string totalStud = $@"
+                SELECT COUNT(*) AS totalStudent
+                FROM tbl_{classcode}";
+
+                using (SQLiteCommand cm = new SQLiteCommand(totalStud, con))
+                {
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            totalStudents = Convert.ToInt32(dr["totalStudent"]);
                         }
                     }
                 }
 
+
                 // Fetch student attendance details
-                string attendanceQuery = @"SELECT sa.Student_ID,
-                                    sa.Attendance_date,
-                                    sa.Student_Status
-                                    FROM tbl_subject_attendance sa
-                                    WHERE sa.Class_Code = @Class_Code
-                                    ORDER BY sa.Attendance_date, sa.Student_ID";
+                string attendanceQuery = @"SELECT sa.Attendance_date,
+                                  COUNT(sa.Student_ID) AS AttendeeCount
+                           FROM tbl_subject_attendance sa
+                           WHERE sa.Class_Code = @Class_Code
+                           GROUP BY sa.Attendance_date
+                           ORDER BY sa.Attendance_date";
 
                 using (SQLiteCommand attendanceCommand = new SQLiteCommand(attendanceQuery, con))
                 {
@@ -1285,46 +1308,43 @@ namespace AMSEMS.SubForms_Teacher
                     {
                         while (rd.Read())
                         {
-                            string studid = rd["Student_ID"].ToString();
                             string attendanceDate = rd["Attendance_date"].ToString();
-                            string studentStatus = rd["Student_Status"].ToString();
+                            int attendeeCount = Convert.ToInt32(rd["AttendeeCount"]);
 
-                            // Find the corresponding series in the existing Chart
-                            System.Windows.Forms.DataVisualization.Charting.Series series = chart1.Series[attendanceDate];
+                            // Find the single series in the existing Chart
+                            System.Windows.Forms.DataVisualization.Charting.Series series = chart1.Series["StudentRecord"];
 
-                            // Add a data point to the series for each student
-                            series.Points.AddXY(studid, (studentStatus == "P") ? 1 : 0);
-
-                            // Set the data point label
-                            DataPoint dataPoint = series.Points.Last();
-                            dataPoint.Label = studentStatus;
-
-                            // Increment the total classes counter for each student
-                            DataPoint totalDataPoint = null;
-                            foreach (DataPoint point in chart1.Series["Total Classes"].Points)
+                            // Update the data point for each date with the total attendee count
+                            foreach (DataPoint dataPoint in series.Points)
                             {
-                                if (point.AxisLabel == studid)
+                                if (dataPoint.AxisLabel == attendanceDate)
                                 {
-                                    totalDataPoint = point;
+                                    dataPoint.SetValueY(attendeeCount);
+                                    totalAttendees += attendeeCount;
                                     break;
                                 }
-                            }
-                            if (totalDataPoint == null)
-                            {
-                                totalDataPoint = new DataPoint();
-                                totalDataPoint.AxisLabel = studid;
-                                totalDataPoint.SetValueY(1);
-                                chart1.Series["Total Classes"].Points.Add(totalDataPoint);
-                            }
-                            else
-                            {
-                                totalDataPoint.SetValueY(totalDataPoint.YValues[0] + 1);
                             }
                         }
                     }
                 }
             }
+
+            //// Calculate the average attendees
+            //double averageAttendees = totalAttendees / (double)totalClasses;
+
+            // Display the results in labels
+            lblTotalStudents.Text = totalStudents.ToString();
+            lblTotalClasses.Text = totalClasses.ToString();
+
+            //// Calculate the average attendees as a percentage
+            //double averageAttendeesPercentage = (averageAttendees / totalStudents) * 100;
+
+            //// Display the result with two decimal places and a percentage symbol
+            //lblAverageAttendees.Text = averageAttendeesPercentage.ToString("F2") + "%";
+
         }
+
+
 
         private void deltoolStripMenuItem1_Click(object sender, EventArgs e)
         {
