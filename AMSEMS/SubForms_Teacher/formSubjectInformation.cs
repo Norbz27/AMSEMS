@@ -39,6 +39,7 @@ namespace AMSEMS.SubForms_Teacher
         {
             displaysubjectinfo();
             displaySectionOfSubject();
+            formSubjectMainPage.setForm(this, ccode);
             OpenChildForm(new formSubjectMainPage());
         }
         public void displaysubjectinfo()
@@ -131,6 +132,7 @@ namespace AMSEMS.SubForms_Teacher
         }
         public void OpenMainPage()
         {
+            formSubjectMainPage.setForm(this, ccode);
             OpenChildForm(new formSubjectMainPage());
         }
         private void btnback_Click(object sender, EventArgs e)
@@ -151,6 +153,7 @@ namespace AMSEMS.SubForms_Teacher
 
         private void btnMainPage_Click(object sender, EventArgs e)
         {
+            formSubjectMainPage.setForm(this, ccode);
             OpenChildForm(new formSubjectMainPage());
         }
         private bool IsInternetConnected()

@@ -198,6 +198,7 @@
             this.chart2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.chart2.BackColor = System.Drawing.Color.Transparent;
             chartArea1.AxisX.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisX.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -210,6 +211,7 @@
             chartArea1.AxisY2.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisY2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
             chartArea1.BorderColor = System.Drawing.Color.Gainsboro;
             chartArea1.Name = "ChartArea1";
             this.chart2.ChartAreas.Add(chartArea1);
@@ -310,6 +312,7 @@
             this.chart3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.chart3.BackColor = System.Drawing.Color.Transparent;
             chartArea2.AxisX.LineColor = System.Drawing.Color.Gainsboro;
             chartArea2.AxisX.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
             chartArea2.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -322,6 +325,7 @@
             chartArea2.AxisY2.LineColor = System.Drawing.Color.Gainsboro;
             chartArea2.AxisY2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
             chartArea2.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea2.BackColor = System.Drawing.Color.Transparent;
             chartArea2.BorderColor = System.Drawing.Color.Gainsboro;
             chartArea2.Name = "ChartArea1";
             this.chart3.ChartAreas.Add(chartArea2);
@@ -404,6 +408,8 @@
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.chart1.BackColor = System.Drawing.Color.Transparent;
+            this.chart1.BorderlineColor = System.Drawing.Color.Transparent;
             chartArea3.AxisX.LineColor = System.Drawing.Color.Gainsboro;
             chartArea3.AxisX.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
             chartArea3.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -416,6 +422,7 @@
             chartArea3.AxisY2.LineColor = System.Drawing.Color.Gainsboro;
             chartArea3.AxisY2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
             chartArea3.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea3.BackColor = System.Drawing.Color.Transparent;
             chartArea3.BorderColor = System.Drawing.Color.Gainsboro;
             chartArea3.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea3);

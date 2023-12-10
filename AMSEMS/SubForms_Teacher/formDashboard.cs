@@ -6,6 +6,7 @@ using System.Data.SQLite;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace AMSEMS.SubForms_Teacher
 {
@@ -20,6 +21,12 @@ namespace AMSEMS.SubForms_Teacher
             InitializeComponent();
 
             con = new SQLite_Connection();
+
+            chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.LightGray;
+            chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.LightGray;
+
+            chart1.ChartAreas["ChartArea1"].AxisX.MinorGrid.LineColor = Color.LightGray;
+            chart1.ChartAreas["ChartArea1"].AxisY.MinorGrid.LineColor = Color.LightGray;
         }
         public async void loadData()
         {

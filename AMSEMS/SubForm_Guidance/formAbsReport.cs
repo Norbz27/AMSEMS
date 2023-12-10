@@ -57,7 +57,7 @@ namespace AMSEMS.SubForm_Guidance
                         }
                     }
                 }
-
+                cbStatus.SelectedIndex = 0;
                 cbSection.SelectedIndex = 0;
                 cbMonth.SelectedItem = DateTime.Now.ToString("MMMM");
             }
@@ -68,40 +68,45 @@ namespace AMSEMS.SubForm_Guidance
             {
                 cn.Open();
                 string query = @"SELECT 
-                                ID,
-                                UPPER(s.Lastname + ', ' + s.Firstname + ' ' + s.Middlename) AS Name,
-                                sec.Description AS secdes,
-                                COUNT(DISTINCT CASE WHEN sat.Student_Status = 'A' THEN sat.Attendance_date END) AS ConsecutiveAbsentDays
-                            FROM 
-                                tbl_subject_attendance sat
-                                LEFT JOIN tbl_student_accounts s ON sat.Student_ID = s.ID 
-                                LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID 
-	                            LEFT JOIN tbl_academic_level al ON sec.AcadLevel_ID = al.Academic_Level_ID
-                            	LEFT JOIN tbl_class_list cl ON sat.Class_Code = cl.CLass_Code
-                            WHERE 
-                                al.Academic_Level_Description = @acadlvl 
-                                AND (@SectionDescription = 'All' OR sec.Description = @SectionDescription) 
-                                AND UPPER(FORMAT(CONVERT(DATE, sat.Attendance_date, 0), 'MMMM')) = @month
-                                AND s.Status = 1
-                                AND cl.School_Year = @schyear
-                                AND cl.Semester = @sem
-                            GROUP BY 
-                                ID, s.Lastname, s.Firstname, s.Middlename, sec.Description
-                            HAVING 
-                                COUNT(DISTINCT CASE WHEN sat.Student_Status = 'A' THEN sat.Attendance_date END) > 2
-                            ORDER BY
-	                            Name;";
+                            s.ID,
+                            UPPER(s.Lastname + ', ' + s.Firstname + ' ' + s.Middlename) AS Name,
+                            sec.Description AS secdes,
+                            COUNT(DISTINCT CASE WHEN sat.Student_Status = 'A' THEN sat.Attendance_date END) AS ConsecutiveAbsentDays,
+                            cr.Status AS ConsultationStatus
+                        FROM 
+                            tbl_subject_attendance sat
+                            LEFT JOIN tbl_student_accounts s ON sat.Student_ID = s.ID 
+                            LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID 
+	                        LEFT JOIN tbl_academic_level al ON sec.AcadLevel_ID = al.Academic_Level_ID
+                        	LEFT JOIN tbl_class_list cl ON sat.Class_Code = cl.CLass_Code
+                            LEFT JOIN tbl_consultation_record cr ON s.ID = cr.Student_ID
+                        WHERE 
+                            al.Academic_Level_Description = @acadlvl 
+                            AND (@SectionDescription = 'All' OR sec.Description = @SectionDescription) 
+                            AND UPPER(FORMAT(CONVERT(DATE, sat.Attendance_date, 0), 'MMMM')) = @month
+                            AND s.Status = 1
+                            AND cl.School_Year = @schyear
+                            AND cl.Semester = @sem
+                            AND (@Status = 'All' OR cr.Status = @Status)
+                        GROUP BY 
+                            s.ID, s.Lastname, s.Firstname, s.Middlename, sec.Description, cr.Status
+                        HAVING 
+                            COUNT(DISTINCT CASE WHEN sat.Student_Status = 'A' THEN sat.Attendance_date END) > 2
+                        ORDER BY
+                            Name;";
 
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     cmd.Parameters.AddWithValue("@acadlvl", rep);
                     cmd.Parameters.AddWithValue("@schyear", acadSchYeear);
-                    if(rep.ToUpper().Equals("SHS"))
-                        cmd.Parameters.AddWithValue("@sem", acadShsSem); 
+                    if (rep.ToUpper().Equals("SHS"))
+                        cmd.Parameters.AddWithValue("@sem", acadShsSem);
                     else
                         cmd.Parameters.AddWithValue("@sem", acadTerSem);
                     cmd.Parameters.AddWithValue("@SectionDescription", string.IsNullOrEmpty(cbSection.Text) ? DBNull.Value : (object)cbSection.Text);
                     cmd.Parameters.AddWithValue("@month", string.IsNullOrEmpty(cbMonth.Text) ? DBNull.Value : (object)cbMonth.Text);
+                    cmd.Parameters.AddWithValue("@Status", cbStatus.SelectedItem.ToString());
+
                     using (SqlDataReader dr = cmd.ExecuteReader())
                     {
                         dgvAbesnteismRep.Rows.Clear();
@@ -116,6 +121,7 @@ namespace AMSEMS.SubForm_Guidance
                             dgvAbesnteismRep.Rows[rowIndex].Cells["studname"].Value = dr["Name"].ToString();
                             dgvAbesnteismRep.Rows[rowIndex].Cells["section"].Value = dr["secdes"].ToString();
                             dgvAbesnteismRep.Rows[rowIndex].Cells["absences"].Value = dr["ConsecutiveAbsentDays"].ToString();
+                            dgvAbesnteismRep.Rows[rowIndex].Cells["status"].Value = dr["ConsultationStatus"].ToString();
                         }
                     }
                 }
@@ -190,6 +196,39 @@ namespace AMSEMS.SubForm_Guidance
                 Process.Start(saveFileDialog.FileName);
             }
         }
+
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            string searchKeyword = tbSearch.Text.Trim();
+            ApplySearchFilter(searchKeyword);
+        }
+        private void ApplySearchFilter(string searchKeyword)
+        {
+            // Loop through each row in the DataGridView
+            foreach (DataGridViewRow row in dgvAbesnteismRep.Rows)
+            {
+                bool rowVisible = false;
+
+                // Loop through each cell in the row
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString().IndexOf(searchKeyword, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        rowVisible = true;
+                        break; // No need to check other cells in the row
+                    }
+                }
+
+                // Show or hide the row based on search result
+                row.Visible = rowVisible;
+            }
+        }
+
+        private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            displayReport();
+        }
+
         private void ExportToPDF(DataGridView dataGridView, string filePath)
         {
             try

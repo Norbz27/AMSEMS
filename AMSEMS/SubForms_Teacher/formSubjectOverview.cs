@@ -42,6 +42,7 @@ namespace AMSEMS.SubForms_Teacher
             dgvAttendanceReport.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 9F);
             dgvAttendance.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             ptbLoading.Style = ProgressBarStyle.Marquee;
+            dgvAttendanceReport.CellValueNeeded += dgvAttendanceReport_CellValueNeeded;
         }
         public static void setCode(string ccode1, string classcode1, string subacadlvl1, formSubjectInformation form1)
         {
@@ -240,12 +241,15 @@ namespace AMSEMS.SubForms_Teacher
             }
             dgvAttendanceReport.Columns.Add("present", "Classes Present");
             dgvAttendanceReport.Columns["present"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgvAttendanceReport.Columns["present"].ReadOnly = true;
             dgvAttendanceReport.Columns["present"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgvAttendanceReport.Columns.Add("absent", "Classes Absent");
             dgvAttendanceReport.Columns["absent"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgvAttendanceReport.Columns["absent"].ReadOnly = true;
             dgvAttendanceReport.Columns["absent"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dgvAttendanceReport.Columns.Add("total", "Total Classes");
             dgvAttendanceReport.Columns["total"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dgvAttendanceReport.Columns["total"].ReadOnly = true;
             dgvAttendanceReport.Columns["total"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
@@ -338,28 +342,45 @@ namespace AMSEMS.SubForms_Teacher
                                 // Increment the corresponding counter based on student status
                                 if (studentStatus == "P")
                                 {
-                                    dgvAttendanceReport.Rows[rowIndex].Cells["present"].Value =
-                                        Convert.ToInt32(dgvAttendanceReport.Rows[rowIndex].Cells["present"].Value) + 1;
+                                    int presentCount = Convert.ToInt32(dgvAttendanceReport.Rows[rowIndex].Cells["present"].Value ?? 0);
+                                    dgvAttendanceReport.Rows[rowIndex].Cells["present"].Value = presentCount + 1;
                                 }
                                 else if (studentStatus == "A")
                                 {
-                                    dgvAttendanceReport.Rows[rowIndex].Cells["absent"].Value =
-                                        Convert.ToInt32(dgvAttendanceReport.Rows[rowIndex].Cells["absent"].Value) + 1;
+                                    int absentCount = Convert.ToInt32(dgvAttendanceReport.Rows[rowIndex].Cells["absent"].Value ?? 0);
+                                    dgvAttendanceReport.Rows[rowIndex].Cells["absent"].Value = absentCount + 1;
                                 }
 
                                 // Increment the total classes counter
-                                dgvAttendanceReport.Rows[rowIndex].Cells["total"].Value =
-                                    Convert.ToInt32(dgvAttendanceReport.Rows[rowIndex].Cells["total"].Value) + 1;
+                                int totalClass = Convert.ToInt32(dgvAttendanceReport.Rows[rowIndex].Cells["total"].Value ?? 0);
+                                dgvAttendanceReport.Rows[rowIndex].Cells["total"].Value = totalClass + 1;
+
                             }
                         }
                     }
                 }
             }
         }
-
+        private void dgvAttendanceReport_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        {
+            // Check if the cell is in a numeric column and its value is null
+            if (e.RowIndex >= 0 &&
+                (e.ColumnIndex == dgvAttendanceReport.Columns["present"].Index ||
+                 e.ColumnIndex == dgvAttendanceReport.Columns["absent"].Index ||
+                 e.ColumnIndex == dgvAttendanceReport.Columns["total"].Index) &&
+                dgvAttendanceReport.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == null)
+            {
+                // Set the default value to 0
+                e.Value = 0;
+            }
+        }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab != null && tabControl1.SelectedTab.Text == "Students")
+            if (tabControl1.SelectedTab != null && tabControl1.SelectedTab.Text == "Overview")
+            {
+                displayChart();
+            }
+            else if (tabControl1.SelectedTab != null && tabControl1.SelectedTab.Text == "Students")
             {
                 displayStudents();
             }
