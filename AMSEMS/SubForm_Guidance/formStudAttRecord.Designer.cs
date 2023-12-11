@@ -29,23 +29,24 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnPdf = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.dgvAbsencesRecord = new System.Windows.Forms.DataGridView();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pnExclusive = new System.Windows.Forms.Panel();
-            this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.dgvAbsencesRecord = new System.Windows.Forms.DataGridView();
+            this.lblDate = new System.Windows.Forms.Label();
+            this.lblStatus = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.tbDep = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
-            this.ptbProfile = new AMSEMS.RoundPictureBox();
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.tbMname = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.kryptonLabel13 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -63,18 +64,20 @@
             this.tbProgram = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.tbYlevel = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.tbSec = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
+            this.ptbProfile = new AMSEMS.RoundPictureBox();
+            this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ccode = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.absencedate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.pnExclusive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
             this.kryptonGroupBox5.Panel.SuspendLayout();
             this.kryptonGroupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbsencesRecord)).BeginInit();
+            this.panel4.SuspendLayout();
+            this.pnExclusive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).BeginInit();
             this.SuspendLayout();
             // 
@@ -219,11 +222,92 @@
             this.panel1.Size = new System.Drawing.Size(676, 534);
             this.panel1.TabIndex = 185;
             // 
+            // kryptonGroupBox5
+            // 
+            this.kryptonGroupBox5.CaptionVisible = false;
+            this.kryptonGroupBox5.CausesValidation = false;
+            this.kryptonGroupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonGroupBox5.Location = new System.Drawing.Point(0, 306);
+            this.kryptonGroupBox5.Name = "kryptonGroupBox5";
+            // 
+            // kryptonGroupBox5.Panel
+            // 
+            this.kryptonGroupBox5.Panel.Controls.Add(this.dgvAbsencesRecord);
+            this.kryptonGroupBox5.Size = new System.Drawing.Size(676, 228);
+            this.kryptonGroupBox5.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonGroupBox5.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonGroupBox5.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox5.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox5.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonGroupBox5.StateCommon.Border.Rounding = 10;
+            this.kryptonGroupBox5.StateCommon.Border.Width = 2;
+            this.kryptonGroupBox5.TabIndex = 190;
+            // 
+            // dgvAbsencesRecord
+            // 
+            this.dgvAbsencesRecord.AllowUserToAddRows = false;
+            this.dgvAbsencesRecord.AllowUserToDeleteRows = false;
+            this.dgvAbsencesRecord.AllowUserToResizeColumns = false;
+            this.dgvAbsencesRecord.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvAbsencesRecord.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvAbsencesRecord.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAbsencesRecord.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvAbsencesRecord.BackgroundColor = System.Drawing.Color.White;
+            this.dgvAbsencesRecord.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvAbsencesRecord.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvAbsencesRecord.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dgvAbsencesRecord.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbsencesRecord.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvAbsencesRecord.ColumnHeadersHeight = 50;
+            this.dgvAbsencesRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvAbsencesRecord.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.count,
+            this.ccode,
+            this.cdes,
+            this.absencedate});
+            this.dgvAbsencesRecord.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAbsencesRecord.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvAbsencesRecord.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvAbsencesRecord.EnableHeadersVisualStyles = false;
+            this.dgvAbsencesRecord.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.dgvAbsencesRecord.Location = new System.Drawing.Point(0, 0);
+            this.dgvAbsencesRecord.Name = "dgvAbsencesRecord";
+            this.dgvAbsencesRecord.ReadOnly = true;
+            this.dgvAbsencesRecord.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgvAbsencesRecord.RowHeadersVisible = false;
+            this.dgvAbsencesRecord.RowHeadersWidth = 30;
+            this.dgvAbsencesRecord.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbsencesRecord.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvAbsencesRecord.RowTemplate.Height = 30;
+            this.dgvAbsencesRecord.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAbsencesRecord.Size = new System.Drawing.Size(666, 218);
+            this.dgvAbsencesRecord.TabIndex = 3;
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.label1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(0, 263);
+            this.panel4.Location = new System.Drawing.Point(0, 275);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(676, 31);
             this.panel4.TabIndex = 188;
@@ -242,6 +326,8 @@
             // 
             // pnExclusive
             // 
+            this.pnExclusive.Controls.Add(this.lblDate);
+            this.pnExclusive.Controls.Add(this.lblStatus);
             this.pnExclusive.Controls.Add(this.kryptonLabel1);
             this.pnExclusive.Controls.Add(this.tbDep);
             this.pnExclusive.Controls.Add(this.ptbProfile);
@@ -265,92 +351,38 @@
             this.pnExclusive.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnExclusive.Location = new System.Drawing.Point(0, 0);
             this.pnExclusive.Name = "pnExclusive";
-            this.pnExclusive.Size = new System.Drawing.Size(676, 263);
+            this.pnExclusive.Size = new System.Drawing.Size(676, 275);
             this.pnExclusive.TabIndex = 187;
             // 
-            // kryptonGroupBox5
+            // lblDate
             // 
-            this.kryptonGroupBox5.CaptionVisible = false;
-            this.kryptonGroupBox5.CausesValidation = false;
-            this.kryptonGroupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonGroupBox5.Location = new System.Drawing.Point(0, 294);
-            this.kryptonGroupBox5.Name = "kryptonGroupBox5";
+            this.lblDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDate.AutoSize = true;
+            this.lblDate.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDate.Location = new System.Drawing.Point(575, 28);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(73, 19);
+            this.lblDate.TabIndex = 157;
+            this.lblDate.Text = "Dec 12, 2023";
+            this.lblDate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // kryptonGroupBox5.Panel
+            // lblStatus
             // 
-            this.kryptonGroupBox5.Panel.Controls.Add(this.dgvAbsencesRecord);
-            this.kryptonGroupBox5.Size = new System.Drawing.Size(676, 240);
-            this.kryptonGroupBox5.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonGroupBox5.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonGroupBox5.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox5.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox5.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonGroupBox5.StateCommon.Border.Rounding = 10;
-            this.kryptonGroupBox5.StateCommon.Border.Width = 2;
-            this.kryptonGroupBox5.TabIndex = 190;
-            // 
-            // dgvAbsencesRecord
-            // 
-            this.dgvAbsencesRecord.AllowUserToAddRows = false;
-            this.dgvAbsencesRecord.AllowUserToDeleteRows = false;
-            this.dgvAbsencesRecord.AllowUserToResizeColumns = false;
-            this.dgvAbsencesRecord.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvAbsencesRecord.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvAbsencesRecord.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvAbsencesRecord.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dgvAbsencesRecord.BackgroundColor = System.Drawing.Color.White;
-            this.dgvAbsencesRecord.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvAbsencesRecord.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvAbsencesRecord.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dgvAbsencesRecord.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Poppins SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAbsencesRecord.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvAbsencesRecord.ColumnHeadersHeight = 50;
-            this.dgvAbsencesRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvAbsencesRecord.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ccode,
-            this.cdes,
-            this.absencedate});
-            this.dgvAbsencesRecord.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAbsencesRecord.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dgvAbsencesRecord.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvAbsencesRecord.EnableHeadersVisualStyles = false;
-            this.dgvAbsencesRecord.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dgvAbsencesRecord.Location = new System.Drawing.Point(0, 0);
-            this.dgvAbsencesRecord.Name = "dgvAbsencesRecord";
-            this.dgvAbsencesRecord.ReadOnly = true;
-            this.dgvAbsencesRecord.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.dgvAbsencesRecord.RowHeadersVisible = false;
-            this.dgvAbsencesRecord.RowHeadersWidth = 30;
-            this.dgvAbsencesRecord.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAbsencesRecord.RowsDefaultCellStyle = dataGridViewCellStyle8;
-            this.dgvAbsencesRecord.RowTemplate.Height = 30;
-            this.dgvAbsencesRecord.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAbsencesRecord.Size = new System.Drawing.Size(666, 230);
-            this.dgvAbsencesRecord.TabIndex = 3;
+            this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStatus.Location = new System.Drawing.Point(561, 1);
+            this.lblStatus.Margin = new System.Windows.Forms.Padding(2);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(91, 25);
+            this.lblStatus.StateCommon.ShortText.Color1 = System.Drawing.Color.LimeGreen;
+            this.lblStatus.StateCommon.ShortText.Color2 = System.Drawing.Color.LimeGreen;
+            this.lblStatus.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.lblStatus.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.lblStatus.TabIndex = 156;
+            this.lblStatus.Values.Text = "Consulted";
             // 
             // kryptonLabel1
             // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(211, 179);
+            this.kryptonLabel1.Location = new System.Drawing.Point(211, 198);
             this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel1.Name = "kryptonLabel1";
             this.kryptonLabel1.Size = new System.Drawing.Size(79, 19);
@@ -364,7 +396,7 @@
             // tbDep
             // 
             this.tbDep.Enabled = false;
-            this.tbDep.Location = new System.Drawing.Point(215, 203);
+            this.tbDep.Location = new System.Drawing.Point(215, 222);
             this.tbDep.Name = "tbDep";
             this.tbDep.Size = new System.Drawing.Size(212, 28);
             this.tbDep.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -380,21 +412,9 @@
             this.tbDep.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
             this.tbDep.TabIndex = 154;
             // 
-            // ptbProfile
-            // 
-            this.ptbProfile.BorderColor = System.Drawing.Color.LightGray;
-            this.ptbProfile.BorderWidth = 2;
-            this.ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
-            this.ptbProfile.Location = new System.Drawing.Point(28, 3);
-            this.ptbProfile.Name = "ptbProfile";
-            this.ptbProfile.Size = new System.Drawing.Size(170, 170);
-            this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProfile.TabIndex = 152;
-            this.ptbProfile.TabStop = false;
-            // 
             // kryptonLabel3
             // 
-            this.kryptonLabel3.Location = new System.Drawing.Point(506, 42);
+            this.kryptonLabel3.Location = new System.Drawing.Point(506, 61);
             this.kryptonLabel3.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel3.Name = "kryptonLabel3";
             this.kryptonLabel3.Size = new System.Drawing.Size(84, 19);
@@ -408,7 +428,7 @@
             // tbMname
             // 
             this.tbMname.Enabled = false;
-            this.tbMname.Location = new System.Drawing.Point(510, 66);
+            this.tbMname.Location = new System.Drawing.Point(510, 85);
             this.tbMname.Name = "tbMname";
             this.tbMname.Size = new System.Drawing.Size(138, 28);
             this.tbMname.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -426,7 +446,7 @@
             // 
             // kryptonLabel13
             // 
-            this.kryptonLabel13.Location = new System.Drawing.Point(427, 179);
+            this.kryptonLabel13.Location = new System.Drawing.Point(427, 198);
             this.kryptonLabel13.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel13.Name = "kryptonLabel13";
             this.kryptonLabel13.Size = new System.Drawing.Size(35, 19);
@@ -440,7 +460,7 @@
             // tbRole
             // 
             this.tbRole.Enabled = false;
-            this.tbRole.Location = new System.Drawing.Point(431, 203);
+            this.tbRole.Location = new System.Drawing.Point(431, 222);
             this.tbRole.Name = "tbRole";
             this.tbRole.Size = new System.Drawing.Size(217, 28);
             this.tbRole.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -458,7 +478,7 @@
             // 
             // kryptonLabel17
             // 
-            this.kryptonLabel17.Location = new System.Drawing.Point(533, 110);
+            this.kryptonLabel17.Location = new System.Drawing.Point(533, 129);
             this.kryptonLabel17.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel17.Name = "kryptonLabel17";
             this.kryptonLabel17.Size = new System.Drawing.Size(53, 19);
@@ -471,7 +491,7 @@
             // 
             // kryptonLabel18
             // 
-            this.kryptonLabel18.Location = new System.Drawing.Point(429, 110);
+            this.kryptonLabel18.Location = new System.Drawing.Point(429, 129);
             this.kryptonLabel18.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel18.Name = "kryptonLabel18";
             this.kryptonLabel18.Size = new System.Drawing.Size(67, 19);
@@ -484,7 +504,7 @@
             // 
             // kryptonLabel19
             // 
-            this.kryptonLabel19.Location = new System.Drawing.Point(209, 7);
+            this.kryptonLabel19.Location = new System.Drawing.Point(209, 16);
             this.kryptonLabel19.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel19.Name = "kryptonLabel19";
             this.kryptonLabel19.Size = new System.Drawing.Size(173, 25);
@@ -497,7 +517,7 @@
             // 
             // kryptonLabel20
             // 
-            this.kryptonLabel20.Location = new System.Drawing.Point(211, 110);
+            this.kryptonLabel20.Location = new System.Drawing.Point(211, 129);
             this.kryptonLabel20.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel20.Name = "kryptonLabel20";
             this.kryptonLabel20.Size = new System.Drawing.Size(60, 19);
@@ -510,7 +530,7 @@
             // 
             // kryptonLabel21
             // 
-            this.kryptonLabel21.Location = new System.Drawing.Point(362, 42);
+            this.kryptonLabel21.Location = new System.Drawing.Point(362, 61);
             this.kryptonLabel21.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel21.Name = "kryptonLabel21";
             this.kryptonLabel21.Size = new System.Drawing.Size(70, 19);
@@ -524,7 +544,7 @@
             // tbLname
             // 
             this.tbLname.Enabled = false;
-            this.tbLname.Location = new System.Drawing.Point(366, 66);
+            this.tbLname.Location = new System.Drawing.Point(366, 85);
             this.tbLname.Name = "tbLname";
             this.tbLname.Size = new System.Drawing.Size(138, 28);
             this.tbLname.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -543,7 +563,7 @@
             // tbFname
             // 
             this.tbFname.Enabled = false;
-            this.tbFname.Location = new System.Drawing.Point(213, 66);
+            this.tbFname.Location = new System.Drawing.Point(213, 85);
             this.tbFname.Name = "tbFname";
             this.tbFname.Size = new System.Drawing.Size(147, 28);
             this.tbFname.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -561,7 +581,7 @@
             // 
             // kryptonLabel22
             // 
-            this.kryptonLabel22.Location = new System.Drawing.Point(210, 42);
+            this.kryptonLabel22.Location = new System.Drawing.Point(210, 61);
             this.kryptonLabel22.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel22.Name = "kryptonLabel22";
             this.kryptonLabel22.Size = new System.Drawing.Size(70, 19);
@@ -575,7 +595,7 @@
             // tbID
             // 
             this.tbID.Enabled = false;
-            this.tbID.Location = new System.Drawing.Point(40, 207);
+            this.tbID.Location = new System.Drawing.Point(40, 226);
             this.tbID.Name = "tbID";
             this.tbID.Size = new System.Drawing.Size(144, 28);
             this.tbID.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -594,7 +614,7 @@
             // 
             // kryptonLabel24
             // 
-            this.kryptonLabel24.Location = new System.Drawing.Point(81, 184);
+            this.kryptonLabel24.Location = new System.Drawing.Point(81, 203);
             this.kryptonLabel24.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel24.Name = "kryptonLabel24";
             this.kryptonLabel24.Size = new System.Drawing.Size(62, 19);
@@ -608,7 +628,7 @@
             // tbProgram
             // 
             this.tbProgram.Enabled = false;
-            this.tbProgram.Location = new System.Drawing.Point(215, 134);
+            this.tbProgram.Location = new System.Drawing.Point(215, 153);
             this.tbProgram.Name = "tbProgram";
             this.tbProgram.Size = new System.Drawing.Size(212, 28);
             this.tbProgram.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -627,7 +647,7 @@
             // tbYlevel
             // 
             this.tbYlevel.Enabled = false;
-            this.tbYlevel.Location = new System.Drawing.Point(433, 134);
+            this.tbYlevel.Location = new System.Drawing.Point(433, 153);
             this.tbYlevel.Name = "tbYlevel";
             this.tbYlevel.Size = new System.Drawing.Size(98, 28);
             this.tbYlevel.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -646,7 +666,7 @@
             // tbSec
             // 
             this.tbSec.Enabled = false;
-            this.tbSec.Location = new System.Drawing.Point(537, 134);
+            this.tbSec.Location = new System.Drawing.Point(537, 153);
             this.tbSec.Name = "tbSec";
             this.tbSec.Size = new System.Drawing.Size(111, 28);
             this.tbSec.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
@@ -661,6 +681,26 @@
             this.tbSec.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
             this.tbSec.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
             this.tbSec.TabIndex = 151;
+            // 
+            // ptbProfile
+            // 
+            this.ptbProfile.BorderColor = System.Drawing.Color.LightGray;
+            this.ptbProfile.BorderWidth = 2;
+            this.ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
+            this.ptbProfile.Location = new System.Drawing.Point(28, 22);
+            this.ptbProfile.Name = "ptbProfile";
+            this.ptbProfile.Size = new System.Drawing.Size(170, 170);
+            this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProfile.TabIndex = 152;
+            this.ptbProfile.TabStop = false;
+            // 
+            // count
+            // 
+            this.count.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.count.HeaderText = "#";
+            this.count.Name = "count";
+            this.count.ReadOnly = true;
+            this.count.Width = 41;
             // 
             // ccode
             // 
@@ -706,14 +746,14 @@
             this.Load += new System.EventHandler(this.formEventConfig_Load);
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.pnExclusive.ResumeLayout(false);
-            this.pnExclusive.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).EndInit();
             this.kryptonGroupBox5.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).EndInit();
             this.kryptonGroupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAbsencesRecord)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.pnExclusive.ResumeLayout(false);
+            this.pnExclusive.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).EndInit();
             this.ResumeLayout(false);
 
@@ -750,6 +790,9 @@
         private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox tbProgram;
         private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox tbYlevel;
         private ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox tbSec;
+        private System.Windows.Forms.Label lblDate;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn count;
         private System.Windows.Forms.DataGridViewTextBoxColumn ccode;
         private System.Windows.Forms.DataGridViewTextBoxColumn cdes;
         private System.Windows.Forms.DataGridViewTextBoxColumn absencedate;

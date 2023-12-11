@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Org.BouncyCastle.Bcpg.OpenPgp;
 
 namespace AMSEMS.SubForm_Guidance
 {
@@ -71,29 +72,31 @@ namespace AMSEMS.SubForm_Guidance
                             s.ID,
                             UPPER(s.Lastname + ', ' + s.Firstname + ' ' + s.Middlename) AS Name,
                             sec.Description AS secdes,
+                            cr.Class_Code AS ccode,
+                            cr.Consultation_ID AS conid,
+                            sub.Course_Description AS subdes,
                             cr.Absences AS ConsecutiveAbsentDays,
                             cr.Status AS ConsultationStatus
                         FROM 
-                            tbl_subject_attendance sat
-                            LEFT JOIN tbl_student_accounts s ON sat.Student_ID = s.ID 
+                            tbl_consultation_record cr
+                            LEFT JOIN tbl_student_accounts s ON cr.Student_ID = s.ID 
                             LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID 
 	                        LEFT JOIN tbl_academic_level al ON sec.AcadLevel_ID = al.Academic_Level_ID
-                        	LEFT JOIN tbl_class_list cl ON sat.Class_Code = cl.CLass_Code
-                            LEFT JOIN tbl_consultation_record cr ON s.ID = cr.Student_ID
+                        	LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
+                            LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
+							LEFT JOIN tbl_subject_attendance sa ON cr.Class_Code = sa.Class_Code
                         WHERE 
-                            al.Academic_Level_Description = @acadlvl 
+                            al.Academic_Level_Description = @acadlvl
                             AND (@SectionDescription = 'All' OR sec.Description = @SectionDescription) 
-                            AND UPPER(FORMAT(CONVERT(DATE, sat.Attendance_date, 0), 'MMMM')) = @month
+                            AND UPPER(FORMAT(CONVERT(DATE, sa.Attendance_date, 0), 'MMMM')) = @month
                             AND s.Status = 1
                             AND cl.School_Year = @schyear
                             AND cl.Semester = @sem
                             AND (@Status = 'All' OR cr.Status = @Status)
                         GROUP BY 
-                            s.ID, s.Lastname, s.Firstname, s.Middlename, sec.Description, cr.Status, cr.Absences
-                        HAVING 
-                            COUNT(DISTINCT CASE WHEN sat.Student_Status = 'A' THEN sat.Attendance_date END) > 2
-                        ORDER BY
-                            Name;";
+                            s.ID, s.Lastname, s.Firstname, s.Middlename, sec.Description, sub.Course_Description,cr.Status, cr.Absences, cr.Consultation_ID, cr.Class_Code
+						ORDER BY
+							Name";
 
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
@@ -120,6 +123,9 @@ namespace AMSEMS.SubForm_Guidance
                             dgvAbesnteismRep.Rows[rowIndex].Cells["studid"].Value = dr["ID"].ToString();
                             dgvAbesnteismRep.Rows[rowIndex].Cells["studname"].Value = dr["Name"].ToString();
                             dgvAbesnteismRep.Rows[rowIndex].Cells["section"].Value = dr["secdes"].ToString();
+                            dgvAbesnteismRep.Rows[rowIndex].Cells["classcode"].Value = dr["ccode"].ToString();
+                            dgvAbesnteismRep.Rows[rowIndex].Cells["consultid"].Value = dr["conid"].ToString();
+                            dgvAbesnteismRep.Rows[rowIndex].Cells["sub"].Value = dr["subdes"].ToString();
                             dgvAbesnteismRep.Rows[rowIndex].Cells["absences"].Value = dr["ConsecutiveAbsentDays"].ToString();
                             dgvAbesnteismRep.Rows[rowIndex].Cells["status"].Value = dr["ConsultationStatus"].ToString();
                         }
@@ -171,7 +177,7 @@ namespace AMSEMS.SubForm_Guidance
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
                         DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
                         formStudAttRecord form = new formStudAttRecord();
-                        form.getForm(this, dgvAbesnteismRep.Rows[rowIndex].Cells[0].Value.ToString());
+                        form.getForm(this, dgvAbesnteismRep.Rows[rowIndex].Cells[0].Value.ToString(), dgvAbesnteismRep.Rows[rowIndex].Cells[1].Value.ToString(), dgvAbesnteismRep.Rows[rowIndex].Cells[4].Value.ToString());
                         form.ShowDialog();
                         UseWaitCursor = false;
                     }
@@ -228,6 +234,77 @@ namespace AMSEMS.SubForm_Guidance
         {
             displayReport();
         }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            displayReport();
+        }
+
+        private void marktoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+                        string studid = dgvAbesnteismRep.Rows[rowIndex].Cells[0].Value.ToString();
+                        string consultedID = dgvAbesnteismRep.Rows[rowIndex].Cells[1].Value.ToString();
+                        string classcode = dgvAbesnteismRep.Rows[rowIndex].Cells[4].Value.ToString();
+
+                        using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                        {
+                            cn.Open();
+
+                            // Check if the status is already 'Done'
+                            string checkQuery = "SELECT Status FROM tbl_consultation_record WHERE Student_ID = @StudID AND Class_Code = @ccode AND Consultation_ID = @conID";
+                            using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
+                            {
+                                checkCommand.Parameters.AddWithValue("@StudID", studid);
+                                checkCommand.Parameters.AddWithValue("@conID", consultedID);
+                                checkCommand.Parameters.AddWithValue("@ccode", classcode);
+
+                                object statusResult = checkCommand.ExecuteScalar();
+
+                                if (statusResult != null && statusResult.ToString() == "Done")
+                                {
+                                    MessageBox.Show("Record is already marked as 'Done'.", "Consultation Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+                                else
+                                {
+                                    // Update the status to 'Done'
+                                    string updateQuery = "UPDATE tbl_consultation_record SET Status = 'Done', Date = @DateNow WHERE Student_ID = @StudID AND Class_Code = @ccode AND Consultation_ID = @conID";
+                                    using (SqlCommand updateCommand = new SqlCommand(updateQuery, cn))
+                                    {
+                                        updateCommand.Parameters.AddWithValue("@StudID", studid);
+                                        updateCommand.Parameters.AddWithValue("@conID", consultedID);
+                                        updateCommand.Parameters.AddWithValue("@ccode", classcode);
+                                        updateCommand.Parameters.AddWithValue("@DateNow", DateTime.Now.ToString("yyyy-MM-dd hh:mm tt"));
+                                        updateCommand.ExecuteNonQuery();
+                                    }
+
+                                    // Display the updated report
+                                    displayReport();
+                                }
+                            }
+
+                            cn.Close();
+                        }
+                    }
+                }
+            }
+        }
+
 
         private void ExportToPDF(DataGridView dataGridView, string filePath)
         {

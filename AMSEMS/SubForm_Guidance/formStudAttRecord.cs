@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Microsoft.IO.RecyclableMemoryStreamManager;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AMSEMS.SubForm_Guidance
 {
@@ -26,7 +27,7 @@ namespace AMSEMS.SubForm_Guidance
         SqlDataReader dr;
 
 
-        string stud_id, date;
+        string stud_id, con_id, class_code;
 
         public bool paystatus = false;
 
@@ -36,13 +37,16 @@ namespace AMSEMS.SubForm_Guidance
             InitializeComponent();
 
         }
-        public void getForm(formAbsReport form, string studid)
+        public void getForm(formAbsReport form, string studid, string conid, string classcode)
         {
             this.form = form;
             stud_id = studid;
+            con_id = conid;
+            class_code = classcode;
         } 
         private void formEventConfig_Load(object sender, EventArgs e)
         {
+            displayStatus();
             displayPSY();
             getStudID();
             displayAbsencesRecord();
@@ -57,6 +61,45 @@ namespace AMSEMS.SubForm_Guidance
                 while (dr.Read())
                 {
                     tbRole.Text = dr["Description"].ToString();
+                }
+                dr.Close();
+                cn.Close();
+            }
+        }
+        public void displayStatus()
+        {
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                cm = new SqlCommand("Select Status, Date from tbl_consultation_record WHERE Consultation_ID = @conid", cn);
+                cm.Parameters.AddWithValue("@conid", con_id);
+                dr = cm.ExecuteReader();
+                if (dr.Read())
+                {
+                    string status = dr["Status"].ToString();
+
+                    // Check for DBNull before attempting the cast
+                    DateTime date;
+                    if (dr["Date"] != DBNull.Value)
+                    {
+                        date = Convert.ToDateTime(dr["Date"]);
+                        //string formatteddate = date.ToString("MMM dd, yyyy");
+                        //lblDate.Text = formatteddate;
+                    }
+                    else
+                    {
+                        lblDate.Text = "";
+                    }
+                    if (status.Equals("Done"))
+                    {
+                        lblStatus.Text = "Consulted";
+                        lblStatus.StateCommon.ShortText.Color1 = Color.LimeGreen;
+                    }
+                    else
+                    {
+                        lblStatus.Text = "Pending";
+                        lblStatus.StateCommon.ShortText.Color1 = Color.IndianRed;
+                    }
                 }
                 dr.Close();
                 cn.Close();
@@ -117,18 +160,56 @@ namespace AMSEMS.SubForm_Guidance
                 try
                 {
                     cn.Open();
-                    string query = "SELECT sub.Course_Code AS ccode, sub.Course_Description AS cdes, att.Attendance_date AS abdate FROM tbl_subjects sub RIGHT JOIN tbl_class_list cl ON sub.Course_code = cl.Course_Code RIGHT JOIN tbl_subject_attendance att ON cl.CLass_Code = att.Class_Code WHERE att.Student_Status = 'A' AND Student_ID = @studid";
+                    string consulteddate = "";
+                    string status = null;
+                    cm = new SqlCommand("Select Status, MAX(Date) AS date from tbl_consultation_record WHERE Student_ID = @studid AND Class_Code = @ccode AND Status = 'Done' GROUP BY Status ORDER BY Date DESC LIMIT 1 OFFSET 1;", cn);
+                    cm.Parameters.AddWithValue("@studid", stud_id);
+                    cm.Parameters.AddWithValue("@ccode", class_code);
+                    dr = cm.ExecuteReader();
+                    if (dr.Read())
+                    {
+                        status = dr["Status"].ToString();
+                        DateTime date;
+                        if (dr["date"] != DBNull.Value)
+                        {
+                            date = Convert.ToDateTime(dr["date"]);
+                            consulteddate = date.ToString();
+                            string formatteddate = date.ToString("MMM dd, yyyy");
+                            lblDate.Text = formatteddate;
+                        }
+                        else
+                        {
+                            consulteddate = "";
+                        }
+                    }
+                    dr.Close();
+
+                    string query = "";
+                    if (status.Equals("Done"))
+                    {
+                        query = "SELECT sub.Course_Code AS ccode, sub.Course_Description AS cdes, att.Attendance_date AS abdate FROM tbl_subjects sub RIGHT JOIN tbl_class_list cl ON sub.Course_code = cl.Course_Code RIGHT JOIN tbl_subject_attendance att ON cl.CLass_Code = att.Class_Code LEFT JOIN tbl_consultation_record cr ON att.Class_Code = cr.Class_Code WHERE att.Student_Status = 'A' AND att.Student_ID = @studid AND att.Class_Code = @ccode AND (@ConsultedDate IS NULL OR CONVERT(DATETIME, att.Attendance_date) <= FORMAT(CONVERT(DATETIME, @ConsultedDate), 'yyyy-MM-dd')) GROUP BY sub.Course_Code, sub.Course_Description, att.Attendance_date";
+                    }
+                    else
+                    {
+                        query = "SELECT sub.Course_Code AS ccode, sub.Course_Description AS cdes, att.Attendance_date AS abdate FROM tbl_subjects sub RIGHT JOIN tbl_class_list cl ON sub.Course_code = cl.Course_Code RIGHT JOIN tbl_subject_attendance att ON cl.CLass_Code = att.Class_Code LEFT JOIN tbl_consultation_record cr ON att.Class_Code = cr.Class_Code WHERE att.Student_Status = 'A' AND att.Student_ID = @studid AND att.Class_Code = @ccode AND (@ConsultedDate IS NULL OR CONVERT(DATETIME, att.Attendance_date) >= FORMAT(CONVERT(DATETIME, @ConsultedDate), 'yyyy-MM-dd')) GROUP BY sub.Course_Code, sub.Course_Description, att.Attendance_date";
+                    }
+                    
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
                         cmd.Parameters.AddWithValue("@studid", stud_id);
+                        cmd.Parameters.AddWithValue("@ccode", class_code);
+                        cmd.Parameters.AddWithValue("@ConsultedDate", consulteddate);
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
+                            int count = 0;
                             while (dr.Read())
                             {
+                                count++;
                                 // Add a row and set the checkbox column value to false (unchecked)
                                 int rowIndex = dgvAbsencesRecord.Rows.Add(false);
 
                                 // Populate other columns, starting from index 1
+                                dgvAbsencesRecord.Rows[rowIndex].Cells["count"].Value = count;
                                 dgvAbsencesRecord.Rows[rowIndex].Cells["ccode"].Value = dr["ccode"].ToString();
                                 dgvAbsencesRecord.Rows[rowIndex].Cells["cdes"].Value = dr["cdes"].ToString();
                                 dgvAbsencesRecord.Rows[rowIndex].Cells["absencedate"].Value = dr["abdate"].ToString();

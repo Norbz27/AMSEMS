@@ -1280,6 +1280,7 @@ namespace AMSEMS.SubForms_Teacher
         {
             chart1.Series.Clear();
             chart1.Titles.Clear();
+            
 
             int totalStudents = 0;
             int totalClasses = 0;
@@ -1367,7 +1368,7 @@ namespace AMSEMS.SubForms_Teacher
                     }
                 }
             }
-
+            chart1.Series["StudentRecord"].IsValueShownAsLabel = true;
             //// Calculate the average attendees
             //double averageAttendees = totalAttendees / (double)totalClasses;
 
