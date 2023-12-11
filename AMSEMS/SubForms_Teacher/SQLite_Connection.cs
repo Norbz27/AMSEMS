@@ -626,43 +626,56 @@ namespace AMSEMS
         {
             DataTable dataTable = new DataTable();
 
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            try
             {
-                connection.Open();
-
-                string query = $"SELECT * FROM {tblname}";
-
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
-                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    connection.Open();
+
+                    string query = $"SELECT * FROM {tblname}";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {
-                        adapter.Fill(dataTable);
+                        using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                        {
+                            adapter.Fill(dataTable);
+                        }
                     }
                 }
+            }
+            catch (SQLiteException ex)
+            {
+                return null;
             }
 
             return dataTable;
         }
+
         public DataTable GetStudListSingle(string tblname, string classcode)
         {
             DataTable dataTable = new DataTable();
-
-            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            try
             {
-                connection.Open();
-
-                string query = $"SELECT * FROM {tblname} WHERE  Class_Code = @ClassCode";
-
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@ClassCode", classcode);
-                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    connection.Open();
+
+                    string query = $"SELECT * FROM {tblname} WHERE  Class_Code = @ClassCode";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {
-                        adapter.Fill(dataTable);
+                        command.Parameters.AddWithValue("@ClassCode", classcode);
+                        using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                        {
+                            adapter.Fill(dataTable);
+                        }
                     }
                 }
             }
-
+            catch (SQLiteException ex)
+            {
+                return null;
+            }
             return dataTable;
         }
     }

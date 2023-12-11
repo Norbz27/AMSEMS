@@ -160,14 +160,11 @@ namespace AMSEMS.SubForms_Teacher
         {
             try
             {
-                Ping ping = new Ping();
-                PingReply reply = ping.Send("www.google.com"); // You can use a reliable external host for testing connectivity.
-
-                if (reply != null && reply.Status == IPStatus.Success)
+                using (var client = new Ping())
                 {
-                    return true; // Internet is reachable.
+                    var result = client.Send("8.8.8.8", 1000);
+                    return result.Status == IPStatus.Success;
                 }
-                return false; // No internet connection.
             }
             catch
             {
@@ -268,30 +265,31 @@ namespace AMSEMS.SubForms_Teacher
                                     }
 
                                     string tableName = "tbl_" + classcode;
-                                    string createTableSql = $@"IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName}')
+                                    System.Data.DataTable class_stud_list = conn.GetStudList(tableName);
+                                    if (class_stud_list != null)
+                                    {
+                                        string createTableSql = $@"IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName}')
                                     BEGIN
                                         CREATE TABLE {tableName} (
                                             StudentID INT PRIMARY KEY,
                                             Class_Code NVARCHAR(MAX)
                                         );
                                     END;";
-                                    using (SqlCommand command = new SqlCommand(createTableSql, cnn))
-                                    {
-                                        command.ExecuteNonQuery();
-                                    }
+                                        using (SqlCommand command = new SqlCommand(createTableSql, cnn))
+                                        {
+                                            command.ExecuteNonQuery();
+                                        }
 
-                                    // Insert data into the table only if the StudentID doesn't exist
-                                    System.Data.DataTable class_stud_list = conn.GetStudList(tableName);
-                                    string insertSql = $@"
+                                        string insertSql = $@"
                                     INSERT INTO {tableName} (StudentID, Class_Code)
                                     SELECT @StudID, @ClassCode
                                     WHERE NOT EXISTS (SELECT 1 FROM {tableName} WHERE StudentID = @StudID);";
 
-                                    using (SqlCommand insertCommand = new SqlCommand(insertSql, cnn))
-                                    {
-
-                                        foreach (DataRow row1 in class_stud_list.Rows)
+                                        using (SqlCommand insertCommand = new SqlCommand(insertSql, cnn))
                                         {
+
+                                            foreach (DataRow row1 in class_stud_list.Rows)
+                                            {
                                                 string studentID = row1["StudentID"].ToString();
                                                 string classCodeValue = row1["Class_Code"].ToString(); ;
 
@@ -299,11 +297,11 @@ namespace AMSEMS.SubForms_Teacher
                                                 insertCommand.Parameters.AddWithValue("@StudID", studentID);
                                                 insertCommand.Parameters.AddWithValue("@ClassCode", classCodeValue);
                                                 insertCommand.ExecuteNonQuery();
+                                            }
                                         }
                                     }
-
                                 }
-                                MessageBox.Show("Successfully Upload Data.", "Sync Configuration", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show("Successfully Upload Data.", "Sync Configuration", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }

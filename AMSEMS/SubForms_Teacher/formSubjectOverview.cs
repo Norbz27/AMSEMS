@@ -260,7 +260,10 @@ namespace AMSEMS.SubForms_Teacher
                 string dateQuery = @"
             SELECT DISTINCT Attendance_date
             FROM tbl_subject_attendance
-            WHERE Class_Code = @Class_Code";
+            WHERE Class_Code = @Class_Code
+            ORDER BY Attendance_date";
+
+                List<DateTime> sortedDates = new List<DateTime>();
 
                 using (SQLiteCommand dateCommand = new SQLiteCommand(dateQuery, con))
                 {
@@ -270,12 +273,24 @@ namespace AMSEMS.SubForms_Teacher
                     {
                         while (dateReader.Read())
                         {
-                            string attendanceDate = dateReader["Attendance_date"].ToString();
+                            string attendanceDateString = dateReader["Attendance_date"].ToString();
 
-                            // Dynamically add columns to the DataGridView
-                            dgvAttendanceReport.Columns.Add(attendanceDate, attendanceDate);
+                            if (DateTime.TryParse(attendanceDateString, out DateTime attendanceDate))
+                            {
+                                sortedDates.Add(attendanceDate);
+                            }
                         }
                     }
+                }
+
+                // Sort the list of DateTime objects
+                sortedDates.Sort();
+
+                // Dynamically add columns to the DataGridView in sorted order
+                foreach (DateTime sortedDate in sortedDates)
+                {
+                    string formattedDate = sortedDate.ToString("MMM dd, yy hh:mm tt");
+                    dgvAttendanceReport.Columns.Add(formattedDate, formattedDate);
                 }
 
                 // Fetch all students
@@ -521,6 +536,8 @@ namespace AMSEMS.SubForms_Teacher
         private void btnSave2_Click(object sender, EventArgs e)
         {
             btnNewAttendance.Enabled = true;
+            btnCancel2.Visible = false;
+            btnSave2.Enabled = false;
             // Assuming your DataGridView is named dgvAttendanceReport
             if (dgvAttendanceReport.Columns.Count < 6)
             {
@@ -588,7 +605,7 @@ namespace AMSEMS.SubForms_Teacher
 
                 connection.Close();
             }
-
+            displayStudentsAttendanceReport();
             MessageBox.Show("Data saved successfully.");
         }
 
@@ -723,7 +740,7 @@ namespace AMSEMS.SubForms_Teacher
 
         private void dgvAttendanceReport_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            btnSave2.Enabled = true;
+            
         }
 
         private void dgvAttendance_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -1081,7 +1098,9 @@ namespace AMSEMS.SubForms_Teacher
             {
                 foreach (DataGridViewCell cell in row.Cells)
                 {
-                    PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value.ToString(), cellFont));
+                    // Check if the cell value is not null before attempting to use it
+                    string cellValue = cell.Value != null ? cell.Value.ToString() : "0";
+                    PdfPCell pdfCell = new PdfPCell(new Phrase(cellValue, cellFont));
                     pdfTable.AddCell(pdfCell);
                 }
             }
@@ -1189,38 +1208,40 @@ namespace AMSEMS.SubForms_Teacher
                                     }
 
                                     string tableName = "tbl_" + classcode;
-                                    string createTableSql = $@"IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName}')
+                                    System.Data.DataTable class_stud_list = conn.GetStudListSingle(tableName, classcode);
+                                    if (class_stud_list != null)
+                                    {
+                                        string createTableSql = $@"IF NOT EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName}')
                                     BEGIN
                                         CREATE TABLE {tableName} (
                                             StudentID INT PRIMARY KEY,
                                             Class_Code NVARCHAR(MAX)
                                         );
                                     END;";
-                                    using (SqlCommand command = new SqlCommand(createTableSql, cnn))
-                                    {
-                                        command.ExecuteNonQuery();
-                                    }
+                                        using (SqlCommand command = new SqlCommand(createTableSql, cnn))
+                                        {
+                                            command.ExecuteNonQuery();
+                                        }
 
-                                    // Insert data into the table only if the StudentID doesn't exist
-                                    System.Data.DataTable class_stud_list = conn.GetStudListSingle(tableName, classcode);
-                                    string insertSql = $@"
+                                        string insertSql = $@"
                                     INSERT INTO {tableName} (StudentID, Class_Code)
                                     SELECT @StudID, @ClassCode
                                     WHERE NOT EXISTS (SELECT 1 FROM {tableName} WHERE StudentID = @StudID);";
 
-                                    using (SqlCommand insertCommand = new SqlCommand(insertSql, cnn))
-                                    {
-                                        insertCommand.CommandText = insertSql;
-
-                                        foreach (DataRow row1 in class_stud_list.Rows)
+                                        using (SqlCommand insertCommand = new SqlCommand(insertSql, cnn))
                                         {
-                                            string studentID = row1["StudentID"].ToString();
-                                            string classCodeValue = row1["Class_Code"].ToString(); ;
+                                            insertCommand.CommandText = insertSql;
 
-                                            insertCommand.Parameters.Clear();
-                                            insertCommand.Parameters.AddWithValue("@StudID", studentID);
-                                            insertCommand.Parameters.AddWithValue("@ClassCode", classCodeValue);
-                                            insertCommand.ExecuteNonQuery();
+                                            foreach (DataRow row1 in class_stud_list.Rows)
+                                            {
+                                                string studentID = row1["StudentID"].ToString();
+                                                string classCodeValue = row1["Class_Code"].ToString(); ;
+
+                                                insertCommand.Parameters.Clear();
+                                                insertCommand.Parameters.AddWithValue("@StudID", studentID);
+                                                insertCommand.Parameters.AddWithValue("@ClassCode", classCodeValue);
+                                                insertCommand.ExecuteNonQuery();
+                                            }
                                         }
                                     }
                                 }
@@ -1244,14 +1265,11 @@ namespace AMSEMS.SubForms_Teacher
         {
             try
             {
-                Ping ping = new Ping();
-                PingReply reply = ping.Send("www.google.com"); // You can use a reliable external host for testing connectivity.
-
-                if (reply != null && reply.Status == IPStatus.Success)
+                using (var client = new Ping())
                 {
-                    return true; // Internet is reachable.
+                    var result = client.Send("8.8.8.8", 1000);
+                    return result.Status == IPStatus.Success;
                 }
-                return false; // No internet connection.
             }
             catch
             {
@@ -1364,77 +1382,125 @@ namespace AMSEMS.SubForms_Teacher
             //lblAverageAttendees.Text = averageAttendeesPercentage.ToString("F2") + "%";
 
         }
-
-
-
         private void deltoolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (IsInternetConnected())
+            DialogResult result = MessageBox.Show("Do you want to delete section? You need Internet to delete section", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
             {
-                using (SQLiteConnection connection = new SQLiteConnection(conn.connectionString))
+                if (IsInternetConnected())
                 {
-                    connection.Open();
-
-                    using (SQLiteTransaction transaction = connection.BeginTransaction())
+                    using (SQLiteConnection connection = new SQLiteConnection(conn.connectionString))
                     {
-                        try
-                        {
-                            // SQLite deletion and table drop
-                            string clearSql = @"DELETE FROM tbl_class_list WHERE Class_Code = @classcode;";
-                            using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
-                            {
-                                command.Parameters.AddWithValue("@classcode", classcode);
-                                command.ExecuteNonQuery();
-                            }
+                        connection.Open();
 
-                            clearSql = $@"DROP TABLE IF EXISTS tbl_{classcode};";
-                            using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
-                            {
-                                command.ExecuteNonQuery();
-                            }
-
-                            transaction.Commit();
-                        }
-                        catch (Exception ex)
+                        using (SQLiteTransaction transaction = connection.BeginTransaction())
                         {
-                            transaction.Rollback();
+                            try
+                            {
+                                // SQLite deletion and table drop
+                                string clearSql = @"DELETE FROM tbl_class_list WHERE Class_Code = @classcode;";
+                                using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
+                                {
+                                    command.Parameters.AddWithValue("@classcode", classcode);
+                                    command.ExecuteNonQuery();
+                                }
+
+                                clearSql = $@"DROP TABLE IF EXISTS tbl_{classcode};";
+                                using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
+                                {
+                                    command.ExecuteNonQuery();
+                                }
+
+                                // Delete attendance records
+                                clearSql = $@"DELETE FROM tbl_subject_attendance WHERE Student_ID IN (SELECT Student_ID FROM tbl_{classcode}) AND Class_Code = @classcode;";
+                                using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
+                                {
+                                    command.Parameters.AddWithValue("@classcode", classcode);
+                                    command.ExecuteNonQuery();
+                                }
+
+                                // Delete consultation records
+                                clearSql = $@"DELETE cr
+                                FROM tbl_consultation_record cr
+                                INNER JOIN tbl_class_list cl ON cr.Student_ID = cl.Student_ID
+                                WHERE cl.Class_Code = @classcode;";
+                                using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
+                                {
+                                    command.Parameters.AddWithValue("@classcode", classcode);
+                                    command.ExecuteNonQuery();
+                                }
+
+                                transaction.Commit();
+                            }
+                            catch (Exception ex)
+                            {
+                                transaction.Rollback();
+                            }
                         }
                     }
-                }
 
-                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-                {
-                    cn.Open();
-
-                    using (SqlTransaction transaction = cn.BeginTransaction())
+                    using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                     {
-                        try
-                        {
-                            // SQL Server deletion and table drop
-                            string clearSql = @"DELETE FROM tbl_class_list WHERE Class_Code = @classcode;";
-                            using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
-                            {
-                                cm.Parameters.AddWithValue("@classcode", classcode);
-                                cm.ExecuteNonQuery();
-                            }
+                        cn.Open();
 
-                            clearSql = $@"IF OBJECT_ID('tbl_{classcode}', 'U') IS NOT NULL DROP TABLE tbl_{classcode};";
-                            using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
-                            {
-                                cm.ExecuteNonQuery();
-                            }
-
-                            transaction.Commit();
-                        }
-                        catch (Exception ex)
+                        using (SqlTransaction transaction = cn.BeginTransaction())
                         {
-                            transaction.Rollback();
+                            try
+                            {
+                                // SQL Server deletion and table drop
+                                string clearSql = @"DELETE FROM tbl_class_list WHERE Class_Code = @classcode;";
+                                using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
+                                {
+                                    cm.Parameters.AddWithValue("@classcode", classcode);
+                                    cm.ExecuteNonQuery();
+                                }
+
+                                clearSql = $@"IF OBJECT_ID('tbl_{classcode}', 'U') IS NOT NULL DROP TABLE tbl_{classcode};";
+                                using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
+                                {
+                                    cm.ExecuteNonQuery();
+                                }
+
+                                // Delete attendance records
+                                clearSql = $@"DELETE FROM tbl_subject_attendance WHERE Student_ID IN (SELECT Student_ID FROM tbl_{classcode}) AND cl.Class_Code = @classcode;";
+                                using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
+                                {
+                                    cm.Parameters.AddWithValue("@classcode", classcode);
+                                    cm.ExecuteNonQuery();
+                                }
+
+                                // Delete consultation records
+                                // Delete consultation records with a join on tbl_class_list
+                                clearSql = @"DELETE cr
+                                FROM tbl_consultation_record cr
+                                INNER JOIN tbl_class_list cl ON cr.Student_ID = cl.Student_ID
+                                WHERE cl.Class_Code = @classcode;";
+                                using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
+                                {
+                                    cm.Parameters.AddWithValue("@classcode", classcode);
+                                    cm.ExecuteNonQuery();
+                                }
+                                transaction.Commit();
+
+                                MessageBox.Show("Deletion successful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            }
+                            catch (Exception ex)
+                            {
+                                transaction.Rollback();
+                                MessageBox.Show($"Deletion failed. Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
+                    this.Close();
+                    form.OpenMainPage();
+                    form.displaySectionOfSubject();
                 }
-                this.Close();
-                form.OpenMainPage();
-                form.displaySectionOfSubject();
+                else
+                {
+                    MessageBox.Show("No internet connection available. Please check your network connection.");
+                }
             }
         }
     }

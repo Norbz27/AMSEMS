@@ -71,7 +71,7 @@ namespace AMSEMS.SubForm_Guidance
                             s.ID,
                             UPPER(s.Lastname + ', ' + s.Firstname + ' ' + s.Middlename) AS Name,
                             sec.Description AS secdes,
-                            COUNT(DISTINCT CASE WHEN sat.Student_Status = 'A' THEN sat.Attendance_date END) AS ConsecutiveAbsentDays,
+                            cr.Absences AS ConsecutiveAbsentDays,
                             cr.Status AS ConsultationStatus
                         FROM 
                             tbl_subject_attendance sat
@@ -89,7 +89,7 @@ namespace AMSEMS.SubForm_Guidance
                             AND cl.Semester = @sem
                             AND (@Status = 'All' OR cr.Status = @Status)
                         GROUP BY 
-                            s.ID, s.Lastname, s.Firstname, s.Middlename, sec.Description, cr.Status
+                            s.ID, s.Lastname, s.Firstname, s.Middlename, sec.Description, cr.Status, cr.Absences
                         HAVING 
                             COUNT(DISTINCT CASE WHEN sat.Student_Status = 'A' THEN sat.Attendance_date END) > 2
                         ORDER BY
