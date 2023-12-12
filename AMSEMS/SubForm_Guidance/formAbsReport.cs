@@ -304,8 +304,6 @@ namespace AMSEMS.SubForm_Guidance
                 }
             }
         }
-
-
         private void ExportToPDF(DataGridView dataGridView, string filePath)
         {
             try
@@ -329,15 +327,15 @@ namespace AMSEMS.SubForm_Guidance
                 titleParagraph1.Alignment = Element.ALIGN_CENTER;
                 document.Add(titleParagraph1);
 
-                PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1);
+                PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.GetColumnCount(DataGridViewElementStates.Visible));
                 pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
                 pdfTable.SpacingBefore = 10f; // Add space before the table
                 pdfTable.DefaultCell.Padding = 3; // Cell padding
 
-                // Add header cells excluding the last column
+                // Add header cells for visible columns
                 foreach (DataGridViewColumn column in dataGridView.Columns)
                 {
-                    if (column.Index != dataGridView.Columns.Count - 1) // Exclude the last column
+                    if (column.Visible)
                     {
                         PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
                         cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
@@ -345,13 +343,16 @@ namespace AMSEMS.SubForm_Guidance
                     }
                 }
 
-                // Add data cells excluding the last column
+                // Add data cells for visible columns
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
-                    for (int i = 0; i < row.Cells.Count - 1; i++) // Exclude the last column
+                    foreach (DataGridViewColumn column in dataGridView.Columns)
                     {
-                        PdfPCell pdfCell = new PdfPCell(new Phrase(row.Cells[i].Value.ToString(), cellFont));
-                        pdfTable.AddCell(pdfCell);
+                        if (column.Visible)
+                        {
+                            PdfPCell pdfCell = new PdfPCell(new Phrase(row.Cells[column.Index].Value?.ToString() ?? "", cellFont));
+                            pdfTable.AddCell(pdfCell);
+                        }
                     }
                 }
 
@@ -363,6 +364,7 @@ namespace AMSEMS.SubForm_Guidance
                 MessageBox.Show("Error exporting to PDF: " + ex.Message, "Export to PDF Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void cbMonth_SelectedIndexChanged(object sender, EventArgs e)
         {

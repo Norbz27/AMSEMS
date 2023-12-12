@@ -83,7 +83,7 @@ namespace AMSEMS.SubForm_Guidance
                     if (dr["Date"] != DBNull.Value)
                     {
                         date = Convert.ToDateTime(dr["Date"]);
-                        //string formatteddate = date.ToString("MMM dd, yyyy");
+                        //string formatteddate = nextdate.ToString("MMM dd, yyyy");
                         //lblDate.Text = formatteddate;
                     }
                     else
@@ -161,20 +161,32 @@ namespace AMSEMS.SubForm_Guidance
                 {
                     cn.Open();
                     string consulteddate = "";
-                    string status = null;
-                    cm = new SqlCommand("Select Status, MAX(Date) AS date from tbl_consultation_record WHERE Student_ID = @studid AND Class_Code = @ccode AND Status = 'Done' GROUP BY Status ORDER BY Date DESC LIMIT 1 OFFSET 1;", cn);
+                    string prevconsulteddate = "";
+                    string status = "";
+                    cm = new SqlCommand(@"SELECT
+                                        LAG(Date) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS PreviousConsultationDate,
+                                        LAG(Status) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS PreviousConsultationStatus,
+                                        LEAD(Date) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS NextConsultationDate,
+                                        LEAD(Status) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS NextConsultationStatus
+                                    FROM tbl_consultation_record
+                                    WHERE Student_ID = @studid
+                                          AND Class_Code = @ccode
+                                    ORDER BY Date DESC;", cn);
                     cm.Parameters.AddWithValue("@studid", stud_id);
                     cm.Parameters.AddWithValue("@ccode", class_code);
                     dr = cm.ExecuteReader();
                     if (dr.Read())
                     {
-                        status = dr["Status"].ToString();
-                        DateTime date;
-                        if (dr["date"] != DBNull.Value)
+                        status = dr["NextConsultationStatus"].ToString();
+                        DateTime nextdate;
+                        DateTime prevdate;
+                        if (dr["NextConsultationDate"] != DBNull.Value)
                         {
-                            date = Convert.ToDateTime(dr["date"]);
-                            consulteddate = date.ToString();
-                            string formatteddate = date.ToString("MMM dd, yyyy");
+                            nextdate = Convert.ToDateTime(dr["NextConsultationDate"]);
+                            prevdate = Convert.ToDateTime(dr["PreviousConsultationDate"]);
+                            consulteddate = nextdate.ToString("yyyy-MM-dd");
+                            prevconsulteddate = prevdate.ToString("yyyy-MM-dd");
+                            string formatteddate = nextdate.ToString("MMM dd, yyyy");
                             lblDate.Text = formatteddate;
                         }
                         else
@@ -187,7 +199,7 @@ namespace AMSEMS.SubForm_Guidance
                     string query = "";
                     if (status.Equals("Done"))
                     {
-                        query = "SELECT sub.Course_Code AS ccode, sub.Course_Description AS cdes, att.Attendance_date AS abdate FROM tbl_subjects sub RIGHT JOIN tbl_class_list cl ON sub.Course_code = cl.Course_Code RIGHT JOIN tbl_subject_attendance att ON cl.CLass_Code = att.Class_Code LEFT JOIN tbl_consultation_record cr ON att.Class_Code = cr.Class_Code WHERE att.Student_Status = 'A' AND att.Student_ID = @studid AND att.Class_Code = @ccode AND (@ConsultedDate IS NULL OR CONVERT(DATETIME, att.Attendance_date) <= FORMAT(CONVERT(DATETIME, @ConsultedDate), 'yyyy-MM-dd')) GROUP BY sub.Course_Code, sub.Course_Description, att.Attendance_date";
+                        query = "SELECT sub.Course_Code AS ccode, sub.Course_Description AS cdes, att.Attendance_date AS abdate FROM tbl_subjects sub RIGHT JOIN tbl_class_list cl ON sub.Course_code = cl.Course_Code RIGHT JOIN tbl_subject_attendance att ON cl.CLass_Code = att.Class_Code LEFT JOIN tbl_consultation_record cr ON att.Class_Code = cr.Class_Code WHERE att.Student_Status = 'A' AND att.Student_ID = @studid AND att.Class_Code = @ccode AND ((@ConsultedDate IS NULL OR CONVERT(DATETIME, att.Attendance_date) <= FORMAT(CONVERT(DATETIME, @ConsultedDate), 'yyyy-MM-dd')) AND (@PrevconsultedDate IS NULL OR CONVERT(DATETIME, att.Attendance_date) >= FORMAT(CONVERT(DATETIME, @PrevconsultedDate), 'yyyy-MM-dd'))) GROUP BY sub.Course_Code, sub.Course_Description, att.Attendance_date";
                     }
                     else
                     {
@@ -199,6 +211,7 @@ namespace AMSEMS.SubForm_Guidance
                         cmd.Parameters.AddWithValue("@studid", stud_id);
                         cmd.Parameters.AddWithValue("@ccode", class_code);
                         cmd.Parameters.AddWithValue("@ConsultedDate", consulteddate);
+                        cmd.Parameters.AddWithValue("@PrevconsultedDate", prevconsulteddate);
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
                             int count = 0;

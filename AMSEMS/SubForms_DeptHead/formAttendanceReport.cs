@@ -192,7 +192,7 @@ namespace AMSEMS.SubForms_DeptHead
                             S.Department = @Dep AND (@sec = 'All' OR sec.Description = @sec)
                         GROUP BY 
                             s.ID, 
-                            UPPER(CONCAT(s.Firstname, ' ', s.Middlename, ' ', s.Lastname)),
+                            UPPER(CONCAT(s.Lastname, ', ', s.Firstname, ' ', s.Middlename)),
                             Description
                         ORDER BY 
                             Name";

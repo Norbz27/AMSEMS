@@ -1336,7 +1336,7 @@ namespace AMSEMS.SubForms_Teacher
                 string attendanceQuery = @"SELECT sa.Attendance_date,
                                   COUNT(sa.Student_ID) AS AttendeeCount
                            FROM tbl_subject_attendance sa
-                           WHERE sa.Class_Code = @Class_Code
+                           WHERE Student_Status = 'A' AND sa.Class_Code = @Class_Code
                            GROUP BY sa.Attendance_date
                            ORDER BY sa.Attendance_date";
 
@@ -1368,6 +1368,11 @@ namespace AMSEMS.SubForms_Teacher
                     }
                 }
             }
+            chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.LightGray;
+            chart1.ChartAreas["ChartArea1"].AxisY.MajorGrid.LineColor = Color.LightGray;
+
+            chart1.ChartAreas["ChartArea1"].AxisX.MinorGrid.LineColor = Color.LightGray;
+            chart1.ChartAreas["ChartArea1"].AxisY.MinorGrid.LineColor = Color.LightGray;
             chart1.Series["StudentRecord"].IsValueShownAsLabel = true;
             //// Calculate the average attendees
             //double averageAttendees = totalAttendees / (double)totalClasses;
