@@ -31,8 +31,15 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox4 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.kryptonLabel9 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -41,14 +48,12 @@
             this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kryptonGroupBox6 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.kryptonLabel10 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel11 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lblTerPending = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel12 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel13 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.kryptonLabel8 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel7 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lblShsPending = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel6 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -59,12 +64,16 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.dgvRecord = new System.Windows.Forms.DataGridView();
+            this.Des = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sub = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).BeginInit();
             this.kryptonGroupBox4.Panel.SuspendLayout();
             this.kryptonGroupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3.Panel)).BeginInit();
@@ -89,7 +98,7 @@
             this.kryptonGroupBox1.Panel.SuspendLayout();
             this.kryptonGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRecord)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -133,6 +142,45 @@
             this.kryptonGroupBox4.StateCommon.Border.Width = 2;
             this.kryptonGroupBox4.TabIndex = 25;
             // 
+            // chart1
+            // 
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea1.AxisX.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisX2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea1.AxisY.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisY2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend1.IsTextAutoFit = false;
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(18, 41);
+            this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            this.chart1.PaletteCustomColors = new System.Drawing.Color[] {
+        System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))))};
+            series1.BorderColor = System.Drawing.Color.Gainsboro;
+            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            series1.ChartArea = "ChartArea1";
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            series1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series1.IsValueShownAsLabel = true;
+            series1.Legend = "Legend1";
+            series1.Name = "monthlyconsulted";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(712, 314);
+            this.chart1.TabIndex = 9;
+            this.chart1.Text = "chart1";
+            this.chart1.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.Normal;
+            // 
             // kryptonLabel9
             // 
             this.kryptonLabel9.Dock = System.Windows.Forms.DockStyle.Top;
@@ -143,7 +191,7 @@
             this.kryptonLabel9.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.kryptonLabel9.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel9.TabIndex = 4;
-            this.kryptonLabel9.Values.Text = "Students Monthly Absences Rate";
+            this.kryptonLabel9.Values.Text = "Monthly Consulted Student Rate";
             // 
             // panel2
             // 
@@ -180,6 +228,8 @@
             // 
             // kryptonGroupBox3.Panel
             // 
+            this.kryptonGroupBox3.Panel.Controls.Add(this.dgvRecord);
+            this.kryptonGroupBox3.Panel.Controls.Add(this.panel6);
             this.kryptonGroupBox3.Panel.Controls.Add(this.kryptonLabel3);
             this.kryptonGroupBox3.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
             this.kryptonGroupBox3.Size = new System.Drawing.Size(367, 323);
@@ -204,7 +254,7 @@
             this.kryptonLabel3.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.kryptonLabel3.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel3.TabIndex = 2;
-            this.kryptonLabel3.Values.Text = "Number of Students listed";
+            this.kryptonLabel3.Values.Text = "Latest Absenteeism Record";
             // 
             // kryptonGroupBox2
             // 
@@ -256,8 +306,7 @@
             // 
             // kryptonGroupBox6.Panel
             // 
-            this.kryptonGroupBox6.Panel.Controls.Add(this.kryptonLabel10);
-            this.kryptonGroupBox6.Panel.Controls.Add(this.kryptonLabel11);
+            this.kryptonGroupBox6.Panel.Controls.Add(this.lblTerPending);
             this.kryptonGroupBox6.Panel.Controls.Add(this.kryptonLabel12);
             this.kryptonGroupBox6.Panel.Controls.Add(this.kryptonLabel13);
             this.kryptonGroupBox6.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
@@ -273,35 +322,19 @@
             this.kryptonGroupBox6.StateCommon.Border.Width = 1;
             this.kryptonGroupBox6.TabIndex = 25;
             // 
-            // kryptonLabel10
+            // lblTerPending
             // 
-            this.kryptonLabel10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonLabel10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.kryptonLabel10.Location = new System.Drawing.Point(226, 84);
-            this.kryptonLabel10.Name = "kryptonLabel10";
-            this.kryptonLabel10.Size = new System.Drawing.Size(96, 23);
-            this.kryptonLabel10.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.kryptonLabel10.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel10.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel10.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel10.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
-            this.kryptonLabel10.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel10.TabIndex = 7;
-            this.kryptonLabel10.Values.Text = "100 Students";
-            // 
-            // kryptonLabel11
-            // 
-            this.kryptonLabel11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.kryptonLabel11.Location = new System.Drawing.Point(18, 84);
-            this.kryptonLabel11.Name = "kryptonLabel11";
-            this.kryptonLabel11.Size = new System.Drawing.Size(91, 23);
-            this.kryptonLabel11.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.kryptonLabel11.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel11.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel11.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel11.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
-            this.kryptonLabel11.TabIndex = 5;
-            this.kryptonLabel11.Values.Text = "100 Pending";
+            this.lblTerPending.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblTerPending.Location = new System.Drawing.Point(18, 84);
+            this.lblTerPending.Name = "lblTerPending";
+            this.lblTerPending.Size = new System.Drawing.Size(91, 23);
+            this.lblTerPending.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+            this.lblTerPending.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.lblTerPending.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            this.lblTerPending.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+            this.lblTerPending.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
+            this.lblTerPending.TabIndex = 5;
+            this.lblTerPending.Values.Text = "100 Pending";
             // 
             // kryptonLabel12
             // 
@@ -325,12 +358,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonLabel13.Location = new System.Drawing.Point(15, 10);
             this.kryptonLabel13.Name = "kryptonLabel13";
-            this.kryptonLabel13.Size = new System.Drawing.Size(82, 29);
+            this.kryptonLabel13.Size = new System.Drawing.Size(85, 29);
             this.kryptonLabel13.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.kryptonLabel13.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.kryptonLabel13.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 13F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel13.TabIndex = 2;
-            this.kryptonLabel13.Values.Text = "College";
+            this.kryptonLabel13.Values.Text = "Tertiary";
             // 
             // panel5
             // 
@@ -350,8 +383,7 @@
             // 
             // kryptonGroupBox5.Panel
             // 
-            this.kryptonGroupBox5.Panel.Controls.Add(this.kryptonLabel8);
-            this.kryptonGroupBox5.Panel.Controls.Add(this.kryptonLabel7);
+            this.kryptonGroupBox5.Panel.Controls.Add(this.lblShsPending);
             this.kryptonGroupBox5.Panel.Controls.Add(this.kryptonLabel6);
             this.kryptonGroupBox5.Panel.Controls.Add(this.kryptonLabel5);
             this.kryptonGroupBox5.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
@@ -367,35 +399,19 @@
             this.kryptonGroupBox5.StateCommon.Border.Width = 1;
             this.kryptonGroupBox5.TabIndex = 4;
             // 
-            // kryptonLabel8
+            // lblShsPending
             // 
-            this.kryptonLabel8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonLabel8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.kryptonLabel8.Location = new System.Drawing.Point(226, 76);
-            this.kryptonLabel8.Name = "kryptonLabel8";
-            this.kryptonLabel8.Size = new System.Drawing.Size(96, 23);
-            this.kryptonLabel8.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.kryptonLabel8.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel8.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel8.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel8.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
-            this.kryptonLabel8.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel8.TabIndex = 6;
-            this.kryptonLabel8.Values.Text = "100 Students";
-            // 
-            // kryptonLabel7
-            // 
-            this.kryptonLabel7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.kryptonLabel7.Location = new System.Drawing.Point(18, 76);
-            this.kryptonLabel7.Name = "kryptonLabel7";
-            this.kryptonLabel7.Size = new System.Drawing.Size(91, 23);
-            this.kryptonLabel7.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.kryptonLabel7.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.kryptonLabel7.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel7.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel7.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
-            this.kryptonLabel7.TabIndex = 5;
-            this.kryptonLabel7.Values.Text = "100 Pending";
+            this.lblShsPending.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblShsPending.Location = new System.Drawing.Point(18, 76);
+            this.lblShsPending.Name = "lblShsPending";
+            this.lblShsPending.Size = new System.Drawing.Size(91, 23);
+            this.lblShsPending.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+            this.lblShsPending.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.lblShsPending.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            this.lblShsPending.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+            this.lblShsPending.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
+            this.lblShsPending.TabIndex = 5;
+            this.lblShsPending.Values.Text = "100 Pending";
             // 
             // kryptonLabel6
             // 
@@ -527,45 +543,99 @@
             this.kryptonLabel1.TabIndex = 0;
             this.kryptonLabel1.Values.Text = "Welcome Back";
             // 
-            // chart1
+            // panel6
             // 
-            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.AxisX.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisX.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea1.AxisX2.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisX2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisX2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
-            chartArea1.AxisY.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisY.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea1.AxisY2.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisY2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
-            chartArea1.BorderColor = System.Drawing.Color.Gainsboro;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Enabled = false;
-            legend1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            legend1.IsTextAutoFit = false;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(18, 41);
-            this.chart1.Name = "chart1";
-            series1.BorderColor = System.Drawing.Color.Gainsboro;
-            series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            series1.ChartArea = "ChartArea1";
-            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            series1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series1.Legend = "Legend1";
-            series1.Name = "StudPerSub";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(712, 314);
-            this.chart1.TabIndex = 9;
-            this.chart1.Text = "chart1";
-            this.chart1.TextAntiAliasingQuality = System.Windows.Forms.DataVisualization.Charting.TextAntiAliasingQuality.Normal;
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel6.Location = new System.Drawing.Point(15, 35);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(327, 10);
+            this.panel6.TabIndex = 26;
+            // 
+            // dgvRecord
+            // 
+            this.dgvRecord.AllowUserToAddRows = false;
+            this.dgvRecord.AllowUserToDeleteRows = false;
+            this.dgvRecord.AllowUserToResizeColumns = false;
+            this.dgvRecord.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvRecord.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvRecord.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRecord.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
+            this.dgvRecord.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.dgvRecord.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvRecord.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvRecord.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dgvRecord.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRecord.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvRecord.ColumnHeadersHeight = 50;
+            this.dgvRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvRecord.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Des,
+            this.sub});
+            this.dgvRecord.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRecord.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvRecord.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRecord.EnableHeadersVisualStyles = false;
+            this.dgvRecord.GridColor = System.Drawing.Color.Gainsboro;
+            this.dgvRecord.Location = new System.Drawing.Point(15, 45);
+            this.dgvRecord.MultiSelect = false;
+            this.dgvRecord.Name = "dgvAccounts";
+            this.dgvRecord.ReadOnly = true;
+            this.dgvRecord.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRecord.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvRecord.RowHeadersVisible = false;
+            this.dgvRecord.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRecord.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvRecord.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRecord.RowTemplate.Height = 30;
+            this.dgvRecord.Size = new System.Drawing.Size(327, 258);
+            this.dgvRecord.TabIndex = 27;
+            // 
+            // Des
+            // 
+            this.Des.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Des.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Des.HeaderText = "Name";
+            this.Des.Name = "Des";
+            this.Des.ReadOnly = true;
+            // 
+            // sub
+            // 
+            this.sub.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.sub.HeaderText = "Subject";
+            this.sub.Name = "sub";
+            this.sub.ReadOnly = true;
+            this.sub.Width = 78;
             // 
             // formDashboard
             // 
@@ -586,6 +656,7 @@
             this.kryptonGroupBox4.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).EndInit();
             this.kryptonGroupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3.Panel)).EndInit();
             this.kryptonGroupBox3.Panel.ResumeLayout(false);
@@ -615,7 +686,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).EndInit();
             this.kryptonGroupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRecord)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -639,17 +710,19 @@
         private System.Windows.Forms.Panel panel3;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox5;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel8;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel7;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblShsPending;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel6;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel5;
         private System.Windows.Forms.Panel panel4;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox6;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel10;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel11;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblTerPending;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel12;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel13;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataGridView dgvRecord;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Des;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sub;
     }
 }

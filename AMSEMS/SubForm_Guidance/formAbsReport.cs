@@ -323,9 +323,13 @@ namespace AMSEMS.SubForm_Guidance
                 titleParagraph.Alignment = Element.ALIGN_CENTER;
                 document.Add(titleParagraph);
 
-                Paragraph titleParagraph1 = new Paragraph(DateTime.Now.ToString("dddd MMM dd, yyyy"), cellFont);
+                Paragraph titleParagraph1 = new Paragraph("Records from month "+cbMonth.Text, cellFont);
                 titleParagraph1.Alignment = Element.ALIGN_CENTER;
                 document.Add(titleParagraph1);
+                
+                Paragraph titleParagraph2 = new Paragraph("Printed on: "+DateTime.Now.ToString("dddd MMM dd, yyyy"), cellFont);
+                titleParagraph2.Alignment = Element.ALIGN_CENTER;
+                document.Add(titleParagraph2);
 
                 PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.GetColumnCount(DataGridViewElementStates.Visible));
                 pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
