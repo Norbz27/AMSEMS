@@ -164,14 +164,25 @@ namespace AMSEMS.SubForm_Guidance
                     string prevconsulteddate = "";
                     string status = "";
                     cm = new SqlCommand(@"SELECT
-                                        LAG(Date) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS PreviousConsultationDate,
-                                        LAG(Status) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS PreviousConsultationStatus,
-                                        LEAD(Date) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS NextConsultationDate,
-                                        LEAD(Status) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS NextConsultationStatus
-                                    FROM tbl_consultation_record
+                                        MAX(CASE WHEN ConsultationDate IS NOT NULL THEN ConsultationDate END) AS ConsultationDate,
+                                        MAX(CASE WHEN ConsultationStatus IS NOT NULL THEN ConsultationStatus END) AS ConsultationStatus,
+                                        MAX(CASE WHEN PreviousConsultationDate IS NOT NULL THEN PreviousConsultationDate END) AS PreviousConsultationDate,
+                                        MAX(CASE WHEN PreviousConsultationStatus IS NOT NULL THEN PreviousConsultationStatus END) AS PreviousConsultationStatus,
+                                        MAX(CASE WHEN NextConsultationDate IS NOT NULL THEN NextConsultationDate END) AS NextConsultationDate,
+                                        MAX(CASE WHEN NextConsultationStatus IS NOT NULL THEN NextConsultationStatus END) AS NextConsultationStatus
+                                    FROM (
+                                        SELECT
+                                            LAG(Date) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS PreviousConsultationDate,
+                                            LAG(Status) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS PreviousConsultationStatus,
+                                            Date AS ConsultationDate,
+                                            Status AS ConsultationStatus,
+                                            LEAD(Date) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS NextConsultationDate,
+                                            LEAD(Status) OVER (PARTITION BY Student_ID, Class_Code ORDER BY Date) AS NextConsultationStatus
+                                        FROM tbl_consultation_record
                                     WHERE Student_ID = @studid
                                           AND Class_Code = @ccode
-                                    ORDER BY Date DESC;", cn);
+                                    ) Subquery
+                                    ORDER BY ConsultationDate DESC;", cn);
                     cm.Parameters.AddWithValue("@studid", stud_id);
                     cm.Parameters.AddWithValue("@ccode", class_code);
                     dr = cm.ExecuteReader();
