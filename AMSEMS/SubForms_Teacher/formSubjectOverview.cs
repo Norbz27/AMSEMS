@@ -18,6 +18,8 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Net.NetworkInformation;
 using System.Windows.Forms.DataVisualization.Charting;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Data.Common;
 
 namespace AMSEMS.SubForms_Teacher
 {
@@ -942,29 +944,54 @@ namespace AMSEMS.SubForms_Teacher
                 string columnHeader = dgvAttendanceReport.Columns[selectedColumnIndex].HeaderText;
 
                 // Ask for confirmation before deleting the column
-                DialogResult result = MessageBox.Show($"Are you sure you want to delete the record on '{columnHeader}'?", "Delete Column",
+                DialogResult result = MessageBox.Show($"Are you sure you want to delete the record on '{columnHeader}'?", "Delete Record",
                                                       MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                 if (result == DialogResult.Yes)
                 {
-                    // Remove the selected column from the DataGridView
-                    dgvAttendanceReport.Columns.RemoveAt(selectedColumnIndex);
-
-                    using (SQLiteConnection connection = new SQLiteConnection(conn.connectionString))
+                    if (IsInternetConnected())
                     {
-                        connection.Open();
-
-                        using (SQLiteCommand command = new SQLiteCommand(connection))
+                        // Remove the selected column from the DataGridView
+                        dgvAttendanceReport.Columns.RemoveAt(selectedColumnIndex);
+                        try
                         {
-                            string clearSql = @"DELETE FROM tbl_subject_attendance WHERE Attendance_date = @attdate;";
-                            command.CommandText = clearSql;
-                            command.Parameters.AddWithValue("@attdate", columnHeader);
-                            command.ExecuteNonQuery();
-                        }
-                        connection.Close();
-                    }
+                            using (SQLiteConnection connection = new SQLiteConnection(conn.connectionString))
+                            {
+                                connection.Open();
 
-                    MessageBox.Show($"Record on '{columnHeader}' deleted.", "Delete Record", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                using (SQLiteCommand command = new SQLiteCommand(connection))
+                                {
+                                    string clearSql = @"DELETE FROM tbl_subject_attendance WHERE Attendance_date = @attdate;";
+                                    command.CommandText = clearSql;
+                                    command.Parameters.AddWithValue("@attdate", columnHeader);
+                                    command.ExecuteNonQuery();
+                                }
+                                connection.Close();
+                            }
+
+                            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+                            {
+                                connection.Open();
+                                string clearSql = @"DELETE FROM tbl_subject_attendance WHERE Attendance_date = @attdate;";
+                                using (SqlCommand command = new SqlCommand(clearSql, connection))
+                                {
+                                    command.Parameters.AddWithValue("@attdate", columnHeader);
+                                    command.ExecuteNonQuery();
+                                }
+                                connection.Close();
+                            }
+
+                            MessageBox.Show($"Record on '{columnHeader}' deleted.", "Delete Record", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Need Internet Connection to delete record!", "Deletion Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 // Reset the selected column index after deletion or if the user canceled
@@ -1336,7 +1363,7 @@ namespace AMSEMS.SubForms_Teacher
                 string attendanceQuery = @"SELECT sa.Attendance_date,
                                   COUNT(sa.Student_ID) AS AttendeeCount
                            FROM tbl_subject_attendance sa
-                           WHERE Student_Status = 'A' AND sa.Class_Code = @Class_Code
+                           WHERE Student_Status = 'P' AND sa.Class_Code = @Class_Code
                            GROUP BY sa.Attendance_date
                            ORDER BY sa.Attendance_date";
 
@@ -1508,6 +1535,249 @@ namespace AMSEMS.SubForms_Teacher
                     MessageBox.Show("No internet connection available. Please check your network connection.");
                 }
             }
+        }
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Excel Files|*.xlsx";
+                    saveFileDialog.Title = "Save As Excel File";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string filePath = saveFileDialog.FileName;
+
+                        // Create a new Excel application
+                        Excel.Application excelApp = new Excel.Application();
+                        excelApp.Visible = false; // You can set this to true for debugging purposes
+
+                        // Create a new Excel workbook and worksheet
+                        Excel.Workbook workbook = excelApp.Workbooks.Add();
+                        Excel.Worksheet worksheet = workbook.Worksheets[1];
+
+                        // Set up the header rows formatting
+                        //Excel.Range headerRange1 = worksheet.Rows[1];
+                        //headerRange1.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196)); // Background color: #4472C4
+                        //headerRange1.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White); // Text color: White
+
+                        //Excel.Range headerRange2 = worksheet.Rows[2];
+                        //headerRange2.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196));
+                        //headerRange2.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White);
+
+                        //Excel.Range headerRange3 = worksheet.Rows[3];
+                        //headerRange3.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196));
+                        //headerRange3.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White);
+
+                        //Excel.Range headerRange4 = worksheet.Rows[4];
+                        //headerRange4.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196));
+                        //headerRange4.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White);
+
+                        // Add three-column headers
+                        worksheet.Cells[4, 1] = "ID";
+                        worksheet.Cells[4, 2] = "Name";
+
+                        // Apply the extracted color to the header cells
+                        Excel.Range headerCell1 = worksheet.Cells[4, 1];
+                        headerCell1.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
+                        headerCell1.Font.Bold = true;
+
+                        Excel.Range headerCell2 = worksheet.Cells[4, 2];
+                        headerCell2.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGreen);
+                        headerCell2.Font.Bold = true;
+
+                        int excelColumnIndex = 3;
+                        using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
+                        {
+                            con.Open();
+
+                            // Fetch distinct attendance dates
+                            string dateQuery = @"
+                            SELECT DISTINCT Attendance_date
+                            FROM tbl_subject_attendance
+                            WHERE Class_Code = @Class_Code
+                            ORDER BY Attendance_date";
+
+                            List<DateTime> sortedDates = new List<DateTime>();
+
+                            using (SQLiteCommand dateCommand = new SQLiteCommand(dateQuery, con))
+                            {
+                                dateCommand.Parameters.AddWithValue("@Class_Code", classcode);
+
+                                using (SQLiteDataReader dateReader = dateCommand.ExecuteReader())
+                                {
+                                    while (dateReader.Read())
+                                    {
+                                        string attendanceDateString = dateReader["Attendance_date"].ToString();
+
+                                        if (DateTime.TryParse(attendanceDateString, out DateTime attendanceDate))
+                                        {
+                                            sortedDates.Add(attendanceDate);
+                                        }
+                                    }
+                                }
+                            }
+                            sortedDates.Sort();
+
+                            string currentMonth = null;
+                            int monthColumnStartIndex = 0;
+                            int yearColumnIndex = 3; // New index for the year column
+
+                            // Add the year to the first row
+                            worksheet.Cells[1, yearColumnIndex] = sortedDates.Count > 0 ? sortedDates[0].ToString("yyyy") : string.Empty;
+
+                            foreach (DateTime sortedDate in sortedDates)
+                            {
+                                string formattedDateMonth = sortedDate.ToString("MMM");
+
+                                // Check if the month has changed
+                                if (currentMonth != formattedDateMonth)
+                                {
+                                    // If a month change is detected, merge the cells from monthColumnStartIndex to excelColumnIndex - 1
+                                    if (currentMonth != null)
+                                    {
+                                        Excel.Range mergedRange = worksheet.Range[worksheet.Cells[2, monthColumnStartIndex], worksheet.Cells[2, excelColumnIndex - 1]];
+                                        mergedRange.Merge();
+                                        mergedRange.Value = currentMonth; // Set the month name for the merged cells
+                                        mergedRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                                    }
+
+                                    currentMonth = formattedDateMonth;
+                                    monthColumnStartIndex = excelColumnIndex;
+                                }
+
+                                string formattedDateDay = sortedDate.ToString("dd");
+                                string formattedDateTime = sortedDate.ToString("hh:ss tt");
+                                worksheet.Cells[3, excelColumnIndex] = formattedDateDay;
+                                worksheet.Cells[4, excelColumnIndex] = formattedDateTime;
+                                worksheet.Cells[3, excelColumnIndex].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                                worksheet.Cells[4, excelColumnIndex].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                                excelColumnIndex++;
+                            }
+
+                            if (currentMonth != null)
+                            {
+                                Excel.Range mergedRange = worksheet.Range[worksheet.Cells[2, monthColumnStartIndex], worksheet.Cells[2, excelColumnIndex - 1]];
+                                mergedRange.Merge();
+                                mergedRange.Value = currentMonth;
+                                mergedRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                            }
+
+                            // Merge the year cell
+                            worksheet.Range[worksheet.Cells[1, yearColumnIndex], worksheet.Cells[1, excelColumnIndex - 1]].Merge();
+                            worksheet.Range[worksheet.Cells[1, yearColumnIndex], worksheet.Cells[1, excelColumnIndex - 1]].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+
+                            // Add ID and Name to Excel instead of DataGridView
+                            int currentRowIndex = 5; // Starting row index for ID and Name
+                            string tblname = "tbl_" + classcode;
+                            string studentsQuery = $@"
+                            SELECT ID AS Student_ID,
+                                   UPPER(Lastname || ', ' || Firstname || ' ' || Middlename) AS Name
+                            FROM tbl_students_account s RIGHT JOIN {tblname} cl ON s.ID = cl.StudentID ORDER BY Name";
+                            Dictionary<string, int> studentRowIndexMap = new Dictionary<string, int>();
+                            using (SQLiteCommand studentsCommand = new SQLiteCommand(studentsQuery, con))
+                            {
+                                using (SQLiteDataReader studentsReader = studentsCommand.ExecuteReader())
+                                {
+                                    while (studentsReader.Read())
+                                    {
+                                        string studid = studentsReader["Student_ID"].ToString();
+                                        string studname = studentsReader["Name"].ToString();
+
+                                        // Add the student to Excel
+                                        worksheet.Cells[currentRowIndex, 1] = studid;
+                                        worksheet.Cells[currentRowIndex, 2] = studname;
+
+                                        // Apply formatting to ID and Name columns
+                                        Excel.Range idCell = worksheet.Cells[currentRowIndex, 1];
+                                        idCell.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
+
+                                        Excel.Range nameCell = worksheet.Cells[currentRowIndex, 2];
+                                        nameCell.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGreen);
+
+                                        studentRowIndexMap[studid] = currentRowIndex;
+                                        currentRowIndex++;
+
+                                    }
+                                }
+                            }
+
+                            // Fetch student attendance details
+                            string attendanceQuery = @"SELECT sa.Student_ID,
+                                sa.Attendance_date,
+                                sa.Student_Status
+                                FROM tbl_subject_attendance sa
+                                WHERE sa.Class_Code = @Class_Code
+                                ORDER BY sa.Attendance_date, sa.Student_ID";
+
+                            using (SQLiteCommand attendanceCommand = new SQLiteCommand(attendanceQuery, con))
+                            {
+                                attendanceCommand.Parameters.AddWithValue("@Class_Code", classcode);
+
+                                using (SQLiteDataReader rd = attendanceCommand.ExecuteReader())
+                                {
+                                    while (rd.Read())
+                                    {
+                                        string studid = rd["Student_ID"].ToString();
+                                        string attendanceDate = rd["Attendance_date"].ToString();
+                                        string studentStatus = rd["Student_Status"].ToString();
+
+                                        int rowIndex = studentRowIndexMap[studid];
+
+                                        // Find the dynamically added column index
+                                        int columnIndex = GetColumnIndex(attendanceDate, sortedDates);
+
+                                        // Set the student status in the corresponding column of the Excel sheet
+                                        worksheet.Cells[rowIndex, columnIndex].Value = studentStatus;
+                                        worksheet.Cells[rowIndex, columnIndex].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                                    }
+                                }
+                            }
+                        }
+
+                        int lastRowIndex = worksheet.Cells[worksheet.Rows.Count, 1].End[Excel.XlDirection.xlUp].Row;
+                        Excel.Range exportRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[lastRowIndex, excelColumnIndex - 1]];
+
+                        exportRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                        exportRange.Borders.Weight = Excel.XlBorderWeight.xlThin;
+
+                        // AutoResize the "Name" column (2nd column)
+                        worksheet.Columns[2].AutoFit();
+
+                        // Save the Excel file
+                        workbook.SaveAs(filePath);
+
+                        // Close Excel and release resources
+                        workbook.Close();
+                        excelApp.Quit();
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(exportRange);
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+                        System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+
+                        MessageBox.Show("Data exported to Excel successfully.", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public int GetColumnIndex(string attendanceDate, List<DateTime> sortedDates)
+        {
+            DateTime date = DateTime.Parse(attendanceDate);
+
+            for (int i = 0; i < sortedDates.Count; i++)
+            {
+                if (date == sortedDates[i])
+                {
+                    return i + 3; // 3 is the offset for the ID and Name columns
+                }
+            }
+
+            return -1; // Column not found
         }
     }
 }

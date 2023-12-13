@@ -18,8 +18,28 @@ namespace AMSEMS
 
         public SQLite_Connection()
         {
-            string databasePath = Path.Combine(Application.StartupPath, "db_AMSEMS_LocalDB.db");
-            connectionString = $"Data Source={databasePath};Version=3;";
+            try
+            {
+                string databasePath = Path.Combine(Application.StartupPath, "db_AMSEMS_LocalDB.db");
+                connectionString = $"Data Source={databasePath};Version=3;";
+
+                // Ensure the directory exists
+                string directoryPath = Path.GetDirectoryName(databasePath);
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
+                // Create the database file if it doesn't exist
+                if (!File.Exists(databasePath))
+                {
+                    SQLiteConnection.CreateFile(databasePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error initializing SQLite connection: {ex.Message}", "SQLite Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void InitializeDatabase()
