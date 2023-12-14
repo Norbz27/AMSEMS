@@ -83,19 +83,39 @@ namespace AMSEMS.SubForms_DeptHead
             {
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(@"WITH RecentAttendance AS 
-                (SELECT a.[Event_ID], a.[Student_ID], MAX(a.[Date_Time]) AS [RecentDate] 
-                 FROM [db_Amsems].[dbo].[tbl_attendance] a 
-                 GROUP BY a.[Event_ID], a.[Student_ID])
-                 SELECT  e.[Event_ID], e.[Event_Name],
-                 COUNT(DISTINCT ra.[Student_ID]) AS [RecentAttendees], 
-                 COUNT(DISTINCT s.[ID]) AS [TotalStudentsInDepartment], 
-                 CAST(COUNT(DISTINCT ra.[Student_ID]) AS FLOAT) / NULLIF(COUNT(DISTINCT s.[ID]), 0) * 100 AS [PercentageRecentAttendees] 
-                 FROM [db_Amsems].[dbo].[tbl_events] e 
-                 LEFT JOIN RecentAttendance ra ON e.[Event_ID] = ra.[Event_ID] 
-                 LEFT JOIN [db_Amsems].[dbo].[tbl_student_accounts] s ON s.[Department] = @dep
-				 WHERE e.Attendance = 'true'
-                 GROUP BY e.[Event_ID], e.[Event_Name], e.End_Date
-                 ORDER BY e.End_Date DESC", connection))
+                (
+                    SELECT 
+                        a.[Event_ID], 
+                        a.[Student_ID], 
+                        MAX(a.[Date_Time]) AS [RecentDate] 
+                    FROM 
+                        [db_Amsems].[dbo].[tbl_attendance] a 
+                    GROUP BY 
+                        a.[Event_ID], 
+                        a.[Student_ID]
+                )
+
+                SELECT  
+                    e.[Event_ID], 
+                    e.[Event_Name],
+                    COUNT(DISTINCT ra.[Student_ID]) AS [RecentAttendees], 
+                    COUNT(DISTINCT s.[ID]) AS [TotalStudentsInDepartment], 
+                    e.End_Date,
+                    CAST(COUNT(DISTINCT ra.[Student_ID]) AS FLOAT) / NULLIF(COUNT(DISTINCT s.[ID]), 0) * 100 AS [PercentageRecentAttendees] 
+                FROM 
+                    [db_Amsems].[dbo].[tbl_events] e 
+                LEFT JOIN 
+                    RecentAttendance ra ON e.[Event_ID] = ra.[Event_ID] 
+                LEFT JOIN 
+                    [db_Amsems].[dbo].[tbl_student_accounts] s ON s.[Department] = @dep
+                WHERE 
+                    e.Attendance = 'true'
+                GROUP BY 
+                    e.[Event_ID], 
+                    e.[Event_Name], 
+                    e.End_Date
+                ORDER BY 
+                    MAX(ra.[RecentDate]) DESC; ", connection))
                 {
                     command.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
