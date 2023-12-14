@@ -16,21 +16,17 @@ namespace AMSEMS.SubForm_Guidance
         SqlDataReader dr;
         string id;
         private bool fileChosen = false;
-        private BackgroundWorker backgroundWorker = new BackgroundWorker();
 
         public formAccountSetting()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
             id = FormGuidanceNavigation.id;
-            backgroundWorker.DoWork += backgroundWorker_DoWork;
-            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
-            backgroundWorker.WorkerSupportsCancellation = true;
         }
 
         private void formAccountSetting_Load(object sender, EventArgs e)
         {
-            backgroundWorker.RunWorkerAsync();
+            loadData();
         }
         public void loadData()
         {
@@ -164,11 +160,7 @@ namespace AMSEMS.SubForm_Guidance
         }
         private void FormAccountSetting_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Check if the BackgroundWorker is running and stop it if needed.
-            if (backgroundWorker.IsBusy)
-            {
-                backgroundWorker.CancelAsync();
-            }
+            
         }
     }
 }

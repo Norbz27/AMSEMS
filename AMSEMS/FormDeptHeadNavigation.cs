@@ -21,7 +21,6 @@ namespace AMSEMS
         public static String dep;
         public static String depdes;
         public static String acadlevel;
-        private BackgroundWorker backgroundWorker = new BackgroundWorker();
         public FormDeptHeadNavigation(String id1)
         {
             InitializeComponent();
@@ -31,39 +30,9 @@ namespace AMSEMS
             this.btnDashboard.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
 
-            backgroundWorker.DoWork += backgroundWorker_DoWork;
-            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
-            backgroundWorker.WorkerSupportsCancellation = true;
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             id = id1;
-
-     
-        }
-
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
             loadData();
-
-            System.Threading.Thread.Sleep(2000);
-        }
-
-        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-                // Handle any errors that occurred during the background work
-                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (e.Cancelled)
-            {
-                // Handle the case where the background work was canceled
-            }
-            else
-            {
-                // Data has been loaded, update the UI
-                // Stop the wait cursor (optional)
-                this.Cursor = Cursors.Default;
-            }
         }
 
         public void loadData()
@@ -99,6 +68,7 @@ namespace AMSEMS
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
+            loadData();
             isCollapsed = false;
             timer1.Start();
             this.kryptonSplitContainer1.Panel2Collapsed = false;
@@ -399,10 +369,8 @@ namespace AMSEMS
 
         private void FormDeptHeadNavigation_Load(object sender, EventArgs e)
         {
-            backgroundWorker.RunWorkerAsync();
             SubForms_DeptHead.formDashboard.setForm(this);
             OpenChildForm(new SubForms_DeptHead.formDashboard(id));
-
         }
         public void Logout()
         {
@@ -413,10 +381,7 @@ namespace AMSEMS
 
         private void FormDeptHeadNavigation_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (backgroundWorker.IsBusy)
-            {
-                backgroundWorker.CancelAsync();
-            }
+
         }
 
         private void btnAttRecord_Click(object sender, EventArgs e)

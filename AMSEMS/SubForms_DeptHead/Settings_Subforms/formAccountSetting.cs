@@ -16,7 +16,6 @@ namespace AMSEMS.SubForms_DeptHead
         SqlDataReader dr;
         string id;
         private bool fileChosen = false;
-        private BackgroundWorker backgroundWorker = new BackgroundWorker();
 
         public formAccountSetting()
         {
@@ -24,43 +23,10 @@ namespace AMSEMS.SubForms_DeptHead
             cn = new SqlConnection(SQL_Connection.connection);
             id = FormDeptHeadNavigation.id;
 
-            backgroundWorker.DoWork += backgroundWorker_DoWork;
-            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
-            backgroundWorker.WorkerSupportsCancellation = true;
         }
-
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            // This method runs in a background thread
-            // Perform time-consuming operations here
-            loadData();
-
-            // Simulate a time-consuming operation
-            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
-        }
-
-        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-                // Handle any errors that occurred during the background work
-                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (e.Cancelled)
-            {
-                // Handle the case where the background work was canceled
-            }
-            else
-            {
-                // Data has been loaded, update the UI
-                // Stop the wait cursor (optional)
-                this.Cursor = Cursors.Default;
-            }
-        }
-
         private void formAccountSetting_Load(object sender, EventArgs e)
         {
-            backgroundWorker.RunWorkerAsync();
+            loadData();
         }
         public void loadData()
         {
@@ -165,10 +131,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void formAccountSetting_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (backgroundWorker.IsBusy)
-            {
-                backgroundWorker.CancelAsync();
-            }
+          
         }
     }
 }

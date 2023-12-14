@@ -30,20 +30,22 @@
         {
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblName = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnChamgePass = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.lblSchoolID = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblLname = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblMname = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblFname = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel10 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblRole = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.lblName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.btnEditFname = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnEditMname = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btEditLname = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnEditID = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnRemoveProf = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.kryptonLabel9 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.btnChangeProf = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonLabel8 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel7 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -51,9 +53,7 @@
             this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.ptbProfile = new AMSEMS.RoundPictureBox();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).BeginInit();
             this.SuspendLayout();
@@ -65,20 +65,22 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.lblName);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.btnChamgePass);
             this.panel1.Controls.Add(this.lblSchoolID);
             this.panel1.Controls.Add(this.lblLname);
             this.panel1.Controls.Add(this.lblMname);
             this.panel1.Controls.Add(this.lblFname);
-            this.panel1.Controls.Add(this.kryptonLabel10);
             this.panel1.Controls.Add(this.lblRole);
-            this.panel1.Controls.Add(this.lblName);
             this.panel1.Controls.Add(this.btnEditFname);
             this.panel1.Controls.Add(this.btnEditMname);
             this.panel1.Controls.Add(this.btEditLname);
             this.panel1.Controls.Add(this.btnEditID);
             this.panel1.Controls.Add(this.btnRemoveProf);
-            this.panel1.Controls.Add(this.kryptonLabel9);
             this.panel1.Controls.Add(this.btnChangeProf);
             this.panel1.Controls.Add(this.kryptonLabel8);
             this.panel1.Controls.Add(this.kryptonLabel7);
@@ -86,14 +88,67 @@
             this.panel1.Controls.Add(this.kryptonLabel5);
             this.panel1.Controls.Add(this.kryptonLabel4);
             this.panel1.Controls.Add(this.kryptonLabel3);
-            this.panel1.Controls.Add(this.kryptonLabel2);
             this.panel1.Controls.Add(this.ptbProfile);
-            this.panel1.Controls.Add(this.kryptonLabel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(110, 10);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(786, 561);
-            this.panel1.TabIndex = 137;
+            this.panel1.TabIndex = 138;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.label4.Location = new System.Drawing.Point(-1, 3);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(129, 26);
+            this.label4.TabIndex = 165;
+            this.label4.Text = "Account Profile";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.label3.Location = new System.Drawing.Point(0, 38);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(47, 22);
+            this.label3.TabIndex = 164;
+            this.label3.Text = "Profile";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.label2.Location = new System.Drawing.Point(0, 273);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(91, 22);
+            this.label2.TabIndex = 163;
+            this.label2.Text = "Profile Picture";
+            // 
+            // lblName
+            // 
+            this.lblName.Font = new System.Drawing.Font("Poppins", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblName.Location = new System.Drawing.Point(437, 299);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(243, 25);
+            this.lblName.TabIndex = 162;
+            this.lblName.Text = "Norberto Bruzon Jr.";
+            this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.label1.Location = new System.Drawing.Point(444, 36);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(97, 22);
+            this.label1.TabIndex = 161;
+            this.label1.Text = "Profile Preview";
             // 
             // btnChamgePass
             // 
@@ -195,19 +250,6 @@
             this.lblFname.TabIndex = 156;
             this.lblFname.Values.Text = "Norberto";
             // 
-            // kryptonLabel10
-            // 
-            this.kryptonLabel10.Location = new System.Drawing.Point(0, 38);
-            this.kryptonLabel10.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel10.Name = "kryptonLabel10";
-            this.kryptonLabel10.Size = new System.Drawing.Size(51, 21);
-            this.kryptonLabel10.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel10.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel10.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonLabel10.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonLabel10.TabIndex = 155;
-            this.kryptonLabel10.Values.Text = "Profile";
-            // 
             // lblRole
             // 
             this.lblRole.AutoSize = false;
@@ -220,19 +262,6 @@
             this.lblRole.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.lblRole.TabIndex = 154;
             this.lblRole.Values.Text = "Department Head";
-            // 
-            // lblName
-            // 
-            this.lblName.AutoSize = false;
-            this.lblName.Location = new System.Drawing.Point(437, 299);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(243, 25);
-            this.lblName.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.lblName.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.lblName.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Medium", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.lblName.TabIndex = 153;
-            this.lblName.Values.Text = "Norberto Bruzon Jr.";
             // 
             // btnEditFname
             // 
@@ -527,19 +556,6 @@
             this.btnRemoveProf.Values.Text = "Remove Profile";
             this.btnRemoveProf.Click += new System.EventHandler(this.btnRemoveProf_Click);
             // 
-            // kryptonLabel9
-            // 
-            this.kryptonLabel9.Location = new System.Drawing.Point(0, 273);
-            this.kryptonLabel9.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel9.Name = "kryptonLabel9";
-            this.kryptonLabel9.Size = new System.Drawing.Size(99, 21);
-            this.kryptonLabel9.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel9.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel9.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonLabel9.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonLabel9.TabIndex = 147;
-            this.kryptonLabel9.Values.Text = "Profile Picture";
-            // 
             // btnChangeProf
             // 
             this.btnChangeProf.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -674,19 +690,6 @@
             this.kryptonLabel3.TabIndex = 140;
             this.kryptonLabel3.Values.Text = "Middle Name";
             // 
-            // kryptonLabel2
-            // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(444, 36);
-            this.kryptonLabel2.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(104, 21);
-            this.kryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel2.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel2.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonLabel2.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonLabel2.TabIndex = 139;
-            this.kryptonLabel2.Values.Text = "Profile Preview";
-            // 
             // ptbProfile
             // 
             this.ptbProfile.BorderColor = System.Drawing.Color.LightGray;
@@ -699,17 +702,6 @@
             this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ptbProfile.TabIndex = 138;
             this.ptbProfile.TabStop = false;
-            // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(-1, 3);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(129, 25);
-            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel1.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
-            this.kryptonLabel1.TabIndex = 137;
-            this.kryptonLabel1.Values.Text = "Account Profile";
             // 
             // formAccountSetting
             // 
@@ -745,20 +737,22 @@
         #endregion
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label label1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnChamgePass;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblSchoolID;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblLname;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblMname;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblFname;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel10;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblRole;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblName;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditFname;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditMname;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btEditLname;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditID;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnRemoveProf;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel9;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnChangeProf;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel8;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel7;
@@ -766,8 +760,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel5;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel4;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private RoundPictureBox ptbProfile;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
     }
 }

@@ -1,9 +1,11 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
+using System.Runtime.InteropServices.ComTypes;
 using System.Windows.Forms;
 
 namespace AMSEMS
@@ -17,7 +19,6 @@ namespace AMSEMS
         public bool isCollapsed;
         private Form activeForm;
         public static String id;
-        private BackgroundWorker backgroundWorker = new BackgroundWorker();
 
         public FormAdminNavigation(String id1)
         {
@@ -31,62 +32,45 @@ namespace AMSEMS
 
             cn = new SqlConnection(SQL_Connection.connection);
 
-            backgroundWorker.DoWork += backgroundWorker_DoWork;
-            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
-            backgroundWorker.WorkerSupportsCancellation = true;
 
-
+            setCalendar();
             SubForms_Admin.formDashboard.setForm(this);
             OpenChildForm(new SubForms_Admin.formDashboard(id1));
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             id = id1;
-
-        }
-
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+           
+    }
+        public void setCalendar()
         {
-            loadData();
+            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+            {
+                connection.Open();
+                string query = "SELECT Start_Date FROM tbl_events";
 
-            // Simulate a time-consuming operation
-            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
-        }
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        List<DateTime> boldedDates = new List<DateTime>();
 
-        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-                // Handle any errors that occurred during the background work
-                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (e.Cancelled)
-            {
-                // Handle the case where the background work was canceled
-            }
-            else
-            {
-                // Data has been loaded, update the UI
-                // Stop the wait cursor (optional)
-                this.Cursor = Cursors.Default;
+                        while (reader.Read())
+                        {
+                            Object eventDate = reader["Start_Date"];
+                            DateTime eventDate2 = (DateTime)eventDate;
+
+                            // Add the date to the list of bolded dates
+                            boldedDates.Add(eventDate2);
+                        }
+
+                        // Set the BoldedDates property of the KryptonMonthCalendar
+                        kryptonMonthCalendar1.BoldedDates = boldedDates.ToArray();
+                    }
+                }
             }
         }
 
         public void loadData()
         {
-            // Create a new instance of BackgroundWorker for each data loading operation
-            BackgroundWorker dataLoader = new BackgroundWorker();
-            dataLoader.DoWork += (sender, e) => DataLoader_DoWork(sender, e, dataLoader);
-            dataLoader.RunWorkerCompleted += DataLoader_RunWorkerCompleted;
-
-            // Start the BackgroundWorker to load data in the background
-            dataLoader.RunWorkerAsync();
-        }
-
-        // Event handler for BackgroundWorker's DoWork event
-        private void DataLoader_DoWork(object sender, DoWorkEventArgs e, BackgroundWorker worker)
-        {
-            // Set the cursor to WaitCursor while loading data
-            SetWaitCursor();
-
             try
             {
                 cn.Open();
@@ -120,28 +104,11 @@ namespace AMSEMS
             }
         }
 
-        // Event handler for BackgroundWorker's RunWorkerCompleted event
-        private void DataLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            // Restore the cursor to the default cursor
-            RestoreCursor();
-        }
-
-        // Method to set the cursor to WaitCursor
-        private void SetWaitCursor()
-        {
-            Cursor.Current = Cursors.WaitCursor;
-        }
-
-        // Method to restore the cursor to the default cursor
-        private void RestoreCursor()
-        {
-            Cursor.Current = Cursors.Default;
-        }
         private void btnDashboard_Click(object sender, EventArgs e)
         {
             isCollapsed = false;
             timer1.Start();
+            loadData();
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             OpenChildForm(new SubForms_Admin.formDashboard(id));
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
@@ -351,7 +318,7 @@ namespace AMSEMS
 
         private void FormAdminNavigation_Load(object sender, EventArgs e)
         {
-            backgroundWorker.RunWorkerAsync();
+            loadData();
         }
 
         public void Logout()
@@ -363,10 +330,7 @@ namespace AMSEMS
 
         private void FormAdminNavigation_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (backgroundWorker.IsBusy)
-            {
-                backgroundWorker.CancelAsync();
-            }
+
         }
     }
 }

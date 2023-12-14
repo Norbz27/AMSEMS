@@ -138,11 +138,12 @@ namespace AMSEMS.SubForms_SAO
             kryptonGroupBox6.StateCommon.Border.Width = 1;
             kryptonGroupBox6.TabIndex = 4;
 
+            kryptonLabel3.AutoSize = false;
             kryptonLabel3.Cursor = System.Windows.Forms.Cursors.Default;
             kryptonLabel3.Dock = System.Windows.Forms.DockStyle.Top;
             kryptonLabel3.Location = new System.Drawing.Point(15, 50);
             kryptonLabel3.Name = "kryptonLabel3";
-            kryptonLabel3.Size = new System.Drawing.Size(673, 19);
+            kryptonLabel3.Size = new System.Drawing.Size(673, 35);
             kryptonLabel3.StateCommon.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
             kryptonLabel3.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
             kryptonLabel3.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;

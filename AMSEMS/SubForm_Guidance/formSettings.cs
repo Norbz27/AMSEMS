@@ -11,13 +11,6 @@ namespace AMSEMS.SubForm_Guidance
         {
             InitializeComponent();
             this.FormGuidanceNavigation = formGuidanceNavigation;
-
-            OpenChildForm(new formAccountSetting());
-            this.btnAccountProf.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnAccountProf.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnAccountProf.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnAccountProf.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnAccountProf.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
         }
 
         private void btnAccountProf_Click(object sender, System.EventArgs e)
@@ -102,6 +95,16 @@ namespace AMSEMS.SubForm_Guidance
         private void btnLogout_Click(object sender, System.EventArgs e)
         {
             FormGuidanceNavigation.Logout();
+        }
+
+        private void formSettings_Load(object sender, System.EventArgs e)
+        {
+            this.btnAccountProf.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAccountProf.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnAccountProf.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnAccountProf.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnAccountProf.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            OpenChildForm(new formAccountSetting());
         }
     }
 }

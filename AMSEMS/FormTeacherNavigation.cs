@@ -18,7 +18,6 @@ namespace AMSEMS
 
         public bool isCollapsed = false;
         public static string id;
-        private BackgroundWorker backgroundWorker = new BackgroundWorker();
         public FormTeacherNavigation(String id1)
         {
             InitializeComponent();
@@ -30,57 +29,13 @@ namespace AMSEMS
             this.btnDashboard.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
 
-            backgroundWorker.DoWork += backgroundWorker_DoWork;
-            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
-            backgroundWorker.WorkerSupportsCancellation = true;
             id = id1;
             OpenChildForm(new SubForms_Teacher.formDashboard());
 
         }
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            loadData();
-
-            // Simulate a time-consuming operation
-            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
-        }
-
-        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-                // Handle any errors that occurred during the background work
-                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (e.Cancelled)
-            {
-                // Handle the case where the background work was canceled
-            }
-            else
-            {
-                // Data has been loaded, update the UI
-                // Stop the wait cursor (optional)
-                this.Cursor = Cursors.Default;
-            }
-        }
 
         public void loadData()
         {
-            // Create a new instance of BackgroundWorker for each data loading operation
-            BackgroundWorker dataLoader = new BackgroundWorker();
-            dataLoader.DoWork += (sender, e) => DataLoader_DoWork(sender, e, dataLoader);
-            dataLoader.RunWorkerCompleted += DataLoader_RunWorkerCompleted;
-
-            // Start the BackgroundWorker to load data in the background
-            dataLoader.RunWorkerAsync();
-        }
-
-        // Event handler for BackgroundWorker's DoWork event
-        private void DataLoader_DoWork(object sender, DoWorkEventArgs e, BackgroundWorker worker)
-        {
-            // Set the cursor to WaitCursor while loading data
-            SetWaitCursor();
-
             try
             {
                 cn.Open();
@@ -112,25 +67,6 @@ namespace AMSEMS
             {
                 cn.Close();
             }
-        }
-
-        // Event handler for BackgroundWorker's RunWorkerCompleted event
-        private void DataLoader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            // Restore the cursor to the default cursor
-            RestoreCursor();
-        }
-
-        // Method to set the cursor to WaitCursor
-        private void SetWaitCursor()
-        {
-            Cursor.Current = Cursors.WaitCursor;
-        }
-
-        // Method to restore the cursor to the default cursor
-        private void RestoreCursor()
-        {
-            Cursor.Current = Cursors.Default;
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -288,15 +224,12 @@ namespace AMSEMS
 
         private void FormTeacherNavigation_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (backgroundWorker.IsBusy)
-            {
-                backgroundWorker.CancelAsync();
-            }
+           
         }
 
         private void FormTeacherNavigation_Load(object sender, EventArgs e)
         {
-            backgroundWorker.RunWorkerAsync();
+            loadData();
         }
     }
 }

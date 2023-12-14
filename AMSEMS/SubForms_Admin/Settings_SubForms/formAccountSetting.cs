@@ -16,21 +16,17 @@ namespace AMSEMS.SubForms_Admin
         SqlDataReader dr;
         string id;
         private bool fileChosen = false;
-        private BackgroundWorker backgroundWorker = new BackgroundWorker();
 
         public formAccountSetting()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
             id = FormAdminNavigation.id;
-            backgroundWorker.DoWork += backgroundWorker_DoWork;
-            backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
-            backgroundWorker.WorkerSupportsCancellation = true;
         }
 
         private void formAccountSetting_Load(object sender, EventArgs e)
         {
-            backgroundWorker.RunWorkerAsync();
+            loadData();
         }
         public void loadData()
         {
@@ -62,36 +58,6 @@ namespace AMSEMS.SubForms_Admin
                     }
                 }
                 cn.Close();
-            }
-        }
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            // This method runs in a background thread
-            // Perform time-consuming operations here
-            loadData(); // Load data
-
-            // Simulate a time-consuming operation
-            System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
-        }
-
-        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            // This method runs on the UI thread
-            // Update the UI or perform other tasks after the background work completes
-            if (e.Error != null)
-            {
-                // Handle any errors that occurred during the background work
-                MessageBox.Show("An error occurred: " + e.Error.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (e.Cancelled)
-            {
-                // Handle the case where the background work was canceled
-            }
-            else
-            {
-                // Data has been loaded, update the UI
-                // Stop the wait cursor (optional)
-                this.Cursor = Cursors.Default;
             }
         }
 
@@ -164,11 +130,7 @@ namespace AMSEMS.SubForms_Admin
         }
         private void FormAccountSetting_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Check if the BackgroundWorker is running and stop it if needed.
-            if (backgroundWorker.IsBusy)
-            {
-                backgroundWorker.CancelAsync();
-            }
+            
         }
     }
 }
