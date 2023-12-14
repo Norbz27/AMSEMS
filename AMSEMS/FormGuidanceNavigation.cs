@@ -1,4 +1,5 @@
-﻿using ComponentFactory.Krypton.Toolkit;
+﻿using AMSEMS.SubForm_Guidance;
+using ComponentFactory.Krypton.Toolkit;
 using System;
 using System.ComponentModel;
 using System.Data.SqlClient;
@@ -32,6 +33,7 @@ namespace AMSEMS
             backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
             backgroundWorker.WorkerSupportsCancellation = true;
             id = id1;
+            formDashboard.getForm(this);
             OpenChildForm(new SubForm_Guidance.formDashboard());
         }
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -132,6 +134,7 @@ namespace AMSEMS
 
         private void btnDashboard_Click(object sender, EventArgs e)
         {
+            formDashboard.getForm(this);
             isCollapsed = false;
             timer1.Start();
             this.kryptonSplitContainer1.Panel2Collapsed = false;
@@ -203,7 +206,7 @@ namespace AMSEMS
             this.btnRep.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
         }
 
-        private void OpenChildForm(Form childForm)
+        public void OpenChildForm(Form childForm)
         {
             if (activeForm != null)
             {

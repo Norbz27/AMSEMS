@@ -40,6 +40,15 @@
             this.btnExport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.dgvAbesnteismRep = new System.Windows.Forms.DataGridView();
+            this.studid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.consultid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.studname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.section = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.classcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sub = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.absences = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.cbSection = new System.Windows.Forms.ComboBox();
             this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -55,15 +64,7 @@
             this.tbSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.cbStatus = new System.Windows.Forms.ComboBox();
-            this.studid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.consultid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.studname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.section = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.classcode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sub = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.absences = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.option = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
@@ -73,6 +74,7 @@
             this.CMSOptions.SuspendLayout();
             this.CMSExport.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // lblRepHeader
@@ -230,6 +232,7 @@
             // 
             // kryptonGroupBox5.Panel
             // 
+            this.kryptonGroupBox5.Panel.Controls.Add(this.ptbLoading);
             this.kryptonGroupBox5.Panel.Controls.Add(this.dgvAbesnteismRep);
             this.kryptonGroupBox5.Size = new System.Drawing.Size(842, 416);
             this.kryptonGroupBox5.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -314,6 +317,78 @@
             this.dgvAbesnteismRep.Size = new System.Drawing.Size(832, 406);
             this.dgvAbesnteismRep.TabIndex = 1;
             this.dgvAbesnteismRep.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAbesnteismRep_CellContentClick);
+            // 
+            // studid
+            // 
+            this.studid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.studid.HeaderText = "ID";
+            this.studid.Name = "studid";
+            this.studid.ReadOnly = true;
+            this.studid.Width = 45;
+            // 
+            // consultid
+            // 
+            this.consultid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.consultid.HeaderText = "Consultation ID";
+            this.consultid.Name = "consultid";
+            this.consultid.ReadOnly = true;
+            this.consultid.Visible = false;
+            this.consultid.Width = 118;
+            // 
+            // studname
+            // 
+            this.studname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.studname.HeaderText = "Name";
+            this.studname.Name = "studname";
+            this.studname.ReadOnly = true;
+            // 
+            // section
+            // 
+            this.section.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.section.HeaderText = "Section";
+            this.section.Name = "section";
+            this.section.ReadOnly = true;
+            this.section.Width = 78;
+            // 
+            // classcode
+            // 
+            this.classcode.HeaderText = "Class Code";
+            this.classcode.Name = "classcode";
+            this.classcode.ReadOnly = true;
+            this.classcode.Visible = false;
+            // 
+            // sub
+            // 
+            this.sub.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.sub.HeaderText = "Subject";
+            this.sub.Name = "sub";
+            this.sub.ReadOnly = true;
+            this.sub.Width = 78;
+            // 
+            // absences
+            // 
+            this.absences.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.absences.HeaderText = "Condecutive Absent Days";
+            this.absences.Name = "absences";
+            this.absences.ReadOnly = true;
+            this.absences.Width = 144;
+            // 
+            // status
+            // 
+            this.status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.status.HeaderText = "Consultation Status";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
+            this.status.Width = 140;
+            // 
+            // option
+            // 
+            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.option.HeaderText = "";
+            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.option.Name = "option";
+            this.option.ReadOnly = true;
+            this.option.Width = 5;
             // 
             // kryptonLabel1
             // 
@@ -502,77 +577,22 @@
             this.cbStatus.TabIndex = 44;
             this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbStatus_SelectedIndexChanged);
             // 
-            // studid
+            // ptbLoading
             // 
-            this.studid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.studid.HeaderText = "ID";
-            this.studid.Name = "studid";
-            this.studid.ReadOnly = true;
-            this.studid.Width = 45;
-            // 
-            // consultid
-            // 
-            this.consultid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.consultid.HeaderText = "Consultation ID";
-            this.consultid.Name = "consultid";
-            this.consultid.ReadOnly = true;
-            this.consultid.Visible = false;
-            this.consultid.Width = 116;
-            // 
-            // studname
-            // 
-            this.studname.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.studname.HeaderText = "Name";
-            this.studname.Name = "studname";
-            this.studname.ReadOnly = true;
-            // 
-            // section
-            // 
-            this.section.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.section.HeaderText = "Section";
-            this.section.Name = "section";
-            this.section.ReadOnly = true;
-            this.section.Width = 78;
-            // 
-            // classcode
-            // 
-            this.classcode.HeaderText = "Class Code";
-            this.classcode.Name = "classcode";
-            this.classcode.ReadOnly = true;
-            this.classcode.Visible = false;
-            // 
-            // sub
-            // 
-            this.sub.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.sub.HeaderText = "Subject";
-            this.sub.Name = "sub";
-            this.sub.ReadOnly = true;
-            this.sub.Width = 78;
-            // 
-            // absences
-            // 
-            this.absences.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.absences.HeaderText = "Condecutive Absent Days";
-            this.absences.Name = "absences";
-            this.absences.ReadOnly = true;
-            this.absences.Width = 144;
-            // 
-            // status
-            // 
-            this.status.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.status.HeaderText = "Consultation Status";
-            this.status.Name = "status";
-            this.status.ReadOnly = true;
-            this.status.Width = 140;
-            // 
-            // option
-            // 
-            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.option.HeaderText = "";
-            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
-            this.option.Name = "option";
-            this.option.ReadOnly = true;
-            this.option.Width = 5;
+            this.ptbLoading.BackColor = System.Drawing.Color.White;
+            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoading.BorderWidth = 0;
+            this.ptbLoading.CornerRadius = 10;
+            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.ImageLocation = "";
+            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(832, 406);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 13;
+            this.ptbLoading.TabStop = false;
+            this.ptbLoading.Visible = false;
             // 
             // formAbsReport
             // 
@@ -605,6 +625,7 @@
             this.CMSOptions.ResumeLayout(false);
             this.CMSExport.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -642,5 +663,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn absences;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
         private System.Windows.Forms.DataGridViewImageColumn option;
+        private RoundPictureBoxRect ptbLoading;
     }
 }

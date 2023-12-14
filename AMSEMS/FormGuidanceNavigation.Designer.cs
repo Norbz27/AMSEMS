@@ -868,18 +868,13 @@
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel Panel1;
-        private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private ComponentFactory.Krypton.Toolkit.KryptonPanel panelCollapsed;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCollege;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSHS;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnRep;
         private System.Windows.Forms.Panel panel2;
         private ComponentFactory.Krypton.Toolkit.ButtonSpecAny btnNotification;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnDashboard;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSettings;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panel6;
@@ -891,6 +886,11 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblRole;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblName;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
+        public ComponentFactory.Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer1;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton btnRep;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton btnDashboard;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton btnSettings;
+        public ComponentFactory.Krypton.Toolkit.KryptonPanel panelCollapsed;
     }
 }
 

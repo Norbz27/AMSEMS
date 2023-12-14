@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
@@ -40,6 +40,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.dgvAbsencesRecord = new System.Windows.Forms.DataGridView();
+            this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ccode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.absencedate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pnExclusive = new System.Windows.Forms.Panel();
@@ -64,11 +68,9 @@
             this.tbProgram = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.tbYlevel = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.tbSec = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
+            this.btnRemarks = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.btnSetAsDone = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.ptbProfile = new AMSEMS.RoundPictureBox();
-            this.count = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ccode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cdes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.absencedate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
@@ -148,6 +150,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btnSetAsDone);
+            this.panel2.Controls.Add(this.btnRemarks);
             this.panel2.Controls.Add(this.btnPdf);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(10, 544);
@@ -159,7 +163,7 @@
             // 
             this.btnPdf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPdf.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPdf.Location = new System.Drawing.Point(530, 11);
+            this.btnPdf.Location = new System.Drawing.Point(382, 11);
             this.btnPdf.Name = "btnPdf";
             this.btnPdf.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnPdf.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -251,11 +255,11 @@
             this.dgvAbsencesRecord.AllowUserToDeleteRows = false;
             this.dgvAbsencesRecord.AllowUserToResizeColumns = false;
             this.dgvAbsencesRecord.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvAbsencesRecord.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvAbsencesRecord.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvAbsencesRecord.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAbsencesRecord.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvAbsencesRecord.BackgroundColor = System.Drawing.Color.White;
@@ -263,13 +267,13 @@
             this.dgvAbsencesRecord.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvAbsencesRecord.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvAbsencesRecord.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAbsencesRecord.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Poppins SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbsencesRecord.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvAbsencesRecord.ColumnHeadersHeight = 50;
             this.dgvAbsencesRecord.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvAbsencesRecord.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -278,14 +282,14 @@
             this.cdes,
             this.absencedate});
             this.dgvAbsencesRecord.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAbsencesRecord.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAbsencesRecord.DefaultCellStyle = dataGridViewCellStyle7;
             this.dgvAbsencesRecord.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvAbsencesRecord.EnableHeadersVisualStyles = false;
             this.dgvAbsencesRecord.GridColor = System.Drawing.SystemColors.ControlLight;
@@ -296,12 +300,42 @@
             this.dgvAbsencesRecord.RowHeadersVisible = false;
             this.dgvAbsencesRecord.RowHeadersWidth = 30;
             this.dgvAbsencesRecord.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAbsencesRecord.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbsencesRecord.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvAbsencesRecord.RowTemplate.Height = 30;
             this.dgvAbsencesRecord.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAbsencesRecord.Size = new System.Drawing.Size(666, 218);
             this.dgvAbsencesRecord.TabIndex = 3;
+            // 
+            // count
+            // 
+            this.count.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.count.HeaderText = "#";
+            this.count.Name = "count";
+            this.count.ReadOnly = true;
+            this.count.Width = 41;
+            // 
+            // ccode
+            // 
+            this.ccode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.ccode.HeaderText = "Course Code";
+            this.ccode.Name = "ccode";
+            this.ccode.ReadOnly = true;
+            this.ccode.Width = 95;
+            // 
+            // cdes
+            // 
+            this.cdes.HeaderText = "Course Description";
+            this.cdes.Name = "cdes";
+            this.cdes.ReadOnly = true;
+            // 
+            // absencedate
+            // 
+            this.absencedate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.absencedate.HeaderText = "Absent Date";
+            this.absencedate.Name = "absencedate";
+            this.absencedate.ReadOnly = true;
+            this.absencedate.Width = 91;
             // 
             // panel4
             // 
@@ -682,6 +716,115 @@
             this.tbSec.StateCommon.Content.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
             this.tbSec.TabIndex = 151;
             // 
+            // btnRemarks
+            // 
+            this.btnRemarks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemarks.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRemarks.Location = new System.Drawing.Point(0, 11);
+            this.btnRemarks.Name = "btnRemarks";
+            this.btnRemarks.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRemarks.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRemarks.OverrideDefault.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnRemarks.OverrideDefault.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnRemarks.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnRemarks.OverrideDefault.Border.Rounding = 10;
+            this.btnRemarks.OverrideDefault.Border.Width = 1;
+            this.btnRemarks.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnRemarks.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnRemarks.Size = new System.Drawing.Size(132, 36);
+            this.btnRemarks.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRemarks.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRemarks.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnRemarks.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnRemarks.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnRemarks.StateCommon.Border.Rounding = 10;
+            this.btnRemarks.StateCommon.Border.Width = 1;
+            this.btnRemarks.StateCommon.Content.AdjacentGap = 10;
+            this.btnRemarks.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnRemarks.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnRemarks.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold);
+            this.btnRemarks.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRemarks.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRemarks.StatePressed.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnRemarks.StatePressed.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnRemarks.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnRemarks.StatePressed.Border.Rounding = 10;
+            this.btnRemarks.StatePressed.Border.Width = 1;
+            this.btnRemarks.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRemarks.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnRemarks.StateTracking.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnRemarks.StateTracking.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnRemarks.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnRemarks.StateTracking.Border.Rounding = 10;
+            this.btnRemarks.StateTracking.Border.Width = 1;
+            this.btnRemarks.TabIndex = 183;
+            this.btnRemarks.TabStop = false;
+            this.btnRemarks.Values.Image = global::AMSEMS.Properties.Resources.commentary;
+            this.btnRemarks.Values.Text = "Remarks";
+            // 
+            // btnSetAsDone
+            // 
+            this.btnSetAsDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSetAsDone.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSetAsDone.Location = new System.Drawing.Point(534, 11);
+            this.btnSetAsDone.Name = "btnSetAsDone";
+            this.btnSetAsDone.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSetAsDone.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSetAsDone.OverrideDefault.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSetAsDone.OverrideDefault.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSetAsDone.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSetAsDone.OverrideDefault.Border.Rounding = 10;
+            this.btnSetAsDone.OverrideDefault.Border.Width = 1;
+            this.btnSetAsDone.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSetAsDone.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSetAsDone.Size = new System.Drawing.Size(142, 36);
+            this.btnSetAsDone.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSetAsDone.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSetAsDone.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSetAsDone.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSetAsDone.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSetAsDone.StateCommon.Border.Rounding = 10;
+            this.btnSetAsDone.StateCommon.Border.Width = 1;
+            this.btnSetAsDone.StateCommon.Content.AdjacentGap = 10;
+            this.btnSetAsDone.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnSetAsDone.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnSetAsDone.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold);
+            this.btnSetAsDone.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSetAsDone.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSetAsDone.StatePressed.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSetAsDone.StatePressed.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSetAsDone.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSetAsDone.StatePressed.Border.Rounding = 10;
+            this.btnSetAsDone.StatePressed.Border.Width = 1;
+            this.btnSetAsDone.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSetAsDone.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSetAsDone.StateTracking.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSetAsDone.StateTracking.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSetAsDone.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSetAsDone.StateTracking.Border.Rounding = 10;
+            this.btnSetAsDone.StateTracking.Border.Width = 1;
+            this.btnSetAsDone.TabIndex = 184;
+            this.btnSetAsDone.TabStop = false;
+            this.btnSetAsDone.Values.Image = global::AMSEMS.Properties.Resources.check_mark;
+            this.btnSetAsDone.Values.Text = "Set as Done";
+            this.btnSetAsDone.Click += new System.EventHandler(this.btnSetAsDone_Click);
+            // 
             // ptbProfile
             // 
             this.ptbProfile.BorderColor = System.Drawing.Color.LightGray;
@@ -693,36 +836,6 @@
             this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ptbProfile.TabIndex = 152;
             this.ptbProfile.TabStop = false;
-            // 
-            // count
-            // 
-            this.count.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.count.HeaderText = "#";
-            this.count.Name = "count";
-            this.count.ReadOnly = true;
-            this.count.Width = 41;
-            // 
-            // ccode
-            // 
-            this.ccode.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ccode.HeaderText = "Course Code";
-            this.ccode.Name = "ccode";
-            this.ccode.ReadOnly = true;
-            this.ccode.Width = 95;
-            // 
-            // cdes
-            // 
-            this.cdes.HeaderText = "Course Description";
-            this.cdes.Name = "cdes";
-            this.cdes.ReadOnly = true;
-            // 
-            // absencedate
-            // 
-            this.absencedate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.absencedate.HeaderText = "Absent Date";
-            this.absencedate.Name = "absencedate";
-            this.absencedate.ReadOnly = true;
-            this.absencedate.Width = 91;
             // 
             // formStudAttRecord
             // 
@@ -796,5 +909,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ccode;
         private System.Windows.Forms.DataGridViewTextBoxColumn cdes;
         private System.Windows.Forms.DataGridViewTextBoxColumn absencedate;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnRemarks;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSetAsDone;
     }
 }

@@ -13,6 +13,7 @@ namespace AMSEMS.SubForm_Guidance
         SqlConnection cn;
         SqlCommand cm;
         SqlDataReader dr;
+        static FormGuidanceNavigation form;
         //string acadSchYeear, acadTerSem, acadShsSem;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         public formDashboard()
@@ -38,6 +39,10 @@ namespace AMSEMS.SubForm_Guidance
             //        }
             //    }
             //}
+        }
+        public static void getForm(FormGuidanceNavigation form1)
+        {
+            form = form1;
         }
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -212,6 +217,44 @@ namespace AMSEMS.SubForm_Guidance
             {
                 backgroundWorker.CancelAsync();
             }
+        }
+
+        private void btnViewShs_Click(object sender, EventArgs e)
+        {
+            form.OpenChildForm(new SubForm_Guidance.formAbsReport("SHS"));
+            form.isCollapsed = true;
+            form.kryptonSplitContainer1.Panel2Collapsed = true;
+            form.panelCollapsed.Size = form.panelCollapsed.MaximumSize;
+            controls();
+        }
+        public void controls()
+        {
+            form.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            form.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            form.btnSettings.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+            form.btnSettings.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            form.btnSettings.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+
+            form.btnDashboard.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            form.btnDashboard.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            form.btnDashboard.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+            form.btnDashboard.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            form.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+
+            form.btnRep.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            form.btnRep.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            form.btnRep.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            form.btnRep.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            form.btnRep.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+        }
+
+        private void btnViewTer_Click(object sender, EventArgs e)
+        {
+            form.OpenChildForm(new SubForm_Guidance.formAbsReport("Tertiary"));
+            form.isCollapsed = true;
+            form.kryptonSplitContainer1.Panel2Collapsed = true;
+            form.panelCollapsed.Size = form.panelCollapsed.MaximumSize;
+            controls();
         }
     }
 }

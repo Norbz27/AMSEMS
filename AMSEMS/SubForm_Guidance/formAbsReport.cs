@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Org.BouncyCastle.Bcpg.OpenPgp;
+using System.Threading.Tasks;
 
 namespace AMSEMS.SubForm_Guidance
 {
@@ -63,8 +64,10 @@ namespace AMSEMS.SubForm_Guidance
                 cbMonth.SelectedItem = DateTime.Now.ToString("MMMM");
             }
         }
-        public void displayReport()
+        public async void displayReport()
         {
+            ptbLoading.Visible = true;
+            await Task.Delay(2000);
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
@@ -110,7 +113,7 @@ namespace AMSEMS.SubForm_Guidance
                     cmd.Parameters.AddWithValue("@month", string.IsNullOrEmpty(cbMonth.Text) ? DBNull.Value : (object)cbMonth.Text);
                     cmd.Parameters.AddWithValue("@Status", cbStatus.SelectedItem.ToString());
 
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
                     {
                         dgvAbesnteismRep.Rows.Clear();
                         int count = 1;
@@ -132,6 +135,7 @@ namespace AMSEMS.SubForm_Guidance
                     }
                 }
             }
+            ptbLoading.Visible = false;
         }
 
         private void formAbsReport_Load(object sender, EventArgs e)
@@ -323,23 +327,23 @@ namespace AMSEMS.SubForm_Guidance
                 titleParagraph.Alignment = Element.ALIGN_CENTER;
                 document.Add(titleParagraph);
 
-                Paragraph titleParagraph1 = new Paragraph("Records from month "+cbMonth.Text, cellFont);
+                Paragraph titleParagraph1 = new Paragraph("Records from Month of "+cbMonth.Text, cellFont);
                 titleParagraph1.Alignment = Element.ALIGN_CENTER;
                 document.Add(titleParagraph1);
                 
                 Paragraph titleParagraph2 = new Paragraph("Printed on: "+DateTime.Now.ToString("dddd MMM dd, yyyy"), cellFont);
-                titleParagraph2.Alignment = Element.ALIGN_CENTER;
+                titleParagraph2.Alignment = Element.ALIGN_LEFT;
                 document.Add(titleParagraph2);
 
-                PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.GetColumnCount(DataGridViewElementStates.Visible));
+                PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 3);
                 pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
                 pdfTable.SpacingBefore = 10f; // Add space before the table
                 pdfTable.DefaultCell.Padding = 3; // Cell padding
 
-                // Add header cells for visible columns
+                // Add header cells for visible columns excluding the "option" column
                 foreach (DataGridViewColumn column in dataGridView.Columns)
                 {
-                    if (column.Visible)
+                    if (column.Visible && column.Name != "option")
                     {
                         PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
                         cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
@@ -347,18 +351,20 @@ namespace AMSEMS.SubForm_Guidance
                     }
                 }
 
-                // Add data cells for visible columns
+                // Add data cells for visible columns excluding the "option" column
                 foreach (DataGridViewRow row in dataGridView.Rows)
                 {
                     foreach (DataGridViewColumn column in dataGridView.Columns)
                     {
-                        if (column.Visible)
+                        if (column.Visible && column.Name != "option")
                         {
-                            PdfPCell pdfCell = new PdfPCell(new Phrase(row.Cells[column.Index].Value?.ToString() ?? "", cellFont));
+                            // Use the DisplayIndex property instead of Index to get the correct index
+                            PdfPCell pdfCell = new PdfPCell(new Phrase(row.Cells[column.DisplayIndex].Value?.ToString() ?? "", cellFont));
                             pdfTable.AddCell(pdfCell);
                         }
                     }
                 }
+
 
                 document.Add(pdfTable);
                 document.Close();

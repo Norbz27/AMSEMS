@@ -840,6 +840,12 @@
     <Compile Include="SubForm_Guidance\formAbsReport.Designer.cs">
       <DependentUpon>formAbsReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm_Guidance\formRemarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\formRemarks.Designer.cs">
+      <DependentUpon>formRemarks.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm_Guidance\formDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -910,6 +916,8 @@
     <None Include="Resources\diskette-24.png" />
     <None Include="Resources\bookslanscape.png" />
     <None Include="Resources\upload-white.png" />
+    <None Include="Resources\commentary.png" />
+    <None Include="Resources\check-mark.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1196,6 +1204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm_Guidance\formAbsReport.resx">
       <DependentUpon>formAbsReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\formRemarks.resx">
+      <DependentUpon>formRemarks.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm_Guidance\formDashboard.resx">
       <DependentUpon>formDashboard.cs</DependentUpon>

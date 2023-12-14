@@ -94,11 +94,13 @@ namespace AMSEMS.SubForm_Guidance
                     {
                         lblStatus.Text = "Consulted";
                         lblStatus.StateCommon.ShortText.Color1 = Color.LimeGreen;
+                        btnSetAsDone.Enabled = false;
                     }
                     else
                     {
                         lblStatus.Text = "Pending";
                         lblStatus.StateCommon.ShortText.Color1 = Color.IndianRed;
+                        btnSetAsDone.Enabled = true;
                     }
                 }
                 dr.Close();
@@ -245,6 +247,46 @@ namespace AMSEMS.SubForm_Guidance
                 {
                     MessageBox.Show(e.Message);
                 }
+            }
+        }
+
+        private void btnSetAsDone_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+
+                // Check if the status is already 'Done'
+                string checkQuery = "SELECT Status FROM tbl_consultation_record WHERE Student_ID = @StudID AND Class_Code = @ccode AND Consultation_ID = @conID";
+                using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
+                {
+                    checkCommand.Parameters.AddWithValue("@StudID", stud_id);
+                    checkCommand.Parameters.AddWithValue("@conID", con_id);
+                    checkCommand.Parameters.AddWithValue("@ccode", class_code);
+
+                    object statusResult = checkCommand.ExecuteScalar();
+
+                    if (statusResult != null && statusResult.ToString() == "Done")
+                    {
+                        MessageBox.Show("Record is already marked as 'Done'.", "Consultation Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        // Update the status to 'Done'
+                        string updateQuery = "UPDATE tbl_consultation_record SET Status = 'Done', Date = @DateNow WHERE Student_ID = @StudID AND Class_Code = @ccode AND Consultation_ID = @conID";
+                        using (SqlCommand updateCommand = new SqlCommand(updateQuery, cn))
+                        {
+                            updateCommand.Parameters.AddWithValue("@StudID", stud_id);
+                            updateCommand.Parameters.AddWithValue("@conID", con_id);
+                            updateCommand.Parameters.AddWithValue("@ccode", class_code);
+                            updateCommand.Parameters.AddWithValue("@DateNow", DateTime.Now.ToString("yyyy-MM-dd hh:mm tt"));
+                            updateCommand.ExecuteNonQuery();
+                        }
+                        displayStatus();
+                    }
+                }
+
+                cn.Close();
             }
         }
 
