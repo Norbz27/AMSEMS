@@ -201,23 +201,6 @@ namespace AMSEMS
             }
         }
 
-        private async Task<bool> CheckForInternetConnectionAsync()
-        {
-            try
-            {
-                using (var client = new WebClient())
-                using (var stream = await client.OpenReadTaskAsync("https://portal.azure.com"))
-                {
-                    return true;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-
         public static bool CheckForInternetConnection()
         {
             try

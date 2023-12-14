@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -16,13 +17,14 @@ namespace AMSEMS.SubForm_Guidance
         static FormGuidanceNavigation form;
         //string acadSchYeear, acadTerSem, acadShsSem;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
+        private CancellationTokenSource cancellationTokenSource;
         public formDashboard()
         {
             InitializeComponent();
             backgroundWorker.DoWork += backgroundWorker_DoWork;
             backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
             backgroundWorker.WorkerSupportsCancellation = true;
-
+            cancellationTokenSource = new CancellationTokenSource();
             //using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             //{
             //    string query = "SELECT * FROM tbl_acad";
@@ -140,6 +142,10 @@ namespace AMSEMS.SubForm_Guidance
                         {
                             while (dr.Read())
                             {
+                                if (cancellationTokenSource.Token.IsCancellationRequested)
+                                {
+                                    return;
+                                }
                                 int month = Convert.ToInt32(dr["Month"]);
                                 int recordCount = Convert.ToInt32(dr["recordCount"]);
 
@@ -193,6 +199,10 @@ namespace AMSEMS.SubForm_Guidance
                     {
                         while (dr.Read())
                         {
+                            if (cancellationTokenSource.Token.IsCancellationRequested)
+                            {
+                                return;
+                            }
                             dgvRecord.Rows.Add(
                                 dr["Name"].ToString(),
                                 dr["subdes"].ToString()
@@ -217,6 +227,7 @@ namespace AMSEMS.SubForm_Guidance
             {
                 backgroundWorker.CancelAsync();
             }
+            cancellationTokenSource?.Cancel();
         }
 
         private void btnViewShs_Click(object sender, EventArgs e)

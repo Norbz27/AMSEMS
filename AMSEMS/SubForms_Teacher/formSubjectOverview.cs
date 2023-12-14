@@ -20,6 +20,10 @@ using System.Net.NetworkInformation;
 using System.Windows.Forms.DataVisualization.Charting;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Data.Common;
+using Org.BouncyCastle.Ocsp;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Threading;
+using AMSEMS.SubForm_Guidance;
 
 namespace AMSEMS.SubForms_Teacher
 {
@@ -33,15 +37,19 @@ namespace AMSEMS.SubForms_Teacher
         static string subacadlvl;
         formAddStudentToSubject form2;
         private int selectedColumnIndex;
-
+        string rep;
+        string acadSchYeear, acadTerSem, acadShsSem;
         private List<DataGridViewRow> rowsToDelete = new List<DataGridViewRow>();
+        private CancellationTokenSource cancellationTokenSource;
         public formSubjectOverview()
         {
             InitializeComponent();
             conn = new SQLite_Connection();
             form2 = new formAddStudentToSubject(this);
+            cancellationTokenSource = new CancellationTokenSource();
             dgvStudents.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 9F);
             dgvAttendanceReport.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 9F);
+            dgvAbesnteismRep.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 9F);
             dgvAttendance.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             ptbLoading.Style = ProgressBarStyle.Marquee;
             dgvAttendanceReport.CellValueNeeded += dgvAttendanceReport_CellValueNeeded;
@@ -420,6 +428,11 @@ namespace AMSEMS.SubForms_Teacher
                     tbSearchStudent.Enabled = true;
                     tbSearchStudent.Focus();
                 }
+            }
+            else if(tabControl1.SelectedTab != null && tabControl1.SelectedTab.Text == "Guidance Absenteeism Remarks")
+            {
+                academic();
+                displayReport();
             }
         }
 
@@ -1778,6 +1791,157 @@ namespace AMSEMS.SubForms_Teacher
             }
 
             return -1; // Column not found
+        }
+
+        private void formSubjectOverview_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            cancellationTokenSource?.Cancel();
+        }
+
+        private void dgvAbesnteismRep_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string col = dgvAbesnteismRep.Columns[e.ColumnIndex].Name;
+            if (col == "option")
+            {
+                // Get the bounds of the cell
+                System.Drawing.Rectangle cellBounds = dgvAbesnteismRep.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
+
+                // Show the context menu just below the cell
+                CMSDgvRemarkOption.Show(dgvAbesnteismRep, cellBounds.Left, cellBounds.Bottom);
+            }
+        }
+
+        private void viewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UseWaitCursor = true;
+            ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
+
+            if (menuItem != null)
+            {
+                // Get the ContextMenuStrip associated with the clicked item
+                ContextMenuStrip menu = menuItem.Owner as ContextMenuStrip;
+
+                if (menu != null)
+                {
+                    // Get the DataGridView that the context menu is associated with
+                    DataGridView dataGridView = menu.SourceControl as DataGridView;
+
+                    if (dataGridView != null)
+                    {
+                        int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
+                        formRemarks form = new formRemarks();
+                        form.getForm(this, dgvAbesnteismRep.Rows[rowIndex].Cells[0].Value.ToString(), dgvAbesnteismRep.Rows[rowIndex].Cells[1].Value.ToString(), classcode);
+
+                        form.ShowDialog();
+                        UseWaitCursor = false;
+                    }
+                }
+            }
+        }
+
+        public void academic()
+        {
+            using(SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                string query1 = "SELECT * FROM tbl_acad";
+                using (SqlCommand cmd = new SqlCommand(query1, cn))
+                {
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            acadSchYeear = dr["Academic_Year_Start"].ToString() + "-" + dr["Academic_Year_End"].ToString();
+                            acadShsSem = dr["Ter_Academic_Sem"].ToString();
+                            acadTerSem = dr["SHS_Academic_Sem"].ToString();
+                        }
+                    }
+                }
+            }
+        }
+        public async void displayReport()
+        {
+            try
+            {
+                if (IsInternetConnected())
+                {
+                    ptbLoadingG.Visible = true;
+                    await Task.Delay(1000);
+                    using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                    {
+                        cn.Open();
+
+                        string query = @"SELECT 
+                                s.ID AS ID,
+                                cr.Consultation_ID AS conid,
+                                UPPER(s.Lastname + ', ' + s.Firstname + ' ' + s.Middlename) AS Name,
+                                cr.Absences AS ConsecutiveAbsentDays
+                            FROM 
+                                tbl_consultation_record cr
+                                LEFT JOIN tbl_student_accounts s ON cr.Student_ID = s.ID 
+                                LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID 
+	                            LEFT JOIN tbl_academic_level al ON sec.AcadLevel_ID = al.Academic_Level_ID
+                        	    LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
+                                LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
+							    LEFT JOIN tbl_subject_attendance sa ON cr.Class_Code = sa.Class_Code
+                            WHERE 
+                                al.Academic_Level_ID = @acadlvl
+                                AND cr.Class_Code = @clcode
+                                AND s.Status = 1
+                                AND cl.School_Year = @schyear
+                                AND cl.Semester = @sem
+                                AND cr.Status = 'Done'
+                            GROUP BY 
+                                s.ID, s.Lastname, s.Firstname, s.Middlename, cr.Absences, cr.Consultation_ID
+						    ORDER BY
+							    Name";
+
+                        using (SqlCommand cmd = new SqlCommand(query, cn))
+                        {
+                            cmd.Parameters.AddWithValue("@acadlvl", subacadlvl);
+                            cmd.Parameters.AddWithValue("@schyear", acadSchYeear);
+                            cmd.Parameters.AddWithValue("@clcode", classcode);
+
+                            if (subacadlvl.Equals("10002"))
+                                cmd.Parameters.AddWithValue("@sem", acadShsSem);
+                            else
+                                cmd.Parameters.AddWithValue("@sem", acadTerSem);
+                        
+                            using (SqlDataReader dr = cmd.ExecuteReader())
+                            {
+                                dgvAbesnteismRep.Rows.Clear();
+                                int count = 1;
+                                while (dr.Read())
+                                {
+                                    if (cancellationTokenSource.Token.IsCancellationRequested)
+                                    {
+                                        return;
+                                    }
+                                    // Add a row and set the checkbox column value to false (unchecked)
+                                    int rowIndex = dgvAbesnteismRep.Rows.Add(false);
+
+                                    //Populate other columns, starting from index 1
+                                    dgvAbesnteismRep.Rows[rowIndex].Cells["StudentID"].Value = dr["ID"] != DBNull.Value ? dr["ID"].ToString() : "";
+                                    dgvAbesnteismRep.Rows[rowIndex].Cells["conid"].Value = dr["conid"] != DBNull.Value ? dr["conid"].ToString() : "";
+                                    dgvAbesnteismRep.Rows[rowIndex].Cells["StudentName"].Value = dr["Name"] != DBNull.Value ? dr["Name"].ToString() : "";
+                                    dgvAbesnteismRep.Rows[rowIndex].Cells["StudentAbsences"].Value = dr["ConsecutiveAbsentDays"] != DBNull.Value ? dr["ConsecutiveAbsentDays"].ToString() : "";
+
+                                }
+                            }
+                        }
+                    }
+                    ptbLoadingG.Visible = false;
+                }
+                else
+                {
+                    MessageBox.Show("No Internet Connection!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
     }
 }

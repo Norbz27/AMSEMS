@@ -53,7 +53,6 @@
             this.cbSection = new System.Windows.Forms.ComboBox();
             this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.marktoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.CMSExport = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -416,12 +415,11 @@
             // 
             this.CMSOptions.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.CMSOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.viewToolStripMenuItem,
-            this.marktoolStripMenuItem1});
+            this.viewToolStripMenuItem});
             this.CMSOptions.Name = "contextMenuStrip2";
             this.CMSOptions.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.CMSOptions.ShowImageMargin = false;
-            this.CMSOptions.Size = new System.Drawing.Size(126, 56);
+            this.CMSOptions.Size = new System.Drawing.Size(126, 30);
             // 
             // viewToolStripMenuItem
             // 
@@ -430,14 +428,6 @@
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
             this.viewToolStripMenuItem.Text = "View Record";
             this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
-            // 
-            // marktoolStripMenuItem1
-            // 
-            this.marktoolStripMenuItem1.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.marktoolStripMenuItem1.Name = "marktoolStripMenuItem1";
-            this.marktoolStripMenuItem1.Size = new System.Drawing.Size(125, 26);
-            this.marktoolStripMenuItem1.Text = "Set as Done";
-            this.marktoolStripMenuItem1.Click += new System.EventHandler(this.marktoolStripMenuItem1_Click);
             // 
             // dataGridViewImageColumn1
             // 
@@ -653,7 +643,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbSearch;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
         private System.Windows.Forms.ComboBox cbStatus;
-        private System.Windows.Forms.ToolStripMenuItem marktoolStripMenuItem1;
         private System.Windows.Forms.DataGridViewTextBoxColumn studid;
         private System.Windows.Forms.DataGridViewTextBoxColumn consultid;
         private System.Windows.Forms.DataGridViewTextBoxColumn studname;

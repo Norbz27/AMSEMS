@@ -29,25 +29,30 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -70,14 +75,12 @@
             this.dgvStudents = new System.Windows.Forms.DataGridView();
             this.studid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.studname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.del = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btnExportStudentList = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnCancel1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSave1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnAddStud = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbSearchStud1 = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -86,13 +89,13 @@
             this.attstudid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.attstudname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnExcel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnExportAttendance = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnCancel2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSave2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel4 = new System.Windows.Forms.Panel();
             this.Dt = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
             this.btnNewAttendance = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tbSearchstudRep = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
@@ -103,17 +106,16 @@
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.lblSection = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.ptbCheck = new System.Windows.Forms.PictureBox();
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblID = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.tbRFID = new System.Windows.Forms.TextBox();
-            this.btnRFIDSaveAtt = new System.Windows.Forms.Button();
             this.tbSearchStudent = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.tgbtnEnable_Att = new AMSEMS.RJToggleButton();
-            this.ptbProfilePic = new AMSEMS.RoundPictureBoxRect();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.kryptonTextBox1 = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ptbLoading = new System.Windows.Forms.ProgressBar();
             this.btnOption = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -122,16 +124,33 @@
             this.deltoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.lblSec = new System.Windows.Forms.Label();
             this.lblSubjectName = new System.Windows.Forms.Label();
-            this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
             this.CMSExport = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpPDF = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.delToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kryptonGroupBox7 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.dgvAbesnteismRep = new System.Windows.Forms.DataGridView();
+            this.tgbtnEnable_Att = new AMSEMS.RJToggleButton();
+            this.CMSDgvRemarkOption = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.btnExcel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.del = new System.Windows.Forms.DataGridViewImageColumn();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.ptbCheck = new System.Windows.Forms.PictureBox();
+            this.btnRFIDSaveAtt = new System.Windows.Forms.Button();
+            this.ptbProfilePic = new AMSEMS.RoundPictureBoxRect();
+            this.ptbLoadingG = new AMSEMS.RoundPictureBoxRect();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
+            this.StudentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentAbsences = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -153,7 +172,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
             this.panel7.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3)).BeginInit();
@@ -163,7 +181,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceReport)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
@@ -176,14 +193,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).BeginInit();
             this.kryptonGroupBox2.Panel.SuspendLayout();
             this.kryptonGroupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbCheck)).BeginInit();
             this.panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            this.panel12.SuspendLayout();
             this.panel1.SuspendLayout();
             this.CMSSectionOption.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).BeginInit();
             this.CMSExport.SuspendLayout();
             this.CMSOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7.Panel)).BeginInit();
+            this.kryptonGroupBox7.Panel.SuspendLayout();
+            this.kryptonGroupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAbesnteismRep)).BeginInit();
+            this.CMSDgvRemarkOption.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbCheck)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoadingG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -258,30 +287,30 @@
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea3.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea3.AxisX2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
-            chartArea3.AxisY.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
-            chartArea3.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Enabled = false;
-            legend3.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            legend3.IsTextAutoFit = false;
-            legend3.Name = "Legend1";
-            legend3.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chart1.Legends.Add(legend3);
+            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisX2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea1.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend1.IsTextAutoFit = false;
+            legend1.Name = "Legend1";
+            legend1.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(34, 69);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.chart1.PaletteCustomColors = new System.Drawing.Color[] {
         System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))))};
-            series3.ChartArea = "ChartArea1";
-            series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            series3.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series3.IsValueShownAsLabel = true;
-            series3.Legend = "Legend1";
-            series3.Name = "StudentsRecord";
-            this.chart1.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            series1.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series1.IsValueShownAsLabel = true;
+            series1.Legend = "Legend1";
+            series1.Name = "StudentsRecord";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(711, 231);
             this.chart1.TabIndex = 9;
             this.chart1.Text = "chart1";
@@ -497,11 +526,11 @@
             this.dgvStudents.AllowUserToDeleteRows = false;
             this.dgvStudents.AllowUserToResizeColumns = false;
             this.dgvStudents.AllowUserToResizeRows = false;
-            dataGridViewCellStyle33.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle33.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvStudents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvStudents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvStudents.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvStudents.BackgroundColor = System.Drawing.Color.White;
@@ -509,27 +538,27 @@
             this.dgvStudents.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvStudents.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvStudents.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle34.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle34.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle34.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStudents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStudents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvStudents.ColumnHeadersHeight = 50;
             this.dgvStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvStudents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.studid,
             this.studname,
             this.del});
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle35.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle35.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle35.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStudents.DefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStudents.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvStudents.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvStudents.EnableHeadersVisualStyles = false;
             this.dgvStudents.GridColor = System.Drawing.SystemColors.ControlLight;
@@ -538,18 +567,18 @@
             this.dgvStudents.Name = "dgvStudents";
             this.dgvStudents.ReadOnly = true;
             this.dgvStudents.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle36.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStudents.RowHeadersDefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStudents.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvStudents.RowHeadersVisible = false;
             this.dgvStudents.RowHeadersWidth = 30;
             this.dgvStudents.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle37.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStudents.RowsDefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStudents.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvStudents.RowTemplate.Height = 30;
             this.dgvStudents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStudents.Size = new System.Drawing.Size(777, 403);
@@ -570,17 +599,6 @@
             this.studname.HeaderText = "Name";
             this.studname.Name = "studname";
             this.studname.ReadOnly = true;
-            // 
-            // del
-            // 
-            this.del.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.del.HeaderText = "";
-            this.del.Image = global::AMSEMS.Properties.Resources.close__1_;
-            this.del.Name = "del";
-            this.del.ReadOnly = true;
-            this.del.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.del.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.del.Width = 17;
             // 
             // panel7
             // 
@@ -847,18 +865,6 @@
             this.btnAddStud.Values.Text = "Add Student";
             this.btnAddStud.Click += new System.EventHandler(this.btnAddStud_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.search_16;
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 14);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 142;
-            this.pictureBox1.TabStop = false;
-            // 
             // tbSearchStud1
             // 
             this.tbSearchStud1.AcceptsReturn = true;
@@ -936,37 +942,37 @@
             this.dgvAttendanceReport.AllowUserToDeleteRows = false;
             this.dgvAttendanceReport.AllowUserToResizeColumns = false;
             this.dgvAttendanceReport.AllowUserToResizeRows = false;
-            dataGridViewCellStyle38.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle38.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle38.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvAttendanceReport.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle38;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvAttendanceReport.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvAttendanceReport.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvAttendanceReport.BackgroundColor = System.Drawing.Color.White;
             this.dgvAttendanceReport.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvAttendanceReport.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvAttendanceReport.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvAttendanceReport.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle39.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle39.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle39.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle39.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle39.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle39.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAttendanceReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle39;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAttendanceReport.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvAttendanceReport.ColumnHeadersHeight = 50;
             this.dgvAttendanceReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvAttendanceReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.attstudid,
             this.attstudname});
-            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle40.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle40.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle40.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle40.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle40.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle40.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAttendanceReport.DefaultCellStyle = dataGridViewCellStyle40;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAttendanceReport.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvAttendanceReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvAttendanceReport.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dgvAttendanceReport.EnableHeadersVisualStyles = false;
@@ -975,18 +981,18 @@
             this.dgvAttendanceReport.MultiSelect = false;
             this.dgvAttendanceReport.Name = "dgvAttendanceReport";
             this.dgvAttendanceReport.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle41.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle41.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle41.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAttendanceReport.RowHeadersDefaultCellStyle = dataGridViewCellStyle41;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAttendanceReport.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvAttendanceReport.RowHeadersVisible = false;
             this.dgvAttendanceReport.RowHeadersWidth = 30;
             this.dgvAttendanceReport.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAttendanceReport.RowsDefaultCellStyle = dataGridViewCellStyle42;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAttendanceReport.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dgvAttendanceReport.RowTemplate.Height = 30;
             this.dgvAttendanceReport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAttendanceReport.Size = new System.Drawing.Size(777, 403);
@@ -1021,6 +1027,68 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(787, 48);
             this.panel5.TabIndex = 31;
+            // 
+            // btnExcel
+            // 
+            this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExcel.Location = new System.Drawing.Point(490, 6);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExcel.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExcel.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExcel.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnExcel.OverrideDefault.Border.Rounding = 10;
+            this.btnExcel.OverrideDefault.Border.Width = 1;
+            this.btnExcel.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExcel.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExcel.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExcel.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExcel.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExcel.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExcel.OverrideFocus.Border.Rounding = 10;
+            this.btnExcel.Size = new System.Drawing.Size(143, 36);
+            this.btnExcel.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExcel.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExcel.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnExcel.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnExcel.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExcel.StateCommon.Border.Rounding = 10;
+            this.btnExcel.StateCommon.Border.Width = 1;
+            this.btnExcel.StateCommon.Content.AdjacentGap = 5;
+            this.btnExcel.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            this.btnExcel.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExcel.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExcel.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.btnExcel.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnExcel.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExcel.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnExcel.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExcel.StatePressed.Border.Rounding = 10;
+            this.btnExcel.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExcel.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExcel.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExcel.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnExcel.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnExcel.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnExcel.StateTracking.Border.Rounding = 10;
+            this.btnExcel.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnExcel.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnExcel.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnExcel.TabIndex = 186;
+            this.btnExcel.Values.Image = global::AMSEMS.Properties.Resources.export_16;
+            this.btnExcel.Values.Text = "Export to Excel";
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // btnExportAttendance
             // 
@@ -1304,18 +1372,6 @@
             this.btnNewAttendance.Values.Text = "New Attendance";
             this.btnNewAttendance.Click += new System.EventHandler(this.btnNewAttendance_Click);
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox3.Image = global::AMSEMS.Properties.Resources.search_16;
-            this.pictureBox3.InitialImage = null;
-            this.pictureBox3.Location = new System.Drawing.Point(9, 14);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox3.TabIndex = 142;
-            this.pictureBox3.TabStop = false;
-            // 
             // tbSearchstudRep
             // 
             this.tbSearchstudRep.AcceptsReturn = true;
@@ -1387,38 +1443,38 @@
             this.dgvAttendance.AllowUserToDeleteRows = false;
             this.dgvAttendance.AllowUserToResizeColumns = false;
             this.dgvAttendance.AllowUserToResizeRows = false;
-            dataGridViewCellStyle43.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle43.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle43.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle43.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvAttendance.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle43;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvAttendance.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvAttendance.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAttendance.BackgroundColor = System.Drawing.Color.White;
             this.dgvAttendance.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvAttendance.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvAttendance.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvAttendance.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle44.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle44.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle44.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle44.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle44.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAttendance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle44;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAttendance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvAttendance.ColumnHeadersHeight = 50;
             this.dgvAttendance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvAttendance.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
             this.Name_,
             this.rfid});
-            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle45.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle45.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle45.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle45.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle45.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAttendance.DefaultCellStyle = dataGridViewCellStyle45;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAttendance.DefaultCellStyle = dataGridViewCellStyle13;
             this.dgvAttendance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvAttendance.EnableHeadersVisualStyles = false;
             this.dgvAttendance.GridColor = System.Drawing.SystemColors.ControlLight;
@@ -1427,18 +1483,18 @@
             this.dgvAttendance.Name = "dgvAttendance";
             this.dgvAttendance.ReadOnly = true;
             this.dgvAttendance.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle46.BackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle46.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle46.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle46.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle46.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle46.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAttendance.RowHeadersDefaultCellStyle = dataGridViewCellStyle46;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAttendance.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dgvAttendance.RowHeadersVisible = false;
             this.dgvAttendance.RowHeadersWidth = 30;
             this.dgvAttendance.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAttendance.RowsDefaultCellStyle = dataGridViewCellStyle47;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAttendance.RowsDefaultCellStyle = dataGridViewCellStyle15;
             this.dgvAttendance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAttendance.ShowEditingIcon = false;
             this.dgvAttendance.Size = new System.Drawing.Size(672, 206);
@@ -1519,18 +1575,6 @@
             this.kryptonGroupBox2.StateCommon.Border.Width = 2;
             this.kryptonGroupBox2.TabIndex = 23;
             // 
-            // ptbCheck
-            // 
-            this.ptbCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ptbCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbCheck.Image = global::AMSEMS.Properties.Resources.check_64;
-            this.ptbCheck.Location = new System.Drawing.Point(254, 82);
-            this.ptbCheck.Name = "ptbCheck";
-            this.ptbCheck.Size = new System.Drawing.Size(80, 61);
-            this.ptbCheck.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ptbCheck.TabIndex = 8;
-            this.ptbCheck.TabStop = false;
-            // 
             // kryptonLabel3
             // 
             this.kryptonLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1593,18 +1637,6 @@
             this.tbRFID.TabIndex = 141;
             this.tbRFID.TextChanged += new System.EventHandler(this.tbRFID_TextChanged);
             // 
-            // btnRFIDSaveAtt
-            // 
-            this.btnRFIDSaveAtt.FlatAppearance.BorderSize = 0;
-            this.btnRFIDSaveAtt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRFIDSaveAtt.Image = global::AMSEMS.Properties.Resources.diskette_24;
-            this.btnRFIDSaveAtt.Location = new System.Drawing.Point(55, 4);
-            this.btnRFIDSaveAtt.Name = "btnRFIDSaveAtt";
-            this.btnRFIDSaveAtt.Size = new System.Drawing.Size(41, 28);
-            this.btnRFIDSaveAtt.TabIndex = 140;
-            this.btnRFIDSaveAtt.UseVisualStyleBackColor = true;
-            this.btnRFIDSaveAtt.Click += new System.EventHandler(this.btnRFIDSaveAtt_Click);
-            // 
             // tbSearchStudent
             // 
             this.tbSearchStudent.AcceptsReturn = true;
@@ -1644,34 +1676,51 @@
             this.label2.TabIndex = 138;
             this.label2.Text = "Manual/RFID Reader";
             // 
-            // tgbtnEnable_Att
+            // tabPage5
             // 
-            this.tgbtnEnable_Att.AutoSize = true;
-            this.tgbtnEnable_Att.Location = new System.Drawing.Point(281, 8);
-            this.tgbtnEnable_Att.MinimumSize = new System.Drawing.Size(45, 22);
-            this.tgbtnEnable_Att.Name = "tgbtnEnable_Att";
-            this.tgbtnEnable_Att.OffBackColor = System.Drawing.Color.Gray;
-            this.tgbtnEnable_Att.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.tgbtnEnable_Att.OnBackColor = System.Drawing.Color.Green;
-            this.tgbtnEnable_Att.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.tgbtnEnable_Att.Size = new System.Drawing.Size(45, 22);
-            this.tgbtnEnable_Att.TabIndex = 137;
-            this.tgbtnEnable_Att.UseVisualStyleBackColor = true;
-            this.tgbtnEnable_Att.CheckedChanged += new System.EventHandler(this.tgbtnEnable_Att_CheckedChanged);
+            this.tabPage5.Controls.Add(this.kryptonGroupBox7);
+            this.tabPage5.Controls.Add(this.panel12);
+            this.tabPage5.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage5.Location = new System.Drawing.Point(4, 31);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(793, 511);
+            this.tabPage5.TabIndex = 5;
+            this.tabPage5.Text = "Guidance Absenteeism Remarks";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // ptbProfilePic
+            // panel12
             // 
-            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbProfilePic.BorderWidth = 2;
-            this.ptbProfilePic.CornerRadius = 10;
-            this.ptbProfilePic.Image = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
-            this.ptbProfilePic.InitialImage = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
-            this.ptbProfilePic.Location = new System.Drawing.Point(53, 46);
-            this.ptbProfilePic.Name = "ptbProfilePic";
-            this.ptbProfilePic.Size = new System.Drawing.Size(312, 250);
-            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProfilePic.TabIndex = 21;
-            this.ptbProfilePic.TabStop = false;
+            this.panel12.Controls.Add(this.pictureBox2);
+            this.panel12.Controls.Add(this.kryptonTextBox1);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel12.Location = new System.Drawing.Point(3, 3);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(787, 44);
+            this.panel12.TabIndex = 34;
+            // 
+            // kryptonTextBox1
+            // 
+            this.kryptonTextBox1.AcceptsReturn = true;
+            this.kryptonTextBox1.AlwaysActive = false;
+            this.kryptonTextBox1.Location = new System.Drawing.Point(3, 7);
+            this.kryptonTextBox1.Name = "kryptonTextBox1";
+            this.kryptonTextBox1.Size = new System.Drawing.Size(196, 30);
+            this.kryptonTextBox1.StateActive.Border.Color1 = System.Drawing.Color.Gray;
+            this.kryptonTextBox1.StateActive.Border.Color2 = System.Drawing.Color.Gray;
+            this.kryptonTextBox1.StateActive.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonTextBox1.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
+            this.kryptonTextBox1.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
+            this.kryptonTextBox1.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonTextBox1.StateCommon.Border.Rounding = 2;
+            this.kryptonTextBox1.StateCommon.Border.Width = 1;
+            this.kryptonTextBox1.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
+            this.kryptonTextBox1.StateCommon.Content.Padding = new System.Windows.Forms.Padding(23, 4, 0, 4);
+            this.kryptonTextBox1.TabIndex = 141;
             // 
             // panel1
             // 
@@ -1764,19 +1813,6 @@
             this.lblSubjectName.TabIndex = 7;
             this.lblSubjectName.Text = "Subject Name";
             // 
-            // ptbSubjectPic
-            // 
-            this.ptbSubjectPic.BackColor = System.Drawing.Color.White;
-            this.ptbSubjectPic.BorderWidth = 2;
-            this.ptbSubjectPic.CornerRadius = 10;
-            this.ptbSubjectPic.Image = global::AMSEMS.Properties.Resources.book1;
-            this.ptbSubjectPic.Location = new System.Drawing.Point(0, 0);
-            this.ptbSubjectPic.Name = "ptbSubjectPic";
-            this.ptbSubjectPic.Size = new System.Drawing.Size(107, 94);
-            this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbSubjectPic.TabIndex = 6;
-            this.ptbSubjectPic.TabStop = false;
-            // 
             // CMSExport
             // 
             this.CMSExport.AutoSize = false;
@@ -1839,91 +1875,309 @@
             this.delToolStripMenuItem.Text = "Delete Record";
             this.delToolStripMenuItem.Click += new System.EventHandler(this.delToolStripMenuItem_Click);
             // 
+            // kryptonGroupBox7
+            // 
+            this.kryptonGroupBox7.CaptionVisible = false;
+            this.kryptonGroupBox7.CausesValidation = false;
+            this.kryptonGroupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonGroupBox7.Location = new System.Drawing.Point(3, 47);
+            this.kryptonGroupBox7.Name = "kryptonGroupBox7";
+            // 
+            // kryptonGroupBox7.Panel
+            // 
+            this.kryptonGroupBox7.Panel.Controls.Add(this.ptbLoadingG);
+            this.kryptonGroupBox7.Panel.Controls.Add(this.dgvAbesnteismRep);
+            this.kryptonGroupBox7.Size = new System.Drawing.Size(787, 461);
+            this.kryptonGroupBox7.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonGroupBox7.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonGroupBox7.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox7.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox7.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonGroupBox7.StateCommon.Border.Rounding = 10;
+            this.kryptonGroupBox7.StateCommon.Border.Width = 2;
+            this.kryptonGroupBox7.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonGroupBox7.TabIndex = 37;
+            // 
+            // dgvAbesnteismRep
+            // 
+            this.dgvAbesnteismRep.AllowUserToAddRows = false;
+            this.dgvAbesnteismRep.AllowUserToDeleteRows = false;
+            this.dgvAbesnteismRep.AllowUserToResizeColumns = false;
+            this.dgvAbesnteismRep.AllowUserToResizeRows = false;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvAbesnteismRep.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            this.dgvAbesnteismRep.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAbesnteismRep.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvAbesnteismRep.BackgroundColor = System.Drawing.Color.White;
+            this.dgvAbesnteismRep.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvAbesnteismRep.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvAbesnteismRep.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dgvAbesnteismRep.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbesnteismRep.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            this.dgvAbesnteismRep.ColumnHeadersHeight = 50;
+            this.dgvAbesnteismRep.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvAbesnteismRep.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StudentID,
+            this.conid,
+            this.StudentName,
+            this.StudentAbsences,
+            this.option});
+            this.dgvAbesnteismRep.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAbesnteismRep.DefaultCellStyle = dataGridViewCellStyle18;
+            this.dgvAbesnteismRep.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvAbesnteismRep.EnableHeadersVisualStyles = false;
+            this.dgvAbesnteismRep.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.dgvAbesnteismRep.Location = new System.Drawing.Point(0, 0);
+            this.dgvAbesnteismRep.MultiSelect = false;
+            this.dgvAbesnteismRep.Name = "dgvAbesnteismRep";
+            this.dgvAbesnteismRep.ReadOnly = true;
+            this.dgvAbesnteismRep.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbesnteismRep.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            this.dgvAbesnteismRep.RowHeadersVisible = false;
+            this.dgvAbesnteismRep.RowHeadersWidth = 30;
+            this.dgvAbesnteismRep.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbesnteismRep.RowsDefaultCellStyle = dataGridViewCellStyle20;
+            this.dgvAbesnteismRep.RowTemplate.Height = 30;
+            this.dgvAbesnteismRep.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAbesnteismRep.Size = new System.Drawing.Size(777, 451);
+            this.dgvAbesnteismRep.TabIndex = 1;
+            this.dgvAbesnteismRep.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAbesnteismRep_CellContentClick);
+            // 
+            // tgbtnEnable_Att
+            // 
+            this.tgbtnEnable_Att.AutoSize = true;
+            this.tgbtnEnable_Att.Location = new System.Drawing.Point(281, 8);
+            this.tgbtnEnable_Att.MinimumSize = new System.Drawing.Size(45, 22);
+            this.tgbtnEnable_Att.Name = "tgbtnEnable_Att";
+            this.tgbtnEnable_Att.OffBackColor = System.Drawing.Color.Gray;
+            this.tgbtnEnable_Att.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tgbtnEnable_Att.OnBackColor = System.Drawing.Color.Green;
+            this.tgbtnEnable_Att.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tgbtnEnable_Att.Size = new System.Drawing.Size(45, 22);
+            this.tgbtnEnable_Att.TabIndex = 137;
+            this.tgbtnEnable_Att.UseVisualStyleBackColor = true;
+            this.tgbtnEnable_Att.CheckedChanged += new System.EventHandler(this.tgbtnEnable_Att_CheckedChanged);
+            // 
+            // CMSDgvRemarkOption
+            // 
+            this.CMSDgvRemarkOption.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.CMSDgvRemarkOption.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewToolStripMenuItem});
+            this.CMSDgvRemarkOption.Name = "contextMenuStrip2";
+            this.CMSDgvRemarkOption.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.CMSDgvRemarkOption.ShowImageMargin = false;
+            this.CMSDgvRemarkOption.Size = new System.Drawing.Size(135, 30);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(134, 26);
+            this.viewToolStripMenuItem.Text = "View Remarks";
+            this.viewToolStripMenuItem.Click += new System.EventHandler(this.viewToolStripMenuItem_Click);
+            // 
             // dataGridViewImageColumn1
             // 
             this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle48.NullValue = null;
-            dataGridViewCellStyle48.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
-            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle48;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle21.NullValue = null;
+            dataGridViewCellStyle21.Padding = new System.Windows.Forms.Padding(0, 0, 15, 0);
+            this.dataGridViewImageColumn1.DefaultCellStyle = dataGridViewCellStyle21;
             this.dataGridViewImageColumn1.HeaderText = "Check";
             this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.calendar;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewImageColumn1.Width = 17;
             // 
-            // btnExcel
+            // dataGridViewImageColumn2
             // 
-            this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExcel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnExcel.Location = new System.Drawing.Point(490, 6);
-            this.btnExcel.Name = "btnExcel";
-            this.btnExcel.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExcel.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExcel.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExcel.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            this.btnExcel.OverrideDefault.Border.Rounding = 10;
-            this.btnExcel.OverrideDefault.Border.Width = 1;
-            this.btnExcel.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnExcel.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExcel.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExcel.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExcel.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExcel.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExcel.OverrideFocus.Border.Rounding = 10;
-            this.btnExcel.Size = new System.Drawing.Size(143, 36);
-            this.btnExcel.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExcel.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExcel.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnExcel.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.btnExcel.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExcel.StateCommon.Border.Rounding = 10;
-            this.btnExcel.StateCommon.Border.Width = 1;
-            this.btnExcel.StateCommon.Content.AdjacentGap = 5;
-            this.btnExcel.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
-            this.btnExcel.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExcel.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExcel.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
-            this.btnExcel.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
-            this.btnExcel.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExcel.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnExcel.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExcel.StatePressed.Border.Rounding = 10;
-            this.btnExcel.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnExcel.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExcel.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExcel.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnExcel.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
-            this.btnExcel.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnExcel.StateTracking.Border.Rounding = 10;
-            this.btnExcel.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.btnExcel.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnExcel.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnExcel.TabIndex = 186;
-            this.btnExcel.Values.Image = global::AMSEMS.Properties.Resources.export_16;
-            this.btnExcel.Values.Text = "Export to Excel";
-            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            this.dataGridViewImageColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewImageColumn2.HeaderText = "";
+            this.dataGridViewImageColumn2.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
+            this.dataGridViewImageColumn2.ReadOnly = true;
+            this.dataGridViewImageColumn2.Width = 5;
             // 
-            // tabPage5
+            // del
             // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 31);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(793, 511);
-            this.tabPage5.TabIndex = 5;
-            this.tabPage5.Text = "Guidance Absenteeism Remarks";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.del.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.del.HeaderText = "";
+            this.del.Image = global::AMSEMS.Properties.Resources.close__1_;
+            this.del.Name = "del";
+            this.del.ReadOnly = true;
+            this.del.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.del.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.del.Width = 17;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.search_16;
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(9, 14);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 142;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox3.Image = global::AMSEMS.Properties.Resources.search_16;
+            this.pictureBox3.InitialImage = null;
+            this.pictureBox3.Location = new System.Drawing.Point(9, 14);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox3.TabIndex = 142;
+            this.pictureBox3.TabStop = false;
+            // 
+            // ptbCheck
+            // 
+            this.ptbCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ptbCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbCheck.Image = global::AMSEMS.Properties.Resources.check_64;
+            this.ptbCheck.Location = new System.Drawing.Point(254, 82);
+            this.ptbCheck.Name = "ptbCheck";
+            this.ptbCheck.Size = new System.Drawing.Size(80, 61);
+            this.ptbCheck.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ptbCheck.TabIndex = 8;
+            this.ptbCheck.TabStop = false;
+            // 
+            // btnRFIDSaveAtt
+            // 
+            this.btnRFIDSaveAtt.FlatAppearance.BorderSize = 0;
+            this.btnRFIDSaveAtt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRFIDSaveAtt.Image = global::AMSEMS.Properties.Resources.diskette_24;
+            this.btnRFIDSaveAtt.Location = new System.Drawing.Point(55, 4);
+            this.btnRFIDSaveAtt.Name = "btnRFIDSaveAtt";
+            this.btnRFIDSaveAtt.Size = new System.Drawing.Size(41, 28);
+            this.btnRFIDSaveAtt.TabIndex = 140;
+            this.btnRFIDSaveAtt.UseVisualStyleBackColor = true;
+            this.btnRFIDSaveAtt.Click += new System.EventHandler(this.btnRFIDSaveAtt_Click);
+            // 
+            // ptbProfilePic
+            // 
+            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbProfilePic.BorderWidth = 2;
+            this.ptbProfilePic.CornerRadius = 10;
+            this.ptbProfilePic.Image = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
+            this.ptbProfilePic.InitialImage = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
+            this.ptbProfilePic.Location = new System.Drawing.Point(53, 46);
+            this.ptbProfilePic.Name = "ptbProfilePic";
+            this.ptbProfilePic.Size = new System.Drawing.Size(312, 250);
+            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProfilePic.TabIndex = 21;
+            this.ptbProfilePic.TabStop = false;
+            // 
+            // ptbLoadingG
+            // 
+            this.ptbLoadingG.BackColor = System.Drawing.Color.White;
+            this.ptbLoadingG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoadingG.BorderWidth = 0;
+            this.ptbLoadingG.CornerRadius = 10;
+            this.ptbLoadingG.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoadingG.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoadingG.ImageLocation = "";
+            this.ptbLoadingG.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoadingG.Name = "ptbLoadingG";
+            this.ptbLoadingG.Size = new System.Drawing.Size(777, 451);
+            this.ptbLoadingG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoadingG.TabIndex = 14;
+            this.ptbLoadingG.TabStop = false;
+            this.ptbLoadingG.Visible = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox2.Image = global::AMSEMS.Properties.Resources.search_16;
+            this.pictureBox2.InitialImage = null;
+            this.pictureBox2.Location = new System.Drawing.Point(9, 14);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 142;
+            this.pictureBox2.TabStop = false;
+            // 
+            // ptbSubjectPic
+            // 
+            this.ptbSubjectPic.BackColor = System.Drawing.Color.White;
+            this.ptbSubjectPic.BorderWidth = 2;
+            this.ptbSubjectPic.CornerRadius = 10;
+            this.ptbSubjectPic.Image = global::AMSEMS.Properties.Resources.book1;
+            this.ptbSubjectPic.Location = new System.Drawing.Point(0, 0);
+            this.ptbSubjectPic.Name = "ptbSubjectPic";
+            this.ptbSubjectPic.Size = new System.Drawing.Size(107, 94);
+            this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbSubjectPic.TabIndex = 6;
+            this.ptbSubjectPic.TabStop = false;
+            // 
+            // StudentID
+            // 
+            this.StudentID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentID.HeaderText = "ID";
+            this.StudentID.Name = "StudentID";
+            this.StudentID.ReadOnly = true;
+            this.StudentID.Width = 45;
+            // 
+            // conid
+            // 
+            this.conid.HeaderText = "Consultation ID";
+            this.conid.Name = "conid";
+            this.conid.ReadOnly = true;
+            this.conid.Visible = false;
+            // 
+            // StudentName
+            // 
+            this.StudentName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.StudentName.HeaderText = "Name";
+            this.StudentName.Name = "StudentName";
+            this.StudentName.ReadOnly = true;
+            // 
+            // StudentAbsences
+            // 
+            this.StudentAbsences.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentAbsences.HeaderText = "Condecutive Absent Days";
+            this.StudentAbsences.Name = "StudentAbsences";
+            this.StudentAbsences.ReadOnly = true;
+            this.StudentAbsences.Width = 144;
+            // 
+            // option
+            // 
+            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.option.HeaderText = "";
+            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.option.Name = "option";
+            this.option.ReadOnly = true;
+            this.option.Width = 5;
             // 
             // formSubjectOverview
             // 
@@ -1936,6 +2190,7 @@
             this.Name = "formSubjectOverview";
             this.Padding = new System.Windows.Forms.Padding(20, 15, 20, 15);
             this.Text = "formSubjectInformation";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formSubjectOverview_FormClosing);
             this.Load += new System.EventHandler(this.formSubjectInformation_Load);
             this.panel2.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -1961,7 +2216,6 @@
             this.panel7.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3.Panel)).EndInit();
@@ -1972,7 +2226,6 @@
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).EndInit();
             this.kryptonGroupBox1.Panel.ResumeLayout(false);
@@ -1987,16 +2240,29 @@
             this.kryptonGroupBox2.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).EndInit();
             this.kryptonGroupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ptbCheck)).EndInit();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.CMSSectionOption.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).EndInit();
             this.CMSExport.ResumeLayout(false);
             this.CMSOptions.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7.Panel)).EndInit();
+            this.kryptonGroupBox7.Panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7)).EndInit();
+            this.kryptonGroupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAbesnteismRep)).EndInit();
+            this.CMSDgvRemarkOption.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbCheck)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoadingG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2086,5 +2352,19 @@
         private System.Windows.Forms.Label lblAverageAttendees;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnExcel;
         private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox kryptonTextBox1;
+        private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox7;
+        private System.Windows.Forms.DataGridView dgvAbesnteismRep;
+        private RoundPictureBoxRect ptbLoadingG;
+        private System.Windows.Forms.ContextMenuStrip CMSDgvRemarkOption;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn conid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentAbsences;
+        private System.Windows.Forms.DataGridViewImageColumn option;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
     }
 }
