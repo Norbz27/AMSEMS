@@ -1,4 +1,5 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
+using Org.BouncyCastle.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,12 +7,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Microsoft.IO.RecyclableMemoryStreamManager;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
-namespace AMSEMS.SubForms_DeptHead
+namespace AMSEMS.SubForm_Guidance
 {
     public partial class formRemarks : KryptonForm
     {
@@ -20,215 +23,126 @@ namespace AMSEMS.SubForms_DeptHead
         SqlCommand cm;
         SqlDataReader dr;
 
-
+        string stud_id, con_id, class_code;
         string event_id, date;
 
         public bool isCollapsed;
         private List<string> suggestions = new List<string>{};
         private ListBox listBoxSuggestions;
 
-        formAttendanceRecord formAttendanceRecord;
+        formStudAttRecord form;
         public formRemarks()
         {
             InitializeComponent();
         }
-        public void getForm(formAttendanceRecord formAttendanceRecord)
+        public void getForm(formStudAttRecord form, string studid, string conid, string classcode)
         {
-            this.formAttendanceRecord = formAttendanceRecord;
+            this.form = form;
+            stud_id = studid;
+            con_id = conid;
+            class_code = classcode;
         } 
         private void formEventConfig_Load(object sender, EventArgs e)
         {
-            displayFees();
+            displayInfo();
         }
-        public void displayCBData(string eventName)
+        public void displayInfo()
         {
-            try
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-                {
-                    cbEvents.Items.Clear();
-                    cn.Open();
-                    cm = new SqlCommand(@"SELECT Event_ID, Event_Name FROM tbl_events WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students' OR CHARINDEX(@Department, Selected_Departments) > 0) ORDER BY Start_Date;", cn);
-                    cm.Parameters.AddWithValue("@Department", FormDeptHeadNavigation.depdes);
-                    dr = cm.ExecuteReader();
-
-                    while (dr.Read())
-                    {
-                        cbEvents.Items.Add(dr["Event_Name"].ToString());
-                    }
-                    dr.Close();
-
-                    cbEvents.Text = eventName;
-                }
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-        public void displayFees()
-        {
-            using (cn = new SqlConnection(SQL_Connection.connection))
-            {
-                string eventid = null;
                 cn.Open();
-                cm = new SqlCommand("Select Event_ID, Penalty from tbl_events where Event_Name = @Eventname", cn);
-                cm.Parameters.AddWithValue("@Eventname", cbEvents.Text);
-                using (SqlDataReader reader = cm.ExecuteReader())
+                string query = "SELECT UPPER(Firstname + ' ' + Middlename + ' ' + Lastname) AS Name FROM tbl_student_accounts WHERE ID = @studID";
+                using (SqlCommand cm = new SqlCommand(query, cn))
                 {
-                    if (reader.Read())
+                    cm.Parameters.AddWithValue("@studID", stud_id);
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
-                        eventid = reader["Event_ID"].ToString();
-                        if (Convert.ToInt32(reader["Penalty"]) == 1)
+                        if (dr.Read())
                         {
-                            lblPenaltyStat.Text = "Enabled";
-                            lblPenaltyStat.StateCommon.ShortText.Color1 = Color.LimeGreen;
-                            lblPenaltyStat.StateCommon.ShortText.Color2 = Color.LimeGreen;
-                            tbAMFee.Enabled = true;
-                            tbPMFee.Enabled = true;
-                            btnDone.Enabled = true;
-                        }
-                        else
-                        {
-                            lblPenaltyStat.Text = "Disabled";
-                            lblPenaltyStat.StateCommon.ShortText.Color1 = Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-                            lblPenaltyStat.StateCommon.ShortText.Color2 = Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-                            tbAMFee.Enabled = false;
-                            tbPMFee.Enabled = false;
-                            btnDone.Enabled = false;
+                            string name = dr["Name"].ToString();
+                            lblStudName.Text = name;
                         }
                     }
                 }
-
-                cm = new SqlCommand("Select Penalty_AM, Penalty_PM from tbl_attendance where Event_ID = @eventid AND FORMAT(Date_Time, 'yyyy-MM-dd') = @date", cn);
-                cm.Parameters.AddWithValue("@eventid", eventid);
-                cm.Parameters.AddWithValue("@date", Dt.Value.ToString("yyyy-MM-dd"));
-                using (dr = cm.ExecuteReader())
+            }
+            DateTime now = DateTime.Now;
+            string formatteddate = now.ToString("MMMM dd, yyyy");
+            string formattedtime = now.ToString("hh:mm tt");
+            lblDate.Text = formatteddate;
+            lblTime.Text = formattedtime;
+        }
+        public void displayRemarks()
+        {
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                string query = "SELECT Reason, Remarks FROM tbl_consultation_record WHERE Consultation_ID = @conid";
+                using (SqlCommand cm = new SqlCommand(query, cn))
                 {
-                    if (dr.Read())
+                    cm.Parameters.AddWithValue("@conid", con_id);
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
-                        // Check for DBNull.Value and display "00.00" in that case
-                        string penaltyAM = dr["Penalty_AM"] != DBNull.Value ? Convert.ToDecimal(dr["Penalty_AM"]).ToString("0.00") : "00.00";
-                        string penaltyPM = dr["Penalty_PM"] != DBNull.Value ? Convert.ToDecimal(dr["Penalty_PM"]).ToString("0.00") : "00.00";
-
-                        tbAMFee.Text =  penaltyAM;
-                        tbPMFee.Text =  penaltyPM;
-                    }
-                    else
-                    {
-                        tbAMFee.Text = "00.00";
-                        tbPMFee.Text = "00.00";
+                        if (dr.Read())
+                        {
+                            string res = dr["Reason"].ToString();
+                            string rem = dr["Remarks"].ToString();
+                            tbReason.Text = res;
+                            tbRemarks.Text = rem;
+                        }
                     }
                 }
             }
         }
-        private void cbExclusive_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = true;
-        }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void cbEvents_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                displayFees();
-                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-                {
-                    cn.Open();
-
-                    // Use parameterized query to avoid SQL injection
-                    string query = "SELECT Event_ID, Event_Name, Start_Date, End_Date FROM tbl_events WHERE Event_Name = @EventName";
-                    using (SqlCommand cm = new SqlCommand(query, cn))
-                    {
-                        cm.Parameters.AddWithValue("@EventName", cbEvents.Text);
-                        SqlDataReader dr = cm.ExecuteReader();
-
-                        if (dr.Read())
-                        {
-                            event_id = dr["Event_ID"].ToString();
-
-                            Dt.MinDate = DateTimePicker.MinimumDateTime;
-                            Dt.MaxDate = DateTimePicker.MaximumDateTime;
-
-                            DateTime startDate = (DateTime)dr["Start_Date"];
-                            DateTime endDate = (DateTime)dr["End_Date"];
-
-                            if (startDate != DateTime.MinValue && endDate != DateTime.MinValue && startDate <= endDate)
-                            {
-                                Dt.Value = startDate;
-                                Dt.MinDate = startDate;
-                                Dt.MaxDate = endDate;
-                            }
-
-                            date = Dt.Value.ToString();
-                        }
-
-                        dr.Close();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         private void btnDone_Click(object sender, EventArgs e)
         {
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                string eventid = null;
                 cn.Open();
-
-                cm = new SqlCommand("Select Event_ID from tbl_events where Event_Name = @Eventname", cn);
-                cm.Parameters.AddWithValue("@Eventname", cbEvents.Text);
-
-                using (SqlDataReader reader = cm.ExecuteReader())
+                if (tbReason.Text.Length > 0 && tbRemarks.Text.Length > 0)
                 {
-                    if (reader.Read())
+                    // Check if the status is already 'Done'
+                    string checkQuery = "SELECT Status FROM tbl_consultation_record WHERE Student_ID = @StudID AND Class_Code = @ccode AND Consultation_ID = @conID";
+                    using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
                     {
-                        eventid = reader["Event_ID"].ToString();
+                        checkCommand.Parameters.AddWithValue("@StudID", stud_id);
+                        checkCommand.Parameters.AddWithValue("@conID", con_id);
+                        checkCommand.Parameters.AddWithValue("@ccode", class_code);
+
+                        object statusResult = checkCommand.ExecuteScalar();
+
+                        if (statusResult != null && statusResult.ToString() == "Done")
+                        {
+                            MessageBox.Show("Record is already marked as 'Done'.", "Consultation Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            // Update the status to 'Done'
+                            string updateQuery = "UPDATE tbl_consultation_record SET Status = 'Done', Date = @DateNow, Reason = @Reas, Remarks = @Rem WHERE Student_ID = @StudID AND Class_Code = @ccode AND Consultation_ID = @conID";
+                            using (SqlCommand updateCommand = new SqlCommand(updateQuery, cn))
+                            {
+                                updateCommand.Parameters.AddWithValue("@StudID", stud_id);
+                                updateCommand.Parameters.AddWithValue("@conID", con_id);
+                                updateCommand.Parameters.AddWithValue("@ccode", class_code);
+                                updateCommand.Parameters.AddWithValue("@DateNow", DateTime.Now.ToString("yyyy-MM-dd hh:mm tt"));
+                                updateCommand.Parameters.AddWithValue("@Reas", tbReason.Text);
+                                updateCommand.Parameters.AddWithValue("@Rem", tbRemarks.Text);
+                                updateCommand.ExecuteNonQuery();
+                            }
+                            form.displayStatus();
+                        }
                     }
                 }
-
-                if (!string.IsNullOrEmpty(eventid))
+                else
                 {
-                    cm = new SqlCommand("UPDATE tbl_attendance SET Penalty_AM = ISNULL(@penaltyAm, 0), Penalty_PM = ISNULL(@penaltyPm, 0) WHERE Event_ID = @eventid AND FORMAT(Date_Time, 'yyyy-MM-dd') = @date", cn);
-                    cm.Parameters.AddWithValue("@penaltyAm", tbAMFee.Text);
-                    cm.Parameters.AddWithValue("@penaltyPm", tbPMFee.Text);
-                    cm.Parameters.AddWithValue("@eventid", eventid);
-                    cm.Parameters.AddWithValue("@date", Dt.Value.ToString("yyyy-MM-dd"));
-
-                    int rowsAffected = cm.ExecuteNonQuery();
-
-                    if (rowsAffected == 0)
-                    {
-                        MessageBox.Show("Cannot update attendance fees. No attendance records found for the specified event and date.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        dr.Close();
-                        cn.Close();
-                        formAttendanceRecord.setSectionAll();
-                        formAttendanceRecord.DisplayTableWithCheck();
-                        this.Close();
-                    }
+                    MessageBox.Show("Complete the Remarks!", "Empty Fields", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            }
-        }
-
-
-        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Check if the pressed key is a digit or a control key (like Backspace)
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8)
-            {
-                // If the pressed key is not a digit or Backspace, suppress it
-                e.Handled = true;
+                cn.Close();
+                this.Close();
             }
         }
     }

@@ -67,7 +67,7 @@ namespace AMSEMS.SubForm_Guidance
         public async void displayReport()
         {
             ptbLoading.Visible = true;
-            await Task.Delay(2000);
+            await Task.Delay(1000);
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();

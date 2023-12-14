@@ -30,12 +30,12 @@ namespace AMSEMS.SubForm_Guidance
         string stud_id, con_id, class_code;
 
         public bool paystatus = false;
-
+        formRemarks formRemarks;
         formAbsReport form;
         public formStudAttRecord()
         {
             InitializeComponent();
-
+            formRemarks = new formRemarks();
         }
         public void getForm(formAbsReport form, string studid, string conid, string classcode)
         {
@@ -95,12 +95,14 @@ namespace AMSEMS.SubForm_Guidance
                         lblStatus.Text = "Consulted";
                         lblStatus.StateCommon.ShortText.Color1 = Color.LimeGreen;
                         btnSetAsDone.Enabled = false;
+                        btnRemarks.Visible = true;
                     }
                     else
                     {
                         lblStatus.Text = "Pending";
                         lblStatus.StateCommon.ShortText.Color1 = Color.IndianRed;
                         btnSetAsDone.Enabled = true;
+                        btnRemarks.Visible = false;
                     }
                 }
                 dr.Close();
@@ -193,19 +195,34 @@ namespace AMSEMS.SubForm_Guidance
                         status = dr["NextConsultationStatus"].ToString();
                         DateTime nextdate;
                         DateTime prevdate;
-                        if (dr["NextConsultationDate"] != DBNull.Value)
+
+                        object nextConsultationDateValue = dr["NextConsultationDate"];
+                        object prevConsultationDateValue = dr["PreviousConsultationDate"];
+
+                        // Check for DBNull before converting
+                        if (nextConsultationDateValue != DBNull.Value)
                         {
-                            nextdate = Convert.ToDateTime(dr["NextConsultationDate"]);
-                            prevdate = Convert.ToDateTime(dr["PreviousConsultationDate"]);
+                            nextdate = Convert.ToDateTime(nextConsultationDateValue);
                             consulteddate = nextdate.ToString("yyyy-MM-dd");
-                            prevconsulteddate = prevdate.ToString("yyyy-MM-dd");
                             string formatteddate = nextdate.ToString("MMM dd, yyyy");
+
                             lblDate.Text = formatteddate;
                         }
                         else
                         {
-                            consulteddate = "";
+                            consulteddate = ""; // or nextdate = null; if DateTime? (nullable DateTime) is used
                         }
+
+                        if (prevConsultationDateValue != DBNull.Value)
+                        {
+                            prevdate = Convert.ToDateTime(prevConsultationDateValue);
+                            prevconsulteddate = prevdate.ToString("yyyy-MM-dd");
+                        }
+                        else
+                        {
+                            prevconsulteddate = ""; // or prevdate = null; if DateTime? (nullable DateTime) is used
+                        }
+
                     }
                     dr.Close();
 
@@ -252,42 +269,20 @@ namespace AMSEMS.SubForm_Guidance
 
         private void btnSetAsDone_Click(object sender, EventArgs e)
         {
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-            {
-                cn.Open();
+            formRemarks.getForm(this, stud_id, con_id, class_code);
+            formRemarks.ShowDialog();
+        }
 
-                // Check if the status is already 'Done'
-                string checkQuery = "SELECT Status FROM tbl_consultation_record WHERE Student_ID = @StudID AND Class_Code = @ccode AND Consultation_ID = @conID";
-                using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
-                {
-                    checkCommand.Parameters.AddWithValue("@StudID", stud_id);
-                    checkCommand.Parameters.AddWithValue("@conID", con_id);
-                    checkCommand.Parameters.AddWithValue("@ccode", class_code);
+        private void btnRemarks_Click(object sender, EventArgs e)
+        {
+            formRemarks.getForm(this, stud_id, con_id, class_code);
+            formRemarks.displayRemarks();
+            formRemarks.ShowDialog();
+        }
 
-                    object statusResult = checkCommand.ExecuteScalar();
-
-                    if (statusResult != null && statusResult.ToString() == "Done")
-                    {
-                        MessageBox.Show("Record is already marked as 'Done'.", "Consultation Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        // Update the status to 'Done'
-                        string updateQuery = "UPDATE tbl_consultation_record SET Status = 'Done', Date = @DateNow WHERE Student_ID = @StudID AND Class_Code = @ccode AND Consultation_ID = @conID";
-                        using (SqlCommand updateCommand = new SqlCommand(updateQuery, cn))
-                        {
-                            updateCommand.Parameters.AddWithValue("@StudID", stud_id);
-                            updateCommand.Parameters.AddWithValue("@conID", con_id);
-                            updateCommand.Parameters.AddWithValue("@ccode", class_code);
-                            updateCommand.Parameters.AddWithValue("@DateNow", DateTime.Now.ToString("yyyy-MM-dd hh:mm tt"));
-                            updateCommand.ExecuteNonQuery();
-                        }
-                        displayStatus();
-                    }
-                }
-
-                cn.Close();
-            }
+        private void formStudAttRecord_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            form.displayReport();
         }
 
         private void btnPdf_Click(object sender, EventArgs e)
