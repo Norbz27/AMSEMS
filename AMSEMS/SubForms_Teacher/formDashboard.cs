@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Drawing;
+using AMSEMS.SubForms_SAO;
 
 namespace AMSEMS.SubForms_Teacher
 {
@@ -16,6 +17,7 @@ namespace AMSEMS.SubForms_Teacher
         SqlCommand cm;
         SqlDataReader dr;
         SQLite_Connection con;
+        static FormTeacherNavigation form;
         public formDashboard()
         {
             InitializeComponent();
@@ -27,6 +29,10 @@ namespace AMSEMS.SubForms_Teacher
 
             chart1.ChartAreas["ChartArea1"].AxisX.MinorGrid.LineColor = Color.LightGray;
             chart1.ChartAreas["ChartArea1"].AxisY.MinorGrid.LineColor = Color.LightGray;
+        }
+        public static void setForm(FormTeacherNavigation form1)
+        {
+            form = form1;
         }
         public async void loadData()
         {
@@ -218,6 +224,36 @@ namespace AMSEMS.SubForms_Teacher
         private void formDashboard_FormClosing(object sender, FormClosingEventArgs e)
         {
 
+        }
+
+        private void kryptonLabel2_Click(object sender, EventArgs e)
+        {
+            controls();
+            
+        }
+        public void controls()
+        {
+            form.kryptonSplitContainer1.Panel2Collapsed = true;
+            SubForms_Teacher.formSubjects.setForm(form);
+            form.OpenChildForm(new SubForms_Teacher.formSubjects());
+            form.btnSubjects.Focus();
+            form.btnSubjects.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            form.btnSubjects.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            form.btnSubjects.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            form.btnSubjects.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            form.btnSubjects.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+
+            form.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            form.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            form.btnSettings.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+            form.btnSettings.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            form.btnSettings.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+
+            form.btnDashboard.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            form.btnDashboard.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            form.btnDashboard.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+            form.btnDashboard.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            form.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
         }
     }
 }

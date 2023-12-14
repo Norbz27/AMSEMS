@@ -1,4 +1,5 @@
-﻿using ComponentFactory.Krypton.Toolkit;
+﻿using AMSEMS.SubForms_Teacher;
+using ComponentFactory.Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,6 +32,7 @@ namespace AMSEMS
             this.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
             setCalendar();
             id = id1;
+            formDashboard.setForm(this);
             OpenChildForm(new SubForms_Teacher.formDashboard());
 
         }
@@ -102,6 +104,7 @@ namespace AMSEMS
             isCollapsed = false;
             timer1.Start();
             this.kryptonSplitContainer1.Panel2Collapsed = false;
+            formDashboard.setForm(this);
             OpenChildForm(new SubForms_Teacher.formDashboard());
 
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));

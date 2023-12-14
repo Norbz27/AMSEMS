@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox4 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -120,36 +120,36 @@
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.AxisX.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisX.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea2.AxisX2.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisX2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisX2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
-            chartArea2.AxisY.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisY.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisY.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            chartArea2.AxisY2.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisY2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
-            chartArea2.BorderColor = System.Drawing.Color.Gainsboro;
-            chartArea2.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea2);
-            legend2.Enabled = false;
-            legend2.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            legend2.IsTextAutoFit = false;
-            legend2.Name = "Legend1";
-            this.chart1.Legends.Add(legend2);
+            chartArea3.AxisX.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisX.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea3.AxisX2.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisX2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisX2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea3.AxisY.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisY.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisY.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea3.AxisY2.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisY2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea3.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
+            chartArea3.BorderColor = System.Drawing.Color.Gainsboro;
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            legend3.Enabled = false;
+            legend3.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend3.IsTextAutoFit = false;
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(18, 41);
             this.chart1.Name = "chart1";
-            series2.BorderColor = System.Drawing.Color.Gainsboro;
-            series2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            series2.ChartArea = "ChartArea1";
-            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            series2.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            series2.Legend = "Legend1";
-            series2.Name = "Attendees";
-            this.chart1.Series.Add(series2);
+            series3.BorderColor = System.Drawing.Color.Gainsboro;
+            series3.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            series3.ChartArea = "ChartArea1";
+            series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            series3.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series3.Legend = "Legend1";
+            series3.Name = "Attendees";
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(714, 253);
             this.chart1.TabIndex = 5;
             this.chart1.Text = "chart1";
@@ -340,6 +340,7 @@
             this.kryptonLabel13.TabIndex = 4;
             this.kryptonLabel13.Values.Image = global::AMSEMS.Properties.Resources.right_arrow__1_;
             this.kryptonLabel13.Values.Text = "View all";
+            this.kryptonLabel13.Click += new System.EventHandler(this.kryptonLabel13_Click);
             // 
             // panel4
             // 
@@ -386,6 +387,7 @@
             this.kryptonLabel2.TabIndex = 3;
             this.kryptonLabel2.Values.Image = global::AMSEMS.Properties.Resources.right_arrow__1_;
             this.kryptonLabel2.Values.Text = "Manage Events";
+            this.kryptonLabel2.Click += new System.EventHandler(this.kryptonLabel2_Click);
             // 
             // pictureBox1
             // 

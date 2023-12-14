@@ -1102,26 +1102,19 @@
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel Panel1;
-        private ComponentFactory.Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnDashboard;
         private ComponentFactory.Krypton.Toolkit.ButtonSpecAny btnNotification;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
         public System.Windows.Forms.Timer timer1;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnStudents;
         private System.Windows.Forms.Panel panel4;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSettings;
         private System.Windows.Forms.Panel panel5;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnSubjects;
         private System.Windows.Forms.Panel panel3;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnStudBal;
         private System.Windows.Forms.Panel panel2;
         public ComponentFactory.Krypton.Toolkit.KryptonPanel panelCollapsed;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnAttReport;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnAttRecord;
-        private ComponentFactory.Krypton.Toolkit.KryptonButton btnAttendance;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel6;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel4;
@@ -1133,6 +1126,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel9;
         private ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar kryptonMonthCalendar1;
+        public ComponentFactory.Krypton.Toolkit.KryptonSplitContainer kryptonSplitContainer1;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton btnDashboard;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton btnStudents;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton btnSettings;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton btnSubjects;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton btnStudBal;
+        public ComponentFactory.Krypton.Toolkit.KryptonButton btnAttendance;
     }
 }
 

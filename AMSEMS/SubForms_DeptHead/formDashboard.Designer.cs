@@ -503,6 +503,7 @@
             this.kryptonLabel2.TabIndex = 3;
             this.kryptonLabel2.Values.Image = global::AMSEMS.Properties.Resources.right_arrow__1_;
             this.kryptonLabel2.Values.Text = "Manage Students Penalty";
+            this.kryptonLabel2.Click += new System.EventHandler(this.kryptonLabel2_Click);
             // 
             // pictureBox1
             // 
