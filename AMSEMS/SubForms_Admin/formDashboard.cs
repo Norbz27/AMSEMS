@@ -8,7 +8,6 @@ namespace AMSEMS.SubForms_Admin
 {
     public partial class formDashboard : Form
     {
-        SqlConnection cn;
         SqlCommand cm;
         SqlDataReader dr;
         public String id;
@@ -106,7 +105,7 @@ namespace AMSEMS.SubForms_Admin
             }
 
             //chart1.Invalidate();
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
                 chart1.Series["s1"].IsValueShownAsLabel = true;
@@ -136,7 +135,7 @@ namespace AMSEMS.SubForms_Admin
         {
             try
             {
-                using (cn = new SqlConnection(SQL_Connection.connection))
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
                     cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where Unique_ID = '" + id + "'", cn);
@@ -159,7 +158,7 @@ namespace AMSEMS.SubForms_Admin
             this.Invoke((MethodInvoker)delegate
             {
                 dgvAccounts.Rows.Clear();
-                using (cn = new SqlConnection(SQL_Connection.connection))
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
                     cm = new SqlCommand("SELECT TOP 10 ca.Firstname as Fname, ca.Lastname as Lname, r.Description AS RoleDescription, ca.DateTime FROM (SELECT Firstname, Lastname, Role, DateTime FROM tbl_student_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_deptHead_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_guidance_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_sao_accounts UNION SELECT Firstname, Lastname, Role, DateTime FROM tbl_teacher_accounts) AS ca JOIN tbl_role AS r ON ca.Role = r.Role_ID ORDER BY ca.DateTime DESC", cn);

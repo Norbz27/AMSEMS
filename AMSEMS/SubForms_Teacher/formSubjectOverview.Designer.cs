@@ -75,12 +75,14 @@
             this.dgvStudents = new System.Windows.Forms.DataGridView();
             this.studid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.studname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.del = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btnExportStudentList = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnCancel1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSave1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnAddStud = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbSearchStud1 = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -96,6 +98,7 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.Dt = new ComponentFactory.Krypton.Toolkit.KryptonDateTimePicker();
             this.btnNewAttendance = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.tbSearchstudRep = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
@@ -106,16 +109,29 @@
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.lblSection = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.ptbCheck = new System.Windows.Forms.PictureBox();
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblID = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.lblName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.tbRFID = new System.Windows.Forms.TextBox();
+            this.btnRFIDSaveAtt = new System.Windows.Forms.Button();
             this.tbSearchStudent = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.tgbtnEnable_Att = new AMSEMS.RJToggleButton();
+            this.ptbProfilePic = new AMSEMS.RoundPictureBoxRect();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.kryptonGroupBox7 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.ptbLoadingG = new AMSEMS.RoundPictureBoxRect();
+            this.dgvAbesnteismRep = new System.Windows.Forms.DataGridView();
+            this.StudentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.conid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentAbsences = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel12 = new System.Windows.Forms.Panel();
-            this.kryptonTextBox1 = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.tbSearch3 = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ptbLoading = new System.Windows.Forms.ProgressBar();
             this.btnOption = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -124,33 +140,17 @@
             this.deltoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.lblSec = new System.Windows.Forms.Label();
             this.lblSubjectName = new System.Windows.Forms.Label();
+            this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
             this.CMSExport = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpPDF = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.delToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kryptonGroupBox7 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.dgvAbesnteismRep = new System.Windows.Forms.DataGridView();
-            this.tgbtnEnable_Att = new AMSEMS.RJToggleButton();
             this.CMSDgvRemarkOption = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.del = new System.Windows.Forms.DataGridViewImageColumn();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.ptbCheck = new System.Windows.Forms.PictureBox();
-            this.btnRFIDSaveAtt = new System.Windows.Forms.Button();
-            this.ptbProfilePic = new AMSEMS.RoundPictureBoxRect();
-            this.ptbLoadingG = new AMSEMS.RoundPictureBoxRect();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
-            this.StudentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.conid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentAbsences = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -172,6 +172,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
             this.panel7.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3)).BeginInit();
@@ -181,6 +182,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvAttendanceReport)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
@@ -193,26 +195,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).BeginInit();
             this.kryptonGroupBox2.Panel.SuspendLayout();
             this.kryptonGroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbCheck)).BeginInit();
             this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).BeginInit();
             this.tabPage5.SuspendLayout();
-            this.panel12.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.CMSSectionOption.SuspendLayout();
-            this.CMSExport.SuspendLayout();
-            this.CMSOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7.Panel)).BeginInit();
             this.kryptonGroupBox7.Panel.SuspendLayout();
             this.kryptonGroupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAbesnteismRep)).BeginInit();
-            this.CMSDgvRemarkOption.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbCheck)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbLoadingG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAbesnteismRep)).BeginInit();
+            this.panel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.CMSSectionOption.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).BeginInit();
+            this.CMSExport.SuspendLayout();
+            this.CMSOptions.SuspendLayout();
+            this.CMSDgvRemarkOption.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -600,6 +600,17 @@
             this.studname.Name = "studname";
             this.studname.ReadOnly = true;
             // 
+            // del
+            // 
+            this.del.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.del.HeaderText = "";
+            this.del.Image = global::AMSEMS.Properties.Resources.close__1_;
+            this.del.Name = "del";
+            this.del.ReadOnly = true;
+            this.del.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.del.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.del.Width = 17;
+            // 
             // panel7
             // 
             this.panel7.Controls.Add(this.btnExportStudentList);
@@ -864,6 +875,18 @@
             this.btnAddStud.Values.Image = global::AMSEMS.Properties.Resources.add_user;
             this.btnAddStud.Values.Text = "Add Student";
             this.btnAddStud.Click += new System.EventHandler(this.btnAddStud_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.search_16;
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(9, 14);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 142;
+            this.pictureBox1.TabStop = false;
             // 
             // tbSearchStud1
             // 
@@ -1372,6 +1395,18 @@
             this.btnNewAttendance.Values.Text = "New Attendance";
             this.btnNewAttendance.Click += new System.EventHandler(this.btnNewAttendance_Click);
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox3.Image = global::AMSEMS.Properties.Resources.search_16;
+            this.pictureBox3.InitialImage = null;
+            this.pictureBox3.Location = new System.Drawing.Point(9, 14);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox3.TabIndex = 142;
+            this.pictureBox3.TabStop = false;
+            // 
             // tbSearchstudRep
             // 
             this.tbSearchstudRep.AcceptsReturn = true;
@@ -1575,6 +1610,18 @@
             this.kryptonGroupBox2.StateCommon.Border.Width = 2;
             this.kryptonGroupBox2.TabIndex = 23;
             // 
+            // ptbCheck
+            // 
+            this.ptbCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ptbCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbCheck.Image = global::AMSEMS.Properties.Resources.check_64;
+            this.ptbCheck.Location = new System.Drawing.Point(254, 82);
+            this.ptbCheck.Name = "ptbCheck";
+            this.ptbCheck.Size = new System.Drawing.Size(80, 61);
+            this.ptbCheck.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ptbCheck.TabIndex = 8;
+            this.ptbCheck.TabStop = false;
+            // 
             // kryptonLabel3
             // 
             this.kryptonLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1637,6 +1684,18 @@
             this.tbRFID.TabIndex = 141;
             this.tbRFID.TextChanged += new System.EventHandler(this.tbRFID_TextChanged);
             // 
+            // btnRFIDSaveAtt
+            // 
+            this.btnRFIDSaveAtt.FlatAppearance.BorderSize = 0;
+            this.btnRFIDSaveAtt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRFIDSaveAtt.Image = global::AMSEMS.Properties.Resources.diskette_24;
+            this.btnRFIDSaveAtt.Location = new System.Drawing.Point(55, 4);
+            this.btnRFIDSaveAtt.Name = "btnRFIDSaveAtt";
+            this.btnRFIDSaveAtt.Size = new System.Drawing.Size(41, 28);
+            this.btnRFIDSaveAtt.TabIndex = 140;
+            this.btnRFIDSaveAtt.UseVisualStyleBackColor = true;
+            this.btnRFIDSaveAtt.Click += new System.EventHandler(this.btnRFIDSaveAtt_Click);
+            // 
             // tbSearchStudent
             // 
             this.tbSearchStudent.AcceptsReturn = true;
@@ -1676,6 +1735,35 @@
             this.label2.TabIndex = 138;
             this.label2.Text = "Manual/RFID Reader";
             // 
+            // tgbtnEnable_Att
+            // 
+            this.tgbtnEnable_Att.AutoSize = true;
+            this.tgbtnEnable_Att.Location = new System.Drawing.Point(281, 8);
+            this.tgbtnEnable_Att.MinimumSize = new System.Drawing.Size(45, 22);
+            this.tgbtnEnable_Att.Name = "tgbtnEnable_Att";
+            this.tgbtnEnable_Att.OffBackColor = System.Drawing.Color.Gray;
+            this.tgbtnEnable_Att.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.tgbtnEnable_Att.OnBackColor = System.Drawing.Color.Green;
+            this.tgbtnEnable_Att.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.tgbtnEnable_Att.Size = new System.Drawing.Size(45, 22);
+            this.tgbtnEnable_Att.TabIndex = 137;
+            this.tgbtnEnable_Att.UseVisualStyleBackColor = true;
+            this.tgbtnEnable_Att.CheckedChanged += new System.EventHandler(this.tgbtnEnable_Att_CheckedChanged);
+            // 
+            // ptbProfilePic
+            // 
+            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbProfilePic.BorderWidth = 2;
+            this.ptbProfilePic.CornerRadius = 10;
+            this.ptbProfilePic.Image = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
+            this.ptbProfilePic.InitialImage = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
+            this.ptbProfilePic.Location = new System.Drawing.Point(53, 46);
+            this.ptbProfilePic.Name = "ptbProfilePic";
+            this.ptbProfilePic.Size = new System.Drawing.Size(312, 250);
+            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProfilePic.TabIndex = 21;
+            this.ptbProfilePic.TabStop = false;
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.kryptonGroupBox7);
@@ -1689,38 +1777,199 @@
             this.tabPage5.Text = "Guidance Absenteeism Remarks";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // kryptonGroupBox7
+            // 
+            this.kryptonGroupBox7.CaptionVisible = false;
+            this.kryptonGroupBox7.CausesValidation = false;
+            this.kryptonGroupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonGroupBox7.Location = new System.Drawing.Point(3, 47);
+            this.kryptonGroupBox7.Name = "kryptonGroupBox7";
+            // 
+            // kryptonGroupBox7.Panel
+            // 
+            this.kryptonGroupBox7.Panel.Controls.Add(this.ptbLoadingG);
+            this.kryptonGroupBox7.Panel.Controls.Add(this.dgvAbesnteismRep);
+            this.kryptonGroupBox7.Size = new System.Drawing.Size(787, 461);
+            this.kryptonGroupBox7.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonGroupBox7.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonGroupBox7.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox7.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.kryptonGroupBox7.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.kryptonGroupBox7.StateCommon.Border.Rounding = 10;
+            this.kryptonGroupBox7.StateCommon.Border.Width = 2;
+            this.kryptonGroupBox7.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonGroupBox7.TabIndex = 37;
+            // 
+            // ptbLoadingG
+            // 
+            this.ptbLoadingG.BackColor = System.Drawing.Color.White;
+            this.ptbLoadingG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoadingG.BorderWidth = 0;
+            this.ptbLoadingG.CornerRadius = 10;
+            this.ptbLoadingG.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoadingG.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoadingG.ImageLocation = "";
+            this.ptbLoadingG.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoadingG.Name = "ptbLoadingG";
+            this.ptbLoadingG.Size = new System.Drawing.Size(777, 451);
+            this.ptbLoadingG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoadingG.TabIndex = 14;
+            this.ptbLoadingG.TabStop = false;
+            this.ptbLoadingG.Visible = false;
+            // 
+            // dgvAbesnteismRep
+            // 
+            this.dgvAbesnteismRep.AllowUserToAddRows = false;
+            this.dgvAbesnteismRep.AllowUserToDeleteRows = false;
+            this.dgvAbesnteismRep.AllowUserToResizeColumns = false;
+            this.dgvAbesnteismRep.AllowUserToResizeRows = false;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvAbesnteismRep.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            this.dgvAbesnteismRep.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAbesnteismRep.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvAbesnteismRep.BackgroundColor = System.Drawing.Color.White;
+            this.dgvAbesnteismRep.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvAbesnteismRep.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvAbesnteismRep.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dgvAbesnteismRep.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbesnteismRep.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            this.dgvAbesnteismRep.ColumnHeadersHeight = 50;
+            this.dgvAbesnteismRep.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvAbesnteismRep.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StudentID,
+            this.conid,
+            this.StudentName,
+            this.StudentAbsences,
+            this.option});
+            this.dgvAbesnteismRep.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvAbesnteismRep.DefaultCellStyle = dataGridViewCellStyle18;
+            this.dgvAbesnteismRep.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvAbesnteismRep.EnableHeadersVisualStyles = false;
+            this.dgvAbesnteismRep.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.dgvAbesnteismRep.Location = new System.Drawing.Point(0, 0);
+            this.dgvAbesnteismRep.MultiSelect = false;
+            this.dgvAbesnteismRep.Name = "dgvAbesnteismRep";
+            this.dgvAbesnteismRep.ReadOnly = true;
+            this.dgvAbesnteismRep.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbesnteismRep.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            this.dgvAbesnteismRep.RowHeadersVisible = false;
+            this.dgvAbesnteismRep.RowHeadersWidth = 30;
+            this.dgvAbesnteismRep.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvAbesnteismRep.RowsDefaultCellStyle = dataGridViewCellStyle20;
+            this.dgvAbesnteismRep.RowTemplate.Height = 30;
+            this.dgvAbesnteismRep.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvAbesnteismRep.Size = new System.Drawing.Size(777, 451);
+            this.dgvAbesnteismRep.TabIndex = 1;
+            this.dgvAbesnteismRep.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAbesnteismRep_CellContentClick);
+            // 
+            // StudentID
+            // 
+            this.StudentID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentID.HeaderText = "ID";
+            this.StudentID.Name = "StudentID";
+            this.StudentID.ReadOnly = true;
+            this.StudentID.Width = 45;
+            // 
+            // conid
+            // 
+            this.conid.HeaderText = "Consultation ID";
+            this.conid.Name = "conid";
+            this.conid.ReadOnly = true;
+            this.conid.Visible = false;
+            // 
+            // StudentName
+            // 
+            this.StudentName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.StudentName.HeaderText = "Name";
+            this.StudentName.Name = "StudentName";
+            this.StudentName.ReadOnly = true;
+            // 
+            // StudentAbsences
+            // 
+            this.StudentAbsences.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentAbsences.HeaderText = "Condecutive Absent Days";
+            this.StudentAbsences.Name = "StudentAbsences";
+            this.StudentAbsences.ReadOnly = true;
+            this.StudentAbsences.Width = 144;
+            // 
+            // option
+            // 
+            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.option.HeaderText = "";
+            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.option.Name = "option";
+            this.option.ReadOnly = true;
+            this.option.Width = 5;
+            // 
             // panel12
             // 
             this.panel12.Controls.Add(this.pictureBox2);
-            this.panel12.Controls.Add(this.kryptonTextBox1);
+            this.panel12.Controls.Add(this.tbSearch3);
             this.panel12.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel12.Location = new System.Drawing.Point(3, 3);
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(787, 44);
             this.panel12.TabIndex = 34;
             // 
-            // kryptonTextBox1
+            // pictureBox2
             // 
-            this.kryptonTextBox1.AcceptsReturn = true;
-            this.kryptonTextBox1.AlwaysActive = false;
-            this.kryptonTextBox1.Location = new System.Drawing.Point(3, 7);
-            this.kryptonTextBox1.Name = "kryptonTextBox1";
-            this.kryptonTextBox1.Size = new System.Drawing.Size(196, 30);
-            this.kryptonTextBox1.StateActive.Border.Color1 = System.Drawing.Color.Gray;
-            this.kryptonTextBox1.StateActive.Border.Color2 = System.Drawing.Color.Gray;
-            this.kryptonTextBox1.StateActive.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.pictureBox2.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox2.Image = global::AMSEMS.Properties.Resources.search_16;
+            this.pictureBox2.InitialImage = null;
+            this.pictureBox2.Location = new System.Drawing.Point(9, 14);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 142;
+            this.pictureBox2.TabStop = false;
+            // 
+            // tbSearch3
+            // 
+            this.tbSearch3.AcceptsReturn = true;
+            this.tbSearch3.AlwaysActive = false;
+            this.tbSearch3.Location = new System.Drawing.Point(3, 7);
+            this.tbSearch3.Name = "tbSearch3";
+            this.tbSearch3.Size = new System.Drawing.Size(196, 30);
+            this.tbSearch3.StateActive.Border.Color1 = System.Drawing.Color.Gray;
+            this.tbSearch3.StateActive.Border.Color2 = System.Drawing.Color.Gray;
+            this.tbSearch3.StateActive.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonTextBox1.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
-            this.kryptonTextBox1.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
-            this.kryptonTextBox1.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            this.tbSearch3.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
+            this.tbSearch3.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
+            this.tbSearch3.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
             | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonTextBox1.StateCommon.Border.Rounding = 2;
-            this.kryptonTextBox1.StateCommon.Border.Width = 1;
-            this.kryptonTextBox1.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
-            this.kryptonTextBox1.StateCommon.Content.Padding = new System.Windows.Forms.Padding(23, 4, 0, 4);
-            this.kryptonTextBox1.TabIndex = 141;
+            this.tbSearch3.StateCommon.Border.Rounding = 2;
+            this.tbSearch3.StateCommon.Border.Width = 1;
+            this.tbSearch3.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
+            this.tbSearch3.StateCommon.Content.Padding = new System.Windows.Forms.Padding(23, 4, 0, 4);
+            this.tbSearch3.TabIndex = 141;
             // 
             // panel1
             // 
@@ -1813,6 +2062,19 @@
             this.lblSubjectName.TabIndex = 7;
             this.lblSubjectName.Text = "Subject Name";
             // 
+            // ptbSubjectPic
+            // 
+            this.ptbSubjectPic.BackColor = System.Drawing.Color.White;
+            this.ptbSubjectPic.BorderWidth = 2;
+            this.ptbSubjectPic.CornerRadius = 10;
+            this.ptbSubjectPic.Image = global::AMSEMS.Properties.Resources.book1;
+            this.ptbSubjectPic.Location = new System.Drawing.Point(0, 0);
+            this.ptbSubjectPic.Name = "ptbSubjectPic";
+            this.ptbSubjectPic.Size = new System.Drawing.Size(107, 94);
+            this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbSubjectPic.TabIndex = 6;
+            this.ptbSubjectPic.TabStop = false;
+            // 
             // CMSExport
             // 
             this.CMSExport.AutoSize = false;
@@ -1875,114 +2137,6 @@
             this.delToolStripMenuItem.Text = "Delete Record";
             this.delToolStripMenuItem.Click += new System.EventHandler(this.delToolStripMenuItem_Click);
             // 
-            // kryptonGroupBox7
-            // 
-            this.kryptonGroupBox7.CaptionVisible = false;
-            this.kryptonGroupBox7.CausesValidation = false;
-            this.kryptonGroupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonGroupBox7.Location = new System.Drawing.Point(3, 47);
-            this.kryptonGroupBox7.Name = "kryptonGroupBox7";
-            // 
-            // kryptonGroupBox7.Panel
-            // 
-            this.kryptonGroupBox7.Panel.Controls.Add(this.ptbLoadingG);
-            this.kryptonGroupBox7.Panel.Controls.Add(this.dgvAbesnteismRep);
-            this.kryptonGroupBox7.Size = new System.Drawing.Size(787, 461);
-            this.kryptonGroupBox7.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonGroupBox7.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonGroupBox7.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox7.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.kryptonGroupBox7.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.kryptonGroupBox7.StateCommon.Border.Rounding = 10;
-            this.kryptonGroupBox7.StateCommon.Border.Width = 2;
-            this.kryptonGroupBox7.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonGroupBox7.TabIndex = 37;
-            // 
-            // dgvAbesnteismRep
-            // 
-            this.dgvAbesnteismRep.AllowUserToAddRows = false;
-            this.dgvAbesnteismRep.AllowUserToDeleteRows = false;
-            this.dgvAbesnteismRep.AllowUserToResizeColumns = false;
-            this.dgvAbesnteismRep.AllowUserToResizeRows = false;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvAbesnteismRep.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
-            this.dgvAbesnteismRep.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvAbesnteismRep.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dgvAbesnteismRep.BackgroundColor = System.Drawing.Color.White;
-            this.dgvAbesnteismRep.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvAbesnteismRep.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvAbesnteismRep.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            this.dgvAbesnteismRep.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAbesnteismRep.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
-            this.dgvAbesnteismRep.ColumnHeadersHeight = 50;
-            this.dgvAbesnteismRep.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvAbesnteismRep.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.StudentID,
-            this.conid,
-            this.StudentName,
-            this.StudentAbsences,
-            this.option});
-            this.dgvAbesnteismRep.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvAbesnteismRep.DefaultCellStyle = dataGridViewCellStyle18;
-            this.dgvAbesnteismRep.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvAbesnteismRep.EnableHeadersVisualStyles = false;
-            this.dgvAbesnteismRep.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dgvAbesnteismRep.Location = new System.Drawing.Point(0, 0);
-            this.dgvAbesnteismRep.MultiSelect = false;
-            this.dgvAbesnteismRep.Name = "dgvAbesnteismRep";
-            this.dgvAbesnteismRep.ReadOnly = true;
-            this.dgvAbesnteismRep.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Poppins SemiBold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAbesnteismRep.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
-            this.dgvAbesnteismRep.RowHeadersVisible = false;
-            this.dgvAbesnteismRep.RowHeadersWidth = 30;
-            this.dgvAbesnteismRep.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvAbesnteismRep.RowsDefaultCellStyle = dataGridViewCellStyle20;
-            this.dgvAbesnteismRep.RowTemplate.Height = 30;
-            this.dgvAbesnteismRep.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAbesnteismRep.Size = new System.Drawing.Size(777, 451);
-            this.dgvAbesnteismRep.TabIndex = 1;
-            this.dgvAbesnteismRep.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAbesnteismRep_CellContentClick);
-            // 
-            // tgbtnEnable_Att
-            // 
-            this.tgbtnEnable_Att.AutoSize = true;
-            this.tgbtnEnable_Att.Location = new System.Drawing.Point(281, 8);
-            this.tgbtnEnable_Att.MinimumSize = new System.Drawing.Size(45, 22);
-            this.tgbtnEnable_Att.Name = "tgbtnEnable_Att";
-            this.tgbtnEnable_Att.OffBackColor = System.Drawing.Color.Gray;
-            this.tgbtnEnable_Att.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.tgbtnEnable_Att.OnBackColor = System.Drawing.Color.Green;
-            this.tgbtnEnable_Att.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.tgbtnEnable_Att.Size = new System.Drawing.Size(45, 22);
-            this.tgbtnEnable_Att.TabIndex = 137;
-            this.tgbtnEnable_Att.UseVisualStyleBackColor = true;
-            this.tgbtnEnable_Att.CheckedChanged += new System.EventHandler(this.tgbtnEnable_Att_CheckedChanged);
-            // 
             // CMSDgvRemarkOption
             // 
             this.CMSDgvRemarkOption.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -2014,7 +2168,6 @@
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewImageColumn1.Width = 17;
             // 
             // dataGridViewImageColumn2
             // 
@@ -2023,161 +2176,6 @@
             this.dataGridViewImageColumn2.Image = global::AMSEMS.Properties.Resources.option_24;
             this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
             this.dataGridViewImageColumn2.ReadOnly = true;
-            this.dataGridViewImageColumn2.Width = 5;
-            // 
-            // del
-            // 
-            this.del.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.del.HeaderText = "";
-            this.del.Image = global::AMSEMS.Properties.Resources.close__1_;
-            this.del.Name = "del";
-            this.del.ReadOnly = true;
-            this.del.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.del.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.del.Width = 17;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.search_16;
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 14);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 142;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox3.Image = global::AMSEMS.Properties.Resources.search_16;
-            this.pictureBox3.InitialImage = null;
-            this.pictureBox3.Location = new System.Drawing.Point(9, 14);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox3.TabIndex = 142;
-            this.pictureBox3.TabStop = false;
-            // 
-            // ptbCheck
-            // 
-            this.ptbCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ptbCheck.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbCheck.Image = global::AMSEMS.Properties.Resources.check_64;
-            this.ptbCheck.Location = new System.Drawing.Point(254, 82);
-            this.ptbCheck.Name = "ptbCheck";
-            this.ptbCheck.Size = new System.Drawing.Size(80, 61);
-            this.ptbCheck.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.ptbCheck.TabIndex = 8;
-            this.ptbCheck.TabStop = false;
-            // 
-            // btnRFIDSaveAtt
-            // 
-            this.btnRFIDSaveAtt.FlatAppearance.BorderSize = 0;
-            this.btnRFIDSaveAtt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRFIDSaveAtt.Image = global::AMSEMS.Properties.Resources.diskette_24;
-            this.btnRFIDSaveAtt.Location = new System.Drawing.Point(55, 4);
-            this.btnRFIDSaveAtt.Name = "btnRFIDSaveAtt";
-            this.btnRFIDSaveAtt.Size = new System.Drawing.Size(41, 28);
-            this.btnRFIDSaveAtt.TabIndex = 140;
-            this.btnRFIDSaveAtt.UseVisualStyleBackColor = true;
-            this.btnRFIDSaveAtt.Click += new System.EventHandler(this.btnRFIDSaveAtt_Click);
-            // 
-            // ptbProfilePic
-            // 
-            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbProfilePic.BorderWidth = 2;
-            this.ptbProfilePic.CornerRadius = 10;
-            this.ptbProfilePic.Image = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
-            this.ptbProfilePic.InitialImage = global::AMSEMS.Properties.Resources.Pulse_1s_200px;
-            this.ptbProfilePic.Location = new System.Drawing.Point(53, 46);
-            this.ptbProfilePic.Name = "ptbProfilePic";
-            this.ptbProfilePic.Size = new System.Drawing.Size(312, 250);
-            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProfilePic.TabIndex = 21;
-            this.ptbProfilePic.TabStop = false;
-            // 
-            // ptbLoadingG
-            // 
-            this.ptbLoadingG.BackColor = System.Drawing.Color.White;
-            this.ptbLoadingG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ptbLoadingG.BorderWidth = 0;
-            this.ptbLoadingG.CornerRadius = 10;
-            this.ptbLoadingG.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptbLoadingG.Image = global::AMSEMS.Properties.Resources.loading;
-            this.ptbLoadingG.ImageLocation = "";
-            this.ptbLoadingG.Location = new System.Drawing.Point(0, 0);
-            this.ptbLoadingG.Name = "ptbLoadingG";
-            this.ptbLoadingG.Size = new System.Drawing.Size(777, 451);
-            this.ptbLoadingG.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptbLoadingG.TabIndex = 14;
-            this.ptbLoadingG.TabStop = false;
-            this.ptbLoadingG.Visible = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox2.Image = global::AMSEMS.Properties.Resources.search_16;
-            this.pictureBox2.InitialImage = null;
-            this.pictureBox2.Location = new System.Drawing.Point(9, 14);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 142;
-            this.pictureBox2.TabStop = false;
-            // 
-            // ptbSubjectPic
-            // 
-            this.ptbSubjectPic.BackColor = System.Drawing.Color.White;
-            this.ptbSubjectPic.BorderWidth = 2;
-            this.ptbSubjectPic.CornerRadius = 10;
-            this.ptbSubjectPic.Image = global::AMSEMS.Properties.Resources.book1;
-            this.ptbSubjectPic.Location = new System.Drawing.Point(0, 0);
-            this.ptbSubjectPic.Name = "ptbSubjectPic";
-            this.ptbSubjectPic.Size = new System.Drawing.Size(107, 94);
-            this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbSubjectPic.TabIndex = 6;
-            this.ptbSubjectPic.TabStop = false;
-            // 
-            // StudentID
-            // 
-            this.StudentID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentID.HeaderText = "ID";
-            this.StudentID.Name = "StudentID";
-            this.StudentID.ReadOnly = true;
-            this.StudentID.Width = 45;
-            // 
-            // conid
-            // 
-            this.conid.HeaderText = "Consultation ID";
-            this.conid.Name = "conid";
-            this.conid.ReadOnly = true;
-            this.conid.Visible = false;
-            // 
-            // StudentName
-            // 
-            this.StudentName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.StudentName.HeaderText = "Name";
-            this.StudentName.Name = "StudentName";
-            this.StudentName.ReadOnly = true;
-            // 
-            // StudentAbsences
-            // 
-            this.StudentAbsences.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentAbsences.HeaderText = "Condecutive Absent Days";
-            this.StudentAbsences.Name = "StudentAbsences";
-            this.StudentAbsences.ReadOnly = true;
-            this.StudentAbsences.Width = 144;
-            // 
-            // option
-            // 
-            this.option.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.option.HeaderText = "";
-            this.option.Image = global::AMSEMS.Properties.Resources.option_24;
-            this.option.Name = "option";
-            this.option.ReadOnly = true;
-            this.option.Width = 5;
             // 
             // formSubjectOverview
             // 
@@ -2216,6 +2214,7 @@
             this.panel7.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox3.Panel)).EndInit();
@@ -2226,6 +2225,7 @@
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).EndInit();
             this.kryptonGroupBox1.Panel.ResumeLayout(false);
@@ -2240,29 +2240,27 @@
             this.kryptonGroupBox2.Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).EndInit();
             this.kryptonGroupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbCheck)).EndInit();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).EndInit();
             this.tabPage5.ResumeLayout(false);
-            this.panel12.ResumeLayout(false);
-            this.panel12.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.CMSSectionOption.ResumeLayout(false);
-            this.CMSExport.ResumeLayout(false);
-            this.CMSOptions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7.Panel)).EndInit();
             this.kryptonGroupBox7.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox7)).EndInit();
             this.kryptonGroupBox7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAbesnteismRep)).EndInit();
-            this.CMSDgvRemarkOption.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbCheck)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProfilePic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbLoadingG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAbesnteismRep)).EndInit();
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.CMSSectionOption.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ptbSubjectPic)).EndInit();
+            this.CMSExport.ResumeLayout(false);
+            this.CMSOptions.ResumeLayout(false);
+            this.CMSDgvRemarkOption.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2354,7 +2352,7 @@
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Panel panel12;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private ComponentFactory.Krypton.Toolkit.KryptonTextBox kryptonTextBox1;
+        private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbSearch3;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox7;
         private System.Windows.Forms.DataGridView dgvAbesnteismRep;
         private RoundPictureBoxRect ptbLoadingG;

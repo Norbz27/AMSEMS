@@ -1,6 +1,7 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
 using Microsoft.Office.Interop.Excel;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -130,6 +131,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnDone_Click(object sender, EventArgs e)
         {
+            List<string> activeAccounts = new List<string>();
             foreach (DataGridViewRow row in dgvImport.Rows)
             {
                 if (!row.IsNewRow) // Skip the new row at the bottom of the DataGridView
@@ -189,7 +191,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Department Head " + deptHeadId + " is Active!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                activeAccounts.Add($"Department Head ID {deptHeadId}");
                             }
                             cn.Close();
                         }
@@ -235,7 +237,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Guidance " + guidanceId + " is Active!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                activeAccounts.Add($"Guidance ID {guidanceId}");
                             }
                             cn.Close();
                         }
@@ -282,7 +284,8 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("SAO " + saoId + " is Active!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+   
+                                activeAccounts.Add($"SAO ID {saoId}");
                             }
                             cn.Close();
                         }
@@ -330,7 +333,7 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Student " + studentId + " is Active!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                activeAccounts.Add($"Student ID {studentId}");
                             }
                             cn.Close();
                         }
@@ -378,13 +381,18 @@ namespace AMSEMS.SubForms_Admin
                             }
                             else
                             {
-                                MessageBox.Show("Teacher " + teacherId + " is Active!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                activeAccounts.Add($"Teacher ID {teacherId}");
                             }
                             cn.Close();
                         }
 
                     }
                 }
+            }
+
+            if (activeAccounts.Count > 0)
+            {
+                MessageBox.Show($"The following accounts are already active:\n{string.Join(", ", activeAccounts)}", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             MessageBox.Show("Successfully Imported Data", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);

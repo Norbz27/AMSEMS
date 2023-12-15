@@ -171,7 +171,7 @@ namespace AMSEMS.SubForms_DeptHead
                     MessageBox.Show("Invalid payment amount. Please enter a valid number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
+        }   
         public void payAmount()
         {
             try

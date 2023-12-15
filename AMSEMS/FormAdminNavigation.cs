@@ -13,7 +13,6 @@ namespace AMSEMS
 {
     public partial class FormAdminNavigation : KryptonForm
     {
-        SqlConnection cn;
         SqlCommand cm;
         SqlDataReader dr;
 
@@ -29,10 +28,6 @@ namespace AMSEMS
             this.btnDashboard.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
             this.btnDashboard.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
             this.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-
-
-            cn = new SqlConnection(SQL_Connection.connection);
-
 
             setCalendar();
             SubForms_Admin.formDashboard.setForm(this);
@@ -74,23 +69,26 @@ namespace AMSEMS
         {
             try
             {
-                cn.Open();
-                cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where Unique_ID = '" + id + "'", cn);
-                dr = cm.ExecuteReader();
-                dr.Read();
-                lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
-                dr.Close();
-
-                cm = new SqlCommand("Select Profile_pic from tbl_admin_accounts where Unique_ID = " + id + "", cn);
-
-                byte[] imageData = (byte[])cm.ExecuteScalar();
-
-                if (imageData != null && imageData.Length > 0)
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
-                    using (MemoryStream ms = new MemoryStream(imageData))
+                    cn.Open();
+                    cm = new SqlCommand("select Firstname, Lastname from tbl_admin_accounts where Unique_ID = '" + id + "'", cn);
+                    dr = cm.ExecuteReader();
+                    dr.Read();
+                    lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+                    dr.Close();
+
+                    cm = new SqlCommand("Select Profile_pic from tbl_admin_accounts where Unique_ID = " + id + "", cn);
+
+                    byte[] imageData = (byte[])cm.ExecuteScalar();
+
+                    if (imageData != null && imageData.Length > 0)
                     {
-                        Image image = Image.FromStream(ms);
-                        ptbProfile.Image = image;
+                        using (MemoryStream ms = new MemoryStream(imageData))
+                        {
+                            Image image = Image.FromStream(ms);
+                            ptbProfile.Image = image;
+                        }
                     }
                 }
             }
@@ -98,10 +96,6 @@ namespace AMSEMS
             {
                 // Handle exceptions appropriately
                 MessageBox.Show("Error loading data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                cn.Close();
             }
         }
 
@@ -348,7 +342,7 @@ namespace AMSEMS
             else
             {
                 panel7.Controls.Clear(); 
-                using (cn = new SqlConnection(SQL_Connection.connection))
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
                     using (SqlCommand cm = new SqlCommand("SELECT Event_ID,Event_Name, Color, Start_Date FROM tbl_events WHERE Start_Date >= CAST(GETDATE() AS DATE) ORDER BY Start_Date DESC", cn))

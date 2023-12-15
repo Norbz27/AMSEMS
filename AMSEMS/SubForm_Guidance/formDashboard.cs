@@ -11,7 +11,6 @@ namespace AMSEMS.SubForm_Guidance
 {
     public partial class formDashboard : Form
     {
-        SqlConnection cn;
         SqlCommand cm;
         SqlDataReader dr;
         static FormGuidanceNavigation form;
@@ -74,7 +73,7 @@ namespace AMSEMS.SubForm_Guidance
         }
         public void loadData()
         {
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
                 cm = new SqlCommand("select Firstname, Lastname from tbl_guidance_accounts where Unique_ID = '" + FormGuidanceNavigation.id + "'", cn);
@@ -85,11 +84,11 @@ namespace AMSEMS.SubForm_Guidance
                 cn.Close();
             }
         }
-        public void displayPendingCount()
+        public async void displayPendingCount()
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                cn.Open();
+                await cn.OpenAsync();
                 string query = @"SELECT
                 COUNT(CASE WHEN sec.AcadLevel_ID = '10001' THEN 1 END) AS countStudTer,
                 COUNT(CASE WHEN sec.AcadLevel_ID = '10002' THEN 1 END) AS countStudSHS
@@ -99,10 +98,14 @@ namespace AMSEMS.SubForm_Guidance
             WHERE cr.Status = 'Pending';";
                 using (SqlCommand cm =  new SqlCommand(query, cn))
                 {
-                    using (SqlDataReader dr = cm.ExecuteReader())
+                    using (SqlDataReader dr = await cm.ExecuteReaderAsync())
                     {
                         if (dr.Read())
                         {
+                            if (cancellationTokenSource.Token.IsCancellationRequested)
+                            {
+                                return;
+                            }
                             string tercount = dr["countStudTer"].ToString();
                             string shscount = dr["countStudSHS"].ToString();
 
@@ -113,7 +116,7 @@ namespace AMSEMS.SubForm_Guidance
                 }
             }
         }
-        private void DisplayConsultedRecordsChart()
+        private async void DisplayConsultedRecordsChart()
         {
 
             chart1.ChartAreas["ChartArea1"].AxisX.MajorGrid.LineColor = Color.LightGray;
@@ -126,7 +129,7 @@ namespace AMSEMS.SubForm_Guidance
             {
                 try
                 {
-                    cn.Open();
+                    await cn.OpenAsync();
 
                     string query = @"
                 SELECT
@@ -138,7 +141,7 @@ namespace AMSEMS.SubForm_Guidance
 
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
-                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
                         {
                             while (dr.Read())
                             {
@@ -170,11 +173,11 @@ namespace AMSEMS.SubForm_Guidance
         {
             return CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
         }
-        public void displayLatestList()
+        public async void displayLatestList()
         {
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                cn.Open();
+                await cn.OpenAsync();
                 string query = @"SELECT TOP 10
                                 cr.Consultation_ID,
                                 UPPER(s.Firstname + ' ' + s.Lastname) AS Name,
@@ -195,7 +198,7 @@ namespace AMSEMS.SubForm_Guidance
 	                            cr.Consultation_ID DESC";
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
                     {
                         while (dr.Read())
                         {

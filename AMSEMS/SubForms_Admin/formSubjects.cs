@@ -453,6 +453,10 @@ namespace AMSEMS.SubForms_Admin
                             dgvSubjects.Rows.Clear();
                             while (dr.Read())
                             {
+                                if (cancellationTokenSource.Token.IsCancellationRequested)
+                                {
+                                    return;
+                                }
                                 // Add a row and set the checkbox column value to false (unchecked)
                                 int rowIndex = dgvSubjects.Rows.Add(false);
 

@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -205,11 +206,14 @@ namespace AMSEMS
         {
             try
             {
-                using (var client = new WebClient())
-                using (var stream = client.OpenRead("https://portal.azure.com"))
+                Ping ping = new Ping();
+                PingReply reply = ping.Send("www.google.com"); // You can use a reliable external host for testing connectivity.
+
+                if (reply != null && reply.Status == IPStatus.Success)
                 {
-                    return true;
+                    return true; // Internet is reachable.
                 }
+                return false; // No internet connection.
             }
             catch
             {
