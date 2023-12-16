@@ -598,7 +598,7 @@ namespace AMSEMS.SubForms_Admin
 
                             // Insert the student record
                             string insertQuery =
-                                "INSERT INTO tbl_subjects (Course_code,Course_Description,Units,Image,Status,Academic_Level) SELECT Course_code,Course_Description,Units,Image,Status,Academic_Level FROM tbl_archived_subjects WHERE Course_code = @ID; ";
+                                "INSERT INTO tbl_subjects (Course_code,Course_Description,Units,Image,Status, Assigned_Teacher,Academic_Level) SELECT Course_code,Course_Description,Units,Image,Status, Assigned_Teacher,Academic_Level FROM tbl_archived_subjects WHERE Course_code = @ID; ";
                             using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
                             {
                                 sqlCommand.Parameters.AddWithValue("@ID", courseCode);
