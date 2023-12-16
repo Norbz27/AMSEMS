@@ -28,13 +28,14 @@ namespace AMSEMS.SubForms_SAO
         public static bool penalty;
         public static HashSet<string> selected = new HashSet<string> { };
         public static string exclusive;
+        public static bool change = false;
         public formEventDetails()
         {
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
             isTrue = true;
-            formEventEditConfig = new formEventEditConfig();
+            formEventEditConfig = new formEventEditConfig(this);
             DtEnd.MinDate = DtStart.Value;
         }
         public void getForm(UserControlDays_Calendar form)
@@ -45,7 +46,11 @@ namespace AMSEMS.SubForms_SAO
         {
             this.form1 = form1;
         }
-
+        public void change2()
+        {
+            btnCancel.Visible = true;
+            btnDone.Visible = true;
+        }
         private void btnDone_Click(object sender, EventArgs e)
         {
             try
@@ -161,7 +166,7 @@ namespace AMSEMS.SubForms_SAO
         //}
         private void formAddEvent_Load(object sender, EventArgs e)
         {
-            toolTip1.SetToolTip(btnEdit, "Edit");
+            
         }
         public void displayDetails(string eventid)
         {
@@ -328,43 +333,6 @@ namespace AMSEMS.SubForms_SAO
             this.Dispose();
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            if (isTrue == true)
-            {
-                btnDone.Visible = true;
-                btnCancel.Visible = true;
-                pictureBox1.Enabled = true;
-                tbEventName.Enabled = true;
-                tbDescription.Enabled = true;
-                DtStart.Enabled = true;
-                DtEnd.Enabled = true;
-                btnColorBlue.Enabled = true;
-                btnColorGreen.Enabled = true;
-                btnColorMarron.Enabled = true;
-                btnColorOrange.Enabled = true;
-                btnColorPurple.Enabled = true;
-                btnEdit.Values.Image = global::AMSEMS.Properties.Resources.cancel;
-                isTrue = false;
-            }
-            else
-            {
-                btnDone.Visible = false;
-                btnCancel.Visible = false;
-                pictureBox1.Enabled = false;
-                tbEventName.Enabled = false;
-                tbDescription.Enabled = false;
-                DtStart.Enabled = false;
-                DtEnd.Enabled = false;
-                btnColorBlue.Enabled = false;
-                btnColorGreen.Enabled = false;
-                btnColorMarron.Enabled = false;
-                btnColorOrange.Enabled = false;
-                btnColorPurple.Enabled = false;
-                btnEdit.Values.Image = global::AMSEMS.Properties.Resources.edit_text;
-                isTrue = true;
-            }
-        }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {

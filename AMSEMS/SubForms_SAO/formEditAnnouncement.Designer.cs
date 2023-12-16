@@ -362,7 +362,7 @@
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.ReadOnly = true;
             // 
-            // formAddAnnouncement
+            // formEditAnnouncement
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -370,7 +370,11 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "formAddAnnouncement";
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(517, 589);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(517, 589);
+            this.Name = "formEditAnnouncement";
             this.Padding = new System.Windows.Forms.Padding(20, 0, 20, 10);
             this.Palette = this.kryptonPalette1;
             this.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;

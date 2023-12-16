@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace AMSEMS.SubForms_Admin
@@ -10,21 +11,19 @@ namespace AMSEMS.SubForms_Admin
     {
         SqlCommand cm;
         SqlDataReader dr;
-        public String id;
-        public static String id2 { get; set; }
+
         static FormAdminNavigation form;
         private BackgroundWorker dataLoader;
-
-        public formDashboard(String id1)
+        private CancellationTokenSource cancellationTokenSource;
+        public formDashboard()
         {
 
             InitializeComponent();
-
+            cancellationTokenSource = new CancellationTokenSource();
             dataLoader = new BackgroundWorker();
             dataLoader.DoWork += DataLoader_DoWork;
             dataLoader.RunWorkerCompleted += DataLoader_RunWorkerCompleted;
             dataLoader.WorkerSupportsCancellation = true;
-            id = id1;
         }
         public static void setForm(FormAdminNavigation form1)
         {
@@ -33,11 +32,8 @@ namespace AMSEMS.SubForms_Admin
         private void DataLoader_DoWork(object sender, DoWorkEventArgs e)
         {
             // This is where you put your time-consuming data loading code
-            // For example, call your loadData(id) and other methods here
-            if (id.Equals(String.Empty))
-                loadData(id2);
-            else
-                loadData(id);
+
+            loadData(FormAdminNavigation.id);
 
             DisplayData();
             displayChart();
@@ -117,6 +113,10 @@ namespace AMSEMS.SubForms_Admin
                     {
                         while (reader.Read())
                         {
+                            if (cancellationTokenSource.Token.IsCancellationRequested)
+                            {
+                                return;
+                            }
                             string program = reader["Dep"].ToString();
                             int studentCount = Convert.ToInt32(reader["StudentCount"]);
 
@@ -165,6 +165,10 @@ namespace AMSEMS.SubForms_Admin
                     dr = cm.ExecuteReader();
                     while (dr.Read())
                     {
+                        if (cancellationTokenSource.Token.IsCancellationRequested)
+                        {
+                            return;
+                        }
                         dgvAccounts.Rows.Add(
                             dr["Fname"].ToString() + " " + dr["Lname"].ToString(),
                             dr["RoleDescription"].ToString()
@@ -384,6 +388,7 @@ namespace AMSEMS.SubForms_Admin
             {
                 dataLoader.CancelAsync();
             }
+            cancellationTokenSource?.Cancel();
         }
     }
 }

@@ -29,12 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.rjToggleButton2 = new AMSEMS.RJToggleButton();
-            this.kryptonWrapLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonWrapLabel();
-            this.kryptonLabel9 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.rjToggleButton1 = new AMSEMS.RJToggleButton();
-            this.kryptonWrapLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonWrapLabel();
-            this.kryptonLabel8 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblshsAcadSem = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.btnEditSHSAcadSem = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -47,8 +43,6 @@
             this.tgbtnDisableAcc = new AMSEMS.RJToggleButton();
             this.kryptonWrapLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonWrapLabel();
             this.kryptonLabel10 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,12 +51,6 @@
             this.panel1.AutoScroll = true;
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.rjToggleButton2);
-            this.panel1.Controls.Add(this.kryptonWrapLabel4);
-            this.panel1.Controls.Add(this.kryptonLabel9);
-            this.panel1.Controls.Add(this.rjToggleButton1);
-            this.panel1.Controls.Add(this.kryptonWrapLabel3);
-            this.panel1.Controls.Add(this.kryptonLabel8);
             this.panel1.Controls.Add(this.lblshsAcadSem);
             this.panel1.Controls.Add(this.btnEditSHSAcadSem);
             this.panel1.Controls.Add(this.kryptonLabel5);
@@ -81,93 +69,27 @@
             this.panel1.Size = new System.Drawing.Size(676, 729);
             this.panel1.TabIndex = 132;
             // 
-            // rjToggleButton2
+            // label2
             // 
-            this.rjToggleButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.rjToggleButton2.AutoSize = true;
-            this.rjToggleButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rjToggleButton2.Location = new System.Drawing.Point(628, 474);
-            this.rjToggleButton2.MinimumSize = new System.Drawing.Size(45, 22);
-            this.rjToggleButton2.Name = "rjToggleButton2";
-            this.rjToggleButton2.OffBackColor = System.Drawing.Color.Gray;
-            this.rjToggleButton2.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.rjToggleButton2.OnBackColor = System.Drawing.Color.Green;
-            this.rjToggleButton2.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.rjToggleButton2.Size = new System.Drawing.Size(45, 22);
-            this.rjToggleButton2.TabIndex = 180;
-            this.rjToggleButton2.UseVisualStyleBackColor = true;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.label2.Location = new System.Drawing.Point(-3, 265);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(140, 26);
+            this.label2.TabIndex = 185;
+            this.label2.Text = "Clients Accounts";
             // 
-            // kryptonWrapLabel4
+            // label1
             // 
-            this.kryptonWrapLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonWrapLabel4.AutoSize = false;
-            this.kryptonWrapLabel4.Font = new System.Drawing.Font("Poppins", 8F);
-            this.kryptonWrapLabel4.ForeColor = System.Drawing.Color.Black;
-            this.kryptonWrapLabel4.Location = new System.Drawing.Point(-1, 507);
-            this.kryptonWrapLabel4.Name = "kryptonWrapLabel4";
-            this.kryptonWrapLabel4.Size = new System.Drawing.Size(674, 42);
-            this.kryptonWrapLabel4.StateCommon.Font = new System.Drawing.Font("Poppins", 8F);
-            this.kryptonWrapLabel4.StateCommon.TextColor = System.Drawing.Color.Black;
-            this.kryptonWrapLabel4.Text = "Enable this toggle to globally disable all tertiary accounts with a single click," +
-    " ensuring no user can access their accounts temporarily.";
-            // 
-            // kryptonLabel9
-            // 
-            this.kryptonLabel9.Location = new System.Drawing.Point(-3, 473);
-            this.kryptonLabel9.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel9.Name = "kryptonLabel9";
-            this.kryptonLabel9.Size = new System.Drawing.Size(213, 23);
-            this.kryptonLabel9.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel9.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel9.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
-            this.kryptonLabel9.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonLabel9.TabIndex = 179;
-            this.kryptonLabel9.Values.Text = "Disable All Tertiary Accounts";
-            // 
-            // rjToggleButton1
-            // 
-            this.rjToggleButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.rjToggleButton1.AutoSize = true;
-            this.rjToggleButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rjToggleButton1.Location = new System.Drawing.Point(628, 385);
-            this.rjToggleButton1.MinimumSize = new System.Drawing.Size(45, 22);
-            this.rjToggleButton1.Name = "rjToggleButton1";
-            this.rjToggleButton1.OffBackColor = System.Drawing.Color.Gray;
-            this.rjToggleButton1.OffToggleColor = System.Drawing.Color.Gainsboro;
-            this.rjToggleButton1.OnBackColor = System.Drawing.Color.Green;
-            this.rjToggleButton1.OnToggleColor = System.Drawing.Color.WhiteSmoke;
-            this.rjToggleButton1.Size = new System.Drawing.Size(45, 22);
-            this.rjToggleButton1.TabIndex = 176;
-            this.rjToggleButton1.UseVisualStyleBackColor = true;
-            // 
-            // kryptonWrapLabel3
-            // 
-            this.kryptonWrapLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.kryptonWrapLabel3.AutoSize = false;
-            this.kryptonWrapLabel3.Font = new System.Drawing.Font("Poppins", 8F);
-            this.kryptonWrapLabel3.ForeColor = System.Drawing.Color.Black;
-            this.kryptonWrapLabel3.Location = new System.Drawing.Point(-1, 418);
-            this.kryptonWrapLabel3.Name = "kryptonWrapLabel3";
-            this.kryptonWrapLabel3.Size = new System.Drawing.Size(674, 42);
-            this.kryptonWrapLabel3.StateCommon.Font = new System.Drawing.Font("Poppins", 8F);
-            this.kryptonWrapLabel3.StateCommon.TextColor = System.Drawing.Color.Black;
-            this.kryptonWrapLabel3.Text = "Enable this toggle to globally disable all shs accounts with a single click, ensu" +
-    "ring no user can access their accounts temporarily.";
-            // 
-            // kryptonLabel8
-            // 
-            this.kryptonLabel8.Location = new System.Drawing.Point(-3, 384);
-            this.kryptonLabel8.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel8.Name = "kryptonLabel8";
-            this.kryptonLabel8.Size = new System.Drawing.Size(184, 23);
-            this.kryptonLabel8.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel8.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.kryptonLabel8.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
-            this.kryptonLabel8.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.kryptonLabel8.TabIndex = 175;
-            this.kryptonLabel8.Values.Text = "Disable All SHS Accounts";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.label1.Location = new System.Drawing.Point(-2, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(129, 26);
+            this.label1.TabIndex = 184;
+            this.label1.Text = "Academic Year";
             // 
             // lblshsAcadSem
             // 
@@ -469,28 +391,6 @@
             this.kryptonLabel10.TabIndex = 133;
             this.kryptonLabel10.Values.Text = "Disable All Accounts";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.label1.Location = new System.Drawing.Point(-2, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(129, 26);
-            this.label1.TabIndex = 184;
-            this.label1.Text = "Academic Year";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.label2.Location = new System.Drawing.Point(-3, 265);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(140, 26);
-            this.label2.TabIndex = 185;
-            this.label2.Text = "Clients Accounts";
-            // 
             // formAcademicYearSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 19F);
@@ -535,12 +435,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblshsAcadSem;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnEditSHSAcadSem;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel5;
-        private RJToggleButton rjToggleButton1;
-        private ComponentFactory.Krypton.Toolkit.KryptonWrapLabel kryptonWrapLabel3;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel8;
-        private RJToggleButton rjToggleButton2;
-        private ComponentFactory.Krypton.Toolkit.KryptonWrapLabel kryptonWrapLabel4;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel9;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
     }

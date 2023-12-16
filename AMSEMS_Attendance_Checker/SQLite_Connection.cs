@@ -19,18 +19,18 @@ namespace AMSEMS_Attendance_Checker
         public SQLite_Connection()
         {
             string databasePath = Path.Combine(Application.StartupPath, "db_ATTENDANCE_CHECKER.db");
-            if (File.Exists(databasePath))
+
+            // Ensure the directory exists
+            string directoryPath = Path.GetDirectoryName(databasePath);
+            if (!Directory.Exists(directoryPath))
             {
-                FileAttributes attributes = File.GetAttributes(databasePath);
+                Directory.CreateDirectory(directoryPath);
+            }
 
-                if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
-                {
-                    // Remove read-only attribute
-                    File.SetAttributes(databasePath, attributes & ~FileAttributes.ReadOnly);
-                }
-
-                // Add read-write attribute
-                File.SetAttributes(databasePath, attributes & ~FileAttributes.ReadOnly & ~FileAttributes.Archive);
+            // Create the database file if it doesn't exist
+            if (!File.Exists(databasePath))
+            {
+                SQLiteConnection.CreateFile(databasePath);
             }
 
 

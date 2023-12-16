@@ -801,6 +801,8 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximumSize = new System.Drawing.Size(517, 681);
+            this.MinimumSize = new System.Drawing.Size(517, 681);
             this.Name = "formAddEvent";
             this.Padding = new System.Windows.Forms.Padding(20, 0, 20, 10);
             this.Palette = this.kryptonPalette1;

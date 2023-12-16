@@ -1029,7 +1029,8 @@ namespace AMSEMS.SubForms_Admin
                 try
                 {
                     cn.Open();
-                    // Check if a record with the same ID already exists in tbl_student_accounts
+
+                    // Check if a record with the same Course_code already exists in tbl_archived_subjects
                     string checkExistingQuery = "SELECT COUNT(*) FROM tbl_archived_subjects WHERE Course_code = @ID";
                     using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
                     {
@@ -1046,7 +1047,8 @@ namespace AMSEMS.SubForms_Admin
                                 updateStatusCommand.ExecuteNonQuery();
                             }
 
-                            string insertQuery = "INSERT INTO tbl_archived_subjects (Course_code,Course_Description,Units,Image,Status,Academic_Level) SELECT Course_code,Course_Description,Units,Image,Status,Academic_Level FROM tbl_subjects WHERE Course_code = @code";
+                            string insertQuery = "INSERT INTO tbl_archived_subjects (Course_code,Course_Description,Units,Image,Status,Academic_Level) " +
+                                                 "SELECT Course_code,Course_Description,Units,Image,Status,Academic_Level FROM tbl_subjects WHERE Course_code = @code";
                             using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
                             {
                                 sqlCommand.Parameters.AddWithValue("@code", courseCode);
@@ -1064,9 +1066,34 @@ namespace AMSEMS.SubForms_Admin
                         }
                         else
                         {
-                            // A record with the same ID already exists in tbl_student_accounts
-                            MessageBox.Show("A record with the same ID already exists. No archiving performed.");
-                            return false;
+                            // A record with the same Course_code already exists in tbl_archived_subjects
+                            // Update the existing record instead of inserting a new one
+                            string updateQuery = "UPDATE tbl_archived_subjects SET Course_Description = s.Course_Description, Units = s.Units, Image = s.Image, Status = s.Status, Academic_Level = s.Academic_Level " +
+                                                 "FROM tbl_archived_subjects a INNER JOIN tbl_subjects s ON a.Course_code = s.Course_code WHERE a.Course_code = @code";
+
+                            using (SqlCommand updateCommand = new SqlCommand(updateQuery, cn))
+                            {
+                                updateCommand.Parameters.AddWithValue("@code", courseCode);
+                                updateCommand.ExecuteNonQuery();
+                            }
+
+                            // Update the status to 1 before deleting from tbl_subjects
+                            string updateStatusQuery = "UPDATE tbl_subjects SET Status = 2 WHERE Course_code = @ID";
+                            using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+                            {
+                                updateStatusCommand.Parameters.AddWithValue("@ID", courseCode);
+                                updateStatusCommand.ExecuteNonQuery();
+                            }
+
+                            string deleteQuery = "DELETE FROM tbl_subjects WHERE Course_code = @code";
+
+                            using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                            {
+                                command.Parameters.AddWithValue("@code", courseCode);
+                                command.ExecuteNonQuery();
+                            }
+
+                            return true;
                         }
                     }
                 }

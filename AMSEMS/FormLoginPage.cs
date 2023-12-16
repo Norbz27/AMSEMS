@@ -125,7 +125,7 @@ namespace AMSEMS
         {
             if (!CheckForInternetConnection())
             {
-                MessageBox.Show("No Internet Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Unstable Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try

@@ -14,14 +14,12 @@ namespace AMSEMS.SubForms_Admin
         SqlDataAdapter ad;
         SqlCommand cm;
         SqlDataReader dr;
-        string id;
         private bool fileChosen = false;
 
         public formAccountSetting()
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
-            id = FormAdminNavigation.id;
         }
 
         private void formAccountSetting_Load(object sender, EventArgs e)
@@ -30,36 +28,54 @@ namespace AMSEMS.SubForms_Admin
         }
         public void loadData()
         {
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            try
             {
-                cn.Open();
-                cm = new SqlCommand("Select ID,Firstname,Middlename,Lastname from tbl_admin_accounts where Unique_ID = '" + id + "'", cn);
-                dr = cm.ExecuteReader();
-                dr.Read();
-                lblFname.Text = dr["Firstname"].ToString();
-                lblMname.Text = dr["Middlename"].ToString();
-                lblLname.Text = dr["Lastname"].ToString();
-                lblSchoolID.Text = dr["ID"].ToString();
-                lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
-                dr.Close();
-                cn.Close();
-
-                cn.Open();
-                cm = new SqlCommand("Select Profile_pic from tbl_admin_accounts where Unique_ID = " + id + "", cn);
-
-                byte[] imageData = (byte[])cm.ExecuteScalar();
-
-                if (imageData != null && imageData.Length > 0)
+                using (cn = new SqlConnection(SQL_Connection.connection))
                 {
-                    using (MemoryStream ms = new MemoryStream(imageData))
+                    cn.Open();
+                    cm = new SqlCommand("Select ID,Firstname,Middlename,Lastname from tbl_admin_accounts where Unique_ID = @id", cn);
+                    cm.Parameters.AddWithValue("@id", FormAdminNavigation.id);
+                    dr = cm.ExecuteReader();
+
+                    if (dr != null && dr.HasRows)
                     {
-                        Image image = Image.FromStream(ms);
-                        ptbProfile.Image = image;
+                        dr.Read();
+                        lblFname.Text = (dr["Firstname"] != DBNull.Value) ? dr["Firstname"].ToString() : string.Empty;
+                        lblMname.Text = (dr["Middlename"] != DBNull.Value) ? dr["Middlename"].ToString() : string.Empty;
+                        lblLname.Text = (dr["Lastname"] != DBNull.Value) ? dr["Lastname"].ToString() : string.Empty;
+                        lblSchoolID.Text = (dr["ID"] != DBNull.Value) ? dr["ID"].ToString() : string.Empty;
+                        lblName.Text = lblFname.Text + " " + lblLname.Text;
                     }
+
+                    dr.Close();
+                    cn.Close();
+
+                    cn.Open();
+                    cm = new SqlCommand("Select Profile_pic from tbl_admin_accounts where Unique_ID = @id", cn);
+                    cm.Parameters.AddWithValue("@id", FormAdminNavigation.id);
+                    byte[] imageData = cm.ExecuteScalar() as byte[];
+
+                    if (imageData != null && imageData.Length > 0)
+                    {
+                        using (MemoryStream ms = new MemoryStream(imageData))
+                        {
+                            Image image = Image.FromStream(ms);
+
+                            if (image != null)
+                            {
+                                ptbProfile.Image = image;
+                            }
+                        }
+                    }
+
+                    cn.Close();
                 }
-                cn.Close();
+            }catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
+
 
         private void btnChamgePass_Click(object sender, EventArgs e)
         {

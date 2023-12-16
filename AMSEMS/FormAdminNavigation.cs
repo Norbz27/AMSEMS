@@ -30,11 +30,10 @@ namespace AMSEMS
             this.btnDashboard.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
 
             setCalendar();
-            SubForms_Admin.formDashboard.setForm(this);
-            OpenChildForm(new SubForms_Admin.formDashboard(id1));
-            this.kryptonSplitContainer1.Panel2Collapsed = false;
             id = id1;
-           
+            SubForms_Admin.formDashboard.setForm(this);
+            OpenChildForm(new SubForms_Admin.formDashboard());
+            this.kryptonSplitContainer1.Panel2Collapsed = false;
         }
         public void setCalendar()
         {
@@ -105,7 +104,7 @@ namespace AMSEMS
             timer1.Start();
             loadData();
             this.kryptonSplitContainer1.Panel2Collapsed = false;
-            OpenChildForm(new SubForms_Admin.formDashboard(id));
+            OpenChildForm(new SubForms_Admin.formDashboard());
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;

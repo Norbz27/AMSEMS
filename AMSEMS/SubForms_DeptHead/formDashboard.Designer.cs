@@ -438,6 +438,7 @@
             series3.ChartArea = "ChartArea1";
             series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             series3.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            series3.IsValueShownAsLabel = true;
             series3.Legend = "Legend1";
             series3.Name = "Attendees";
             this.chart1.Series.Add(series3);

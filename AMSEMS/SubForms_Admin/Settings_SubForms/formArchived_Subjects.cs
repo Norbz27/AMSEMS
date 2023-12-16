@@ -605,13 +605,13 @@ namespace AMSEMS.SubForms_Admin
                                 sqlCommand.ExecuteNonQuery();
                             }
 
-                            // Delete the record from the archived table
-                            string deleteQuery = "DELETE FROM tbl_archived_subjects WHERE Course_code = @ID";
-                            using (SqlCommand command = new SqlCommand(deleteQuery, cn))
-                            {
-                                command.Parameters.AddWithValue("@ID", courseCode);
-                                command.ExecuteNonQuery();
-                            }
+                            //// Delete the record from the archived table
+                            //string deleteQuery = "DELETE FROM tbl_archived_subjects WHERE Course_code = @ID";
+                            //using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                            //{
+                            //    command.Parameters.AddWithValue("@ID", courseCode);
+                            //    command.ExecuteNonQuery();
+                            //}
 
                             return true;
                         }

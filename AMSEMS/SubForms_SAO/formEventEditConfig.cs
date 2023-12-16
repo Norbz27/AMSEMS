@@ -24,7 +24,8 @@ namespace AMSEMS.SubForms_SAO
         private List<string> suggestions = new List<string>{};
         private ListBox listBoxSuggestions;
         string eventid;
-        public formEventEditConfig()
+        formEventDetails form;
+        public formEventEditConfig(formEventDetails form)
         {
             InitializeComponent();
             InitializeListBox();
@@ -34,6 +35,7 @@ namespace AMSEMS.SubForms_SAO
             {
                 cbExclusive.SelectedIndex = 0;
             }
+            this.form = form;
         }
         public void displayCBData()
         {
@@ -279,6 +281,7 @@ namespace AMSEMS.SubForms_SAO
                 tgbtnPenalty.Enabled = false;
                 tgbtnPenalty.Checked = false;
             }
+            form.change2();
         }
         private void tgbtnPenalty_CheckedChanged(object sender, EventArgs e)
         {
@@ -293,23 +296,23 @@ namespace AMSEMS.SubForms_SAO
         }
         private void formEventConfig_Load(object sender, EventArgs e)
         {
-            if (tgbtnAtt.Checked == true)
-            {
-                formEventDetails.attendance = true;
-            }
-            else
-            {
-                formEventDetails.attendance = false;
-            }
+            //if (tgbtnAtt.Checked == true)
+            //{
+            //    formEventDetails.attendance = true;
+            //}
+            //else
+            //{
+            //    formEventDetails.attendance = false;
+            //}
 
-            if (tgbtnPenalty.Checked == true)
-            {
-                formEventDetails.penalty = true;
-            }
-            else
-            {
-                formEventDetails.penalty = false;
-            }
+            //if (tgbtnPenalty.Checked == true)
+            //{
+            //    formEventDetails.penalty = true;
+            //}
+            //else
+            //{
+            //    formEventDetails.penalty = false;
+            //}
         }
 
         private void cbExclusive_KeyPress(object sender, KeyPressEventArgs e)

@@ -259,7 +259,7 @@ namespace AMSEMS_Attendance_Checker
                 }
                 else
                 {
-                    MessageBox.Show("No internet connection available. Please check your network connection.");
+                    MessageBox.Show("Unstable Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 ptLoading.Visible = false;
             }

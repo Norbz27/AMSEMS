@@ -1004,7 +1004,7 @@ namespace AMSEMS.SubForms_Teacher
                 }
                 else
                 {
-                    MessageBox.Show("Need Internet Connection to delete record!", "Deletion Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Unstable Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 // Reset the selected column index after deletion or if the user canceled
@@ -1296,7 +1296,7 @@ namespace AMSEMS.SubForms_Teacher
                 }
                 else
                 {
-                    MessageBox.Show("No internet connection available. Please check your network connection.");
+                    MessageBox.Show("Unstable Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 ptbLoading.Visible = false;
             }

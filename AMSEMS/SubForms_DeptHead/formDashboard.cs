@@ -33,10 +33,8 @@ namespace AMSEMS.SubForms_DeptHead
 
         private async void formDashboard_Load(object sender, EventArgs e)
         {
-            if (id.Equals(String.Empty))
-                loadData(id2);
-            else
-                loadData(id);
+
+            loadData(FormDeptHeadNavigation.id);
             await displayChartAsync();
             form.loadData();
         }
@@ -140,11 +138,12 @@ namespace AMSEMS.SubForms_DeptHead
                         // Add data points to the chart
                         chart2.Series["AttendanceRateSeries"].Points.AddXY(Convert.ToInt32(percentageRecentAttendees) + "%", percentageRecentAttendees);
                         chart2.Series["AttendanceRateSeries"].Points.AddXY("", remainingPercentage);
+                        // Step 5: Customize Chart
+                        chart2.ChartAreas[0].AxisX.Title = eventName;
+                        chart2.ChartAreas[0].AxisY.Title = "Percentage";
                     }
 
-                    // Step 5: Customize Chart
-                    chart2.ChartAreas[0].AxisX.Title = "Event";
-                    chart2.ChartAreas[0].AxisY.Title = "Percentage";
+                    
 
                     // Customize font
                     chart2.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font("Poppins", 10, System.Drawing.FontStyle.Bold);
@@ -162,7 +161,7 @@ namespace AMSEMS.SubForms_DeptHead
                 using (SqlCommand command = new SqlCommand(@"SELECT
                 COUNT(*) AS Total_Students,
                 SUM(CASE WHEN Remaining_Balance <= 0 THEN 1 ELSE 0 END) AS Paid_Students,
-                AVG(CASE WHEN Remaining_Balance <= 0 THEN 100 ELSE (Total_Payment_Amount / Total_Balance_Fee) * 100 END) AS Average_PercentagePaid
+                ROUND(AVG(CASE WHEN Remaining_Balance <= 0 THEN 100 ELSE (Total_Payment_Amount / Total_Balance_Fee) * 100 END), 2) AS Average_PercentagePaid
             FROM (
                 SELECT
                     COALESCE(bf.Student_ID, t.Student_ID) AS Student_ID,
@@ -193,9 +192,10 @@ namespace AMSEMS.SubForms_DeptHead
                 JOIN dbo.tbl_student_accounts s ON COALESCE(bf.Student_ID, t.Student_ID) = s.ID
                 WHERE
                     s.Status = 1
-                    AND s.Department = @dep
+                    AND s.Department = 2
                 GROUP BY
-                    COALESCE(bf.Student_ID, t.Student_ID)) AS subquery;", connection))
+                    COALESCE(bf.Student_ID, t.Student_ID)
+            ) AS subquery;", connection))
                 {
                     command.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -212,7 +212,7 @@ namespace AMSEMS.SubForms_DeptHead
                         lblPaidStud.Text = paidstud.ToString();
                         // Add data points to the chart
                         chart3.Series["Penalty"].Points.AddXY(averagePercentagePaid + "%", averagePercentagePaid);
-                        chart3.Series["Penalty"].Points.AddXY("", totalStudents);
+                        chart3.Series["Penalty"].Points.AddXY("", 100);
                     }
 
                     // Customize Chart

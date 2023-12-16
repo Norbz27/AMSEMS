@@ -79,7 +79,7 @@ namespace AMSEMS.SubForms_Admin
                             UserID user = new UserID();
                             user.setID(tbSchoolID.Text);
                             form.loadData();
-                            formDashboard.id2 = tbSchoolID.Text;
+                            //formDashboard.id2 = tbSchoolID.Text;
                             this.Close();
                         }
                     }
