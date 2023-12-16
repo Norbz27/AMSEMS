@@ -78,28 +78,42 @@ namespace AMSEMS.SubForms_Teacher
                         {
                             string courseDes = rd["Course_Description"].ToString();
                             string classCode = rd["Class_Code"].ToString();
-
                             // Construct the dynamic table name
                             string dynamicTableName = $"tbl_{classCode}";
 
-                            // Query the dynamic table to get the count of students
-                            string studentQuery = $"SELECT COUNT(StudentID) AS StudentCount FROM {dynamicTableName} WHERE Class_Code = @ClassCode";
+                            // Check if the table exists
+                            string tableExistQuery = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=@TableName";
 
-                            using (SQLiteCommand studentCommand = new SQLiteCommand(studentQuery, cn))
+                            using (SQLiteCommand tableExistCommand = new SQLiteCommand(tableExistQuery, cn))
                             {
-                                studentCommand.Parameters.AddWithValue("@ClassCode", classCode);
+                                tableExistCommand.Parameters.AddWithValue("@TableName", dynamicTableName);
 
-                                // Retrieve the student count
-                                int studentCount = Convert.ToInt32(studentCommand.ExecuteScalar());
+                                int tableCount = Convert.ToInt32(tableExistCommand.ExecuteScalar());
 
-                                // Accumulate the student count for the course code
-                                if (courseStudentCount.ContainsKey(courseDes))
+                                if (tableCount > 0)
                                 {
-                                    courseStudentCount[courseDes] += studentCount;
-                                }
-                                else
-                                {
-                                    courseStudentCount[courseDes] = studentCount;
+                                    // The table exists, proceed with your original logic
+
+                                    // Query the dynamic table to get the count of students
+                                    string studentQuery = $"SELECT COUNT(StudentID) AS StudentCount FROM {dynamicTableName} WHERE Class_Code = @ClassCode";
+
+                                    using (SQLiteCommand studentCommand = new SQLiteCommand(studentQuery, cn))
+                                    {
+                                        studentCommand.Parameters.AddWithValue("@ClassCode", classCode);
+
+                                        // Retrieve the student count
+                                        int studentCount = Convert.ToInt32(studentCommand.ExecuteScalar());
+
+                                        // Accumulate the student count for the course code
+                                        if (courseStudentCount.ContainsKey(courseDes))
+                                        {
+                                            courseStudentCount[courseDes] += studentCount;
+                                        }
+                                        else
+                                        {
+                                            courseStudentCount[courseDes] = studentCount;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -158,30 +172,47 @@ namespace AMSEMS.SubForms_Teacher
                             // Construct the dynamic table name
                             string dynamicTableName = $"tbl_{classCode}";
 
-                            // Query the dynamic table to get the count of students
-                            string studentQuery = $"SELECT COUNT(StudentID) AS StudentCount FROM {dynamicTableName} WHERE Class_Code = @ClassCode";
+                            // Check if the table exists
+                            string tableExistQuery = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=@TableName";
 
-                            using (SQLiteCommand studentCommand = new SQLiteCommand(studentQuery, cn))
+                            using (SQLiteCommand tableExistCommand = new SQLiteCommand(tableExistQuery, cn))
                             {
-                                studentCommand.Parameters.AddWithValue("@ClassCode", classCode);
+                                tableExistCommand.Parameters.AddWithValue("@TableName", dynamicTableName);
 
-                                // Retrieve the student count
-                                int studentCount = Convert.ToInt32(studentCommand.ExecuteScalar());
+                                int tableCount = Convert.ToInt32(tableExistCommand.ExecuteScalar());
 
-                                // Accumulate the student count for the course code
-                                if (courseStudentCount.ContainsKey(courseDes))
+                                if (tableCount > 0)
                                 {
-                                    courseStudentCount[courseDes] += studentCount;
-                                }
-                                else
-                                {
-                                    courseStudentCount[courseDes] = studentCount;
-                                }
+                                    // The table exists, proceed with your original logic
 
-                                // Accumulate the total student count
-                                totalStudentCount += studentCount;
+                                    // Query the dynamic table to get the count of students
+                                    string studentQuery = $"SELECT COUNT(StudentID) AS StudentCount FROM {dynamicTableName} WHERE Class_Code = @ClassCode";
+
+                                    using (SQLiteCommand studentCommand = new SQLiteCommand(studentQuery, cn))
+                                    {
+                                        studentCommand.Parameters.AddWithValue("@ClassCode", classCode);
+
+                                        // Retrieve the student count
+                                        int studentCount = Convert.ToInt32(studentCommand.ExecuteScalar());
+
+                                        // Accumulate the student count for the course code
+                                        if (courseStudentCount.ContainsKey(courseDes))
+                                        {
+                                            courseStudentCount[courseDes] += studentCount;
+                                        }
+                                        else
+                                        {
+                                            courseStudentCount[courseDes] = studentCount;
+                                        }
+
+                                        // Accumulate the total student count
+                                        totalStudentCount += studentCount;
+                                    }
+
+                                    totalSubCount++;
+                                }
                             }
-                            totalSubCount++;
+
                         }
                         await Task.Run(() =>
                         {
