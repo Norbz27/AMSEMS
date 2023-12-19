@@ -870,6 +870,12 @@
     <Compile Include="SubForm_Guidance\formStudAttRecord.Designer.cs">
       <DependentUpon>formStudAttRecord.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formArchived_AbsReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formArchived_AbsReport.Designer.cs">
+      <DependentUpon>formArchived_AbsReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForm_Guidance\Settings_Subforms\formAcademicYearSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -881,6 +887,12 @@
     </Compile>
     <Compile Include="SubForm_Guidance\Settings_Subforms\formAccountSetting.Designer.cs">
       <DependentUpon>formAccountSetting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formArchiveSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForm_Guidance\Settings_Subforms\formArchiveSetting.Designer.cs">
+      <DependentUpon>formArchiveSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm_Guidance\Settings_Subforms\formChangeID.cs">
       <SubType>Form</SubType>
@@ -1280,11 +1292,17 @@
     <EmbeddedResource Include="SubForm_Guidance\formStudAttRecord.resx">
       <DependentUpon>formStudAttRecord.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formArchived_AbsReport.resx">
+      <DependentUpon>formArchived_AbsReport.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formAcademicYearSetting.resx">
       <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formAccountSetting.resx">
       <DependentUpon>formAccountSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formArchiveSetting.resx">
+      <DependentUpon>formArchiveSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForm_Guidance\Settings_Subforms\formChangeID.resx">
       <DependentUpon>formChangeID.cs</DependentUpon>
