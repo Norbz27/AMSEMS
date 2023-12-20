@@ -53,10 +53,13 @@ namespace AMSEMS_Attendance_Checker
 
                 if (tbAttendance.Enabled == true)
                 {
-                    // Process the RFID input as needed (you can call a separate function here)
-                    ProcessScannedData(scannedRFIDData);
-                    displayAttendanceRecord();
-                    displayStudentInfo();
+                    if (!string.IsNullOrEmpty(tbAttendance.Text))
+                    {
+                        // Process the RFID input as needed (you can call a separate function here)
+                        ProcessScannedData(scannedRFIDData);
+                        displayAttendanceRecord();
+                        displayStudentInfo();
+                    }
                 }
             }
         }
@@ -209,8 +212,7 @@ namespace AMSEMS_Attendance_Checker
                 this.splitContainer1.Panel2Collapsed = false;
                 timer1.Stop();
                 isCollapsed = false;
-                tbSearch.Focus();
-                ActiveControl = tbSearch;
+                tbAttendance.Focus();
             }
             else
             {
@@ -435,6 +437,7 @@ namespace AMSEMS_Attendance_Checker
                         lblSection.Text = section;
                         lblAttDate.Text = date;
                         lblAttTime.Text = time;
+                        ptbCheck.Image = Properties.Resources.check_64;
                     }
                     displayAttendanceRecord();
 
@@ -442,6 +445,13 @@ namespace AMSEMS_Attendance_Checker
                 }
             }
         }
-        
+
+        private void tbSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

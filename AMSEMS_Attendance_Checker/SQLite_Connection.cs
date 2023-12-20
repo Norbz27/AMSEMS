@@ -781,7 +781,7 @@ namespace AMSEMS_Attendance_Checker
             {
                 connection.Open();
 
-                string query = "SELECT Event_Name FROM tbl_events WHERE Event_ID = @id AND Attendance = 'True'";
+                string query = "SELECT Event_Name, Start_Date, End_Date FROM tbl_events WHERE Event_ID = @id AND Attendance = 'True'";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
@@ -790,7 +790,21 @@ namespace AMSEMS_Attendance_Checker
                     {
                         if (reader.Read())
                         {
-                            event_name = reader["Event_Name"].ToString();
+                            DateTime startDate = DateTime.Parse(reader["Start_Date"].ToString()).Date;
+                            DateTime endDate = DateTime.Parse(reader["End_Date"].ToString()).Date;
+
+                            DateTime currentDate = DateTime.Now.Date;
+
+                            // Check the date condition in C#
+                            if (startDate <= currentDate && currentDate <= endDate)
+                            {
+                                event_name = reader["Event_Name"].ToString();
+                            }
+                            else
+                            {
+                                event_name = null;
+                            }
+
                         }
                     }
                 }
@@ -825,7 +839,7 @@ namespace AMSEMS_Attendance_Checker
                 }
                 else
                 {
-                    query = "SELECT ID FROM tbl_students_account WHERE RFID = @rfid";
+                    query = @"SELECT ID FROM tbl_students_account WHERE Status = 1 AND RFID = @rfid";
                 }
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
@@ -843,7 +857,7 @@ namespace AMSEMS_Attendance_Checker
                 if (!string.IsNullOrEmpty(stud_id))
                 {
 
-                    query = "SELECT Student_ID FROM tbl_attendance WHERE Student_ID = @id AND Event_ID = @event AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date";
+                    query = "SELECT Student_ID FROM tbl_attendance WHERE Student_ID = @id AND Event_ID = @event AND Date_Time = @date";
 
                     using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {
@@ -1083,7 +1097,7 @@ namespace AMSEMS_Attendance_Checker
                             tbl_departments AS dep ON stud.Department = dep.Department_ID
                         LEFT JOIN 
                             tbl_section AS sec ON stud.Section = sec.Section_ID
-                        WHERE ID = @id";
+                        WHERE Status = 1 AND ID = @id";
             }
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
@@ -1156,7 +1170,7 @@ namespace AMSEMS_Attendance_Checker
                 }
                 else
                 {
-                    query = "SELECT ID FROM tbl_students_account WHERE ID = @id";
+                    query = @"SELECT ID FROM tbl_students_account WHERE Status = 1 AND RFID = @id";
                 }
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
@@ -1174,7 +1188,7 @@ namespace AMSEMS_Attendance_Checker
                 if (!string.IsNullOrEmpty(stud_id))
                 {
 
-                    query = "SELECT Student_ID FROM tbl_attendance WHERE Student_ID = @id AND Event_ID = @event AND SUBSTR(Date_Time, 1, INSTR(Date_Time, ' ') - 1) = @date";
+                    query = "SELECT Student_ID FROM tbl_attendance WHERE Student_ID = @id AND Event_ID = @event AND Date_Time = @date";
 
                     using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {

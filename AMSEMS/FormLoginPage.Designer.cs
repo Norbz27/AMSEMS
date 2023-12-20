@@ -28,22 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLoginPage));
             this.tbID = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
+            this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette();
             this.tbPass = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.btnLogin = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // tbID
             // 
-            this.tbID.Location = new System.Drawing.Point(67, 170);
+            this.tbID.Location = new System.Drawing.Point(67, 191);
             this.tbID.Name = "tbID";
             this.tbID.Size = new System.Drawing.Size(220, 31);
             this.tbID.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -124,9 +121,9 @@
             // 
             // tbPass
             // 
-            this.tbPass.Location = new System.Drawing.Point(69, 247);
+            this.tbPass.Location = new System.Drawing.Point(67, 269);
             this.tbPass.Name = "tbPass";
-            this.tbPass.Size = new System.Drawing.Size(220, 30);
+            this.tbPass.Size = new System.Drawing.Size(224, 30);
             this.tbPass.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.tbPass.StateCommon.Border.Color1 = System.Drawing.Color.Gray;
             this.tbPass.StateCommon.Border.Color2 = System.Drawing.Color.Gray;
@@ -142,7 +139,7 @@
             // 
             // kryptonLabel1
             // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(65, 144);
+            this.kryptonLabel1.Location = new System.Drawing.Point(63, 165);
             this.kryptonLabel1.Name = "kryptonLabel1";
             this.kryptonLabel1.Size = new System.Drawing.Size(126, 20);
             this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.Gray;
@@ -154,7 +151,7 @@
             // btnLogin
             // 
             this.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLogin.Location = new System.Drawing.Point(69, 328);
+            this.btnLogin.Location = new System.Drawing.Point(69, 345);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnLogin.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -202,39 +199,15 @@
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             this.btnLogin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnLogin_KeyDown);
             // 
-            // pictureBox1
+            // pictureBox3
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.sti_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(147, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(71, 47);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::AMSEMS.Properties.Resources.blob;
-            this.pictureBox2.Location = new System.Drawing.Point(-104, -185);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(669, 386);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 7;
-            this.pictureBox2.TabStop = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.label2.Font = new System.Drawing.Font("The Chieldren PERSONAL USE ONLY", 21.75F);
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.label2.Location = new System.Drawing.Point(134, 62);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 37);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "AMSEMS";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(-10, -13);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(372, 172);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 9;
+            this.pictureBox3.TabStop = false;
             // 
             // FormLoginPage
             // 
@@ -242,13 +215,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(354, 448);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnLogin);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.kryptonLabel1);
             this.Controls.Add(this.tbPass);
             this.Controls.Add(this.tbID);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
@@ -262,8 +233,7 @@
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormLoginPage_FormClosed);
             this.Load += new System.EventHandler(this.FormLoginPage_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnLogin_KeyDown);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -275,9 +245,7 @@
         private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbPass;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnLogin;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

@@ -1741,8 +1741,17 @@ namespace AMSEMS.SubForms_Teacher
                                         // Find the dynamically added column index
                                         int columnIndex = GetColumnIndex(attendanceDate, sortedDates);
 
+                                        if (studentStatus.Equals("P"))
+                                        {
+                                            worksheet.Cells[rowIndex, columnIndex].Value = 1.5;
+                                        }
+                                        else
+                                        {
+                                            worksheet.Cells[rowIndex, columnIndex].Value = "";
+                                        }
+
                                         // Set the student status in the corresponding column of the Excel sheet
-                                        worksheet.Cells[rowIndex, columnIndex].Value = studentStatus;
+                                       
                                         worksheet.Cells[rowIndex, columnIndex].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                                     }
                                 }

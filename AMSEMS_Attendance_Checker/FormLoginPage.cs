@@ -182,8 +182,8 @@ namespace AMSEMS_Attendance_Checker
             {
                 ptLoading.Visible = true; // Show loading image before starting the synchronization
                 await Task.Delay(3000);
-                if (IsInternetConnected())
-                {
+                //if (IsInternetConnected())
+                //{
                     try
                     {
                         using (cnn = new SqlConnection(SQL_Connection.connection))
@@ -256,11 +256,11 @@ namespace AMSEMS_Attendance_Checker
                     {
                         MessageBox.Show(ex.Message);
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Unstable Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Unstable Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
                 ptLoading.Visible = false;
             }
         }

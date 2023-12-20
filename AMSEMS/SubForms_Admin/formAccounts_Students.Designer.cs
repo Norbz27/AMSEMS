@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -70,14 +69,14 @@
             this.cbSection = new System.Windows.Forms.ComboBox();
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.cbYearlvl = new System.Windows.Forms.ComboBox();
-            this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CMSOptions = new System.Windows.Forms.ContextMenuStrip();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.activetoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.inactiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.archiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnReload = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.CMSExport = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CMSExport = new System.Windows.Forms.ContextMenuStrip();
             this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpPDF = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpExcel = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,17 +91,17 @@
             this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSelArchive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnMultiDel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.CMSDepartment = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CMSDepartment = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.CMSProgram = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CMSProgram = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.CMSLevel = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CMSLevel = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.CMSSection = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CMSSection = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.cbDep = new System.Windows.Forms.ComboBox();
-            this.CMSSelection = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CMSSelection = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
@@ -1466,7 +1465,7 @@
             this.CMSSection.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.CMSSection.ShowImageMargin = false;
             this.CMSSection.ShowItemToolTips = false;
-            this.CMSSection.Size = new System.Drawing.Size(142, 30);
+            this.CMSSection.Size = new System.Drawing.Size(156, 52);
             // 
             // toolStripMenuItem5
             // 
@@ -1475,7 +1474,7 @@
             this.toolStripMenuItem5.Font = new System.Drawing.Font("Poppins", 7.55F);
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(145, 26);
-            this.toolStripMenuItem5.Text = "Set Year Level to";
+            this.toolStripMenuItem5.Text = "Set Section to";
             // 
             // kryptonLabel4
             // 

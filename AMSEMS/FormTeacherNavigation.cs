@@ -103,6 +103,7 @@ namespace AMSEMS
         {
             isCollapsed = false;
             timer1.Start();
+            loadData();
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             formDashboard.setForm(this);
             OpenChildForm(new SubForms_Teacher.formDashboard());

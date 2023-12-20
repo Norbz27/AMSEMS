@@ -16,17 +16,19 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>G:\Capsstone Project\Checker Installer\</PublishUrl>
+    <PublishUrl>G:\Capsstone Project\FTP Server\Checker Installer\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>31</ApplicationRevision>
+    <InstallUrl>\\LAPTOP-78S661F5\FTP Server\Checker Installer\</InstallUrl>
+    <UpdateUrl>\\LAPTOP-78S661F5\FTP Server\Checker Installer\</UpdateUrl>
+    <ApplicationRevision>45</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -289,6 +291,8 @@
     </Compile>
     <Compile Include="SQLite_Connection.cs" />
     <Compile Include="SQL_Connection.cs" />
+    <None Include="Resources\amsems logo.png" />
+    <None Include="Resources\loading.gif" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

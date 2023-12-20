@@ -41,23 +41,22 @@
             this.btnDashboard = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kryptonPanel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnNotification = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
             this.kryptonPanel3 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kryptonSplitContainer1 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.kryptonMonthCalendar1 = new ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar();
             this.kryptonPanel4 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.ptbProfile = new AMSEMS.RoundPictureBox();
             this.lblRole = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.kryptonMonthCalendar1 = new ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar();
             ((System.ComponentModel.ISupportInitialize)(this.Panel1)).BeginInit();
             this.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelCollapsed)).BeginInit();
@@ -75,10 +74,10 @@
             this.kryptonSplitContainer1.Panel2.SuspendLayout();
             this.kryptonSplitContainer1.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel4)).BeginInit();
             this.kryptonPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).BeginInit();
-            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // kryptonPalette1
@@ -525,7 +524,6 @@
             // 
             // kryptonPanel1
             // 
-            this.kryptonPanel1.Controls.Add(this.kryptonLabel1);
             this.kryptonPanel1.Controls.Add(this.pictureBox1);
             this.kryptonPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.kryptonPanel1.Location = new System.Drawing.Point(20, 0);
@@ -535,26 +533,15 @@
             this.kryptonPanel1.StateCommon.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.kryptonPanel1.TabIndex = 0;
             // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(74, 8);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(105, 43);
-            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel1.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("The Chieldren PERSONAL USE ONLY", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonLabel1.TabIndex = 1;
-            this.kryptonLabel1.Values.Text = "AMSEMS";
-            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.sti_logo;
-            this.pictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.amsems_login_fill;
+            this.pictureBox1.Location = new System.Drawing.Point(18, -12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(71, 47);
+            this.pictureBox1.Size = new System.Drawing.Size(177, 86);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // btnNotification
@@ -628,72 +615,6 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(263, 611);
             this.panel6.TabIndex = 11;
-            // 
-            // kryptonPanel4
-            // 
-            this.kryptonPanel4.Controls.Add(this.label2);
-            this.kryptonPanel4.Controls.Add(this.lblName);
-            this.kryptonPanel4.Controls.Add(this.ptbProfile);
-            this.kryptonPanel4.Controls.Add(this.lblRole);
-            this.kryptonPanel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonPanel4.Location = new System.Drawing.Point(0, 0);
-            this.kryptonPanel4.Name = "kryptonPanel4";
-            this.kryptonPanel4.Size = new System.Drawing.Size(263, 239);
-            this.kryptonPanel4.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonPanel4.StateCommon.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.kryptonPanel4.TabIndex = 9;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Poppins", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.label2.Location = new System.Drawing.Point(-2, 15);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 26);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "Profile";
-            // 
-            // lblName
-            // 
-            this.lblName.Font = new System.Drawing.Font("Poppins", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.lblName.Location = new System.Drawing.Point(3, 188);
-            this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(257, 26);
-            this.lblName.TabIndex = 14;
-            this.lblName.Text = "Norberto Bruzon";
-            this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ptbProfile
-            // 
-            this.ptbProfile.BorderColor = System.Drawing.Color.LightGray;
-            this.ptbProfile.BorderWidth = 2;
-            this.ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
-            this.ptbProfile.Location = new System.Drawing.Point(65, 53);
-            this.ptbProfile.Name = "ptbProfile";
-            this.ptbProfile.Size = new System.Drawing.Size(129, 129);
-            this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProfile.TabIndex = 8;
-            this.ptbProfile.TabStop = false;
-            // 
-            // lblRole
-            // 
-            this.lblRole.AutoSize = false;
-            this.lblRole.Location = new System.Drawing.Point(1, 211);
-            this.lblRole.Name = "lblRole";
-            this.lblRole.Size = new System.Drawing.Size(259, 25);
-            this.lblRole.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.lblRole.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.lblRole.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRole.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
-            this.lblRole.TabIndex = 6;
-            this.lblRole.Values.Text = "Guidance";
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 15;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // panel7
             // 
@@ -805,6 +726,72 @@
             this.kryptonMonthCalendar1.StateCommon.Header.Content.ShortText.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kryptonMonthCalendar1.TabIndex = 11;
             // 
+            // kryptonPanel4
+            // 
+            this.kryptonPanel4.Controls.Add(this.label2);
+            this.kryptonPanel4.Controls.Add(this.lblName);
+            this.kryptonPanel4.Controls.Add(this.ptbProfile);
+            this.kryptonPanel4.Controls.Add(this.lblRole);
+            this.kryptonPanel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.kryptonPanel4.Location = new System.Drawing.Point(0, 0);
+            this.kryptonPanel4.Name = "kryptonPanel4";
+            this.kryptonPanel4.Size = new System.Drawing.Size(263, 239);
+            this.kryptonPanel4.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonPanel4.StateCommon.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.kryptonPanel4.TabIndex = 9;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Poppins", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.label2.Location = new System.Drawing.Point(-2, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(61, 26);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Profile";
+            // 
+            // lblName
+            // 
+            this.lblName.Font = new System.Drawing.Font("Poppins", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblName.Location = new System.Drawing.Point(3, 188);
+            this.lblName.Name = "lblName";
+            this.lblName.Size = new System.Drawing.Size(257, 26);
+            this.lblName.TabIndex = 14;
+            this.lblName.Text = "Norberto Bruzon";
+            this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ptbProfile
+            // 
+            this.ptbProfile.BorderColor = System.Drawing.Color.LightGray;
+            this.ptbProfile.BorderWidth = 2;
+            this.ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
+            this.ptbProfile.Location = new System.Drawing.Point(65, 53);
+            this.ptbProfile.Name = "ptbProfile";
+            this.ptbProfile.Size = new System.Drawing.Size(129, 129);
+            this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProfile.TabIndex = 8;
+            this.ptbProfile.TabStop = false;
+            // 
+            // lblRole
+            // 
+            this.lblRole.AutoSize = false;
+            this.lblRole.Location = new System.Drawing.Point(1, 211);
+            this.lblRole.Name = "lblRole";
+            this.lblRole.Size = new System.Drawing.Size(259, 25);
+            this.lblRole.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            this.lblRole.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+            this.lblRole.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRole.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
+            this.lblRole.TabIndex = 6;
+            this.lblRole.Values.Text = "Guidance";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 15;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // FormGuidanceNavigation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -832,7 +819,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel1)).EndInit();
             this.kryptonPanel1.ResumeLayout(false);
-            this.kryptonPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel3)).EndInit();
             this.kryptonPanel3.ResumeLayout(false);
@@ -844,11 +830,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).EndInit();
             this.kryptonSplitContainer1.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel4)).EndInit();
             this.kryptonPanel4.ResumeLayout(false);
             this.kryptonPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).EndInit();
-            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -859,8 +845,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel3;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel Panel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private ComponentFactory.Krypton.Toolkit.KryptonBorderEdge kryptonBorderEdge1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCollege;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSHS;
@@ -883,6 +867,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel5;
         private ComponentFactory.Krypton.Toolkit.KryptonMonthCalendar kryptonMonthCalendar1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

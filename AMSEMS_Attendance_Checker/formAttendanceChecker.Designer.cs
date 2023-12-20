@@ -65,8 +65,6 @@
             this.btnMenu = new System.Windows.Forms.Button();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblEventName = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbAttendance = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -94,9 +92,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.ptbProfilePic = new AMSEMS.RoundPictureBoxRect();
             this.panel7 = new System.Windows.Forms.Panel();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ptbProfilePic = new AMSEMS.RoundPictureBoxRect();
             this.pnStudentsList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -227,7 +225,7 @@
             this.pnStudentsList.Location = new System.Drawing.Point(0, 0);
             this.pnStudentsList.Name = "pnStudentsList";
             this.pnStudentsList.Padding = new System.Windows.Forms.Padding(15);
-            this.pnStudentsList.Size = new System.Drawing.Size(96, 100);
+            this.pnStudentsList.Size = new System.Drawing.Size(412, 672);
             this.pnStudentsList.TabIndex = 0;
             // 
             // btnCancel
@@ -237,7 +235,7 @@
             this.btnCancel.FlatAppearance.BorderSize = 0;
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Image = global::AMSEMS_Attendance_Checker.Properties.Resources.close__1_;
-            this.btnCancel.Location = new System.Drawing.Point(54, 20);
+            this.btnCancel.Location = new System.Drawing.Point(370, 21);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(20, 23);
             this.btnCancel.TabIndex = 43;
@@ -320,7 +318,7 @@
             this.dgvStudents.RowTemplate.Height = 100;
             this.dgvStudents.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvStudents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvStudents.Size = new System.Drawing.Size(66, 26);
+            this.dgvStudents.Size = new System.Drawing.Size(382, 598);
             this.dgvStudents.TabIndex = 42;
             this.dgvStudents.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvStudents_CellContentClick);
             // 
@@ -394,7 +392,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(15, 49);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(66, 10);
+            this.panel3.Size = new System.Drawing.Size(382, 10);
             this.panel3.TabIndex = 41;
             // 
             // pictureBox3
@@ -438,6 +436,7 @@
             this.tbSearch.StateCommon.Content.Padding = new System.Windows.Forms.Padding(28, 4, 0, 4);
             this.tbSearch.TabIndex = 39;
             this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
+            this.tbSearch.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbSearch_KeyPress);
             // 
             // panel1
             // 
@@ -447,14 +446,12 @@
             this.panel1.Controls.Add(this.btnMenu);
             this.panel1.Controls.Add(this.lblDate);
             this.panel1.Controls.Add(this.lblEventName);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.panel1.Size = new System.Drawing.Size(1270, 89);
+            this.panel1.Size = new System.Drawing.Size(854, 89);
             this.panel1.TabIndex = 3;
             // 
             // lblAttStatus
@@ -475,7 +472,7 @@
             this.btnSettings.FlatAppearance.BorderSize = 0;
             this.btnSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSettings.Image = global::AMSEMS_Attendance_Checker.Properties.Resources.setting__1_;
-            this.btnSettings.Location = new System.Drawing.Point(1140, 0);
+            this.btnSettings.Location = new System.Drawing.Point(724, 0);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.Size = new System.Drawing.Size(65, 89);
             this.btnSettings.TabIndex = 14;
@@ -489,7 +486,7 @@
             this.btnMenu.FlatAppearance.BorderSize = 0;
             this.btnMenu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMenu.Image = global::AMSEMS_Attendance_Checker.Properties.Resources.menu_white_24;
-            this.btnMenu.Location = new System.Drawing.Point(1205, 0);
+            this.btnMenu.Location = new System.Drawing.Point(789, 0);
             this.btnMenu.Name = "btnMenu";
             this.btnMenu.Size = new System.Drawing.Size(65, 89);
             this.btnMenu.TabIndex = 13;
@@ -525,38 +522,13 @@
             this.lblEventName.Text = "Event Name";
             this.lblEventName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.label2.Font = new System.Drawing.Font("Poppins", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.label2.Location = new System.Drawing.Point(92, 47);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(131, 23);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "STI College Surigao";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.label1.Font = new System.Drawing.Font("The Chieldren PERSONAL USE ONLY", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.label1.Location = new System.Drawing.Point(90, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(103, 37);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "AMSEMS";
-            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.pictureBox1.Image = global::AMSEMS_Attendance_Checker.Properties.Resources.sti_logo;
+            this.pictureBox1.Image = global::AMSEMS_Attendance_Checker.Properties.Resources.amsems_logo;
             this.pictureBox1.Location = new System.Drawing.Point(9, 17);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(80, 55);
+            this.pictureBox1.Size = new System.Drawing.Size(199, 55);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 6;
             this.pictureBox1.TabStop = false;
@@ -583,7 +555,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 401);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1270, 271);
+            this.panel2.Size = new System.Drawing.Size(854, 271);
             this.panel2.TabIndex = 5;
             // 
             // kryptonGroupBox1
@@ -602,7 +574,7 @@
             // kryptonGroupBox1.Panel
             // 
             this.kryptonGroupBox1.Panel.Controls.Add(this.dgvAttendance);
-            this.kryptonGroupBox1.Size = new System.Drawing.Size(890, 253);
+            this.kryptonGroupBox1.Size = new System.Drawing.Size(474, 253);
             this.kryptonGroupBox1.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox1.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox1.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
@@ -677,7 +649,7 @@
             this.dgvAttendance.RowsDefaultCellStyle = dataGridViewCellStyle14;
             this.dgvAttendance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAttendance.ShowEditingIcon = false;
-            this.dgvAttendance.Size = new System.Drawing.Size(885, 248);
+            this.dgvAttendance.Size = new System.Drawing.Size(469, 248);
             this.dgvAttendance.TabIndex = 2;
             this.dgvAttendance.TabStop = false;
             this.dgvAttendance.Click += new System.EventHandler(this.dataGridView1_Click);
@@ -908,7 +880,7 @@
             this.panel6.Location = new System.Drawing.Point(379, 89);
             this.panel6.Name = "panel6";
             this.panel6.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.panel6.Size = new System.Drawing.Size(891, 312);
+            this.panel6.Size = new System.Drawing.Size(475, 312);
             this.panel6.TabIndex = 8;
             // 
             // kryptonGroupBox3
@@ -926,7 +898,7 @@
             // kryptonGroupBox3.Panel
             // 
             this.kryptonGroupBox3.Panel.Controls.Add(this.tableLayoutPanel1);
-            this.kryptonGroupBox3.Size = new System.Drawing.Size(891, 312);
+            this.kryptonGroupBox3.Size = new System.Drawing.Size(475, 312);
             this.kryptonGroupBox3.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox3.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.kryptonGroupBox3.StateCommon.Back.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.Inherit;
@@ -953,7 +925,7 @@
             this.tableLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(886, 302);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(470, 302);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // splitContainer1
@@ -974,7 +946,6 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.pnStudentsList);
-            this.splitContainer1.Panel2Collapsed = true;
             this.splitContainer1.Panel2MinSize = 412;
             this.splitContainer1.Size = new System.Drawing.Size(1270, 672);
             this.splitContainer1.SplitterDistance = 854;
@@ -990,21 +961,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(362, 312);
             this.panel4.TabIndex = 6;
-            // 
-            // ptbProfilePic
-            // 
-            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbProfilePic.BorderWidth = 2;
-            this.ptbProfilePic.CornerRadius = 10;
-            this.ptbProfilePic.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptbProfilePic.Image = global::AMSEMS_Attendance_Checker.Properties.Resources.Pulse_1s_200px__1_;
-            this.ptbProfilePic.InitialImage = global::AMSEMS_Attendance_Checker.Properties.Resources.Pulse_1s_200px__1_;
-            this.ptbProfilePic.Location = new System.Drawing.Point(12, 0);
-            this.ptbProfilePic.Name = "ptbProfilePic";
-            this.ptbProfilePic.Size = new System.Drawing.Size(350, 312);
-            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProfilePic.TabIndex = 9;
-            this.ptbProfilePic.TabStop = false;
             // 
             // panel7
             // 
@@ -1028,6 +984,21 @@
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // ptbProfilePic
+            // 
+            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbProfilePic.BorderWidth = 2;
+            this.ptbProfilePic.CornerRadius = 10;
+            this.ptbProfilePic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbProfilePic.Image = global::AMSEMS_Attendance_Checker.Properties.Resources.Pulse_1s_200px__1_;
+            this.ptbProfilePic.InitialImage = global::AMSEMS_Attendance_Checker.Properties.Resources.Pulse_1s_200px__1_;
+            this.ptbProfilePic.Location = new System.Drawing.Point(12, 0);
+            this.ptbProfilePic.Name = "ptbProfilePic";
+            this.ptbProfilePic.Size = new System.Drawing.Size(350, 312);
+            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProfilePic.TabIndex = 9;
+            this.ptbProfilePic.TabStop = false;
             // 
             // formAttendanceChecker
             // 
@@ -1099,8 +1070,6 @@
         private System.Windows.Forms.Button btnMenu;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblEventName;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox1;

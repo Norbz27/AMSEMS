@@ -93,6 +93,16 @@ namespace AMSEMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap amsems_login_fill {
+            get {
+                object obj = ResourceManager.GetObject("amsems login fill", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap announcement {
             get {
                 object obj = ResourceManager.GetObject("announcement", resourceCulture);

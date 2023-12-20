@@ -101,6 +101,7 @@ namespace AMSEMS
             formDashboard.getForm(this);
             isCollapsed = false;
             timer1.Start();
+            loadData();
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             OpenChildForm(new SubForm_Guidance.formDashboard());
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
