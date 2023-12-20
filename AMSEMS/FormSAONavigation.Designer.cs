@@ -54,6 +54,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
             this.ptbProfile = new AMSEMS.RoundPictureBox();
+            this.btnNotification = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
             this.lblRole = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             ((System.ComponentModel.ISupportInitialize)(this.Panel1)).BeginInit();
             this.Panel1.SuspendLayout();
@@ -716,6 +717,14 @@
             this.lblRole.TabIndex = 6;
             this.lblRole.Values.Text = "Student Affair Officer";
             // 
+            // btnNotification
+            // 
+            this.btnNotification.ColorMap = System.Drawing.Color.White;
+            this.btnNotification.Image = global::AMSEMS.Properties.Resources.notification_24_dg;
+            this.btnNotification.ToolTipTitle = "Notification";
+            this.btnNotification.Type = ComponentFactory.Krypton.Toolkit.PaletteButtonSpecStyle.DropDown;
+            this.btnNotification.UniqueName = "FB2E213F3DD14A2DC9A2486ABCD6CB81";
+            // 
             // FormSAONavigation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -724,6 +733,8 @@
             this.ClientSize = new System.Drawing.Size(1284, 661);
             this.Controls.Add(this.kryptonPanel3);
             this.Controls.Add(this.Panel1);
+            this.ButtonSpecs.AddRange(new ComponentFactory.Krypton.Toolkit.ButtonSpecAny[] {
+            this.btnNotification});
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1300, 700);
             this.Name = "FormSAONavigation";
@@ -761,6 +772,7 @@
         }
 
         #endregion
+        private ComponentFactory.Krypton.Toolkit.ButtonSpecAny btnNotification;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel2;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel1;

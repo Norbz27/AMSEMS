@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Microsoft.IO.RecyclableMemoryStreamManager;
+using System.Data.Entity;
 
 namespace AMSEMS.SubForms_DeptHead
 {
@@ -172,16 +173,37 @@ namespace AMSEMS.SubForms_DeptHead
             PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
 
             document.Open();
-
             // Customizing the font and size
             iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
             iTextSharp.text.Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
             iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
 
             // Add title "List of Students:"
-            Paragraph titleParagraph = new Paragraph("Attendance Report", headerFont1);
+            Paragraph titleParagraph = new Paragraph("Student Transaction History", headerFont1);
             titleParagraph.Alignment = Element.ALIGN_CENTER;
             document.Add(titleParagraph);
+
+            // Add student details section as a title
+            document.Add(new Paragraph("\nStudent Information", headerFont));
+
+            // Add student information on separate lines
+            Paragraph studentInfoLine1 = new Paragraph();
+            studentInfoLine1.Add(new Chunk("Student ID: " + lblID.Text, cellFont));
+            studentInfoLine1.Alignment = Element.ALIGN_LEFT;  // Align to the left
+            document.Add(studentInfoLine1);
+
+            Paragraph studentInfoLine2 = new Paragraph();
+            studentInfoLine2.Add(new Chunk("Student Name: " + lblName.Text, cellFont));
+            studentInfoLine2.Alignment = Element.ALIGN_LEFT;  // Align to the left
+            document.Add(studentInfoLine2);
+
+            Paragraph studentInfoLine6 = new Paragraph();
+            studentInfoLine6.Add(new Chunk("Section: " + lblSection.Text, cellFont));
+            studentInfoLine6.Alignment = Element.ALIGN_LEFT;  // Align to the left
+            document.Add(studentInfoLine6); 
+
+            // Add attendance table
+            document.Add(new Paragraph("\nPayment Record", headerFont));
 
             // Customizing the table appearance
             PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count);

@@ -82,18 +82,20 @@ namespace AMSEMS.SubForms_DeptHead
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(@"WITH RecentAttendance AS 
                 (
-                    SELECT 
+                    SELECT TOP 1
                         a.[Event_ID], 
                         a.[Student_ID], 
                         MAX(a.[Date_Time]) AS [RecentDate] 
                     FROM 
                         [db_Amsems].[dbo].[tbl_attendance] a 
+					LEFT JOIN
+						tbl_student_accounts s ON a.Student_ID = s.ID
                     GROUP BY 
                         a.[Event_ID], 
                         a.[Student_ID]
                 )
 
-                SELECT  
+                SELECT  TOP 1
                     e.[Event_ID], 
                     e.[Event_Name],
                     COUNT(DISTINCT ra.[Student_ID]) AS [RecentAttendees], 

@@ -1452,28 +1452,17 @@ namespace AMSEMS.SubForms_Teacher
                                     command.ExecuteNonQuery();
                                 }
 
+                                // Delete attendance records
+                                clearSql = $@"DELETE FROM tbl_subject_attendance WHERE Student_ID IN (SELECT StudentID FROM tbl_{classcode}) AND Class_Code = @classcode;";
+                                using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
+                                {
+                                    command.Parameters.AddWithValue("@classcode", classcode);
+                                    command.ExecuteNonQuery();
+                                }
+
                                 clearSql = $@"DROP TABLE IF EXISTS tbl_{classcode};";
                                 using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
                                 {
-                                    command.ExecuteNonQuery();
-                                }
-
-                                // Delete attendance records
-                                clearSql = $@"DELETE FROM tbl_subject_attendance WHERE Student_ID IN (SELECT Student_ID FROM tbl_{classcode}) AND Class_Code = @classcode;";
-                                using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
-                                {
-                                    command.Parameters.AddWithValue("@classcode", classcode);
-                                    command.ExecuteNonQuery();
-                                }
-
-                                // Delete consultation records
-                                clearSql = $@"DELETE cr
-                                FROM tbl_consultation_record cr
-                                INNER JOIN tbl_class_list cl ON cr.Student_ID = cl.Student_ID
-                                WHERE cl.Class_Code = @classcode;";
-                                using (SQLiteCommand command = new SQLiteCommand(clearSql, connection, transaction))
-                                {
-                                    command.Parameters.AddWithValue("@classcode", classcode);
                                     command.ExecuteNonQuery();
                                 }
 
@@ -1502,14 +1491,8 @@ namespace AMSEMS.SubForms_Teacher
                                     cm.ExecuteNonQuery();
                                 }
 
-                                clearSql = $@"IF OBJECT_ID('tbl_{classcode}', 'U') IS NOT NULL DROP TABLE tbl_{classcode};";
-                                using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
-                                {
-                                    cm.ExecuteNonQuery();
-                                }
-
                                 // Delete attendance records
-                                clearSql = $@"DELETE FROM tbl_subject_attendance WHERE Student_ID IN (SELECT Student_ID FROM tbl_{classcode}) AND cl.Class_Code = @classcode;";
+                                clearSql = $@"DELETE FROM tbl_subject_attendance WHERE Student_ID IN (SELECT StudentID FROM tbl_{classcode}) AND Class_Code = @classcode;";
                                 using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
                                 {
                                     cm.Parameters.AddWithValue("@classcode", classcode);
@@ -1520,13 +1503,20 @@ namespace AMSEMS.SubForms_Teacher
                                 // Delete consultation records with a join on tbl_class_list
                                 clearSql = @"DELETE cr
                                 FROM tbl_consultation_record cr
-                                INNER JOIN tbl_class_list cl ON cr.Student_ID = cl.Student_ID
+                                INNER JOIN tbl_class_list cl ON cr.Class_Code = cl.Class_Code
                                 WHERE cl.Class_Code = @classcode;";
                                 using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
                                 {
                                     cm.Parameters.AddWithValue("@classcode", classcode);
                                     cm.ExecuteNonQuery();
                                 }
+
+                                clearSql = $@"IF OBJECT_ID('tbl_{classcode}', 'U') IS NOT NULL DROP TABLE tbl_{classcode};";
+                                using (SqlCommand cm = new SqlCommand(clearSql, cn, transaction))
+                                {
+                                    cm.ExecuteNonQuery();
+                                }
+
                                 transaction.Commit();
 
                                 MessageBox.Show("Deletion successful.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

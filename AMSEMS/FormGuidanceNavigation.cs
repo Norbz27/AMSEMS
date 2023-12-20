@@ -12,7 +12,6 @@ namespace AMSEMS
 {
     public partial class FormGuidanceNavigation : KryptonForm
     {
-        SqlConnection cn;
         SqlCommand cm;
         SqlDataReader dr;
 
@@ -23,7 +22,6 @@ namespace AMSEMS
         public FormGuidanceNavigation(string id1)
         {
             InitializeComponent();
-            cn = new SqlConnection(SQL_Connection.connection);
             this.btnDashboard.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDashboard.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDashboard.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
@@ -66,23 +64,26 @@ namespace AMSEMS
         {
             try
             {
-                cn.Open();
-                cm = new SqlCommand("select Firstname, Lastname from tbl_guidance_accounts where Unique_ID = '" + id + "'", cn);
-                dr = cm.ExecuteReader();
-                dr.Read();
-                lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
-                dr.Close();
-
-                cm = new SqlCommand("Select Profile_pic from tbl_guidance_accounts where Unique_ID = " + id + "", cn);
-
-                byte[] imageData = (byte[])cm.ExecuteScalar();
-
-                if (imageData != null && imageData.Length > 0)
+                using (SqlConnection cn = new SqlConnection())
                 {
-                    using (MemoryStream ms = new MemoryStream(imageData))
+                    cn.Open();
+                    cm = new SqlCommand("select Firstname, Lastname from tbl_guidance_accounts where Unique_ID = '" + id + "'", cn);
+                    dr = cm.ExecuteReader();
+                    dr.Read();
+                    lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+                    dr.Close();
+
+                    cm = new SqlCommand("Select Profile_pic from tbl_guidance_accounts where Unique_ID = " + id + "", cn);
+
+                    byte[] imageData = (byte[])cm.ExecuteScalar();
+
+                    if (imageData != null && imageData.Length > 0)
                     {
-                        Image image = Image.FromStream(ms);
-                        ptbProfile.Image = image;
+                        using (MemoryStream ms = new MemoryStream(imageData))
+                        {
+                            Image image = Image.FromStream(ms);
+                            ptbProfile.Image = image;
+                        }
                     }
                 }
             }
@@ -91,17 +92,14 @@ namespace AMSEMS
                 // Handle exceptions appropriately
                 MessageBox.Show("Error loading data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
-            {
-                cn.Close();
-            }
+
         }
         private void btnDashboard_Click(object sender, EventArgs e)
         {
+            loadData();
             formDashboard.getForm(this);
             isCollapsed = false;
             timer1.Start();
-            loadData();
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             OpenChildForm(new SubForm_Guidance.formDashboard());
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
@@ -256,7 +254,7 @@ namespace AMSEMS
             else
             {
                 panel7.Controls.Clear();
-                using (cn = new SqlConnection(SQL_Connection.connection))
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
                     using (SqlCommand cm = new SqlCommand("SELECT Event_ID,Event_Name, Color, Start_Date FROM tbl_events WHERE Start_Date >= CAST(GETDATE() AS DATE) ORDER BY Start_Date DESC", cn))

@@ -36,6 +36,7 @@ namespace AMSEMS.SubForm_Guidance
         {
             InitializeComponent();
             formRemarks = new formRemarks();
+            dgvAbsencesRecord.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 9F);
         }
         public void getForm(formAbsReport form, string studid, string conid, string classcode)
         {

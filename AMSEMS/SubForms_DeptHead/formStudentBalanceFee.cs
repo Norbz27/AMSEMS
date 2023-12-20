@@ -270,21 +270,23 @@ namespace AMSEMS.SubForms_DeptHead
 
             // Add title "List of Students:"
             Paragraph titleParagraph = new Paragraph("Students Balance Fee Report", headerFont1);
-            Paragraph titleParagraph2 = new Paragraph(cbSection.Text, headerFont2);
+            Paragraph titleParagraph2 = new Paragraph("Section:" + cbSection.Text, headerFont2);
             titleParagraph.Alignment = Element.ALIGN_CENTER;
             titleParagraph2.Alignment = Element.ALIGN_CENTER;
             document.Add(titleParagraph);
             document.Add(titleParagraph2);
 
             // Customizing the table appearance
-            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count);
+            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1);
             pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
             pdfTable.SpacingBefore = 10f; // Add space before the table
             pdfTable.DefaultCell.Padding = 3; // Cell padding
 
 
-            foreach (DataGridViewColumn column in dataGridView.Columns)
+            // Iterate through DataGridView columns (excluding the last column)
+            for (int columnIndex = 0; columnIndex < dataGridView.Columns.Count - 1; columnIndex++)
             {
+                DataGridViewColumn column = dataGridView.Columns[columnIndex];
                 PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
                 cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
                 pdfTable.AddCell(cell);
@@ -292,12 +294,15 @@ namespace AMSEMS.SubForms_DeptHead
 
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
-                foreach (DataGridViewCell cell in row.Cells)
+                // Iterate through DataGridView cells (excluding the last cell in each row)
+                for (int columnIndex = 0; columnIndex < row.Cells.Count - 1; columnIndex++)
                 {
+                    DataGridViewCell cell = row.Cells[columnIndex];
                     PdfPCell pdfCell = new PdfPCell(new Phrase(cell.Value.ToString(), cellFont));
                     pdfTable.AddCell(pdfCell);
                 }
             }
+
 
             document.Add(pdfTable);
             document.Close();
@@ -389,6 +394,7 @@ namespace AMSEMS.SubForms_DeptHead
                     if (dataGridView != null)
                     {
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        formMakePayment.getForm(this);
                         formMakePayment.searchStudent(dgvBalFees.Rows[rowIndex].Cells[0].Value.ToString());
                         formMakePayment.ShowDialog();
                     }
