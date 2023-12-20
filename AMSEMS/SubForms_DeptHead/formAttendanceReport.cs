@@ -28,6 +28,11 @@ namespace AMSEMS.SubForms_DeptHead
         {
             InitializeComponent();
             cancellationTokenSource = new CancellationTokenSource();
+            System.Windows.Forms.ToolTip toolTip = new System.Windows.Forms.ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
+
+            toolTip.SetToolTip(btnExport, "Export to");
         }
         public void displayFilter()
         {

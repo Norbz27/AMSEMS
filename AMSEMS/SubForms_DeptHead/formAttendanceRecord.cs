@@ -37,6 +37,14 @@ namespace AMSEMS.SubForms_DeptHead
 
             cn = new SqlConnection(SQL_Connection.connection);
             formConfigFee = new formConfigFee();
+
+            ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
+
+            toolTip.SetToolTip(btnExport, "Export to");
+            toolTip.SetToolTip(btnRefresh, "Refresh");
+            toolTip.SetToolTip(btnPenaltyFee, "Manage Penalty Fee");
         }
 
         private async void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)

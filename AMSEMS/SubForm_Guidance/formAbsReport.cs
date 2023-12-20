@@ -23,7 +23,12 @@ namespace AMSEMS.SubForm_Guidance
             InitializeComponent();
             this.rep = rep;
             lblRepHeader.Text = rep + " Absenteeism Report";
-            
+
+            ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
+            toolTip.SetToolTip(btnExport, "Export to");
+            toolTip.SetToolTip(btnReload, "Refresh");
         }
         public void displayFilter()
         {

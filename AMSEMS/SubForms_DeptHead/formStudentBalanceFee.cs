@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Microsoft.Office.Interop.Excel;
 using System.Threading;
 using iTextSharp.xmp.options;
+using ToolTip = System.Windows.Forms.ToolTip;
 
 namespace AMSEMS.SubForms_DeptHead
 {
@@ -33,6 +34,14 @@ namespace AMSEMS.SubForms_DeptHead
             lblDep.Text = FormDeptHeadNavigation.depdes.ToUpper();
             formMakePayment = new formMakePayment();
             formTransactionHistory = new formTransactionHistory();
+
+            ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
+
+            toolTip.SetToolTip(btnExport, "Export to");
+            toolTip.SetToolTip(btnRefresh, "Refresh");
+            toolTip.SetToolTip(btnPay, "Pay Balance");
         }
         public void displayFilter()
         {

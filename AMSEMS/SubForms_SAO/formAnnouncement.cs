@@ -16,6 +16,12 @@ namespace AMSEMS.SubForms_SAO
         {
             InitializeComponent();
             InitializeSearchTimer();
+
+            ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
+
+            toolTip.SetToolTip(btnAnnounce, "Export to");
         }
 
         private void btnAnnounce_Click(object sender, EventArgs e)
@@ -108,6 +114,13 @@ namespace AMSEMS.SubForms_SAO
             RichTextBox richTextBox1 = new RichTextBox();
             KryptonButton btnDelete = new KryptonButton();
             KryptonButton btnEdit = new KryptonButton();
+
+            ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
+
+            toolTip.SetToolTip(btnEdit, "Edit");
+            toolTip.SetToolTip(btnDelete, "Delete");
 
             kryptonGroupBox4.Dock = System.Windows.Forms.DockStyle.Top; // Use Dock property to fill the entire width
             kryptonGroupBox4.CaptionStyle = ComponentFactory.Krypton.Toolkit.LabelStyle.GroupBoxCaption;

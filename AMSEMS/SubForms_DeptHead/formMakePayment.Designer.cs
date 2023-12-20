@@ -188,6 +188,7 @@
             this.tbPayment.TabIndex = 183;
             this.tbPayment.Text = "00";
             this.tbPayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbPayment.Enter += new System.EventHandler(this.tbPayment_Enter);
             this.tbPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // btnCancel

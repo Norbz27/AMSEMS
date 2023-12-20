@@ -37,6 +37,13 @@ namespace AMSEMS.SubForms_SAO
             isTrue = true;
             formEventEditConfig = new formEventEditConfig(this);
             DtEnd.MinDate = DtStart.Value;
+
+            ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
+
+            toolTip.SetToolTip(btnConfig, "Event Configuration");
+            toolTip.SetToolTip(btnDelete, "Delete Event");
         }
         public void getForm(UserControlDays_Calendar form)
         {

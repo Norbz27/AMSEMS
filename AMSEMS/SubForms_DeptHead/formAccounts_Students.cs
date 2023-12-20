@@ -97,7 +97,7 @@ namespace AMSEMS.SubForms_DeptHead
             toolTip.InitialDelay = 500;
             toolTip.AutoPopDelay = int.MaxValue;
 
-            toolTip.SetToolTip(btnExport, "Export");
+            toolTip.SetToolTip(btnExport, "Export to");
             toolTip.SetToolTip(btnReload, "Refresh");
 
             backgroundWorker.RunWorkerAsync();

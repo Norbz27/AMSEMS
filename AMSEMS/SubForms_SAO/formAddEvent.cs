@@ -36,6 +36,12 @@ namespace AMSEMS.SubForms_SAO
             SetButtonAppearance(btnColorMarron);
             formEventConfig = new formEventAddConfig();
             DtEnd.MinDate = DtStart.Value;
+
+            ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
+
+            toolTip.SetToolTip(btnConfig, "Event Configuration");
         }
         
         public void getForm(UserControlDays_Calendar form)

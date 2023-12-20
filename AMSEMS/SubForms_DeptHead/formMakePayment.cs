@@ -31,6 +31,12 @@ namespace AMSEMS.SubForms_DeptHead
         {
             InitializeComponent();
             btnPay.Enabled = false;
+
+            ToolTip toolTip = new ToolTip();
+            toolTip.InitialDelay = 500;
+            toolTip.AutoPopDelay = int.MaxValue;
+
+            toolTip.SetToolTip(btnSearch, "Search Student");
         }
         public void getForm(formStudentBalanceFee formStudentBalanceFee)
         {
@@ -222,6 +228,11 @@ namespace AMSEMS.SubForms_DeptHead
                 stud_id = tbStudID.Text;
                 searchStudent(stud_id);
             }
+        }
+
+        private void tbPayment_Enter(object sender, EventArgs e)
+        {
+            tbPayment.Text = String.Empty;
         }
 
         private void textBox_KeyPress(object sender, KeyPressEventArgs e)
