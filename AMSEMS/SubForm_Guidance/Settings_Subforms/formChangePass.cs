@@ -84,23 +84,79 @@ namespace AMSEMS.SubForm_Guidance
                             }
                             else
                             {
+                                string stud_id = reader["ID"].ToString();
                                 reader.Close();
-                                cm = new SqlCommand("UPDATE tbl_guidance_accounts SET Password = @NewValue WHERE Unique_ID = @ConditionValue", cn);
-                                cm.Parameters.AddWithValue("@NewValue", tbNewPass.Text);
-                                cm.Parameters.AddWithValue("@ConditionValue", FormGuidanceNavigation.id);
-                                cm.ExecuteNonQuery();
-                                MessageBox.Show("Password Changed!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                lblConNewPass.Text = "Confirm New Password";
-                                lblConNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-                                lblConNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
 
-                                lblCurPass.Text = "Current Password";
-                                lblCurPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-                                lblCurPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                                // Check if the password is already taken in tbl_teacher_accounts
+                                cm = new SqlCommand("SELECT * FROM tbl_teacher_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                                cm.Parameters.AddWithValue("@ID", stud_id);
+                                cm.Parameters.AddWithValue("@Password", tbNewPass.Text);
+                                ad = new SqlDataAdapter(cm);
+                                DataSet dsTeacher = new DataSet();
+                                ad.Fill(dsTeacher);
 
-                                lblNewPass.Text = "New Password";
-                                lblNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-                                lblNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                                // Check if the password is already taken in tbl_deptHead_accounts
+                                cm = new SqlCommand("SELECT * FROM tbl_deptHead_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                                cm.Parameters.AddWithValue("@ID", stud_id);
+                                cm.Parameters.AddWithValue("@Password", tbNewPass.Text);
+                                ad = new SqlDataAdapter(cm);
+                                DataSet dsDeptHead = new DataSet();
+                                ad.Fill(dsDeptHead);
+
+                                cm = new SqlCommand("SELECT * FROM tbl_student_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                                cm.Parameters.AddWithValue("@ID", stud_id);
+                                cm.Parameters.AddWithValue("@Password", tbNewPass.Text);
+                                ad = new SqlDataAdapter(cm);
+                                DataSet dsStud = new DataSet();
+                                ad.Fill(dsStud);
+
+                                cm = new SqlCommand("SELECT * FROM tbl_sao_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                                cm.Parameters.AddWithValue("@ID", stud_id);
+                                cm.Parameters.AddWithValue("@Password", tbNewPass.Text);
+                                ad = new SqlDataAdapter(cm);
+                                DataSet dsSao = new DataSet();
+                                ad.Fill(dsSao);
+
+                                cm = new SqlCommand("SELECT * FROM tbl_guidance_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                                cm.Parameters.AddWithValue("@ID", stud_id);
+                                cm.Parameters.AddWithValue("@Password", tbNewPass.Text);
+                                ad = new SqlDataAdapter(cm);
+                                DataSet dsGuid = new DataSet();
+                                ad.Fill(dsGuid);
+
+                                if (dsTeacher.Tables[0].Rows.Count > 0 || dsDeptHead.Tables[0].Rows.Count > 0 || dsStud.Tables[0].Rows.Count > 0 || dsSao.Tables[0].Rows.Count > 0 || dsGuid.Tables[0].Rows.Count > 0)
+                                {
+                                    lblConNewPass.Text = "Confirm New Password";
+                                    lblConNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                                    lblConNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+
+                                    lblCurPass.Text = "Current Password - Password is already taken!";
+                                    lblCurPass.StateCommon.ShortText.Color1 = System.Drawing.Color.IndianRed;
+                                    lblCurPass.StateCommon.ShortText.Color2 = System.Drawing.Color.IndianRed;
+
+                                    lblNewPass.Text = "New Password";
+                                    lblNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                                    lblNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                                }
+                                else
+                                {
+                                    cm = new SqlCommand("UPDATE tbl_guidance_accounts SET Password = @NewValue WHERE Unique_ID = @ConditionValue", cn);
+                                    cm.Parameters.AddWithValue("@NewValue", tbNewPass.Text);
+                                    cm.Parameters.AddWithValue("@ConditionValue", FormGuidanceNavigation.id);
+                                    cm.ExecuteNonQuery();
+                                    MessageBox.Show("Password Changed!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    lblConNewPass.Text = "Confirm New Password";
+                                    lblConNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                                    lblConNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+
+                                    lblCurPass.Text = "Current Password";
+                                    lblCurPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                                    lblCurPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+
+                                    lblNewPass.Text = "New Password";
+                                    lblNewPass.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+                                    lblNewPass.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+                                }
                                 this.Close();
                             }
                         }

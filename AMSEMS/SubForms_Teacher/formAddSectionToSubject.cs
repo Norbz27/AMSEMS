@@ -250,7 +250,7 @@ namespace AMSEMS.SubForms_Teacher
                     return;
                 }
 
-                string query = "SELECT s.ID AS id, UPPER(s.Lastname || ', ' || s.Firstname || ' ' || s.Middlename) AS Name FROM tbl_students_account s LEFT JOIN tbl_section sec ON s.Section = sec.Section_ID WHERE Name = @name AND sec.AcadLevel_ID = @acadlvl ORDER BY Name";
+                string query = "SELECT s.ID AS id, UPPER(s.Lastname || ', ' || s.Firstname || ' ' || s.Middlename) AS Name FROM tbl_students_account s LEFT JOIN tbl_section sec ON s.Section = sec.Section_ID WHERE Name = @name AND sec.AcadLevel_ID = @acadlvl AND s.Status = 1 ORDER BY Name";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, cn))
                 {
