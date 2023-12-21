@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -182,8 +183,8 @@ namespace AMSEMS_Attendance_Checker
             {
                 ptLoading.Visible = true; // Show loading image before starting the synchronization
                 await Task.Delay(3000);
-                //if (IsInternetConnected())
-                //{
+                if (IsInternetConnected())
+                {
                     try
                     {
                         using (cnn = new SqlConnection(SQL_Connection.connection))
@@ -256,11 +257,11 @@ namespace AMSEMS_Attendance_Checker
                     {
                         MessageBox.Show(ex.Message);
                     }
-                //}
-                //else
-                //{
-                //    MessageBox.Show("Unstable Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //}
+                }
+                else
+                {
+                    MessageBox.Show("Unstable Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 ptLoading.Visible = false;
             }
         }
@@ -268,14 +269,11 @@ namespace AMSEMS_Attendance_Checker
         {
             try
             {
-                Ping ping = new Ping();
-                PingReply reply = ping.Send("www.google.com"); // You can use a reliable external host for testing connectivity.
-
-                if (reply != null && reply.Status == IPStatus.Success)
+                using (var mobileClient = new WebClient())
+                using (var webConnection = mobileClient.OpenRead("http://www.google.com"))
                 {
-                    return true; // Internet is reachable.
+                    return true;
                 }
-                return false; // No internet connection.
             }
             catch
             {

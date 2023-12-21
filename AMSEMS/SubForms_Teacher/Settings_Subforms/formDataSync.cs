@@ -236,8 +236,8 @@ namespace AMSEMS.SubForms_Teacher
         {
             try
             {
-                using (var client = new WebClient())
-                using (var stream = client.OpenRead("https://portal.azure.com"))
+                using (var mobileClient = new WebClient())
+                using (var webConnection = mobileClient.OpenRead("http://www.google.com"))
                 {
                     return true;
                 }

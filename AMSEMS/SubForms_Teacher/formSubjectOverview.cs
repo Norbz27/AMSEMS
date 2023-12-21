@@ -24,6 +24,7 @@ using Org.BouncyCastle.Ocsp;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Threading;
 using AMSEMS.SubForm_Guidance;
+using System.Net;
 
 namespace AMSEMS.SubForms_Teacher
 {
@@ -508,7 +509,14 @@ namespace AMSEMS.SubForms_Teacher
             {
                 e.Handled = true;
             }
+
+            // Check if the length of the text is already 1
+            if (((System.Windows.Forms.TextBox)sender).Text.Length >= 1)
+            {
+                e.Handled = true;
+            }
         }
+
         private void dgvAttendanceReport_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
             // Check if the cell is in the newly added column
@@ -1305,10 +1313,10 @@ namespace AMSEMS.SubForms_Teacher
         {
             try
             {
-                using (var client = new Ping())
+                using (var mobileClient = new WebClient())
+                using (var webConnection = mobileClient.OpenRead("http://www.google.com"))
                 {
-                    var result = client.Send("8.8.8.8", 1000);
-                    return result.Status == IPStatus.Success;
+                    return true;
                 }
             }
             catch
@@ -1561,21 +1569,17 @@ namespace AMSEMS.SubForms_Teacher
                         Excel.Worksheet worksheet = workbook.Worksheets[1];
 
                         // Set up the header rows formatting
-                        //Excel.Range headerRange1 = worksheet.Rows[1];
-                        //headerRange1.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196)); // Background color: #4472C4
-                        //headerRange1.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White); // Text color: White
+                        Excel.Range headerRange1 = worksheet.Rows[1];
+                        headerRange1.Font.Bold = true;
 
-                        //Excel.Range headerRange2 = worksheet.Rows[2];
-                        //headerRange2.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196));
-                        //headerRange2.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White);
+                        Excel.Range headerRange2 = worksheet.Rows[2];
+                        headerRange2.Font.Bold = true;
 
-                        //Excel.Range headerRange3 = worksheet.Rows[3];
-                        //headerRange3.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196));
-                        //headerRange3.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White);
+                        Excel.Range headerRange3 = worksheet.Rows[3];
+                        headerRange3.Font.Bold = true;
 
-                        //Excel.Range headerRange4 = worksheet.Rows[4];
-                        //headerRange4.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196));
-                        //headerRange4.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White);
+                        Excel.Range headerRange4 = worksheet.Rows[4];
+                        headerRange4.Font.Bold = true;
 
                         // Add three-column headers
                         worksheet.Cells[4, 1] = "ID";

@@ -423,7 +423,7 @@ namespace AMSEMS.SubForms_Teacher
                     command.Parameters.AddWithValue("@TeachID", teachUID);
                     command.Parameters.AddWithValue("@Ccode", ccode);
                     command.Parameters.AddWithValue("@SchoolYear", schYear);
-                    if (subacadlvl.Equals("1"))
+                    if (subacadlvl.Equals("10001"))
                     {
                         command.Parameters.AddWithValue("@Sem", Tersem);
                     }

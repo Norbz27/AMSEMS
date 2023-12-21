@@ -4,6 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -301,14 +302,11 @@ namespace AMSEMS_Attendance_Checker
         {
             try
             {
-                Ping ping = new Ping();
-                PingReply reply = ping.Send("www.google.com"); // You can use a reliable external host for testing connectivity.
-
-                if (reply != null && reply.Status == IPStatus.Success)
+                using (var mobileClient = new WebClient())
+                using (var webConnection = mobileClient.OpenRead("http://www.google.com"))
                 {
-                    return true; // Internet is reachable.
+                    return true;
                 }
-                return false; // No internet connection.
             }
             catch
             {
@@ -414,7 +412,7 @@ namespace AMSEMS_Attendance_Checker
                 }
                 else
                 {
-                    MessageBox.Show("No internet connection available. Please check your network connection.");
+                    MessageBox.Show("Unstable connection. Can't connect to server!!");
                 }
                 ptLoading.Visible = false;
             }

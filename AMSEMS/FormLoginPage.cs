@@ -123,11 +123,11 @@ namespace AMSEMS
 
         private async Task LoginAsync()
         {
-            //if (!CheckForInternetConnection())
-            //{
-            //    MessageBox.Show("Unstable Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    return;
-            //}
+            if (!CheckForInternetConnection())
+            {
+                MessageBox.Show("Unstable Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -206,14 +206,11 @@ namespace AMSEMS
         {
             try
             {
-                Ping ping = new Ping();
-                PingReply reply = ping.Send("www.google.com"); // You can use a reliable external host for testing connectivity.
-
-                if (reply != null && reply.Status == IPStatus.Success)
+                using (var mobileClient = new WebClient())
+                using (var webConnection = mobileClient.OpenRead("http://www.google.com"))
                 {
-                    return true; // Internet is reachable.
+                    return true;
                 }
-                return false; // No internet connection.
             }
             catch
             {

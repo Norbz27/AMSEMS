@@ -505,7 +505,7 @@ namespace AMSEMS
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT Course_code, Course_Description, Image, Academic_Level FROM tbl_subjects s LEFT JOIN tbl_teachers_account t ON s.Assigned_Teacher = t.ID WHERE Unique_ID = @TeachID AND s.Status = 1";
+                string query = "SELECT Course_code, Course_Description, Image, Academic_Level, Academic_Level_Description FROM tbl_subjects s LEFT JOIN tbl_teachers_account t ON s.Assigned_Teacher = t.ID LEFT JOIN tbl_academic_level al ON s.Academic_Level = al.Academic_Level_ID WHERE Unique_ID = @TeachID AND s.Status = 1";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
@@ -523,6 +523,7 @@ namespace AMSEMS
             newDataTable.Columns.Add("Course_code", typeof(string));
             newDataTable.Columns.Add("Course_Description", typeof(string));
             newDataTable.Columns.Add("Academic_Level", typeof(string));
+            newDataTable.Columns.Add("Academic_Level_Description", typeof(string));
 
             // Populate the new DataTable with data
             foreach (DataRow row in dataTable.Rows)
@@ -530,7 +531,7 @@ namespace AMSEMS
                 object imageData = row["Image"];
                 Image image = ConvertToImage(imageData);
 
-                newDataTable.Rows.Add(image, row["Course_code"], row["Course_Description"], row["Academic_Level"]);
+                newDataTable.Rows.Add(image, row["Course_code"], row["Course_Description"], row["Academic_Level"], row["Academic_Level_Description"]);
             }
 
             return newDataTable;

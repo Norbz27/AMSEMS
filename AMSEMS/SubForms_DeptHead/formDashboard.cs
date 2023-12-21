@@ -184,7 +184,7 @@ namespace AMSEMS.SubForms_DeptHead
                 JOIN dbo.tbl_student_accounts s ON COALESCE(bf.Student_ID, t.Student_ID) = s.ID
                 WHERE
                     s.Status = 1
-                    AND s.Department = 2
+                    AND s.Department = @dep
                 GROUP BY
                     COALESCE(bf.Student_ID, t.Student_ID)
             ) AS subquery;", connection))

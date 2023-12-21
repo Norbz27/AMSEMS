@@ -37,21 +37,23 @@ namespace AMSEMS.SubForms_Teacher
                     string subjectcode = row["Course_Code"].ToString();
                     string subjectname = row["Course_Description"].ToString();
                     string subjectnacadlvl = row["Academic_Level"].ToString();
+                    string subjectnacadlvldes = row["Academic_Level_Description"].ToString();
                     if (row["Image"] is Image image)
                     {
                         img = image;
                     }
 
-                    subjectsApperance(subjectcode, subjectname, img, subjectnacadlvl);
+                    subjectsApperance(subjectcode, subjectname, img, subjectnacadlvl, subjectnacadlvldes);
                 }
             }
         }
-        public void subjectsApperance(string ccode, string subjectname, Image image, string subjectnacadlvl)
+        public void subjectsApperance(string ccode, string subjectname, Image image, string subjectnacadlvl, string subjectnacadlvldes)
         {
             Label lblSubjectName = new Label();
             KryptonGroupBox kryptonGroupBox2 = new KryptonGroupBox();
             RoundPictureBoxRect ptbSubjectPic = new RoundPictureBoxRect();
-            KryptonButton btnOption = new KryptonButton();
+            Label lblAcadLvl = new Label();
+            Label lblCcode = new Label();
 
             kryptonGroupBox2.CaptionStyle = LabelStyle.GroupBoxCaption;
             kryptonGroupBox2.CaptionVisible = false;
@@ -91,7 +93,7 @@ namespace AMSEMS.SubForms_Teacher
             ptbSubjectPic.CornerRadius = 10;
             ptbSubjectPic.Anchor = AnchorStyles.None;
             ptbSubjectPic.Image = image;
-            ptbSubjectPic.Location = new System.Drawing.Point(50, 24);
+            ptbSubjectPic.Location = new System.Drawing.Point(61, 37);
             ptbSubjectPic.Name = "ptbSubjectPic";
             ptbSubjectPic.Size = new System.Drawing.Size(118, 108);
             ptbSubjectPic.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -118,55 +120,28 @@ namespace AMSEMS.SubForms_Teacher
                 form.otherformclick1(ccode, subjectnacadlvl);
             };
 
-            btnOption.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
-            btnOption.Location = new Point(185, 7);
-            btnOption.Name = "btnOption";
-            btnOption.PaletteMode = PaletteMode.ProfessionalSystem;
-            btnOption.Size = new Size(29, 24);
-            btnOption.Cursor = Cursors.Hand;
-            btnOption.StateCommon.Back.Color1 = Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            btnOption.StateCommon.Back.Color2 = Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            btnOption.StateCommon.Back.ImageStyle = PaletteImageStyle.Inherit;
-            btnOption.StateCommon.Border.Color1 = Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            btnOption.StateCommon.Border.Color2 = Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            btnOption.StateCommon.Border.DrawBorders = ((PaletteDrawBorders)((((PaletteDrawBorders.Top | PaletteDrawBorders.Bottom)
-            | PaletteDrawBorders.Left)
-            | PaletteDrawBorders.Right)));
-            btnOption.StateCommon.Border.ImageStyle = PaletteImageStyle.Inherit;
-            btnOption.TabIndex = 2;
-            btnOption.Values.Image = Properties.Resources.option;
-            btnOption.Values.Text = ""; 
-            btnOption.Click += (sender, e) =>
-            {
-                ContextMenuStrip CMSOptions = new ContextMenuStrip();
-                ToolStripMenuItem toolStripMenuItem2 = new ToolStripMenuItem();
+            lblAcadLvl.AutoSize = false;
+            lblAcadLvl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            lblAcadLvl.Font = new System.Drawing.Font("Poppins SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblAcadLvl.Location = new System.Drawing.Point(146, 6);
+            lblAcadLvl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            lblAcadLvl.Name = "lblAcadLvl";
+            lblAcadLvl.Size = new System.Drawing.Size(71, 23);
+            lblAcadLvl.TabIndex = 3;
+            lblAcadLvl.Text = subjectnacadlvldes;
 
-                toolStripMenuItem2.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-                toolStripMenuItem2.Name = "toolStripMenuItem2";
-                toolStripMenuItem2.Size = new System.Drawing.Size(148, 26);
-                toolStripMenuItem2.Text = "Manage Subject";
-                toolStripMenuItem2.Click += (senderbtn, ebtn) =>
-                {
-                    form.otherformclick1(ccode, subjectnacadlvl);
-                };
+            lblCcode.AutoSize = true;
+            lblCcode.Font = new System.Drawing.Font("Poppins SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lblCcode.Location = new System.Drawing.Point(7, 7);
+            lblCcode.Name = "lblCcode";
+            lblCcode.Size = new System.Drawing.Size(58, 23);
+            lblCcode.TabIndex = 2;
+            lblCcode.Text = ccode;
 
-                CMSOptions.Font = new System.Drawing.Font("Segoe UI", 9F);
-                CMSOptions.Items.AddRange(new ToolStripItem[] {
-            toolStripMenuItem2});
-                CMSOptions.Name = "contextMenuStrip2";
-                CMSOptions.ShowImageMargin = false;
-                CMSOptions.ShowItemToolTips = false;
-                CMSOptions.Size = new System.Drawing.Size(149, 30);
-                CMSOptions.RenderMode = ToolStripRenderMode.Professional;
-
-                CMSOptions.Show(btnOption, new Point(0, btnOption.Height));
-            };
-
-            
-
+            kryptonGroupBox2.Panel.Controls.Add(lblAcadLvl);
+            kryptonGroupBox2.Panel.Controls.Add(lblCcode);
             kryptonGroupBox2.Panel.Controls.Add(ptbSubjectPic);
             kryptonGroupBox2.Panel.Controls.Add(lblSubjectName);
-            kryptonGroupBox2.Panel.Controls.Add(btnOption);
 
             tableLayoutPanel1.Controls.Add(kryptonGroupBox2, 0, 0);
         }

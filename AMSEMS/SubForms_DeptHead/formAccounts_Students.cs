@@ -362,26 +362,15 @@ namespace AMSEMS.SubForms_DeptHead
             document.Add(titleParagraph);
 
             // Customizing the table appearance
-            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 2); // Exclude the first and last columns
+            PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1); // Exclude the first and last columns
             pdfTable.WidthPercentage = 100; // Table width as a percentage of page width
             pdfTable.SpacingBefore = 10f; // Add space before the table
             pdfTable.DefaultCell.Padding = 3; // Cell padding
 
-            // Set column widths for specific columns (2nd and 6th columns) to autosize
-            float[] columnWidths = new float[dataGridView.Columns.Count - 2];
-            columnWidths[0] = 70; // No column width
-            columnWidths[1] = 70; // ID column width
-            columnWidths[2] = 70; // RFID column width
-            columnWidths[3] = 70; // First Name column autosize
-            columnWidths[4] = 70; // Last Name column autosize
-            columnWidths[5] = 86; // Program column width
-            columnWidths[6] = 60; // Section column width
-            columnWidths[7] = 40; // Year Level column width
-            pdfTable.SetWidths(columnWidths);
-
+            // Add header cells for visible columns excluding the "option" column
             foreach (DataGridViewColumn column in dataGridView.Columns)
             {
-                if (column.Index > 0 && column.Index < dataGridView.Columns.Count - 1) // Exclude the first and last columns
+                if (column.Visible && column.Name != "option")
                 {
                     PdfPCell cell = new PdfPCell(new Phrase(column.HeaderText, headerFont));
                     cell.BackgroundColor = new BaseColor(240, 240, 240); // Cell background color
@@ -389,12 +378,17 @@ namespace AMSEMS.SubForms_DeptHead
                 }
             }
 
+            // Add data cells for visible columns excluding the "option" column
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
-                for (int i = 1; i < row.Cells.Count - 1; i++) // Skip the first and last columns
+                foreach (DataGridViewColumn column in dataGridView.Columns)
                 {
-                    PdfPCell pdfCell = new PdfPCell(new Phrase(row.Cells[i].Value.ToString(), cellFont));
-                    pdfTable.AddCell(pdfCell);
+                    if (column.Visible && column.Name != "option")
+                    {
+                        // Use the DisplayIndex property instead of Index to get the correct index
+                        PdfPCell pdfCell = new PdfPCell(new Phrase(row.Cells[column.DisplayIndex].Value?.ToString() ?? "", cellFont));
+                        pdfTable.AddCell(pdfCell);
+                    }
                 }
             }
 
