@@ -290,6 +290,10 @@ namespace AMSEMS.SubForms_Admin
         private async void cbET_SelectedIndexChanged(object sender, EventArgs e)
         {
             UseWaitCursor = true;
+            if (cbStatus.SelectedIndex == 0)
+            {
+                cbET.Text = "";
+            }
             ptbLoading.Visible = true;
             await Task.Delay(2000);
             ComboBox comboBox = (ComboBox)sender;

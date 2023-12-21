@@ -29,7 +29,7 @@
     <UpdateUrl>\\LAPTOP-78S661F5\FTP Server\Installer\</UpdateUrl>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>14</ApplicationRevision>
+    <ApplicationRevision>18</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -351,6 +351,12 @@
     </Compile>
     <Compile Include="SubForms_Admin\formAccounts_Students.Designer.cs">
       <DependentUpon>formAccounts_Students.cs</DependentUpon>
+    </Compile>
+    <Compile Include="formEventDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formEventDetails.Designer.cs">
+      <DependentUpon>formEventDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\formImportViewSubjects.cs">
       <SubType>Form</SubType>
@@ -983,6 +989,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formAccounts_Students.resx">
       <DependentUpon>formAccounts_Students.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formEventDetails.resx">
+      <DependentUpon>formEventDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formImportViewSubjects.resx">
       <DependentUpon>formImportViewSubjects.cs</DependentUpon>

@@ -549,6 +549,13 @@ namespace AMSEMS.SubForms_Admin
         private async void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             UseWaitCursor = true;
+            if (cbStatus.SelectedIndex == 0)
+            {
+                cbProgram.Text = "";
+                cbDep.Text = "";
+                cbSection.Text = "";
+                cbYearlvl.Text = "";
+            }
             ptbLoading.Visible = true;
             await Task.Delay(2000);
             ComboBox comboBox = (ComboBox)sender;

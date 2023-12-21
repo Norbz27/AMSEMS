@@ -445,12 +445,26 @@ namespace AMSEMS
             panel12.Size = new System.Drawing.Size(234, 10);
             panel12.TabIndex = 19;
 
+            kryptonGroupBox6.Click += (s, e) => KryptonGroupBox_Click(eventid);
+            kryptonGroupBox6.Panel.Click += (s, e) => KryptonGroupBox_Click(eventid);
+
+            panel12.Click += (s, e) => KryptonGroupBox_Click(eventid);
+            kryptonLabel10.Click += (s, e) => KryptonGroupBox_Click(eventid);
+            kryptonLabel11.Click += (s, e) => KryptonGroupBox_Click(eventid);
+            kryptonLabel2.Click += (s, e) => KryptonGroupBox_Click(eventid);
+
             this.panel7.Invoke((MethodInvoker)delegate
             {
                 // Inside this block, you can update UI controls safely
                 this.panel7.Controls.Add(kryptonGroupBox6);
                 this.panel7.Controls.Add(panel12);
             });
+        }
+        private void KryptonGroupBox_Click(string eventid)
+        {
+            formEventDetails formEventDetails = new formEventDetails();
+            formEventDetails.displayDetails(eventid);
+            formEventDetails.ShowDialog();
         }
     }
 }

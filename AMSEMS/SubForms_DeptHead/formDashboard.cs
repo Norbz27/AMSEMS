@@ -82,20 +82,10 @@ namespace AMSEMS.SubForms_DeptHead
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(@"WITH RecentAttendance AS 
                 (
-                    SELECT TOP 1
-                        a.[Event_ID], 
-                        a.[Student_ID], 
-                        MAX(a.[Date_Time]) AS [RecentDate] 
-                    FROM 
-                        [db_Amsems].[dbo].[tbl_attendance] a 
-					LEFT JOIN
-						tbl_student_accounts s ON a.Student_ID = s.ID
-                    GROUP BY 
-                        a.[Event_ID], 
-                        a.[Student_ID]
+                   SELECT * FROM tbl_attendance a JOIN tbl_student_accounts sa ON a.Student_ID = sa.ID WHERE sa.Department = @dep
                 )
 
-                SELECT  TOP 1
+                SELECT  Top 1
                     e.[Event_ID], 
                     e.[Event_Name],
                     COUNT(DISTINCT ra.[Student_ID]) AS [RecentAttendees], 
@@ -115,7 +105,7 @@ namespace AMSEMS.SubForms_DeptHead
                     e.[Event_Name], 
                     e.End_Date
                 ORDER BY 
-                    MAX(ra.[RecentDate]) DESC; ", connection))
+                    MAX(ra.Date_Time) DESC;  ", connection))
                 {
                     command.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
