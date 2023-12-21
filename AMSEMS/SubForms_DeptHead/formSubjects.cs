@@ -692,6 +692,10 @@ namespace AMSEMS.SubForms_DeptHead
             titleParagraph.Alignment = Element.ALIGN_CENTER;
             document.Add(titleParagraph);
 
+            Paragraph titleParagraph1 = new Paragraph("Printed Date: " + DateTime.Now.ToString("MMMM dd, yyyy"), headerFont);
+            titleParagraph1.Alignment = Element.ALIGN_CENTER;
+            document.Add(titleParagraph1);
+
             // Customizing the table appearance
             PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1); // Exclude the last column
             pdfTable.WidthPercentage = 100; // Table width as a percentage of page width

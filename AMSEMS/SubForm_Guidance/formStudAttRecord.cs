@@ -367,7 +367,17 @@ namespace AMSEMS.SubForm_Guidance
                 studentInfoLine8.Alignment = Element.ALIGN_LEFT;  // Align to the left
                 document.Add(studentInfoLine8);
 
-                
+                Paragraph studentInfoLine9 = new Paragraph();
+                studentInfoLine9.Add(new Chunk("Status: " + lblStatus.Text, cellFont));
+                studentInfoLine9.Alignment = Element.ALIGN_LEFT;  // Align to the left
+                document.Add(studentInfoLine9);
+
+                Paragraph studentInfoLine10 = new Paragraph();
+                studentInfoLine10.Add(new Chunk("Consulted Date: " + lblDate.Text, cellFont));
+                studentInfoLine10.Alignment = Element.ALIGN_LEFT;  // Align to the left
+                document.Add(studentInfoLine10);
+
+
 
                 // Add attendance table
                 document.Add(new Paragraph("\nAttendance Table", headerFont));

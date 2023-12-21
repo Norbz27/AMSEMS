@@ -182,6 +182,10 @@ namespace AMSEMS.SubForms_DeptHead
             Paragraph titleParagraph = new Paragraph("Student Transaction History", headerFont1);
             titleParagraph.Alignment = Element.ALIGN_CENTER;
             document.Add(titleParagraph);
+            Paragraph titleParagraph2 = new Paragraph();
+            titleParagraph2.Add(new Chunk(DateTime.Now.ToString("MMMM dd, yyyy")));
+            titleParagraph2.Alignment = Element.ALIGN_CENTER; 
+            document.Add(titleParagraph2);
 
             // Add student details section as a title
             document.Add(new Paragraph("\nStudent Information", headerFont));
