@@ -15,10 +15,10 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>G:\Capsstone Project\FTP Server\Checker Installer\</PublishUrl>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <PublishUrl>ftp://192.168.1.100/Checker Installer/</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Unc</InstallFrom>
+    <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -26,9 +26,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>\\LAPTOP-78S661F5\FTP Server\Checker Installer\</InstallUrl>
-    <UpdateUrl>\\LAPTOP-78S661F5\FTP Server\Checker Installer\</UpdateUrl>
-    <ApplicationRevision>45</ApplicationRevision>
+    <InstallUrl>https://amsems.com/Checker Installer/</InstallUrl>
+    <UpdateUrl>https://amsems.com/Checker Installer/</UpdateUrl>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
