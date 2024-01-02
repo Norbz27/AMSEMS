@@ -796,7 +796,7 @@ namespace AMSEMS_Attendance_Checker
                             DateTime currentDate = DateTime.Now.Date;
 
                             // Check the date condition in C#
-                            if (startDate <= currentDate && currentDate <= endDate)
+                            if (startDate <= currentDate && endDate >= currentDate)
                             {
                                 event_name = reader["Event_Name"].ToString();
                             }

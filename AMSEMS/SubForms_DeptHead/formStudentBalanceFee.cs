@@ -90,7 +90,7 @@ namespace AMSEMS.SubForms_DeptHead
                 decimal remainingBalance = totalBalanceFee - totalPaidAmount;
 
                 // Count students who have paid and who have not
-                cm = new SqlCommand("SELECT COUNT(DISTINCT s.ID) AS TotalStudents, COUNT(DISTINCT t.Student_ID) AS StudentsWithPayments FROM tbl_student_accounts s LEFT JOIN tbl_transaction t ON s.ID = t.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec)", cn);
+                cm = new SqlCommand("SELECT COUNT(DISTINCT s.ID) AS TotalStudents, COUNT(DISTINCT t.Student_ID) AS StudentsWithPayments FROM tbl_student_accounts s LEFT JOIN tbl_transaction t ON s.ID = t.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec) AND s.Status = 1", cn);
                 cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                 cm.Parameters.AddWithValue("@sec", cbSection.Text);
                 dr = cm.ExecuteReader();

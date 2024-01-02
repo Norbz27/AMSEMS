@@ -194,7 +194,7 @@ namespace AMSEMS.SubForms_DeptHead
                         LEFT JOIN 
                             tbl_Section sec ON s.Section = sec.Section_ID
                         WHERE
-                            S.Department = @Dep AND (@sec = 'All' OR sec.Description = @sec)
+                            S.Department = @Dep AND (@sec = 'All' OR sec.Description = @sec) AND s.Status = 1
                         GROUP BY 
                             s.ID, 
                             UPPER(CONCAT(s.Lastname, ', ', s.Firstname, ' ', s.Middlename)),
