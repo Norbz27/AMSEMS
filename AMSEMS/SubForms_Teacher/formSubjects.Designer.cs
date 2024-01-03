@@ -35,8 +35,8 @@
             this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
             this.lblAcadLvl = new System.Windows.Forms.Label();
             this.lblCcode = new System.Windows.Forms.Label();
-            this.lblSubjectName = new System.Windows.Forms.Label();
             this.ptbSubjectPic = new AMSEMS.RoundPictureBoxRect();
+            this.lblSubjectName = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -130,7 +130,7 @@
             // 
             this.lblAcadLvl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblAcadLvl.Font = new System.Drawing.Font("Poppins SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAcadLvl.Location = new System.Drawing.Point(146, 6);
+            this.lblAcadLvl.Location = new System.Drawing.Point(158, 6);
             this.lblAcadLvl.Name = "lblAcadLvl";
             this.lblAcadLvl.Size = new System.Drawing.Size(71, 23);
             this.lblAcadLvl.TabIndex = 3;
@@ -147,30 +147,30 @@
             this.lblCcode.TabIndex = 2;
             this.lblCcode.Text = "WAF124";
             // 
-            // lblSubjectName
-            // 
-            this.lblSubjectName.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblSubjectName.Font = new System.Drawing.Font("Poppins SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSubjectName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.lblSubjectName.Location = new System.Drawing.Point(15, 154);
-            this.lblSubjectName.Name = "lblSubjectName";
-            this.lblSubjectName.Size = new System.Drawing.Size(208, 50);
-            this.lblSubjectName.TabIndex = 0;
-            this.lblSubjectName.Text = "Subject Name";
-            this.lblSubjectName.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            // 
             // ptbSubjectPic
             // 
             this.ptbSubjectPic.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.ptbSubjectPic.BorderWidth = 2;
             this.ptbSubjectPic.CornerRadius = 10;
             this.ptbSubjectPic.Image = global::AMSEMS.Properties.Resources.book1;
-            this.ptbSubjectPic.Location = new System.Drawing.Point(58, 43);
+            this.ptbSubjectPic.Location = new System.Drawing.Point(53, 35);
             this.ptbSubjectPic.Name = "ptbSubjectPic";
             this.ptbSubjectPic.Size = new System.Drawing.Size(118, 108);
             this.ptbSubjectPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ptbSubjectPic.TabIndex = 1;
             this.ptbSubjectPic.TabStop = false;
+            // 
+            // lblSubjectName
+            // 
+            this.lblSubjectName.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblSubjectName.Font = new System.Drawing.Font("Poppins SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSubjectName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.lblSubjectName.Location = new System.Drawing.Point(15, 145);
+            this.lblSubjectName.Name = "lblSubjectName";
+            this.lblSubjectName.Size = new System.Drawing.Size(208, 59);
+            this.lblSubjectName.TabIndex = 0;
+            this.lblSubjectName.Text = "Information Technology Subject Name";
+            this.lblSubjectName.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // formSubjects
             // 

@@ -71,6 +71,7 @@
             this.tbYlevel = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.tbSec = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.ptbProfile = new AMSEMS.RoundPictureBox();
+            this.btnNotify = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
@@ -81,6 +82,7 @@
             this.panel4.SuspendLayout();
             this.pnExclusive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNotify)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonPalette1
@@ -470,6 +472,7 @@
             // 
             // pnExclusive
             // 
+            this.pnExclusive.Controls.Add(this.btnNotify);
             this.pnExclusive.Controls.Add(this.lblDate);
             this.pnExclusive.Controls.Add(this.lblStatus);
             this.pnExclusive.Controls.Add(this.kryptonLabel1);
@@ -838,6 +841,18 @@
             this.ptbProfile.TabIndex = 152;
             this.ptbProfile.TabStop = false;
             // 
+            // btnNotify
+            // 
+            this.btnNotify.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNotify.Image = global::AMSEMS.Properties.Resources.bell_yellow;
+            this.btnNotify.Location = new System.Drawing.Point(3, 3);
+            this.btnNotify.Name = "btnNotify";
+            this.btnNotify.Size = new System.Drawing.Size(28, 28);
+            this.btnNotify.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnNotify.TabIndex = 159;
+            this.btnNotify.TabStop = false;
+            this.btnNotify.Click += new System.EventHandler(this.btnNotify_Click);
+            // 
             // formStudAttRecord
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -870,6 +885,7 @@
             this.pnExclusive.ResumeLayout(false);
             this.pnExclusive.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbProfile)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnNotify)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -913,5 +929,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn absencedate;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnRemarks;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnSetAsDone;
+        private System.Windows.Forms.PictureBox btnNotify;
     }
 }

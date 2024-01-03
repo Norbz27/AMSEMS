@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Microsoft.IO.RecyclableMemoryStreamManager;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using PusherServer;
 
 namespace AMSEMS.SubForm_Guidance
 {
@@ -277,6 +278,58 @@ namespace AMSEMS.SubForm_Guidance
         private void formStudAttRecord_FormClosing(object sender, FormClosingEventArgs e)
         {
             form.displayReport();
+        }
+
+        private void btnNotify_Click(object sender, EventArgs e)
+        {
+            string name = "";
+            DateTime now = DateTime.Now;
+            var option = new PusherOptions
+            {
+                Cluster = "ap1",
+                Encrypted = true,
+            };
+            var pusher = new Pusher("1732969", "6cc843a774ea227a754f", "de6683c35f58d7bc943f", option);
+
+            var result = pusher.TriggerAsync("amsems", stud_id, now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            string query = "SELECT UPPER(Lastname + ', ' + Firstname + ' ' + Middlename) AS Name FROM tbl_student_accounts WHERE ID = @StudentID";
+
+            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+            {
+                connection.Open();
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@StudentID", stud_id);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            name = reader["Name"].ToString();
+                            // Use the 'name' variable as needed
+                        }
+                    }
+                }
+            }
+
+            using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+            {
+                connection.Open();
+
+                string query2 = "INSERT INTO tbl_absenteeism_notified (Student_ID, Message, Date_Time) VALUES (@StudentID, @Message, @DateTime)";
+
+                using (SqlCommand command = new SqlCommand(query2, connection))
+                {
+                    command.Parameters.AddWithValue("@StudentID", stud_id);
+                    command.Parameters.AddWithValue("@Message", name+ " you are called to the guidance office, regarding your absences.");
+                    command.Parameters.AddWithValue("@DateTime", now);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+
         }
 
         private void btnPdf_Click(object sender, EventArgs e)

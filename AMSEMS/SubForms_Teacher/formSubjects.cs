@@ -71,7 +71,7 @@ namespace AMSEMS.SubForms_Teacher
             };
 
             kryptonGroupBox2.Panel.Padding = new Padding(15, 10, 15, 10);
-            kryptonGroupBox2.Size = new System.Drawing.Size(231, 211);
+            kryptonGroupBox2.Size = new System.Drawing.Size(248, 224);
             kryptonGroupBox2.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             kryptonGroupBox2.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             kryptonGroupBox2.StateCommon.Back.ImageStyle = PaletteImageStyle.Inherit;
@@ -93,7 +93,7 @@ namespace AMSEMS.SubForms_Teacher
             ptbSubjectPic.CornerRadius = 10;
             ptbSubjectPic.Anchor = AnchorStyles.None;
             ptbSubjectPic.Image = image;
-            ptbSubjectPic.Location = new System.Drawing.Point(61, 37);
+            ptbSubjectPic.Location = new System.Drawing.Point(61, 35);
             ptbSubjectPic.Name = "ptbSubjectPic";
             ptbSubjectPic.Size = new System.Drawing.Size(118, 108);
             ptbSubjectPic.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -106,11 +106,11 @@ namespace AMSEMS.SubForms_Teacher
             };
 
             lblSubjectName.Dock = DockStyle.Bottom;
-            lblSubjectName.Font = new Font("Poppins SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            lblSubjectName.Font = new Font("Poppins SemiBold", 11F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             lblSubjectName.ForeColor = Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             lblSubjectName.Location = new Point(15, 141);
             lblSubjectName.Name = "lblSubjectName";
-            lblSubjectName.Size = new Size(191, 50);
+            lblSubjectName.Size = new Size(208, 59);
             lblSubjectName.TabIndex = 0;
             lblSubjectName.Text = subjectname;
             lblSubjectName.TextAlign = ContentAlignment.TopCenter;
@@ -123,7 +123,7 @@ namespace AMSEMS.SubForms_Teacher
             lblAcadLvl.AutoSize = false;
             lblAcadLvl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             lblAcadLvl.Font = new System.Drawing.Font("Poppins SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lblAcadLvl.Location = new System.Drawing.Point(146, 6);
+            lblAcadLvl.Location = new System.Drawing.Point(158, 6);
             lblAcadLvl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             lblAcadLvl.Name = "lblAcadLvl";
             lblAcadLvl.Size = new System.Drawing.Size(71, 23);

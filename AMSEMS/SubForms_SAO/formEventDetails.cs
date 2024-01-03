@@ -137,12 +137,12 @@ namespace AMSEMS.SubForms_SAO
 
         private void pictureBox1_MouseHover(object sender, EventArgs e)
         {
-            lblUpload.Visible = true;
+            ptbUpload.Visible = true;
         }
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
         {
-            lblUpload.Visible = false;
+            ptbUpload.Visible = false;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

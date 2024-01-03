@@ -1,5 +1,6 @@
 ﻿
 using ComponentFactory.Krypton.Toolkit;
+using PusherServer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -67,6 +68,7 @@ namespace AMSEMS.SubForms_SAO
                     {
                         byte[] picData = null;
                         DateTime startDate = DtStart.Value;
+                        DateTime dateTime = DateTime.Now;
                         // Now, check if an image file is selected using OpenFileDialog
                         if (openFileDialog1.FileName != String.Empty)
                         {
@@ -86,8 +88,9 @@ namespace AMSEMS.SubForms_SAO
                         cm.Parameters.AddWithValue("@Color", selectedColor);
                         cm.Parameters.AddWithValue("@Attendance", attendance);
                         cm.Parameters.AddWithValue("@Penalty", penalty);
+                        cm.Parameters.AddWithValue("@DateTime", dateTime);
 
-                        if(exclusive.Equals("Specific Students"))
+                        if (exclusive.Equals("Specific Students"))
                         {
                             cm.Parameters.AddWithValue("@Exclusive", exclusive);
                             cm.Parameters.AddWithValue("@Specific_Students", selected);
@@ -107,6 +110,14 @@ namespace AMSEMS.SubForms_SAO
                                       
                         cm.ExecuteNonQuery();
                         cn.Close();
+                        var option = new PusherOptions
+                        {
+                            Cluster = "ap1",
+                            Encrypted = true,
+                        };
+                        var pusher = new Pusher("1732969", "6cc843a774ea227a754f", "de6683c35f58d7bc943f", option);
+
+                        var result = pusher.TriggerAsync("amsems", "events", new { message = "new notification" });
                         MessageBox.Show("Event Created!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                     catch (Exception ex)
@@ -132,12 +143,12 @@ namespace AMSEMS.SubForms_SAO
 
         private void pictureBox1_MouseHover(object sender, EventArgs e)
         {
-            lblUpload.Visible = true;
+            ptbUpload.Visible = true;
         }
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
         {
-            lblUpload.Visible = false;
+            ptbUpload.Visible = false;
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

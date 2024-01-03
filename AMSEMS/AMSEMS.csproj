@@ -946,6 +946,10 @@
     <None Include="Resources\commentary.png" />
     <None Include="Resources\check-mark.png" />
     <None Include="Resources\amsems login fill.png" />
+    <None Include="Resources\bell.png" />
+    <None Include="Resources\bell-yellow.png" />
+    <None Include="Resources\events - Copy.png" />
+    <None Include="Resources\upload.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

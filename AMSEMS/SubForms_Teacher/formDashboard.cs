@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Drawing;
 using AMSEMS.SubForms_SAO;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace AMSEMS.SubForms_Teacher
 {
@@ -214,33 +215,11 @@ namespace AMSEMS.SubForms_Teacher
                             }
 
                         }
-                        await Task.Run(() =>
-                        {
-                            foreach (var kvp in courseStudentCount)
-                            {
-                                string subject = kvp.Key;
-                                int studentCount = kvp.Value;
 
-                                // Calculate the percentage
-                                double percentage = (double)studentCount / totalStudentCount * 100;
 
-                                chart2.Invoke((MethodInvoker)delegate
-                                {
-                                    // Add the data point to the donut chart
-                                    chart2.Series["SubjectStudents"].Points.AddY(percentage);
-                                    chart2.Series["SubjectStudents"].Points.Last().AxisLabel = $"{subject} \r\n {percentage:0.00}%";
-                                });
-                            }
-
-                            chart2.Invoke((MethodInvoker)delegate
-                            {
-                                // Update labels and chart titles
-                                lblStud.Text = totalStudentCount.ToString();
-                                lbltotalSub.Text = totalSubCount.ToString();
-                                chart2.ChartAreas[0].AxisX.Title = "Subjects";
-                                chart2.ChartAreas[0].AxisY.Title = "Percentage of Students";
-                            });
-                        });
+                        lblStud.Text = totalStudentCount.ToString();
+                        lbltotalSub.Text = totalSubCount.ToString();
+     
                     }
                 }
             }

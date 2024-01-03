@@ -1856,8 +1856,8 @@ namespace AMSEMS.SubForms_Teacher
                         if (dr.Read())
                         {
                             acadSchYeear = dr["Academic_Year_Start"].ToString() + "-" + dr["Academic_Year_End"].ToString();
-                            acadShsSem = dr["Ter_Academic_Sem"].ToString();
-                            acadTerSem = dr["SHS_Academic_Sem"].ToString();
+                            acadTerSem = dr["Ter_Academic_Sem"].ToString();
+                            acadShsSem = dr["SHS_Academic_Sem"].ToString();
                         }
                     }
                 }
@@ -1910,7 +1910,7 @@ namespace AMSEMS.SubForms_Teacher
                                 cmd.Parameters.AddWithValue("@sem", acadShsSem);
                             else
                                 cmd.Parameters.AddWithValue("@sem", acadTerSem);
-                        
+
                             using (SqlDataReader dr = cmd.ExecuteReader())
                             {
                                 dgvAbesnteismRep.Rows.Clear();
