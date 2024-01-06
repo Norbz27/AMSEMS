@@ -39,29 +39,26 @@ namespace AMSEMS.SubForms_Admin
 
         private void formStudentForm_Load(object sender, EventArgs e)
         {
-            cbTeacher.Items.Clear();
             if (choice.Equals("Update"))
             {
                 tbCcode.Enabled = false;
-
+                btnRecent.Visible = false;
+                
             }
             else
             {
                 tbCcode.Enabled = true;
+                btnRecent.Visible = true;
             }
 
+
+            displayCB();
+            btnSubmit.Text = choice;
+        }
+        public void displayCB()
+        {
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
-                cn.Open();
-                cm = new SqlCommand("Select Lastname from tbl_teacher_accounts where Status = 1", cn);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    cbTeacher.Items.Add(dr["Lastname"].ToString());
-                }
-                dr.Close();
-                cn.Close();
-
                 cn.Open();
                 cm = new SqlCommand("Select Academic_Level_Description from tbl_Academic_Level", cn);
                 dr = cm.ExecuteReader();
@@ -72,16 +69,23 @@ namespace AMSEMS.SubForms_Admin
                 dr.Close();
                 cn.Close();
 
+                //cn.Open();
+                //cm = new SqlCommand("Select Description from tbl_Departments", cn);
+                //dr = cm.ExecuteReader();
+                //while (dr.Read())
+                //{
+                //    cbDepartment.Items.Add(dr["Description"].ToString());
+                //}
+                //dr.Close();
+                //cn.Close();
             }
-
-            btnSubmit.Text = choice;
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                if (tbCourseDes.Text.Equals(String.Empty) || tbCcode.Text.Equals(String.Empty) || ndUnits.Text.Equals(String.Empty) || cbAcadLevel.Text.Equals(String.Empty) || cbTeacher.Text.Equals(String.Empty))
+                if (tbCourseDes.Text.Equals(String.Empty) || tbCcode.Text.Equals(String.Empty) || ndUnits.Text.Equals(String.Empty) || cbAcadLevel.Text.Equals(String.Empty))
                 {
                     MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -118,8 +122,8 @@ namespace AMSEMS.SubForms_Admin
                         cm.Parameters.AddWithValue("@Course_Code", tbCcode.Text);
                         cm.Parameters.AddWithValue("@Course_Description", tbCourseDes.Text);
                         cm.Parameters.AddWithValue("@Image", picData);
-                        cm.Parameters.AddWithValue("@Teach", cbTeacher.Text);
                         cm.Parameters.AddWithValue("@AcadLevel", cbAcadLevel.Text);
+                        cm.Parameters.AddWithValue("@Dep", cbDepartment.Text);
                         cm.Parameters.AddWithValue("@Units", ndUnits.Text);
                         cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                         cm.ExecuteNonQuery();
@@ -158,8 +162,8 @@ namespace AMSEMS.SubForms_Admin
                             cm.Parameters.AddWithValue("@Course_Code", tbCcode.Text);
                             cm.Parameters.AddWithValue("@Course_Description", tbCourseDes.Text);
                             cm.Parameters.AddWithValue("@Image", picData);
-                            cm.Parameters.AddWithValue("@Teach", cbTeacher.Text);
                             cm.Parameters.AddWithValue("@AcadLevel", cbAcadLevel.Text);
+                            cm.Parameters.AddWithValue("@Dep", cbDepartment.Text);
                             cm.Parameters.AddWithValue("@Units", ndUnits.Text);
                             cm.Parameters.AddWithValue("@Status", tbStatus.Text);
                             cm.ExecuteNonQuery();
@@ -169,7 +173,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                         clearTexts();
                     }
-                    form.displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    form.displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
 
                 }
             }
@@ -180,7 +184,6 @@ namespace AMSEMS.SubForms_Admin
             tbCourseDes.Text = "";
             ndUnits.Text = "0";
             tbStatus.Text = "";
-            cbTeacher.Text = "";
             cbAcadLevel.Text = "";
             ptbImage.Image = global::AMSEMS.Properties.Resources.man__3_;
         }
@@ -206,14 +209,14 @@ namespace AMSEMS.SubForms_Admin
                     }
                     cn.Close();
                     cn.Open();
-                    cm = new SqlCommand("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Course_code = '" + Course_code + "'", cn);
+                    cm = new SqlCommand("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Course_code = '" + Course_code + "'", cn);
                     dr = cm.ExecuteReader();
                     dr.Read();
                     tbCcode.Text = dr["Course_code"].ToString();
                     tbCourseDes.Text = dr["Course_Description"].ToString();
                     ndUnits.Text = dr["Units"].ToString();
-                    cbTeacher.Text = dr["teach"].ToString().ToUpper();
                     cbAcadLevel.Text = dr["Acad"].ToString();
+                    cbDepartment.Text = (dr["ddes"] != DBNull.Value) ? dr["ddes"].ToString() : "All";
                     tbStatus.Text = dr["stDes"].ToString();
 
                     dr.Close();
@@ -245,6 +248,7 @@ namespace AMSEMS.SubForms_Admin
         {
             form.displayFilter();
             form.loadCMSControls();
+            form.displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
         }
 
         private void tbUnits_KeyPress(object sender, KeyPressEventArgs e)
@@ -260,6 +264,110 @@ namespace AMSEMS.SubForms_Admin
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void btnRecent_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                try
+                {
+                    cn.Open();
+                    cm = new SqlCommand("Select TOP 1 Image from tbl_subjects ORDER BY 1 DESC", cn);
+
+                    byte[] imageData = (byte[])cm.ExecuteScalar();
+
+                    if (imageData != null && imageData.Length > 0)
+                    {
+                        using (MemoryStream ms = new MemoryStream(imageData))
+                        {
+                            Image image = Image.FromStream(ms);
+                            ptbImage.Image = image;
+                        }
+                    }
+              
+                    cm = new SqlCommand("Select TOP 1 Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC", cn);
+                    SqlDataReader dr = cm.ExecuteReader();
+                    dr.Read();
+                    tbCcode.Text = dr["Course_code"].ToString();
+                    tbCourseDes.Text = dr["Course_Description"].ToString();
+                    ndUnits.Text = dr["Units"].ToString();
+                    cbAcadLevel.Text = dr["Acad"].ToString();
+                    cbDepartment.Text = (dr["ddes"] != DBNull.Value) ? dr["ddes"].ToString() : "All";
+
+                    tbStatus.Text = dr["stDes"].ToString();
+
+                    dr.Close();
+                    cn.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+        public void dep()
+        {
+            cbDepartment.Items.Clear();
+            cbDepartment.Items.Add("All");
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                cm = new SqlCommand("SELECT Description FROM tbl_Departments d LEFT JOIN tbl_academic_level al ON d.AcadLevel_ID = al.Academic_Level_ID WHERE Academic_Level_Description = @acaddes", cn);
+                cm.Parameters.AddWithValue("@acaddes", cbAcadLevel.Text);
+                SqlDataReader dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    cbDepartment.Items.Add(dr["Description"].ToString());
+                }
+                dr.Close();
+                cn.Close();
+            }
+        }
+        private void btnAddDep_Click(object sender, EventArgs e)
+        {
+            formAddSchoolSetting2 formAddSchoolSetting = new formAddSchoolSetting2(new formStudentForm(), new formTeacherForm(), this);
+            formAddSchoolSetting.setDisplayData("Departments");
+            formAddSchoolSetting.ShowDialog();
+        }
+
+        private void cbAcadLevel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbDepartment.Items.Clear();
+            cbDepartment.Text = String.Empty;
+            cbDepartment.Items.Add("All");
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                cm = new SqlCommand("SELECT Description FROM tbl_Departments d LEFT JOIN tbl_academic_level al ON d.AcadLevel_ID = al.Academic_Level_ID WHERE Academic_Level_Description = @acaddes", cn);
+                cm.Parameters.AddWithValue("@acaddes", cbAcadLevel.Text);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    cbDepartment.Items.Add(dr["Description"].ToString());
+                }
+                dr.Close();
+                cn.Close();
+            }
+        }
+
+
+        private void cbDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                cm = new SqlCommand("SELECT Academic_Level_Description FROM tbl_Departments d LEFT JOIN tbl_academic_level al ON d.AcadLevel_ID = al.Academic_Level_ID WHERE Description = @acaddes", cn);
+                cm.Parameters.AddWithValue("@acaddes", cbDepartment.Text);
+                dr = cm.ExecuteReader();
+                if (dr.Read())
+                {
+                   // cbAcadLevel.Items.Add(dr["Academic_Level_Description"].ToString());
+                    cbAcadLevel.Text = dr["Academic_Level_Description"].ToString();
+                }
+                dr.Close();
+                cn.Close();
             }
         }
     }

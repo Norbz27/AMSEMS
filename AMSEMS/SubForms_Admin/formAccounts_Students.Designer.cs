@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -69,14 +70,14 @@
             this.cbSection = new System.Windows.Forms.ComboBox();
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.cbYearlvl = new System.Windows.Forms.ComboBox();
-            this.CMSOptions = new System.Windows.Forms.ContextMenuStrip();
+            this.CMSOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.activetoolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.inactiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.archiveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnReload = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.CMSExport = new System.Windows.Forms.ContextMenuStrip();
+            this.CMSExport = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpPDF = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpExcel = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,17 +92,17 @@
             this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSelArchive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnMultiDel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.CMSDepartment = new System.Windows.Forms.ContextMenuStrip();
+            this.CMSDepartment = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.CMSProgram = new System.Windows.Forms.ContextMenuStrip();
+            this.CMSProgram = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.CMSLevel = new System.Windows.Forms.ContextMenuStrip();
+            this.CMSLevel = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.CMSSection = new System.Windows.Forms.ContextMenuStrip();
+            this.CMSSection = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.cbDep = new System.Windows.Forms.ComboBox();
-            this.CMSSelection = new System.Windows.Forms.ContextMenuStrip();
+            this.CMSSelection = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
@@ -392,6 +393,7 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
             this.dgvStudents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvStudents.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvStudents.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvStudents.BackgroundColor = System.Drawing.Color.White;
             this.dgvStudents.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvStudents.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -1465,7 +1467,7 @@
             this.CMSSection.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.CMSSection.ShowImageMargin = false;
             this.CMSSection.ShowItemToolTips = false;
-            this.CMSSection.Size = new System.Drawing.Size(156, 52);
+            this.CMSSection.Size = new System.Drawing.Size(127, 30);
             // 
             // toolStripMenuItem5
             // 

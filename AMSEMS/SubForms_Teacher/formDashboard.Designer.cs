@@ -37,6 +37,10 @@
             this.kryptonLabel9 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox3 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblStud = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lbltotalSub = new System.Windows.Forms.Label();
             this.kryptonLabel12 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
@@ -44,10 +48,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lbltotalSub = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.lblStud = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).BeginInit();
@@ -113,11 +113,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             chartArea1.AxisX.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisX.TitleFont = new System.Drawing.Font("Poppins SemiBold", 8.25F, System.Drawing.FontStyle.Bold);
             chartArea1.AxisX2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisX2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
             chartArea1.AxisY.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartArea1.AxisY.TitleFont = new System.Drawing.Font("Poppins SemiBold", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             chartArea1.AxisY2.ScaleBreakStyle.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisY2.TitleFont = new System.Drawing.Font("Poppins", 8.25F);
             chartArea1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -191,6 +191,62 @@
             this.kryptonGroupBox3.StateCommon.Border.Rounding = 10;
             this.kryptonGroupBox3.StateCommon.Border.Width = 2;
             this.kryptonGroupBox3.TabIndex = 27;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoEllipsis = true;
+            this.label10.AutoSize = true;
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.Font = new System.Drawing.Font("Poppins", 9F);
+            this.label10.ForeColor = System.Drawing.Color.Black;
+            this.label10.Location = new System.Drawing.Point(581, 110);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(139, 22);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "Total Enrolled Student";
+            // 
+            // lblStud
+            // 
+            this.lblStud.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblStud.AutoEllipsis = true;
+            this.lblStud.AutoSize = true;
+            this.lblStud.BackColor = System.Drawing.Color.Transparent;
+            this.lblStud.Font = new System.Drawing.Font("Poppins", 28F);
+            this.lblStud.ForeColor = System.Drawing.Color.Black;
+            this.lblStud.Location = new System.Drawing.Point(571, 61);
+            this.lblStud.Name = "lblStud";
+            this.lblStud.Size = new System.Drawing.Size(52, 67);
+            this.lblStud.TabIndex = 19;
+            this.lblStud.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoEllipsis = true;
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Poppins", 9F);
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(26, 110);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(92, 22);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Total Subjects";
+            // 
+            // lbltotalSub
+            // 
+            this.lbltotalSub.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbltotalSub.AutoEllipsis = true;
+            this.lbltotalSub.AutoSize = true;
+            this.lbltotalSub.BackColor = System.Drawing.Color.Transparent;
+            this.lbltotalSub.Font = new System.Drawing.Font("Poppins", 28F);
+            this.lbltotalSub.ForeColor = System.Drawing.Color.Black;
+            this.lbltotalSub.Location = new System.Drawing.Point(16, 61);
+            this.lbltotalSub.Name = "lbltotalSub";
+            this.lbltotalSub.Size = new System.Drawing.Size(52, 67);
+            this.lbltotalSub.TabIndex = 17;
+            this.lbltotalSub.Text = "0";
             // 
             // kryptonLabel12
             // 
@@ -284,62 +340,6 @@
             this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kryptonLabel1.TabIndex = 0;
             this.kryptonLabel1.Values.Text = "Welcome Back";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoEllipsis = true;
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Poppins", 9F);
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(26, 110);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 22);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Total Subjects";
-            // 
-            // lbltotalSub
-            // 
-            this.lbltotalSub.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lbltotalSub.AutoEllipsis = true;
-            this.lbltotalSub.AutoSize = true;
-            this.lbltotalSub.BackColor = System.Drawing.Color.Transparent;
-            this.lbltotalSub.Font = new System.Drawing.Font("Poppins", 28F);
-            this.lbltotalSub.ForeColor = System.Drawing.Color.Black;
-            this.lbltotalSub.Location = new System.Drawing.Point(16, 61);
-            this.lbltotalSub.Name = "lbltotalSub";
-            this.lbltotalSub.Size = new System.Drawing.Size(52, 67);
-            this.lbltotalSub.TabIndex = 17;
-            this.lbltotalSub.Text = "0";
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoEllipsis = true;
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Font = new System.Drawing.Font("Poppins", 9F);
-            this.label10.ForeColor = System.Drawing.Color.Black;
-            this.label10.Location = new System.Drawing.Point(581, 110);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(139, 22);
-            this.label10.TabIndex = 20;
-            this.label10.Text = "Total Enrolled Student";
-            // 
-            // lblStud
-            // 
-            this.lblStud.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStud.AutoEllipsis = true;
-            this.lblStud.AutoSize = true;
-            this.lblStud.BackColor = System.Drawing.Color.Transparent;
-            this.lblStud.Font = new System.Drawing.Font("Poppins", 28F);
-            this.lblStud.ForeColor = System.Drawing.Color.Black;
-            this.lblStud.Location = new System.Drawing.Point(571, 61);
-            this.lblStud.Name = "lblStud";
-            this.lblStud.Size = new System.Drawing.Size(52, 67);
-            this.lblStud.TabIndex = 19;
-            this.lblStud.Text = "0";
             // 
             // formDashboard
             // 

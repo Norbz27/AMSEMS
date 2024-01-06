@@ -1,4 +1,5 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
+using PusherServer;
 using System;
 using System.ComponentModel;
 using System.Data.SqlClient;
@@ -107,6 +108,15 @@ namespace AMSEMS.SubForms_DeptHead
                     cm.ExecuteNonQuery();
                     cn.Close();
                     loadData();
+
+                    var option = new PusherOptions
+                    {
+                        Cluster = "ap1",
+                        Encrypted = true,
+                    };
+                    var pusher = new Pusher("1732969", "6cc843a774ea227a754f", "de6683c35f58d7bc943f", option);
+
+                    var result = pusher.TriggerAsync("amsems", FormDeptHeadNavigation.id, new { message = "new notification" });
                 }
             }
         }

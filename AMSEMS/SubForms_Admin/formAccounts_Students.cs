@@ -280,17 +280,17 @@ namespace AMSEMS.SubForms_Admin
                                 dgvStudents.Rows[rowIndex].Cells["Dep"].Value = dr["dDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
-                                if (dr["yDes"] != DBNull.Value)
-                                {
-                                    if (dr["acadDes"].ToString().Equals("Tertiary"))
-                                        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + tersem + "S";
-                                    else
-                                        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + shsquart + "Q";
-                                }
-                                else
-                                {
+                                //if (dr["yDes"] != DBNull.Value)
+                                //{
+                                //    if (dr["acadDes"].ToString().Equals("Tertiary"))
+                                //        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + tersem + "S";
+                                //    else
+                                //        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + shsquart + "Q";
+                                //}
+                                //else
+                                //{
                                     dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
-                                }
+                                //}
                                 dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
                                 // Populate your control column here (change "ControlColumn" to your actual column name)
@@ -653,17 +653,17 @@ namespace AMSEMS.SubForms_Admin
                                 dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
 
-                                if (dr["yDes"] != DBNull.Value)
-                                {
-                                    if (dr["acadDes"].ToString().Equals("Tertiary"))
-                                        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + tersem + "S";
-                                    else
-                                        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + shsquart + "Q";
-                                }
-                                else
-                                {
+                                //if (dr["yDes"] != DBNull.Value)
+                                //{
+                                //    if (dr["acadDes"].ToString().Equals("Tertiary"))
+                                //        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + tersem + "S";
+                                //    else
+                                //        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + shsquart + "Q";
+                                //}
+                                //else
+                                //{
                                     dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
-                                }
+                                //}
 
                                 dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 

@@ -22,6 +22,7 @@ namespace AMSEMS
         public FormLoginPage()
         {
             //fontInstaller();
+            cn = new SqlConnection(SQL_Connection.connection);
             sQLite_Connection = new SQLite_Connection();
             sQLite_Connection.InitializeDatabase();
             InitializeComponent();

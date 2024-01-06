@@ -46,7 +46,7 @@
             this.code = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Des = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.units = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.teach = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prog = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.acad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.option = new System.Windows.Forms.DataGridViewImageColumn();
@@ -86,6 +86,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.CMSAcadLvl = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.cbDepartment = new System.Windows.Forms.ComboBox();
             this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
@@ -164,7 +166,7 @@
             this.code,
             this.Des,
             this.units,
-            this.teach,
+            this.prog,
             this.acad,
             this.status,
             this.option});
@@ -251,12 +253,13 @@
             this.units.ReadOnly = true;
             this.units.Width = 63;
             // 
-            // teach
+            // prog
             // 
-            this.teach.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.teach.HeaderText = "Assigned Teacher";
-            this.teach.Name = "teach";
-            this.teach.ReadOnly = true;
+            this.prog.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.prog.HeaderText = "Department";
+            this.prog.Name = "prog";
+            this.prog.ReadOnly = true;
+            this.prog.Width = 108;
             // 
             // acad
             // 
@@ -1358,6 +1361,31 @@
             this.toolStripMenuItem5.Size = new System.Drawing.Size(145, 26);
             this.toolStripMenuItem5.Text = "Set Academic Level to";
             // 
+            // kryptonLabel1
+            // 
+            this.kryptonLabel1.Location = new System.Drawing.Point(217, 61);
+            this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.Size = new System.Drawing.Size(91, 22);
+            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonLabel1.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
+            this.kryptonLabel1.TabIndex = 72;
+            this.kryptonLabel1.Values.Text = "Department";
+            // 
+            // cbDepartment
+            // 
+            this.cbDepartment.Font = new System.Drawing.Font("Poppins", 8F);
+            this.cbDepartment.FormattingEnabled = true;
+            this.cbDepartment.Items.AddRange(new object[] {
+            "Senior High School",
+            "College"});
+            this.cbDepartment.Location = new System.Drawing.Point(221, 85);
+            this.cbDepartment.Name = "cbDepartment";
+            this.cbDepartment.Size = new System.Drawing.Size(177, 27);
+            this.cbDepartment.TabIndex = 71;
+            this.cbDepartment.SelectedIndexChanged += new System.EventHandler(this.cbDepartment_SelectedIndexChanged);
+            // 
             // ptbLoading
             // 
             this.ptbLoading.BackColor = System.Drawing.Color.White;
@@ -1381,6 +1409,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(932, 623);
+            this.Controls.Add(this.kryptonLabel1);
+            this.Controls.Add(this.cbDepartment);
             this.Controls.Add(this.kryptonLabel2);
             this.Controls.Add(this.cbAcadLevel);
             this.Controls.Add(this.pnControl);
@@ -1456,17 +1486,19 @@
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton2;
         private System.Windows.Forms.ContextMenuStrip CMSAcadLvl;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem setActiveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setInactiveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem archiveToolStripMenuItem;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
         private System.Windows.Forms.DataGridViewTextBoxColumn code;
         private System.Windows.Forms.DataGridViewTextBoxColumn Des;
         private System.Windows.Forms.DataGridViewTextBoxColumn units;
-        private System.Windows.Forms.DataGridViewTextBoxColumn teach;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prog;
         private System.Windows.Forms.DataGridViewTextBoxColumn acad;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
         private System.Windows.Forms.DataGridViewImageColumn option;
-        private System.Windows.Forms.ToolStripMenuItem setActiveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setInactiveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem archiveToolStripMenuItem;
         private RoundPictureBoxRect ptbLoading;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private System.Windows.Forms.ComboBox cbDepartment;
     }
 }

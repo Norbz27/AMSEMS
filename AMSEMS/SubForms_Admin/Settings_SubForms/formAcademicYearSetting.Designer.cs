@@ -96,12 +96,12 @@
             this.lblshsAcadSem.Location = new System.Drawing.Point(0, 209);
             this.lblshsAcadSem.Margin = new System.Windows.Forms.Padding(2);
             this.lblshsAcadSem.Name = "lblshsAcadSem";
-            this.lblshsAcadSem.Size = new System.Drawing.Size(18, 22);
+            this.lblshsAcadSem.Size = new System.Drawing.Size(19, 22);
             this.lblshsAcadSem.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.lblshsAcadSem.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.lblshsAcadSem.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
             this.lblshsAcadSem.TabIndex = 167;
-            this.lblshsAcadSem.Values.Text = "2";
+            this.lblshsAcadSem.Values.Text = "0";
             // 
             // btnEditSHSAcadSem
             // 
@@ -181,12 +181,12 @@
             this.lblTerAcadSem.Location = new System.Drawing.Point(0, 135);
             this.lblTerAcadSem.Margin = new System.Windows.Forms.Padding(2);
             this.lblTerAcadSem.Name = "lblTerAcadSem";
-            this.lblTerAcadSem.Size = new System.Drawing.Size(18, 22);
+            this.lblTerAcadSem.Size = new System.Drawing.Size(19, 22);
             this.lblTerAcadSem.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.lblTerAcadSem.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.lblTerAcadSem.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
             this.lblTerAcadSem.TabIndex = 163;
-            this.lblTerAcadSem.Values.Text = "2";
+            this.lblTerAcadSem.Values.Text = "0";
             // 
             // btnEditTerAcadSem
             // 
@@ -246,7 +246,7 @@
             this.btnEditTerAcadSem.TabIndex = 162;
             this.btnEditTerAcadSem.Values.Image = global::AMSEMS.Properties.Resources.edit;
             this.btnEditTerAcadSem.Values.Text = "";
-            this.btnEditTerAcadSem.Click += new System.EventHandler(this.btnEditAcad_Click);
+            this.btnEditTerAcadSem.Click += new System.EventHandler(this.btnEditTerAcadSem_Click);
             // 
             // kryptonLabel4
             // 
@@ -266,12 +266,12 @@
             this.lblAcadYear.Location = new System.Drawing.Point(-1, 67);
             this.lblAcadYear.Margin = new System.Windows.Forms.Padding(2);
             this.lblAcadYear.Name = "lblAcadYear";
-            this.lblAcadYear.Size = new System.Drawing.Size(78, 22);
+            this.lblAcadYear.Size = new System.Drawing.Size(81, 22);
             this.lblAcadYear.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.lblAcadYear.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.lblAcadYear.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
             this.lblAcadYear.TabIndex = 160;
-            this.lblAcadYear.Values.Text = "2022-2023";
+            this.lblAcadYear.Values.Text = "0000-0000";
             // 
             // btnEditAcad
             // 

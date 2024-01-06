@@ -1,7 +1,9 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
+using PusherServer;
 using System;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
@@ -197,8 +199,8 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnEditAcad_Click(object sender, EventArgs e)
         {
-            formChangeAcademicYear formChangeAcademicYear = new formChangeAcademicYear(this);
-            formChangeAcademicYear.ShowDialog();
+            formNewAcadYear formNewAcadYear = new formNewAcadYear(this);
+            formNewAcadYear.ShowDialog();
         }
 
         public void loadAcad()
@@ -206,12 +208,20 @@ namespace AMSEMS.SubForms_Admin
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("Select TOP 1 Academic_Year_Start,Academic_Year_End,Ter_Academic_Sem,SHS_Academic_Sem from tbl_acad ORDER BY 1 DESC;", cn);
+                cm = new SqlCommand("Select Academic_Year_Start,Academic_Year_End from tbl_acad WHERE Status = 1", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
                 lblAcadYear.Text = dr["Academic_Year_Start"].ToString() + "-" + dr["Academic_Year_End"].ToString();
-                lblTerAcadSem.Text = dr["Ter_Academic_Sem"].ToString();
-                lblshsAcadSem.Text = dr["SHS_Academic_Sem"].ToString();
+                dr.Close();
+                cm = new SqlCommand("Select * from tbl_Semester WHERE Status = 1", cn);
+                dr = cm.ExecuteReader();
+                dr.Read();
+                lblTerAcadSem.Text = dr["Description"].ToString();
+                dr.Close();
+                cm = new SqlCommand("Select * from tbl_Quarter WHERE Status = 1", cn);
+                dr = cm.ExecuteReader();
+                dr.Read();
+                lblshsAcadSem.Text = dr["Description"].ToString();
                 dr.Close();
                 cn.Close();
             }
@@ -227,8 +237,14 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnEditSHSAcadSem_Click(object sender, EventArgs e)
         {
-            formChangeAcademicYear formChangeAcademicYear = new formChangeAcademicYear(this);
-            formChangeAcademicYear.ShowDialog();
+            formSemester_Quarter formSemester_Quarter = new formSemester_Quarter(this, true);
+            formSemester_Quarter.ShowDialog();
+        }
+
+        private void btnEditTerAcadSem_Click(object sender, EventArgs e)
+        {
+            formSemester_Quarter formSemester_Quarter = new formSemester_Quarter(this, false);
+            formSemester_Quarter.ShowDialog();
         }
     }
 }

@@ -53,7 +53,7 @@ namespace AMSEMS.SubForms_Admin
             displayFilter();
             loadCMSControls();
 
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+            displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
 
             // Simulate a time-consuming operation
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
@@ -126,6 +126,21 @@ namespace AMSEMS.SubForms_Admin
                     dr.Close();
                     cn.Close();
                 }
+
+
+                cbDepartment.Items.Clear();
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
+                    cm = new SqlCommand("SELECT Description FROM tbl_Departments", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        cbDepartment.Items.Add(dr["Description"].ToString());
+                    }
+                    dr.Close();
+                    cn.Close();
+                }
             }
             catch (Exception ex)
             {
@@ -170,7 +185,7 @@ namespace AMSEMS.SubForms_Admin
                                 dgvSubjects.Rows[rowIndex].Cells["code"].Value = dr["Course_code"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
-                                dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString().ToUpper();
+                                dgvSubjects.Rows[rowIndex].Cells["prog"].Value = (dr["ddes"] != DBNull.Value) ? dr["ddes"].ToString() : "All";
                                 dgvSubjects.Rows[rowIndex].Cells["acad"].Value = dr["Acad"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
@@ -197,17 +212,18 @@ namespace AMSEMS.SubForms_Admin
         {
             cbAcadLevel.Text = String.Empty;
             tbSearch.Text = String.Empty;
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+            cbDepartment.Text = String.Empty;
+            displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
         }
 
         private void btnActive_Click(object sender, EventArgs e)
         {
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID  where s.Status = 1");
+            displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
         }
 
         private void btnInactive_Click(object sender, EventArgs e)
         {
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID  where s.Status = 2");
+            displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 2 ORDER BY 1 DESC");
         }
 
         private void tbSearch_TextChanged(object sender, EventArgs e)
@@ -330,6 +346,7 @@ namespace AMSEMS.SubForms_Admin
                         formSubjectsForm formSubjectsForm = new formSubjectsForm();
                         formSubjectsForm.setData("Update", this);
                         formSubjectsForm.getStudID(dgvSubjects.Rows[rowIndex].Cells[1].Value.ToString());
+                        formSubjectsForm.dep();
                         formSubjectsForm.ShowDialog();
                         UseWaitCursor = false;
                     }
@@ -366,12 +383,12 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
                                 MessageBox.Show("Subject deleted successfully.");
                             }
                             else
                             {
-                                MessageBox.Show("Error deleting teacher.");
+                                MessageBox.Show("Error deleting subject.");
                             }
                             UseWaitCursor = false;
                         }
@@ -428,7 +445,7 @@ namespace AMSEMS.SubForms_Admin
         }
         private async void cbAcad_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UseWaitCursor = true;
+            //UseWaitCursor = true;
             System.Windows.Forms.ComboBox comboBox = (System.Windows.Forms.ComboBox)sender;
             string filtertbl = "tbl_Academic_Level";
 
@@ -436,13 +453,13 @@ namespace AMSEMS.SubForms_Admin
             {
                 // Get the selected items from all ComboBoxes
                 string selectedItemET = cbAcadLevel.Text;
+                string selectedItemDep = cbDepartment.Text;
 
-                // Get the corresponding descriptions for the selected items
                 string descriptionET = await GetSelectedItemDescriptionAsync(selectedItemET, "tbl_Academic_Level");
 
                 // Construct the query based on the selected descriptions
-                string query = "Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID " +
-                    "where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription)";
+                string query = "Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID " +
+                    "where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (@DepDescription IS NULL OR d.Description = @DepDescription) ORDER BY 1 DESC";
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -451,6 +468,7 @@ namespace AMSEMS.SubForms_Admin
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
                         cmd.Parameters.AddWithValue("@AcadLevelDescription", string.IsNullOrEmpty(descriptionET) ? DBNull.Value : (object)descriptionET);
+                        cmd.Parameters.AddWithValue("@DepDescription", string.IsNullOrEmpty(selectedItemDep) ? DBNull.Value : (object)selectedItemDep);
 
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
@@ -468,7 +486,7 @@ namespace AMSEMS.SubForms_Admin
                                 dgvSubjects.Rows[rowIndex].Cells["code"].Value = dr["Course_code"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
-                                dgvSubjects.Rows[rowIndex].Cells["teach"].Value = dr["teach"].ToString().ToUpper(); 
+                                dgvSubjects.Rows[rowIndex].Cells["prog"].Value = (dr["ddes"] != DBNull.Value) ? dr["ddes"].ToString() : "All";
                                 dgvSubjects.Rows[rowIndex].Cells["acad"].Value = dr["Acad"].ToString();
                                 dgvSubjects.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
@@ -478,6 +496,20 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                 }
+            }
+            cbDepartment.Items.Clear();
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                cm = new SqlCommand("SELECT Description FROM tbl_Departments d LEFT JOIN tbl_academic_level al ON d.AcadLevel_ID = al.Academic_Level_ID WHERE (@acaddes = 'ALL' OR al.Academic_Level_Description = @acaddes)", cn);
+                cm.Parameters.AddWithValue("@acaddes", cbAcadLevel.Text);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    cbDepartment.Items.Add(dr["Description"].ToString());
+                }
+                dr.Close();
+                cn.Close();
             }
             UseWaitCursor = false;
         }
@@ -508,7 +540,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+            displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
         }
 
         private void btnExportPDF_Click(object sender, EventArgs e)
@@ -751,27 +783,24 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
                 }
+                // Refresh the displayed table after deletion
+                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+
+                headerCheckbox.Checked = false;
+
+                // Hide the control panel
+                pnControl.Hide();
+
+                // Show messages based on the results
+                if (failedDeletion)
+                {
+                    MessageBox.Show("Some subjects failed to delete. Please check and try again.", "Deletion Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Selected subjects deleted successfully.", "Deletion Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-
-            // Refresh the displayed table after deletion
-            displayTable("Select Course_code, Course_Description, Units, t.Lastname as teach, st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
-
-            // Uncheck the header checkbox
-            headerCheckbox.Checked = false;
-
-            // Hide the control panel
-            pnControl.Hide();
-
-            // Show messages based on the results
-            if (failedDeletion)
-            {
-                MessageBox.Show("Some subjects failed to delete. Please check and try again.", "Deletion Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                MessageBox.Show("Selected subjects deleted successfully.", "Deletion Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
         }
         private void btnSetInactive_Click(object sender, EventArgs e)
         {
@@ -827,7 +856,7 @@ namespace AMSEMS.SubForms_Admin
                     }
 
                     // Refresh the displayed table after updating
-                    displayTable("Select Course_code, Course_Description, Units, t.Lastname as teach, st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
 
                     // Uncheck the header checkbox
                     headerCheckbox.Checked = false;
@@ -859,16 +888,16 @@ namespace AMSEMS.SubForms_Admin
                 {
                     // Check if the "Academic Level" column is not null and not empty
                     object acadValue = row.Cells["acad"].Value;
-                    if (acadValue != DBNull.Value && !string.IsNullOrEmpty(acadValue.ToString()))
-                    {
+                    //if (acadValue != DBNull.Value && !string.IsNullOrEmpty(acadValue.ToString()))
+                    //{
                         hasSelectedRow = true; // Set the flag to true if at least one row is selected and the academic level is not null or empty
                         break; // Exit the loop as soon as the first selected row is found
-                    }
-                    else
-                    {
-                        MessageBox.Show("Cannot set subject as active. Missing academic level information for the selected subject.");
-                        return; // Exit the method if a row is missing academic level information
-                    }
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("Cannot set subject as active. Missing academic level information for the selected subject.");
+                    //    return; // Exit the method if a row is missing academic level information
+                    //}
                 }
             }
 
@@ -892,8 +921,8 @@ namespace AMSEMS.SubForms_Admin
                         {
                             // Check if the "Academic Level" column is not null and not empty
                             object acadValue = row.Cells["acad"].Value;
-                            if (acadValue != DBNull.Value && !string.IsNullOrEmpty(acadValue.ToString()))
-                            {
+                            //if (acadValue != DBNull.Value && !string.IsNullOrEmpty(acadValue.ToString()))
+                            //{
                                 // Get the subject ID or relevant data from the row
                                 string id = row.Cells["code"].Value.ToString(); // Replace "ID" with the actual column name
 
@@ -909,12 +938,12 @@ namespace AMSEMS.SubForms_Admin
                                 {
                                     failedUpdate = true;
                                 }
-                            }
+                            //}
                         }
                     }
 
                     // Refresh the displayed table after updating
-                    displayTable("Select Course_code, Course_Description, Units, t.Lastname as teach, st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
 
                     // Uncheck the header checkbox
                     headerCheckbox.Checked = false;
@@ -1010,7 +1039,7 @@ namespace AMSEMS.SubForms_Admin
                     }
 
                     // Refresh the displayed table after archiving
-                    displayTable("Select Course_code, Course_Description, Units, t.Lastname as teach, st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
                     headerCheckbox.Checked = false;
 
                     // Show a message indicating the completion of the operation
@@ -1028,77 +1057,77 @@ namespace AMSEMS.SubForms_Admin
         }
         private bool AddtoArchive(string courseCode)
         {
-            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-            {
-                try
-                {
-                    cn.Open();
+            //using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            //{
+            //    try
+            //    {
+            //        cn.Open();
 
-                    // Check if a record with the same Course_code already exists in tbl_archived_subjects
-                    string checkExistingQuery = "SELECT COUNT(*) FROM tbl_archived_subjects WHERE Course_code = @ID";
-                    using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
-                    {
-                        checkExistingCommand.Parameters.AddWithValue("@ID", courseCode);
-                        int existingRecordCount = (int)checkExistingCommand.ExecuteScalar();
+            //        // Check if a record with the same Course_code already exists in tbl_archived_subjects
+            //        string checkExistingQuery = "SELECT COUNT(*) FROM tbl_archived_subjects WHERE Course_code = @ID";
+            //        using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
+            //        {
+            //            checkExistingCommand.Parameters.AddWithValue("@ID", courseCode);
+            //            int existingRecordCount = (int)checkExistingCommand.ExecuteScalar();
 
-                        if (existingRecordCount == 0)
-                        {
-                            // Update the status to 1 before inserting
-                            string updateStatusQuery = "UPDATE tbl_subjects SET Status = 2 WHERE Course_code = @ID";
-                            using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
-                            {
-                                updateStatusCommand.Parameters.AddWithValue("@ID", courseCode);
-                                updateStatusCommand.ExecuteNonQuery();
-                            }
+            //            if (existingRecordCount == 0)
+            //            {
+            //                // Update the status to 1 before inserting
+            //                string updateStatusQuery = "UPDATE tbl_subjects SET Status = 2 WHERE Course_code = @ID";
+            //                using (SqlCommand updateStatusCommand = new SqlCommand(updateStatusQuery, cn))
+            //                {
+            //                    updateStatusCommand.Parameters.AddWithValue("@ID", courseCode);
+            //                    updateStatusCommand.ExecuteNonQuery();
+            //                }
 
-                            string insertQuery = "INSERT INTO tbl_archived_subjects (Course_code,Course_Description,Units,Image,Status, Assigned_Teacher,Academic_Level) " +
-                                                 "SELECT Course_code,Course_Description,Units,Image,Status,Assigned_Teacher,Academic_Level FROM tbl_subjects WHERE Course_code = @code";
-                            using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
-                            {
-                                sqlCommand.Parameters.AddWithValue("@code", courseCode);
-                                sqlCommand.ExecuteNonQuery();
-                            }
+            //                string insertQuery = "INSERT INTO tbl_archived_subjects (Course_code,Course_Description,Units,Image,Status, Assigned_Teacher,Academic_Level) " +
+            //                                     "SELECT Course_code,Course_Description,Units,Image,Status,Assigned_Teacher,Academic_Level FROM tbl_subjects WHERE Course_code = @code";
+            //                using (SqlCommand sqlCommand = new SqlCommand(insertQuery, cn))
+            //                {
+            //                    sqlCommand.Parameters.AddWithValue("@code", courseCode);
+            //                    sqlCommand.ExecuteNonQuery();
+            //                }
 
-                            string deleteQuery = "DELETE FROM tbl_subjects WHERE Course_code = @code";
+            //                string deleteQuery = "DELETE FROM tbl_subjects WHERE Course_code = @code";
 
-                            using (SqlCommand command = new SqlCommand(deleteQuery, cn))
-                            {
-                                command.Parameters.AddWithValue("@code", courseCode);
-                                command.ExecuteNonQuery();
-                            }
-                            return true;
-                        }
-                        else
-                        {
-                            // A record with the same Course_code already exists in tbl_archived_subjects
-                            // Update the existing record instead of inserting a new one
-                            string updateQuery = "UPDATE tbl_archived_subjects SET Course_Description = s.Course_Description, Units = s.Units, Image = s.Image, Status = s.Status, Assigned_Teacher = s.Assigned_Teacher, Academic_Level = s.Academic_Level " +
-                                                 "FROM tbl_archived_subjects a INNER JOIN tbl_subjects s ON a.Course_code = s.Course_code WHERE a.Course_code = @code";
+            //                using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+            //                {
+            //                    command.Parameters.AddWithValue("@code", courseCode);
+            //                    command.ExecuteNonQuery();
+            //                }
+            //                return true;
+            //            }
+            //            else
+            //            {
+            //                // A record with the same Course_code already exists in tbl_archived_subjects
+            //                // Update the existing record instead of inserting a new one
+            //                string updateQuery = "UPDATE tbl_archived_subjects SET Course_Description = s.Course_Description, Units = s.Units, Image = s.Image, Status = s.Status, Assigned_Teacher = s.Assigned_Teacher, Academic_Level = s.Academic_Level " +
+            //                                     "FROM tbl_archived_subjects a INNER JOIN tbl_subjects s ON a.Course_code = s.Course_code WHERE a.Course_code = @code";
 
-                            using (SqlCommand updateCommand = new SqlCommand(updateQuery, cn))
-                            {
-                                updateCommand.Parameters.AddWithValue("@code", courseCode);
-                                updateCommand.ExecuteNonQuery();
-                            }
+            //                using (SqlCommand updateCommand = new SqlCommand(updateQuery, cn))
+            //                {
+            //                    updateCommand.Parameters.AddWithValue("@code", courseCode);
+            //                    updateCommand.ExecuteNonQuery();
+            //                }
 
-                            string deleteQuery = "DELETE FROM tbl_subjects WHERE Course_code = @code";
+            //                string deleteQuery = "DELETE FROM tbl_subjects WHERE Course_code = @code";
 
-                            using (SqlCommand command = new SqlCommand(deleteQuery, cn))
-                            {
-                                command.Parameters.AddWithValue("@code", courseCode);
-                                command.ExecuteNonQuery();
-                            }
+            //                using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+            //                {
+            //                    command.Parameters.AddWithValue("@code", courseCode);
+            //                    command.ExecuteNonQuery();
+            //                }
 
-                            return true;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error updating record: " + ex.Message);
-                    return false;
-                }
-            }
+            //                return true;
+            //            }
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Error updating record: " + ex.Message);
+            return false;
+            //    }
+            //}
         }
 
         private void btnMultiEditAcad_Click(object sender, EventArgs e)
@@ -1248,7 +1277,7 @@ namespace AMSEMS.SubForms_Admin
                     }
 
                     // Refresh the displayed table after updating
-                    displayTable("Select Course_code, Course_Description, Units, t.Lastname as teach, st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
 
                     // Uncheck the header checkbox
                     headerCheckbox.Checked = false;
@@ -1294,7 +1323,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
                             }
                             else
                             {
@@ -1336,7 +1365,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
                             }
                             else
                             {
@@ -1379,7 +1408,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID");
+                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
                                 MessageBox.Show("Record's archived successfully.");
                             }
                             else
@@ -1400,6 +1429,62 @@ namespace AMSEMS.SubForms_Admin
                 backgroundWorker.CancelAsync();
             }
             cancellationTokenSource?.Cancel();
+        }
+
+        private async void cbDepartment_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //UseWaitCursor = true;
+            System.Windows.Forms.ComboBox comboBox = (System.Windows.Forms.ComboBox)sender;
+            string filtertbl = "tbl_Academic_Level";
+
+            if (!string.IsNullOrEmpty(filtertbl))
+            {
+                // Get the selected items from all ComboBoxes
+                string selectedItemET = cbAcadLevel.Text;
+                string selectedItemDep = cbDepartment.Text;
+
+                string descriptionET = await GetSelectedItemDescriptionAsync(selectedItemET, "tbl_Academic_Level");
+
+                // Construct the query based on the selected descriptions
+                string query = "Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID " +
+                    "where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (@DepDescription IS NULL OR d.Description = @DepDescription) ORDER BY 1 DESC";
+
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@AcadLevelDescription", string.IsNullOrEmpty(descriptionET) ? DBNull.Value : (object)descriptionET);
+                        cmd.Parameters.AddWithValue("@DepDescription", string.IsNullOrEmpty(selectedItemDep) ? DBNull.Value : (object)selectedItemDep);
+
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            dgvSubjects.Rows.Clear();
+                            while (dr.Read())
+                            {
+                                if (cancellationTokenSource.Token.IsCancellationRequested)
+                                {
+                                    return;
+                                }
+                                // Add a row and set the checkbox column value to false (unchecked)
+                                int rowIndex = dgvSubjects.Rows.Add(false);
+
+                                // Populate other columns, starting from index 1
+                                dgvSubjects.Rows[rowIndex].Cells["code"].Value = dr["Course_code"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["prog"].Value = (dr["ddes"] != DBNull.Value) ? dr["ddes"].ToString() : "All";
+                                dgvSubjects.Rows[rowIndex].Cells["acad"].Value = dr["Acad"].ToString();
+                                dgvSubjects.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
+
+                                // Populate your control column here (change "ControlColumn" to your actual column name)
+                                dgvSubjects.Rows[rowIndex].Cells["option"].Value = option.Image;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

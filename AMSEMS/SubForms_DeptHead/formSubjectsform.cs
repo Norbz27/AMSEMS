@@ -118,48 +118,8 @@ namespace AMSEMS.SubForms_DeptHead
                         MessageBox.Show("Subject Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         ds.Tables[0].Rows.Clear();
                     }
-                    else
-                    {
-                        byte[] picData;
-                        if (openFileDialog1.FileName == String.Empty)
-                        {
-                            picData = null;
-                        }
-                        else
-                        {
-                            picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
-                        }
-                        cm = new SqlCommand("Select Course_Code from tbl_subjects where Course_Code = '" + tbCcode.Text + "'", cn);
-                        ad = new SqlDataAdapter(cm);
-                        ad.Fill(ds);
-                        int i = ds.Tables[0].Rows.Count;
-
-                        if (i != 0)
-                        {
-                            MessageBox.Show("A Subject is already Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            ds.Tables[0].Rows.Clear();
-                        }
-                        else
-                        {
-                            cn.Open();
-                            cm = new SqlCommand();
-                            cm.Connection = cn;
-                            cm.CommandType = CommandType.StoredProcedure;
-                            cm.CommandText = "sp_AddSubjects";
-                            cm.Parameters.AddWithValue("@Course_Code", tbCcode.Text);
-                            cm.Parameters.AddWithValue("@Course_Description", tbCourseDes.Text);
-                            cm.Parameters.AddWithValue("@Image", picData);
-                            cm.Parameters.AddWithValue("@Teach", cbTeacher.Text);
-                            cm.Parameters.AddWithValue("@AcadLevel", cbAcadLevel.Text);
-                            cm.Parameters.AddWithValue("@Units", tbUnits.Text);
-                            cm.Parameters.AddWithValue("@Status", tbStatus.Text);
-                            cm.ExecuteNonQuery();
-                            cn.Close();
-                            MessageBox.Show("Subject Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            ds.Tables[0].Rows.Clear();
-                        }
-                    }
-                    form.displayTable("Select Course_code,Course_Description,Units,t.Lastname as teach,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_teacher_accounts as t on s.Assigned_Teacher = t.ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID Where s.Status = 1 AND al.Academic_Level_Description = @acadlevel");
+                   
+                    form.displayTable();
                 }
             }
         }
@@ -232,8 +192,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void formSubjectsForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            form.displayFilter();
-            form.loadCMSControls();
+           
         }
     }
 }

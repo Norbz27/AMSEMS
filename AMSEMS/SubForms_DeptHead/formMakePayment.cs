@@ -27,6 +27,10 @@ namespace AMSEMS.SubForms_DeptHead
         public bool paystatus = false;
 
         formStudentBalanceFee formStudentBalanceFee;
+        private string schYear;
+        private string Tersem;
+        private string Shssem;
+
         public formMakePayment()
         {
             InitializeComponent();
@@ -37,6 +41,25 @@ namespace AMSEMS.SubForms_DeptHead
             toolTip.AutoPopDelay = int.MaxValue;
 
             toolTip.SetToolTip(btnSearch, "Search Student");
+
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                string query = "SELECT Academic_Year_Start + '-' + Academic_Year_End AS SchYear, Ter_Academic_Sem, SHS_Academic_Sem FROM tbl_acad";
+                using (SqlCommand command = new SqlCommand(query, cn))
+                {
+                    command.CommandText = query;
+                    using (SqlDataReader rd = command.ExecuteReader())
+                    {
+                        if (rd.Read())
+                        {
+                            schYear = rd["SchYear"].ToString();
+                            Tersem = rd["Ter_Academic_Sem"].ToString();
+                            Shssem = rd["SHS_Academic_Sem"].ToString();
+                        }
+                    }
+                }
+            }
         }
         public void getForm(formStudentBalanceFee formStudentBalanceFee)
         {
@@ -185,10 +208,11 @@ namespace AMSEMS.SubForms_DeptHead
                 using (cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
-                    cm = new SqlCommand("INSERT INTO tbl_transaction VALUES (@StudID, @amount, @Date)", cn);
+                    cm = new SqlCommand("INSERT INTO tbl_transaction VALUES (@StudID, @amount, @Date, @SchYear)", cn);
                     cm.Parameters.AddWithValue("@StudID", stud_id);
                     cm.Parameters.AddWithValue("@amount", tbPayment.Text);
                     cm.Parameters.AddWithValue("@Date", lblDate.Text);
+                    cm.Parameters.AddWithValue("@SchYear", schYear);
                     cm.ExecuteNonQuery();
                 }
             }

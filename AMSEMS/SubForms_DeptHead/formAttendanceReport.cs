@@ -36,23 +36,27 @@ namespace AMSEMS.SubForms_DeptHead
         }
         public void displayFilter()
         {
-            cbMonth.Items.Clear();
             cbSection.Items.Clear();
 
-            for(int i = 1; i <= 12; i++)
+            using (cn = new SqlConnection(SQL_Connection.connection))
             {
-                string monthName = DateTimeFormatInfo.CurrentInfo.GetMonthName(i);
-                cbMonth.Items.Add(monthName);
+                cn.Open();
+                cm = new SqlCommand("SELECT DISTINCT School_Year FROM tbl_events GROUP BY School_Year ORDER BY School_Year ASC", cn);
+                dr = cm.ExecuteReader();
+                while (dr.Read())
+                {
+                    cbYear.Items.Add(dr["School_Year"].ToString());
+                }
+                dr.Close();
             }
-            cbMonth.SelectedItem = DateTime.Now.ToString("MMMM");
 
-            int currentYear = DateTime.Now.Year;
-            for (int year = currentYear - 10; year <= currentYear; year++)
-            {
-                cbYear.Items.Add(year.ToString());
-            }
+            //int currentYear = DateTime.Now.Year;
+            //for (int year = currentYear - 10; year <= currentYear; year++)
+            //{
+            //    cbYear.Items.Add(year.ToString());
+            //}
 
-            cbYear.SelectedItem = currentYear.ToString();
+            cbYear.SelectedIndex = 0;
 
             cbSection.Items.Add("All");
             using (cn = new SqlConnection(SQL_Connection.connection))
@@ -130,26 +134,26 @@ namespace AMSEMS.SubForms_DeptHead
 
         private async Task DisplayColumnsAsync(SqlConnection cn, List<string> columnNames)
         {
-            int selectedMonth = 0;
-            if (DateTime.TryParseExact(cbMonth.Text, "MMMM", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedMonth))
-            {
-                selectedMonth = parsedMonth.Month;
-                // Rest of your code
-            }
-            else
-            {
-                return;
-            }
+            //int selectedMonth = 0;
+            //if (DateTime.TryParseExact(cbMonth.Text, "MMMM", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedMonth))
+            //{
+            //    selectedMonth = parsedMonth.Month;
+            //    // Rest of your code
+            //}
+            //else
+            //{
+            //    return;
+            //}
 
             string selectedYear = cbYear.Text;
-            string queryEvents = "SELECT Event_Name, Date_Time FROM tbl_attendance a " +
+            string queryEvents = "SELECT Event_Name, a.Date_Time FROM tbl_attendance a " +
                                 "LEFT JOIN tbl_events e ON e.Event_ID = a.Event_ID " +
-                                "WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students' OR CHARINDEX(@Department, Selected_Departments) > 0) AND MONTH(Date_Time) = @SelectedMonth AND YEAR(Date_Time) = @SelectedYear " +
-                                "ORDER BY Event_Name, Date_Time";
+                                "WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students' OR CHARINDEX(@Department, Selected_Departments) > 0) AND e.School_Year = @SelectedYear " +
+                                "ORDER BY Event_Name, a.Date_Time";
 
             using (SqlCommand cm = new SqlCommand(queryEvents, cn))
             {
-                cm.Parameters.AddWithValue("@SelectedMonth", selectedMonth);
+                //cm.Parameters.AddWithValue("@SelectedMonth", selectedMonth);
                 cm.Parameters.AddWithValue("@SelectedYear", selectedYear);
                 cm.Parameters.AddWithValue("@Department", FormDeptHeadNavigation.depdes);
 
@@ -333,7 +337,7 @@ namespace AMSEMS.SubForms_DeptHead
             // Add title "List of Students:"
             Paragraph titleParagraph = new Paragraph("Attendance Report", headerFont1);
             Paragraph titleParagraph2 = new Paragraph(cbSection.Text, headerFont2);
-            Paragraph titleParagraph3 = new Paragraph(cbMonth.Text + " " + cbYear.Text, headerFont3);
+            Paragraph titleParagraph3 = new Paragraph("School Year: " + cbYear.Text, headerFont3);
             titleParagraph.Alignment = Element.ALIGN_CENTER;
             titleParagraph2.Alignment = Element.ALIGN_CENTER;
             titleParagraph3.Alignment = Element.ALIGN_CENTER;

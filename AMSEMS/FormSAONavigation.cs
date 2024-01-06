@@ -1,4 +1,5 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
+using PusherClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,8 @@ namespace AMSEMS
         public bool isCollapsed;
         private Form activeForm;
         public static String id;
+        private Pusher pusher;
+        private Channel channel;
         public FormSAONavigation(String id1)
         {
             InitializeComponent();
@@ -36,6 +39,85 @@ namespace AMSEMS
             OpenChildForm(new SubForms_SAO.formDashboard(id1));
 
             id = id1;
+
+            notification();
+        }
+        public async void notification()
+        {
+            pusher = new Pusher("6cc843a774ea227a754f", new PusherOptions()
+            {
+                Cluster = "ap1",
+                Encrypted = true
+            });
+
+            pusher.Error += OnPusherOnError;
+            pusher.ConnectionStateChanged += PusherOnConnectionStateChanged;
+            pusher.Connected += PusherOnConnected;
+            channel = await pusher.SubscribeAsync("amsems");
+            await pusher.ConnectAsync();
+
+            void PusherOnConnectionStateChanged(object sender, ConnectionState state)
+            {
+                Console.Write("Connection state changed");
+            }
+
+            void OnPusherOnError(object s, PusherException e)
+            {
+                Console.Write("Errored");
+            }
+
+            void OnChannelOnSubscribed(object s)
+            {
+                Console.Write("Subscribed");
+            }
+            void PusherOnConnected(object sender)
+            {
+                Console.Write("Connected");
+                channel.Bind("notification", (dynamic data) =>
+                {
+                    using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+                    {
+                        connection.Open();
+                        string query = "SELECT TOP 1 Announcement_Title, Date_Time FROM tbl_Announcement ORDER BY Date_Time DESC";
+
+                        using (SqlCommand command = new SqlCommand(query, connection))
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                reader.Read();
+                                notifyIcon1.BalloonTipTitle = "Announcement";
+                                notifyIcon1.BalloonTipText = reader["Announcement_Title"].ToString();
+                                notifyIcon1.ShowBalloonTip(3000);
+                            }
+                        }
+                    }
+                });
+                channel.Bind("events", (dynamic data) =>
+                {
+                    using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+                    {
+                        connection.Open();
+                        string query = "SELECT TOP 1 Event_Name, Date_Time FROM tbl_events ORDER BY Date_Time DESC";
+
+                        using (SqlCommand command = new SqlCommand(query, connection))
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                reader.Read();
+                                notifyIcon1.BalloonTipTitle = "Event";
+                                notifyIcon1.BalloonTipText = reader["Event_Name"].ToString();
+                                notifyIcon1.ShowBalloonTip(3000);
+                                setCalendar();
+                                DisplayEventsDetails();
+                            }
+                        }
+                    }
+                });
+                channel.Bind(FormSAONavigation.id, (dynamic data) =>
+                {
+                    loadData();
+                });
+            }
         }
         public void setCalendar()
         {
@@ -107,7 +189,6 @@ namespace AMSEMS
         {
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             OpenChildForm(new SubForms_SAO.formDashboard(id));
-            loadData();
             this.btnSettings.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.btnSettings.StateCommon.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;

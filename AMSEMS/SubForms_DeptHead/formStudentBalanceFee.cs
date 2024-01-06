@@ -64,6 +64,20 @@ namespace AMSEMS.SubForms_DeptHead
                 {
                     cbSection.SelectedIndex = 0;
                 }
+
+                using (cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cn.Open();
+                    cm = new SqlCommand("SELECT DISTINCT School_Year FROM tbl_events GROUP BY School_Year ORDER BY School_Year ASC", cn);
+                    dr = cm.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        cbYear.Items.Add(dr["School_Year"].ToString());
+                    }
+                    dr.Close();
+                }
+                if(cbYear.Items.Count > 0)
+                    cbYear.SelectedIndex = 0;
             }
         }
         public void displayOverallSummary()
@@ -73,16 +87,18 @@ namespace AMSEMS.SubForms_DeptHead
                 cn.Open();
 
                 // Calculate total balance fee
-                cm = new SqlCommand("SELECT ISNULL(SUM(b.Balance_Fee), 0) AS Total_Balance_Fee FROM tbl_student_accounts s LEFT JOIN tbl_balance_fees b ON s.ID = b.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec)", cn);
+                cm = new SqlCommand("SELECT ISNULL(SUM(b.Balance_Fee), 0) AS Total_Balance_Fee FROM tbl_student_accounts s LEFT JOIN tbl_balance_fees b ON s.ID = b.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec) AND School_Year = @SchYear", cn);
                 cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                 cm.Parameters.AddWithValue("@sec", cbSection.Text);
+                cm.Parameters.AddWithValue("@SchYear", cbYear.Text);
                 decimal totalBalanceFee = Convert.ToDecimal(cm.ExecuteScalar());
                 lblCollectableFee.Text = "₱ " + totalBalanceFee.ToString("F2");
 
                 // Calculate total paid amount
-                cm = new SqlCommand("SELECT ISNULL(SUM(t.Payment_Amount), 0) AS Total_Paid_Amount FROM tbl_student_accounts s LEFT JOIN tbl_transaction t ON s.ID = t.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec)", cn);
+                cm = new SqlCommand("SELECT ISNULL(SUM(t.Payment_Amount), 0) AS Total_Paid_Amount FROM tbl_student_accounts s LEFT JOIN tbl_transaction t ON s.ID = t.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec) AND School_Year = @SchYear", cn);
                 cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                 cm.Parameters.AddWithValue("@sec", cbSection.Text);
+                cm.Parameters.AddWithValue("@SchYear", cbYear.Text);
                 decimal totalPaidAmount = Convert.ToDecimal(cm.ExecuteScalar());
                 lblCollectedFee.Text = "₱ " + totalPaidAmount.ToString("F2");
 
@@ -151,15 +167,18 @@ namespace AMSEMS.SubForms_DeptHead
                                         WHEN COALESCE(SUM(bf.Balance_Fee), 0) < COALESCE(SUM(t.Payment_Amount), 0)
                                             THEN 0
                                         ELSE COALESCE(SUM(bf.Balance_Fee), 0) - COALESCE(SUM(t.Payment_Amount), 0)
-                                    END AS Remaining_Balance
+                                    END AS Remaining_Balance,
+                                    BalDate
                                 FROM (
                                     SELECT
                                         Student_ID,
-                                        SUM(Balance_Fee) AS Balance_Fee
+                                        SUM(Balance_Fee) AS Balance_Fee,
+                                        School_Year AS BalDate
                                     FROM
                                         dbo.tbl_balance_fees
                                     GROUP BY
-                                        Student_ID
+                                        Student_ID,
+                                        School_Year
                                 ) bf
                                 FULL JOIN (
                                     SELECT
@@ -176,15 +195,18 @@ namespace AMSEMS.SubForms_DeptHead
                                     s.Status = 1
                                     AND s.Department = @dep
                                     AND (@sec = 'All' OR sec.Description = @sec)
+                                    AND BalDate = @SchoolYear
                                 GROUP BY
                                     COALESCE(bf.Student_ID, t.Student_ID),
                                     s.Lastname,
                                     s.Firstname,
-                                    sec.Description
+                                    sec.Description,
+                                    BalDate
                                 ORDER BY
                                     s.Lastname;", cn);
                 cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                 cm.Parameters.AddWithValue("@sec", cbSection.Text);
+                cm.Parameters.AddWithValue("@SchoolYear", cbYear.Text);
                 using (dr = cm.ExecuteReader())
                 {
                     double totalCollectable = 0;
@@ -237,12 +259,26 @@ namespace AMSEMS.SubForms_DeptHead
                 }
             }
             ptbLoading.Visible = false;
+
+            string targetStatus = "Unpaid";  // The status you want to search for
+
+            foreach (DataGridViewRow row in dgvBalFees.Rows)
+            {
+                // Get the value in the "Status" column
+                DataGridViewCell statusCell = row.Cells["status"]; // Replace "Status" with the actual column name
+                string statusValue = statusCell.Value?.ToString();
+
+                // Show or hide the row based on the search result
+                row.Visible = (statusValue != null && statusValue.Equals(targetStatus, StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         private void formAttendanceReport_Load(object sender, EventArgs e)
         {
             displayFilter();
             displayOverallSummary();
+
+          
         }
 
         private void tbSearch_TextChanged(object sender, EventArgs e)
@@ -364,8 +400,6 @@ namespace AMSEMS.SubForms_DeptHead
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             displayFilter();
-            displayBalanceFees();
-            displayOverallSummary();
         }
 
         private void formStudentBalanceFee_FormClosing(object sender, FormClosingEventArgs e)
@@ -439,6 +473,11 @@ namespace AMSEMS.SubForms_DeptHead
         {
             formMakePayment.getForm(this);
             formMakePayment.ShowDialog();
+        }
+
+        private void cbYear_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
+using PusherServer;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -53,6 +54,15 @@ namespace AMSEMS.SubForm_Guidance
                     MessageBox.Show("Name Changed!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                     form.loadData();
+
+                    var option = new PusherOptions
+                    {
+                        Cluster = "ap1",
+                        Encrypted = true,
+                    };
+                    var pusher = new Pusher("1732969", "6cc843a774ea227a754f", "de6683c35f58d7bc943f", option);
+
+                    var result = pusher.TriggerAsync("amsems", FormGuidanceNavigation.id, new { message = "new notification" });
                 }
             }
 

@@ -28,7 +28,7 @@
     <MapFileExtensions>false</MapFileExtensions>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -56,7 +56,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>time-management.ico</ApplicationIcon>
+    <ApplicationIcon>amsems_logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>BCF0C7308EA9C5ED3D64A8C8A22266837701E6D4</ManifestCertificateThumbprint>
@@ -274,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FontInstaller.cs" />
+    <Compile Include="NotificationAdapter.cs" />
     <Compile Include="RJToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -358,6 +359,12 @@
     <Compile Include="formEventDetails.Designer.cs">
       <DependentUpon>formEventDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Admin\formAddSchoolSetting2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\formAddSchoolSetting2.Designer.cs">
+      <DependentUpon>formAddSchoolSetting2.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Admin\formImportViewSubjects.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -411,6 +418,18 @@
     </Compile>
     <Compile Include="SubForms_Admin\formStudentForm.Designer.cs">
       <DependentUpon>formStudentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formSemester_Quarter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formSemester_Quarter.Designer.cs">
+      <DependentUpon>formSemester_Quarter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formNewAcadYear.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admin\Settings_SubForms\formNewAcadYear.Designer.cs">
+      <DependentUpon>formNewAcadYear.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_Admin\Settings_SubForms\formBackupSetting.cs">
       <SubType>Form</SubType>
@@ -526,6 +545,12 @@
     </Compile>
     <Compile Include="SubForms_DeptHead\formSubjects.Designer.cs">
       <DependentUpon>formSubjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formAssignTeacherToSub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_DeptHead\formAssignTeacherToSub.Designer.cs">
+      <DependentUpon>formAssignTeacherToSub.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_DeptHead\formTransactionHistory.cs">
       <SubType>Form</SubType>
@@ -934,6 +959,15 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForm_Guidance\UserID.cs" />
+    <Compile Include="CustomNotificationControl .cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomNotificationControl .Designer.cs">
+      <DependentUpon>CustomNotificationControl .cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="CustomNotificationControl .resx">
+      <DependentUpon>CustomNotificationControl .cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="db_Amsems.bacpac" />
     <None Include="Resources\sync-16-blue.png" />
     <None Include="Resources\option.png" />
@@ -950,6 +984,12 @@
     <None Include="Resources\bell-yellow.png" />
     <None Include="Resources\events - Copy.png" />
     <None Include="Resources\upload.png" />
+    <Content Include="amsems_logo.ico" />
+    <Content Include="amsems_logo1.ico" />
+    <None Include="Resources\history.png" />
+    <None Include="Resources\recent.png" />
+    <None Include="Resources\icons8-course-assign-16.png" />
+    <None Include="Resources\icons8-course-assign-16 %282%29.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -997,6 +1037,9 @@
     <EmbeddedResource Include="formEventDetails.resx">
       <DependentUpon>formEventDetails.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\formAddSchoolSetting2.resx">
+      <DependentUpon>formAddSchoolSetting2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formImportViewSubjects.resx">
       <DependentUpon>formImportViewSubjects.cs</DependentUpon>
     </EmbeddedResource>
@@ -1023,6 +1066,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\formStudentForm.resx">
       <DependentUpon>formStudentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formSemester_Quarter.resx">
+      <DependentUpon>formSemester_Quarter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formNewAcadYear.resx">
+      <DependentUpon>formNewAcadYear.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formBackupSetting.resx">
       <DependentUpon>formBackupSetting.cs</DependentUpon>
@@ -1080,6 +1129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\formSubjects.resx">
       <DependentUpon>formSubjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_DeptHead\formAssignTeacherToSub.resx">
+      <DependentUpon>formAssignTeacherToSub.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\formTransactionHistory.resx">
       <DependentUpon>formTransactionHistory.cs</DependentUpon>

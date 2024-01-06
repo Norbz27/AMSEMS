@@ -27,6 +27,7 @@ namespace AMSEMS.SubForms_SAO
         public static string exclusive = "All Students";
 
         formEventAddConfig formEventConfig;
+        private string schYear, Tersem, Shssem;
 
         public formAddEvent()
         {
@@ -43,6 +44,25 @@ namespace AMSEMS.SubForms_SAO
             toolTip.AutoPopDelay = int.MaxValue;
 
             toolTip.SetToolTip(btnConfig, "Event Configuration");
+
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                string query = "SELECT Academic_Year_Start + '-' + Academic_Year_End AS SchYear, Ter_Academic_Sem, SHS_Academic_Sem FROM tbl_acad";
+                using (SqlCommand command = new SqlCommand(query, cn))
+                {
+                    command.CommandText = query;
+                    using (SqlDataReader rd = command.ExecuteReader())
+                    {
+                        if (rd.Read())
+                        {
+                            schYear = rd["SchYear"].ToString();
+                            Tersem = rd["Ter_Academic_Sem"].ToString();
+                            Shssem = rd["SHS_Academic_Sem"].ToString();
+                        }
+                    }
+                }
+            }
         }
         
         public void getForm(UserControlDays_Calendar form)
@@ -89,6 +109,7 @@ namespace AMSEMS.SubForms_SAO
                         cm.Parameters.AddWithValue("@Attendance", attendance);
                         cm.Parameters.AddWithValue("@Penalty", penalty);
                         cm.Parameters.AddWithValue("@DateTime", dateTime);
+                        cm.Parameters.AddWithValue("@SchYear", schYear);
 
                         if (exclusive.Equals("Specific Students"))
                         {

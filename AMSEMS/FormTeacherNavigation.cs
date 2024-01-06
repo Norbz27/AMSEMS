@@ -1,5 +1,6 @@
 ﻿using AMSEMS.SubForms_Teacher;
 using ComponentFactory.Krypton.Toolkit;
+using PusherClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,8 @@ namespace AMSEMS
 
         public bool isCollapsed = false;
         public static string id;
+        private Pusher pusher;
+        private Channel channel;
         public FormTeacherNavigation(String id1)
         {
             InitializeComponent();
@@ -34,7 +37,84 @@ namespace AMSEMS
             id = id1;
             formDashboard.setForm(this);
             OpenChildForm(new SubForms_Teacher.formDashboard());
+            notification();
+        }
+        public async void notification()
+        {
+            pusher = new Pusher("6cc843a774ea227a754f", new PusherOptions()
+            {
+                Cluster = "ap1",
+                Encrypted = true
+            });
 
+            pusher.Error += OnPusherOnError;
+            pusher.ConnectionStateChanged += PusherOnConnectionStateChanged;
+            pusher.Connected += PusherOnConnected;
+            channel = await pusher.SubscribeAsync("amsems");
+            await pusher.ConnectAsync();
+
+            void PusherOnConnectionStateChanged(object sender, ConnectionState state)
+            {
+                Console.Write("Connection state changed");
+            }
+
+            void OnPusherOnError(object s, PusherException e)
+            {
+                Console.Write("Errored");
+            }
+
+            void OnChannelOnSubscribed(object s)
+            {
+                Console.Write("Subscribed");
+            }
+            void PusherOnConnected(object sender)
+            {
+                Console.Write("Connected");
+                channel.Bind("notification", (dynamic data) =>
+                {
+                    using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+                    {
+                        connection.Open();
+                        string query = "SELECT TOP 1 Announcement_Title, Date_Time FROM tbl_Announcement ORDER BY Date_Time DESC";
+
+                        using (SqlCommand command = new SqlCommand(query, connection))
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                reader.Read();
+                                notifyIcon1.BalloonTipTitle = "Announcement";
+                                notifyIcon1.BalloonTipText = reader["Announcement_Title"].ToString();
+                                notifyIcon1.ShowBalloonTip(3000);
+                            }
+                        }
+                    }
+                });
+                channel.Bind("events", (dynamic data) =>
+                {
+                    using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+                    {
+                        connection.Open();
+                        string query = "SELECT TOP 1 Event_Name, Date_Time FROM tbl_events ORDER BY Date_Time DESC";
+
+                        using (SqlCommand command = new SqlCommand(query, connection))
+                        {
+                            using (SqlDataReader reader = command.ExecuteReader())
+                            {
+                                reader.Read();
+                                notifyIcon1.BalloonTipTitle = "Event";
+                                notifyIcon1.BalloonTipText = reader["Event_Name"].ToString();
+                                notifyIcon1.ShowBalloonTip(3000);
+                                setCalendar();
+                                DisplayEventsDetails();
+                            }
+                        }
+                    }
+                });
+                channel.Bind(FormTeacherNavigation.id, (dynamic data) =>
+                {
+                    loadData();
+                });
+            }
         }
         public void setCalendar()
         {
@@ -103,7 +183,6 @@ namespace AMSEMS
         {
             isCollapsed = false;
             timer1.Start();
-            loadData();
             this.kryptonSplitContainer1.Panel2Collapsed = false;
             formDashboard.setForm(this);
             OpenChildForm(new SubForms_Teacher.formDashboard());

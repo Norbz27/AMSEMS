@@ -50,6 +50,7 @@ namespace AMSEMS.SubForms_Admin
                     {
                         dataGridView.Rows.Clear();
                         cbAcadLevel.Items.Clear();
+                        cbProgram.Items.Clear();
                         string selectQuery = "";
                         selectQuery = "Select * from tbl_academic_level";
                         cn.Open();
@@ -61,58 +62,42 @@ namespace AMSEMS.SubForms_Admin
                         }
                         dr.Close();
 
-                        if (header.Equals("Program"))
+                        selectQuery = "Select * from tbl_Departments";
+                        cm = new SqlCommand(selectQuery, cn);
+                        dr = cm.ExecuteReader();
+                        while (dr.Read())
                         {
-                            selectQuery = "Select * from tbl_program p left join tbl_academic_level l on p.AcadLevel_ID = l.Academic_Level_ID";
-
-                            cm = new SqlCommand(selectQuery, cn);
-                            dr = cm.ExecuteReader();
-                            while (dr.Read())
-                            {
-                                dataGridView.Rows.Add(dr["Program_ID"].ToString(), 
-                                    dr["Description"].ToString(), 
-                                    dr["Academic_Level_Description"].ToString());
-                            }
-                            dr.Close();
+                            cbProgram.Items.Add(dr["Description"].ToString());
                         }
-                        else if (header.Equals("Year Level"))
-                        {
-                            selectQuery = "Select * from tbl_year_level y left join tbl_academic_level l on y.AcadLevel_ID = l.Academic_Level_ID";
+                        dr.Close();
 
-                            cm = new SqlCommand(selectQuery, cn);
-                            dr = cm.ExecuteReader();
-                            while (dr.Read())
-                            {
-                                dataGridView.Rows.Add(dr["Level_ID"].ToString(),
-                                    dr["Description"].ToString(),
-                                    dr["Academic_Level_Description"].ToString());
-                            }
-                            dr.Close();
-                        }
-                        else if (header.Equals("Section"))
+                        
+                        if (header.Equals("Section"))
                         {
-                            selectQuery = "Select * from tbl_Section s left join tbl_academic_level l on s.AcadLevel_ID = l.Academic_Level_ID";
+                            selectQuery = "Select Section_ID, s.Description as sdes, d.Description as ddes, Academic_Level_Description from tbl_Section s left join tbl_academic_level l on s.AcadLevel_ID = l.Academic_Level_ID left join tbl_Departments d on s.Department_ID = d.Department_ID";
 
                             cm = new SqlCommand(selectQuery, cn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
                                 dataGridView.Rows.Add(dr["Section_ID"].ToString(),
-                                    dr["Description"].ToString(),
+                                    dr["sdes"].ToString(),
+                                    dr["ddes"].ToString(),
                                     dr["Academic_Level_Description"].ToString());
                             }
                             dr.Close();
                         }
-                        else if (header.Equals("Departments"))
+                        else if (header.Equals("Program"))
                         {
-                            selectQuery = "Select * from tbl_Departments d left join tbl_academic_level l on d.AcadLevel_ID = l.Academic_Level_ID";
+                            selectQuery = "Select Program_ID, d.Description as ddes, p.Description as pdes, Academic_Level_Description from tbl_program p left join tbl_academic_level l on p.AcadLevel_ID = l.Academic_Level_ID left join tbl_Departments d on p.Department_ID = d.Department_ID";
 
                             cm = new SqlCommand(selectQuery, cn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                dataGridView.Rows.Add(dr["Department_ID"].ToString(),
-                                    dr["Description"].ToString(),
+                                dataGridView.Rows.Add(dr["Program_ID"].ToString(),
+                                    dr["pdes"].ToString(),
+                                    dr["ddes"].ToString(),
                                     dr["Academic_Level_Description"].ToString());
                             }
                             dr.Close();
@@ -136,6 +121,7 @@ namespace AMSEMS.SubForms_Admin
                     cn.Open();
                     ds.Clear();
                     string acadlevelid = "";
+                    string depid = "";
                     if (!tbDes.Text.Equals(String.Empty))
                     {
                         string selectQuery = "";
@@ -150,52 +136,20 @@ namespace AMSEMS.SubForms_Admin
                         }
                         dr.Close();
 
+                        selectQuery = "Select * from tbl_Departments WHERE Description = @ddes";
+
+                        cm = new SqlCommand(selectQuery, cn);
+                        cm.Parameters.AddWithValue("@ddes", cbProgram.Text);
+                        dr = cm.ExecuteReader();
+                        if (dr.Read())
+                        {
+                            depid = dr["Department_ID"].ToString();
+                        }
+                        dr.Close();
+
                         if (isUpdateTrue)
                         {
-                            if (header.Equals("Program"))
-                            {
-                                cm = new SqlCommand("Select * from tbl_program where Program_ID = '" + data + "'", cn);
-                                ad = new SqlDataAdapter(cm);
-                                ad.Fill(ds);
-                                int i = ds.Tables[0].Rows.Count;
-                                if (i > 0)
-                                {
-                                    
-                                    cm = new SqlCommand("UPDATE tbl_program SET Description = @NewValue, AcadLevel_ID = @NewValue2 WHERE Program_ID = @ConditionValue", cn);
-                                    cm.Parameters.AddWithValue("@NewValue", tbDes.Text);
-                                    cm.Parameters.AddWithValue("@NewValue2", acadlevelid);
-                                    cm.Parameters.AddWithValue("@ConditionValue", data);
-                                    cm.ExecuteNonQuery();
-                                    dr.Close();
-                                }
-                                else
-                                {
-                                    MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                            }
-                            else if (header.Equals("Year Level"))
-                            {
-                                cm = new SqlCommand("Select * from tbl_year_level where Level_ID = '" + data + "'", cn);
-                                ad = new SqlDataAdapter(cm);
-                                ad.Fill(ds);
-                                int i = ds.Tables[0].Rows.Count;
-                                if (i > 0)
-                                {
-                                 
-                                    cm = new SqlCommand("UPDATE tbl_year_level SET Description = @NewValue, AcadLevel_ID = @NewValue2 WHERE Level_ID = @ConditionValue", cn);
-                                    cm.Parameters.AddWithValue("@NewValue", tbDes.Text);
-                                    cm.Parameters.AddWithValue("@NewValue2", acadlevelid);
-                                    cm.Parameters.AddWithValue("@ConditionValue", data);
-                                    cm.ExecuteNonQuery();
-                                    dr.Close();
-         
-                                }
-                                else
-                                {
-                                    MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                            }
-                            else if (header.Equals("Section"))
+                            if (header.Equals("Section"))
                             {
                                 cm = new SqlCommand("Select * from tbl_Section where Section_ID = '" + data + "'", cn);
                                 ad = new SqlDataAdapter(cm);
@@ -204,27 +158,29 @@ namespace AMSEMS.SubForms_Admin
                                 if (i > 0)
                                 {
                                
-                                    cm = new SqlCommand("UPDATE tbl_Section SET Description = @NewValue, AcadLevel_ID = @NewValue2 WHERE Section_ID = @ConditionValue", cn);
+                                    cm = new SqlCommand("UPDATE tbl_Section SET Description = @NewValue, AcadLevel_ID = @NewValue2, Department_ID = @NewValue3 WHERE Section_ID = @ConditionValue", cn);
                                     cm.Parameters.AddWithValue("@NewValue", tbDes.Text);
                                     cm.Parameters.AddWithValue("@NewValue2", acadlevelid);
+                                    cm.Parameters.AddWithValue("@NewValue3", depid);
                                     cm.Parameters.AddWithValue("@ConditionValue", data);
                                     cm.ExecuteNonQuery();
                                     dr.Close();
                   
                                 }
                             }
-                            else if (header.Equals("Departments"))
+                            else if (header.Equals("Program"))
                             {
-                                cm = new SqlCommand("Select * from tbl_Departments where Department_ID = '" + data + "'", cn);
+                                cm = new SqlCommand("Select * from tbl_Program where Program_ID = '" + data + "'", cn);
                                 ad = new SqlDataAdapter(cm);
                                 ad.Fill(ds);
                                 int i = ds.Tables[0].Rows.Count;
                                 if (i > 0)
                                 {
                            
-                                    cm = new SqlCommand("UPDATE tbl_Departments SET Description = @NewValue, AcadLevel_ID = @NewValue2 WHERE Department_ID = @ConditionValue", cn);
+                                    cm = new SqlCommand("UPDATE tbl_Program SET Description = @NewValue, AcadLevel_ID = @NewValue2, Department_ID = @NewValue3 WHERE Program_ID = @ConditionValue", cn);
                                     cm.Parameters.AddWithValue("@NewValue", tbDes.Text);
                                     cm.Parameters.AddWithValue("@NewValue2", acadlevelid);
+                                    cm.Parameters.AddWithValue("@NewValue3", depid);
                                     cm.Parameters.AddWithValue("@ConditionValue", data);
                                     cm.ExecuteNonQuery();
                                     dr.Close();
@@ -235,51 +191,7 @@ namespace AMSEMS.SubForms_Admin
                         else
                         {
                             cbAcadLevel.SelectedIndex = 0;
-                            if (header.Equals("Program"))
-                            {
-
-                                cm = new SqlCommand("Select * from tbl_program where Description = '" + tbDes.Text + "'", cn);
-                                ad = new SqlDataAdapter(cm);
-                                ad.Fill(ds);
-                                int i = ds.Tables[0].Rows.Count;
-                                if (i == 0)
-                                {
-                            
-                                    cm = new SqlCommand("Insert into tbl_program Values (@Des, @acadlevel)", cn);
-                                    cm.Parameters.AddWithValue("@Des", tbDes.Text);
-                                    cm.Parameters.AddWithValue("@acadlevel", acadlevelid);
-                                    cm.ExecuteNonQuery();
-                                    dr.Close();
-                                
-                                }
-                                else
-                                {
-                                    MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-
-                            }
-                            else if (header.Equals("Year Level"))
-                            {
-                                cm = new SqlCommand("Select * from tbl_year_level where Description = '" + tbDes.Text + "'", cn);
-                                ad = new SqlDataAdapter(cm);
-                                ad.Fill(ds);
-                                int i = ds.Tables[0].Rows.Count;
-                                if (i == 0)
-                                {
-                                
-                                    cm = new SqlCommand("Insert into tbl_year_level Values (@Des, @acadlevel)", cn);
-                                    cm.Parameters.AddWithValue("@Des", tbDes.Text);
-                                    cm.Parameters.AddWithValue("@acadlevel", acadlevelid);
-                                    cm.ExecuteNonQuery();
-                                    dr.Close();
-                                
-                                }
-                                else
-                                {
-                                    MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                            }
-                            else if (header.Equals("Section"))
+                           if (header.Equals("Section"))
                             {
                                 cm = new SqlCommand("Select * from tbl_Section where Description = '" + tbDes.Text + "'", cn);
                                 ad = new SqlDataAdapter(cm);
@@ -288,9 +200,10 @@ namespace AMSEMS.SubForms_Admin
                                 if (i == 0)
                                 {
                            
-                                    cm = new SqlCommand("Insert into tbl_Section Values (@Des, @acadlevel)", cn);
+                                    cm = new SqlCommand("Insert into tbl_Section Values (@Des, @acadlevel, @ddes)", cn);
                                     cm.Parameters.AddWithValue("@Des", tbDes.Text);
                                     cm.Parameters.AddWithValue("@acadlevel", acadlevelid);
+                                    cm.Parameters.AddWithValue("@ddes", depid);
                                     cm.ExecuteNonQuery();
                                     dr.Close();
                      
@@ -300,18 +213,19 @@ namespace AMSEMS.SubForms_Admin
                                     MessageBox.Show(tbDes.Text + " is Present!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
-                            else if (header.Equals("Departments"))
+                            else if (header.Equals("Program"))
                             {
-                                cm = new SqlCommand("Select * from tbl_Departments where Description = '" + tbDes.Text + "'", cn);
+                                cm = new SqlCommand("Select * from tbl_program where Description = '" + tbDes.Text + "'", cn);
                                 ad = new SqlDataAdapter(cm);
                                 ad.Fill(ds);
                                 int i = ds.Tables[0].Rows.Count;
                                 if (i == 0)
                                 {
                                
-                                    cm = new SqlCommand("Insert into tbl_Departments Values (@Des, @acadlevel)", cn);
+                                    cm = new SqlCommand("Insert into tbl_program Values (@Des, @acadlevel, @ddes)", cn);
                                     cm.Parameters.AddWithValue("@Des", tbDes.Text);
                                     cm.Parameters.AddWithValue("@acadlevel", acadlevelid);
+                                    cm.Parameters.AddWithValue("@ddes", depid);
                                     cm.ExecuteNonQuery();
                                     dr.Close();
                             
@@ -332,6 +246,8 @@ namespace AMSEMS.SubForms_Admin
                     data = String.Empty;
                     isUpdateTrue = false;
                     btnCancel.Visible = false;
+                    cbAcadLevel.Text = String.Empty;
+                    cbProgram.Text = String.Empty;
                 }
                 catch (Exception ex)
                 {
@@ -342,7 +258,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnDone_Click(object sender, EventArgs e)
         {
-            if (header.Equals("Departments"))
+            if (header.Equals("Program"))
             {
                 formTeacherForm.displayDept();
                 this.Close();
@@ -387,7 +303,7 @@ namespace AMSEMS.SubForms_Admin
                         DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
 
                         // Ask for confirmation before deleting
-                        DialogResult confirmationResult = MessageBox.Show("Are you sure you want to delete this data?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        DialogResult confirmationResult = MessageBox.Show("Are you sure you want to delete this data? There might be relevant data related to this.", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (confirmationResult == DialogResult.Yes)
                         {
@@ -400,25 +316,15 @@ namespace AMSEMS.SubForms_Admin
                                     int primaryKeyValue = Convert.ToInt32(rowToDelete.Cells["ID"].Value);
                                     String deleteQuery = "";
 
-                                    if (header.Equals("Program"))
-                                    {
-                                        // Create a DELETE query
-                                        deleteQuery = "DELETE FROM tbl_program WHERE Program_ID = @ID";
-                                    }
-                                    else if (header.Equals("Year Level"))
-                                    {
-                                        // Create a DELETE query
-                                        deleteQuery = "DELETE FROM tbl_year_level WHERE Level_ID = @ID";
-                                    }
-                                    else if (header.Equals("Section"))
+                                    if (header.Equals("Section"))
                                     {
                                         // Create a DELETE query
                                         deleteQuery = "DELETE FROM tbl_Section WHERE Section_ID = @ID";
                                     }
-                                    else if (header.Equals("Departments"))
+                                    else if (header.Equals("Program"))
                                     {
                                         // Create a DELETE query
-                                        deleteQuery = "DELETE FROM tbl_Departments WHERE Department_ID = @ID";
+                                        deleteQuery = "DELETE FROM tbl_program WHERE Program_ID = @ID";
                                     }
 
                                     using (SqlCommand command = new SqlCommand(deleteQuery, cn))
@@ -463,7 +369,8 @@ namespace AMSEMS.SubForms_Admin
                     {
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
                         data = dataGridView.Rows[rowIndex].Cells[0].Value.ToString();
-                        cbAcadLevel.Text = dataGridView.Rows[rowIndex].Cells[2].Value.ToString();
+                        cbAcadLevel.Text = dataGridView.Rows[rowIndex].Cells[3].Value.ToString();
+                        cbProgram.Text = dataGridView.Rows[rowIndex].Cells[2].Value.ToString();
                         tbDes.Text = dataGridView.Rows[rowIndex].Cells[1].Value.ToString();
                         isUpdateTrue = true;
                     }
@@ -476,6 +383,8 @@ namespace AMSEMS.SubForms_Admin
             tbDes.Text = String.Empty;
             isUpdateTrue = false;
             btnCancel.Visible = false;
+            cbAcadLevel.Text = String.Empty;
+            cbProgram.Text = String.Empty;
         }
 
         private void formAddSchoolSetting_FormClosed(object sender, FormClosedEventArgs e)

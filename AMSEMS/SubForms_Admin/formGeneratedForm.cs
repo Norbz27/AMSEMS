@@ -129,7 +129,7 @@ namespace AMSEMS.SubForms_Admin
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                if (tbFname.Text.Equals(String.Empty) || tbLname.Text.Equals(String.Empty) || tbMname.Text.Equals(String.Empty) || tbID.Text.Equals(String.Empty) || tbPass.Text.Equals(String.Empty) || tbRole.Text.Equals(String.Empty))
+                if (tbFname.Text.Equals(String.Empty) || tbLname.Text.Equals(String.Empty) || tbID.Text.Equals(String.Empty) || tbPass.Text.Equals(String.Empty) || tbRole.Text.Equals(String.Empty))
                 {
                     MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -222,12 +222,16 @@ namespace AMSEMS.SubForms_Admin
                                 cm.ExecuteNonQuery();
                                 cn.Close();
                                 MessageBox.Show("Account Updated!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                if (!istrue)
+                                    form.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                                else
+                                    form3.DisplayData();
                             }
                         }
                         else
                         {
-                            // Check if the password is already taken in tbl_teacher_accounts
-                            cm = new SqlCommand("SELECT * FROM tbl_teacher_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm = new SqlCommand("SELECT * FROM tbl_teacher_accounts WHERE Password = @Password AND ID <> @ID OR ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             ad = new SqlDataAdapter(cm);
@@ -235,28 +239,28 @@ namespace AMSEMS.SubForms_Admin
                             ad.Fill(dsTeacher);
 
                             // Check if the password is already taken in tbl_deptHead_accounts
-                            cm = new SqlCommand("SELECT * FROM tbl_deptHead_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm = new SqlCommand("SELECT * FROM tbl_deptHead_accounts WHERE Password = @Password AND ID <> @ID  OR ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             ad = new SqlDataAdapter(cm);
                             DataSet dsDeptHead = new DataSet();
                             ad.Fill(dsDeptHead);
 
-                            cm = new SqlCommand("SELECT * FROM tbl_student_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm = new SqlCommand("SELECT * FROM tbl_student_accounts WHERE Password = @Password AND ID <> @ID  OR ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             ad = new SqlDataAdapter(cm);
                             DataSet dsStud = new DataSet();
                             ad.Fill(dsStud);
 
-                            cm = new SqlCommand("SELECT * FROM tbl_sao_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm = new SqlCommand("SELECT * FROM tbl_sao_accounts WHERE Password = @Password AND ID <> @ID OR ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             ad = new SqlDataAdapter(cm);
                             DataSet dsSao = new DataSet();
                             ad.Fill(dsSao);
 
-                            cm = new SqlCommand("SELECT * FROM tbl_guidance_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm = new SqlCommand("SELECT * FROM tbl_guidance_accounts WHERE Password = @Password AND ID <> @ID  OR ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             ad = new SqlDataAdapter(cm);
@@ -267,7 +271,7 @@ namespace AMSEMS.SubForms_Admin
                             {
                                 
                                 MessageBox.Show("An Account is already Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                ds.Tables[0].Rows.Clear();
+                                //ds.Tables[0].Rows.Clear();
                             }
                             else
                             {
@@ -296,14 +300,16 @@ namespace AMSEMS.SubForms_Admin
                                 cm.ExecuteNonQuery();
                                 cn.Close();
                                 MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                ds.Tables[0].Rows.Clear();
+                                //ds.Tables[0].Rows.Clear();
                                 clearTexts();
+
+                                if (!istrue)
+                                    form.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                                else
+                                    form3.DisplayData();
                             }
                         }
-                        if (!istrue)
-                            form.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
-                        else
-                            form3.DisplayData();
+                        
                     }
                     else
                     {
@@ -388,12 +394,16 @@ namespace AMSEMS.SubForms_Admin
                                 cm.ExecuteNonQuery();
                                 cn.Close();
                                 MessageBox.Show("Account Updated!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                if (!istrue)
+                                    form2.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                                else
+                                    form3.DisplayData();
                             }
                         }
                         else
                         {
-                            // Check if the password is already taken in tbl_teacher_accounts
-                            cm = new SqlCommand("SELECT * FROM tbl_teacher_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm = new SqlCommand("SELECT * FROM tbl_teacher_accounts WHERE Password = @Password AND ID <> @ID OR ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             ad = new SqlDataAdapter(cm);
@@ -401,28 +411,28 @@ namespace AMSEMS.SubForms_Admin
                             ad.Fill(dsTeacher);
 
                             // Check if the password is already taken in tbl_deptHead_accounts
-                            cm = new SqlCommand("SELECT * FROM tbl_deptHead_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm = new SqlCommand("SELECT * FROM tbl_deptHead_accounts WHERE Password = @Password AND ID <> @ID  OR ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             ad = new SqlDataAdapter(cm);
                             DataSet dsDeptHead = new DataSet();
                             ad.Fill(dsDeptHead);
 
-                            cm = new SqlCommand("SELECT * FROM tbl_student_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm = new SqlCommand("SELECT * FROM tbl_student_accounts WHERE Password = @Password AND ID <> @ID  OR ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             ad = new SqlDataAdapter(cm);
                             DataSet dsStud = new DataSet();
                             ad.Fill(dsStud);
 
-                            cm = new SqlCommand("SELECT * FROM tbl_sao_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm = new SqlCommand("SELECT * FROM tbl_sao_accounts WHERE Password = @Password AND ID <> @ID OR ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             ad = new SqlDataAdapter(cm);
                             DataSet dsSao = new DataSet();
                             ad.Fill(dsSao);
 
-                            cm = new SqlCommand("SELECT * FROM tbl_guidance_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm = new SqlCommand("SELECT * FROM tbl_guidance_accounts WHERE Password = @Password AND ID <> @ID  OR ID = @ID", cn);
                             cm.Parameters.AddWithValue("@ID", tbID.Text);
                             cm.Parameters.AddWithValue("@Password", tbPass.Text);
                             ad = new SqlDataAdapter(cm);
@@ -432,7 +442,7 @@ namespace AMSEMS.SubForms_Admin
                             if (dsTeacher.Tables[0].Rows.Count > 0 || dsDeptHead.Tables[0].Rows.Count > 0 || dsStud.Tables[0].Rows.Count > 0 || dsSao.Tables[0].Rows.Count > 0 || dsGuid.Tables[0].Rows.Count > 0)
                             {
                                 MessageBox.Show("An Account is already Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                ds.Tables[0].Rows.Clear();
+                                //ds.Tables[0].Rows.Clear();
                             }
                             else
                             {
@@ -461,14 +471,16 @@ namespace AMSEMS.SubForms_Admin
                                 cm.ExecuteNonQuery();
                                 cn.Close();
                                 MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                ds.Tables[0].Rows.Clear();
+                                //ds.Tables[0].Rows.Clear();
                                 clearTexts();
+
+                                if (!istrue)
+                                    form2.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                                else
+                                    form3.DisplayData();
                             }
                         }
-                        if (!istrue)
-                            form2.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_sao_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
-                        else
-                            form3.DisplayData();
+                      
                     }
 
                 }

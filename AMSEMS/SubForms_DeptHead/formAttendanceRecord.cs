@@ -26,6 +26,9 @@ namespace AMSEMS.SubForms_DeptHead
 
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private bool isDisplayTableInProgress = false;
+        private string schYear;
+        private string Tersem;
+        private string Shssem;
 
         public formAttendanceRecord()
         {
@@ -45,6 +48,25 @@ namespace AMSEMS.SubForms_DeptHead
             toolTip.SetToolTip(btnExport, "Export to");
             toolTip.SetToolTip(btnRefresh, "Refresh");
             toolTip.SetToolTip(btnPenaltyFee, "Manage Penalty Fee");
+
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                string query = "SELECT Academic_Year_Start + '-' + Academic_Year_End AS SchYear, Ter_Academic_Sem, SHS_Academic_Sem FROM tbl_acad";
+                using (SqlCommand command = new SqlCommand(query, cn))
+                {
+                    command.CommandText = query;
+                    using (SqlDataReader rd = command.ExecuteReader())
+                    {
+                        if (rd.Read())
+                        {
+                            schYear = rd["SchYear"].ToString();
+                            Tersem = rd["Ter_Academic_Sem"].ToString();
+                            Shssem = rd["SHS_Academic_Sem"].ToString();
+                        }
+                    }
+                }
+            }
         }
 
         private async void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -777,10 +799,11 @@ namespace AMSEMS.SubForms_DeptHead
                             {
                                 if (bal_fee > 0)
                                 {
-                                    cm = new SqlCommand("INSERT INTO tbl_balance_fees VALUES (@StudID, @EventID, @Date, @BalFee)", cn);
+                                    cm = new SqlCommand("INSERT INTO tbl_balance_fees VALUES (@StudID, @EventID, @Date, @BalFee, @SchYear)", cn);
                                     cm.Parameters.AddWithValue("@StudID", (object)studID ?? DBNull.Value);
                                     cm.Parameters.AddWithValue("@EventID", (object)event_id ?? DBNull.Value);
                                     cm.Parameters.AddWithValue("@Date", Dt.Value.ToString("yyyy-MM-dd"));
+                                    cm.Parameters.AddWithValue("@SchYear", schYear);
                                     cm.Parameters.AddWithValue("@BalFee", bal_fee);
                                     cm.ExecuteNonQuery();
                                 }

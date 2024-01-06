@@ -24,7 +24,7 @@ namespace AMSEMS.SubForms_SAO
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
-            announceBy = "Student Association Office(SAO)";
+            announceBy = "Student Affair Office (SAO)";
         }
         public void getForm(formAnnouncement form)
         {
