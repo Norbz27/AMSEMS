@@ -381,15 +381,39 @@ namespace AMSEMS.SubForms_Teacher
                 }
                 using (SQLiteCommand command = new SQLiteCommand(cn))
                 {
-                    string query = "SELECT Academic_Year_Start || '-' || Academic_Year_End AS SchYear, Ter_Academic_Sem, SHS_Academic_Sem FROM tbl_acad";
+                    string query = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
                     command.CommandText = query;
                     using (SQLiteDataReader rd = command.ExecuteReader())
                     {
                         if (rd.Read())
                         {
-                            schYear = rd["SchYear"].ToString();
-                            Tersem = rd["Ter_Academic_Sem"].ToString();
-                            Shssem = rd["SHS_Academic_Sem"].ToString();
+                            schYear = rd["Acad_ID"].ToString();
+                        }
+                    }
+                }
+
+                using (SQLiteCommand cm = new SQLiteCommand(cn))
+                {
+                    string query = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
+                    cm.CommandText = query;
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            Shssem = dr["Quarter_ID"].ToString();
+                        }
+                    }
+                }
+
+                using (SQLiteCommand cm = new SQLiteCommand(cn))
+                {
+                    string query = "SELECT Semester_ID, Description FROM tbl_Semester WHERE Status = 1";
+                    cm.CommandText = query;
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            Tersem = dr["Semester_ID"].ToString();
                         }
                     }
                 }

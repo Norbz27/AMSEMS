@@ -202,9 +202,9 @@
             this.label10.ForeColor = System.Drawing.Color.Black;
             this.label10.Location = new System.Drawing.Point(581, 110);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(139, 22);
+            this.label10.Size = new System.Drawing.Size(147, 22);
             this.label10.TabIndex = 20;
-            this.label10.Text = "Total Enrolled Student";
+            this.label10.Text = "Total Handled Students";
             // 
             // lblStud
             // 

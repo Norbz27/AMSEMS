@@ -33,6 +33,11 @@ namespace AMSEMS.SubForms_DeptHead
             this.components = new System.ComponentModel.Container();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSubmit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tbSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.lblSemOrQuar = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.tbSem = new ComponentFactory.Krypton.Toolkit.KryptonMaskedTextBox();
             this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -50,14 +55,9 @@ namespace AMSEMS.SubForms_DeptHead
             this.kryptonContextMenuItem1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuItem();
             this.kryptonContextMenuHeading1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuHeading();
             this.kryptonContextMenuSeparator1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tbSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnSubmit = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cbSubject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbSubject)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonPalette1
@@ -148,25 +148,137 @@ namespace AMSEMS.SubForms_DeptHead
             this.panel1.Size = new System.Drawing.Size(360, 374);
             this.panel1.TabIndex = 68;
             // 
+            // btnSubmit
+            // 
+            this.btnSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSubmit.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSubmit.Location = new System.Drawing.Point(248, 338);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSubmit.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSubmit.OverrideDefault.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSubmit.OverrideDefault.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSubmit.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSubmit.OverrideDefault.Border.Rounding = 10;
+            this.btnSubmit.OverrideDefault.Border.Width = 1;
+            this.btnSubmit.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSubmit.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSubmit.Size = new System.Drawing.Size(112, 36);
+            this.btnSubmit.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSubmit.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSubmit.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSubmit.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSubmit.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSubmit.StateCommon.Border.Rounding = 10;
+            this.btnSubmit.StateCommon.Border.Width = 1;
+            this.btnSubmit.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnSubmit.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnSubmit.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold);
+            this.btnSubmit.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSubmit.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSubmit.StatePressed.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSubmit.StatePressed.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSubmit.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSubmit.StatePressed.Border.Rounding = 10;
+            this.btnSubmit.StatePressed.Border.Width = 1;
+            this.btnSubmit.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSubmit.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnSubmit.StateTracking.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSubmit.StateTracking.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.btnSubmit.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnSubmit.StateTracking.Border.Rounding = 10;
+            this.btnSubmit.StateTracking.Border.Width = 1;
+            this.btnSubmit.TabIndex = 215;
+            this.btnSubmit.TabStop = false;
+            this.btnSubmit.Values.Text = "Save";
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
+            // 
+            // label2
+            // 
+            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label2.Location = new System.Drawing.Point(0, 27);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(360, 19);
+            this.label2.TabIndex = 214;
+            this.label2.Text = "Type name of section, then add it to subject.\r\n";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label3.ForeColor = System.Drawing.Color.LightGray;
+            this.label3.Location = new System.Drawing.Point(-30, 150);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(420, 15);
+            this.label3.TabIndex = 183;
+            this.label3.Text = "___________________________________________________________";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.search_16;
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(6, 56);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 210;
+            this.pictureBox1.TabStop = false;
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.AcceptsReturn = true;
+            this.tbSearch.AlwaysActive = false;
+            this.tbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSearch.Location = new System.Drawing.Point(0, 49);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(360, 30);
+            this.tbSearch.StateActive.Border.Color1 = System.Drawing.Color.Gray;
+            this.tbSearch.StateActive.Border.Color2 = System.Drawing.Color.Gray;
+            this.tbSearch.StateActive.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.tbSearch.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
+            this.tbSearch.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
+            this.tbSearch.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.tbSearch.StateCommon.Border.Rounding = 2;
+            this.tbSearch.StateCommon.Border.Width = 1;
+            this.tbSearch.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 8.75F);
+            this.tbSearch.StateCommon.Content.Padding = new System.Windows.Forms.Padding(27, 4, 0, 4);
+            this.tbSearch.TabIndex = 211;
+            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
+            this.tbSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSearch_KeyDown);
+            // 
             // lblSemOrQuar
             // 
-            this.lblSemOrQuar.Location = new System.Drawing.Point(214, 254);
+            this.lblSemOrQuar.Location = new System.Drawing.Point(198, 254);
             this.lblSemOrQuar.Margin = new System.Windows.Forms.Padding(2);
             this.lblSemOrQuar.Name = "lblSemOrQuar";
-            this.lblSemOrQuar.Size = new System.Drawing.Size(64, 19);
+            this.lblSemOrQuar.Size = new System.Drawing.Size(99, 19);
             this.lblSemOrQuar.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.lblSemOrQuar.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.lblSemOrQuar.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
             this.lblSemOrQuar.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.lblSemOrQuar.TabIndex = 209;
-            this.lblSemOrQuar.Values.Text = "Semester:";
+            this.lblSemOrQuar.Values.Text = "Academic Term:";
             // 
             // tbSem
             // 
-            this.tbSem.Location = new System.Drawing.Point(215, 278);
+            this.tbSem.Location = new System.Drawing.Point(200, 278);
             this.tbSem.Name = "tbSem";
             this.tbSem.ReadOnly = true;
-            this.tbSem.Size = new System.Drawing.Size(138, 30);
+            this.tbSem.Size = new System.Drawing.Size(153, 30);
             this.tbSem.SkipLiterals = false;
             this.tbSem.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
             this.tbSem.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
@@ -199,7 +311,7 @@ namespace AMSEMS.SubForms_DeptHead
             this.tbSchoolYear.Location = new System.Drawing.Point(3, 278);
             this.tbSchoolYear.Name = "tbSchoolYear";
             this.tbSchoolYear.ReadOnly = true;
-            this.tbSchoolYear.Size = new System.Drawing.Size(196, 30);
+            this.tbSchoolYear.Size = new System.Drawing.Size(179, 30);
             this.tbSchoolYear.SkipLiterals = false;
             this.tbSchoolYear.StateCommon.Back.Color1 = System.Drawing.Color.Gainsboro;
             this.tbSchoolYear.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
@@ -346,118 +458,6 @@ namespace AMSEMS.SubForms_DeptHead
             // 
             this.kryptonContextMenuHeading1.ExtraText = "";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.pictureBox1.Image = global::AMSEMS.Properties.Resources.search_16;
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 56);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 210;
-            this.pictureBox1.TabStop = false;
-            // 
-            // tbSearch
-            // 
-            this.tbSearch.AcceptsReturn = true;
-            this.tbSearch.AlwaysActive = false;
-            this.tbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSearch.Location = new System.Drawing.Point(0, 49);
-            this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(360, 30);
-            this.tbSearch.StateActive.Border.Color1 = System.Drawing.Color.Gray;
-            this.tbSearch.StateActive.Border.Color2 = System.Drawing.Color.Gray;
-            this.tbSearch.StateActive.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.tbSearch.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
-            this.tbSearch.StateCommon.Border.Color2 = System.Drawing.Color.LightGray;
-            this.tbSearch.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.tbSearch.StateCommon.Border.Rounding = 2;
-            this.tbSearch.StateCommon.Border.Width = 1;
-            this.tbSearch.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 8.75F);
-            this.tbSearch.StateCommon.Content.Padding = new System.Windows.Forms.Padding(27, 4, 0, 4);
-            this.tbSearch.TabIndex = 211;
-            this.tbSearch.TextChanged += new System.EventHandler(this.tbSearch_TextChanged);
-            this.tbSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSearch_KeyDown);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.label3.ForeColor = System.Drawing.Color.LightGray;
-            this.label3.Location = new System.Drawing.Point(-30, 150);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(420, 15);
-            this.label3.TabIndex = 183;
-            this.label3.Text = "___________________________________________________________";
-            // 
-            // label2
-            // 
-            this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(0, 27);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(360, 19);
-            this.label2.TabIndex = 214;
-            this.label2.Text = "Type name of section, then add it to subject.\r\n";
-            // 
-            // btnSubmit
-            // 
-            this.btnSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSubmit.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSubmit.Location = new System.Drawing.Point(248, 338);
-            this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSubmit.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSubmit.OverrideDefault.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.btnSubmit.OverrideDefault.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.btnSubmit.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnSubmit.OverrideDefault.Border.Rounding = 10;
-            this.btnSubmit.OverrideDefault.Border.Width = 1;
-            this.btnSubmit.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.btnSubmit.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.btnSubmit.Size = new System.Drawing.Size(112, 36);
-            this.btnSubmit.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSubmit.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSubmit.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.btnSubmit.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.btnSubmit.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnSubmit.StateCommon.Border.Rounding = 10;
-            this.btnSubmit.StateCommon.Border.Width = 1;
-            this.btnSubmit.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.btnSubmit.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.btnSubmit.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Bold);
-            this.btnSubmit.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSubmit.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSubmit.StatePressed.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.btnSubmit.StatePressed.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.btnSubmit.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnSubmit.StatePressed.Border.Rounding = 10;
-            this.btnSubmit.StatePressed.Border.Width = 1;
-            this.btnSubmit.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSubmit.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.btnSubmit.StateTracking.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.btnSubmit.StateTracking.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.btnSubmit.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.btnSubmit.StateTracking.Border.Rounding = 10;
-            this.btnSubmit.StateTracking.Border.Width = 1;
-            this.btnSubmit.TabIndex = 215;
-            this.btnSubmit.TabStop = false;
-            this.btnSubmit.Values.Text = "Save";
-            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
-            // 
             // formAssignTeacherToSub
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -478,8 +478,8 @@ namespace AMSEMS.SubForms_DeptHead
             this.Load += new System.EventHandler(this.formStudentForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cbSubject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbSubject)).EndInit();
             this.ResumeLayout(false);
 
         }

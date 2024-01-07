@@ -21,6 +21,7 @@ namespace AMSEMS
 
         public bool isCollapsed = false;
         public static string id;
+        public static string teachID;
         private Pusher pusher;
         private Channel channel;
         public FormTeacherNavigation(String id1)
@@ -149,10 +150,11 @@ namespace AMSEMS
             try
             {
                 cn.Open();
-                cm = new SqlCommand("select Firstname, Lastname from tbl_teacher_accounts where Unique_ID = '" + id + "'", cn);
+                cm = new SqlCommand("select ID, Firstname, Lastname from tbl_teacher_accounts where Unique_ID = '" + id + "'", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
                 lblName.Text = dr["Firstname"].ToString() + " " + dr["Lastname"].ToString();
+                teachID = dr["ID"].ToString();
                 dr.Close();
 
                 cm = new SqlCommand("Select Profile_pic from tbl_teacher_accounts where Unique_ID = " + id + "", cn);

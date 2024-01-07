@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Drawing;
 using AMSEMS.SubForms_SAO;
 using System.Windows.Forms.DataVisualization.Charting;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Security.Cryptography;
 
 namespace AMSEMS.SubForms_Teacher
 {
@@ -18,7 +20,10 @@ namespace AMSEMS.SubForms_Teacher
         SqlCommand cm;
         SqlDataReader dr;
         SQLite_Connection con;
-        static FormTeacherNavigation form;
+        static FormTeacherNavigation form; 
+        string schYear = String.Empty;
+        string Tersem = String.Empty;
+        string Shssem = String.Empty;
         public formDashboard()
         {
             InitializeComponent();
@@ -50,27 +55,81 @@ namespace AMSEMS.SubForms_Teacher
         }
         public async void displayChart()
         {
+            getAcad();
             await DisplayStudPerSubChartAsync();
             await DisplaySubjectsSummaryAsync();
+        }
+        public void getAcad()
+        {
+            using (SQLiteConnection cn = new SQLiteConnection(con.connectionString))
+            {
+                cn.Open();
+                using (SQLiteCommand command = new SQLiteCommand(cn))
+                {
+                    string query1 = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                    command.CommandText = query1;
+                    using (SQLiteDataReader rd = command.ExecuteReader())
+                    {
+                        if (rd.Read())
+                        {
+                            schYear = rd["Acad_ID"].ToString();
+                        }
+                    }
+                }
+
+                using (SQLiteCommand cm = new SQLiteCommand(cn))
+                {
+                    string query2 = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
+                    cm.CommandText = query2;
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            Shssem = dr["Quarter_ID"].ToString();
+                        }
+                    }
+                }
+
+                using (SQLiteCommand cm = new SQLiteCommand(cn))
+                {
+                    string query3 = "SELECT Semester_ID, Description FROM tbl_Semester WHERE Status = 1";
+                    cm.CommandText = query3;
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            Tersem = dr["Semester_ID"].ToString();
+                        }
+                    }
+                }
+            }
         }
         public async Task DisplayStudPerSubChartAsync()
         {
             using (SQLiteConnection cn = new SQLiteConnection(con.connectionString))
             {
                 await cn.OpenAsync();
-
+               
                 // Dictionary to store the total student count for each course code
                 Dictionary<string, int> courseStudentCount = new Dictionary<string, int>();
 
+
                 // Retrieve subjects assigned to the teacher
-                string query = "SELECT s.Course_code, s.Course_Description, s.Image, s.Academic_Level, cl.Class_Code " +
-                                "FROM tbl_subjects s " +
-                                "LEFT JOIN tbl_class_list cl ON s.Course_code = cl.Course_Code " +
-                                "LEFT JOIN tbl_teachers_account t ON s.Assigned_Teacher = t.ID " +
-                                "WHERE t.Unique_ID = @TeachID AND s.Status = 1 AND cl.Class_Code IS NOT NULL";
+                string query = @"SELECT DISTINCT s.Course_code, Course_Description, Image, Academic_Level, cl.Class_Code FROM tbl_subjects AS s
+                    LEFT JOIN tbl_Departments d ON s.Department_ID = d.Department_ID
+                    LEFT JOIN tbl_Academic_Level AS al ON s.Academic_Level = al.Academic_Level_ID
+                    LEFT JOIN tbl_class_list cl ON s.Course_code = cl.Course_Code
+                    LEFT JOIN tbl_teachers_account ta ON cl.Teacher_ID = ta.Unique_ID
+                    LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_Code
+                    LEFT JOIN tbl_shs_assigned_teacher_to_sub shs ON s.Course_code = shs.Course_Code
+                    WHERE s.Status = 1 AND (ter.School_Year = @schyear OR shs.School_Year = @schyear) AND (ter.Semester = @sem OR shs.Quarter = @quar) AND ID = 141414
+                    ORDER BY 1 DESC";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, cn))
                 {
+                    command.Parameters.AddWithValue("@schyear", schYear);
+                    command.Parameters.AddWithValue("@sem", Tersem);
+                    command.Parameters.AddWithValue("@quar", Shssem);
                     command.Parameters.AddWithValue("@TeachID", FormTeacherNavigation.id);
 
                     using (SQLiteDataReader rd = command.ExecuteReader())
@@ -153,14 +212,21 @@ namespace AMSEMS.SubForms_Teacher
                 int totalSubCount = 0;
 
                 // Retrieve subjects assigned to the teacher
-                string query = "SELECT s.Course_code, s.Course_Description, s.Image, s.Academic_Level, cl.Class_Code " +
-                                "FROM tbl_subjects s " +
-                                "LEFT JOIN tbl_class_list cl ON s.Course_code = cl.Course_Code " +
-                                "LEFT JOIN tbl_teachers_account t ON s.Assigned_Teacher = t.ID " +
-                                "WHERE t.Unique_ID = @TeachID AND s.Status = 1 AND cl.Class_Code IS NOT NULL";
+                string query = @"SELECT DISTINCT s.Course_code, Course_Description, Image, Academic_Level, cl.Class_Code FROM tbl_subjects AS s
+                    LEFT JOIN tbl_Departments d ON s.Department_ID = d.Department_ID
+                    LEFT JOIN tbl_Academic_Level AS al ON s.Academic_Level = al.Academic_Level_ID
+                    LEFT JOIN tbl_class_list cl ON s.Course_code = cl.Course_Code
+                    LEFT JOIN tbl_teachers_account ta ON cl.Teacher_ID = ta.Unique_ID
+                    LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_Code
+                    LEFT JOIN tbl_shs_assigned_teacher_to_sub shs ON s.Course_code = shs.Course_Code
+                    WHERE s.Status = 1 AND (ter.School_Year = @schyear OR shs.School_Year = @schyear) AND (ter.Semester = @sem OR shs.Quarter = @quar) AND ID = 141414
+                    ORDER BY 1 DESC";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, cn))
                 {
+                    command.Parameters.AddWithValue("@schyear", schYear);
+                    command.Parameters.AddWithValue("@sem", Tersem);
+                    command.Parameters.AddWithValue("@quar", Shssem);
                     command.Parameters.AddWithValue("@TeachID", FormTeacherNavigation.id);
 
                     using (SQLiteDataReader rd = command.ExecuteReader())

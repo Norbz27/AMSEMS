@@ -33,14 +33,7 @@ namespace AMSEMS.SubForms_DeptHead
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
             InitializeListBox();
-            if(FormDeptHeadNavigation.acadlevel == "SHS")
-            {
-                lblSemOrQuar.Text = "Quarter";
-            }
-            else
-            {
-                lblSemOrQuar.Text = "Semester";
-            }
+
         }
         public void setData(String choice, formSubjects form)
         {

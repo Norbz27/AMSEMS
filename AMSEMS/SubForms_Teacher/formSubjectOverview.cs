@@ -173,12 +173,20 @@ namespace AMSEMS.SubForms_Teacher
 
                             foreach (DataGridViewRow row in rowsToDelete)
                             {
-                                string studentIDToDelete = row.Cells["id"].Value.ToString();
-
-                                command.Parameters.Clear();
-                                command.Parameters.AddWithValue("@StudID", studentIDToDelete);
-                                command.ExecuteNonQuery();
+                                // Iterate through the columns to find the "studid" column
+                                foreach (DataGridViewCell cell in row.Cells)
+                                {
+                                    if (cell.OwningColumn.Name.Equals("studid", StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        string studentIDToDelete = cell.Value.ToString();
+                                        command.Parameters.Clear();
+                                        command.Parameters.AddWithValue("@StudID", studentIDToDelete);
+                                        command.ExecuteNonQuery();
+                                        break;  // Exit the inner loop once the column is found
+                                    }
+                                }
                             }
+
                         }
                         cn.Close();
                         rowsToDelete.Clear(); // Clear the list after deletion
@@ -1848,16 +1856,40 @@ namespace AMSEMS.SubForms_Teacher
             using(SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                string query1 = "SELECT * FROM tbl_acad";
-                using (SqlCommand cmd = new SqlCommand(query1, cn))
+                string query = "";
+                query = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                using (SqlCommand command = new SqlCommand(query, cn))
                 {
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (SqlDataReader rd = command.ExecuteReader())
+                    {
+                        if (rd.Read())
+                        {
+                            acadSchYeear = rd["Acad_ID"].ToString();
+                        }
+                    }
+                }
+
+                query = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                   
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
                         if (dr.Read())
                         {
-                            acadSchYeear = dr["Academic_Year_Start"].ToString() + "-" + dr["Academic_Year_End"].ToString();
-                            acadTerSem = dr["Ter_Academic_Sem"].ToString();
-                            acadShsSem = dr["SHS_Academic_Sem"].ToString();
+                            acadShsSem = dr["Quarter_ID"].ToString();
+                        }
+                    }
+                }
+
+                query = "SELECT Semester_ID, Description FROM tbl_Semester WHERE Status = 1";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            acadTerSem = dr["Semester_ID"].ToString();
                         }
                     }
                 }

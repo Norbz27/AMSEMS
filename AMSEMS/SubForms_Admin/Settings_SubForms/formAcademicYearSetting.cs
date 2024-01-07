@@ -237,13 +237,13 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnEditSHSAcadSem_Click(object sender, EventArgs e)
         {
-            formSemester_Quarter formSemester_Quarter = new formSemester_Quarter(this, true);
+            formSemester_Quarter formSemester_Quarter = new formSemester_Quarter(this, false);
             formSemester_Quarter.ShowDialog();
         }
 
         private void btnEditTerAcadSem_Click(object sender, EventArgs e)
         {
-            formSemester_Quarter formSemester_Quarter = new formSemester_Quarter(this, false);
+            formSemester_Quarter formSemester_Quarter = new formSemester_Quarter(this, true);
             formSemester_Quarter.ShowDialog();
         }
     }

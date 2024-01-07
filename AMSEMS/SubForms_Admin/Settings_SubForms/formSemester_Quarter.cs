@@ -29,11 +29,11 @@ namespace AMSEMS.SubForms_Admin
             this.isSem = isSem;
             if (isSem)
             {
-                lblHeader1.Text = "Tertiary Semester";
+                lblHeader1.Text = "Tertiary Academic Term";
             }
             else
             {
-                lblHeader1.Text = "SHS Quarter";
+                lblHeader1.Text = "SHS Academic Term";
             }
         }
 

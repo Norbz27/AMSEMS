@@ -36,7 +36,7 @@ namespace AMSEMS.SubForms_DeptHead
 
             loadData(FormDeptHeadNavigation.id);
             await displayChartAsync();
-            form.loadData();
+
         }
         public void loadData(String id)
         {

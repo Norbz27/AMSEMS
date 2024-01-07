@@ -168,13 +168,13 @@
             this.kryptonLabel5.Location = new System.Drawing.Point(0, 181);
             this.kryptonLabel5.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel5.Name = "kryptonLabel5";
-            this.kryptonLabel5.Size = new System.Drawing.Size(171, 23);
+            this.kryptonLabel5.Size = new System.Drawing.Size(152, 23);
             this.kryptonLabel5.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.kryptonLabel5.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
             this.kryptonLabel5.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel5.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.kryptonLabel5.TabIndex = 165;
-            this.kryptonLabel5.Values.Text = "SHS Academic Quarter";
+            this.kryptonLabel5.Values.Text = "SHS Academic Term";
             // 
             // lblTerAcadSem
             // 
@@ -253,13 +253,13 @@
             this.kryptonLabel4.Location = new System.Drawing.Point(0, 107);
             this.kryptonLabel4.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel4.Name = "kryptonLabel4";
-            this.kryptonLabel4.Size = new System.Drawing.Size(213, 23);
+            this.kryptonLabel4.Size = new System.Drawing.Size(182, 23);
             this.kryptonLabel4.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.kryptonLabel4.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
             this.kryptonLabel4.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel4.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.kryptonLabel4.TabIndex = 161;
-            this.kryptonLabel4.Values.Text = "Tertiary Academic Semester";
+            this.kryptonLabel4.Values.Text = "Tertiary Academic Term";
             // 
             // lblAcadYear
             // 

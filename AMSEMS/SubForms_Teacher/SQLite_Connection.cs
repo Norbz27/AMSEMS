@@ -1,11 +1,13 @@
 ﻿using AMSEMS.SubForms_Teacher;
 using System;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -70,8 +72,8 @@ namespace AMSEMS
                                                     Units INTEGER,
                                                     Image BLOB,
                                                     Status TEXT,
-                                                    Assigned_Teacher TEXT,
-                                                    Academic_Level INTEGER);
+                                                    Academic_Level INTEGER,
+                                                    Department_ID INTEGER);
                                             CREATE TABLE IF NOT EXISTS tbl_students_account (
                                                     Unique_ID INTEGER PRIMARY KEY, 
                                                     ID TEXT,
@@ -95,11 +97,13 @@ namespace AMSEMS
                                             CREATE TABLE IF NOT EXISTS tbl_program (
                                                     Prgram_ID INTEGER PRIMARY KEY, 
                                                     Description TEXT,
-                                                    AcadLevel_ID INTEGER);
+                                                    AcadLevel_ID INTEGER,
+                                                    Department_ID INTEGER);
                                             CREATE TABLE IF NOT EXISTS tbl_section (
                                                     Section_ID INTEGER PRIMARY KEY, 
                                                     Description TEXT,
-                                                    AcadLevel_ID INTEGER);
+                                                    AcadLevel_ID INTEGER,
+                                                    Department_ID INTEGER);
                                             CREATE TABLE IF NOT EXISTS tbl_year_level (
                                                     Level_ID INTEGER PRIMARY KEY, 
                                                     Description TEXT,
@@ -111,8 +115,29 @@ namespace AMSEMS
                                                     Acad_ID INTEGER PRIMARY KEY, 
                                                     Academic_Year_Start TEXT,
                                                     Academic_Year_End TEXT,
-                                                    Ter_Academic_Sem INTEGER,
-                                                    SHS_Academic_Sem INTEGER);
+                                                    Status INTEGER);
+                                            CREATE TABLE IF NOT EXISTS tbl_Semester (
+                                                    Semester_ID INTEGER PRIMARY KEY, 
+                                                    Description TEXT,
+                                                    Status INTEGER);
+                                            CREATE TABLE IF NOT EXISTS tbl_Quarter (
+                                                    Quarter_ID INTEGER PRIMARY KEY, 
+                                                    Description TEXT,
+                                                    Status INTEGER);
+                                            CREATE TABLE IF NOT EXISTS tbl_ter_assigned_teacher_to_sub (
+                                                    Assigned_ID   INTEGER,
+                                                    Teacher_ID      TEXT,
+                                                    Course_Code TEXT,
+                                                    Semester      int,
+                                                    School_Year  int,
+                                                    Department_ID INTEGER);
+                                            CREATE TABLE IF NOT EXISTS tbl_shs_assigned_teacher_to_sub (
+                                                    Assigned_ID   INTEGER,
+                                                    Teacher_ID      TEXT,
+                                                    Course_Code TEXT,
+                                                    Quarter      int,
+                                                    School_Year  int,
+                                                    Department_ID INTEGER);
                                             CREATE TABLE IF NOT EXISTS tbl_class_list (
                                                     CLass_Code TEXT PRIMARY KEY,
                                                     Section_ID INTEGER,
@@ -148,6 +173,10 @@ namespace AMSEMS
                                         DELETE FROM tbl_section;
                                         DELETE FROM tbl_year_level;
                                         DELETE FROM tbl_academic_level;
+                                        DELETE FROM tbl_ter_assigned_teacher_to_sub;
+                                        DELETE FROM tbl_shs_assigned_teacher_to_sub;
+                                        DELETE FROM tbl_Semester;
+                                        DELETE FROM tbl_Quarter;
                                         DELETE FROM tbl_acad;";
                     command.CommandText = clearSql;
                     command.ExecuteNonQuery();
@@ -163,7 +192,7 @@ namespace AMSEMS
 
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
-                    string clearSql = @"DELETE FROM tbl_subjects;";
+                    string clearSql = @"DELETE FROM tbl_subjects;                                                               DELETE FROM tbl_class_list;";
                     command.CommandText = clearSql;
                     command.ExecuteNonQuery();
                 }
@@ -318,7 +347,7 @@ namespace AMSEMS
                 connection.Close();
             }
         }
-        public void InsertSubjectsData(string ccode, string cdes, string units, byte[] pic, string stat, string assTeach, string acadlvl)
+        public void InsertSubjectsData(string ccode, string cdes, string units, byte[] pic, string stat, string acadlvl, string depid)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -328,7 +357,7 @@ namespace AMSEMS
                 {
                     byte[] imageBytes = pic;
                     // Insert new data
-                    string insertSql = "INSERT INTO tbl_subjects (Course_code, Course_Description, Units, Image, Status, Assigned_Teacher, Academic_Level) VALUES (@Ccode, @CDes, @Units, @Image, @Stat, @AssTeach, @AcadLvl);";
+                    string insertSql = "INSERT INTO tbl_subjects (Course_code, Course_Description, Units, Image, Status, Academic_Level, Department_ID) VALUES (@Ccode, @CDes, @Units, @Image, @Stat, @AcadLvl, @DepID);";
 
                     command.CommandText = insertSql;
                     command.Parameters.AddWithValue("@Ccode", ccode);
@@ -336,8 +365,8 @@ namespace AMSEMS
                     command.Parameters.AddWithValue("@Units", units);
                     command.Parameters.Add("@Image", DbType.Binary).Value = imageBytes;
                     command.Parameters.AddWithValue("@Stat", stat);
-                    command.Parameters.AddWithValue("@AssTeach", assTeach);
                     command.Parameters.AddWithValue("@AcadLvl", acadlvl);
+                    command.Parameters.AddWithValue("@DepID", depid);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -377,7 +406,7 @@ namespace AMSEMS
             }
         }
         
-        public void InsertProgramData(string id, string desc, string acadlvl)
+        public void InsertProgramData(string id, string desc, string acadlvl, string depid)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -386,18 +415,19 @@ namespace AMSEMS
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     // Insert new data
-                    string insertSql = "INSERT INTO tbl_program (Prgram_ID, Description, AcadLevel_ID) VALUES (@ProgramID, @Desc, @Acadlvl);";
+                    string insertSql = "INSERT INTO tbl_program (Prgram_ID, Description, AcadLevel_ID, Department_ID) VALUES (@ProgramID, @Desc, @Acadlvl, @DepID);";
 
                     command.CommandText = insertSql;
                     command.Parameters.AddWithValue("@ProgramID", id);
                     command.Parameters.AddWithValue("@Desc", desc);
                     command.Parameters.AddWithValue("@Acadlvl", acadlvl);
+                    command.Parameters.AddWithValue("@DepID", depid);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
             }
         }
-        public void InsertSectionData(string id, string desc, string acadlvl)
+        public void InsertSectionData(string id, string desc, string acadlvl, string depid)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -406,12 +436,13 @@ namespace AMSEMS
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     // Insert new data
-                    string insertSql = "INSERT INTO tbl_section (Section_ID, Description, AcadLevel_ID) VALUES (@SectionID, @Desc, @Acadlvl);";
+                    string insertSql = "INSERT INTO tbl_section (Section_ID, Description, AcadLevel_ID, Department_ID) VALUES (@SectionID, @Desc, @Acadlvl, @DepID);";
 
                     command.CommandText = insertSql;
                     command.Parameters.AddWithValue("@SectionID", id);
                     command.Parameters.AddWithValue("@Desc", desc);
                     command.Parameters.AddWithValue("@Acadlvl", acadlvl);
+                    command.Parameters.AddWithValue("@DepID", depid);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -476,7 +507,7 @@ namespace AMSEMS
                 connection.Close();
             }
         }
-        public void InsertAcadData(string id, string acadstart, string acadend, string teracadsem, string shsacadsem)
+        public void InsertAcadData(string id, string acadstart, string acadend, string status)
         {
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
@@ -485,14 +516,99 @@ namespace AMSEMS
                 using (SQLiteCommand command = new SQLiteCommand(connection))
                 {
                     // Insert new data
-                    string insertSql = "INSERT INTO tbl_acad (Acad_ID, Academic_Year_Start, Academic_Year_End, Ter_Academic_Sem, SHS_Academic_Sem) VALUES (@AcadId, @AcadStart, @AcadEnd, @TerAcadSem, @ShsAcadSem);";
+                    string insertSql = "INSERT INTO tbl_acad (Acad_ID, Academic_Year_Start, Academic_Year_End, Status) VALUES (@AcadId, @AcadStart, @AcadEnd, @Stat);";
 
                     command.CommandText = insertSql;
                     command.Parameters.AddWithValue("@AcadId", id);
                     command.Parameters.AddWithValue("@AcadStart", acadstart);
                     command.Parameters.AddWithValue("@AcadEnd", acadend);
-                    command.Parameters.AddWithValue("@TerAcadSem", teracadsem);
-                    command.Parameters.AddWithValue("@ShsAcadSem", shsacadsem);
+                    command.Parameters.AddWithValue("@Stat", status);
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        public void InsertSemData(string id, string des, string status)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    // Insert new data
+                    string insertSql = "INSERT INTO tbl_Semester (Semester_ID, Description, Status) VALUES (@SemID, @Des, @Stat);";
+
+                    command.CommandText = insertSql;
+                    command.Parameters.AddWithValue("@SemID", id);
+                    command.Parameters.AddWithValue("@Des", des);
+                    command.Parameters.AddWithValue("@Stat", status);
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        public void InsertQuarData(string id, string des, string status)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    // Insert new data
+                    string insertSql = "INSERT INTO tbl_Quarter (Quarter_ID, Description, Status) VALUES (@SemID, @Des, @Stat);";
+
+                    command.CommandText = insertSql;
+                    command.Parameters.AddWithValue("@SemID", id);
+                    command.Parameters.AddWithValue("@Des", des);
+                    command.Parameters.AddWithValue("@Stat", status);
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        public void InsertTerAssignedData(string id, string teach, string ccode, string sem, string schyear, string depid)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    // Insert new data
+                    string insertSql = "INSERT INTO tbl_ter_assigned_teacher_to_sub (Assigned_ID, Teacher_ID, Course_Code, Semester, School_Year, Department_ID) VALUES (@AssID, @TeachID, @Ccode, @Sem, @SchYear, @DepID);";
+
+                    command.CommandText = insertSql;
+                    command.Parameters.AddWithValue("@AssID", id);
+                    command.Parameters.AddWithValue("@TeachID", teach);
+                    command.Parameters.AddWithValue("@Ccode", ccode);
+                    command.Parameters.AddWithValue("@Sem", sem);
+                    command.Parameters.AddWithValue("@SchYear", schyear);
+                    command.Parameters.AddWithValue("@DepID", depid);
+                    command.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+        }
+        public void InsertShsAssignedData(string id, string teach, string ccode, string sem, string schyear, string depid)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    // Insert new data
+                    string insertSql = "INSERT INTO tbl_shs_assigned_teacher_to_sub (Assigned_ID, Teacher_ID, Course_Code, Quarter, School_Year, Department_ID) VALUES (@AssID, @TeachID, @Ccode, @Sem, @SchYear, @DepID);";
+
+                    command.CommandText = insertSql;
+                    command.Parameters.AddWithValue("@AssID", id);
+                    command.Parameters.AddWithValue("@TeachID", teach);
+                    command.Parameters.AddWithValue("@Ccode", ccode);
+                    command.Parameters.AddWithValue("@Sem", sem);
+                    command.Parameters.AddWithValue("@SchYear", schyear);
+                    command.Parameters.AddWithValue("@DepID", depid);
                     command.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -505,11 +621,87 @@ namespace AMSEMS
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                string query = "SELECT Course_code, Course_Description, Image, Academic_Level, Academic_Level_Description FROM tbl_subjects s LEFT JOIN tbl_teachers_account t ON s.Assigned_Teacher = t.ID LEFT JOIN tbl_academic_level al ON s.Academic_Level = al.Academic_Level_ID WHERE Unique_ID = @TeachID AND s.Status = 1";
+                string schyear = null, sem = null, quar = null;
+                string query = "";
+
+                // Get Academic Year
+                query = "SELECT Acad_ID, Academic_Year_Start, Academic_Year_End FROM tbl_acad WHERE Status = 1";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, connection))
                 {
+                    using (SQLiteDataReader adapter = command.ExecuteReader())
+                    {
+                        if (adapter.Read()) // Move to the first row
+                        {
+                            schyear = adapter["Acad_ID"].ToString();
+                        }
+                    }
+                }
+
+                // Get Quarter
+                query = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
+
+                using (SQLiteCommand cm = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            quar = dr["Quarter_ID"].ToString();
+                        }
+                    }
+                }
+
+                // Get Semester
+                query = "SELECT Semester_ID, Description FROM tbl_Semester WHERE Status = 1";
+
+                using (SQLiteCommand cm = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            sem = dr["Semester_ID"].ToString();
+                        }
+                    }
+                }
+
+                query = "SELECT s.Course_code, Course_Description, Image, Academic_Level, Academic_Level_Description " +
+                "FROM tbl_subjects AS s " +
+                "LEFT JOIN tbl_Departments d ON s.Department_ID = d.Department_ID " +
+                "LEFT JOIN tbl_Academic_Level AS al ON s.Academic_Level = al.Academic_Level_ID " +
+                "LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code " +
+                "LEFT JOIN tbl_teachers_account ta ON ter.Teacher_ID = ta.ID " +
+                "WHERE s.Status = 1 AND School_Year = @schyear AND Semester = @sem AND Unique_ID = @TeachID " +
+                "ORDER BY 1 DESC";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@schyear", schyear);
+                    command.Parameters.AddWithValue("@sem", sem);
                     command.Parameters.AddWithValue("@TeachID", teachID);
+
+                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
+                    {
+                        adapter.Fill(dataTable);
+                    }
+                }
+
+                query = @"SELECT s.Course_code, Course_Description, Image, Academic_Level, Academic_Level_Description 
+                FROM tbl_subjects AS s
+                LEFT JOIN tbl_Departments d ON s.Department_ID = d.Department_ID
+                LEFT JOIN tbl_Academic_Level AS al ON s.Academic_Level = al.Academic_Level_ID
+                LEFT JOIN tbl_shs_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code
+                LEFT JOIN tbl_teachers_account ta ON ter.Teacher_ID = ta.ID
+                WHERE s.Status = 1 AND School_Year = @schyear AND Quarter = @sem AND Unique_ID = @TeachID
+                ORDER BY 1 DESC";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@schyear", schyear);
+                    command.Parameters.AddWithValue("@sem", quar);
+                    command.Parameters.AddWithValue("@TeachID", teachID);
+
                     using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
                     {
                         adapter.Fill(dataTable);

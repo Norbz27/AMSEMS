@@ -100,11 +100,11 @@ namespace AMSEMS.SubForms_Teacher
                             }
                             dr.Close();
 
-                            cm = new SqlCommand("SELECT Course_code, Course_Description, Units, Image, Status, Assigned_Teacher, Academic_Level from tbl_subjects", cn);
+                            cm = new SqlCommand("SELECT Course_code, Course_Description, Units, Image, Status, Academic_Level, Department_ID from tbl_subjects", cn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertSubjectsData(dr["Course_code"].ToString(), dr["Course_Description"].ToString(), dr["Units"].ToString(), (byte[])dr["Image"], dr["Status"].ToString(), dr["Assigned_Teacher"].ToString(), dr["Academic_Level"].ToString());
+                                sQLite_Connection.InsertSubjectsData(dr["Course_code"].ToString(), dr["Course_Description"].ToString(), dr["Units"].ToString(), (byte[])dr["Image"], dr["Status"].ToString(), dr["Academic_Level"].ToString(), dr["Department_ID"].ToString());
                             }
                             dr.Close();
 
@@ -116,19 +116,19 @@ namespace AMSEMS.SubForms_Teacher
                             }
                             dr.Close();
 
-                            cm = new SqlCommand("SELECT Program_ID, Description, AcadLevel_ID from tbl_program", cn);
+                            cm = new SqlCommand("SELECT Program_ID, Description, AcadLevel_ID, Department_ID from tbl_program", cn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertProgramData(dr["Program_ID"].ToString(), dr["Description"].ToString(), dr["AcadLevel_ID"].ToString());
+                                sQLite_Connection.InsertProgramData(dr["Program_ID"].ToString(), dr["Description"].ToString(), dr["AcadLevel_ID"].ToString(), dr["Department_ID"].ToString());
                             }
                             dr.Close();
 
-                            cm = new SqlCommand("SELECT Section_ID, Description, AcadLevel_ID from tbl_section", cn);
+                            cm = new SqlCommand("SELECT Section_ID, Description, AcadLevel_ID, Department_ID from tbl_section", cn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertSectionData(dr["Section_ID"].ToString(), dr["Description"].ToString(), dr["AcadLevel_ID"].ToString());
+                                sQLite_Connection.InsertSectionData(dr["Section_ID"].ToString(), dr["Description"].ToString(), dr["AcadLevel_ID"].ToString(), dr["Department_ID"].ToString());
                             }
                             dr.Close();
 
@@ -156,11 +156,11 @@ namespace AMSEMS.SubForms_Teacher
                             }
                             dr.Close();
 
-                            cm = new SqlCommand("SELECT Acad_ID, Academic_Year_Start, Academic_Year_End, Ter_Academic_Sem, SHS_Academic_Sem from tbl_acad", cn);
+                            cm = new SqlCommand("SELECT Acad_ID, Academic_Year_Start, Academic_Year_End, Status from tbl_acad", cn);
                             dr = cm.ExecuteReader();
                             while (dr.Read())
                             {
-                                sQLite_Connection.InsertAcadData(dr["Acad_ID"].ToString(), dr["Academic_Year_Start"].ToString(), dr["Academic_Year_End"].ToString(), dr["Ter_Academic_Sem"].ToString(), dr["SHS_Academic_Sem"].ToString());
+                                sQLite_Connection.InsertAcadData(dr["Acad_ID"].ToString(), dr["Academic_Year_Start"].ToString(), dr["Academic_Year_End"].ToString(), dr["Status"].ToString());
                             }
                             dr.Close();
 
@@ -177,6 +177,38 @@ namespace AMSEMS.SubForms_Teacher
                             while (dr.Read())
                             {
                                 sQLite_Connection.InsertAttendancetData(dr["CLass_Code"].ToString(), dr["Attendance_date"].ToString(), dr["Student_ID"].ToString(), dr["Student_Status"].ToString());
+                            }
+                            dr.Close();
+
+                            cm = new SqlCommand("SELECT Semester_ID, Description, Status from tbl_Semester", cn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertSemData(dr["Semester_ID"].ToString(), dr["Description"].ToString(), dr["Status"].ToString());
+                            }
+                            dr.Close();
+                            
+                            cm = new SqlCommand("SELECT Quarter_ID, Description, Status from tbl_Quarter", cn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertQuarData(dr["Quarter_ID"].ToString(), dr["Description"].ToString(), dr["Status"].ToString());
+                            }
+                            dr.Close();
+                            
+                            cm = new SqlCommand("SELECT Assigned_ID, Teacher_ID, Course_Code, Semester, School_Year, Department_ID FROM tbl_ter_assigned_teacher_to_sub", cn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertTerAssignedData(dr["Assigned_ID"].ToString(), dr["Teacher_ID"].ToString(), dr["Course_Code"].ToString(), dr["Semester"].ToString(), dr["School_Year"].ToString(), dr["Department_ID"].ToString());
+                            }
+                            dr.Close();
+                             
+                            cm = new SqlCommand("SELECT Assigned_ID, Teacher_ID, Course_Code, Quarter, School_Year, Department_ID FROM tbl_shs_assigned_teacher_to_sub", cn);
+                            dr = cm.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                sQLite_Connection.InsertShsAssignedData(dr["Assigned_ID"].ToString(), dr["Teacher_ID"].ToString(), dr["Course_Code"].ToString(), dr["Quarter"].ToString(), dr["School_Year"].ToString(), dr["Department_ID"].ToString());
                             }
                             dr.Close();
 
