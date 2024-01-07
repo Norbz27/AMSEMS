@@ -1,5 +1,6 @@
 ﻿
 using ComponentFactory.Krypton.Toolkit;
+using Org.BouncyCastle.Ocsp;
 using PusherServer;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace AMSEMS.SubForms_SAO
         public static string exclusive = "All Students";
 
         formEventAddConfig formEventConfig;
-        private string schYear, Tersem, Shssem;
+        private string schYear;
 
         public formAddEvent()
         {
@@ -48,17 +49,16 @@ namespace AMSEMS.SubForms_SAO
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                string query = "SELECT Academic_Year_Start + '-' + Academic_Year_End AS SchYear, Ter_Academic_Sem, SHS_Academic_Sem FROM tbl_acad";
-                using (SqlCommand command = new SqlCommand(query, cn))
+                string query = "";
+
+                query = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                using (SqlCommand cm = new SqlCommand(query, cn))
                 {
-                    command.CommandText = query;
-                    using (SqlDataReader rd = command.ExecuteReader())
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
-                        if (rd.Read())
+                        while (dr.Read())
                         {
-                            schYear = rd["SchYear"].ToString();
-                            Tersem = rd["Ter_Academic_Sem"].ToString();
-                            Shssem = rd["SHS_Academic_Sem"].ToString();
+                            schYear = dr["Acad_ID"].ToString();
                         }
                     }
                 }

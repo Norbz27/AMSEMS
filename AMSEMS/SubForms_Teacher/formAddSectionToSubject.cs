@@ -420,11 +420,22 @@ namespace AMSEMS.SubForms_Teacher
 
                 using (SQLiteCommand checkCommand = new SQLiteCommand(cn))
                 {
-                    // Check if the section is already present for the same subject or course
-                    string checkQuery = "SELECT COUNT(*) FROM tbl_class_list WHERE Section_ID = @SecID AND Course_Code = @Ccode";
+                    string checkQuery = "";
+                    if (subacadlvl.Equals("10001"))
+                    {
+                        // Check if the section is already present for the same subject or course
+                        checkQuery = "SELECT COUNT(*) FROM tbl_class_list WHERE Section_ID = @SecID AND Course_Code = @Ccode AND School_Year = @schyear AND Semester = @sem";
+                    }
+                    else
+                    {
+                        checkQuery = "SELECT COUNT(*) FROM tbl_class_list WHERE Section_ID = @SecID AND Course_Code = @Ccode AND School_Year = @schyear AND Semester = @quar";
+                    }
                     checkCommand.CommandText = checkQuery;
                     checkCommand.Parameters.AddWithValue("@SecID", secID);
                     checkCommand.Parameters.AddWithValue("@Ccode", ccode);
+                    checkCommand.Parameters.AddWithValue("@schyear", schYear);
+                    checkCommand.Parameters.AddWithValue("@sem", Tersem);
+                    checkCommand.Parameters.AddWithValue("@quar", Shssem);
 
                     int existingCount = Convert.ToInt32(checkCommand.ExecuteScalar());
 

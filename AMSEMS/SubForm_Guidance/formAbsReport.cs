@@ -51,16 +51,41 @@ namespace AMSEMS.SubForm_Guidance
                     }
                 }
 
-                query = "SELECT * FROM tbl_acad";
-                using (SqlCommand cmd = new SqlCommand(query, cn))
+
+                query = "SELECT Quarter_ID AS ID, Description FROM tbl_Quarter WHERE Status = 1";
+
+                using (SqlCommand cm = new SqlCommand(query, cn))
                 {
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
                         if (dr.Read())
                         {
-                            acadSchYeear = dr["Academic_Year_Start"].ToString() +"-"+ dr["Academic_Year_End"].ToString();
-                            acadTerSem = dr["Ter_Academic_Sem"].ToString();
-                            acadShsSem = dr["SHS_Academic_Sem"].ToString();
+                            acadShsSem = dr["ID"].ToString();
+                        }
+                    }
+                }
+    
+                query = "SELECT Semester_ID AS ID, Description FROM tbl_Semester WHERE Status = 1";
+                
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            acadTerSem = dr["ID"].ToString();
+                        }
+                    }
+                }
+
+                query = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            acadSchYeear = dr["Acad_ID"].ToString();
                         }
                     }
                 }

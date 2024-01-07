@@ -17,6 +17,7 @@ namespace AMSEMS.SubForm_Guidance
         //string acadSchYeear, acadTerSem, acadShsSem;
         private BackgroundWorker backgroundWorker = new BackgroundWorker();
         private CancellationTokenSource cancellationTokenSource;
+        string acadSchYeear, acadTerSem, acadShsSem;
         public formDashboard()
         {
             InitializeComponent();
@@ -24,22 +25,48 @@ namespace AMSEMS.SubForm_Guidance
             backgroundWorker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
             backgroundWorker.WorkerSupportsCancellation = true;
             cancellationTokenSource = new CancellationTokenSource();
-            //using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
-            //{
-            //    string query = "SELECT * FROM tbl_acad";
-            //    using (SqlCommand cmd = new SqlCommand(query, cn))
-            //    {
-            //        using (SqlDataReader dr = cmd.ExecuteReader())
-            //        {
-            //            if (dr.Read())
-            //            {
-            //                acadSchYeear = dr["Academic_Year_Start"].ToString() + "-" + dr["Academic_Year_End"].ToString();
-            //                acadShsSem = dr["Ter_Academic_Sem"].ToString();
-            //                acadTerSem = dr["SHS_Academic_Sem"].ToString();
-            //            }
-            //        }
-            //    }
-            //}
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                string query = "";
+                query = "SELECT Quarter_ID AS ID, Description FROM tbl_Quarter WHERE Status = 1";
+
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            acadShsSem = dr["ID"].ToString();
+                        }
+                    }
+                }
+
+                query = "SELECT Semester_ID AS ID, Description FROM tbl_Semester WHERE Status = 1";
+
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            acadTerSem = dr["ID"].ToString();
+                        }
+                    }
+                }
+
+                query = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            acadSchYeear = dr["Acad_ID"].ToString();
+                        }
+                    }
+                }
+            }
         }
         public static void getForm(FormGuidanceNavigation form1)
         {
@@ -89,15 +116,22 @@ namespace AMSEMS.SubForm_Guidance
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 await cn.OpenAsync();
-                string query = @"SELECT
-                COUNT(CASE WHEN sec.AcadLevel_ID = '10001' THEN 1 END) AS countStudTer,
-                COUNT(CASE WHEN sec.AcadLevel_ID = '10002' THEN 1 END) AS countStudSHS
-            FROM tbl_consultation_record cr
-            LEFT JOIN tbl_student_accounts sa ON cr.Student_ID = sa.ID
-            LEFT JOIN tbl_Section sec ON sa.Section = sec.Section_ID
-            WHERE cr.Status = 'Pending';";
+                string query = "";
+                query = @"SELECT 
+						COUNT(*) AS countStudTer
+                        FROM 
+                            tbl_consultation_record cr
+                        	LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
+                            LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
+                        WHERE 
+                            Acad_Level = '10001'
+                            AND cl.School_Year = @schyear
+                            AND cl.Semester = @sem
+                            AND cr.Status = 'Pending'";
                 using (SqlCommand cm =  new SqlCommand(query, cn))
                 {
+                    cm.Parameters.AddWithValue("@schyear", acadSchYeear);
+                    cm.Parameters.AddWithValue("@sem", acadTerSem);
                     using (SqlDataReader dr = await cm.ExecuteReaderAsync())
                     {
                         if (dr.Read())
@@ -107,9 +141,36 @@ namespace AMSEMS.SubForm_Guidance
                                 return;
                             }
                             string tercount = dr["countStudTer"].ToString();
+                            lblTerPending.Text = tercount + " Pending";
+                        }
+                    }
+                }
+
+                query = @"SELECT 
+						COUNT(*) AS countStudSHS
+                        FROM 
+                            tbl_consultation_record cr
+                        	LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
+                            LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
+                        WHERE 
+                            Acad_Level = '10002'
+                            AND cl.School_Year = @schyear
+                            AND cl.Semester = @sem
+                            AND cr.Status = 'Pending'";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    cm.Parameters.AddWithValue("@schyear", acadSchYeear);
+                    cm.Parameters.AddWithValue("@sem", acadShsSem);
+                    using (SqlDataReader dr = await cm.ExecuteReaderAsync())
+                    {
+                        if (dr.Read())
+                        {
+                            if (cancellationTokenSource.Token.IsCancellationRequested)
+                            {
+                                return;
+                            }
                             string shscount = dr["countStudSHS"].ToString();
 
-                            lblTerPending.Text = tercount + " Pending";
                             lblShsPending.Text = shscount + " Pending";
                         }
                     }
@@ -130,17 +191,53 @@ namespace AMSEMS.SubForm_Guidance
                 try
                 {
                     await cn.OpenAsync();
-
-                    string query = @"
+                    string query = "";
+                    query = @"
                 SELECT
                     MONTH(Date) AS Month,
                     COUNT(CASE WHEN Status = 'Done' THEN 1 ELSE NULL END) AS recordCount
-                FROM tbl_consultation_record
-                WHERE Status = 'Done'
+                FROM tbl_consultation_record cr
+				LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code 
+                WHERE Status = 'Done' AND School_Year = @schyear AND Semester = @sem
                 GROUP BY MONTH(Date)";
 
                     using (SqlCommand cmd = new SqlCommand(query, cn))
                     {
+                        cmd.Parameters.AddWithValue("@schyear", acadSchYeear);
+                        cmd.Parameters.AddWithValue("@sem", acadTerSem);
+                        using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
+                        {
+                            while (dr.Read())
+                            {
+                                if (cancellationTokenSource.Token.IsCancellationRequested)
+                                {
+                                    return;
+                                }
+                                int month = Convert.ToInt32(dr["Month"]);
+                                int recordCount = Convert.ToInt32(dr["recordCount"]);
+
+                                // Add data points to the series
+                                chart1.Series["monthlyconsulted"].Points.AddXY(GetMonthName(month), recordCount);
+                            }
+
+
+                            chart1.ChartAreas[0].AxisX.Title = "Month";
+                            chart1.ChartAreas[0].AxisY.Title = "Record Count";
+                        }
+                    }
+                    query = @"
+                SELECT
+                    MONTH(Date) AS Month,
+                    COUNT(CASE WHEN Status = 'Done' THEN 1 ELSE NULL END) AS recordCount
+                FROM tbl_consultation_record cr
+				LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code 
+                WHERE Status = 'Done' AND School_Year = @schyear AND Semester = @sem
+                GROUP BY MONTH(Date)";
+
+                    using (SqlCommand cmd = new SqlCommand(query, cn))
+                    {
+                        cmd.Parameters.AddWithValue("@schyear", acadSchYeear);
+                        cmd.Parameters.AddWithValue("@sem", acadShsSem);
                         using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
                         {
                             while (dr.Read())

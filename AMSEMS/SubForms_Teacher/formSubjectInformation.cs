@@ -21,8 +21,11 @@ namespace AMSEMS.SubForms_Teacher
         private Form activeForm;
         static FormTeacherNavigation form;
         static string ccode;
-        static string subjectAcadlvl;
+        public static string subjectAcadlvl;
         static string acadlvl;
+        string schYear = String.Empty;
+        string Tersem = String.Empty;
+        string Shssem = String.Empty;
         public formSubjectInformation()
         {
             InitializeComponent();
@@ -35,8 +38,54 @@ namespace AMSEMS.SubForms_Teacher
             ccode = ccode1;
             acadlvl = acadlvl1;
         }
+        public void getAcad()
+        {
+            using (SQLiteConnection cn = new SQLiteConnection(conn.connectionString))
+            {
+                cn.Open();
+                using (SQLiteCommand command = new SQLiteCommand(cn))
+                {
+                    string query1 = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                    command.CommandText = query1;
+                    using (SQLiteDataReader rd = command.ExecuteReader())
+                    {
+                        if (rd.Read())
+                        {
+                            schYear = rd["Acad_ID"].ToString();
+                        }
+                    }
+                }
+
+                using (SQLiteCommand cm = new SQLiteCommand(cn))
+                {
+                    string query2 = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
+                    cm.CommandText = query2;
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            Shssem = dr["Quarter_ID"].ToString();
+                        }
+                    }
+                }
+
+                using (SQLiteCommand cm = new SQLiteCommand(cn))
+                {
+                    string query3 = "SELECT Semester_ID, Description FROM tbl_Semester WHERE Status = 1";
+                    cm.CommandText = query3;
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            Tersem = dr["Semester_ID"].ToString();
+                        }
+                    }
+                }
+            }
+        }
         private void formSubjectInformation_Load(object sender, EventArgs e)
         {
+            getAcad();
             displaysubjectinfo();
             displaySectionOfSubject();
             formSubjectMainPage.setForm(this, ccode);
@@ -76,12 +125,23 @@ namespace AMSEMS.SubForms_Teacher
             using (SQLiteConnection con = new SQLiteConnection(conn.connectionString))
             {
                 con.Open();
-                string query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode";
+                string query = "";
+                if (subjectAcadlvl == "10001")
+                {
+                    query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode AND School_Year = @schyear AND Semester = @sem";
+                }
+                else
+                {
+                    query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode AND School_Year = @schyear AND Semester = @quar";
+                }
 
                 using (SQLiteCommand command = new SQLiteCommand(query, con))
                 {
                     command.Parameters.AddWithValue("@teachID", FormTeacherNavigation.id);
                     command.Parameters.AddWithValue("@Ccode", ccode);
+                    command.Parameters.AddWithValue("@schyear", schYear);
+                    command.Parameters.AddWithValue("@sem", Tersem);
+                    command.Parameters.AddWithValue("@quar", Shssem);
                     using (SQLiteDataReader rd = command.ExecuteReader())
                     {
                         while(rd.Read())

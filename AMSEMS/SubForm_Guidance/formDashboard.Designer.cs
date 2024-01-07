@@ -421,14 +421,14 @@
             this.lblTerPending.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblTerPending.Location = new System.Drawing.Point(18, 84);
             this.lblTerPending.Name = "lblTerPending";
-            this.lblTerPending.Size = new System.Drawing.Size(91, 23);
+            this.lblTerPending.Size = new System.Drawing.Size(79, 23);
             this.lblTerPending.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
             this.lblTerPending.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
             this.lblTerPending.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.lblTerPending.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
             this.lblTerPending.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
             this.lblTerPending.TabIndex = 5;
-            this.lblTerPending.Values.Text = "100 Pending";
+            this.lblTerPending.Values.Text = "0 Pending";
             // 
             // btnViewTer
             // 
@@ -499,14 +499,14 @@
             this.lblShsPending.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblShsPending.Location = new System.Drawing.Point(18, 76);
             this.lblShsPending.Name = "lblShsPending";
-            this.lblShsPending.Size = new System.Drawing.Size(91, 23);
+            this.lblShsPending.Size = new System.Drawing.Size(79, 23);
             this.lblShsPending.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
             this.lblShsPending.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
             this.lblShsPending.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.lblShsPending.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
             this.lblShsPending.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F);
             this.lblShsPending.TabIndex = 5;
-            this.lblShsPending.Values.Text = "100 Pending";
+            this.lblShsPending.Values.Text = "0 Pending";
             // 
             // btnViewShs
             // 

@@ -38,18 +38,23 @@ namespace AMSEMS.SubForms_DeptHead
         {
             cbSection.Items.Clear();
 
-            using (cn = new SqlConnection(SQL_Connection.connection))
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("SELECT DISTINCT School_Year FROM tbl_events GROUP BY School_Year ORDER BY School_Year ASC", cn);
-                dr = cm.ExecuteReader();
-                while (dr.Read())
-                {
-                    cbYear.Items.Add(dr["School_Year"].ToString());
-                }
-                dr.Close();
-            }
+                string query = "";
 
+                query = "SELECT (Academic_Year_Start+'-'+Academic_Year_End) AS School_Year FROM tbl_acad";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            cbYear.Items.Add(dr["School_Year"].ToString());
+                        }
+                    }
+                }
+            }
             //int currentYear = DateTime.Now.Year;
             //for (int year = currentYear - 10; year <= currentYear; year++)
             //{
@@ -145,7 +150,21 @@ namespace AMSEMS.SubForms_DeptHead
             //    return;
             //}
 
-            string selectedYear = cbYear.Text;
+            string selectedYear = "";
+
+            string query = "SELECT Acad_ID FROM tbl_acad WHERE (Academic_Year_Start+'-'+Academic_Year_End) = @schyear";
+            using (SqlCommand cm = new SqlCommand(query, cn))
+            {
+                cm.Parameters.AddWithValue("@schyear", cbYear.Text);
+                using (SqlDataReader dr = cm.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        selectedYear = dr["Acad_ID"].ToString();
+                    }
+                }
+            }
+            
             string queryEvents = "SELECT Event_Name, a.Date_Time FROM tbl_attendance a " +
                                 "LEFT JOIN tbl_events e ON e.Event_ID = a.Event_ID " +
                                 "WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students' OR CHARINDEX(@Department, Selected_Departments) > 0) AND e.School_Year = @SelectedYear " +

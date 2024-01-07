@@ -49,21 +49,21 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnAddSection_Click(object sender, EventArgs e)
         {
-            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting(this, new formTeacherForm());
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting(this, new formTeacherForm(), new formSchoolDetails());
             formAddSchoolSetting.setDisplayData("Section");
             formAddSchoolSetting.ShowDialog();
         }
 
         private void btnAddYearLvl_Click(object sender, EventArgs e)
         {
-            formAddSchoolSetting2 formAddSchoolSetting = new formAddSchoolSetting2(this, new formTeacherForm(), new formSubjectsForm());
+            formAddSchoolSetting2 formAddSchoolSetting = new formAddSchoolSetting2(this, new formTeacherForm(), new formSubjectsForm(), new formSchoolDetails());
             formAddSchoolSetting.setDisplayData("Year Level");
             formAddSchoolSetting.ShowDialog();
         }
 
         private void btnAddProgram_Click(object sender, EventArgs e)
         {
-            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting(this, new formTeacherForm());
+            formAddSchoolSetting formAddSchoolSetting = new formAddSchoolSetting(this, new formTeacherForm(), new formSchoolDetails());
             formAddSchoolSetting.setDisplayData("Program");
             formAddSchoolSetting.ShowDialog();
         }
@@ -449,7 +449,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnAddDep_Click(object sender, EventArgs e)
         {
-            formAddSchoolSetting2 formAddSchoolSetting = new formAddSchoolSetting2(this, new formTeacherForm(), new formSubjectsForm());
+            formAddSchoolSetting2 formAddSchoolSetting = new formAddSchoolSetting2(this, new formTeacherForm(), new formSubjectsForm(), new formSchoolDetails());
             formAddSchoolSetting.setDisplayData("Departments");
             formAddSchoolSetting.ShowDialog();
         }
@@ -461,7 +461,6 @@ namespace AMSEMS.SubForms_Admin
                 form1.displayFilter();
                 form1.loadCMSControls();
             }
-
         }
     }
 }

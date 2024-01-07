@@ -379,14 +379,9 @@ namespace AMSEMS.SubForms_DeptHead
                 ptbLoading2.Visible = true;
                 await Task.Delay(2000);
                 string query = "";
-                if (FormDeptHeadNavigation.acadlevel == "SHS")
-                {
-                    query = "SELECT s.Course_code,Course_Description, Units, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_shs_assigned_teacher_to_sub shs ON s.Course_code = shs.Course_code LEFT JOIN tbl_acad ad ON shs.School_Year = ad.Acad_ID LEFT JOIN tbl_Quarter sem ON shs.Quarter = sem.Quarter_ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND s.Status = 1 AND shs.Teacher_ID IS NULL ORDER BY 1 DESC";
-                }
-                else
-                {
-                    query = "SELECT s.Course_code,Course_Description, Units, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code LEFT JOIN tbl_acad ad ON ter.School_Year = ad.Acad_ID LEFT JOIN tbl_Semester sem ON ter.Semester = sem.Semester_ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND s.Status = 1 AND ter.Teacher_ID IS NULL ORDER BY 1 DESC";
-                }
+
+                query = "SELECT DISTINCT s.Course_code,Course_Description, Units FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND s.Status = 1 ORDER BY 1 DESC";
+                
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();

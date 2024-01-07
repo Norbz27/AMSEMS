@@ -327,7 +327,7 @@ namespace AMSEMS.SubForms_Admin
         }
         private void btnAddDep_Click(object sender, EventArgs e)
         {
-            formAddSchoolSetting2 formAddSchoolSetting = new formAddSchoolSetting2(new formStudentForm(), new formTeacherForm(), this);
+            formAddSchoolSetting2 formAddSchoolSetting = new formAddSchoolSetting2(new formStudentForm(), new formTeacherForm(), this, new formSchoolDetails());
             formAddSchoolSetting.setDisplayData("Departments");
             formAddSchoolSetting.ShowDialog();
         }

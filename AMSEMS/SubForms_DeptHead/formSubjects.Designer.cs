@@ -35,6 +35,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -43,9 +46,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnExport = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnAssignSubject = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -62,7 +62,15 @@
             this.assignedSub = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox2 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             this.dgvAssignedSub = new System.Windows.Forms.DataGridView();
+            this.code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Des = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.units = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.assigned = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.schyear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sem = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewImageColumn3 = new System.Windows.Forms.DataGridViewImageColumn();
             this.cbSchoolYear = new System.Windows.Forms.ComboBox();
             this.lblSem = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.btnReload = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -74,6 +82,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.btnReload2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.ptbLoading2 = new AMSEMS.RoundPictureBoxRect();
             this.dgvUnassigned = new System.Windows.Forms.DataGridView();
             this.code2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.des2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,15 +90,6 @@
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tbSearch2 = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
-            this.ptbLoading2 = new AMSEMS.RoundPictureBoxRect();
-            this.code = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Des = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.units = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.assigned = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.schyear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sem = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewImageColumn3 = new System.Windows.Forms.DataGridViewImageColumn();
             this.panel1.SuspendLayout();
             this.CMSOptions.SuspendLayout();
             this.CMSExport.SuspendLayout();
@@ -100,6 +100,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2.Panel)).BeginInit();
             this.kryptonGroupBox2.Panel.SuspendLayout();
             this.kryptonGroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssignedSub)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -108,10 +109,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
             this.kryptonGroupBox1.Panel.SuspendLayout();
             this.kryptonGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnassigned)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading2)).BeginInit();
             this.SuspendLayout();
             // 
             // btnExport
@@ -405,6 +405,23 @@
             this.kryptonGroupBox2.StateCommon.Border.Width = 2;
             this.kryptonGroupBox2.TabIndex = 105;
             // 
+            // ptbLoading
+            // 
+            this.ptbLoading.BackColor = System.Drawing.Color.White;
+            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoading.BorderWidth = 0;
+            this.ptbLoading.CornerRadius = 10;
+            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.ImageLocation = "";
+            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(868, 439);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 13;
+            this.ptbLoading.TabStop = false;
+            this.ptbLoading.Visible = false;
+            // 
             // dgvAssignedSub
             // 
             this.dgvAssignedSub.AllowUserToAddRows = false;
@@ -476,6 +493,74 @@
             this.dgvAssignedSub.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAssignedSub.Size = new System.Drawing.Size(868, 439);
             this.dgvAssignedSub.TabIndex = 10;
+            // 
+            // code
+            // 
+            this.code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.code.DefaultCellStyle = dataGridViewCellStyle4;
+            this.code.HeaderText = "Course Code";
+            this.code.Name = "code";
+            this.code.ReadOnly = true;
+            this.code.Width = 102;
+            // 
+            // Des
+            // 
+            this.Des.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.Des.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Des.HeaderText = "Description";
+            this.Des.Name = "Des";
+            this.Des.ReadOnly = true;
+            // 
+            // units
+            // 
+            this.units.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.units.HeaderText = "Units";
+            this.units.Name = "units";
+            this.units.ReadOnly = true;
+            this.units.Width = 62;
+            // 
+            // assigned
+            // 
+            this.assigned.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.assigned.HeaderText = "Assigned Teacher";
+            this.assigned.Name = "assigned";
+            this.assigned.ReadOnly = true;
+            this.assigned.Width = 126;
+            // 
+            // schyear
+            // 
+            this.schyear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.schyear.HeaderText = "School Year";
+            this.schyear.Name = "schyear";
+            this.schyear.ReadOnly = true;
+            this.schyear.Width = 95;
+            // 
+            // sem
+            // 
+            this.sem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.sem.HeaderText = "Academic Term";
+            this.sem.Name = "sem";
+            this.sem.ReadOnly = true;
+            this.sem.Width = 115;
+            // 
+            // dataGridViewImageColumn3
+            // 
+            this.dataGridViewImageColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.NullValue = null;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewImageColumn3.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridViewImageColumn3.HeaderText = "";
+            this.dataGridViewImageColumn3.Image = global::AMSEMS.Properties.Resources.option_24;
+            this.dataGridViewImageColumn3.Name = "dataGridViewImageColumn3";
+            this.dataGridViewImageColumn3.ReadOnly = true;
+            this.dataGridViewImageColumn3.ToolTipText = "Option";
+            this.dataGridViewImageColumn3.Visible = false;
+            this.dataGridViewImageColumn3.Width = 5;
             // 
             // cbSchoolYear
             // 
@@ -650,7 +735,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(884, 562);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Unassigned Subjects";
+            this.tabPage2.Text = "All Subjects";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // btnReload2
@@ -740,6 +825,23 @@
             this.kryptonGroupBox1.StateCommon.Border.Rounding = 10;
             this.kryptonGroupBox1.StateCommon.Border.Width = 2;
             this.kryptonGroupBox1.TabIndex = 101;
+            // 
+            // ptbLoading2
+            // 
+            this.ptbLoading2.BackColor = System.Drawing.Color.White;
+            this.ptbLoading2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoading2.BorderWidth = 0;
+            this.ptbLoading2.CornerRadius = 10;
+            this.ptbLoading2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoading2.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading2.ImageLocation = "";
+            this.ptbLoading2.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoading2.Name = "ptbLoading2";
+            this.ptbLoading2.Size = new System.Drawing.Size(868, 499);
+            this.ptbLoading2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading2.TabIndex = 14;
+            this.ptbLoading2.TabStop = false;
+            this.ptbLoading2.Visible = false;
             // 
             // dgvUnassigned
             // 
@@ -892,108 +994,6 @@
             this.tbSearch2.TabIndex = 103;
             this.tbSearch2.TextChanged += new System.EventHandler(this.tbSearch2_TextChanged);
             // 
-            // ptbLoading
-            // 
-            this.ptbLoading.BackColor = System.Drawing.Color.White;
-            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ptbLoading.BorderWidth = 0;
-            this.ptbLoading.CornerRadius = 10;
-            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
-            this.ptbLoading.ImageLocation = "";
-            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
-            this.ptbLoading.Name = "ptbLoading";
-            this.ptbLoading.Size = new System.Drawing.Size(868, 439);
-            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptbLoading.TabIndex = 13;
-            this.ptbLoading.TabStop = false;
-            this.ptbLoading.Visible = false;
-            // 
-            // ptbLoading2
-            // 
-            this.ptbLoading2.BackColor = System.Drawing.Color.White;
-            this.ptbLoading2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ptbLoading2.BorderWidth = 0;
-            this.ptbLoading2.CornerRadius = 10;
-            this.ptbLoading2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptbLoading2.Image = global::AMSEMS.Properties.Resources.loading;
-            this.ptbLoading2.ImageLocation = "";
-            this.ptbLoading2.Location = new System.Drawing.Point(0, 0);
-            this.ptbLoading2.Name = "ptbLoading2";
-            this.ptbLoading2.Size = new System.Drawing.Size(868, 499);
-            this.ptbLoading2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptbLoading2.TabIndex = 14;
-            this.ptbLoading2.TabStop = false;
-            this.ptbLoading2.Visible = false;
-            // 
-            // code
-            // 
-            this.code.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.code.DefaultCellStyle = dataGridViewCellStyle4;
-            this.code.HeaderText = "Course Code";
-            this.code.Name = "code";
-            this.code.ReadOnly = true;
-            this.code.Width = 102;
-            // 
-            // Des
-            // 
-            this.Des.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.Des.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Des.HeaderText = "Description";
-            this.Des.Name = "Des";
-            this.Des.ReadOnly = true;
-            // 
-            // units
-            // 
-            this.units.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.units.HeaderText = "Units";
-            this.units.Name = "units";
-            this.units.ReadOnly = true;
-            this.units.Width = 62;
-            // 
-            // assigned
-            // 
-            this.assigned.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.assigned.HeaderText = "Assigned Teacher";
-            this.assigned.Name = "assigned";
-            this.assigned.ReadOnly = true;
-            this.assigned.Width = 126;
-            // 
-            // schyear
-            // 
-            this.schyear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.schyear.HeaderText = "School Year";
-            this.schyear.Name = "schyear";
-            this.schyear.ReadOnly = true;
-            this.schyear.Width = 95;
-            // 
-            // sem
-            // 
-            this.sem.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.sem.HeaderText = "Academic Term";
-            this.sem.Name = "sem";
-            this.sem.ReadOnly = true;
-            this.sem.Width = 115;
-            // 
-            // dataGridViewImageColumn3
-            // 
-            this.dataGridViewImageColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.NullValue = null;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewImageColumn3.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridViewImageColumn3.HeaderText = "";
-            this.dataGridViewImageColumn3.Image = global::AMSEMS.Properties.Resources.option_24;
-            this.dataGridViewImageColumn3.Name = "dataGridViewImageColumn3";
-            this.dataGridViewImageColumn3.ReadOnly = true;
-            this.dataGridViewImageColumn3.ToolTipText = "Option";
-            this.dataGridViewImageColumn3.Visible = false;
-            this.dataGridViewImageColumn3.Width = 5;
-            // 
             // formSubjects
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1020,6 +1020,7 @@
             this.kryptonGroupBox2.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox2)).EndInit();
             this.kryptonGroupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAssignedSub)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl1.ResumeLayout(false);
@@ -1029,10 +1030,9 @@
             this.kryptonGroupBox1.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).EndInit();
             this.kryptonGroupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUnassigned)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading2)).EndInit();
             this.ResumeLayout(false);
 
         }

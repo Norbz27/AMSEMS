@@ -22,7 +22,8 @@ namespace AMSEMS.SubForms_Admin
         formStudentForm formStudentForm;
         formTeacherForm formTeacherForm;
         formSubjectsForm formSubjectsForm;
-        public formAddSchoolSetting2(formStudentForm formStudentForm, formTeacherForm formTeacherForm, formSubjectsForm formSubjectsForm)
+        formSchoolDetails formSchoolDetails;
+        public formAddSchoolSetting2(formStudentForm formStudentForm, formTeacherForm formTeacherForm, formSubjectsForm formSubjectsForm, formSchoolDetails formSchoolDetails)
         {
             InitializeComponent();
 
@@ -31,6 +32,7 @@ namespace AMSEMS.SubForms_Admin
             this.formStudentForm = formStudentForm;
             this.formTeacherForm = formTeacherForm;
             this.formSubjectsForm = formSubjectsForm;
+            this.formSchoolDetails = formSchoolDetails;
         }
 
         public void setDisplayData(String header)
@@ -248,9 +250,14 @@ namespace AMSEMS.SubForms_Admin
                 formStudentForm.displayPSY();
                 this.Close();
             }
-            else
+            else if(formSubjectsForm != null)
             {
                 formSubjectsForm.displayCB();
+                this.Close();
+            }
+            else if(formSchoolDetails != null)
+            {
+                formSchoolDetails.loadData();
                 this.Close();
             }
         }

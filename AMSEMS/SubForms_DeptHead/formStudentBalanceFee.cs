@@ -68,13 +68,19 @@ namespace AMSEMS.SubForms_DeptHead
                 using (cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
-                    cm = new SqlCommand("SELECT DISTINCT School_Year FROM tbl_events GROUP BY School_Year ORDER BY School_Year ASC", cn);
-                    dr = cm.ExecuteReader();
-                    while (dr.Read())
+                    string query = "";
+
+                    query = "SELECT (Academic_Year_Start+'-'+Academic_Year_End) AS School_Year FROM tbl_acad";
+                    using (SqlCommand cm = new SqlCommand(query, cn))
                     {
-                        cbYear.Items.Add(dr["School_Year"].ToString());
+                        using (SqlDataReader dr = cm.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                cbYear.Items.Add(dr["School_Year"].ToString());
+                            }
+                        }
                     }
-                    dr.Close();
                 }
                 if(cbYear.Items.Count > 0)
                     cbYear.SelectedIndex = 0;
@@ -86,11 +92,25 @@ namespace AMSEMS.SubForms_DeptHead
             {
                 cn.Open();
 
+                string selectedYear = "";
+
+                string query = "SELECT Acad_ID FROM tbl_acad WHERE (Academic_Year_Start+'-'+Academic_Year_End) = @schyear";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    cm.Parameters.AddWithValue("@schyear", cbYear.Text);
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            selectedYear = dr["Acad_ID"].ToString();
+                        }
+                    }
+                }
                 // Calculate total balance fee
                 cm = new SqlCommand("SELECT ISNULL(SUM(b.Balance_Fee), 0) AS Total_Balance_Fee FROM tbl_student_accounts s LEFT JOIN tbl_balance_fees b ON s.ID = b.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec) AND School_Year = @SchYear", cn);
                 cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                 cm.Parameters.AddWithValue("@sec", cbSection.Text);
-                cm.Parameters.AddWithValue("@SchYear", cbYear.Text);
+                cm.Parameters.AddWithValue("@SchYear", selectedYear);
                 decimal totalBalanceFee = Convert.ToDecimal(cm.ExecuteScalar());
                 lblCollectableFee.Text = "₱ " + totalBalanceFee.ToString("F2");
 
@@ -98,7 +118,7 @@ namespace AMSEMS.SubForms_DeptHead
                 cm = new SqlCommand("SELECT ISNULL(SUM(t.Payment_Amount), 0) AS Total_Paid_Amount FROM tbl_student_accounts s LEFT JOIN tbl_transaction t ON s.ID = t.Student_ID LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID WHERE s.Department = @dep AND (@sec = 'All' OR sec.Description = @sec) AND School_Year = @SchYear", cn);
                 cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                 cm.Parameters.AddWithValue("@sec", cbSection.Text);
-                cm.Parameters.AddWithValue("@SchYear", cbYear.Text);
+                cm.Parameters.AddWithValue("@SchYear", selectedYear);
                 decimal totalPaidAmount = Convert.ToDecimal(cm.ExecuteScalar());
                 lblCollectedFee.Text = "₱ " + totalPaidAmount.ToString("F2");
 
@@ -156,6 +176,22 @@ namespace AMSEMS.SubForms_DeptHead
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
+
+                string selectedYear = "";
+
+                string query = "SELECT Acad_ID FROM tbl_acad WHERE (Academic_Year_Start+'-'+Academic_Year_End) = @schyear";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    cm.Parameters.AddWithValue("@schyear", cbYear.Text);
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            selectedYear = dr["Acad_ID"].ToString();
+                        }
+                    }
+                }
+
                 cm = new SqlCommand(@"SELECT
                                     COALESCE(bf.Student_ID, t.Student_ID) AS Student_ID,
                                     s.Lastname AS lname,
@@ -206,7 +242,7 @@ namespace AMSEMS.SubForms_DeptHead
                                     s.Lastname;", cn);
                 cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                 cm.Parameters.AddWithValue("@sec", cbSection.Text);
-                cm.Parameters.AddWithValue("@SchoolYear", cbYear.Text);
+                cm.Parameters.AddWithValue("@SchoolYear", selectedYear);
                 using (dr = cm.ExecuteReader())
                 {
                     double totalCollectable = 0;
@@ -477,7 +513,8 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void cbYear_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            displayBalanceFees();
+            displayOverallSummary();
         }
     }
 }

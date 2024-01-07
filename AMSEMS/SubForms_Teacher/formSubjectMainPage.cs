@@ -21,6 +21,9 @@ namespace AMSEMS.SubForms_Teacher
         static formSubjectInformation form;
         static string ccode;
         static string subjectAcadlvl;
+        string schYear = String.Empty;
+        string Tersem = String.Empty;
+        string Shssem = String.Empty;
         public formSubjectMainPage()
         {
             InitializeComponent();
@@ -33,8 +36,54 @@ namespace AMSEMS.SubForms_Teacher
         }
         private void formSubjectInformation_Load(object sender, EventArgs e)
         {
+            getAcad();
             PopulateStudentsChart();
             PopulateAttendanceTrendChart();
+        }
+        public void getAcad()
+        {
+            using (SQLiteConnection cn = new SQLiteConnection(conn.connectionString))
+            {
+                cn.Open();
+                using (SQLiteCommand command = new SQLiteCommand(cn))
+                {
+                    string query1 = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                    command.CommandText = query1;
+                    using (SQLiteDataReader rd = command.ExecuteReader())
+                    {
+                        if (rd.Read())
+                        {
+                            schYear = rd["Acad_ID"].ToString();
+                        }
+                    }
+                }
+
+                using (SQLiteCommand cm = new SQLiteCommand(cn))
+                {
+                    string query2 = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
+                    cm.CommandText = query2;
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            Shssem = dr["Quarter_ID"].ToString();
+                        }
+                    }
+                }
+
+                using (SQLiteCommand cm = new SQLiteCommand(cn))
+                {
+                    string query3 = "SELECT Semester_ID, Description FROM tbl_Semester WHERE Status = 1";
+                    cm.CommandText = query3;
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            Tersem = dr["Semester_ID"].ToString();
+                        }
+                    }
+                }
+            }
         }
         private void PopulateStudentsChart()
         {
@@ -48,15 +97,25 @@ namespace AMSEMS.SubForms_Teacher
                 using (SQLiteConnection cn = new SQLiteConnection(conn.connectionString))
                 {
                     cn.Open();
-
-                    // Query to get the list of classes.
-                    string classListQuery = "SELECT DISTINCT Class_Code, sec.Description AS secdes FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE Course_Code = @Ccode";
+                    string query = "";
+                    if (formSubjectInformation.subjectAcadlvl == "10001")
+                    {
+                        query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode AND School_Year = @schyear AND Semester = @sem";
+                    }
+                    else
+                    {
+                        query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode AND School_Year = @schyear AND Semester = @quar";
+                    }
 
                     int totalSections = 0;
                     int totalStudents = 0;
-                    using (SQLiteCommand classListCommand = new SQLiteCommand(classListQuery, cn))
+                    using (SQLiteCommand classListCommand = new SQLiteCommand(query, cn))
                     {
+                        classListCommand.Parameters.AddWithValue("@teachID", FormTeacherNavigation.id);
                         classListCommand.Parameters.AddWithValue("@Ccode", ccode);
+                        classListCommand.Parameters.AddWithValue("@schyear", schYear);
+                        classListCommand.Parameters.AddWithValue("@sem", Tersem);
+                        classListCommand.Parameters.AddWithValue("@quar", Shssem);
                         using (SQLiteDataReader classListReader = classListCommand.ExecuteReader())
                         {
                             while (classListReader.Read())
@@ -135,13 +194,23 @@ namespace AMSEMS.SubForms_Teacher
                 using (SQLiteConnection cn = new SQLiteConnection(conn.connectionString))
                 {
                     cn.Open();
-
-                    // Query to get the list of classes.
-                    string classListQuery = "SELECT DISTINCT Class_Code, sec.Description AS secdes FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE Course_Code = @Ccode";
-
-                    using (SQLiteCommand classListCommand = new SQLiteCommand(classListQuery, cn))
+                    string query = "";
+                    if (formSubjectInformation.subjectAcadlvl == "10001")
                     {
+                        query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode AND School_Year = @schyear AND Semester = @sem";
+                    }
+                    else
+                    {
+                        query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode AND School_Year = @schyear AND Semester = @quar";
+                    }
+
+                    using (SQLiteCommand classListCommand = new SQLiteCommand(query, cn))
+                    {
+                        classListCommand.Parameters.AddWithValue("@teachID", FormTeacherNavigation.id);
                         classListCommand.Parameters.AddWithValue("@Ccode", ccode);
+                        classListCommand.Parameters.AddWithValue("@schyear", schYear);
+                        classListCommand.Parameters.AddWithValue("@sem", Tersem);
+                        classListCommand.Parameters.AddWithValue("@quar", Shssem);
                         using (SQLiteDataReader classListReader = classListCommand.ExecuteReader())
                         {
                             while (classListReader.Read())

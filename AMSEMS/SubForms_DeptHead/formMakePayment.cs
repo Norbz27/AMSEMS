@@ -45,17 +45,14 @@ namespace AMSEMS.SubForms_DeptHead
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                string query = "SELECT Academic_Year_Start + '-' + Academic_Year_End AS SchYear, Ter_Academic_Sem, SHS_Academic_Sem FROM tbl_acad";
-                using (SqlCommand command = new SqlCommand(query, cn))
+                string query = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                using (SqlCommand cm = new SqlCommand(query, cn))
                 {
-                    command.CommandText = query;
-                    using (SqlDataReader rd = command.ExecuteReader())
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
-                        if (rd.Read())
+                        if (dr.Read())
                         {
-                            schYear = rd["SchYear"].ToString();
-                            Tersem = rd["Ter_Academic_Sem"].ToString();
-                            Shssem = rd["SHS_Academic_Sem"].ToString();
+                            schYear = dr["Acad_ID"].ToString();
                         }
                     }
                 }

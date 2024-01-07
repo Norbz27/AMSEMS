@@ -70,62 +70,62 @@
             this.lblshsAcadSem.Location = new System.Drawing.Point(-2, 211);
             this.lblshsAcadSem.Margin = new System.Windows.Forms.Padding(2);
             this.lblshsAcadSem.Name = "lblshsAcadSem";
-            this.lblshsAcadSem.Size = new System.Drawing.Size(18, 22);
+            this.lblshsAcadSem.Size = new System.Drawing.Size(19, 22);
             this.lblshsAcadSem.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.lblshsAcadSem.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.lblshsAcadSem.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
             this.lblshsAcadSem.TabIndex = 171;
-            this.lblshsAcadSem.Values.Text = "2";
+            this.lblshsAcadSem.Values.Text = "0";
             // 
             // kryptonLabel5
             // 
             this.kryptonLabel5.Location = new System.Drawing.Point(-2, 183);
             this.kryptonLabel5.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel5.Name = "kryptonLabel5";
-            this.kryptonLabel5.Size = new System.Drawing.Size(171, 23);
+            this.kryptonLabel5.Size = new System.Drawing.Size(152, 23);
             this.kryptonLabel5.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.kryptonLabel5.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
             this.kryptonLabel5.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel5.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.kryptonLabel5.TabIndex = 170;
-            this.kryptonLabel5.Values.Text = "SHS Academic Quarter";
+            this.kryptonLabel5.Values.Text = "SHS Academic Term";
             // 
             // lblTerAcadSem
             // 
             this.lblTerAcadSem.Location = new System.Drawing.Point(-2, 137);
             this.lblTerAcadSem.Margin = new System.Windows.Forms.Padding(2);
             this.lblTerAcadSem.Name = "lblTerAcadSem";
-            this.lblTerAcadSem.Size = new System.Drawing.Size(18, 22);
+            this.lblTerAcadSem.Size = new System.Drawing.Size(19, 22);
             this.lblTerAcadSem.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.lblTerAcadSem.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.lblTerAcadSem.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
             this.lblTerAcadSem.TabIndex = 169;
-            this.lblTerAcadSem.Values.Text = "2";
+            this.lblTerAcadSem.Values.Text = "0";
             // 
             // kryptonLabel2
             // 
             this.kryptonLabel2.Location = new System.Drawing.Point(-2, 109);
             this.kryptonLabel2.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(213, 23);
+            this.kryptonLabel2.Size = new System.Drawing.Size(182, 23);
             this.kryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
             this.kryptonLabel2.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
             this.kryptonLabel2.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel2.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.kryptonLabel2.TabIndex = 168;
-            this.kryptonLabel2.Values.Text = "Tertiary Academic Semester";
+            this.kryptonLabel2.Values.Text = "Tertiary Academic Term";
             // 
             // lblAcadYear
             // 
             this.lblAcadYear.Location = new System.Drawing.Point(-1, 67);
             this.lblAcadYear.Margin = new System.Windows.Forms.Padding(2);
             this.lblAcadYear.Name = "lblAcadYear";
-            this.lblAcadYear.Size = new System.Drawing.Size(78, 22);
+            this.lblAcadYear.Size = new System.Drawing.Size(81, 22);
             this.lblAcadYear.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
             this.lblAcadYear.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
             this.lblAcadYear.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
             this.lblAcadYear.TabIndex = 160;
-            this.lblAcadYear.Values.Text = "2022-2023";
+            this.lblAcadYear.Values.Text = "0000-0000";
             // 
             // kryptonLabel6
             // 

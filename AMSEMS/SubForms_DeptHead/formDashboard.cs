@@ -15,6 +15,7 @@ namespace AMSEMS.SubForms_DeptHead
         public String id;
         public static String id2 { get; set; }
         static FormDeptHeadNavigation form;
+        private string schYear;
         public formDashboard(String id1)
         {
             InitializeComponent();
@@ -25,6 +26,24 @@ namespace AMSEMS.SubForms_DeptHead
 
             chart1.ChartAreas["ChartArea1"].AxisX.MinorGrid.LineColor = Color.LightGray; // Set the color of minor grid lines on the X-axis
             chart1.ChartAreas["ChartArea1"].AxisY.MinorGrid.LineColor = Color.LightGray; // Set the color of minor grid lines on the Y-axis
+
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                string query = "";
+
+                query = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            schYear = dr["Acad_ID"].ToString();
+                        }
+                    }
+                }
+            }
         }
         public static void setForm(FormDeptHeadNavigation form1)
         {
@@ -58,9 +77,9 @@ namespace AMSEMS.SubForms_DeptHead
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 await cn.OpenAsync(); // Use OpenAsync to open the connection asynchronously
-                using (SqlCommand command = new SqlCommand(@"SELECT e.Event_ID, e.Event_Name, COUNT(a.Student_ID) AS AttendanceCount FROM tbl_events e LEFT JOIN tbl_attendance a ON e.Event_ID = a.Event_ID LEFT JOIN tbl_student_accounts s ON a.Student_ID = s.ID  WHERE e.Attendance = 'true' AND YEAR(e.Start_Date) = @Year AND s.Department = @dep GROUP BY e.Event_ID, e.Event_Name", cn))
+                using (SqlCommand command = new SqlCommand(@"SELECT e.Event_ID, e.Event_Name, COUNT(a.Student_ID) AS AttendanceCount FROM tbl_events e LEFT JOIN tbl_attendance a ON e.Event_ID = a.Event_ID LEFT JOIN tbl_student_accounts s ON a.Student_ID = s.ID  WHERE e.Attendance = 'true' AND School_Year = @Year AND s.Department = @dep GROUP BY e.Event_ID, e.Event_Name", cn))
                 {
-                    command.Parameters.AddWithValue("@Year", currentYear);
+                    command.Parameters.AddWithValue("@Year", schYear);
                     command.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable dt = new DataTable();
