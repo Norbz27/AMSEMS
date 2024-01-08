@@ -317,6 +317,7 @@
             this.lblMonthlyTotalFees.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
             this.lblMonthlyTotalFees.TabIndex = 147;
             this.lblMonthlyTotalFees.Values.Text = "₱ 00.00";
+            this.lblMonthlyTotalFees.Visible = false;
             // 
             // kryptonLabel4
             // 
@@ -331,6 +332,7 @@
             this.kryptonLabel4.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
             this.kryptonLabel4.TabIndex = 146;
             this.kryptonLabel4.Values.Text = "Monthly Total Fees Per Section";
+            this.kryptonLabel4.Visible = false;
             // 
             // cbSection
             // 

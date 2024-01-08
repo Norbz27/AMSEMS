@@ -53,7 +53,7 @@ namespace AMSEMS.SubForms_Admin
             displayFilter();
             loadCMSControls();
 
-            displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+            displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID WHERE Status = 1 ORDER BY 1 DESC");
 
             // Simulate a time-consuming operation
             System.Threading.Thread.Sleep(2000); // Sleep for 2 seconds
@@ -95,7 +95,7 @@ namespace AMSEMS.SubForms_Admin
             toolTip.SetToolTip(btnSetInactive, "Set Inactive");
             toolTip.SetToolTip(btnMultiEditAcad, "Set Academic Level");
 
-            btnAll.Focus();
+            btnActive.Focus();
             backgroundWorker.RunWorkerAsync();
         }
 
@@ -288,10 +288,12 @@ namespace AMSEMS.SubForms_Admin
             // Set column widths for specific columns (2nd and 6th columns) to autosize
             float[] columnWidths = new float[dataGridView.Columns.Count - 1];
             columnWidths[0] = 0; // No column width
-            columnWidths[1] = 70; // ID column width
-            columnWidths[2] = 70; // First Name column autosize
-            columnWidths[3] = 70; // Last Name column autosize
+            columnWidths[1] = 45; // ID column width
+            columnWidths[2] = 100; // First Name column autosize
+            columnWidths[3] = 20; // Last Name column autosize
             columnWidths[4] = 45; // Status column width
+            columnWidths[5] = 45; // Status column width
+            columnWidths[6] = 45; // Status column width
             pdfTable.SetWidths(columnWidths);
 
             foreach (DataGridViewColumn column in dataGridView.Columns)
@@ -383,7 +385,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
                                 MessageBox.Show("Subject deleted successfully.");
                             }
                             else
@@ -531,7 +533,7 @@ namespace AMSEMS.SubForms_Admin
                 {
                     // Toggle the checkbox value
                     checkBoxCell.Value = !(bool)checkBoxCell.Value;
-
+                
                     // Check the state of checkboxes and show/hide the panel accordingly
                     UpdatePanelVisibility();
                 }
@@ -540,7 +542,7 @@ namespace AMSEMS.SubForms_Admin
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+            displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
         }
 
         private void btnExportPDF_Click(object sender, EventArgs e)
@@ -648,7 +650,7 @@ namespace AMSEMS.SubForms_Admin
                     break; // Exit the loop if at least one checkbox is checked
                 }
             }
-
+            
             // Show or hide the panel based on the state of the checkboxes
             pnControl.Visible = anyChecked;
         }
@@ -784,7 +786,7 @@ namespace AMSEMS.SubForms_Admin
                     }
                 }
                 // Refresh the displayed table after deletion
-                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
 
                 headerCheckbox.Checked = false;
 
@@ -856,7 +858,7 @@ namespace AMSEMS.SubForms_Admin
                     }
 
                     // Refresh the displayed table after updating
-                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
 
                     // Uncheck the header checkbox
                     headerCheckbox.Checked = false;
@@ -943,7 +945,7 @@ namespace AMSEMS.SubForms_Admin
                     }
 
                     // Refresh the displayed table after updating
-                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
 
                     // Uncheck the header checkbox
                     headerCheckbox.Checked = false;
@@ -1039,7 +1041,7 @@ namespace AMSEMS.SubForms_Admin
                     }
 
                     // Refresh the displayed table after archiving
-                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
                     headerCheckbox.Checked = false;
 
                     // Show a message indicating the completion of the operation
@@ -1277,7 +1279,7 @@ namespace AMSEMS.SubForms_Admin
                     }
 
                     // Refresh the displayed table after updating
-                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+                    displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
 
                     // Uncheck the header checkbox
                     headerCheckbox.Checked = false;
@@ -1323,7 +1325,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
                             }
                             else
                             {
@@ -1365,7 +1367,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
                             }
                             else
                             {
@@ -1408,7 +1410,7 @@ namespace AMSEMS.SubForms_Admin
 
                             if (deletionSuccessful)
                             {
-                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+                                displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
                                 MessageBox.Show("Record's archived successfully.");
                             }
                             else

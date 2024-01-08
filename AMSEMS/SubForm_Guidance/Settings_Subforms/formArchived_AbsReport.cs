@@ -46,23 +46,65 @@ namespace AMSEMS.SubForm_Guidance
                         }
                     }
                 }
+                if (rep.ToUpper().Equals("SHS"))
+                    query = "SELECT Quarter_ID AS ID, Description FROM tbl_Quarter WHERE Status = 1";
+                else
+                    query = "SELECT Semester_ID AS ID, Description FROM tbl_Semester WHERE Status = 1";
 
-                query = "SELECT * FROM tbl_acad";
-                using (SqlCommand cmd = new SqlCommand(query, cn))
+                using (SqlCommand cm = new SqlCommand(query, cn))
                 {
-                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    using (SqlDataReader dr = cm.ExecuteReader())
                     {
                         if (dr.Read())
                         {
-                            acadSchYeear = dr["Academic_Year_Start"].ToString() +"-"+ dr["Academic_Year_End"].ToString();
-                            acadShsSem = dr["Ter_Academic_Sem"].ToString();
-                            acadTerSem = dr["SHS_Academic_Sem"].ToString();
+                            cbTerm.Text = dr["Description"].ToString();
+                        }
+                    }
+                }
+
+                query = "SELECT Acad_ID, (Academic_Year_Start+'-'+Academic_Year_End) AS schyear FROM tbl_acad WHERE Status = 1";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            cbSchyear.Text = dr["schyear"].ToString();
+                        }
+                    }
+                }
+
+                query = "SELECT (Academic_Year_Start+'-'+Academic_Year_End) AS School_Year FROM tbl_acad ORDER BY Status";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            cbSchyear.Items.Add(dr["School_Year"].ToString());
+                        }
+                    }
+                }
+                if (rep.ToUpper().Equals("SHS"))
+                {
+                    query = "SELECT Quarter_ID AS ID, Description FROM tbl_Quarter ORDER BY Status";
+                }
+                else
+                {
+                    query = "SELECT Quarter_ID AS ID, Description FROM tbl_Quarter ORDER BY Status";
+                }
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            cbTerm.Text = dr["Description"].ToString();
                         }
                     }
                 }
                 cbStatus.SelectedIndex = 0;
                 cbSection.SelectedIndex = 0;
-                cbMonth.SelectedItem = DateTime.Now.ToString("MMMM");
             }
         }
         public async void displayReport()
@@ -72,7 +114,10 @@ namespace AMSEMS.SubForm_Guidance
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                string query = @"SELECT 
+                string query = "";
+                if (rep.ToUpper().Equals("SHS"))
+                {
+                    query = @"SELECT 
                             s.ID,
                             UPPER(s.Lastname + ', ' + s.Firstname + ' ' + s.Middlename) AS Name,
                             sec.Description AS secdes,
@@ -86,32 +131,63 @@ namespace AMSEMS.SubForm_Guidance
                             LEFT JOIN tbl_student_accounts s ON cr.Student_ID = s.ID 
                             LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID 
 	                        LEFT JOIN tbl_academic_level al ON sec.AcadLevel_ID = al.Academic_Level_ID
-                        	LEFT JOIN tbl_archived_class_list cl ON cr.Class_Code = cl.CLass_Code
+                        	LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
                             LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
-							LEFT JOIN tbl_archived_subject_attendance sa ON cr.Class_Code = sa.Class_Code
+							LEFT JOIN tbl_subject_attendance sa ON cr.Class_Code = sa.Class_Code
+							LEFT JOIN tbl_acad ad ON cl.School_Year = ad.Acad_ID
+							LEFT JOIN tbl_Quarter qr ON cl.Semester = qr.Quarter_ID
                         WHERE 
                             al.Academic_Level_Description = @acadlvl
                             AND (@SectionDescription = 'All' OR sec.Description = @SectionDescription) 
-                            AND UPPER(FORMAT(CONVERT(DATE, sa.Attendance_date, 0), 'MMMM')) = @month
                             AND s.Status = 1
-                            AND cl.School_Year = @schyear
-                            AND cl.Semester = @sem
+                            AND (Academic_Year_Start+'-'+Academic_Year_End) = @schyear
+                            AND qr.Description = @sem
                             AND (@Status = 'All' OR cr.Status = @Status)
                         GROUP BY 
                             s.ID, s.Lastname, s.Firstname, s.Middlename, sec.Description, sub.Course_Description,cr.Status, cr.Absences, cr.Consultation_ID, cr.Class_Code
 						ORDER BY
 							Name";
+                }
+                else
+                {
+                    query = @"SELECT 
+                            s.ID,
+                            UPPER(s.Lastname + ', ' + s.Firstname + ' ' + s.Middlename) AS Name,
+                            sec.Description AS secdes,
+                            cr.Class_Code AS ccode,
+                            cr.Consultation_ID AS conid,
+                            sub.Course_Description AS subdes,
+                            cr.Absences AS ConsecutiveAbsentDays,
+                            cr.Status AS ConsultationStatus
+                        FROM 
+                            tbl_archived_consultation_record cr
+                            LEFT JOIN tbl_student_accounts s ON cr.Student_ID = s.ID 
+                            LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID 
+	                        LEFT JOIN tbl_academic_level al ON sec.AcadLevel_ID = al.Academic_Level_ID
+                        	LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
+                            LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
+							LEFT JOIN tbl_subject_attendance sa ON cr.Class_Code = sa.Class_Code
+							LEFT JOIN tbl_acad ad ON cl.School_Year = ad.Acad_ID
+							LEFT JOIN tbl_Semester sm ON cl.Semester = sm.Semester_ID
+                        WHERE 
+                            al.Academic_Level_Description = @acadlvl
+                            AND (@SectionDescription = 'All' OR sec.Description = @SectionDescription) 
+                            AND s.Status = 1
+                            AND (Academic_Year_Start+'-'+Academic_Year_End) = @schyear
+                            AND sm.Description = @sem
+                            AND (@Status = 'All' OR cr.Status = @Status)
+                        GROUP BY 
+                            s.ID, s.Lastname, s.Firstname, s.Middlename, sec.Description, sub.Course_Description,cr.Status, cr.Absences, cr.Consultation_ID, cr.Class_Code
+						ORDER BY
+							Name";
+                }
 
                 using (SqlCommand cmd = new SqlCommand(query, cn))
                 {
                     cmd.Parameters.AddWithValue("@acadlvl", rep);
-                    cmd.Parameters.AddWithValue("@schyear", acadSchYeear);
-                    if (rep.ToUpper().Equals("SHS"))
-                        cmd.Parameters.AddWithValue("@sem", acadShsSem);
-                    else
-                        cmd.Parameters.AddWithValue("@sem", acadTerSem);
+                    cmd.Parameters.AddWithValue("@schyear", cbSchyear.Text);
+                    cmd.Parameters.AddWithValue("@sem", cbTerm.Text);
                     cmd.Parameters.AddWithValue("@SectionDescription", string.IsNullOrEmpty(cbSection.Text) ? DBNull.Value : (object)cbSection.Text);
-                    cmd.Parameters.AddWithValue("@month", string.IsNullOrEmpty(cbMonth.Text) ? DBNull.Value : (object)cbMonth.Text);
                     cmd.Parameters.AddWithValue("@Status", cbStatus.SelectedItem.ToString());
 
                     using (SqlDataReader dr = await cmd.ExecuteReaderAsync())
@@ -264,7 +340,7 @@ namespace AMSEMS.SubForm_Guidance
                 titleParagraph.Alignment = Element.ALIGN_CENTER;
                 document.Add(titleParagraph);
 
-                Paragraph titleParagraph1 = new Paragraph("Records from Month of "+cbMonth.Text, cellFont);
+                Paragraph titleParagraph1 = new Paragraph("Records from Month of "+cbSchyear.Text, cellFont);
                 titleParagraph1.Alignment = Element.ALIGN_CENTER;
                 document.Add(titleParagraph1);
                 

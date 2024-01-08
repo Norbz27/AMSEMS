@@ -66,6 +66,7 @@
             this.btnExpExcel = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.num = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rfid = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fname = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -240,6 +241,7 @@
             this.dgvStudents.ColumnHeadersHeight = 50;
             this.dgvStudents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvStudents.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.num,
             this.ID,
             this.rfid,
             this.Fname,
@@ -541,6 +543,14 @@
             this.pictureBox1.TabIndex = 30;
             this.pictureBox1.TabStop = false;
             // 
+            // num
+            // 
+            this.num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.num.HeaderText = "#";
+            this.num.Name = "num";
+            this.num.ReadOnly = true;
+            this.num.Width = 43;
+            // 
             // ID
             // 
             this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -705,6 +715,7 @@
         private System.Windows.Forms.ToolStripMenuItem btnExpPDF;
         private System.Windows.Forms.ToolStripMenuItem btnExpExcel;
         private RoundPictureBoxRect ptbLoading;
+        private System.Windows.Forms.DataGridViewTextBoxColumn num;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn rfid;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fname;

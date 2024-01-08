@@ -155,7 +155,7 @@ namespace AMSEMS.SubForms_Admin
                     {
                         cn.Open();
                         // Check if a record with the same ID already exists in tbl_student_accounts
-                        string checkExistingQuery = "SELECT COUNT(*) FROM tbl_teacher_accounts";
+                        string checkExistingQuery = "SELECT COUNT(*) FROM tbl_teacher_accounts WHERE ID = (SELECT ID FROM tbl_archived_teacher_accounts)";
                         using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
                         {
                             int existingRecordCount = (int)checkExistingCommand.ExecuteScalar();
@@ -185,6 +185,7 @@ namespace AMSEMS.SubForms_Admin
                                 {
                                     command.ExecuteNonQuery();
                                 }
+                                MessageBox.Show("A record have been retrieved successfully.");
                             }
                             else
                             {
@@ -213,7 +214,7 @@ namespace AMSEMS.SubForms_Admin
                         cn.Open();
 
                         // Check if a record with the same ID already exists in tbl_student_accounts
-                        string checkExistingQuery = "SELECT COUNT(*) FROM tbl_student_accounts";
+                        string checkExistingQuery = "SELECT COUNT(*) FROM tbl_student_accounts WHERE ID = (SELECT ID FROM tbl_archived_student_accounts)";
                         using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
                         {
                             int existingRecordCount = (int)checkExistingCommand.ExecuteScalar();
@@ -243,6 +244,7 @@ namespace AMSEMS.SubForms_Admin
                                 {
                                     command.ExecuteNonQuery();
                                 }
+                                MessageBox.Show("A record have been retrieved successfully.");
                             }
                             else
                             {
@@ -270,7 +272,7 @@ namespace AMSEMS.SubForms_Admin
                     {
                         cn.Open();
                         // Check if a record with the same ID already exists in tbl_student_accounts
-                        string checkExistingQuery = "SELECT COUNT(*) FROM tbl_sao_accounts";
+                        string checkExistingQuery = "SELECT COUNT(*) FROM tbl_deptHead_accounts WHERE ID = (SELECT ID FROM tbl_archived_deptHead_accounts)";
                         using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
                         {
                             int existingRecordCount = (int)checkExistingCommand.ExecuteScalar();
@@ -301,6 +303,7 @@ namespace AMSEMS.SubForms_Admin
                                 {
                                     command.ExecuteNonQuery();
                                 }
+                                MessageBox.Show("A record have been retrieved successfully.");
                             }
                             else
                             {
@@ -328,7 +331,7 @@ namespace AMSEMS.SubForms_Admin
                     {
                         cn.Open();
                         // Check if a record with the same ID already exists in tbl_student_accounts
-                        string checkExistingQuery = "SELECT COUNT(*) FROM tbl_sao_accounts";
+                        string checkExistingQuery = "SELECT COUNT(*) FROM tbl_sao_accounts WHERE ID = (SELECT ID FROM tbl_archived_sao_accounts)";
                         using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
                         {
                             int existingRecordCount = (int)checkExistingCommand.ExecuteScalar();
@@ -359,7 +362,7 @@ namespace AMSEMS.SubForms_Admin
                                 {
                                     command.ExecuteNonQuery();
                                 }
-
+                                MessageBox.Show("A record have been retrieved successfully.");
                             }
                             else
                             {
@@ -387,7 +390,7 @@ namespace AMSEMS.SubForms_Admin
                     {
                         cn.Open();
                         // Check if a record with the same ID already exists in tbl_student_accounts
-                        string checkExistingQuery = "SELECT COUNT(*) FROM tbl_guidance_accounts";
+                        string checkExistingQuery = "SELECT COUNT(*) FROM tbl_guidance_accounts WHERE ID = (SELECT ID FROM tbl_archived_guidance_accounts)";
                         using (SqlCommand checkExistingCommand = new SqlCommand(checkExistingQuery, cn))
                         {
                             int existingRecordCount = (int)checkExistingCommand.ExecuteScalar();
@@ -418,6 +421,7 @@ namespace AMSEMS.SubForms_Admin
                                 {
                                     command.ExecuteNonQuery();
                                 }
+                                MessageBox.Show("A record have been retrieved successfully.");
                             }
                             else
                             {
@@ -475,6 +479,7 @@ namespace AMSEMS.SubForms_Admin
                                 {
                                     command.ExecuteNonQuery();
                                 }
+                                MessageBox.Show("A record have been retrieved successfully.");
                             }
                             else
                             {

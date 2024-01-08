@@ -593,9 +593,10 @@ namespace AMSEMS
             kryptonLabel2.Values.Text = day;
 
             kryptonLabel11.Location = new System.Drawing.Point(57, 16);
+            kryptonLabel11.AutoSize = false;
             kryptonLabel11.Name = "kryptonLabel11";
             kryptonLabel11.Cursor = System.Windows.Forms.Cursors.Hand;
-            kryptonLabel11.Size = new System.Drawing.Size(96, 23);
+            kryptonLabel11.Size = new System.Drawing.Size(170, 23);
             kryptonLabel11.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             kryptonLabel11.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             kryptonLabel11.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);

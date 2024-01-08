@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Data.SQLite;
 using System.Drawing;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
@@ -22,12 +23,84 @@ namespace AMSEMS.SubForms_Teacher
         }
         private void formSubjects_Load(object sender, EventArgs e)
         {
+            cbSchoolYear.Items.Clear();
+            cbSem.Items.Clear();
+            cbAcadlvl.SelectedIndex = 0;
+            getAcadYear();
+
             displaysubjects();
+        }
+        public void getAcadYear()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(sQLite_Connection.connectionString))
+            {
+                connection.Open();
+                string query = "";
+
+                query = "SELECT Acad_ID, (Academic_Year_Start ||'-'|| Academic_Year_End) AS schyear FROM tbl_acad WHERE Status = 1";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader adapter = command.ExecuteReader())
+                    {
+                        if (adapter.Read()) // Move to the first row
+                        {
+                            cbSchoolYear.Text = adapter["schyear"].ToString();
+                        }
+                    }
+                }
+
+                if (cbAcadlvl.Text == "SHS")
+                    query = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
+                else
+                    query = "SELECT Semester_ID, Description FROM tbl_Semester WHERE Status = 1";
+
+                using (SQLiteCommand cm = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            cbSem.Text = dr["Description"].ToString();
+                        }
+                    }
+                }
+
+                // Get Academic Year
+                query = "SELECT Acad_ID, (Academic_Year_Start ||'-'|| Academic_Year_End) AS schyear FROM tbl_acad ORDER BY Status";
+
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader adapter = command.ExecuteReader())
+                    {
+                        while (adapter.Read()) // Move to the first row
+                        {
+                            cbSchoolYear.Items.Add(adapter["schyear"].ToString());
+                        }
+                    }
+                }
+
+                if(cbAcadlvl.Text == "SHS")
+                    query = "SELECT Quarter_ID, Description FROM tbl_Quarter ORDER BY Status";
+                else
+                    query = "SELECT Semester_ID, Description FROM tbl_Semester ORDER BY Status";
+
+                using (SQLiteCommand cm = new SQLiteCommand(query, connection))
+                {
+                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            cbSem.Items.Add(dr["Description"].ToString());
+                        }
+                    }
+                }
+            }
         }
         public void displaysubjects()
         {
             tableLayoutPanel1.Controls.Clear();
-            DataTable subjects = sQLite_Connection.GetAssignedSubjects(FormTeacherNavigation.id);
+            DataTable subjects = sQLite_Connection.GetAssignedSubjects(FormTeacherNavigation.id, cbAcadlvl.Text, cbSchoolYear.Text, cbSem.Text);
 
             if (subjects.Rows.Count > 0)
             {
@@ -153,5 +226,11 @@ namespace AMSEMS.SubForms_Teacher
             //form.kryptonSplitContainer1.Panel2Collapsed = true;
             //form.panelCollapsed.Size = form.panelCollapsed.MaximumSize;
         }
+
+        private void cbAcadlvl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            displaysubjects();
+        }
+
     }
 }

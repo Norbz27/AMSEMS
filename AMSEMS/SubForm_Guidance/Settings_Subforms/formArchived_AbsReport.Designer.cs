@@ -58,13 +58,15 @@
             this.CMSExport = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExpPDF = new System.Windows.Forms.ToolStripMenuItem();
-            this.kryptonLabel12 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.cbMonth = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tbSearch = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
             this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.cbStatus = new System.Windows.Forms.ComboBox();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
+            this.kryptonLabel12 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.cbSchyear = new System.Windows.Forms.ComboBox();
+            this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.cbTerm = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
@@ -409,7 +411,7 @@
             // 
             // kryptonLabel1
             // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(152, 44);
+            this.kryptonLabel1.Location = new System.Drawing.Point(441, 44);
             this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel1.Name = "kryptonLabel1";
             this.kryptonLabel1.Size = new System.Drawing.Size(59, 22);
@@ -423,7 +425,7 @@
             // 
             this.cbSection.Font = new System.Drawing.Font("Poppins", 8F);
             this.cbSection.FormattingEnabled = true;
-            this.cbSection.Location = new System.Drawing.Point(157, 69);
+            this.cbSection.Location = new System.Drawing.Point(446, 69);
             this.cbSection.Name = "cbSection";
             this.cbSection.Size = new System.Drawing.Size(124, 27);
             this.cbSection.TabIndex = 38;
@@ -487,41 +489,6 @@
             this.btnExpPDF.Text = "PDF File";
             this.btnExpPDF.Click += new System.EventHandler(this.btnExpPDF_Click);
             // 
-            // kryptonLabel12
-            // 
-            this.kryptonLabel12.Location = new System.Drawing.Point(285, 44);
-            this.kryptonLabel12.Margin = new System.Windows.Forms.Padding(2);
-            this.kryptonLabel12.Name = "kryptonLabel12";
-            this.kryptonLabel12.Size = new System.Drawing.Size(52, 22);
-            this.kryptonLabel12.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
-            this.kryptonLabel12.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
-            this.kryptonLabel12.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
-            this.kryptonLabel12.TabIndex = 41;
-            this.kryptonLabel12.Values.Text = "Month";
-            // 
-            // cbMonth
-            // 
-            this.cbMonth.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMonth.FormattingEnabled = true;
-            this.cbMonth.Items.AddRange(new object[] {
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"});
-            this.cbMonth.Location = new System.Drawing.Point(290, 69);
-            this.cbMonth.Name = "cbMonth";
-            this.cbMonth.Size = new System.Drawing.Size(127, 27);
-            this.cbMonth.TabIndex = 40;
-            this.cbMonth.SelectedIndexChanged += new System.EventHandler(this.cbMonth_SelectedIndexChanged);
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -562,7 +529,7 @@
             // 
             // kryptonLabel2
             // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(16, 44);
+            this.kryptonLabel2.Location = new System.Drawing.Point(305, 44);
             this.kryptonLabel2.Margin = new System.Windows.Forms.Padding(2);
             this.kryptonLabel2.Name = "kryptonLabel2";
             this.kryptonLabel2.Size = new System.Drawing.Size(52, 22);
@@ -579,7 +546,7 @@
             this.cbStatus.Items.AddRange(new object[] {
             "Pending",
             "Done"});
-            this.cbStatus.Location = new System.Drawing.Point(21, 69);
+            this.cbStatus.Location = new System.Drawing.Point(310, 69);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(127, 27);
             this.cbStatus.TabIndex = 44;
@@ -660,18 +627,89 @@
             this.kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.Padding = new System.Windows.Forms.Padding(10, 7, -1, -1);
             this.kryptonPalette1.HeaderStyles.HeaderForm.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins Medium", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             // 
+            // kryptonLabel12
+            // 
+            this.kryptonLabel12.Location = new System.Drawing.Point(16, 44);
+            this.kryptonLabel12.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel12.Name = "kryptonLabel12";
+            this.kryptonLabel12.Size = new System.Drawing.Size(87, 22);
+            this.kryptonLabel12.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonLabel12.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.kryptonLabel12.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
+            this.kryptonLabel12.TabIndex = 41;
+            this.kryptonLabel12.Values.Text = "School Year";
+            // 
+            // cbSchyear
+            // 
+            this.cbSchyear.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbSchyear.FormattingEnabled = true;
+            this.cbSchyear.Items.AddRange(new object[] {
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"});
+            this.cbSchyear.Location = new System.Drawing.Point(21, 69);
+            this.cbSchyear.Name = "cbSchyear";
+            this.cbSchyear.Size = new System.Drawing.Size(119, 27);
+            this.cbSchyear.TabIndex = 40;
+            this.cbSchyear.SelectedIndexChanged += new System.EventHandler(this.cbMonth_SelectedIndexChanged);
+            // 
+            // kryptonLabel3
+            // 
+            this.kryptonLabel3.Location = new System.Drawing.Point(144, 44);
+            this.kryptonLabel3.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel3.Name = "kryptonLabel3";
+            this.kryptonLabel3.Size = new System.Drawing.Size(114, 22);
+            this.kryptonLabel3.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonLabel3.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.kryptonLabel3.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9.5F);
+            this.kryptonLabel3.TabIndex = 47;
+            this.kryptonLabel3.Values.Text = "Academic Term";
+            // 
+            // cbTerm
+            // 
+            this.cbTerm.Font = new System.Drawing.Font("Poppins", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTerm.FormattingEnabled = true;
+            this.cbTerm.Items.AddRange(new object[] {
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"});
+            this.cbTerm.Location = new System.Drawing.Point(149, 69);
+            this.cbTerm.Name = "cbTerm";
+            this.cbTerm.Size = new System.Drawing.Size(152, 27);
+            this.cbTerm.TabIndex = 46;
+            // 
             // formArchived_AbsReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(883, 549);
+            this.Controls.Add(this.kryptonLabel3);
+            this.Controls.Add(this.cbTerm);
             this.Controls.Add(this.kryptonLabel2);
             this.Controls.Add(this.cbStatus);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tbSearch);
             this.Controls.Add(this.kryptonLabel12);
-            this.Controls.Add(this.cbMonth);
+            this.Controls.Add(this.cbSchyear);
             this.Controls.Add(this.kryptonLabel1);
             this.Controls.Add(this.cbSection);
             this.Controls.Add(this.kryptonGroupBox5);
@@ -717,8 +755,6 @@
         private System.Windows.Forms.ContextMenuStrip CMSExport;
         private System.Windows.Forms.ToolStripMenuItem exportToToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem btnExpPDF;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel12;
-        private System.Windows.Forms.ComboBox cbMonth;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnReload;
         private System.Windows.Forms.PictureBox pictureBox1;
         private ComponentFactory.Krypton.Toolkit.KryptonTextBox tbSearch;
@@ -735,5 +771,9 @@
         private System.Windows.Forms.DataGridViewImageColumn option;
         private RoundPictureBoxRect ptbLoading;
         private ComponentFactory.Krypton.Toolkit.KryptonPalette kryptonPalette1;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel12;
+        private System.Windows.Forms.ComboBox cbSchyear;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;
+        private System.Windows.Forms.ComboBox cbTerm;
     }
 }

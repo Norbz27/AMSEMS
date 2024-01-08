@@ -150,14 +150,6 @@ namespace AMSEMS.SubForms_DeptHead
                         cbYearlvl.Items.Add(dr["Description"].ToString());
                     }
                     dr.Close();
-
-                    cm = new SqlCommand("Select Ter_Academic_Sem, SHS_Academic_Sem from tbl_acad where Acad_ID = 1", cn);
-                    dr = cm.ExecuteReader();
-                    dr.Read();
-                    tersem = dr["Ter_Academic_Sem"].ToString();
-                    shsquart = dr["SHS_Academic_Sem"].ToString();
-                    dr.Close();
-                    cn.Close();
                 }
             }
             catch (Exception ex)
@@ -188,6 +180,7 @@ namespace AMSEMS.SubForms_DeptHead
                         cmd.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
+                            int num = 1;
                             while (dr.Read())
                             {
                                 if (cancellationTokenSource.Token.IsCancellationRequested)
@@ -198,6 +191,7 @@ namespace AMSEMS.SubForms_DeptHead
                                 int rowIndex = dgvStudents.Rows.Add(false);
 
                                 // Populate other columns, starting from index 1
+                                dgvStudents.Rows[rowIndex].Cells["num"].Value = num;
                                 dgvStudents.Rows[rowIndex].Cells["ID"].Value = dr["ID"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["RFID"].Value = dr["RFID"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["Fname"].Value = dr["Firstname"].ToString().ToUpper();
@@ -205,21 +199,12 @@ namespace AMSEMS.SubForms_DeptHead
                                 dgvStudents.Rows[rowIndex].Cells["program"].Value = dr["pDes"].ToString();
                                 dgvStudents.Rows[rowIndex].Cells["section"].Value = dr["sDes"].ToString();
 
-                                //if (dr["yDes"] != DBNull.Value)
-                                //{
-                                //    if (dr["acadDes"].ToString().Equals("Tertiary"))
-                                //        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + tersem + "S";
-                                //    else
-                                //        dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString() + "-" + shsquart + "Q";
-                                //}
-                                //else
-                                //{
-                                    dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
-                                //}
+                                dgvStudents.Rows[rowIndex].Cells["ylvl"].Value = dr["yDes"].ToString();
 
                                 dgvStudents.Rows[rowIndex].Cells["status"].Value = dr["stDes"].ToString();
 
                                 dgvStudents.Rows[rowIndex].Cells["option"].Value = option.Image;
+                                num++;
                             }
                         }
                     }
@@ -269,7 +254,7 @@ namespace AMSEMS.SubForms_DeptHead
                         DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
                         formStudentForm formStudentForm = new formStudentForm();
                         formStudentForm.setData(role, "Update", this);
-                        formStudentForm.getStudID(dgvStudents.Rows[rowIndex].Cells[0].Value.ToString());
+                        formStudentForm.getStudID(dgvStudents.Rows[rowIndex].Cells[1].Value.ToString());
                         formStudentForm.ShowDialog();
                         UseWaitCursor = false;
                     }

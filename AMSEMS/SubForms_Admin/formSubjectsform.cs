@@ -173,7 +173,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                         clearTexts();
                     }
-                    form.displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID ORDER BY 1 DESC");
+                    form.displayTable("Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where s.Status = 1 ORDER BY 1 DESC");
 
                 }
             }

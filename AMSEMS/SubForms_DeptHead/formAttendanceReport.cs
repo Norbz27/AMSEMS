@@ -43,7 +43,7 @@ namespace AMSEMS.SubForms_DeptHead
                 cn.Open();
                 string query = "";
 
-                query = "SELECT (Academic_Year_Start+'-'+Academic_Year_End) AS School_Year FROM tbl_acad";
+                query = "SELECT (Academic_Year_Start+'-'+Academic_Year_End) AS School_Year FROM tbl_acad ORDER BY Status";
                 using (SqlCommand cm = new SqlCommand(query, cn))
                 {
                     using (SqlDataReader dr = cm.ExecuteReader())

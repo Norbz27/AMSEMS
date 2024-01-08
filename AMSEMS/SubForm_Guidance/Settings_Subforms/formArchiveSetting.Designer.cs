@@ -30,12 +30,12 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox1 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.lblArchivedStud = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lblArchivedTer = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.btnViewArcTertiary = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel5 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.kryptonGroupBox9 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.lblArchivedTeach = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.lblArchivedSHS = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.btnViewArcSHS = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel25 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -78,7 +78,7 @@
             // 
             // kryptonGroupBox1.Panel
             // 
-            this.kryptonGroupBox1.Panel.Controls.Add(this.lblArchivedStud);
+            this.kryptonGroupBox1.Panel.Controls.Add(this.lblArchivedTer);
             this.kryptonGroupBox1.Panel.Controls.Add(this.btnViewArcTertiary);
             this.kryptonGroupBox1.Panel.Controls.Add(this.kryptonLabel5);
             this.kryptonGroupBox1.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
@@ -94,19 +94,19 @@
             this.kryptonGroupBox1.StateCommon.Border.Width = 1;
             this.kryptonGroupBox1.TabIndex = 161;
             // 
-            // lblArchivedStud
+            // lblArchivedTer
             // 
-            this.lblArchivedStud.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblArchivedStud.Location = new System.Drawing.Point(18, 50);
-            this.lblArchivedStud.Name = "lblArchivedStud";
-            this.lblArchivedStud.Size = new System.Drawing.Size(87, 21);
-            this.lblArchivedStud.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.lblArchivedStud.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.lblArchivedStud.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.lblArchivedStud.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.lblArchivedStud.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblArchivedStud.TabIndex = 5;
-            this.lblArchivedStud.Values.Text = "100 Archived";
+            this.lblArchivedTer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblArchivedTer.Location = new System.Drawing.Point(18, 50);
+            this.lblArchivedTer.Name = "lblArchivedTer";
+            this.lblArchivedTer.Size = new System.Drawing.Size(87, 21);
+            this.lblArchivedTer.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+            this.lblArchivedTer.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.lblArchivedTer.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            this.lblArchivedTer.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+            this.lblArchivedTer.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblArchivedTer.TabIndex = 5;
+            this.lblArchivedTer.Values.Text = "100 Archived";
             // 
             // btnViewArcTertiary
             // 
@@ -156,7 +156,7 @@
             // 
             // kryptonGroupBox9.Panel
             // 
-            this.kryptonGroupBox9.Panel.Controls.Add(this.lblArchivedTeach);
+            this.kryptonGroupBox9.Panel.Controls.Add(this.lblArchivedSHS);
             this.kryptonGroupBox9.Panel.Controls.Add(this.btnViewArcSHS);
             this.kryptonGroupBox9.Panel.Controls.Add(this.kryptonLabel25);
             this.kryptonGroupBox9.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
@@ -172,19 +172,19 @@
             this.kryptonGroupBox9.StateCommon.Border.Width = 1;
             this.kryptonGroupBox9.TabIndex = 159;
             // 
-            // lblArchivedTeach
+            // lblArchivedSHS
             // 
-            this.lblArchivedTeach.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.lblArchivedTeach.Location = new System.Drawing.Point(18, 50);
-            this.lblArchivedTeach.Name = "lblArchivedTeach";
-            this.lblArchivedTeach.Size = new System.Drawing.Size(87, 21);
-            this.lblArchivedTeach.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
-            this.lblArchivedTeach.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
-            this.lblArchivedTeach.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
-            this.lblArchivedTeach.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
-            this.lblArchivedTeach.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblArchivedTeach.TabIndex = 5;
-            this.lblArchivedTeach.Values.Text = "100 Archived";
+            this.lblArchivedSHS.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblArchivedSHS.Location = new System.Drawing.Point(18, 50);
+            this.lblArchivedSHS.Name = "lblArchivedSHS";
+            this.lblArchivedSHS.Size = new System.Drawing.Size(87, 21);
+            this.lblArchivedSHS.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+            this.lblArchivedSHS.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+            this.lblArchivedSHS.StateCommon.ShortText.Color1 = System.Drawing.Color.DarkGray;
+            this.lblArchivedSHS.StateCommon.ShortText.Color2 = System.Drawing.Color.DarkGray;
+            this.lblArchivedSHS.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblArchivedSHS.TabIndex = 5;
+            this.lblArchivedSHS.Values.Text = "100 Archived";
             // 
             // btnViewArcSHS
             // 
@@ -294,12 +294,12 @@
         private System.Windows.Forms.Panel panel1;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox1;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblArchivedStud;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblArchivedTer;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel btnViewArcTertiary;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel5;
         private System.Windows.Forms.Panel panel6;
         private ComponentFactory.Krypton.Toolkit.KryptonGroupBox kryptonGroupBox9;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblArchivedTeach;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel lblArchivedSHS;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel btnViewArcSHS;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel25;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;

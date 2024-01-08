@@ -48,6 +48,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblName = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblTotalShsSub = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox4.Panel)).BeginInit();
@@ -174,6 +176,8 @@
             // 
             // kryptonGroupBox3.Panel
             // 
+            this.kryptonGroupBox3.Panel.Controls.Add(this.label1);
+            this.kryptonGroupBox3.Panel.Controls.Add(this.lblTotalShsSub);
             this.kryptonGroupBox3.Panel.Controls.Add(this.label10);
             this.kryptonGroupBox3.Panel.Controls.Add(this.lblStud);
             this.kryptonGroupBox3.Panel.Controls.Add(this.label2);
@@ -230,9 +234,9 @@
             this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(26, 110);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 22);
+            this.label2.Size = new System.Drawing.Size(140, 22);
             this.label2.TabIndex = 18;
-            this.label2.Text = "Total Subjects";
+            this.label2.Text = "Total Tertiary Subjects";
             // 
             // lbltotalSub
             // 
@@ -323,12 +327,12 @@
             // 
             this.lblName.Location = new System.Drawing.Point(22, 52);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(201, 31);
+            this.lblName.Size = new System.Drawing.Size(6, 2);
             this.lblName.StateCommon.ShortText.Color1 = System.Drawing.Color.White;
             this.lblName.StateCommon.ShortText.Color2 = System.Drawing.Color.White;
             this.lblName.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 14F, System.Drawing.FontStyle.Bold);
             this.lblName.TabIndex = 1;
-            this.lblName.Values.Text = "Norberto Bruzon Jr.";
+            this.lblName.Values.Text = "";
             // 
             // kryptonLabel1
             // 
@@ -340,6 +344,34 @@
             this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.kryptonLabel1.TabIndex = 0;
             this.kryptonLabel1.Values.Text = "Welcome Back";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label1.AutoEllipsis = true;
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Poppins", 9F);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(301, 106);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(117, 22);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Total SHS Subjects";
+            // 
+            // lblTotalShsSub
+            // 
+            this.lblTotalShsSub.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lblTotalShsSub.AutoEllipsis = true;
+            this.lblTotalShsSub.AutoSize = true;
+            this.lblTotalShsSub.BackColor = System.Drawing.Color.Transparent;
+            this.lblTotalShsSub.Font = new System.Drawing.Font("Poppins", 28F);
+            this.lblTotalShsSub.ForeColor = System.Drawing.Color.Black;
+            this.lblTotalShsSub.Location = new System.Drawing.Point(291, 57);
+            this.lblTotalShsSub.Name = "lblTotalShsSub";
+            this.lblTotalShsSub.Size = new System.Drawing.Size(52, 67);
+            this.lblTotalShsSub.TabIndex = 21;
+            this.lblTotalShsSub.Text = "0";
             // 
             // formDashboard
             // 
@@ -395,5 +427,7 @@
         private System.Windows.Forms.Label lbltotalSub;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lblStud;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTotalShsSub;
     }
 }

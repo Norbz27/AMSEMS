@@ -146,6 +146,7 @@
             this.kryptonGroupBox5.StateCommon.Border.Rounding = 10;
             this.kryptonGroupBox5.StateCommon.Border.Width = 1;
             this.kryptonGroupBox5.TabIndex = 170;
+            this.kryptonGroupBox5.Visible = false;
             // 
             // btnRetSub
             // 
@@ -251,7 +252,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.kryptonLabel18.Location = new System.Drawing.Point(15, 10);
             this.kryptonLabel18.Name = "kryptonLabel18";
-            this.kryptonLabel18.Size = new System.Drawing.Size(79, 25);
+            this.kryptonLabel18.Size = new System.Drawing.Size(74, 23);
             this.kryptonLabel18.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.kryptonLabel18.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.kryptonLabel18.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10.25F, System.Drawing.FontStyle.Bold);
@@ -271,6 +272,7 @@
             this.kryptonLabel15.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
             this.kryptonLabel15.TabIndex = 169;
             this.kryptonLabel15.Values.Text = "Subjects";
+            this.kryptonLabel15.Visible = false;
             // 
             // panel5
             // 

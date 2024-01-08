@@ -614,97 +614,105 @@ namespace AMSEMS
                 connection.Close();
             }
         }
-        public DataTable GetAssignedSubjects(string teachID)
+        public DataTable GetAssignedSubjects(string teachID, string acadlvl, string schyear, string sem)
         {
             DataTable dataTable = new DataTable();
 
             using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                string schyear = null, sem = null, quar = null;
+                //string schyear = null, sem = null, quar = null;
                 string query = "";
 
-                // Get Academic Year
-                query = "SELECT Acad_ID, Academic_Year_Start, Academic_Year_End FROM tbl_acad WHERE Status = 1";
+                //// Get Academic Year
+                //query = "SELECT Acad_ID, Academic_Year_Start, Academic_Year_End FROM tbl_acad WHERE Status = 1";
 
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                //using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                //{
+                //    using (SQLiteDataReader adapter = command.ExecuteReader())
+                //    {
+                //        if (adapter.Read()) // Move to the first row
+                //        {
+                //            schyear = adapter["Acad_ID"].ToString();
+                //        }
+                //    }
+                //}
+
+                //// Get Quarter
+                //query = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
+
+                //using (SQLiteCommand cm = new SQLiteCommand(query, connection))
+                //{
+                //    using (SQLiteDataReader dr = cm.ExecuteReader())
+                //    {
+                //        if (dr.Read())
+                //        {
+                //            quar = dr["Quarter_ID"].ToString();
+                //        }
+                //    }
+                //}
+
+                //// Get Semester
+                //query = "SELECT Semester_ID, Description FROM tbl_Semester WHERE Status = 1";
+
+                //using (SQLiteCommand cm = new SQLiteCommand(query, connection))
+                //{
+                //    using (SQLiteDataReader dr = cm.ExecuteReader())
+                //    {
+                //        if (dr.Read())
+                //        {
+                //            sem = dr["Semester_ID"].ToString();
+                //        }
+                //    }
+                //}
+                if (acadlvl == "Tertiary")
                 {
-                    using (SQLiteDataReader adapter = command.ExecuteReader())
+                    query = "SELECT s.Course_code, Course_Description, Image, Academic_Level, Academic_Level_Description " +
+                    "FROM tbl_subjects AS s " +
+                    "LEFT JOIN tbl_Departments d ON s.Department_ID = d.Department_ID " +
+                    "LEFT JOIN tbl_Academic_Level AS al ON s.Academic_Level = al.Academic_Level_ID " +
+                    "LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code " +
+                    "LEFT JOIN tbl_teachers_account ta ON ter.Teacher_ID = ta.ID " +
+                    "LEFT JOIN tbl_acad ad ON ter.School_Year = ad.Acad_ID " +
+                    "LEFT JOIN tbl_Semester sm ON ter.Semester = sm.Semester_ID " +
+                    "WHERE (Academic_Year_Start ||'-'|| Academic_Year_End) = @schyear AND sm.Description = @sem AND Unique_ID = @TeachID " +
+                    "ORDER BY 1 DESC";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {
-                        if (adapter.Read()) // Move to the first row
+                        command.Parameters.AddWithValue("@schyear", schyear);
+                        command.Parameters.AddWithValue("@sem", sem);
+                        command.Parameters.AddWithValue("@TeachID", teachID);
+
+                        using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
                         {
-                            schyear = adapter["Acad_ID"].ToString();
+                            adapter.Fill(dataTable);
                         }
                     }
                 }
-
-                // Get Quarter
-                query = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
-
-                using (SQLiteCommand cm = new SQLiteCommand(query, connection))
+                else
                 {
-                    using (SQLiteDataReader dr = cm.ExecuteReader())
+                    query = @"SELECT s.Course_code, Course_Description, Image, Academic_Level, Academic_Level_Description 
+                    FROM tbl_subjects AS s
+                    LEFT JOIN tbl_Departments d ON s.Department_ID = d.Department_ID
+                    LEFT JOIN tbl_Academic_Level AS al ON s.Academic_Level = al.Academic_Level_ID
+                    LEFT JOIN tbl_shs_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code
+                    LEFT JOIN tbl_teachers_account ta ON ter.Teacher_ID = ta.ID
+                    LEFT JOIN tbl_acad ad ON ter.School_Year = ad.Acad_ID
+                    LEFT JOIN tbl_Quarter qu ON ter.Quarter = qu.Quarter_ID
+                    WHERE (Academic_Year_Start ||'-'|| Academic_Year_End) = @schyear AND qu.Description = @sem AND Unique_ID = @TeachID
+                    ORDER BY 1 DESC";
+
+                    using (SQLiteCommand command = new SQLiteCommand(query, connection))
                     {
-                        if (dr.Read())
+                        command.Parameters.AddWithValue("@schyear", schyear);
+                        command.Parameters.AddWithValue("@sem", sem);
+                        command.Parameters.AddWithValue("@TeachID", teachID);
+
+                        using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
                         {
-                            quar = dr["Quarter_ID"].ToString();
+                            adapter.Fill(dataTable);
                         }
-                    }
-                }
-
-                // Get Semester
-                query = "SELECT Semester_ID, Description FROM tbl_Semester WHERE Status = 1";
-
-                using (SQLiteCommand cm = new SQLiteCommand(query, connection))
-                {
-                    using (SQLiteDataReader dr = cm.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            sem = dr["Semester_ID"].ToString();
-                        }
-                    }
-                }
-
-                query = "SELECT s.Course_code, Course_Description, Image, Academic_Level, Academic_Level_Description " +
-                "FROM tbl_subjects AS s " +
-                "LEFT JOIN tbl_Departments d ON s.Department_ID = d.Department_ID " +
-                "LEFT JOIN tbl_Academic_Level AS al ON s.Academic_Level = al.Academic_Level_ID " +
-                "LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code " +
-                "LEFT JOIN tbl_teachers_account ta ON ter.Teacher_ID = ta.ID " +
-                "WHERE s.Status = 1 AND School_Year = @schyear AND Semester = @sem AND Unique_ID = @TeachID " +
-                "ORDER BY 1 DESC";
-
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@schyear", schyear);
-                    command.Parameters.AddWithValue("@sem", sem);
-                    command.Parameters.AddWithValue("@TeachID", teachID);
-
-                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
-                    {
-                        adapter.Fill(dataTable);
-                    }
-                }
-
-                query = @"SELECT s.Course_code, Course_Description, Image, Academic_Level, Academic_Level_Description 
-                FROM tbl_subjects AS s
-                LEFT JOIN tbl_Departments d ON s.Department_ID = d.Department_ID
-                LEFT JOIN tbl_Academic_Level AS al ON s.Academic_Level = al.Academic_Level_ID
-                LEFT JOIN tbl_shs_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code
-                LEFT JOIN tbl_teachers_account ta ON ter.Teacher_ID = ta.ID
-                WHERE s.Status = 1 AND School_Year = @schyear AND Quarter = @sem AND Unique_ID = @TeachID
-                ORDER BY 1 DESC";
-
-                using (SQLiteCommand command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@schyear", schyear);
-                    command.Parameters.AddWithValue("@sem", quar);
-                    command.Parameters.AddWithValue("@TeachID", teachID);
-
-                    using (SQLiteDataAdapter adapter = new SQLiteDataAdapter(command))
-                    {
-                        adapter.Fill(dataTable);
                     }
                 }
             }

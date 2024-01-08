@@ -163,20 +163,32 @@ namespace AMSEMS.SubForms_DeptHead
 
         private async void cbSchoolYear_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (dgvAssignedSub == null || dgvAssignedSub.IsDisposed || !dgvAssignedSub.IsHandleCreated)
+            {
+                return;
+            }
+            if (dgvAssignedSub.InvokeRequired)
+            {
+                dgvAssignedSub.Invoke(new Action(() => displayTable()));
+                return;
+            }
             try
             {
                 dgvAssignedSub.Rows.Clear();
                 ptbLoading.Visible = true;
                 await Task.Delay(2000);
+
                 string query = "";
+
                 if (FormDeptHeadNavigation.acadlevel == "SHS")
                 {
-                    query = "SELECT s.Course_code,Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_shs_assigned_teacher_to_sub shs ON s.Course_code = shs.Course_code LEFT JOIN tbl_acad ad ON shs.School_Year = ad.Acad_ID LEFT JOIN tbl_Quarter sem ON shs.Quarter = sem.Quarter_ID LEFT JOIN tbl_teacher_accounts ta ON shs.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND s.Status = 1 AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
+                    query = "SELECT s.Course_code, Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_shs_assigned_teacher_to_sub shs ON s.Course_code = shs.Course_code LEFT JOIN tbl_acad ad ON shs.School_Year = ad.Acad_ID LEFT JOIN tbl_Quarter sem ON shs.Quarter = sem.Quarter_ID LEFT JOIN tbl_teacher_accounts ta ON shs.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
                 }
                 else
                 {
-                    query = "SELECT s.Course_code,Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code LEFT JOIN tbl_acad ad ON ter.School_Year = ad.Acad_ID LEFT JOIN tbl_Semester sem ON ter.Semester = sem.Semester_ID LEFT JOIN tbl_teacher_accounts ta ON ter.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND s.Status = 1 AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
+                    query = "SELECT s.Course_code, Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code LEFT JOIN tbl_acad ad ON ter.School_Year = ad.Acad_ID LEFT JOIN tbl_Semester sem ON ter.Semester = sem.Semester_ID LEFT JOIN tbl_teacher_accounts ta ON ter.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
                 }
+
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
@@ -187,6 +199,7 @@ namespace AMSEMS.SubForms_DeptHead
                         cmd.Parameters.AddWithValue("@DepDescription", FormDeptHeadNavigation.depdes);
                         cmd.Parameters.AddWithValue("@schyear", cbSchoolYear.Text);
                         cmd.Parameters.AddWithValue("@sem", cbSem.Text);
+
                         using (SqlDataReader dr = cmd.ExecuteReader())
                         {
                             while (dr.Read())
@@ -195,19 +208,30 @@ namespace AMSEMS.SubForms_DeptHead
                                 {
                                     return;
                                 }
-                                // Add a row and set the checkbox column value to false (unchecked)
-                                int rowIndex = dgvAssignedSub.Rows.Add(false);
 
-                                // Populate other columns, starting from index 1
-                                dgvAssignedSub.Rows[rowIndex].Cells["code"].Value = dr["Course_code"].ToString();
-                                dgvAssignedSub.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
-                                dgvAssignedSub.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
-                                dgvAssignedSub.Rows[rowIndex].Cells["assigned"].Value = dr["Name"].ToString();
-                                dgvAssignedSub.Rows[rowIndex].Cells["schyear"].Value = dr["acad_year"].ToString();
-                                dgvAssignedSub.Rows[rowIndex].Cells["sem"].Value = dr["Sem"].ToString();
+                                // Check if cbYear is equal to (Academic_Year_Start +'-'+ Academic_Year_End)
+                                string academicYear = dr["acad_year"].ToString();
 
-                                // Populate your control column here (change "ControlColumn" to your actual column name)
-                               // dgvAssignedSub.Rows[rowIndex].Cells["option"].Value = option.Image;
+                                if (cbSchoolYear.Text == academicYear)
+                                {
+                                    // Add a row and set the checkbox column value to false (unchecked)
+                                    int rowIndex = dgvAssignedSub.Rows.Add(false);
+
+                                    // Populate other columns, starting from index 1
+                                    dgvAssignedSub.Rows[rowIndex].Cells["code"].Value = dr["Course_code"].ToString();
+                                    dgvAssignedSub.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
+                                    dgvAssignedSub.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
+                                    dgvAssignedSub.Rows[rowIndex].Cells["assigned"].Value = dr["Name"].ToString();
+                                    dgvAssignedSub.Rows[rowIndex].Cells["schyear"].Value = academicYear;
+                                    dgvAssignedSub.Rows[rowIndex].Cells["sem"].Value = dr["Sem"].ToString();
+
+                                    // Populate your control column here (change "ControlColumn" to your actual column name)
+                                    // dgvAssignedSub.Rows[rowIndex].Cells["option"].Value = option.Image;
+                                }
+                                else
+                                {
+
+                                }
                             }
                         }
                     }
@@ -220,13 +244,21 @@ namespace AMSEMS.SubForms_DeptHead
             finally
             {
                 headerCheckboxAdded = false;
-
                 ptbLoading.Visible = false;
             }
         }
 
         private async void cbSem_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (dgvAssignedSub == null || dgvAssignedSub.IsDisposed || !dgvAssignedSub.IsHandleCreated)
+            {
+                return;
+            }
+            if (dgvAssignedSub.InvokeRequired)
+            {
+                dgvAssignedSub.Invoke(new Action(() => displayTable()));
+                return;
+            }
             try
             {
                 dgvAssignedSub.Rows.Clear();
@@ -235,11 +267,11 @@ namespace AMSEMS.SubForms_DeptHead
                 string query = "";
                 if (FormDeptHeadNavigation.acadlevel == "SHS")
                 {
-                    query = "SELECT s.Course_code,Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_shs_assigned_teacher_to_sub shs ON s.Course_code = shs.Course_code LEFT JOIN tbl_acad ad ON shs.School_Year = ad.Acad_ID LEFT JOIN tbl_Quarter sem ON shs.Quarter = sem.Quarter_ID LEFT JOIN tbl_teacher_accounts ta ON shs.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND s.Status = 1 AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
+                    query = "SELECT s.Course_code,Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_shs_assigned_teacher_to_sub shs ON s.Course_code = shs.Course_code LEFT JOIN tbl_acad ad ON shs.School_Year = ad.Acad_ID LEFT JOIN tbl_Quarter sem ON shs.Quarter = sem.Quarter_ID LEFT JOIN tbl_teacher_accounts ta ON shs.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
                 }
                 else
                 {
-                    query = "SELECT s.Course_code,Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code LEFT JOIN tbl_acad ad ON ter.School_Year = ad.Acad_ID LEFT JOIN tbl_Semester sem ON ter.Semester = sem.Semester_ID LEFT JOIN tbl_teacher_accounts ta ON ter.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND s.Status = 1 AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
+                    query = "SELECT s.Course_code,Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code LEFT JOIN tbl_acad ad ON ter.School_Year = ad.Acad_ID LEFT JOIN tbl_Semester sem ON ter.Semester = sem.Semester_ID LEFT JOIN tbl_teacher_accounts ta ON ter.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
                 }
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -308,11 +340,11 @@ namespace AMSEMS.SubForms_DeptHead
                 string query = "";
                 if (FormDeptHeadNavigation.acadlevel == "SHS")
                 {
-                    query = "SELECT s.Course_code,Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_shs_assigned_teacher_to_sub shs ON s.Course_code = shs.Course_code LEFT JOIN tbl_acad ad ON shs.School_Year = ad.Acad_ID LEFT JOIN tbl_Quarter sem ON shs.Quarter = sem.Quarter_ID LEFT JOIN tbl_teacher_accounts ta ON shs.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND s.Status = 1 AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
+                    query = "SELECT s.Course_code,Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_shs_assigned_teacher_to_sub shs ON s.Course_code = shs.Course_code LEFT JOIN tbl_acad ad ON shs.School_Year = ad.Acad_ID LEFT JOIN tbl_Quarter sem ON shs.Quarter = sem.Quarter_ID LEFT JOIN tbl_teacher_accounts ta ON shs.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
                 }
                 else
                 {
-                    query = "SELECT s.Course_code,Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code LEFT JOIN tbl_acad ad ON ter.School_Year = ad.Acad_ID LEFT JOIN tbl_Semester sem ON ter.Semester = sem.Semester_ID LEFT JOIN tbl_teacher_accounts ta ON ter.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND s.Status = 1 AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
+                    query = "SELECT s.Course_code,Course_Description, Units, UPPER(ta.Lastname +', '+ ta.Firstname) Name, (Academic_Year_Start +'-'+ Academic_Year_End) AS acad_year, sem.Description AS Sem FROM tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_code LEFT JOIN tbl_acad ad ON ter.School_Year = ad.Acad_ID LEFT JOIN tbl_Semester sem ON ter.Semester = sem.Semester_ID LEFT JOIN tbl_teacher_accounts ta ON ter.Teacher_ID = ta.ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (d.Description IS NULL OR d.Description = @DepDescription) AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear AND sem.Description = @sem ORDER BY 1 DESC";
                 }
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {

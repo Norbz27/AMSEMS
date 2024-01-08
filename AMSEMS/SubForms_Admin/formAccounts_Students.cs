@@ -190,14 +190,6 @@ namespace AMSEMS.SubForms_Admin
                         }
                     }
 
-                    cm = new SqlCommand("Select Ter_Academic_Sem, SHS_Academic_Sem from tbl_acad where Acad_ID = 1", cn);
-                    using (SqlDataReader dr = cm.ExecuteReader())
-                    {
-                        dr.Read();
-                        tersem = dr["Ter_Academic_Sem"].ToString();
-                        shsquart = dr["SHS_Academic_Sem"].ToString();
-                    }
-
                     cn.Close();
                 }
             }

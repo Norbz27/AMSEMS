@@ -63,16 +63,30 @@ namespace AMSEMS.SubForm_Guidance
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                cm = new SqlCommand("Select count(*) as cnt from tbl_archived_student_accounts", cn);
+                cm = new SqlCommand(@"SELECT 
+						COUNT(*) AS countStudTer
+                        FROM 
+                            tbl_archived_consultation_record cr
+                        	LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
+                            LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
+                        WHERE 
+                            Acad_Level = '10001'", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
-                lblArchivedStud.Text = dr["cnt"].ToString() + " Archived";
+                lblArchivedTer.Text = dr["countStudTer"].ToString() + " Archived";
                 dr.Close();
 
-                cm = new SqlCommand("Select count(*) as cnt from tbl_archived_teacher_accounts", cn);
+                cm = new SqlCommand(@"SELECT 
+						COUNT(*) AS countStudShs
+                        FROM 
+                            tbl_archived_consultation_record cr
+                        	LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
+                            LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
+                        WHERE 
+                            Acad_Level = '10002'", cn);
                 dr = cm.ExecuteReader();
                 dr.Read();
-                lblArchivedTeach.Text = dr["cnt"].ToString() + " Archived";
+                lblArchivedSHS.Text = dr["countStudShs"].ToString() + " Archived";
                 dr.Close();
             }
         }
