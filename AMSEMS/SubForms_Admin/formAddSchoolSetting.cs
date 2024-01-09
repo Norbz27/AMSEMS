@@ -76,7 +76,7 @@ namespace AMSEMS.SubForms_Admin
                         
                         if (header.Equals("Section"))
                         {
-                            selectQuery = "Select Section_ID, s.Description as sdes, d.Description as ddes, Academic_Level_Description from tbl_Section s left join tbl_academic_level l on s.AcadLevel_ID = l.Academic_Level_ID left join tbl_Departments d on s.Department_ID = d.Department_ID";
+                            selectQuery = "Select Section_ID, s.Description as sdes, d.Description as ddes, Academic_Level_Description from tbl_Section s left join tbl_academic_level l on s.AcadLevel_ID = l.Academic_Level_ID left join tbl_Departments d on s.Department_ID = d.Department_ID ORDER BY s.Description";
 
                             cm = new SqlCommand(selectQuery, cn);
                             dr = cm.ExecuteReader();
@@ -91,7 +91,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                         else if (header.Equals("Program"))
                         {
-                            selectQuery = "Select Program_ID, d.Description as ddes, p.Description as pdes, Academic_Level_Description from tbl_program p left join tbl_academic_level l on p.AcadLevel_ID = l.Academic_Level_ID left join tbl_Departments d on p.Department_ID = d.Department_ID";
+                            selectQuery = "Select Program_ID, d.Description as ddes, p.Description as pdes, Academic_Level_Description from tbl_program p left join tbl_academic_level l on p.AcadLevel_ID = l.Academic_Level_ID left join tbl_Departments d on p.Department_ID = d.Department_ID ORDER BY p.Description";
 
                             cm = new SqlCommand(selectQuery, cn);
                             dr = cm.ExecuteReader();

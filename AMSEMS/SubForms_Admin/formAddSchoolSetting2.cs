@@ -67,7 +67,7 @@ namespace AMSEMS.SubForms_Admin
 
                         if (header.Equals("Departments"))
                         {
-                            selectQuery = "Select * from tbl_Departments p left join tbl_academic_level l on p.AcadLevel_ID = l.Academic_Level_ID";
+                            selectQuery = "Select * from tbl_Departments p left join tbl_academic_level l on p.AcadLevel_ID = l.Academic_Level_ID ORDER BY Description";
 
                             cm = new SqlCommand(selectQuery, cn);
                             dr = cm.ExecuteReader();
@@ -81,7 +81,7 @@ namespace AMSEMS.SubForms_Admin
                         }
                         else if (header.Equals("Year Level"))
                         {
-                            selectQuery = "Select * from tbl_year_level y left join tbl_academic_level l on y.AcadLevel_ID = l.Academic_Level_ID";
+                            selectQuery = "Select * from tbl_year_level y left join tbl_academic_level l on y.AcadLevel_ID = l.Academic_Level_ID ORDER BY Description";
 
                             cm = new SqlCommand(selectQuery, cn);
                             dr = cm.ExecuteReader();

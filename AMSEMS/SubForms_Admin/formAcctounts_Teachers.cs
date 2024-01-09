@@ -161,7 +161,7 @@ namespace AMSEMS.SubForms_Admin
 
                 string query = "Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID " +
                   "where (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
-                  "AND (@StatusDescription = 'All' OR st.Description = @StatusDescription)";
+                  "AND (@StatusDescription = 'All' OR st.Description = @StatusDescription) ORDER BY d.Description, Lastname";
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -242,7 +242,7 @@ namespace AMSEMS.SubForms_Admin
 
             string query = "Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID " +
               "where (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
-              "AND (@StatusDescription = 'All' OR st.Description = @StatusDescription)";
+              "AND (@StatusDescription = 'All' OR st.Description = @StatusDescription) ORDER BY d.Description, Lastname";
 
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
@@ -336,7 +336,7 @@ namespace AMSEMS.SubForms_Admin
 
                 // Construct the query based on the selected descriptions
                 string query = "Select ID,Firstname,Lastname,Password,d.Description as dDes, st.Description as stDes from tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID " +
-                    "where (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) AND (@StatusDescription = 'All' OR st.Description = @StatusDescription)";
+                    "where (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) AND (@StatusDescription = 'All' OR st.Description = @StatusDescription) ORDER BY d.Description, Lastname";
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -1361,7 +1361,7 @@ namespace AMSEMS.SubForms_Admin
 
 
                         // Your SQL query to retrieve data from the database
-                        string query = "SELECT ID, UPPER(Firstname) as Firstname, UPPER(Middlename) as Middlename, UPPER(Lastname) as Lastname FROM tbl_teacher_accounts";
+                        string query = "SELECT ID, UPPER(Firstname) as Firstname, UPPER(Middlename) as Middlename, UPPER(Lastname) as Lastname FROM tbl_teacher_accounts as te left join tbl_Departments as d on te.Department = d.Department_ID left join tbl_status as st on te.Status = st.Status_ID where (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) AND (@StatusDescription = 'All' OR st.Description = @StatusDescription) ORDER BY d.Description, Lastname";
 
                         // Create a new Excel application
                         Excel.Application excelApp = new Excel.Application();
@@ -1382,6 +1382,8 @@ namespace AMSEMS.SubForms_Admin
                             connection.Open();
                             using (SqlCommand command = new SqlCommand(query, connection))
                             {
+                                command.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(cbET.Text) ? DBNull.Value : (object)cbET.Text);
+                                command.Parameters.AddWithValue("@StatusDescription", string.IsNullOrEmpty(cbStatus.Text) ? DBNull.Value : (object)cbStatus.Text);
                                 SqlDataReader reader = command.ExecuteReader();
 
                                 for (int i = 1; i <= reader.FieldCount; i++)

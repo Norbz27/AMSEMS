@@ -237,7 +237,8 @@ namespace AMSEMS.SubForms_Admin
                    "AND (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
                    "AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) " +
                    "AND (@StatusDescription = 'All' OR st.Description = @StatusDescription) " +
-                   "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription)";
+                   "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription) " +
+                   "ORDER BY p.Description, Lastname";
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
@@ -609,7 +610,8 @@ namespace AMSEMS.SubForms_Admin
                "AND (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) " +
                "AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) " +
                "AND (@StatusDescription = 'All' OR st.Description = @StatusDescription) " +
-               "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription)";
+               "AND (@SectionDescription IS NULL OR se.Description = @SectionDescription)" +
+               "ORDER BY p.Description, Lastname";
 
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
@@ -1695,7 +1697,7 @@ namespace AMSEMS.SubForms_Admin
 
 
                         // Your SQL query to retrieve data from the database
-                        string query = "SELECT ID, UPPER(Firstname) as Firstname, UPPER(Middlename) as Middlename, UPPER(Lastname) as Lastname FROM tbl_student_accounts";
+                        string query = "SELECT ID, UPPER(Firstname) as Firstname, UPPER(Middlename) as Middlename, UPPER(Lastname) as Lastname FROM tbl_student_accounts sa LEFT JOIN tbl_program as p ON sa.Program = p.Program_ID LEFT JOIN tbl_Section as se ON sa.Section = se.Section_ID LEFT JOIN tbl_year_level as yl ON sa.Year_level = yl.Level_ID LEFT JOIN tbl_Departments as d ON sa.Department = d.Department_ID LEFT JOIN tbl_status as st ON sa.Status = st.Status_ID LEFT JOIN tbl_academic_level as ac ON d.AcadLevel_ID = ac.Academic_Level_ID  WHERE (@ProgramDescription IS NULL OR p.Description = @ProgramDescription) AND (@DepartmentDescription IS NULL OR d.Description = @DepartmentDescription) AND (@YearLevelDescription IS NULL OR yl.Description = @YearLevelDescription) AND (@StatusDescription = 'All' OR st.Description = @StatusDescription) AND (@SectionDescription IS NULL OR se.Description = @SectionDescription)";
 
                         // Create a new Excel application
                         Excel.Application excelApp = new Excel.Application();
@@ -1716,6 +1718,11 @@ namespace AMSEMS.SubForms_Admin
                             connection.Open();
                             using (SqlCommand command = new SqlCommand(query, connection))
                             {
+                                command.Parameters.AddWithValue("@ProgramDescription", string.IsNullOrEmpty(cbProgram.Text) ? DBNull.Value : (object)cbProgram.Text);
+                                command.Parameters.AddWithValue("@DepartmentDescription", string.IsNullOrEmpty(cbDep.Text) ? DBNull.Value : (object)cbDep.Text);
+                                command.Parameters.AddWithValue("@YearLevelDescription", string.IsNullOrEmpty(cbYearlvl.Text) ? DBNull.Value : (object)cbYearlvl.Text);
+                                command.Parameters.AddWithValue("@StatusDescription", string.IsNullOrEmpty(cbStatus.Text) ? DBNull.Value : (object)cbStatus.Text);
+                                command.Parameters.AddWithValue("@SectionDescription", string.IsNullOrEmpty(cbSection.Text) ? DBNull.Value : (object)cbSection.Text);
                                 SqlDataReader reader = command.ExecuteReader();
 
                                 for (int i = 1; i <= reader.FieldCount; i++)

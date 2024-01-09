@@ -167,7 +167,7 @@ namespace AMSEMS.SubForms_DeptHead
             }
             try
             {
-                query = query + " ORDER BY Lastname;";
+                query = query + " ORDER BY p.Description, Lastname;";
                 dgvStudents.Rows.Clear();
                 ptbLoading.Visible = true;
                 await Task.Delay(2000);
