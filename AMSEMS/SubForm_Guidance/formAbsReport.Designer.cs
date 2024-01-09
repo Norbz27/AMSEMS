@@ -562,10 +562,10 @@
             // absences
             // 
             this.absences.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.absences.HeaderText = "Condecutive Absent";
+            this.absences.HeaderText = "Consecutive Absent";
             this.absences.Name = "absences";
             this.absences.ReadOnly = true;
-            this.absences.Width = 141;
+            this.absences.Width = 140;
             // 
             // status
             // 

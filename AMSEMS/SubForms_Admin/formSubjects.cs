@@ -587,27 +587,29 @@ namespace AMSEMS.SubForms_Admin
                         Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets.Add();
 
                         // Customizing the table appearance
-                        Excel.Range tableRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[dgvSubjects.Rows.Count + 1, dgvSubjects.Columns.Count - 2]]; // Exclude the first and last columns
+                        Excel.Range tableRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[dgvSubjects.Rows.Count + 1, 3]]; // Adjust the column count accordingly
 
                         int excelColumnIndex = 1; // Start from the first Excel column
-                        foreach (DataGridViewColumn column in dgvSubjects.Columns)
+
+                        // Specify the columns to export (2nd, 3rd, and 4th)
+                        int[] columnsToExport = { 1, 2, 3 }; // 0-based indices
+
+                        foreach (int columnIndex in columnsToExport)
                         {
-                            if (column.Index > 0 && column.Index < dgvSubjects.Columns.Count - 1) // Skip the first and last columns
-                            {
-                                worksheet.Cells[1, excelColumnIndex] = column.HeaderText; // Set the header in the first row
-                                worksheet.Cells[1, excelColumnIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196)); // Background color: #4472C4
-                                worksheet.Cells[1, excelColumnIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White); // Text color: White
-                                excelColumnIndex++;
-                            }
+                            DataGridViewColumn column = dgvSubjects.Columns[columnIndex];
+                            worksheet.Cells[1, excelColumnIndex] = column.HeaderText; // Set the header in the first row
+                            worksheet.Cells[1, excelColumnIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196)); // Background color: #4472C4
+                            worksheet.Cells[1, excelColumnIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White); // Text color: White
+                            excelColumnIndex++;
                         }
 
                         int rowIndex = 2; // Start from the second row
                         foreach (DataGridViewRow row in dgvSubjects.Rows)
                         {
                             excelColumnIndex = 1; // Reset Excel column index for each row
-                            for (int i = 1; i < row.Cells.Count - 1; i++) // Skip the first and last cell in each row
+                            foreach (int columnIndex in columnsToExport)
                             {
-                                worksheet.Cells[rowIndex, excelColumnIndex] = row.Cells[i].Value.ToString();
+                                worksheet.Cells[rowIndex, excelColumnIndex] = row.Cells[columnIndex].Value.ToString();
                                 excelColumnIndex++;
                             }
                             rowIndex++;
@@ -634,8 +636,8 @@ namespace AMSEMS.SubForms_Admin
             {
                 MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+
         private void UpdatePanelVisibility()
         {
             bool anyChecked = false;
@@ -1448,8 +1450,7 @@ namespace AMSEMS.SubForms_Admin
                 string descriptionET = await GetSelectedItemDescriptionAsync(selectedItemET, "tbl_Academic_Level");
 
                 // Construct the query based on the selected descriptions
-                string query = "Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID " +
-                    "where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (@DepDescription IS NULL OR d.Description = @DepDescription) ORDER BY 1 DESC";
+                string query = "Select Course_code,Course_Description,Units,d.Description as ddes,st.Description as stDes, al.Academic_Level_Description as Acad from tbl_subjects as s left join tbl_status as st on s.Status = st.Status_ID left join tbl_Departments d on s.Department_ID = d.Department_ID left join tbl_Academic_Level as al on s.Academic_Level = al.Academic_Level_ID where (@AcadLevelDescription IS NULL OR al.Academic_Level_Description = @AcadLevelDescription) AND (@DepDescription IS NULL OR d.Description = @DepDescription) ORDER BY 1 DESC";
 
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
