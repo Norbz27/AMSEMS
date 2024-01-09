@@ -586,6 +586,7 @@ namespace AMSEMS
             this.btnNotification.ToolTipTitle = "Notification";
             this.btnNotification.Type = ComponentFactory.Krypton.Toolkit.PaletteButtonSpecStyle.DropDown;
             this.btnNotification.UniqueName = "FB2E213F3DD14A2DC9A2486ABCD6CB81";
+            this.btnNotification.Visible = false;
             // 
             // kryptonPalette1
             // 
