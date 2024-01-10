@@ -92,9 +92,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.ptbProfilePic = new AMSEMS.RoundPictureBoxRect();
             this.panel7 = new System.Windows.Forms.Panel();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ptbProfilePic = new AMSEMS.RoundPictureBoxRect();
             this.pnStudentsList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudents)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -513,11 +513,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblEventName.AutoSize = true;
             this.lblEventName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.lblEventName.Font = new System.Drawing.Font("The Chieldren PERSONAL USE ONLY", 20F);
+            this.lblEventName.Font = new System.Drawing.Font("Poppins ExtraBold", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEventName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.lblEventName.Location = new System.Drawing.Point(377, 13);
+            this.lblEventName.Location = new System.Drawing.Point(373, 13);
             this.lblEventName.Name = "lblEventName";
-            this.lblEventName.Size = new System.Drawing.Size(128, 34);
+            this.lblEventName.Size = new System.Drawing.Size(190, 48);
             this.lblEventName.TabIndex = 11;
             this.lblEventName.Text = "Event Name";
             this.lblEventName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -962,6 +962,21 @@
             this.panel4.Size = new System.Drawing.Size(362, 312);
             this.panel4.TabIndex = 6;
             // 
+            // ptbProfilePic
+            // 
+            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbProfilePic.BorderWidth = 2;
+            this.ptbProfilePic.CornerRadius = 10;
+            this.ptbProfilePic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbProfilePic.Image = global::AMSEMS_Attendance_Checker.Properties.Resources.Pulse_1s_200px__1_;
+            this.ptbProfilePic.InitialImage = global::AMSEMS_Attendance_Checker.Properties.Resources.Pulse_1s_200px__1_;
+            this.ptbProfilePic.Location = new System.Drawing.Point(12, 0);
+            this.ptbProfilePic.Name = "ptbProfilePic";
+            this.ptbProfilePic.Size = new System.Drawing.Size(350, 312);
+            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProfilePic.TabIndex = 9;
+            this.ptbProfilePic.TabStop = false;
+            // 
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -984,21 +999,6 @@
             this.dataGridViewImageColumn1.ReadOnly = true;
             this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewImageColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // ptbProfilePic
-            // 
-            this.ptbProfilePic.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbProfilePic.BorderWidth = 2;
-            this.ptbProfilePic.CornerRadius = 10;
-            this.ptbProfilePic.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptbProfilePic.Image = global::AMSEMS_Attendance_Checker.Properties.Resources.Pulse_1s_200px__1_;
-            this.ptbProfilePic.InitialImage = global::AMSEMS_Attendance_Checker.Properties.Resources.Pulse_1s_200px__1_;
-            this.ptbProfilePic.Location = new System.Drawing.Point(12, 0);
-            this.ptbProfilePic.Name = "ptbProfilePic";
-            this.ptbProfilePic.Size = new System.Drawing.Size(350, 312);
-            this.ptbProfilePic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProfilePic.TabIndex = 9;
-            this.ptbProfilePic.TabStop = false;
             // 
             // formAttendanceChecker
             // 
