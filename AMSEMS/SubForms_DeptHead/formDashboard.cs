@@ -119,6 +119,7 @@ namespace AMSEMS.SubForms_DeptHead
                     [db_Amsems].[dbo].[tbl_student_accounts] s ON s.[Department] = @dep
                 WHERE 
                     e.Attendance = 'true'
+                    AND e.School_Year = @schyear
                 GROUP BY 
                     e.[Event_ID], 
                     e.[Event_Name], 
@@ -127,6 +128,7 @@ namespace AMSEMS.SubForms_DeptHead
                     MAX(ra.Date_Time) DESC;  ", connection))
                 {
                     command.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
+                    command.Parameters.AddWithValue("@schyear", schYear);
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);

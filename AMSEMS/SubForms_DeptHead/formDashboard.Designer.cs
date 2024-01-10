@@ -153,9 +153,9 @@
             this.lblAttendees.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.lblAttendees.Location = new System.Drawing.Point(317, 144);
             this.lblAttendees.Name = "lblAttendees";
-            this.lblAttendees.Size = new System.Drawing.Size(28, 28);
+            this.lblAttendees.Size = new System.Drawing.Size(22, 28);
             this.lblAttendees.TabIndex = 11;
-            this.lblAttendees.Text = "10";
+            this.lblAttendees.Text = "0";
             this.lblAttendees.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbltotalStud
@@ -166,9 +166,9 @@
             this.lbltotalStud.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.lbltotalStud.Location = new System.Drawing.Point(317, 78);
             this.lbltotalStud.Name = "lbltotalStud";
-            this.lbltotalStud.Size = new System.Drawing.Size(28, 28);
+            this.lbltotalStud.Size = new System.Drawing.Size(22, 28);
             this.lbltotalStud.TabIndex = 10;
-            this.lbltotalStud.Text = "10";
+            this.lbltotalStud.Text = "0";
             this.lbltotalStud.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label2
@@ -291,9 +291,9 @@
             this.lblPaidStud.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.lblPaidStud.Location = new System.Drawing.Point(313, 78);
             this.lblPaidStud.Name = "lblPaidStud";
-            this.lblPaidStud.Size = new System.Drawing.Size(28, 28);
+            this.lblPaidStud.Size = new System.Drawing.Size(22, 28);
             this.lblPaidStud.TabIndex = 12;
-            this.lblPaidStud.Text = "10";
+            this.lblPaidStud.Text = "0";
             this.lblPaidStud.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label4
