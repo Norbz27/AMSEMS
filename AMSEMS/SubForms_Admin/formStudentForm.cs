@@ -102,7 +102,7 @@ namespace AMSEMS.SubForms_Admin
             {
                 clearSetting();
                 cn.Open();
-                cm = new SqlCommand("Select Description from tbl_program", cn);
+                cm = new SqlCommand("Select Description from tbl_program ORDER BY Description", cn);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
@@ -110,7 +110,7 @@ namespace AMSEMS.SubForms_Admin
                 }
                 dr.Close();
 
-                cm = new SqlCommand("Select Description from tbl_year_level", cn);
+                cm = new SqlCommand("Select Description from tbl_year_level ORDER BY Description", cn);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
@@ -118,7 +118,7 @@ namespace AMSEMS.SubForms_Admin
                 }
                 dr.Close();
 
-                cm = new SqlCommand("Select Description from tbl_Section", cn);
+                cm = new SqlCommand("Select Description from tbl_Section ORDER BY Description", cn);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
@@ -126,7 +126,7 @@ namespace AMSEMS.SubForms_Admin
                 }
                 dr.Close();
 
-                cm = new SqlCommand("Select Description from tbl_Departments", cn);
+                cm = new SqlCommand("Select Description from tbl_Departments ORDER BY Description", cn);
                 dr = cm.ExecuteReader();
                 while (dr.Read())
                 {

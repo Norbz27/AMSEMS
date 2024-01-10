@@ -356,12 +356,15 @@ namespace AMSEMS.SubForms_DeptHead
             // Add title "List of Students:"
             Paragraph titleParagraph = new Paragraph("Attendance Report", headerFont1);
             Paragraph titleParagraph2 = new Paragraph(cbSection.Text, headerFont2);
+            Paragraph titleParagraph4 = new Paragraph(FormDeptHeadNavigation.depdes, headerFont2);
             Paragraph titleParagraph3 = new Paragraph("School Year: " + cbYear.Text, headerFont3);
             titleParagraph.Alignment = Element.ALIGN_CENTER;
             titleParagraph2.Alignment = Element.ALIGN_CENTER;
+            titleParagraph4.Alignment = Element.ALIGN_CENTER;
             titleParagraph3.Alignment = Element.ALIGN_CENTER;
             document.Add(titleParagraph);
             document.Add(titleParagraph2);
+            document.Add(titleParagraph4);
             document.Add(titleParagraph3);
 
             // Customizing the table appearance

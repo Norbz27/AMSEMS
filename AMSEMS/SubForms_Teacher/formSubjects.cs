@@ -140,7 +140,7 @@ namespace AMSEMS.SubForms_Teacher
             kryptonGroupBox2.Cursor = Cursors.Hand;
             kryptonGroupBox2.Panel.Click += (senderbtn, ebtn) =>
             {
-                form.otherformclick1(ccode, subjectnacadlvl);
+                form.otherformclick1(ccode, subjectnacadlvl, cbSchoolYear.Text, cbSem.Text);
             };
 
             kryptonGroupBox2.Panel.Padding = new Padding(15, 10, 15, 10);
@@ -159,7 +159,7 @@ namespace AMSEMS.SubForms_Teacher
             kryptonGroupBox2.TabIndex = 15;
             kryptonGroupBox2.Click += (senderbtn, ebtn) =>
             {
-                form.otherformclick1(ccode, subjectnacadlvl);
+                form.otherformclick1(ccode, subjectnacadlvl, cbSchoolYear.Text, cbSem.Text);
             };
 
             ptbSubjectPic.BorderWidth = 2;
@@ -175,7 +175,7 @@ namespace AMSEMS.SubForms_Teacher
             ptbSubjectPic.Cursor = Cursors.Hand;
             ptbSubjectPic.Click += (senderbtn, ebtn) =>
             {
-                form.otherformclick1(ccode, subjectnacadlvl);
+                form.otherformclick1(ccode, subjectnacadlvl, cbSchoolYear.Text, cbSem.Text);
             };
 
             lblSubjectName.Dock = DockStyle.Bottom;
@@ -190,7 +190,7 @@ namespace AMSEMS.SubForms_Teacher
             lblSubjectName.Cursor = Cursors.Hand;
             lblSubjectName.Click += (senderbtn, ebtn) =>
             {
-                form.otherformclick1(ccode, subjectnacadlvl);
+                form.otherformclick1(ccode, subjectnacadlvl, cbSchoolYear.Text, cbSem.Text);
             };
 
             lblAcadLvl.AutoSize = false;

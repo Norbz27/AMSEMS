@@ -206,22 +206,8 @@ namespace AMSEMS.SubForms_Teacher
             {
                 await cn.OpenAsync();
 
-                // Dictionary to store the total student count for each course code
-                Dictionary<string, int> courseStudentCount = new Dictionary<string, int>();
-                int totalStudentCount = 0;
-                int totalTerSubCount = 0;
-                int totalShsSubCount = 0;
-
                 // Retrieve subjects assigned to the teacher
-                string query = @"SELECT DISTINCT s.Course_code, Course_Description, Image, Academic_Level, cl.Class_Code FROM tbl_subjects AS s
-                    LEFT JOIN tbl_Departments d ON s.Department_ID = d.Department_ID
-                    LEFT JOIN tbl_Academic_Level AS al ON s.Academic_Level = al.Academic_Level_ID
-                    LEFT JOIN tbl_class_list cl ON s.Course_code = cl.Course_Code
-                    LEFT JOIN tbl_teachers_account ta ON cl.Teacher_ID = ta.Unique_ID
-                    LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_Code
-                    WHERE s.Status = 1 AND ter.School_Year = @schyear AND ter.Semester = @sem AND Unique_ID = @TeachID
-                    GROUP BY s.Course_code, Course_Description, Image, Academic_Level
-                    ORDER BY 1 DESC";
+                string query = @"SELECT COUNT(*) AS countTerSub FROM tbl_subjects s LEFT JOIN tbl_ter_assigned_teacher_to_sub ter ON s.Course_code = ter.Course_Code LEFT JOIN tbl_acad ad ON ter.School_Year = ad.Acad_ID LEFT JOIN tbl_Semester sm ON ter.Semester = sm.Semester_ID LEFT JOIN tbl_teachers_account ta ON ter.Teacher_ID = ta.ID WHERE ta.Unique_ID = @TeachID AND School_Year = @schyear AND Semester = @sem";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, cn))
                 {
@@ -231,139 +217,35 @@ namespace AMSEMS.SubForms_Teacher
 
                     using (SQLiteDataReader rd = command.ExecuteReader())
                     {
-                        while (rd.Read())
+                        if (rd.Read())
                         {
-                            string courseDes = rd["Course_Description"].ToString();
-                            string classCode = rd["Class_Code"].ToString();
+                            string cntSub = rd["countTerSub"].ToString();
 
-                            // Construct the dynamic table name
-                            string dynamicTableName = $"tbl_{classCode}";
-
-                            // Check if the table exists
-                            string tableExistQuery = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=@TableName";
-
-                            using (SQLiteCommand tableExistCommand = new SQLiteCommand(tableExistQuery, cn))
-                            {
-                                tableExistCommand.Parameters.AddWithValue("@TableName", dynamicTableName);
-
-                                int tableCount = Convert.ToInt32(tableExistCommand.ExecuteScalar());
-
-                                if (tableCount > 0)
-                                {
-                                    // The table exists, proceed with your original logic
-
-                                    // Query the dynamic table to get the count of students
-                                    string studentQuery = $"SELECT COUNT(StudentID) AS StudentCount FROM {dynamicTableName} WHERE Class_Code = @ClassCode";
-
-                                    using (SQLiteCommand studentCommand = new SQLiteCommand(studentQuery, cn))
-                                    {
-                                        studentCommand.Parameters.AddWithValue("@ClassCode", classCode);
-
-                                        // Retrieve the student count
-                                        int studentCount = Convert.ToInt32(studentCommand.ExecuteScalar());
-
-                                        // Accumulate the student count for the course code
-                                        if (courseStudentCount.ContainsKey(courseDes))
-                                        {
-                                            courseStudentCount[courseDes] += studentCount;
-                                        }
-                                        else
-                                        {
-                                            courseStudentCount[courseDes] = studentCount;
-                                        }
-
-                                        // Accumulate the total student count
-                                        totalStudentCount += studentCount;
-                                    }
-
-                                    totalTerSubCount++;
-                                }
-                            }
-
+                            lbltotalSub.Text = cntSub;
                         }
-
-
-                        
-                        lbltotalSub.Text = totalTerSubCount.ToString();
      
                     }
                 }
 
-                query = @"SELECT DISTINCT s.Course_code, Course_Description, Image, Academic_Level, cl.Class_Code FROM tbl_subjects AS s
-                    LEFT JOIN tbl_Departments d ON s.Department_ID = d.Department_ID
-                    LEFT JOIN tbl_Academic_Level AS al ON s.Academic_Level = al.Academic_Level_ID
-                    LEFT JOIN tbl_class_list cl ON s.Course_code = cl.Course_Code
-                    LEFT JOIN tbl_shs_assigned_teacher_to_sub shs ON s.Course_code = shs.Course_Code
-                   LEFT JOIN tbl_teachers_account ta ON cl.Teacher_ID = ta.Unique_ID
-                    WHERE s.Status = 1 AND shs.School_Year = @schyear AND shs.Quarter = @quar AND Unique_ID = @TeachID
-                     GROUP BY s.Course_code, Course_Description, Image, Academic_Level
-                    ORDER BY 1 DESC";
+                    query = @"SELECT COUNT(*) AS countTerSub FROM tbl_subjects s LEFT JOIN tbl_shs_assigned_teacher_to_sub shs ON s.Course_code = shs.Course_Code LEFT JOIN tbl_acad ad ON shs.School_Year = ad.Acad_ID LEFT JOIN tbl_Quarter qr ON shs.Quarter = qr.Quarter_ID LEFT JOIN tbl_teachers_account ta ON shs.Teacher_ID = ta.ID WHERE ta.Unique_ID = @TeachID AND School_Year = @schyear AND Quarter = @sem";
 
                 using (SQLiteCommand command = new SQLiteCommand(query, cn))
                 {
                     command.Parameters.AddWithValue("@schyear", schYear);
-                    command.Parameters.AddWithValue("@quar", Shssem);
+                    command.Parameters.AddWithValue("@sem", Tersem);
                     command.Parameters.AddWithValue("@TeachID", FormTeacherNavigation.id);
 
                     using (SQLiteDataReader rd = command.ExecuteReader())
                     {
-                        while (rd.Read())
+                        if (rd.Read())
                         {
-                            string courseDes = rd["Course_Description"].ToString();
-                            string classCode = rd["Class_Code"].ToString();
+                            string cntSub = rd["countTerSub"].ToString();
 
-                            // Construct the dynamic table name
-                            string dynamicTableName = $"tbl_{classCode}";
-
-                            // Check if the table exists
-                            string tableExistQuery = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name=@TableName";
-
-                            using (SQLiteCommand tableExistCommand = new SQLiteCommand(tableExistQuery, cn))
-                            {
-                                tableExistCommand.Parameters.AddWithValue("@TableName", dynamicTableName);
-
-                                int tableCount = Convert.ToInt32(tableExistCommand.ExecuteScalar());
-
-                                if (tableCount > 0)
-                                {
-                                    // The table exists, proceed with your original logic
-
-                                    // Query the dynamic table to get the count of students
-                                    string studentQuery = $"SELECT COUNT(StudentID) AS StudentCount FROM {dynamicTableName} WHERE Class_Code = @ClassCode";
-
-                                    using (SQLiteCommand studentCommand = new SQLiteCommand(studentQuery, cn))
-                                    {
-                                        studentCommand.Parameters.AddWithValue("@ClassCode", classCode);
-
-                                        // Retrieve the student count
-                                        int studentCount = Convert.ToInt32(studentCommand.ExecuteScalar());
-
-                                        // Accumulate the student count for the course code
-                                        if (courseStudentCount.ContainsKey(courseDes))
-                                        {
-                                            courseStudentCount[courseDes] += studentCount;
-                                        }
-                                        else
-                                        {
-                                            courseStudentCount[courseDes] = studentCount;
-                                        }
-
-                                        // Accumulate the total student count
-                                        totalStudentCount += studentCount;
-                                    }
-
-                                    totalShsSubCount++;
-                                }
-                            }
+                            lblTotalShsSub.Text = cntSub;
 
                         }
-
-
-                        lblTotalShsSub.Text = totalShsSubCount.ToString();
-
                     }
                 }
-                lblStud.Text = totalStudentCount.ToString();
             }
         }
 

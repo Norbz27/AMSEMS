@@ -12,7 +12,7 @@
         //public static string connection = @"Data Source=LAPTOP-78S661F5;Initial Catalog=db_Amsems;Integrated Security=True";
 
         //Connect locally
-        public static string connection = @"Server=192.168.1.100;Database=db_Amsems;User Id=nor;Password=12345;";
+        public static string connection = @"Server=192.168.56.117;Database=db_Amsems;User Id=nor;Password=12345;";
 
         //ngrok
         //static string server = "0.tcp.ap.ngrok.io,18065"; // Ngrok tunnel URL

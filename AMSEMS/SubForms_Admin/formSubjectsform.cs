@@ -85,7 +85,7 @@ namespace AMSEMS.SubForms_Admin
         {
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
-                if (tbCourseDes.Text.Equals(String.Empty) || tbCcode.Text.Equals(String.Empty) || ndUnits.Text.Equals(String.Empty) || cbAcadLevel.Text.Equals(String.Empty))
+                if (tbCourseDes.Text.Equals(String.Empty) || tbCcode.Text.Equals(String.Empty) || ndUnits.Text.Equals(String.Empty) || cbAcadLevel.Text.Equals(String.Empty) || cbDepartment.Text.Equals(String.Empty))
                 {
                     MessageBox.Show("Empty Fields!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -183,7 +183,7 @@ namespace AMSEMS.SubForms_Admin
             tbCcode.Text = "";
             tbCourseDes.Text = "";
             ndUnits.Text = "0";
-            tbStatus.Text = "";
+            cbDepartment.Text = "";
             cbAcadLevel.Text = "";
             ptbImage.Image = global::AMSEMS.Properties.Resources.man__3_;
         }

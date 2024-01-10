@@ -1970,6 +1970,7 @@
             this.tbSearch3.StateCommon.Content.Font = new System.Drawing.Font("Poppins", 9F);
             this.tbSearch3.StateCommon.Content.Padding = new System.Windows.Forms.Padding(23, 4, 0, 4);
             this.tbSearch3.TabIndex = 141;
+            this.tbSearch3.TextChanged += new System.EventHandler(this.tbSearch3_TextChanged);
             // 
             // panel1
             // 

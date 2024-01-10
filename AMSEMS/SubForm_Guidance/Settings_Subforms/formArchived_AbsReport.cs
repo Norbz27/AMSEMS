@@ -55,6 +55,7 @@ namespace AMSEMS.SubForm_Guidance
                 {
                     using (SqlDataReader dr = cm.ExecuteReader())
                     {
+                        
                         if (dr.Read())
                         {
                             cbTerm.Text = dr["Description"].ToString();
@@ -79,6 +80,7 @@ namespace AMSEMS.SubForm_Guidance
                 {
                     using (SqlDataReader dr = cm.ExecuteReader())
                     {
+                        cbSchyear.Items.Clear();
                         while (dr.Read())
                         {
                             cbSchyear.Items.Add(dr["School_Year"].ToString());
@@ -97,9 +99,10 @@ namespace AMSEMS.SubForm_Guidance
                 {
                     using (SqlDataReader dr = cm.ExecuteReader())
                     {
+                        cbTerm.Items.Clear();
                         while (dr.Read())
                         {
-                            cbTerm.Text = dr["Description"].ToString();
+                            cbTerm.Items.Add(dr["Description"].ToString());
                         }
                     }
                 }

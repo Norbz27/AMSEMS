@@ -103,7 +103,7 @@ namespace AMSEMS.SubForms_DeptHead
                     cbEvents.Items.Clear();
                     cbSection.Items.Clear();
                     cn.Open();
-                    cm = new SqlCommand(@"SELECT Event_ID, Event_Name FROM tbl_events WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students' OR CHARINDEX(@Department, Selected_Departments) > 0) ORDER BY Start_Date DESC;", cn);
+                    cm = new SqlCommand(@"SELECT Event_ID, Event_Name FROM tbl_events WHERE Attendance = 'True' AND (Exclusive = 'All Students' OR Exclusive = @Department OR Exclusive = 'Specific Students' OR CHARINDEX(@Department, Selected_Departments) > 0) ORDER BY Start_Date;", cn);
                     cm.Parameters.AddWithValue("@Department", FormDeptHeadNavigation.depdes);
                     using (SqlDataReader dr = cm.ExecuteReader())
                     {
@@ -642,12 +642,16 @@ namespace AMSEMS.SubForms_DeptHead
             // Add title "List of Students:"
             Paragraph titleParagraph = new Paragraph("Attendance Record", headerFont1);
             Paragraph titleParagraph2 = new Paragraph(cbEvents.Text, headerFont2);
-            Paragraph titleParagraph3 = new Paragraph(Dt.Value.ToString(), headerFont3);
+            Paragraph titleParagraph4 = new Paragraph(FormDeptHeadNavigation.depdes, headerFont2);
+            Paragraph titleParagraph3 = new Paragraph(Dt.Value.ToString("MMM dd, yyyy"), headerFont3);
             titleParagraph.Alignment = Element.ALIGN_CENTER;
             titleParagraph2.Alignment = Element.ALIGN_CENTER;
+            titleParagraph4.Alignment = Element.ALIGN_CENTER;
             titleParagraph3.Alignment = Element.ALIGN_CENTER;
+
             document.Add(titleParagraph);
             document.Add(titleParagraph2);
+            document.Add(titleParagraph4);
             document.Add(titleParagraph3);
 
             // Customizing the table appearance

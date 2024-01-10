@@ -1,5 +1,6 @@
 ﻿
 using ComponentFactory.Krypton.Toolkit;
+using PusherServer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -358,6 +359,14 @@ namespace AMSEMS.SubForms_SAO
                             command.Parameters.AddWithValue("@ID", eventid);
                             command.ExecuteNonQuery();
 
+                            var option = new PusherOptions
+                            {
+                                Cluster = "ap1",
+                                Encrypted = true,
+                            };
+                            var pusher = new Pusher("1732969", "6cc843a774ea227a754f", "de6683c35f58d7bc943f", option);
+
+                            var result = pusher.TriggerAsync("amsems", "events", new { message = "new notification" });
                             MessageBox.Show("Deleted successfully.");
                         }
                     }

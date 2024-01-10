@@ -210,10 +210,10 @@ namespace AMSEMS.SubForms_DeptHead
                                 }
 
                                 // Check if cbYear is equal to (Academic_Year_Start +'-'+ Academic_Year_End)
-                                string academicYear = dr["acad_year"].ToString();
+                                //string academicYear = dr["acad_year"].ToString();
 
-                                if (cbSchoolYear.Text == academicYear)
-                                {
+                                //if (cbSchoolYear.Text == academicYear)
+                                //{
                                     // Add a row and set the checkbox column value to false (unchecked)
                                     int rowIndex = dgvAssignedSub.Rows.Add(false);
 
@@ -222,16 +222,16 @@ namespace AMSEMS.SubForms_DeptHead
                                     dgvAssignedSub.Rows[rowIndex].Cells["Des"].Value = dr["Course_Description"].ToString();
                                     dgvAssignedSub.Rows[rowIndex].Cells["units"].Value = dr["Units"].ToString();
                                     dgvAssignedSub.Rows[rowIndex].Cells["assigned"].Value = dr["Name"].ToString();
-                                    dgvAssignedSub.Rows[rowIndex].Cells["schyear"].Value = academicYear;
+                                    dgvAssignedSub.Rows[rowIndex].Cells["schyear"].Value = dr["acad_year"].ToString();
                                     dgvAssignedSub.Rows[rowIndex].Cells["sem"].Value = dr["Sem"].ToString();
 
                                     // Populate your control column here (change "ControlColumn" to your actual column name)
                                     // dgvAssignedSub.Rows[rowIndex].Cells["option"].Value = option.Image;
-                                }
-                                else
-                                {
+                                //}
+                                //else
+                                //{
 
-                                }
+                                //}
                             }
                         }
                     }
@@ -591,6 +591,11 @@ namespace AMSEMS.SubForms_DeptHead
                 // Show or hide the row based on search result
                 row.Visible = rowVisible;
             }
+        }
+
+        private void formSubjects_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            cancellationTokenSource?.Cancel();
         }
 
         private void btnAssignSubject_Click(object sender, EventArgs e)

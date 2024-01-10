@@ -24,15 +24,18 @@ namespace AMSEMS.SubForms_Teacher
         string schYear = String.Empty;
         string Tersem = String.Empty;
         string Shssem = String.Empty;
+        static string acadschyear, acadterm;
         public formSubjectMainPage()
         {
             InitializeComponent();
             conn = new SQLite_Connection();
         }
-        public static void setForm(formSubjectInformation form1, string ccode1)
+        public static void setForm(formSubjectInformation form1, string ccode1, string acadlvl, string schyear, string term)
         {
             form = form1;
             ccode = ccode1;
+            acadschyear = schyear;
+            acadterm = term;
         }
         private void formSubjectInformation_Load(object sender, EventArgs e)
         {
@@ -42,48 +45,48 @@ namespace AMSEMS.SubForms_Teacher
         }
         public void getAcad()
         {
-            using (SQLiteConnection cn = new SQLiteConnection(conn.connectionString))
-            {
-                cn.Open();
-                using (SQLiteCommand command = new SQLiteCommand(cn))
-                {
-                    string query1 = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
-                    command.CommandText = query1;
-                    using (SQLiteDataReader rd = command.ExecuteReader())
-                    {
-                        if (rd.Read())
-                        {
-                            schYear = rd["Acad_ID"].ToString();
-                        }
-                    }
-                }
+            //using (SQLiteConnection cn = new SQLiteConnection(conn.connectionString))
+            //{
+            //    cn.Open();
+            //    using (SQLiteCommand command = new SQLiteCommand(cn))
+            //    {
+            //        string query1 = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+            //        command.CommandText = query1;
+            //        using (SQLiteDataReader rd = command.ExecuteReader())
+            //        {
+            //            if (rd.Read())
+            //            {
+            //                schYear = rd["Acad_ID"].ToString();
+            //            }
+            //        }
+            //    }
 
-                using (SQLiteCommand cm = new SQLiteCommand(cn))
-                {
-                    string query2 = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
-                    cm.CommandText = query2;
-                    using (SQLiteDataReader dr = cm.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            Shssem = dr["Quarter_ID"].ToString();
-                        }
-                    }
-                }
+            //    using (SQLiteCommand cm = new SQLiteCommand(cn))
+            //    {
+            //        string query2 = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
+            //        cm.CommandText = query2;
+            //        using (SQLiteDataReader dr = cm.ExecuteReader())
+            //        {
+            //            if (dr.Read())
+            //            {
+            //                Shssem = dr["Quarter_ID"].ToString();
+            //            }
+            //        }
+            //    }
 
-                using (SQLiteCommand cm = new SQLiteCommand(cn))
-                {
-                    string query3 = "SELECT Semester_ID, Description FROM tbl_Semester WHERE Status = 1";
-                    cm.CommandText = query3;
-                    using (SQLiteDataReader dr = cm.ExecuteReader())
-                    {
-                        if (dr.Read())
-                        {
-                            Tersem = dr["Semester_ID"].ToString();
-                        }
-                    }
-                }
-            }
+            //    using (SQLiteCommand cm = new SQLiteCommand(cn))
+            //    {
+            //        string query3 = "SELECT Semester_ID, Description FROM tbl_Semester WHERE Status = 1";
+            //        cm.CommandText = query3;
+            //        using (SQLiteDataReader dr = cm.ExecuteReader())
+            //        {
+            //            if (dr.Read())
+            //            {
+            //                Tersem = dr["Semester_ID"].ToString();
+            //            }
+            //        }
+            //    }
+            //}
         }
         private void PopulateStudentsChart()
         {
@@ -100,11 +103,11 @@ namespace AMSEMS.SubForms_Teacher
                     string query = "";
                     if (formSubjectInformation.subjectAcadlvl == "10001")
                     {
-                        query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode AND School_Year = @schyear AND Semester = @sem";
+                        query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID LEFT JOIN tbl_acad ad ON cl.School_Year = ad.Acad_ID LEFT JOIN tbl_Semester sm ON cl.Semester = sm.Semester_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode AND (ad.Academic_Year_Start ||'-'|| ad.Academic_Year_End) = @schyear AND sm.Description = @sem";
                     }
                     else
                     {
-                        query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode AND School_Year = @schyear AND Semester = @quar";
+                        query = "SELECT sec.Description AS secdes, Class_Code FROM tbl_class_list cl LEFT JOIN tbl_section sec ON cl.Section_ID = sec.Section_ID LEFT JOIN tbl_acad ad ON cl.School_Year = ad.Acad_ID LEFT JOIN tbl_Quarter qr ON cl.Semester = qr.Quarter_ID WHERE cl.Teacher_ID = @teachID AND cl.Course_Code = @Ccode AND (ad.Academic_Year_Start ||'-'|| ad.Academic_Year_End) = @schyear AND qr.Description = @sem";
                     }
 
                     int totalSections = 0;
@@ -113,9 +116,8 @@ namespace AMSEMS.SubForms_Teacher
                     {
                         classListCommand.Parameters.AddWithValue("@teachID", FormTeacherNavigation.id);
                         classListCommand.Parameters.AddWithValue("@Ccode", ccode);
-                        classListCommand.Parameters.AddWithValue("@schyear", schYear);
-                        classListCommand.Parameters.AddWithValue("@sem", Tersem);
-                        classListCommand.Parameters.AddWithValue("@quar", Shssem);
+                        classListCommand.Parameters.AddWithValue("@schyear", acadschyear);
+                        classListCommand.Parameters.AddWithValue("@sem", acadterm);
                         using (SQLiteDataReader classListReader = classListCommand.ExecuteReader())
                         {
                             while (classListReader.Read())

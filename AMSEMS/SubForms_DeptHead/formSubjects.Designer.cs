@@ -1007,6 +1007,7 @@
             this.Name = "formSubjects";
             this.Padding = new System.Windows.Forms.Padding(20, 15, 20, 10);
             this.Text = "formSubjects";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formSubjects_FormClosing);
             this.Load += new System.EventHandler(this.formSubjects_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

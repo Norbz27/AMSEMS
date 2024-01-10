@@ -39,9 +39,13 @@ namespace AMSEMS.SubForms_Teacher
         formAddStudentToSubject form2;
         private int selectedColumnIndex;
         string rep;
-        string acadSchYeear, acadTerSem, acadShsSem;
+        static string acadSchYeeardes, termdes;
         private List<DataGridViewRow> rowsToDelete = new List<DataGridViewRow>();
         private CancellationTokenSource cancellationTokenSource;
+        private string acadSchYeear;
+        private string acadShsSem;
+        private string acadTerSem;
+
         public formSubjectOverview()
         {
             InitializeComponent();
@@ -55,12 +59,14 @@ namespace AMSEMS.SubForms_Teacher
             ptbLoading.Style = ProgressBarStyle.Marquee;
             dgvAttendanceReport.CellValueNeeded += dgvAttendanceReport_CellValueNeeded;
         }
-        public static void setCode(string ccode1, string classcode1, string subacadlvl1, formSubjectInformation form1)
+        public static void setCode(string ccode1, string classcode1, string subacadlvl1, formSubjectInformation form1, string schyear1, string term1)
         {
             ccode = ccode1;
             classcode = classcode1;
             subacadlvl = subacadlvl1;
             form = form1;
+            acadSchYeeardes = schyear1;
+            termdes = term1;
         }
         private void formSubjectInformation_Load(object sender, EventArgs e)
         {
@@ -1842,7 +1848,7 @@ namespace AMSEMS.SubForms_Teacher
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
                         DataGridViewRow rowToDelete = dataGridView.Rows[rowIndex];
                         formRemarks form = new formRemarks();
-                        form.getForm(this, dgvAbesnteismRep.Rows[rowIndex].Cells[0].Value.ToString(), dgvAbesnteismRep.Rows[rowIndex].Cells[1].Value.ToString(), classcode);
+                        form.getForm(this, dgvAbesnteismRep.Rows[rowIndex].Cells[0].Value.ToString(), dgvAbesnteismRep.Rows[rowIndex].Cells[1].Value.ToString(), classcode, acadSchYeeardes, termdes, subacadlvl);
 
                         form.ShowDialog();
                         UseWaitCursor = false;
@@ -1853,18 +1859,18 @@ namespace AMSEMS.SubForms_Teacher
 
         public void academic()
         {
-            using(SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
                 string query = "";
-                query = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                query = "SELECT Acad_ID, (Academic_Year_Start +'-'+ Academic_Year_End) AS schyear FROM tbl_acad WHERE Status = 1";
                 using (SqlCommand command = new SqlCommand(query, cn))
                 {
                     using (SqlDataReader rd = command.ExecuteReader())
                     {
                         if (rd.Read())
                         {
-                            acadSchYeear = rd["Acad_ID"].ToString();
+                            acadSchYeear = rd["schyear"].ToString();
                         }
                     }
                 }
@@ -1872,12 +1878,12 @@ namespace AMSEMS.SubForms_Teacher
                 query = "SELECT Quarter_ID, Description FROM tbl_Quarter WHERE Status = 1";
                 using (SqlCommand cm = new SqlCommand(query, cn))
                 {
-                   
+
                     using (SqlDataReader dr = cm.ExecuteReader())
                     {
                         if (dr.Read())
                         {
-                            acadShsSem = dr["Quarter_ID"].ToString();
+                            acadShsSem = dr["Description"].ToString();
                         }
                     }
                 }
@@ -1889,12 +1895,41 @@ namespace AMSEMS.SubForms_Teacher
                     {
                         if (dr.Read())
                         {
-                            acadTerSem = dr["Semester_ID"].ToString();
+                            acadTerSem = dr["Description"].ToString();
                         }
                     }
                 }
             }
         }
+
+        private void tbSearch3_TextChanged(object sender, EventArgs e)
+        {
+            string searchKeyword = tbSearch3.Text.Trim();
+            ApplySearchFilterabs(searchKeyword);
+        }
+
+        private void ApplySearchFilterabs(string searchKeyword)
+        {
+            // Loop through each row in the DataGridView
+            foreach (DataGridViewRow row in dgvAbesnteismRep.Rows)
+            {
+                bool rowVisible = false;
+
+                // Loop through each cell in the row
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    if (cell.Value != null && cell.Value.ToString().IndexOf(searchKeyword, StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        rowVisible = true;
+                        break;
+                    }
+                }
+
+                // Show or hide the row based on search result
+                row.Visible = rowVisible;
+            }
+        }
+
         public async void displayReport()
         {
             try
@@ -1906,8 +1941,12 @@ namespace AMSEMS.SubForms_Teacher
                     using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                     {
                         cn.Open();
-
-                        string query = @"SELECT 
+                        string query = "";
+                        if (subacadlvl.Equals("10001"))
+                        {
+                            if (acadSchYeear.Equals(acadSchYeeardes) && acadTerSem.Equals(termdes))
+                            {
+                                query = @"SELECT 
                                 s.ID AS ID,
                                 cr.Consultation_ID AS conid,
                                 UPPER(s.Lastname + ', ' + s.Firstname + ' ' + s.Middlename) AS Name,
@@ -1920,28 +1959,118 @@ namespace AMSEMS.SubForms_Teacher
                         	    LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
                                 LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
 							    LEFT JOIN tbl_subject_attendance sa ON cr.Class_Code = sa.Class_Code
+								LEFT JOIN tbl_acad ad ON cl.School_Year = ad.Acad_ID
+								LEFT JOIN tbl_Semester sm ON cl.Semester = sm.Semester_ID
                             WHERE 
                                 al.Academic_Level_ID = @acadlvl
                                 AND cr.Class_Code = @clcode
                                 AND s.Status = 1
-                                AND cl.School_Year = @schyear
-                                AND cl.Semester = @sem
+                                AND (ad.Academic_Year_Start +'-'+ ad.Academic_Year_End) = @schyear
+                                AND sm.Description = @sem
                                 AND cr.Status = 'Done'
                             GROUP BY 
                                 s.ID, s.Lastname, s.Firstname, s.Middlename, cr.Absences, cr.Consultation_ID
 						    ORDER BY
 							    Name";
+                            }
+                            else
+                            {
+                                query = @"SELECT 
+                                s.ID AS ID,
+                                cr.Consultation_ID AS conid,
+                                UPPER(s.Lastname + ', ' + s.Firstname + ' ' + s.Middlename) AS Name,
+                                cr.Absences AS ConsecutiveAbsentDays
+                            FROM 
+                                tbl_archived_consultation_record cr
+                                LEFT JOIN tbl_student_accounts s ON cr.Student_ID = s.ID 
+                                LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID 
+	                            LEFT JOIN tbl_academic_level al ON sec.AcadLevel_ID = al.Academic_Level_ID
+                        	    LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
+                                LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
+							    LEFT JOIN tbl_subject_attendance sa ON cr.Class_Code = sa.Class_Code
+								LEFT JOIN tbl_acad ad ON cl.School_Year = ad.Acad_ID
+								LEFT JOIN tbl_Semester sm ON cl.Semester = sm.Semester_ID
+                            WHERE 
+                                al.Academic_Level_ID = @acadlvl
+                                AND cr.Class_Code = @clcode
+                                AND s.Status = 1
+                                AND (ad.Academic_Year_Start +'-'+ ad.Academic_Year_End) = @schyear
+                                AND sm.Description = @sem
+                                AND cr.Status = 'Done'
+                            GROUP BY 
+                                s.ID, s.Lastname, s.Firstname, s.Middlename, cr.Absences, cr.Consultation_ID
+						    ORDER BY
+							    Name";
+                            }
+                        }
+                        else
+                        {
+                            if (acadSchYeear.Equals(acadSchYeeardes) && acadShsSem.Equals(termdes))
+                            {
+                                query = @"SELECT 
+                                s.ID AS ID,
+                                cr.Consultation_ID AS conid,
+                                UPPER(s.Lastname + ', ' + s.Firstname + ' ' + s.Middlename) AS Name,
+                                cr.Absences AS ConsecutiveAbsentDays
+                            FROM 
+                                tbl_consultation_record cr
+                                LEFT JOIN tbl_student_accounts s ON cr.Student_ID = s.ID 
+                                LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID 
+	                            LEFT JOIN tbl_academic_level al ON sec.AcadLevel_ID = al.Academic_Level_ID
+                        	    LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
+                                LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
+							    LEFT JOIN tbl_subject_attendance sa ON cr.Class_Code = sa.Class_Code
+								LEFT JOIN tbl_acad ad ON cl.School_Year = ad.Acad_ID
+								LEFT JOIN tbl_Quarter qr ON cl.Semester = qr.Quarter_ID
+                            WHERE 
+                                al.Academic_Level_ID = @acadlvl
+                                AND cr.Class_Code = @clcode
+                                AND s.Status = 1
+                                AND (ad.Academic_Year_Start +'-'+ ad.Academic_Year_End) = @schyear
+                                AND qr.Description = @sem
+                                AND cr.Status = 'Done'
+                            GROUP BY 
+                                s.ID, s.Lastname, s.Firstname, s.Middlename, cr.Absences, cr.Consultation_ID
+						    ORDER BY
+							    Name";
+                            }
+                            else
+                            {
+                                query = @"SELECT 
+                                s.ID AS ID,
+                                cr.Consultation_ID AS conid,
+                                UPPER(s.Lastname + ', ' + s.Firstname + ' ' + s.Middlename) AS Name,
+                                cr.Absences AS ConsecutiveAbsentDays
+                            FROM 
+                                tbl_archived_consultation_record cr
+                                LEFT JOIN tbl_student_accounts s ON cr.Student_ID = s.ID 
+                                LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID 
+	                            LEFT JOIN tbl_academic_level al ON sec.AcadLevel_ID = al.Academic_Level_ID
+                        	    LEFT JOIN tbl_class_list cl ON cr.Class_Code = cl.CLass_Code
+                                LEFT JOIN tbl_subjects sub ON cl.Course_Code = sub.Course_code
+							    LEFT JOIN tbl_subject_attendance sa ON cr.Class_Code = sa.Class_Code
+								LEFT JOIN tbl_acad ad ON cl.School_Year = ad.Acad_ID
+								LEFT JOIN tbl_Quarter qr ON cl.Semester = qr.Quarter_ID
+                            WHERE 
+                                al.Academic_Level_ID = @acadlvl
+                                AND cr.Class_Code = @clcode
+                                AND s.Status = 1
+                                AND (ad.Academic_Year_Start +'-'+ ad.Academic_Year_End) = @schyear
+                                AND qr.Description = @sem
+                                AND cr.Status = 'Done'
+                            GROUP BY 
+                                s.ID, s.Lastname, s.Firstname, s.Middlename, cr.Absences, cr.Consultation_ID
+						    ORDER BY
+							    Name";
+                            }
+                        }
 
                         using (SqlCommand cmd = new SqlCommand(query, cn))
                         {
                             cmd.Parameters.AddWithValue("@acadlvl", subacadlvl);
-                            cmd.Parameters.AddWithValue("@schyear", acadSchYeear);
+                            cmd.Parameters.AddWithValue("@schyear", acadSchYeeardes);
                             cmd.Parameters.AddWithValue("@clcode", classcode);
-
-                            if (subacadlvl.Equals("10002"))
-                                cmd.Parameters.AddWithValue("@sem", acadShsSem);
-                            else
-                                cmd.Parameters.AddWithValue("@sem", acadTerSem);
+                            cmd.Parameters.AddWithValue("@sem", termdes);
 
                             using (SqlDataReader dr = cmd.ExecuteReader())
                             {

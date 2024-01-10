@@ -69,6 +69,17 @@ namespace AMSEMS.SubForms_DeptHead
                 {
                     cn.Open();
                     string query = "";
+                    query = "SELECT (Academic_Year_Start+'-'+Academic_Year_End) AS School_Year FROM tbl_acad WHERE Status = 1";
+                    using (SqlCommand cm = new SqlCommand(query, cn))
+                    {
+                        using (SqlDataReader dr = cm.ExecuteReader())
+                        {
+                            while (dr.Read())
+                            {
+                                cbYear.Text = dr["School_Year"].ToString();
+                            }
+                        }
+                    }
 
                     query = "SELECT (Academic_Year_Start+'-'+Academic_Year_End) AS School_Year FROM tbl_acad ORDER BY Status";
                     using (SqlCommand cm = new SqlCommand(query, cn))
@@ -82,8 +93,7 @@ namespace AMSEMS.SubForms_DeptHead
                         }
                     }
                 }
-                if(cbYear.Items.Count > 0)
-                    cbYear.SelectedIndex = 0;
+                
             }
         }
         public void displayOverallSummary()
@@ -348,14 +358,20 @@ namespace AMSEMS.SubForms_DeptHead
             iTextSharp.text.Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
             iTextSharp.text.Font headerFont2 = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+            iTextSharp.text.Font headerFont3 = FontFactory.GetFont(FontFactory.HELVETICA, 9);
 
             // Add title "List of Students:"
             Paragraph titleParagraph = new Paragraph("Students Balance Fee Report", headerFont1);
             Paragraph titleParagraph2 = new Paragraph("Section:" + cbSection.Text, headerFont2);
+            Paragraph titleParagraph4 = new Paragraph(FormDeptHeadNavigation.depdes, headerFont2);
+            Paragraph titleParagraph3 = new Paragraph("School Year: " + cbYear.Text, headerFont3);
+
             titleParagraph.Alignment = Element.ALIGN_CENTER;
             titleParagraph2.Alignment = Element.ALIGN_CENTER;
+            titleParagraph3.Alignment = Element.ALIGN_CENTER;
             document.Add(titleParagraph);
             document.Add(titleParagraph2);
+            document.Add(titleParagraph3);
 
             // Customizing the table appearance
             PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1);

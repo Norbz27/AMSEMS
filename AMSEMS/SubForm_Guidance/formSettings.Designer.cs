@@ -341,6 +341,7 @@
             this.btnNotif.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
             this.btnNotif.TabIndex = 36;
             this.btnNotif.Values.Text = "Notification";
+            this.btnNotif.Visible = false;
             this.btnNotif.Click += new System.EventHandler(this.btnNotif_Click);
             // 
             // btnAccountProf
