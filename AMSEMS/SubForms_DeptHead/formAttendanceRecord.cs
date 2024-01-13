@@ -672,6 +672,7 @@ namespace AMSEMS.SubForms_DeptHead
             columnWidths[8] = 40;
             columnWidths[9] = 40;
             columnWidths[10] = 55;
+            columnWidths[11] = 30;
             pdfTable.SetWidths(columnWidths);
 
             foreach (DataGridViewColumn column in dataGridView.Columns)

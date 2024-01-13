@@ -362,16 +362,24 @@ namespace AMSEMS.SubForms_DeptHead
 
             // Add title "List of Students:"
             Paragraph titleParagraph = new Paragraph("Students Balance Fee Report", headerFont1);
-            Paragraph titleParagraph2 = new Paragraph("Section:" + cbSection.Text, headerFont2);
-            Paragraph titleParagraph4 = new Paragraph(FormDeptHeadNavigation.depdes, headerFont2);
+            Paragraph titleParagraph2 = new Paragraph("Section: " + cbSection.Text, headerFont2);
+            Paragraph titleParagraph4 = new Paragraph("Department: "+FormDeptHeadNavigation.depdes, headerFont2);
             Paragraph titleParagraph3 = new Paragraph("School Year: " + cbYear.Text, headerFont3);
 
-            titleParagraph.Alignment = Element.ALIGN_CENTER;
-            titleParagraph2.Alignment = Element.ALIGN_CENTER;
-            titleParagraph3.Alignment = Element.ALIGN_CENTER;
+            // Create a new paragraph for fees
+            Paragraph feeParagraph = new Paragraph("", headerFont3);
+            feeParagraph.Alignment = Element.ALIGN_RIGHT;
+
+            // Add tabs to align the fees
+            feeParagraph.Add("Collectable Fee: \t" + lblCollectableFee.Text);
+            feeParagraph.Add("\t      Collected Fee: \t" + lblCollectedFee.Text);
+
             document.Add(titleParagraph);
             document.Add(titleParagraph2);
+            document.Add(titleParagraph4);
             document.Add(titleParagraph3);
+            document.Add(feeParagraph);
+
 
             // Customizing the table appearance
             PdfPTable pdfTable = new PdfPTable(dataGridView.Columns.Count - 1);
@@ -489,7 +497,7 @@ namespace AMSEMS.SubForms_DeptHead
                     if (dataGridView != null)
                     {
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
-                        formMakePayment.getForm(this);
+                        formMakePayment.getForm(this, cbYear.Text);
                         formMakePayment.searchStudent(dgvBalFees.Rows[rowIndex].Cells[0].Value.ToString());
                         formMakePayment.ShowDialog();
                     }
@@ -514,6 +522,7 @@ namespace AMSEMS.SubForms_DeptHead
                     if (dataGridView != null)
                     {
                         int rowIndex = dataGridView.CurrentCell.RowIndex;
+                        formTransactionHistory.getForm(this, cbYear.Text);
                         formTransactionHistory.displayStudInfo(dgvBalFees.Rows[rowIndex].Cells[0].Value.ToString());
                         formTransactionHistory.ShowDialog();
                     }
@@ -523,7 +532,7 @@ namespace AMSEMS.SubForms_DeptHead
 
         private void btnPay_Click(object sender, EventArgs e)
         {
-            formMakePayment.getForm(this);
+            formMakePayment.getForm(this, cbYear.Text);
             formMakePayment.ShowDialog();
         }
 

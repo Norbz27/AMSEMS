@@ -42,26 +42,29 @@ namespace AMSEMS.SubForms_DeptHead
 
             toolTip.SetToolTip(btnSearch, "Search Student");
 
+            
+        }
+        public void getForm(formStudentBalanceFee formStudentBalanceFee, string schyear)
+        {
+            this.formStudentBalanceFee = formStudentBalanceFee;
+
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
                 cn.Open();
-                string query = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                string query = "SELECT Acad_ID FROM tbl_acad WHERE (Academic_Year_Start +'-'+ Academic_Year_End) = @acadid";
                 using (SqlCommand cm = new SqlCommand(query, cn))
                 {
+                    cm.Parameters.AddWithValue("@acadid", schyear);
                     using (SqlDataReader dr = cm.ExecuteReader())
                     {
                         if (dr.Read())
                         {
-                            schYear = dr["Acad_ID"].ToString();
+                            this.schYear = dr["Acad_ID"].ToString();
                         }
                     }
                 }
             }
         }
-        public void getForm(formStudentBalanceFee formStudentBalanceFee)
-        {
-            this.formStudentBalanceFee = formStudentBalanceFee;
-        } 
         private void formEventConfig_Load(object sender, EventArgs e)
         {
             DateTime dateTime = DateTime.Now;
@@ -91,20 +94,22 @@ namespace AMSEMS.SubForms_DeptHead
                                     FROM (
                                         SELECT
                                             Student_ID,
-                                            SUM(Balance_Fee) AS Balance_Fee
+                                            SUM(Balance_Fee) AS Balance_Fee,
+											School_Year schyear1
                                         FROM
                                             dbo.tbl_balance_fees
                                         GROUP BY
-                                            Student_ID
+                                            Student_ID, School_Year
                                     ) bf
                                     FULL JOIN (
                                         SELECT
                                             Student_ID,
-                                            SUM(Payment_Amount) AS Payment_Amount
+                                            SUM(Payment_Amount) AS Payment_Amount,
+											School_Year schyear2
                                         FROM
                                             dbo.tbl_transaction
                                         GROUP BY
-                                            Student_ID
+                                            Student_ID, School_Year
                                     ) t ON bf.Student_ID = t.Student_ID
                                     JOIN dbo.tbl_student_accounts s ON COALESCE(bf.Student_ID, t.Student_ID) = s.ID
                                     LEFT JOIN tbl_total_penalty_fee tp ON s.ID = tp.Student_ID
@@ -112,6 +117,7 @@ namespace AMSEMS.SubForms_DeptHead
                                         s.Status = 1
                                         AND s.Department = @dep
                                         AND s.ID = @id
+										AND schyear1 = @acadid
                                     GROUP BY
                                         COALESCE(bf.Student_ID, t.Student_ID),
                                         s.Lastname,
@@ -119,6 +125,7 @@ namespace AMSEMS.SubForms_DeptHead
                                         s.Middlename;", cn);
                     cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                     cm.Parameters.AddWithValue("@id", stud_id);
+                    cm.Parameters.AddWithValue("@acadid", schYear);
                     using (dr = cm.ExecuteReader())
                     {
                         if (dr.Read())

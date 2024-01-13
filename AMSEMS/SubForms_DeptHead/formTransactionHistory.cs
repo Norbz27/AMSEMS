@@ -26,7 +26,7 @@ namespace AMSEMS.SubForms_DeptHead
         SqlCommand cm;
         SqlDataReader dr;
 
-
+        string schyear;
         string stud_id, date;
 
         public bool paystatus = false;
@@ -37,9 +37,10 @@ namespace AMSEMS.SubForms_DeptHead
             InitializeComponent();
 
         }
-        public void getForm(formStudentBalanceFee formStudentBalanceFee)
+        public void getForm(formStudentBalanceFee formStudentBalanceFee, string schyear)
         {
             this.formStudentBalanceFee = formStudentBalanceFee;
+            this.schyear = schyear;
         } 
         private void formEventConfig_Load(object sender, EventArgs e)
         {
@@ -47,13 +48,15 @@ namespace AMSEMS.SubForms_DeptHead
         }
         public void displayPayRecord(string studid)
         {
+            dgvPaymentRecord.Rows.Clear();
             try
             {
                 using (cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
-                    cm = new SqlCommand(@"SELECT Transaction_ID, Payment_Amount, FORMAT(Date, 'yyyy-MM-dd') AS date FROM tbl_transaction t WHERE Student_ID = @studid;", cn);
+                    cm = new SqlCommand(@"SELECT Transaction_ID, Payment_Amount, FORMAT(Date, 'yyyy-MM-dd') AS date FROM tbl_transaction t LEFT JOIN tbl_acad ad ON t.School_Year = ad.Acad_ID WHERE Student_ID = @studid AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear;", cn);
                     cm.Parameters.AddWithValue("@studid", studid);
+                    cm.Parameters.AddWithValue("@schyear", schyear);
                     using (dr = cm.ExecuteReader())
                     {
                         while(dr.Read())
@@ -100,28 +103,32 @@ namespace AMSEMS.SubForms_DeptHead
                                     FROM (
                                         SELECT
                                             Student_ID,
-                                            SUM(Balance_Fee) AS Balance_Fee
+                                            SUM(Balance_Fee) AS Balance_Fee,
+											School_Year schyear1
                                         FROM
                                             dbo.tbl_balance_fees
                                         GROUP BY
-                                            Student_ID
+                                            Student_ID, School_Year
                                     ) bf
                                     FULL JOIN (
                                         SELECT
                                             Student_ID,
-                                            SUM(Payment_Amount) AS Payment_Amount
+                                            SUM(Payment_Amount) AS Payment_Amount,
+											School_Year schyear2
                                         FROM
                                             dbo.tbl_transaction
                                         GROUP BY
-                                            Student_ID
+                                            Student_ID, School_Year
                                     ) t ON bf.Student_ID = t.Student_ID
                                     JOIN dbo.tbl_student_accounts s ON COALESCE(bf.Student_ID, t.Student_ID) = s.ID
                                     LEFT JOIN tbl_total_penalty_fee tp ON s.ID = tp.Student_ID
                                     LEFT JOIN tbl_Section sec ON s.Section = sec.Section_ID
+									LEFT JOIN tbl_acad ad ON schyear1 = ad.Acad_ID
                                     WHERE
                                         s.Status = 1
                                         AND s.Department = @dep
                                         AND s.ID = @id
+										AND (Academic_Year_Start +'-'+ Academic_Year_End) = @schyear
                                     GROUP BY
                                         COALESCE(bf.Student_ID, t.Student_ID),
                                         s.Lastname,
@@ -130,6 +137,7 @@ namespace AMSEMS.SubForms_DeptHead
                                         sec.Description;", cn);
                     cm.Parameters.AddWithValue("@dep", FormDeptHeadNavigation.dep);
                     cm.Parameters.AddWithValue("@id", studid);
+                    cm.Parameters.AddWithValue("@schyear", schyear);
                     using (dr = cm.ExecuteReader())
                     {
                         if (dr.Read())
@@ -177,6 +185,7 @@ namespace AMSEMS.SubForms_DeptHead
             iTextSharp.text.Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10);
             iTextSharp.text.Font headerFont1 = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 13);
             iTextSharp.text.Font cellFont = FontFactory.GetFont(FontFactory.HELVETICA, 9);
+            iTextSharp.text.Font cellFont1 = FontFactory.GetFont(FontFactory.HELVETICA, 10);
 
             // Add title "List of Students:"
             Paragraph titleParagraph = new Paragraph("Student Transaction History", headerFont1);
@@ -233,6 +242,16 @@ namespace AMSEMS.SubForms_DeptHead
             }
 
             document.Add(pdfTable);
+
+            // Create a new paragraph for fees
+            Paragraph feeParagraph = new Paragraph("", cellFont1);
+            feeParagraph.Alignment = Element.ALIGN_RIGHT;
+
+            // Add tabs to align the fees
+            feeParagraph.Add("Penalty Balance Fee: \t" + lblBalanceFee.Text);
+            feeParagraph.Add("\t              Total Amount Paid: \t" + lblAmountPaid.Text);
+            document.Add(feeParagraph);
+
             document.Close();
         }
     }
