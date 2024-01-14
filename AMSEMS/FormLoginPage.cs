@@ -144,6 +144,8 @@ namespace AMSEMS
                         "UNION " +
                         "SELECT Role, Unique_ID FROM tbl_sao_accounts WHERE ID = @ID AND Password = @Password AND Status = 1 " +
                         "UNION " +
+                        "SELECT Role, Unique_ID FROM tbl_acadHead_accounts WHERE ID = @ID AND Password = @Password AND Status = 1 " +
+                        "UNION " +
                         "SELECT Role, Unique_ID FROM tbl_teacher_accounts WHERE ID = @ID AND Password = @Password AND Status = 1) AS CombinedRoles", cn))
                     {
                         cmd.Parameters.AddWithValue("@ID", tbID.Text);
@@ -181,6 +183,9 @@ namespace AMSEMS
                                     break;
                                 case 6:
                                     mainForm = new FormTeacherNavigation(uniqueID);
+                                    break;
+                                case 7:
+                                    mainForm = new FormAcadHeadNavigatio(uniqueID);
                                     break;
                                 default:
                                     MessageBox.Show("Invalid Role!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);

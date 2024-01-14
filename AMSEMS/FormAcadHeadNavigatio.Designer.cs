@@ -1,6 +1,6 @@
 ﻿namespace AMSEMS
 {
-    partial class FormAdminNavigation
+    partial class FormAcadHeadNavigatio
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAdminNavigation));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAcadHeadNavigatio));
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.Panel1 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.btnSettings = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -51,9 +51,6 @@
             this.kryptonPanel3 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.kryptonSplitContainer1 = new ComponentFactory.Krypton.Toolkit.KryptonSplitContainer();
             this.kryptonBorderEdge1 = new ComponentFactory.Krypton.Toolkit.KryptonBorderEdge();
-            this.gbNotification = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
-            this.lstNotifications = new System.Windows.Forms.FlowLayoutPanel();
-            this.kryptonLabel12 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -62,11 +59,11 @@
             this.kryptonPanel4 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
-            this.ptbProfile = new AMSEMS.RoundPictureBox();
             this.lblRole = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.btnNotification = new ComponentFactory.Krypton.Toolkit.ButtonSpecAny();
+            this.ptbProfile = new AMSEMS.RoundPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.Panel1)).BeginInit();
             this.Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelCollapsed)).BeginInit();
@@ -83,10 +80,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1.Panel2)).BeginInit();
             this.kryptonSplitContainer1.Panel2.SuspendLayout();
             this.kryptonSplitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gbNotification)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gbNotification.Panel)).BeginInit();
-            this.gbNotification.Panel.SuspendLayout();
-            this.gbNotification.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel4)).BeginInit();
@@ -193,7 +186,7 @@
             // 
             this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSettings.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSettings.Location = new System.Drawing.Point(20, 269);
+            this.btnSettings.Location = new System.Drawing.Point(20, 211);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -256,7 +249,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(20, 259);
+            this.panel4.Location = new System.Drawing.Point(20, 201);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(183, 10);
             this.panel4.TabIndex = 15;
@@ -265,7 +258,7 @@
             // 
             this.btnSubjects.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSubjects.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSubjects.Location = new System.Drawing.Point(20, 211);
+            this.btnSubjects.Location = new System.Drawing.Point(20, 153);
             this.btnSubjects.Name = "btnSubjects";
             this.btnSubjects.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSubjects.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -322,18 +315,16 @@
             this.btnSubjects.TabIndex = 14;
             this.btnSubjects.Values.Image = global::AMSEMS.Properties.Resources.books;
             this.btnSubjects.Values.Text = "Subjects";
-            this.btnSubjects.Visible = false;
             this.btnSubjects.Click += new System.EventHandler(this.btnSubjects_Click);
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(20, 201);
+            this.panel3.Location = new System.Drawing.Point(20, 143);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(183, 10);
             this.panel3.TabIndex = 12;
-            this.panel3.Visible = false;
             // 
             // panelCollapsed
             // 
@@ -348,9 +339,9 @@
             this.panelCollapsed.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelCollapsed.Location = new System.Drawing.Point(20, 95);
             this.panelCollapsed.MaximumSize = new System.Drawing.Size(183, 350);
-            this.panelCollapsed.MinimumSize = new System.Drawing.Size(183, 106);
+            this.panelCollapsed.MinimumSize = new System.Drawing.Size(183, 48);
             this.panelCollapsed.Name = "panelCollapsed";
-            this.panelCollapsed.Size = new System.Drawing.Size(183, 106);
+            this.panelCollapsed.Size = new System.Drawing.Size(183, 48);
             this.panelCollapsed.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.panelCollapsed.StateCommon.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.panelCollapsed.TabIndex = 0;
@@ -417,6 +408,7 @@
             this.btnGuidance.TabIndex = 19;
             this.btnGuidance.Values.Image = global::AMSEMS.Properties.Resources.right_arrow;
             this.btnGuidance.Values.Text = "Guidance";
+            this.btnGuidance.Visible = false;
             this.btnGuidance.Click += new System.EventHandler(this.btnGuidance_Click);
             // 
             // btnSAO
@@ -481,6 +473,7 @@
             this.btnSAO.TabIndex = 18;
             this.btnSAO.Values.Image = global::AMSEMS.Properties.Resources.right_arrow;
             this.btnSAO.Values.Text = "SAO";
+            this.btnSAO.Visible = false;
             this.btnSAO.Click += new System.EventHandler(this.btnSAO_Click);
             // 
             // btnStudents
@@ -545,6 +538,7 @@
             this.btnStudents.TabIndex = 17;
             this.btnStudents.Values.Image = global::AMSEMS.Properties.Resources.right_arrow;
             this.btnStudents.Values.Text = "Students";
+            this.btnStudents.Visible = false;
             this.btnStudents.Click += new System.EventHandler(this.btnStudents_Click);
             // 
             // btnDeptHead
@@ -610,6 +604,7 @@
             this.btnDeptHead.TabIndex = 14;
             this.btnDeptHead.Values.Image = global::AMSEMS.Properties.Resources.right_arrow;
             this.btnDeptHead.Values.Text = "Department Head";
+            this.btnDeptHead.Visible = false;
             this.btnDeptHead.Click += new System.EventHandler(this.btnDeptHead_Click);
             // 
             // btnTeachers
@@ -674,6 +669,7 @@
             this.btnTeachers.TabIndex = 13;
             this.btnTeachers.Values.Image = global::AMSEMS.Properties.Resources.right_arrow;
             this.btnTeachers.Values.Text = "Teachers";
+            this.btnTeachers.Visible = false;
             this.btnTeachers.Click += new System.EventHandler(this.btnTeachers_Click);
             // 
             // btnAccounts
@@ -737,6 +733,7 @@
             this.btnAccounts.TabIndex = 12;
             this.btnAccounts.Values.Image = global::AMSEMS.Properties.Resources.user_16;
             this.btnAccounts.Values.Text = "Accounts";
+            this.btnAccounts.Visible = false;
             this.btnAccounts.Click += new System.EventHandler(this.btnAccounts_Click);
             // 
             // panel2
@@ -747,6 +744,7 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(183, 10);
             this.panel2.TabIndex = 11;
+            this.panel2.Visible = false;
             // 
             // btnDashboard
             // 
@@ -873,7 +871,6 @@
             // kryptonSplitContainer1.Panel2
             // 
             this.kryptonSplitContainer1.Panel2.AutoScroll = true;
-            this.kryptonSplitContainer1.Panel2.Controls.Add(this.gbNotification);
             this.kryptonSplitContainer1.Panel2.Controls.Add(this.panel6);
             this.kryptonSplitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.kryptonSplitContainer1.Panel2.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
@@ -901,55 +898,6 @@
             this.kryptonBorderEdge1.StateCommon.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
             this.kryptonBorderEdge1.StateCommon.Width = 3;
             this.kryptonBorderEdge1.Text = "kryptonBorderEdge1";
-            // 
-            // gbNotification
-            // 
-            this.gbNotification.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbNotification.CaptionVisible = false;
-            this.gbNotification.CausesValidation = false;
-            this.gbNotification.Location = new System.Drawing.Point(0, 3);
-            this.gbNotification.Margin = new System.Windows.Forms.Padding(6, 3, 0, 3);
-            this.gbNotification.Name = "gbNotification";
-            // 
-            // gbNotification.Panel
-            // 
-            this.gbNotification.Panel.Controls.Add(this.lstNotifications);
-            this.gbNotification.Panel.Controls.Add(this.kryptonLabel12);
-            this.gbNotification.Panel.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.gbNotification.Size = new System.Drawing.Size(288, 342);
-            this.gbNotification.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.gbNotification.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.gbNotification.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.gbNotification.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.gbNotification.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.gbNotification.StateCommon.Border.Rounding = 10;
-            this.gbNotification.StateCommon.Border.Width = 2;
-            this.gbNotification.TabIndex = 28;
-            this.gbNotification.Visible = false;
-            // 
-            // lstNotifications
-            // 
-            this.lstNotifications.AutoScroll = true;
-            this.lstNotifications.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.lstNotifications.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstNotifications.Location = new System.Drawing.Point(0, 30);
-            this.lstNotifications.Name = "lstNotifications";
-            this.lstNotifications.Size = new System.Drawing.Size(278, 302);
-            this.lstNotifications.TabIndex = 4;
-            // 
-            // kryptonLabel12
-            // 
-            this.kryptonLabel12.Dock = System.Windows.Forms.DockStyle.Top;
-            this.kryptonLabel12.Location = new System.Drawing.Point(0, 5);
-            this.kryptonLabel12.Name = "kryptonLabel12";
-            this.kryptonLabel12.Size = new System.Drawing.Size(278, 25);
-            this.kryptonLabel12.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel12.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel12.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 11F, System.Drawing.FontStyle.Bold);
-            this.kryptonLabel12.TabIndex = 3;
-            this.kryptonLabel12.Values.Text = "Notifications";
             // 
             // panel6
             // 
@@ -1112,18 +1060,6 @@
             this.lblName.Text = "Norberto Bruzon";
             this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ptbProfile
-            // 
-            this.ptbProfile.BorderColor = System.Drawing.Color.LightGray;
-            this.ptbProfile.BorderWidth = 2;
-            this.ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
-            this.ptbProfile.Location = new System.Drawing.Point(60, 53);
-            this.ptbProfile.Name = "ptbProfile";
-            this.ptbProfile.Size = new System.Drawing.Size(129, 129);
-            this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProfile.TabIndex = 8;
-            this.ptbProfile.TabStop = false;
-            // 
             // lblRole
             // 
             this.lblRole.AutoSize = false;
@@ -1135,7 +1071,7 @@
             this.lblRole.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRole.StateCommon.ShortText.TextH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Center;
             this.lblRole.TabIndex = 6;
-            this.lblRole.Values.Text = "Admin";
+            this.lblRole.Values.Text = "Academic Head";
             // 
             // timer1
             // 
@@ -1158,7 +1094,19 @@
             this.btnNotification.Visible = false;
             this.btnNotification.Click += new System.EventHandler(this.btnNotification_Click);
             // 
-            // FormAdminNavigation
+            // ptbProfile
+            // 
+            this.ptbProfile.BorderColor = System.Drawing.Color.LightGray;
+            this.ptbProfile.BorderWidth = 2;
+            this.ptbProfile.Image = global::AMSEMS.Properties.Resources.man__3_;
+            this.ptbProfile.Location = new System.Drawing.Point(60, 53);
+            this.ptbProfile.Name = "ptbProfile";
+            this.ptbProfile.Size = new System.Drawing.Size(129, 129);
+            this.ptbProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProfile.TabIndex = 8;
+            this.ptbProfile.TabStop = false;
+            // 
+            // FormAcadHeadNavigatio
             // 
             this.AllowButtonSpecToolTips = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1171,7 +1119,7 @@
             this.Controls.Add(this.Panel1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1300, 650);
-            this.Name = "FormAdminNavigation";
+            this.Name = "FormAcadHeadNavigatio";
             this.Palette = this.kryptonPalette1;
             this.PaletteMode = ComponentFactory.Krypton.Toolkit.PaletteMode.Custom;
             this.ShowIcon = false;
@@ -1197,11 +1145,6 @@
             this.kryptonSplitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonSplitContainer1)).EndInit();
             this.kryptonSplitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gbNotification.Panel)).EndInit();
-            this.gbNotification.Panel.ResumeLayout(false);
-            this.gbNotification.Panel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gbNotification)).EndInit();
-            this.gbNotification.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel4)).EndInit();
@@ -1247,9 +1190,6 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private ComponentFactory.Krypton.Toolkit.KryptonGroupBox gbNotification;
-        private System.Windows.Forms.FlowLayoutPanel lstNotifications;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel12;
     }
 }
 
