@@ -321,11 +321,11 @@
     <Compile Include="FormSAONavigation.Designer.cs">
       <DependentUpon>FormSAONavigation.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormAdminNavigation.cs">
+    <Compile Include="FormAdmissionNavigation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAdminNavigation.Designer.cs">
-      <DependentUpon>FormAdminNavigation.cs</DependentUpon>
+    <Compile Include="FormAdmissionNavigation.Designer.cs">
+      <DependentUpon>FormAdmissionNavigation.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -540,34 +540,40 @@
       <DependentUpon>formSemester_Quarter.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_AcadHead\UserID.cs" />
-    <Compile Include="SubForms_Admin\formAcctounts_DeptHead.cs">
+    <Compile Include="SubForms_Admission\formAcctounts_DeptHead.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formAcctounts_DeptHead.Designer.cs">
+    <Compile Include="SubForms_Admission\formAcctounts_DeptHead.Designer.cs">
       <DependentUpon>formAcctounts_DeptHead.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formAcctounts_Guidance.cs">
+    <Compile Include="SubForms_Admission\formAcctounts_Guidance.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formAcctounts_Guidance.Designer.cs">
+    <Compile Include="SubForms_Admission\formAcctounts_Guidance.Designer.cs">
       <DependentUpon>formAcctounts_Guidance.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formAcctounts_SAO.cs">
+    <Compile Include="SubForms_Admission\formAcctounts_AcadHead.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formAcctounts_SAO.Designer.cs">
+    <Compile Include="SubForms_Admission\formAcctounts_AcadHead.Designer.cs">
+      <DependentUpon>formAcctounts_AcadHead.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SubForms_Admission\formAcctounts_SAO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admission\formAcctounts_SAO.Designer.cs">
       <DependentUpon>formAcctounts_SAO.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formAcctounts_Teachers.cs">
+    <Compile Include="SubForms_Admission\formAcctounts_Teachers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formAcctounts_Teachers.Designer.cs">
+    <Compile Include="SubForms_Admission\formAcctounts_Teachers.Designer.cs">
       <DependentUpon>formAcctounts_Teachers.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formAccounts_Students.cs">
+    <Compile Include="SubForms_Admission\formAccounts_Students.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formAccounts_Students.Designer.cs">
+    <Compile Include="SubForms_Admission\formAccounts_Students.Designer.cs">
       <DependentUpon>formAccounts_Students.cs</DependentUpon>
     </Compile>
     <Compile Include="formEventDetails.cs">
@@ -576,181 +582,181 @@
     <Compile Include="formEventDetails.Designer.cs">
       <DependentUpon>formEventDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formAddSchoolSetting2.cs">
+    <Compile Include="SubForms_Admission\formAddSchoolSetting2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formAddSchoolSetting2.Designer.cs">
+    <Compile Include="SubForms_Admission\formAddSchoolSetting2.Designer.cs">
       <DependentUpon>formAddSchoolSetting2.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formImportViewSubjects.cs">
+    <Compile Include="SubForms_Admission\formImportViewSubjects.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formImportViewSubjects.Designer.cs">
+    <Compile Include="SubForms_Admission\formImportViewSubjects.Designer.cs">
       <DependentUpon>formImportViewSubjects.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formSubjectsform.cs">
+    <Compile Include="SubForms_Admission\formSubjectsform.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formSubjectsform.Designer.cs">
+    <Compile Include="SubForms_Admission\formSubjectsform.Designer.cs">
       <DependentUpon>formSubjectsform.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formImportView.cs">
+    <Compile Include="SubForms_Admission\formImportView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formImportView.Designer.cs">
+    <Compile Include="SubForms_Admission\formImportView.Designer.cs">
       <DependentUpon>formImportView.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formDashboard.cs">
+    <Compile Include="SubForms_Admission\formDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formDashboard.Designer.cs">
+    <Compile Include="SubForms_Admission\formDashboard.Designer.cs">
       <DependentUpon>formDashboard.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formSettings.cs">
+    <Compile Include="SubForms_Admission\formSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formSettings.Designer.cs">
+    <Compile Include="SubForms_Admission\formSettings.Designer.cs">
       <DependentUpon>formSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formAddSchoolSetting.cs">
+    <Compile Include="SubForms_Admission\formAddSchoolSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formAddSchoolSetting.Designer.cs">
+    <Compile Include="SubForms_Admission\formAddSchoolSetting.Designer.cs">
       <DependentUpon>formAddSchoolSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formGeneratedForm.cs">
+    <Compile Include="SubForms_Admission\formGeneratedForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formGeneratedForm.Designer.cs">
+    <Compile Include="SubForms_Admission\formGeneratedForm.Designer.cs">
       <DependentUpon>formGeneratedForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formTeacherForm.cs">
+    <Compile Include="SubForms_Admission\formTeacherForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formTeacherForm.Designer.cs">
+    <Compile Include="SubForms_Admission\formTeacherForm.Designer.cs">
       <DependentUpon>formTeacherForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formStudentForm.cs">
+    <Compile Include="SubForms_Admission\formStudentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formStudentForm.Designer.cs">
+    <Compile Include="SubForms_Admission\formStudentForm.Designer.cs">
       <DependentUpon>formStudentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formSchoolDetails.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formSchoolDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formSchoolDetails.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formSchoolDetails.Designer.cs">
       <DependentUpon>formSchoolDetails.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formSemester_Quarter.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formSemester_Quarter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formSemester_Quarter.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formSemester_Quarter.Designer.cs">
       <DependentUpon>formSemester_Quarter.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formNewAcadYear.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formNewAcadYear.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formNewAcadYear.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formNewAcadYear.Designer.cs">
       <DependentUpon>formNewAcadYear.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formBackupSetting.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formBackupSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formBackupSetting.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formBackupSetting.Designer.cs">
       <DependentUpon>formBackupSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Guidance.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_Guidance.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Guidance.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_Guidance.Designer.cs">
       <DependentUpon>formArchived_Accounts_Guidance.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_SAO.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_SAO.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_SAO.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_SAO.Designer.cs">
       <DependentUpon>formArchived_Accounts_SAO.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Teachers.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_Teachers.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Teachers.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_Teachers.Designer.cs">
       <DependentUpon>formArchived_Accounts_Teachers.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_DepHead.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_DepHead.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_DepHead.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_DepHead.Designer.cs">
       <DependentUpon>formArchived_Accounts_DepHead.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Students.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_Students.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Students.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_Students.Designer.cs">
       <DependentUpon>formArchived_Accounts_Students.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchiveSetting.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchiveSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchiveSetting.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchiveSetting.Designer.cs">
       <DependentUpon>formArchiveSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formAcademicYearSetting.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formAcademicYearSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formAcademicYearSetting.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formAcademicYearSetting.Designer.cs">
       <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeAcademicYear.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formChangeAcademicYear.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeAcademicYear.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formChangeAcademicYear.Designer.cs">
       <DependentUpon>formChangeAcademicYear.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formNotificationSetting.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formNotificationSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formNotificationSetting.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formNotificationSetting.Designer.cs">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formAccountSetting.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formAccountSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formAccountSetting.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formAccountSetting.Designer.cs">
       <DependentUpon>formAccountSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeImage.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formChangeImage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeImage.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formChangeImage.Designer.cs">
       <DependentUpon>formChangeImage.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeID.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formChangeID.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeID.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formChangeID.Designer.cs">
       <DependentUpon>formChangeID.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeName.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formChangeName.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formChangeName.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formChangeName.Designer.cs">
       <DependentUpon>formChangeName.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formChangePass.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formChangePass.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formChangePass.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formChangePass.Designer.cs">
       <DependentUpon>formChangePass.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Subjects.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Subjects.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\Settings_SubForms\formArchived_Subjects.Designer.cs">
+    <Compile Include="SubForms_Admission\Settings_SubForms\formArchived_Subjects.Designer.cs">
       <DependentUpon>formArchived_Subjects.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\UserID.cs" />
+    <Compile Include="SubForms_Admission\UserID.cs" />
     <Compile Include="SubForms_DeptHead\formAccounts_Students.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -981,10 +987,10 @@
     <Compile Include="SubForms_DeptHead\formSettings.Designer.cs">
       <DependentUpon>formSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="SubForms_Admin\formSubjects.cs">
+    <Compile Include="SubForms_Admission\formSubjects.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SubForms_Admin\formSubjects.Designer.cs">
+    <Compile Include="SubForms_Admission\formSubjects.Designer.cs">
       <DependentUpon>formSubjects.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_DeptHead\formAttendanceRecord.cs">
@@ -1237,8 +1243,8 @@
     <EmbeddedResource Include="FormSAONavigation.resx">
       <DependentUpon>FormSAONavigation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAdminNavigation.resx">
-      <DependentUpon>FormAdminNavigation.cs</DependentUpon>
+    <EmbeddedResource Include="FormAdmissionNavigation.resx">
+      <DependentUpon>FormAdmissionNavigation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -1350,109 +1356,112 @@
     <EmbeddedResource Include="SubForms_AcadHead\Settings_SubForms\formSemester_Quarter.resx">
       <DependentUpon>formSemester_Quarter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formAcctounts_DeptHead.resx">
+    <EmbeddedResource Include="SubForms_Admission\formAcctounts_DeptHead.resx">
       <DependentUpon>formAcctounts_DeptHead.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formAcctounts_Guidance.resx">
+    <EmbeddedResource Include="SubForms_Admission\formAcctounts_Guidance.resx">
       <DependentUpon>formAcctounts_Guidance.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formAcctounts_SAO.resx">
+    <EmbeddedResource Include="SubForms_Admission\formAcctounts_AcadHead.resx">
+      <DependentUpon>formAcctounts_AcadHead.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admission\formAcctounts_SAO.resx">
       <DependentUpon>formAcctounts_SAO.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formAcctounts_Teachers.resx">
+    <EmbeddedResource Include="SubForms_Admission\formAcctounts_Teachers.resx">
       <DependentUpon>formAcctounts_Teachers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formAccounts_Students.resx">
+    <EmbeddedResource Include="SubForms_Admission\formAccounts_Students.resx">
       <DependentUpon>formAccounts_Students.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formEventDetails.resx">
       <DependentUpon>formEventDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formAddSchoolSetting2.resx">
+    <EmbeddedResource Include="SubForms_Admission\formAddSchoolSetting2.resx">
       <DependentUpon>formAddSchoolSetting2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formImportViewSubjects.resx">
+    <EmbeddedResource Include="SubForms_Admission\formImportViewSubjects.resx">
       <DependentUpon>formImportViewSubjects.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formSubjectsform.resx">
+    <EmbeddedResource Include="SubForms_Admission\formSubjectsform.resx">
       <DependentUpon>formSubjectsform.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formImportView.resx">
+    <EmbeddedResource Include="SubForms_Admission\formImportView.resx">
       <DependentUpon>formImportView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formDashboard.resx">
+    <EmbeddedResource Include="SubForms_Admission\formDashboard.resx">
       <DependentUpon>formDashboard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formSettings.resx">
+    <EmbeddedResource Include="SubForms_Admission\formSettings.resx">
       <DependentUpon>formSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formAddSchoolSetting.resx">
+    <EmbeddedResource Include="SubForms_Admission\formAddSchoolSetting.resx">
       <DependentUpon>formAddSchoolSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formGeneratedForm.resx">
+    <EmbeddedResource Include="SubForms_Admission\formGeneratedForm.resx">
       <DependentUpon>formGeneratedForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formTeacherForm.resx">
+    <EmbeddedResource Include="SubForms_Admission\formTeacherForm.resx">
       <DependentUpon>formTeacherForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formStudentForm.resx">
+    <EmbeddedResource Include="SubForms_Admission\formStudentForm.resx">
       <DependentUpon>formStudentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formSchoolDetails.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formSchoolDetails.resx">
       <DependentUpon>formSchoolDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formSemester_Quarter.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formSemester_Quarter.resx">
       <DependentUpon>formSemester_Quarter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formNewAcadYear.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formNewAcadYear.resx">
       <DependentUpon>formNewAcadYear.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formBackupSetting.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formBackupSetting.resx">
       <DependentUpon>formBackupSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Guidance.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_Guidance.resx">
       <DependentUpon>formArchived_Accounts_Guidance.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_SAO.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_SAO.resx">
       <DependentUpon>formArchived_Accounts_SAO.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Teachers.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_Teachers.resx">
       <DependentUpon>formArchived_Accounts_Teachers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_DepHead.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_DepHead.resx">
       <DependentUpon>formArchived_Accounts_DepHead.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Accounts_Students.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formArchived_Accounts_Students.resx">
       <DependentUpon>formArchived_Accounts_Students.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchiveSetting.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formArchiveSetting.resx">
       <DependentUpon>formArchiveSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formAcademicYearSetting.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formAcademicYearSetting.resx">
       <DependentUpon>formAcademicYearSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangeAcademicYear.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formChangeAcademicYear.resx">
       <DependentUpon>formChangeAcademicYear.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formNotificationSetting.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formAccountSetting.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formAccountSetting.resx">
       <DependentUpon>formAccountSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangeImage.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formChangeImage.resx">
       <DependentUpon>formChangeImage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangeID.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formChangeID.resx">
       <DependentUpon>formChangeID.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangeName.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formChangeName.resx">
       <DependentUpon>formChangeName.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formChangePass.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formChangePass.resx">
       <DependentUpon>formChangePass.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\Settings_SubForms\formArchived_Subjects.resx">
+    <EmbeddedResource Include="SubForms_Admission\Settings_SubForms\formArchived_Subjects.resx">
       <DependentUpon>formArchived_Subjects.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\formAccounts_Students.resx">
@@ -1569,7 +1578,7 @@
     <EmbeddedResource Include="SubForms_DeptHead\formSettings.resx">
       <DependentUpon>formSettings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SubForms_Admin\formSubjects.resx">
+    <EmbeddedResource Include="SubForms_Admission\formSubjects.resx">
       <DependentUpon>formSubjects.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\formAttendanceRecord.resx">

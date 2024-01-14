@@ -16,7 +16,7 @@ namespace AMSEMS.SubForms_AcadHead
         {
             InitializeComponent();
             cn = new SqlConnection(SQL_Connection.connection);
-            id = FormAdminNavigation.id;
+            id = FormAdmissionNavigation.id;
 
         }
 

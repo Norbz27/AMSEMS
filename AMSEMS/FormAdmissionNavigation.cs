@@ -19,7 +19,7 @@ using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace AMSEMS
 {
-    public partial class FormAdminNavigation : KryptonForm
+    public partial class FormAdmissionNavigation : KryptonForm
     {
         SqlCommand cm;
         SqlDataReader dr;
@@ -33,7 +33,7 @@ namespace AMSEMS
         List<string> _title;
         List<string> _date;
         private NotificationAdapter notificationAdapter;
-        public FormAdminNavigation(String id1)
+        public FormAdmissionNavigation(String id1)
         {
             InitializeComponent();
             this.btnDashboard.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -125,7 +125,7 @@ namespace AMSEMS
                         }
                     }
                 });
-                channel.Bind(FormAdminNavigation.id, (dynamic data) =>
+                channel.Bind(FormAdmissionNavigation.id, (dynamic data) =>
                 {
                     loadData();
                 });
@@ -581,12 +581,19 @@ namespace AMSEMS
 
         private void btnStudents_Click(object sender, EventArgs e)
         {
-            SubForms_Admin.formAccounts_Students.setAccountName("Students Account");
+            SubForms_Admin.formAccounts_Students.setAccountName("Students Accounts");
             SubForms_Admin.formAccounts_Students.setRole(5);
             this.kryptonSplitContainer1.Panel2Collapsed = true;
             OpenChildForm(new SubForms_Admin.formAccounts_Students());
         }
 
+        private void btnAcadHead_Click(object sender, EventArgs e)
+        {
+            SubForms_Admin.formAcctounts_AcadHead.setAccountName("Academic Head Accounts");
+            SubForms_Admin.formAcctounts_AcadHead.setRole(7);
+            this.kryptonSplitContainer1.Panel2Collapsed = true;
+            OpenChildForm(new SubForms_Admin.formAcctounts_AcadHead());
+        }
         private void FormAdminNavigation_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
@@ -778,7 +785,5 @@ namespace AMSEMS
                 gbNotification.Visible = false;
             
         }
-
-       
     }
 }

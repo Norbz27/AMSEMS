@@ -35,7 +35,7 @@ namespace AMSEMS.SubForms_Admin
                 {
                     cn.Open();
                     cm = new SqlCommand("Select ID,Firstname,Middlename,Lastname from tbl_admin_accounts where Unique_ID = @id", cn);
-                    cm.Parameters.AddWithValue("@id", FormAdminNavigation.id);
+                    cm.Parameters.AddWithValue("@id", FormAdmissionNavigation.id);
                     dr = cm.ExecuteReader();
 
                     if (dr != null && dr.HasRows)
@@ -53,7 +53,7 @@ namespace AMSEMS.SubForms_Admin
 
                     cn.Open();
                     cm = new SqlCommand("Select Profile_pic from tbl_admin_accounts where Unique_ID = @id", cn);
-                    cm.Parameters.AddWithValue("@id", FormAdminNavigation.id);
+                    cm.Parameters.AddWithValue("@id", FormAdmissionNavigation.id);
                     byte[] imageData = cm.ExecuteScalar() as byte[];
 
                     if (imageData != null && imageData.Length > 0)
@@ -120,7 +120,7 @@ namespace AMSEMS.SubForms_Admin
                 {
                     cn.Open();
                     cm = new SqlCommand("UPDATE tbl_admin_accounts SET Profile_pic = DEFAULT WHERE Unique_ID = @ConditionValue", cn);
-                    cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
+                    cm.Parameters.AddWithValue("@ConditionValue", FormAdmissionNavigation.id);
                     cm.ExecuteNonQuery();
                     cn.Close();
                     loadData();
@@ -132,7 +132,7 @@ namespace AMSEMS.SubForms_Admin
                     };
                     var pusher = new Pusher("1732969", "6cc843a774ea227a754f", "de6683c35f58d7bc943f", option);
 
-                    var result = pusher.TriggerAsync("amsems", FormAdminNavigation.id, new { message = "new notification" });
+                    var result = pusher.TriggerAsync("amsems", FormAdmissionNavigation.id, new { message = "new notification" });
                 }
             }
         }

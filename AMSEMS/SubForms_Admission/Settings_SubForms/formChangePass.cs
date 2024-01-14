@@ -87,7 +87,7 @@ namespace AMSEMS.SubForms_Admin
                                 reader.Close();
                                 cm = new SqlCommand("UPDATE tbl_admin_accounts SET Password = @NewValue WHERE Unique_ID = @ConditionValue", cn);
                                 cm.Parameters.AddWithValue("@NewValue", tbNewPass.Text);
-                                cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
+                                cm.Parameters.AddWithValue("@ConditionValue", FormAdmissionNavigation.id);
                                 cm.ExecuteNonQuery();
                                 MessageBox.Show("Password Changed!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 lblConNewPass.Text = "Confirm New Password";

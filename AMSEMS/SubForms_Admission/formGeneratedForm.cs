@@ -28,6 +28,7 @@ namespace AMSEMS.SubForms_Admin
         formAcctounts_Guidance form;
         formAccounts_SAO form2;
         formDashboard form3;
+        formAcctounts_AcadHead form4;
         public formGeneratedForm()
         {
             InitializeComponent();
@@ -54,6 +55,12 @@ namespace AMSEMS.SubForms_Admin
             this.roleID = roleID;
             this.choice = choice;
             this.istrue = istrue;
+        } 
+        public void setData4(int roleID, String choice, formAcctounts_AcadHead form)
+        {
+            form4 = form;
+            this.roleID = roleID;
+            this.choice = choice;
         }
 
         private void formStudentForm_Load(object sender, EventArgs e)
@@ -61,6 +68,10 @@ namespace AMSEMS.SubForms_Admin
             if (roleID == 3)
             {
                 lblInfo.Text = "Guidance Associate Information";
+            }
+            else if (roleID == 7)
+            {
+                lblInfo.Text = "Academic Head Information";
             }
             else
             {
@@ -311,6 +322,176 @@ namespace AMSEMS.SubForms_Admin
                         }
                         
                     }
+                    else if(roleID == 7)
+                    {
+                        if (btnSubmit.Text.Equals("Update"))
+                        {
+                            cm = new SqlCommand("SELECT Profile_pic FROM tbl_acadHead_accounts WHERE ID = @ID", cn);
+                            cm.Parameters.AddWithValue("@ID", tbID.Text);
+
+                            ad = new SqlDataAdapter(cm);
+                            DataSet ds = new DataSet();
+                            ad.Fill(ds);
+
+                            byte[] picData = null;
+
+                            if (ds.Tables[0].Rows.Count > 0)
+                            {
+                                // Read the image data from the retrieved row
+                                picData = (byte[])ds.Tables[0].Rows[0]["Profile_pic"];
+                            }
+
+                            // Now, check if an image file is selected using OpenFileDialog
+                            if (openFileDialog1.FileName != String.Empty)
+                            {
+                                picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
+                            }
+                            // Check if the password is already taken in tbl_teacher_accounts
+                            cm = new SqlCommand("SELECT * FROM tbl_teacher_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm.Parameters.AddWithValue("@ID", tbID.Text);
+                            cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                            ad = new SqlDataAdapter(cm);
+                            DataSet dsTeacher = new DataSet();
+                            ad.Fill(dsTeacher);
+
+                            // Check if the password is already taken in tbl_deptHead_accounts
+                            cm = new SqlCommand("SELECT * FROM tbl_deptHead_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm.Parameters.AddWithValue("@ID", tbID.Text);
+                            cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                            ad = new SqlDataAdapter(cm);
+                            DataSet dsDeptHead = new DataSet();
+                            ad.Fill(dsDeptHead);
+
+                            cm = new SqlCommand("SELECT * FROM tbl_student_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm.Parameters.AddWithValue("@ID", tbID.Text);
+                            cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                            ad = new SqlDataAdapter(cm);
+                            DataSet dsStud = new DataSet();
+                            ad.Fill(dsStud);
+
+                            cm = new SqlCommand("SELECT * FROM tbl_sao_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm.Parameters.AddWithValue("@ID", tbID.Text);
+                            cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                            ad = new SqlDataAdapter(cm);
+                            DataSet dsSao = new DataSet();
+                            ad.Fill(dsSao);
+
+                            cm = new SqlCommand("SELECT * FROM tbl_guidance_accounts WHERE Password = @Password AND ID <> @ID", cn);
+                            cm.Parameters.AddWithValue("@ID", tbID.Text);
+                            cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                            ad = new SqlDataAdapter(cm);
+                            DataSet dsGuid = new DataSet();
+                            ad.Fill(dsGuid);
+
+                            if (dsTeacher.Tables[0].Rows.Count > 0 || dsDeptHead.Tables[0].Rows.Count > 0 || dsStud.Tables[0].Rows.Count > 0 || dsSao.Tables[0].Rows.Count > 0 || dsGuid.Tables[0].Rows.Count > 0)
+                            {
+                                MessageBox.Show("Password is already taken!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            }
+                            else
+                            {
+                                cn.Open();
+                                cm = new SqlCommand();
+                                cm.Connection = cn;
+                                cm.CommandType = CommandType.StoredProcedure;
+                                cm.CommandText = "sp_UpdateAccounts";
+                                cm.Parameters.AddWithValue("@ID", tbID.Text);
+                                cm.Parameters.AddWithValue("@Firstname", tbFname.Text);
+                                cm.Parameters.AddWithValue("@Lastname", tbLname.Text);
+                                cm.Parameters.AddWithValue("@Middlename", tbMname.Text);
+                                cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                                cm.Parameters.AddWithValue("@Profile_pic", picData);
+                                cm.Parameters.AddWithValue("@Role", tbRole.Text);
+                                cm.Parameters.AddWithValue("@Status", tbStatus.Text);
+                                cm.ExecuteNonQuery();
+                                cn.Close();
+                                MessageBox.Show("Account Updated!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                if (!istrue)
+                                    form2.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_acadHead_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                                else
+                                    form3.DisplayData();
+                            }
+                        }
+                        else
+                        {
+                            cm = new SqlCommand("SELECT * FROM tbl_teacher_accounts WHERE Password = @Password AND ID <> @ID OR ID = @ID", cn);
+                            cm.Parameters.AddWithValue("@ID", tbID.Text);
+                            cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                            ad = new SqlDataAdapter(cm);
+                            DataSet dsTeacher = new DataSet();
+                            ad.Fill(dsTeacher);
+
+                            // Check if the password is already taken in tbl_deptHead_accounts
+                            cm = new SqlCommand("SELECT * FROM tbl_deptHead_accounts WHERE Password = @Password AND ID <> @ID  OR ID = @ID", cn);
+                            cm.Parameters.AddWithValue("@ID", tbID.Text);
+                            cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                            ad = new SqlDataAdapter(cm);
+                            DataSet dsDeptHead = new DataSet();
+                            ad.Fill(dsDeptHead);
+
+                            cm = new SqlCommand("SELECT * FROM tbl_student_accounts WHERE Password = @Password AND ID <> @ID  OR ID = @ID", cn);
+                            cm.Parameters.AddWithValue("@ID", tbID.Text);
+                            cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                            ad = new SqlDataAdapter(cm);
+                            DataSet dsStud = new DataSet();
+                            ad.Fill(dsStud);
+
+                            cm = new SqlCommand("SELECT * FROM tbl_sao_accounts WHERE Password = @Password AND ID <> @ID OR ID = @ID", cn);
+                            cm.Parameters.AddWithValue("@ID", tbID.Text);
+                            cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                            ad = new SqlDataAdapter(cm);
+                            DataSet dsSao = new DataSet();
+                            ad.Fill(dsSao);
+
+                            cm = new SqlCommand("SELECT * FROM tbl_guidance_accounts WHERE Password = @Password AND ID <> @ID  OR ID = @ID", cn);
+                            cm.Parameters.AddWithValue("@ID", tbID.Text);
+                            cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                            ad = new SqlDataAdapter(cm);
+                            DataSet dsGuid = new DataSet();
+                            ad.Fill(dsGuid);
+
+                            if (dsTeacher.Tables[0].Rows.Count > 0 || dsDeptHead.Tables[0].Rows.Count > 0 || dsStud.Tables[0].Rows.Count > 0 || dsSao.Tables[0].Rows.Count > 0 || dsGuid.Tables[0].Rows.Count > 0)
+                            {
+                                MessageBox.Show("An Account is already Present!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                //ds.Tables[0].Rows.Clear();
+                            }
+                            else
+                            {
+                                byte[] picData;
+                                if (openFileDialog1.FileName == String.Empty)
+                                {
+                                    picData = null;
+                                }
+                                else
+                                {
+                                    picData = System.IO.File.ReadAllBytes(openFileDialog1.FileName);
+                                }
+                                cn.Open();
+                                cm = new SqlCommand();
+                                cm.Connection = cn;
+                                cm.CommandType = CommandType.StoredProcedure;
+                                cm.CommandText = "sp_AddAccounts";
+                                cm.Parameters.AddWithValue("@ID", tbID.Text);
+                                cm.Parameters.AddWithValue("@Firstname", tbFname.Text);
+                                cm.Parameters.AddWithValue("@Lastname", tbLname.Text);
+                                cm.Parameters.AddWithValue("@Middlename", tbMname.Text);
+                                cm.Parameters.AddWithValue("@Password", tbPass.Text);
+                                cm.Parameters.AddWithValue("@Profile_pic", picData);
+                                cm.Parameters.AddWithValue("@Role", tbRole.Text);
+                                cm.Parameters.AddWithValue("@Status", tbStatus.Text);
+                                cm.ExecuteNonQuery();
+                                cn.Close();
+                                MessageBox.Show("Account Saved!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                //ds.Tables[0].Rows.Clear();
+                                clearTexts();
+
+                                if (!istrue)
+                                    form2.displayTable("Select ID,Firstname,Lastname,Password,st.Description as stDes from tbl_acadHead_accounts as g left join tbl_status as st on g.Status = st.Status_ID");
+                                else
+                                    form3.DisplayData();
+                            }
+                        }
+                    }
                     else
                     {
                         if (btnSubmit.Text.Equals("Update"))
@@ -526,6 +707,36 @@ namespace AMSEMS.SubForms_Admin
 
                         cn.Open();
                         cm = new SqlCommand("Select ID,Firstname,Lastname,Middlename,Password,st.Description as stDes from tbl_guidance_accounts as g left join tbl_status as st on g.Status = st.Status_ID where ID = " + ID + "", cn);
+                        dr = cm.ExecuteReader();
+                        dr.Read();
+                        tbID.Text = dr["ID"].ToString();
+                        tbFname.Text = dr["Firstname"].ToString().ToUpper();
+                        tbLname.Text = dr["Lastname"].ToString().ToUpper();
+                        tbMname.Text = dr["Middlename"].ToString().ToUpper();
+                        Pass = dr["Password"].ToString();
+                        tbStatus.Text = dr["stDes"].ToString();
+                        dr.Close();
+                        cn.Close();
+                    }
+                    else if (roleID  == 7)
+                    {
+                        cn.Open();
+                        cm = new SqlCommand("Select Profile_pic from tbl_acadHead_accounts where ID = " + ID + "", cn);
+
+                        byte[] imageData = (byte[])cm.ExecuteScalar();
+
+                        if (imageData != null && imageData.Length > 0)
+                        {
+                            using (MemoryStream ms = new MemoryStream(imageData))
+                            {
+                                Image image = Image.FromStream(ms);
+                                ptbProfile.Image = image;
+                            }
+                        }
+                        cn.Close();
+
+                        cn.Open();
+                        cm = new SqlCommand("Select ID,Firstname,Lastname,Middlename,Password,st.Description as stDes from tbl_acadHead_accounts as g left join tbl_status as st on g.Status = st.Status_ID where ID = " + ID + "", cn);
                         dr = cm.ExecuteReader();
                         dr.Read();
                         tbID.Text = dr["ID"].ToString();

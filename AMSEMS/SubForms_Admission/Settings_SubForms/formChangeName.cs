@@ -24,7 +24,7 @@ namespace AMSEMS.SubForms_Admin
             this.form = form;
 
             cn.Open();
-            cm = new SqlCommand("Select Firstname,Middlename,Lastname from tbl_admin_accounts where Unique_ID = '" + FormAdminNavigation.id + "'", cn);
+            cm = new SqlCommand("Select Firstname,Middlename,Lastname from tbl_admin_accounts where Unique_ID = '" + FormAdmissionNavigation.id + "'", cn);
             dr = cm.ExecuteReader();
             dr.Read();
             tbFname.Text = dr["Firstname"].ToString();
@@ -49,7 +49,7 @@ namespace AMSEMS.SubForms_Admin
                     cm.Parameters.AddWithValue("@NewValue1", tbFname.Text);
                     cm.Parameters.AddWithValue("@NewValue2", tbMname.Text);
                     cm.Parameters.AddWithValue("@NewValue3", tbLname.Text);
-                    cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
+                    cm.Parameters.AddWithValue("@ConditionValue", FormAdmissionNavigation.id);
                     cm.ExecuteNonQuery();
                     MessageBox.Show("Name Changed!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
@@ -62,7 +62,7 @@ namespace AMSEMS.SubForms_Admin
                     };
                     var pusher = new Pusher("1732969", "6cc843a774ea227a754f", "de6683c35f58d7bc943f", option);
 
-                    var result = pusher.TriggerAsync("amsems", FormAdminNavigation.id, new { message = "new notification" });
+                    var result = pusher.TriggerAsync("amsems", FormAdmissionNavigation.id, new { message = "new notification" });
                 }
             }
 

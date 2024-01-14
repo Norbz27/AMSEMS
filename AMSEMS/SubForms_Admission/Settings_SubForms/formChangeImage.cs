@@ -36,7 +36,7 @@ namespace AMSEMS.SubForms_Admin
                 cn.Open();
                 cm = new SqlCommand("UPDATE tbl_admin_accounts SET Profile_pic = @NewValue WHERE Unique_ID = @ConditionValue", cn);
                 cm.Parameters.AddWithValue("@NewValue", picData);
-                cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
+                cm.Parameters.AddWithValue("@ConditionValue", FormAdmissionNavigation.id);
                 cm.ExecuteNonQuery();
                 cn.Close();
                 form.loadData();
@@ -49,7 +49,7 @@ namespace AMSEMS.SubForms_Admin
                 };
                 var pusher = new Pusher("1732969", "6cc843a774ea227a754f", "de6683c35f58d7bc943f", option);
 
-                var result = pusher.TriggerAsync("amsems", FormAdminNavigation.id, new { message = "new notification" });
+                var result = pusher.TriggerAsync("amsems", FormAdmissionNavigation.id, new { message = "new notification" });
             }
         }
 

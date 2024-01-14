@@ -7,8 +7,8 @@ namespace AMSEMS.SubForms_Admin
     public partial class formSettings : KryptonForm
     {
         private Form activeForm;
-        FormAdminNavigation form;
-        public formSettings(FormAdminNavigation form)
+        FormAdmissionNavigation form;
+        public formSettings(FormAdmissionNavigation form)
         {
             InitializeComponent();
             this.form = form;

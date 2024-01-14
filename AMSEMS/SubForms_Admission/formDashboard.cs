@@ -12,7 +12,7 @@ namespace AMSEMS.SubForms_Admin
         SqlCommand cm;
         SqlDataReader dr;
 
-        static FormAdminNavigation form;
+        static FormAdmissionNavigation form;
         private BackgroundWorker dataLoader;
         private CancellationTokenSource cancellationTokenSource;
         public formDashboard()
@@ -25,7 +25,7 @@ namespace AMSEMS.SubForms_Admin
             dataLoader.RunWorkerCompleted += DataLoader_RunWorkerCompleted;
             dataLoader.WorkerSupportsCancellation = true;
         }
-        public static void setForm(FormAdminNavigation form1)
+        public static void setForm(FormAdmissionNavigation form1)
         {
             form = form1;
         }
@@ -33,7 +33,7 @@ namespace AMSEMS.SubForms_Admin
         {
             // This is where you put your time-consuming data loading code
 
-            loadData(FormAdminNavigation.id);
+            loadData(FormAdmissionNavigation.id);
 
             DisplayData();
             displayChart();

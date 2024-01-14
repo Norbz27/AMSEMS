@@ -170,7 +170,7 @@ namespace AMSEMS
                             switch (role)
                             {
                                 case 1:
-                                    mainForm = new FormAdminNavigation(uniqueID);
+                                    mainForm = new FormAdmissionNavigation(uniqueID);
                                     break;
                                 case 2:
                                     mainForm = new FormDeptHeadNavigation(uniqueID);

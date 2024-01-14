@@ -26,7 +26,7 @@ namespace AMSEMS
         public static HashSet<string> selected = new HashSet<string> { };
         public static string exclusive;
         public static bool change = false;
-        FormAdminNavigation form;
+        FormAdmissionNavigation form;
         public formEventDetails()
         {
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace AMSEMS
             DtEnd.MinDate = DtStart.Value;
 
         }
-        public void getForm(FormAdminNavigation form)
+        public void getForm(FormAdmissionNavigation form)
         {
             this.form = form;
         }

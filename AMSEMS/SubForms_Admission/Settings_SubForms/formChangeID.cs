@@ -23,7 +23,7 @@ namespace AMSEMS.SubForms_Admin
             this.form = form;
 
             cn.Open();
-            cm = new SqlCommand("Select ID from tbl_admin_accounts where Unique_ID = '" + FormAdminNavigation.id + "'", cn);
+            cm = new SqlCommand("Select ID from tbl_admin_accounts where Unique_ID = '" + FormAdmissionNavigation.id + "'", cn);
             dr = cm.ExecuteReader();
             dr.Read();
             tbSchoolID.Text = dr["ID"].ToString();
@@ -46,7 +46,7 @@ namespace AMSEMS.SubForms_Admin
                     cn.Open();
                     cm = new SqlCommand("Select ID from tbl_admin_accounts where Password = @CurrentPassword AND Unique_ID = @ConditionID", cn);
                     cm.Parameters.AddWithValue("@CurrentPassword", tbCurPass.Text);
-                    cm.Parameters.AddWithValue("@ConditionID", FormAdminNavigation.id);
+                    cm.Parameters.AddWithValue("@ConditionID", FormAdmissionNavigation.id);
 
                     using (SqlDataReader reader = cm.ExecuteReader())
                     {
@@ -65,7 +65,7 @@ namespace AMSEMS.SubForms_Admin
                             reader.Close();
                             cm = new SqlCommand("UPDATE tbl_admin_accounts SET ID = @NewValue WHERE Unique_ID = @ConditionValue", cn);
                             cm.Parameters.AddWithValue("@NewValue", tbSchoolID.Text);
-                            cm.Parameters.AddWithValue("@ConditionValue", FormAdminNavigation.id);
+                            cm.Parameters.AddWithValue("@ConditionValue", FormAdmissionNavigation.id);
                             cm.ExecuteNonQuery();
                             MessageBox.Show("School ID Changed!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
