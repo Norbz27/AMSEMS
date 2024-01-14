@@ -472,6 +472,7 @@ namespace AMSEMS.SubForms_Admin
                     }
                 }
             }
+            UseWaitCursor = false;
         }
         private bool DeleteStudentRecord(string studentID)
         {
@@ -846,7 +847,7 @@ namespace AMSEMS.SubForms_Admin
             cbSelection.Checked = false;
             dgvTeachers.Refresh();
             pnControl.Hide();
-
+            UseWaitCursor = false;
         }
 
         private void btnSetInactive_Click(object sender, EventArgs e)

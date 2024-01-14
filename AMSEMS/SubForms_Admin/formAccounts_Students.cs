@@ -195,7 +195,7 @@ namespace AMSEMS.SubForms_Admin
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
         }
 
@@ -296,7 +296,7 @@ namespace AMSEMS.SubForms_Admin
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
             }
             finally
             {
@@ -1462,7 +1462,7 @@ namespace AMSEMS.SubForms_Admin
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                //MessageBox.Show(ex.Message, "Error");
             }
         }
         private void ContextMenuItem_Click(object sender, EventArgs e)

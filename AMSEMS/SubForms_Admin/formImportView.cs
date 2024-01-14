@@ -80,25 +80,130 @@ namespace AMSEMS.SubForms_Admin
             if (role == 2)
             {
                 lblHeader1.Text = "Import Excel Data - Department Heads ";
+                cbDep.Visible = true;
+                cbProgram.Visible = false;
+                cbSection.Visible = false;
+                cbYearlvl.Visible = false;
+                kryptonLabel1.Visible = false;
+                kryptonLabel2.Visible = false;
+                kryptonLabel3.Visible = false;
+                kryptonLabel4.Visible = true;
+                displayCBDep();
             }
             else if (role == 3)
             {
                 lblHeader1.Text = "Import Excel Data - Guidance Associate";
+                cbDep.Visible = false;
+                cbProgram.Visible = false;
+                cbSection.Visible = false;
+                cbYearlvl.Visible = false;
+                kryptonLabel1.Visible = false;
+                kryptonLabel2.Visible = false;
+                kryptonLabel3.Visible = false;
+                kryptonLabel4.Visible = false;
             }
             else if (role == 4)
             {
                 lblHeader1.Text = "Import Excel Data - SAO";
+                cbDep.Visible = false;
+                cbProgram.Visible = false;
+                cbSection.Visible = false;
+                cbYearlvl.Visible = false;
+                kryptonLabel1.Visible = false;
+                kryptonLabel2.Visible = false;
+                kryptonLabel3.Visible = false;
+                kryptonLabel4.Visible = false;
             }
             else if (role == 5)
             {
                 lblHeader1.Text = "Import Excel Data - Students";
+                cbDep.Visible = true;
+                cbProgram.Visible = true;
+                cbSection.Visible = true;
+                cbYearlvl.Visible = true;
+                kryptonLabel1.Visible = true;
+                kryptonLabel2.Visible = true;
+                kryptonLabel3.Visible = true;
+                kryptonLabel4.Visible = true;
+                displayFilter();
+                displayCBDep();
             }
             else if (role == 6)
             {
                 lblHeader1.Text = "Import Excel Data - Teachers";
+                cbDep.Visible = true;
+                cbProgram.Visible = false;
+                cbSection.Visible = false;
+                cbYearlvl.Visible = false;
+                kryptonLabel1.Visible = false;
+                kryptonLabel2.Visible = false;
+                kryptonLabel3.Visible = false;
+                kryptonLabel4.Visible = true;
+                displayCBDep();
             }
         }
+        public void displayFilter()
+        {
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                {
+                    cbProgram.Items.Clear();
+                    cbSection.Items.Clear();
+                    cbYearlvl.Items.Clear();
+                    cn.Open();
 
+                    cm = new SqlCommand("Select Description from tbl_program ORDER BY Description", cn);
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            cbProgram.Items.Add(dr["Description"].ToString());
+                        }
+                    }
+
+                    cm = new SqlCommand("Select Description from tbl_section ORDER BY Description", cn);
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            cbSection.Items.Add(dr["Description"].ToString());
+                        }
+                    }
+
+                    cm = new SqlCommand("Select Description from tbl_year_level ORDER BY Description", cn);
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            cbYearlvl.Items.Add(dr["Description"].ToString());
+                        }
+                    }
+
+                    cn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+            }
+        }
+        public void displayCBDep()
+        {
+            cbDep.Items.Clear();
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                SqlCommand cm = new SqlCommand("Select Description from tbl_Departments ORDER BY Description", cn);
+                using (SqlDataReader dr = cm.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        cbDep.Items.Add(dr["Description"].ToString());
+                    }
+                }
+            }
+        }
         public void displayTable()
         {
             var excelApp = new Microsoft.Office.Interop.Excel.Application();
@@ -149,51 +254,71 @@ namespace AMSEMS.SubForms_Admin
 
                         if (role == 2)
                         {
-                            int deptHeadId = -1;
-
-                            cn.Open();
-
-                            // Check if the student is already present in the Students table based on a unique identifier (e.g., ID or name)
-                            string checkQuery = "SELECT ID FROM tbl_deptHead_accounts WHERE ID = @ID"; // Modify this query as needed
-                            using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
+                            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                             {
-                                checkCommand.Parameters.AddWithValue("@ID", column1Value);
-                                object result = checkCommand.ExecuteScalar();
-                                if (result != null && result != DBNull.Value)
+                                int deptHeadId = -1;
+
+                                cn.Open();
+
+                                // Check if the student is already present in the Students table based on a unique identifier (e.g., ID or name)
+                                string checkQuery = "SELECT ID FROM tbl_deptHead_accounts WHERE ID = @ID"; // Modify this query as needed
+                                using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
                                 {
-                                    deptHeadId = Convert.ToInt32(result);
+                                    checkCommand.Parameters.AddWithValue("@ID", column1Value);
+                                    object result = checkCommand.ExecuteScalar();
+                                    if (result != null && result != DBNull.Value)
+                                    {
+                                        deptHeadId = Convert.ToInt32(result);
+                                    }
                                 }
-                            }
 
-                            if (deptHeadId == -1)
-                            {
-                                //Generated Password
-                                int passwordLength = 12;
-                                string generatedPass = GeneratePassword(passwordLength); ;
-
-                                // Construct your INSERT query
-                                string insertQuery = $"INSERT INTO tbl_deptHead_accounts (ID, Firstname, Lastname, Middlename, Password, DateTime, Status) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password, @DateTime, @Status)";
-
-                                using (SqlCommand command = new SqlCommand(insertQuery, cn))
+                                if (deptHeadId == -1)
                                 {
-                                    command.Parameters.AddWithValue("@ID", column1Value);
-                                    command.Parameters.AddWithValue("@Firstname", column2Value);
-                                    command.Parameters.AddWithValue("@Lastname", column3Value);
-                                    command.Parameters.AddWithValue("@Middlename", column4Value);
-                                    command.Parameters.AddWithValue("@Password", generatedPass);
-                                    command.Parameters.AddWithValue("@DateTime", currentDateTime);
-                                    command.Parameters.AddWithValue("@Status", 2);
+                                    //Generated Password
+                                    int passwordLength = 12;
+                                    string generatedPass = GeneratePassword(passwordLength); ;
+                                    string depid = null;
 
-                                    command.ExecuteNonQuery();
+                                    if (!cbDep.Text.Equals(String.Empty))
+                                    {
+                                        string query = "SELECT Department_ID FROM tbl_Departments WHERE Description = @des";
+                                        using (SqlCommand cm = new SqlCommand(query, cn))
+                                        {
+                                            cm.Parameters.AddWithValue("@des", cbDep.Text);
+                                            using (SqlDataReader dr = cm.ExecuteReader())
+                                            {
+                                                if (dr.Read())
+                                                {
+                                                    depid = dr["Department_ID"].ToString();
+                                                }
+                                            }
+                                        }
+                                    }
+                                    // Construct your INSERT query
+                                    string insertQuery = $"INSERT INTO tbl_deptHead_accounts (ID, Firstname, Lastname, Middlename, Password, DateTime, Status, Department) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password, @DateTime, @Status, @Dep)";
 
-                                    form3.displayTable();
+                                    using (SqlCommand command = new SqlCommand(insertQuery, cn))
+                                    {
+                                        command.Parameters.AddWithValue("@ID", column1Value);
+                                        command.Parameters.AddWithValue("@Firstname", column2Value);
+                                        command.Parameters.AddWithValue("@Lastname", column3Value);
+                                        command.Parameters.AddWithValue("@Middlename", column4Value);
+                                        command.Parameters.AddWithValue("@Password", generatedPass);
+                                        command.Parameters.AddWithValue("@DateTime", currentDateTime);
+                                        command.Parameters.AddWithValue("@Status", 2);
+                                        command.Parameters.AddWithValue("@Dep", string.IsNullOrEmpty(depid) ? DBNull.Value : (object)depid);
+
+                                        command.ExecuteNonQuery();
+
+                                        form3.displayTable();
+                                    }
                                 }
+                                else
+                                {
+                                    activeAccounts.Add($"Department Head ID {deptHeadId}");
+                                }
+                                cn.Close();
                             }
-                            else
-                            {
-                                activeAccounts.Add($"Department Head ID {deptHeadId}");
-                            }
-                            cn.Close();
                         }
                         else if (role == 3)
                         {
@@ -291,101 +416,193 @@ namespace AMSEMS.SubForms_Admin
                         }
                         else if (role == 5)
                         {
-                            //int programId, sectionId, yearLevelId;
-                            int studentId = -1;
-
-                            cn.Open();
-
-
-                            string checkQuery = "SELECT ID FROM tbl_student_accounts WHERE ID = @ID"; // Modify this query as needed
-                            using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
+                            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                             {
-                                checkCommand.Parameters.AddWithValue("@ID", column1Value);
-                                object result = checkCommand.ExecuteScalar();
-                                if (result != null && result != DBNull.Value)
+                                //int programId, sectionId, yearLevelId;
+                                int studentId = -1;
+
+                                cn.Open();
+
+
+                                string checkQuery = "SELECT ID FROM tbl_student_accounts WHERE ID = @ID"; // Modify this query as needed
+                                using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
                                 {
-                                    studentId = Convert.ToInt32(result);
+                                    checkCommand.Parameters.AddWithValue("@ID", column1Value);
+                                    object result = checkCommand.ExecuteScalar();
+                                    if (result != null && result != DBNull.Value)
+                                    {
+                                        studentId = Convert.ToInt32(result);
+                                    }
+                                }
+
+                                if (studentId == -1)
+                                {
+                                    //Generated Password
+                                    int passwordLength = 12;
+                                    string generatedPass = GeneratePassword(passwordLength);
+                                    string progid = null, secid = null, yearid = null, depid = null;
+                                    if (!cbProgram.Text.Equals(String.Empty))
+                                    {
+                                        string query = "SELECT Program_ID FROM tbl_program WHERE Description = @des";
+                                        using (SqlCommand cm = new SqlCommand(query, cn))
+                                        {
+                                            cm.Parameters.AddWithValue("@des", cbProgram.Text);
+                                            using (SqlDataReader dr = cm.ExecuteReader())
+                                            {
+                                                if (dr.Read())
+                                                {
+                                                    progid = dr["Program_ID"].ToString();
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (!cbSection.Text.Equals(String.Empty))
+                                    {
+                                        string query = "SELECT Section_ID FROM tbl_Section WHERE Description = @des";
+                                        using (SqlCommand cm = new SqlCommand(query, cn))
+                                        {
+                                            cm.Parameters.AddWithValue("@des", cbSection.Text);
+                                            using (SqlDataReader dr = cm.ExecuteReader())
+                                            {
+                                                if (dr.Read())
+                                                {
+                                                    secid = dr["Section_ID"].ToString();
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (!cbYearlvl.Text.Equals(String.Empty))
+                                    {
+                                        string query = "SELECT Level_ID FROM tbl_year_level WHERE Description = @des";
+                                        using (SqlCommand cm = new SqlCommand(query, cn))
+                                        {
+                                            cm.Parameters.AddWithValue("@des", cbYearlvl.Text);
+                                            using (SqlDataReader dr = cm.ExecuteReader())
+                                            {
+                                                if (dr.Read())
+                                                {
+                                                    yearid = dr["Level_ID"].ToString();
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    if (!cbDep.Text.Equals(String.Empty))
+                                    {
+                                        string query = "SELECT Department_ID FROM tbl_Departments WHERE Description = @des";
+                                        using (SqlCommand cm = new SqlCommand(query, cn))
+                                        {
+                                            cm.Parameters.AddWithValue("@des", cbDep.Text);
+                                            using (SqlDataReader dr = cm.ExecuteReader())
+                                            {
+                                                if (dr.Read())
+                                                {
+                                                    depid = dr["Department_ID"].ToString();
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+
+                                    // Construct your INSERT query
+                                    string insertQuery = $"INSERT INTO tbl_student_accounts (ID, Firstname, Lastname, Middlename, Password, DateTime, Status, Program, Section, Year_Level, Department) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password, @DateTime, @Status, @Prog, @Sec, @YearLvl, @Dep)";
+
+                                    using (SqlCommand command = new SqlCommand(insertQuery, cn))
+                                    {
+                                        command.Parameters.AddWithValue("@ID", column1Value);
+                                        command.Parameters.AddWithValue("@Firstname", column2Value);
+                                        command.Parameters.AddWithValue("@Lastname", column3Value);
+                                        command.Parameters.AddWithValue("@Middlename", column4Value);
+                                        command.Parameters.AddWithValue("@Password", generatedPass);
+                                        command.Parameters.AddWithValue("@DateTime", currentDateTime);
+                                        command.Parameters.AddWithValue("@Status", 2);
+                                        command.Parameters.AddWithValue("@Prog", string.IsNullOrEmpty(progid) ? DBNull.Value : (object)progid);
+                                        command.Parameters.AddWithValue("@Sec", string.IsNullOrEmpty(secid) ? DBNull.Value : (object)secid);
+                                        command.Parameters.AddWithValue("@YearLvl", string.IsNullOrEmpty(yearid) ? DBNull.Value : (object)yearid);
+                                        command.Parameters.AddWithValue("@Dep", string.IsNullOrEmpty(depid) ? DBNull.Value : (object)depid);
+
+                                        command.ExecuteNonQuery();
+                                        form2.displayTable();
+                                    }
+                                }
+                                else
+                                {
+                                    activeAccounts.Add($"Student ID {studentId}");
                                 }
                             }
-
-                            if (studentId == -1)
-                            {
-                                //Generated Password
-                                int passwordLength = 12;
-                                string generatedPass = GeneratePassword(passwordLength); ;
-
-                                // Construct your INSERT query
-                                string insertQuery = $"INSERT INTO tbl_student_accounts (ID, Firstname, Lastname, Middlename, Password, DateTime, Status) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password, @DateTime, @Status)";
-
-                                using (SqlCommand command = new SqlCommand(insertQuery, cn))
-                                {
-                                    command.Parameters.AddWithValue("@ID", column1Value);
-                                    command.Parameters.AddWithValue("@Firstname", column2Value);
-                                    command.Parameters.AddWithValue("@Lastname", column3Value);
-                                    command.Parameters.AddWithValue("@Middlename", column4Value);
-                                    command.Parameters.AddWithValue("@Password", generatedPass);
-                                    command.Parameters.AddWithValue("@DateTime", currentDateTime);
-                                    command.Parameters.AddWithValue("@Status", 2);
-
-                                    command.ExecuteNonQuery();
-                                    form2.displayTable();
-                                }
-                            }
-                            else
-                            {
-                                activeAccounts.Add($"Student ID {studentId}");
-                            }
-                            cn.Close();
                         }
                         else if (role == 6)
                         {
-                            int teacherId = -1;
-
-                            cn.Open();
-
-                            // Check if the student is already present in the Students table based on a unique identifier (e.g., ID or name)
-                            string checkQuery = "SELECT ID FROM tbl_teacher_accounts WHERE ID = @ID"; // Modify this query as needed
-                            using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
+                            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                             {
-                                checkCommand.Parameters.AddWithValue("@ID", column1Value);
-                                object result = checkCommand.ExecuteScalar();
-                                if (result != null && result != DBNull.Value)
+                                int teacherId = -1;
+
+                                cn.Open();
+
+                                // Check if the student is already present in the Students table based on a unique identifier (e.g., ID or name)
+                                string checkQuery = "SELECT ID FROM tbl_teacher_accounts WHERE ID = @ID"; // Modify this query as needed
+                                using (SqlCommand checkCommand = new SqlCommand(checkQuery, cn))
                                 {
-                                    teacherId = Convert.ToInt32(result);
+                                    checkCommand.Parameters.AddWithValue("@ID", column1Value);
+                                    object result = checkCommand.ExecuteScalar();
+                                    if (result != null && result != DBNull.Value)
+                                    {
+                                        teacherId = Convert.ToInt32(result);
+                                    }
                                 }
-                            }
 
-                            if (teacherId == -1)
-                            {
-                                //Generated Password
-                                int passwordLength = 12;
-                                string generatedPass = GeneratePassword(passwordLength); ;
-
-                                // Construct your INSERT query
-                                string insertQuery = $"INSERT INTO tbl_teacher_accounts (ID, Firstname, Lastname, Middlename, Password, DateTime, Status) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password, @DateTime, @Status)";
-
-                                using (SqlCommand command = new SqlCommand(insertQuery, cn))
+                                if (teacherId == -1)
                                 {
-                                    command.Parameters.AddWithValue("@ID", column1Value);
-                                    command.Parameters.AddWithValue("@Firstname", column2Value);
-                                    command.Parameters.AddWithValue("@Lastname", column3Value);
-                                    command.Parameters.AddWithValue("@Middlename", column4Value);
-                                    command.Parameters.AddWithValue("@Password", generatedPass);
-                                    command.Parameters.AddWithValue("@DateTime", currentDateTime);
-                                    command.Parameters.AddWithValue("@Status", 2);
+                                    //Generated Password
+                                    int passwordLength = 12;
+                                    string generatedPass = GeneratePassword(passwordLength); ;
+                                    string depid = null;
 
-                                    command.ExecuteNonQuery();
+                                    if (!cbDep.Text.Equals(String.Empty))
+                                    {
+                                        string query = "SELECT Department_ID FROM tbl_Departments WHERE Description = @des";
+                                        using (SqlCommand cm = new SqlCommand(query, cn))
+                                        {
+                                            cm.Parameters.AddWithValue("@des", cbDep.Text);
+                                            using (SqlDataReader dr = cm.ExecuteReader())
+                                            {
+                                                if (dr.Read())
+                                                {
+                                                    depid = dr["Department_ID"].ToString();
+                                                }
+                                            }
+                                        }
+                                    }
 
-                                    form1.displayTable();
+                                    // Construct your INSERT query
+                                    string insertQuery = $"INSERT INTO tbl_teacher_accounts (ID, Firstname, Lastname, Middlename, Password, DateTime, Status, Department) VALUES (@ID, @Firstname, @Lastname, @Middlename, @Password, @DateTime, @Status, @Dep)";
+
+                                    using (SqlCommand command = new SqlCommand(insertQuery, cn))
+                                    {
+                                        command.Parameters.AddWithValue("@ID", column1Value);
+                                        command.Parameters.AddWithValue("@Firstname", column2Value);
+                                        command.Parameters.AddWithValue("@Lastname", column3Value);
+                                        command.Parameters.AddWithValue("@Middlename", column4Value);
+                                        command.Parameters.AddWithValue("@Password", generatedPass);
+                                        command.Parameters.AddWithValue("@DateTime", currentDateTime);
+                                        command.Parameters.AddWithValue("@Status", 2);
+                                        command.Parameters.AddWithValue("@Dep", string.IsNullOrEmpty(depid) ? DBNull.Value : (object)depid);
+
+                                        command.ExecuteNonQuery();
+
+                                        form1.displayTable();
+                                    }
                                 }
+                                else
+                                {
+                                    activeAccounts.Add($"Teacher ID {teacherId}");
+                                }
+                               
                             }
-                            else
-                            {
-                                activeAccounts.Add($"Teacher ID {teacherId}");
-                            }
-                            cn.Close();
                         }
-
                     }
                 }
             }

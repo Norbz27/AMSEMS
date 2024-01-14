@@ -60,6 +60,14 @@
             this.kryptonContextMenuSeparator1 = new ComponentFactory.Krypton.Toolkit.KryptonContextMenuSeparator();
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.kryptonLabel4 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.cbDep = new System.Windows.Forms.ComboBox();
+            this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.cbYearlvl = new System.Windows.Forms.ComboBox();
+            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.cbSection = new System.Windows.Forms.ComboBox();
+            this.kryptonLabel2 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.cbProgram = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tblStudentImp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tblStudentImp.Panel)).BeginInit();
@@ -131,7 +139,14 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.progressBar);
+            this.panel1.Controls.Add(this.kryptonLabel4);
+            this.panel1.Controls.Add(this.cbDep);
+            this.panel1.Controls.Add(this.kryptonLabel3);
+            this.panel1.Controls.Add(this.cbYearlvl);
+            this.panel1.Controls.Add(this.kryptonLabel1);
+            this.panel1.Controls.Add(this.cbSection);
+            this.panel1.Controls.Add(this.kryptonLabel2);
+            this.panel1.Controls.Add(this.cbProgram);
             this.panel1.Controls.Add(this.btnDownload);
             this.panel1.Controls.Add(this.btnImport);
             this.panel1.Controls.Add(this.tbFilePath);
@@ -141,13 +156,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(20, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(727, 357);
+            this.panel1.Size = new System.Drawing.Size(863, 357);
             this.panel1.TabIndex = 68;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(224, 190);
+            this.progressBar.Location = new System.Drawing.Point(308, 110);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(278, 17);
             this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -167,7 +182,6 @@
             // 
             // btnImport
             // 
-            this.btnImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImport.Location = new System.Drawing.Point(166, 34);
             this.btnImport.Name = "btnImport";
@@ -228,7 +242,6 @@
             // 
             // tbFilePath
             // 
-            this.tbFilePath.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.tbFilePath.Location = new System.Drawing.Point(2, 35);
             this.tbFilePath.Multiline = true;
             this.tbFilePath.Name = "tbFilePath";
@@ -257,7 +270,7 @@
             this.btnDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDone.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDone.Enabled = false;
-            this.btnDone.Location = new System.Drawing.Point(634, 323);
+            this.btnDone.Location = new System.Drawing.Point(770, 323);
             this.btnDone.Name = "btnDone";
             this.btnDone.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnDone.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -318,8 +331,9 @@
             // 
             // tblStudentImp.Panel
             // 
+            this.tblStudentImp.Panel.Controls.Add(this.progressBar);
             this.tblStudentImp.Panel.Controls.Add(this.dgvImport);
-            this.tblStudentImp.Size = new System.Drawing.Size(727, 239);
+            this.tblStudentImp.Size = new System.Drawing.Size(863, 239);
             this.tblStudentImp.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.tblStudentImp.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.tblStudentImp.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
@@ -398,7 +412,7 @@
             this.dgvImport.RowsDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvImport.RowTemplate.Height = 30;
             this.dgvImport.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvImport.Size = new System.Drawing.Size(717, 229);
+            this.dgvImport.Size = new System.Drawing.Size(853, 229);
             this.dgvImport.TabIndex = 12;
             // 
             // No
@@ -479,12 +493,119 @@
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.ReadOnly = true;
             // 
+            // kryptonLabel4
+            // 
+            this.kryptonLabel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonLabel4.Location = new System.Drawing.Point(715, 12);
+            this.kryptonLabel4.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel4.Name = "kryptonLabel4";
+            this.kryptonLabel4.Size = new System.Drawing.Size(86, 21);
+            this.kryptonLabel4.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonLabel4.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.kryptonLabel4.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.kryptonLabel4.TabIndex = 106;
+            this.kryptonLabel4.Values.Text = "Department";
+            // 
+            // cbDep
+            // 
+            this.cbDep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbDep.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbDep.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbDep.Font = new System.Drawing.Font("Poppins", 8F);
+            this.cbDep.FormattingEnabled = true;
+            this.cbDep.Location = new System.Drawing.Point(720, 36);
+            this.cbDep.Name = "cbDep";
+            this.cbDep.Size = new System.Drawing.Size(140, 27);
+            this.cbDep.TabIndex = 105;
+            // 
+            // kryptonLabel3
+            // 
+            this.kryptonLabel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonLabel3.Location = new System.Drawing.Point(497, 12);
+            this.kryptonLabel3.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel3.Name = "kryptonLabel3";
+            this.kryptonLabel3.Size = new System.Drawing.Size(72, 21);
+            this.kryptonLabel3.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonLabel3.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.kryptonLabel3.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.kryptonLabel3.TabIndex = 104;
+            this.kryptonLabel3.Values.Text = "Year Level";
+            // 
+            // cbYearlvl
+            // 
+            this.cbYearlvl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbYearlvl.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbYearlvl.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbYearlvl.Font = new System.Drawing.Font("Poppins", 8F);
+            this.cbYearlvl.FormattingEnabled = true;
+            this.cbYearlvl.Items.AddRange(new object[] {
+            "G11",
+            "G12",
+            "1st Year",
+            "2nd Year",
+            "3rd Year",
+            "4th Year"});
+            this.cbYearlvl.Location = new System.Drawing.Point(503, 36);
+            this.cbYearlvl.Name = "cbYearlvl";
+            this.cbYearlvl.Size = new System.Drawing.Size(91, 27);
+            this.cbYearlvl.TabIndex = 103;
+            // 
+            // kryptonLabel1
+            // 
+            this.kryptonLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonLabel1.Location = new System.Drawing.Point(598, 12);
+            this.kryptonLabel1.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel1.Name = "kryptonLabel1";
+            this.kryptonLabel1.Size = new System.Drawing.Size(56, 21);
+            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonLabel1.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.kryptonLabel1.TabIndex = 102;
+            this.kryptonLabel1.Values.Text = "Section";
+            // 
+            // cbSection
+            // 
+            this.cbSection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSection.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbSection.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbSection.Font = new System.Drawing.Font("Poppins", 8F);
+            this.cbSection.FormattingEnabled = true;
+            this.cbSection.Location = new System.Drawing.Point(603, 36);
+            this.cbSection.Name = "cbSection";
+            this.cbSection.Size = new System.Drawing.Size(108, 27);
+            this.cbSection.TabIndex = 101;
+            // 
+            // kryptonLabel2
+            // 
+            this.kryptonLabel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.kryptonLabel2.Location = new System.Drawing.Point(289, 12);
+            this.kryptonLabel2.Margin = new System.Windows.Forms.Padding(2);
+            this.kryptonLabel2.Name = "kryptonLabel2";
+            this.kryptonLabel2.Size = new System.Drawing.Size(64, 21);
+            this.kryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.Black;
+            this.kryptonLabel2.StateCommon.ShortText.Color2 = System.Drawing.Color.Black;
+            this.kryptonLabel2.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.kryptonLabel2.TabIndex = 100;
+            this.kryptonLabel2.Values.Text = "Program";
+            // 
+            // cbProgram
+            // 
+            this.cbProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbProgram.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cbProgram.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cbProgram.Font = new System.Drawing.Font("Poppins", 8F);
+            this.cbProgram.FormattingEnabled = true;
+            this.cbProgram.Location = new System.Drawing.Point(294, 36);
+            this.cbProgram.Name = "cbProgram";
+            this.cbProgram.Size = new System.Drawing.Size(201, 27);
+            this.cbProgram.TabIndex = 99;
+            // 
             // formImportView
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ClientSize = new System.Drawing.Size(767, 367);
+            this.ClientSize = new System.Drawing.Size(903, 367);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "formImportView";
@@ -529,5 +650,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn mname;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.ComponentModel.BackgroundWorker backgroundWorker;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel4;
+        private System.Windows.Forms.ComboBox cbDep;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel3;
+        private System.Windows.Forms.ComboBox cbYearlvl;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
+        private System.Windows.Forms.ComboBox cbSection;
+        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel2;
+        private System.Windows.Forms.ComboBox cbProgram;
     }
 }
