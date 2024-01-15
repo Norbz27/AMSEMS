@@ -194,7 +194,7 @@
             // 
             this.btnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSettings.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSettings.Location = new System.Drawing.Point(20, 561);
+            this.btnSettings.Location = new System.Drawing.Point(20, 269);
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSettings.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -257,7 +257,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(20, 551);
+            this.panel4.Location = new System.Drawing.Point(20, 259);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(183, 10);
             this.panel4.TabIndex = 15;
@@ -266,7 +266,7 @@
             // 
             this.btnSubjects.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSubjects.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSubjects.Location = new System.Drawing.Point(20, 503);
+            this.btnSubjects.Location = new System.Drawing.Point(20, 211);
             this.btnSubjects.Name = "btnSubjects";
             this.btnSubjects.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnSubjects.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -330,7 +330,7 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(20, 493);
+            this.panel3.Location = new System.Drawing.Point(20, 201);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(183, 10);
             this.panel3.TabIndex = 12;
@@ -352,7 +352,7 @@
             this.panelCollapsed.MaximumSize = new System.Drawing.Size(183, 398);
             this.panelCollapsed.MinimumSize = new System.Drawing.Size(183, 106);
             this.panelCollapsed.Name = "panelCollapsed";
-            this.panelCollapsed.Size = new System.Drawing.Size(183, 398);
+            this.panelCollapsed.Size = new System.Drawing.Size(183, 106);
             this.panelCollapsed.StateCommon.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.panelCollapsed.StateCommon.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.panelCollapsed.TabIndex = 0;

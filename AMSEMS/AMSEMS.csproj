@@ -854,6 +854,12 @@
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="SubForms_DeptHead\UserID.cs" />
+    <Compile Include="SubForms_SAO\formAddActivity.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_SAO\formAddActivity.Designer.cs">
+      <DependentUpon>formAddActivity.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_SAO\formEventEditConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1219,6 +1225,9 @@
     <None Include="Resources\recent.png" />
     <None Include="Resources\icons8-course-assign-16.png" />
     <None Include="Resources\icons8-course-assign-16 %282%29.png" />
+    <None Include="Resources\extracurricular.png" />
+    <None Include="Resources\extracurricular-16.png" />
+    <None Include="Resources\activity.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1511,6 +1520,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_DeptHead\Settings_Subforms\formNotificationSetting.resx">
       <DependentUpon>formNotificationSetting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_SAO\formAddActivity.resx">
+      <DependentUpon>formAddActivity.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_SAO\formEventEditConfig.resx">
       <DependentUpon>formEventEditConfig.cs</DependentUpon>

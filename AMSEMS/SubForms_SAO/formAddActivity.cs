@@ -8,11 +8,14 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
 using System.Windows.Forms;
+using static Microsoft.IO.RecyclableMemoryStreamManager;
 
 namespace AMSEMS.SubForms_SAO
 {
-    public partial class formAddEvent : KryptonForm
+    public partial class formAddActivity : KryptonForm
     {
         SqlConnection cn;
         SqlDataAdapter ad;
@@ -29,8 +32,9 @@ namespace AMSEMS.SubForms_SAO
 
         formEventAddConfig formEventConfig;
         private string schYear;
-
-        public formAddEvent()
+        bool istrue;
+        string act_id;
+        public formAddActivity()
         {
             InitializeComponent();
 
@@ -38,13 +42,10 @@ namespace AMSEMS.SubForms_SAO
             selectedColor = "#800000";
             SetButtonAppearance(btnColorMarron);
             formEventConfig = new formEventAddConfig();
-            DtEnd.MinDate = DtStart.Value;
 
             ToolTip toolTip = new ToolTip();
             toolTip.InitialDelay = 500;
             toolTip.AutoPopDelay = int.MaxValue;
-
-            toolTip.SetToolTip(btnConfig, "Event Configuration");
 
             using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
             {
@@ -65,20 +66,99 @@ namespace AMSEMS.SubForms_SAO
             }
         }
         
-        public void getForm(UserControlDays_Calendar form)
+        public void getForm(UserControlDays_Calendar form, bool istrue)
         {
             this.form = form;
+            this.istrue = istrue;
         }
-        public void getForm2(formEvents form1)
+        public void getForm2(formEvents form1, bool istrue)
         {
             this.form1 = form1;
+            this.istrue = istrue;
         }
+        public void displayInformation(string act_id)
+        {
+            lblHeader.Text = "Activity Information";
+            lblHeader2.Text = "";
+            using (cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                using (cm = new SqlCommand("SELECT * FROM tbl_activities WHERE Activity_ID = " + act_id, cn))
+                using (dr = cm.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        this.act_id = act_id;
+                        tbActivityName.Text = dr["Activity_Name"].ToString();
+                        tbDescription.Text = dr["Description"].ToString();
+                        DtStart.Value = (DateTime)dr["Date"];
+                        DtTime.Value = DateTime.Parse(dr["Time"].ToString());
+                        selectedColor = dr["Color"].ToString();
 
+                        object imageData = dr["Image"];
+                        if (imageData != DBNull.Value) // Check if the column is not null
+                        {
+                            byte[] imageBytes = (byte[])imageData;
+                            if (imageBytes.Length > 0)
+                            {
+                                using (MemoryStream ms = new MemoryStream(imageBytes))
+                                {
+                                    Image image = Image.FromStream(ms);
+                                    pictureBox1.Image = image;
+                                }
+                            }
+                        }
+
+
+                        if (dr["Color"].ToString().Equals("#800000"))
+                        {
+                            SetButtonAppearance(btnColorMarron);
+                            SetButtonAppearance2(btnColorGreen);
+                            SetButtonAppearance2(btnColorBlue);
+                            SetButtonAppearance2(btnColorPurple);
+                            SetButtonAppearance2(btnColorOrange);
+                        }
+                        else if (dr["Color"].ToString().Equals("#009600"))
+                        {
+                            SetButtonAppearance2(btnColorMarron);
+                            SetButtonAppearance(btnColorGreen);
+                            SetButtonAppearance2(btnColorBlue);
+                            SetButtonAppearance2(btnColorPurple);
+                            SetButtonAppearance2(btnColorOrange);
+                        }
+                        else if (dr["Color"].ToString().Equals("#07006E"))
+                        {
+                            SetButtonAppearance2(btnColorMarron);
+                            SetButtonAppearance2(btnColorGreen);
+                            SetButtonAppearance(btnColorBlue);
+                            SetButtonAppearance2(btnColorPurple);
+                            SetButtonAppearance2(btnColorOrange);
+                        }
+                        else if (dr["Color"].ToString().Equals("#6E002B"))
+                        {
+                            SetButtonAppearance2(btnColorMarron);
+                            SetButtonAppearance2(btnColorGreen);
+                            SetButtonAppearance2(btnColorBlue);
+                            SetButtonAppearance(btnColorPurple);
+                            SetButtonAppearance2(btnColorOrange);
+                        }
+                        else if (dr["Color"].ToString().Equals("#A63C00"))
+                        {
+                            SetButtonAppearance2(btnColorMarron);
+                            SetButtonAppearance2(btnColorGreen);
+                            SetButtonAppearance2(btnColorBlue);
+                            SetButtonAppearance2(btnColorPurple);
+                            SetButtonAppearance(btnColorOrange);
+                        }
+                    }
+                }
+            }
+        }
         private void btnDone_Click(object sender, EventArgs e)
         {
             using (cn = new SqlConnection(SQL_Connection.connection))
             {
-                if (tbEventName.Text.Equals(String.Empty) && tbDescription.Text.Equals(String.Empty))
+                if (tbActivityName.Text.Equals(String.Empty) && tbDescription.Text.Equals(String.Empty))
                 {
                     MessageBox.Show("Empty Fields Detected!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -99,35 +179,24 @@ namespace AMSEMS.SubForms_SAO
                         cm = new SqlCommand();
                         cm.Connection = cn;
                         cm.CommandType = CommandType.StoredProcedure;
-                        cm.CommandText = "sp_AddEvent";
-                        cm.Parameters.AddWithValue("@Event_Name", tbEventName.Text);
-                        cm.Parameters.AddWithValue("@Start_Date", DtStart.Value);
-                        cm.Parameters.AddWithValue("@End_Date", DtEnd.Value);
-                        cm.Parameters.AddWithValue("@Image", picData);
-                        cm.Parameters.AddWithValue("@Description", tbDescription.Text);
-                        cm.Parameters.AddWithValue("@Color", selectedColor);
-                        cm.Parameters.AddWithValue("@Attendance", attendance);
-                        cm.Parameters.AddWithValue("@Penalty", penalty);
-                        cm.Parameters.AddWithValue("@DateTime", dateTime);
-                        cm.Parameters.AddWithValue("@SchYear", schYear);
-
-                        if (exclusive.Equals("Specific Students"))
+                        if (istrue == true)
                         {
-                            cm.Parameters.AddWithValue("@Exclusive", exclusive);
-                            cm.Parameters.AddWithValue("@Specific_Students", selected);
-                        }
-                        else if (exclusive.Equals("Selected Departments"))
-                        {
-                            cm.Parameters.AddWithValue("@Exclusive", exclusive);
-                            cm.Parameters.AddWithValue("@Selected_Departments", selected);
+                            cm.CommandText = "sp_AddActivity";
                         }
                         else
                         {
-                            cm.Parameters.AddWithValue("@Exclusive", exclusive);
-                            cm.Parameters.AddWithValue("@Specific_Students", null);
-                            cm.Parameters.AddWithValue("@Selected_Departments", null);
+                            cm.CommandText = "sp_UpdateActivity";
+                            cm.Parameters.AddWithValue("@Activity_ID", act_id);
                         }
-                        
+                      
+                        cm.Parameters.AddWithValue("@Activity_Name", tbActivityName.Text);
+                        cm.Parameters.AddWithValue("@Date", DtStart.Value);
+                        cm.Parameters.AddWithValue("@Time", DtTime.Value);
+                        cm.Parameters.AddWithValue("@Image", picData);
+                        cm.Parameters.AddWithValue("@Description", tbDescription.Text);
+                        cm.Parameters.AddWithValue("@Color", selectedColor);
+                        cm.Parameters.AddWithValue("@DateTime", dateTime);
+                        cm.Parameters.AddWithValue("@SchYear", schYear);
                                       
                         cm.ExecuteNonQuery();
                         cn.Close();
@@ -138,13 +207,20 @@ namespace AMSEMS.SubForms_SAO
                         };
                         var pusher = new Pusher("1732969", "6cc843a774ea227a754f", "de6683c35f58d7bc943f", option);
 
-                        var result = pusher.TriggerAsync("amsems", "events", new { message = "new notification" });
-                        MessageBox.Show("Event Created!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                        var result = pusher.TriggerAsync("amsems", "activity", new { message = "new notification" });
+                        if (istrue == true)
+                        {
+                            MessageBox.Show("Activity Created!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Activity Updated!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
                     catch (Exception ex)
                     {
-                    MessageBox.Show(ex.Message);
-                }
+                         MessageBox.Show(ex.Message);
+                    }
                     finally
                     {
                     if (form != null)
@@ -204,7 +280,6 @@ namespace AMSEMS.SubForms_SAO
             {
                 DateTime selectedDate = new DateTime(UserControlDays_Calendar.static_year, UserControlDays_Calendar.static_month, UserControlDays_Calendar.static_day);
                 DtStart.Value = selectedDate;
-                DtEnd.Value = selectedDate;
             }
             else
             {
@@ -318,7 +393,7 @@ namespace AMSEMS.SubForms_SAO
 
         private void DtStart_ValueChanged(object sender, EventArgs e)
         {
-            DtEnd.MinDate = DtStart.Value;
+
         }
 
         private void btnActivities_Click(object sender, EventArgs e)

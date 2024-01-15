@@ -1,4 +1,5 @@
 ﻿using ComponentFactory.Krypton.Toolkit;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.ComponentModel;
 using System.Data.SqlClient;
@@ -260,7 +261,7 @@ namespace AMSEMS.SubForms_SAO
                 using (cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
-                    using (SqlCommand cm = new SqlCommand("SELECT Event_ID,Event_Name, Color, Start_Date FROM tbl_events WHERE Start_Date >= CAST(GETDATE() AS DATE) ORDER BY Start_Date DESC", cn))
+                    using (SqlCommand cm = new SqlCommand("SELECT Event_ID,Event_Name, Color, Start_Date FROM tbl_events WHERE Start_Date > CAST(GETDATE() AS DATE) ORDER BY Start_Date DESC", cn))
                     using (SqlDataReader dr = cm.ExecuteReader())
                     {
                         eventDetails = new KryptonGroupBox[0];
@@ -280,9 +281,36 @@ namespace AMSEMS.SubForms_SAO
                             labelCount++;
                         }
                     }
+                    //using (SqlCommand cm = new SqlCommand("SELECT Activity_ID,Activity_Name, Color, Date, Time FROM tbl_activities WHERE Date > CAST(GETDATE() AS DATE) ORDER BY Date DESC", cn))
+                    //using (SqlDataReader dr = cm.ExecuteReader())
+                    //{
+                    //    eventDetails = new KryptonGroupBox[0];
+
+                    //    int labelCount = 0;
+                    //    while (dr.Read())
+                    //    {
+                    //        string eventid = dr["Event_ID"].ToString();
+                    //        string eventname = dr["Event_Name"].ToString();
+                    //        string color = dr["Color"].ToString();
+                    //        DateTime date = DateTime.Parse(dr["Start_Date"].ToString());
+                    //        string formattedDate = date.ToString("dddd, MMMM d, yyyy");
+                    //        string day = date.Day.ToString();
+
+                    //        EventDetailsApperance(eventid, eventname, color, formattedDate, day);
+
+                    //        labelCount++;
+                    //    }
+                    //}
                 }
                 ptbLoading.Visible = false;
             }
+        }
+
+        private void btnCreateActivity_Click(object sender, EventArgs e)
+        {
+            formAddActivity formAddActivity = new formAddActivity();
+            formAddActivity.getForm2(this, false);
+            formAddActivity.ShowDialog();
         }
 
         public void EventDetailsApperance(string eventid, string eventname, string color, string date, string day)
@@ -400,6 +428,130 @@ namespace AMSEMS.SubForms_SAO
                 this.flowLayoutPanel1.Controls.Add(panel12);
             });
         }
+        //public void ActivityDetailsApperance(string activityid, string activityname, string color, string date, string day, string time)
+        //{
+
+        //    Color Backcolor = ColorTranslator.FromHtml(color);
+        //    KryptonGroupBox kryptonGroupBox6 = new KryptonGroupBox();
+        //    Panel panel12 = new Panel();
+        //    KryptonLabel kryptonLabel4 = new KryptonLabel();
+        //    KryptonLabel kryptonLabel2 = new KryptonLabel();
+        //    KryptonLabel kryptonLabel11 = new KryptonLabel();
+        //    KryptonLabel kryptonLabel10 = new KryptonLabel();
+
+        //    this.flowLayoutPanel1.Controls.Add(kryptonGroupBox6);
+        //    this.flowLayoutPanel1.Controls.Add(panel12);
+        //    kryptonGroupBox6.CaptionVisible = false;
+        //    kryptonGroupBox6.CausesValidation = false;
+
+        //    kryptonGroupBox6.Name = "kryptonGroupBox6";
+        //    kryptonGroupBox6.Click += (s, e) => KryptonGroupBox_Click(activityid);
+        //    kryptonGroupBox6.Panel.Click += (s, e) => KryptonGroupBox_Click(activityid);
+
+        //    kryptonGroupBox6.Panel.Controls.Add(kryptonLabel4);
+        //    kryptonGroupBox6.Panel.Controls.Add(kryptonLabel2);
+        //    kryptonGroupBox6.Panel.Controls.Add(kryptonLabel11);
+        //    kryptonGroupBox6.Panel.Controls.Add(kryptonLabel10);
+        //    kryptonGroupBox6.Cursor = System.Windows.Forms.Cursors.Hand;
+        //    kryptonGroupBox6.Dock = DockStyle.Top;
+        //    kryptonGroupBox6.Margin = new System.Windows.Forms.Padding(5);
+        //    kryptonGroupBox6.Panel.Padding = new System.Windows.Forms.Padding(15, 10, 15, 10);
+        //    kryptonGroupBox6.Size = new System.Drawing.Size(208, 92);
+        //    kryptonGroupBox6.StateCommon.Back.Color1 = Backcolor;
+        //    kryptonGroupBox6.StateCommon.Back.Color2 = Backcolor;
+        //    kryptonGroupBox6.StateCommon.Border.Color1 = Backcolor;
+        //    kryptonGroupBox6.StateCommon.Border.Color2 = Backcolor;
+        //    kryptonGroupBox6.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom)
+        //    | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left)
+        //    | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+        //    kryptonGroupBox6.StateCommon.Border.Rounding = 10;
+        //    kryptonGroupBox6.StateCommon.Border.Width = 1;
+
+        //    kryptonLabel2.Location = new System.Drawing.Point(15, 8);
+        //    kryptonLabel2.Name = "kryptonLabel2";
+        //    kryptonLabel2.Cursor = System.Windows.Forms.Cursors.Hand;
+        //    kryptonLabel2.Size = new System.Drawing.Size(44, 39);
+        //    kryptonLabel2.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+        //    kryptonLabel2.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+        //    kryptonLabel2.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 18F, System.Drawing.FontStyle.Bold);
+        //    kryptonLabel2.Values.Text = day;
+
+        //    kryptonLabel4.Cursor = System.Windows.Forms.Cursors.Default;
+        //    kryptonLabel4.Location = new System.Drawing.Point(136, 53);
+        //    kryptonLabel4.Name = "kryptonLabel4";
+        //    kryptonLabel4.Size = new System.Drawing.Size(53, 19);
+        //    kryptonLabel4.StateCommon.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+        //    kryptonLabel4.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+        //    kryptonLabel4.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+        //    kryptonLabel4.StateCommon.LongText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+        //    kryptonLabel4.StateCommon.LongText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+        //    kryptonLabel4.StateCommon.LongText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+        //    kryptonLabel4.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+        //    kryptonLabel4.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+        //    kryptonLabel4.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
+        //    kryptonLabel4.StateCommon.ShortText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+        //    kryptonLabel4.StateCommon.ShortText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+        //    kryptonLabel4.StateCommon.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+        //    kryptonLabel4.Values.Text = time;
+
+        //    kryptonLabel11.Location = new System.Drawing.Point(57, 16);
+        //    kryptonLabel11.AutoSize = false;
+        //    kryptonLabel11.Name = "kryptonLabel11";
+        //    kryptonLabel11.Cursor = System.Windows.Forms.Cursors.Hand;
+        //    kryptonLabel11.Size = new System.Drawing.Size(160, 23);
+        //    kryptonLabel11.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+        //    kryptonLabel11.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+        //    kryptonLabel11.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 10F, System.Drawing.FontStyle.Bold);
+        //    kryptonLabel11.Values.Text = activityname;
+
+        //    kryptonLabel10.Cursor = System.Windows.Forms.Cursors.Default;
+        //    kryptonLabel10.Location = new System.Drawing.Point(15, 53);
+        //    kryptonLabel10.Name = "kryptonLabel10";
+        //    kryptonLabel10.Cursor = System.Windows.Forms.Cursors.Hand;
+        //    kryptonLabel10.Size = new System.Drawing.Size(117, 19);
+        //    kryptonLabel10.StateCommon.Draw = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+        //    kryptonLabel10.StateCommon.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.DarkDark;
+        //    kryptonLabel10.StateCommon.Image.ImageH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Far;
+        //    kryptonLabel10.StateCommon.LongText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+        //    kryptonLabel10.StateCommon.LongText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+        //    kryptonLabel10.StateCommon.LongText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+        //    kryptonLabel10.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+        //    kryptonLabel10.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+        //    kryptonLabel10.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins", 8F);
+        //    kryptonLabel10.StateCommon.ShortText.MultiLine = ComponentFactory.Krypton.Toolkit.InheritBool.True;
+        //    kryptonLabel10.StateCommon.ShortText.MultiLineH = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+        //    kryptonLabel10.StateCommon.ShortText.TextV = ComponentFactory.Krypton.Toolkit.PaletteRelativeAlign.Near;
+        //    kryptonLabel10.Values.Text = date;
+
+        //    panel12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+        //    panel12.Dock = System.Windows.Forms.DockStyle.Top;
+        //    panel12.Location = new System.Drawing.Point(0, 0);
+        //    panel12.Name = "panel12";
+        //    panel12.Cursor = System.Windows.Forms.Cursors.Hand;
+        //    panel12.Size = new System.Drawing.Size(234, 10);
+        //    panel12.TabIndex = 19;
+
+        //    panel12.Click += (s, e) => KryptonGroupBox1_Click(activityid);
+        //    kryptonLabel10.Click += (s, e) => KryptonGroupBox1_Click(activityid);
+        //    kryptonLabel11.Click += (s, e) => KryptonGroupBox1_Click(activityid);
+        //    kryptonLabel2.Click += (s, e) => KryptonGroupBox1_Click(activityid);
+        //    kryptonLabel4.Click += (s, e) => KryptonGroupBox1_Click(activityid);
+
+        //    this.flowLayoutPanel1.Invoke((MethodInvoker)delegate
+        //    {
+        //        // Inside this block, you can update UI controls safely
+        //        this.flowLayoutPanel1.Controls.Add(kryptonGroupBox6);
+        //        this.flowLayoutPanel1.Controls.Add(panel12);
+        //    });
+        //}
+        //private void KryptonGroupBox1_Click(string actid)
+        //{
+        //    formAddActivity formAddActivity = new formAddActivity();
+        //    formAddActivity.displayInformation(actid);
+        //    formAddActivity.getForm2(this, false);
+        //    formAddActivity.ShowDialog();
+        //}
+
         private void KryptonGroupBox_Click(string eventid)
         {
             formEventDetails formEventDetails = new formEventDetails();

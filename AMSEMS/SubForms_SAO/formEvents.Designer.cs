@@ -53,11 +53,12 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnToday = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.lblMonthYear = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.Panel();
+            this.btnCreateActivity = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.ptbLoading2 = new System.Windows.Forms.PictureBox();
             this.btnPrevious = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
-            this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.Panel();
-            this.ptbLoading2 = new System.Windows.Forms.PictureBox();
             this.ptbLoading = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -67,12 +68,14 @@
             this.panel2.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbLoading2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnCreateActivity);
             this.panel1.Controls.Add(this.btnCreateEvent);
             this.panel1.Controls.Add(this.lblAccountName);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -85,7 +88,7 @@
             // 
             this.btnCreateEvent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCreateEvent.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCreateEvent.Location = new System.Drawing.Point(894, 4);
+            this.btnCreateEvent.Location = new System.Drawing.Point(776, 5);
             this.btnCreateEvent.Name = "btnCreateEvent";
             this.btnCreateEvent.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
             this.btnCreateEvent.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
@@ -167,9 +170,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.AutoScroll = true;
-            this.splitContainer1.Panel2.Controls.Add(this.kryptonLabel1);
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
-            this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(0, 43, 0, 0);
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
             this.splitContainer1.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.splitContainer1.Size = new System.Drawing.Size(1021, 631);
             this.splitContainer1.SplitterDistance = 783;
@@ -442,6 +444,99 @@
             this.lblMonthYear.TabIndex = 14;
             this.lblMonthYear.Values.Text = "July 2023";
             // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label1.Font = new System.Drawing.Font("Poppins Black", 15F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(234, 43);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Upcomming Events";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Controls.Add(this.ptbLoading);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 43);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(234, 588);
+            this.flowLayoutPanel1.TabIndex = 20;
+            // 
+            // btnCreateActivity
+            // 
+            this.btnCreateActivity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCreateActivity.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCreateActivity.Location = new System.Drawing.Point(889, 5);
+            this.btnCreateActivity.Name = "btnCreateActivity";
+            this.btnCreateActivity.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnCreateActivity.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnCreateActivity.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnCreateActivity.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.btnCreateActivity.OverrideDefault.Border.Rounding = 10;
+            this.btnCreateActivity.OverrideDefault.Border.Width = 1;
+            this.btnCreateActivity.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnCreateActivity.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnCreateActivity.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnCreateActivity.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnCreateActivity.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnCreateActivity.OverrideFocus.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnCreateActivity.OverrideFocus.Border.Rounding = 10;
+            this.btnCreateActivity.Size = new System.Drawing.Size(119, 34);
+            this.btnCreateActivity.StateCommon.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnCreateActivity.StateCommon.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnCreateActivity.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnCreateActivity.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.btnCreateActivity.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnCreateActivity.StateCommon.Border.Rounding = 10;
+            this.btnCreateActivity.StateCommon.Border.Width = 1;
+            this.btnCreateActivity.StateCommon.Content.AdjacentGap = 8;
+            this.btnCreateActivity.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnCreateActivity.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnCreateActivity.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins Medium", 8.5F, System.Drawing.FontStyle.Bold);
+            this.btnCreateActivity.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.btnCreateActivity.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnCreateActivity.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
+            this.btnCreateActivity.StatePressed.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnCreateActivity.StatePressed.Border.Rounding = 10;
+            this.btnCreateActivity.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnCreateActivity.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnCreateActivity.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnCreateActivity.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnCreateActivity.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(79)))), ((int)(((byte)(161)))));
+            this.btnCreateActivity.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.btnCreateActivity.StateTracking.Border.Rounding = 10;
+            this.btnCreateActivity.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.btnCreateActivity.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.btnCreateActivity.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.btnCreateActivity.TabIndex = 8;
+            this.btnCreateActivity.Values.Text = "Create Activity";
+            this.btnCreateActivity.Click += new System.EventHandler(this.btnCreateActivity_Click);
+            // 
+            // ptbLoading2
+            // 
+            this.ptbLoading2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.ptbLoading2.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading2.Location = new System.Drawing.Point(110, 132);
+            this.ptbLoading2.Name = "ptbLoading2";
+            this.ptbLoading2.Size = new System.Drawing.Size(610, 546);
+            this.ptbLoading2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading2.TabIndex = 0;
+            this.ptbLoading2.TabStop = false;
+            // 
             // btnPrevious
             // 
             this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -472,47 +567,13 @@
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
-            // kryptonLabel1
-            // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(3, 5);
-            this.kryptonLabel1.Name = "kryptonLabel1";
-            this.kryptonLabel1.Size = new System.Drawing.Size(224, 33);
-            this.kryptonLabel1.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel1.StateCommon.ShortText.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(52)))), ((int)(((byte)(132)))));
-            this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Poppins Black", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonLabel1.TabIndex = 17;
-            this.kryptonLabel1.Values.Text = "Upcomming Events";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 43);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(234, 588);
-            this.flowLayoutPanel1.TabIndex = 0;
-            // 
-            // ptbLoading2
-            // 
-            this.ptbLoading2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.ptbLoading2.Image = global::AMSEMS.Properties.Resources.loading;
-            this.ptbLoading2.Location = new System.Drawing.Point(110, 132);
-            this.ptbLoading2.Name = "ptbLoading2";
-            this.ptbLoading2.Size = new System.Drawing.Size(610, 546);
-            this.ptbLoading2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptbLoading2.TabIndex = 0;
-            this.ptbLoading2.TabStop = false;
-            // 
             // ptbLoading
             // 
-            this.ptbLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
-            this.ptbLoading.Location = new System.Drawing.Point(808, 104);
+            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
             this.ptbLoading.Name = "ptbLoading";
-            this.ptbLoading.Size = new System.Drawing.Size(234, 586);
+            this.ptbLoading.Size = new System.Drawing.Size(234, 588);
             this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.ptbLoading.TabIndex = 1;
             this.ptbLoading.TabStop = false;
@@ -523,7 +584,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
             this.ClientSize = new System.Drawing.Size(1061, 700);
-            this.Controls.Add(this.ptbLoading);
             this.Controls.Add(this.ptbLoading2);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
@@ -537,7 +597,6 @@
             this.panel1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -545,6 +604,7 @@
             this.flowLayoutPanel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ptbLoading2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.ResumeLayout(false);
@@ -569,7 +629,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel lblMonthYear;
         private System.Windows.Forms.Button btnPrevious;
         private System.Windows.Forms.Button btnNext;
-        private System.Windows.Forms.Panel flowLayoutPanel1;
         private System.Windows.Forms.Panel panel11;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel9;
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel12;
@@ -580,9 +639,11 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel17;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnToday;
         private ComponentFactory.Krypton.Toolkit.KryptonButton btnCreateEvent;
-        private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         private System.Windows.Forms.PictureBox ptbLoading2;
         private System.Windows.Forms.FlowLayoutPanel daysContainer;
+        private System.Windows.Forms.Panel flowLayoutPanel1;
         private System.Windows.Forms.PictureBox ptbLoading;
+        private System.Windows.Forms.Label label1;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton btnCreateActivity;
     }
 }

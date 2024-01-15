@@ -70,18 +70,47 @@ namespace AMSEMS.SubForms_SAO
                     using (cn = new SqlConnection(SQL_Connection.connection))
                     {
                         cn.Open();
-                        cm = new SqlCommand("SELECT Event_ID, Event_Name, Color FROM tbl_events WHERE Start_Date <= @date AND End_Date >= @date", cn);
+                        int labelCount = 0;
+                        cm = new SqlCommand("SELECT Activity_ID, Activity_Name, Color FROM tbl_activities WHERE Date = @date", cn);
                         cm.Parameters.AddWithValue("@date", date);
                         dr = cm.ExecuteReader();
-
                         // Clear existing event labels before adding new ones.
                         foreach (Label label in panel1.Controls.OfType<Label>().ToList())
                         {
                             panel1.Controls.Remove(label);
                             label.Dispose();
                         }
+                        while (dr.Read())
+                        {
+                            Color color = ColorTranslator.FromHtml(dr["Color"].ToString());
+                            string activityID = dr["Activity_ID"].ToString(); // Capture the event ID here.
 
-                        int labelCount = 0;
+                            // Create a new label for each event.
+                            Label lblActivity = new Label();
+                            lblActivity.Click += (s, e) => ActivityDetails_Click(activityID); // Use the captured event ID.
+                            panel1.Controls.Add(lblActivity);
+                            lblActivity.BackColor = color;
+                            lblActivity.Dock = DockStyle.Top;
+                            lblActivity.Name = $"lblEvent_{labelCount}";
+                            lblActivity.Text = dr["Activity_Name"].ToString();
+                            lblActivity.Font = new Font("Poppins", 8F);
+                            lblActivity.ForeColor = Color.White;
+                            lblActivity.TextAlign = ContentAlignment.MiddleCenter;
+                            lblActivity.Cursor = Cursors.Hand;
+
+                            // Position the labels dynamically.
+                            int topOffset = 28 + labelCount * 19;
+                            lblActivity.Location = new Point(0, topOffset);
+
+                            labelCount++;
+                        }
+
+                        // Close the data reader and connection after you're done with it.
+                        dr.Close();
+                        cm = new SqlCommand("SELECT Event_ID, Event_Name, Color FROM tbl_events WHERE Start_Date <= @date AND End_Date >= @date", cn);
+                        cm.Parameters.AddWithValue("@date", date);
+                        dr = cm.ExecuteReader();
+
                         while (dr.Read())
                         {
                             Color color = ColorTranslator.FromHtml(dr["Color"].ToString());
@@ -98,6 +127,7 @@ namespace AMSEMS.SubForms_SAO
                             lblEvent.Font = new Font("Poppins", 8F);
                             lblEvent.ForeColor = Color.White;
                             lblEvent.TextAlign = ContentAlignment.MiddleCenter;
+                            lblEvent.Cursor = Cursors.Hand;
 
                             // Position the labels dynamically.
                             int topOffset = 28 + labelCount * 19;
@@ -118,6 +148,17 @@ namespace AMSEMS.SubForms_SAO
             }
         }
 
+        private void addActtoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            static_day = Convert.ToInt32(lblDays.Text);
+            static_month = Convert.ToInt32(lblmonth.Text);
+            static_year = Convert.ToInt32(lblyear.Text);
+
+            formAddActivity formAddActivity = new formAddActivity();
+            formAddActivity.getForm(this, true);
+            formAddActivity.ShowDialog();
+        }
+
         private void addEventToolStripMenuItem_Click(object sender, EventArgs e)
         {
             static_day = Convert.ToInt32(lblDays.Text);
@@ -134,6 +175,13 @@ namespace AMSEMS.SubForms_SAO
             formEventDetails.displayDetails(eventid);
             formEventDetails.getForm(this);
             formEventDetails.ShowDialog();
+        }
+        private void ActivityDetails_Click(string actid)
+        {
+            formAddActivity formAddActivity = new formAddActivity();
+            formAddActivity.displayInformation(actid);
+            formAddActivity.getForm(this, false);
+            formAddActivity.ShowDialog();
         }
     }
 }

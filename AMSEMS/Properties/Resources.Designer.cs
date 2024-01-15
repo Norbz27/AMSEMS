@@ -73,6 +73,16 @@ namespace AMSEMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap activity {
+            get {
+                object obj = ResourceManager.GetObject("activity", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add_circle {
             get {
                 object obj = ResourceManager.GetObject("add-circle", resourceCulture);
@@ -556,6 +566,26 @@ namespace AMSEMS.Properties {
         internal static System.Drawing.Bitmap export_16 {
             get {
                 object obj = ResourceManager.GetObject("export-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap extracurricular {
+            get {
+                object obj = ResourceManager.GetObject("extracurricular", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap extracurricular_16 {
+            get {
+                object obj = ResourceManager.GetObject("extracurricular-16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

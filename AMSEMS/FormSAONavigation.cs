@@ -357,7 +357,7 @@ namespace AMSEMS
                 using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
                 {
                     cn.Open();
-                    using (SqlCommand cm = new SqlCommand("SELECT Event_ID,Event_Name, Color, Start_Date FROM tbl_events WHERE Start_Date >= CAST(GETDATE() AS DATE) ORDER BY Start_Date DESC", cn))
+                    using (SqlCommand cm = new SqlCommand("SELECT Event_ID,Event_Name, Color, Start_Date FROM tbl_events WHERE Start_Date > CAST(GETDATE() AS DATE) ORDER BY Start_Date DESC", cn))
                     using (SqlDataReader dr = await cm.ExecuteReaderAsync())
                     {
                         int labelCount = 0;
