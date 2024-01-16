@@ -33,11 +33,30 @@ namespace AMSEMS.SubForm_Guidance
         public bool paystatus = false;
         formRemarks formRemarks;
         formAbsReport form;
+        private string schYear;
         public formStudAttRecord()
         {
             InitializeComponent();
             formRemarks = new formRemarks();
             dgvAbsencesRecord.DefaultCellStyle.Font = new System.Drawing.Font("Poppins", 9F);
+
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                string query = "";
+
+                query = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            schYear = dr["Acad_ID"].ToString();
+                        }
+                    }
+                }
+            }
         }
         public void getForm(formAbsReport form, string studid, string conid, string classcode)
         {
@@ -323,13 +342,14 @@ namespace AMSEMS.SubForm_Guidance
                 {
                     connection.Open();
 
-                    string query2 = "INSERT INTO tbl_absenteeism_notified (Student_ID, Message, Date_Time) VALUES (@StudentID, @Message, @DateTime)";
+                    string query2 = "INSERT INTO tbl_absenteeism_notified (Student_ID, Message, Date_Time, School_Year) VALUES (@StudentID, @Message, @DateTime, @SchYear)";
 
                     using (SqlCommand command = new SqlCommand(query2, connection))
                     {
                         command.Parameters.AddWithValue("@StudentID", stud_id);
-                        command.Parameters.AddWithValue("@Message", name + " you are called to the guidance office, regarding your absences.");
+                        command.Parameters.AddWithValue("@Message", name + " you are called to the guidance office, regarding with your absences on a subject.");
                         command.Parameters.AddWithValue("@DateTime", now);
+                        command.Parameters.AddWithValue("@SchYear", schYear);
 
                         command.ExecuteNonQuery();
                     }

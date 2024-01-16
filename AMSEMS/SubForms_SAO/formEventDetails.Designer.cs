@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.kryptonPalette1 = new ComponentFactory.Krypton.Toolkit.KryptonPalette(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ptbUpload = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnConfig = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.lblCode = new System.Windows.Forms.Label();
             this.kryptonLabel3 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
@@ -61,7 +62,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ptbUpload = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -157,6 +157,59 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(461, 616);
             this.panel1.TabIndex = 68;
+            // 
+            // ptbUpload
+            // 
+            this.ptbUpload.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ptbUpload.Location = new System.Drawing.Point(10, 52);
+            this.ptbUpload.Name = "ptbUpload";
+            this.ptbUpload.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbUpload.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbUpload.OverrideDefault.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbUpload.OverrideDefault.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbUpload.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.ptbUpload.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
+            this.ptbUpload.OverrideDefault.Border.Width = 1;
+            this.ptbUpload.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.ptbUpload.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.ptbUpload.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.ptbUpload.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbUpload.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbUpload.Size = new System.Drawing.Size(36, 34);
+            this.ptbUpload.StateCommon.Back.Color1 = System.Drawing.Color.White;
+            this.ptbUpload.StateCommon.Back.Color2 = System.Drawing.Color.White;
+            this.ptbUpload.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbUpload.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbUpload.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.ptbUpload.StateCommon.Border.Rounding = 10;
+            this.ptbUpload.StateCommon.Border.Width = 1;
+            this.ptbUpload.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
+            this.ptbUpload.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.ptbUpload.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.ptbUpload.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
+            this.ptbUpload.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
+            this.ptbUpload.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbUpload.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
+            this.ptbUpload.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.ptbUpload.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.ptbUpload.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.ptbUpload.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ptbUpload.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.ptbUpload.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
+            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
+            this.ptbUpload.StateTracking.Border.Rounding = 10;
+            this.ptbUpload.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
+            this.ptbUpload.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
+            this.ptbUpload.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
+            this.ptbUpload.TabIndex = 158;
+            this.ptbUpload.Values.Image = global::AMSEMS.Properties.Resources.upload;
+            this.ptbUpload.Values.Text = "";
+            this.ptbUpload.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // btnConfig
             // 
@@ -583,7 +636,6 @@
             // 
             this.tbDescription.Location = new System.Drawing.Point(3, 447);
             this.tbDescription.Name = "tbDescription";
-            this.tbDescription.ReadOnly = true;
             this.tbDescription.Size = new System.Drawing.Size(455, 121);
             this.tbDescription.StateCommon.Back.Color1 = System.Drawing.Color.LightGray;
             this.tbDescription.StateCommon.Border.Color1 = System.Drawing.Color.LightGray;
@@ -847,59 +899,6 @@
             this.dataGridViewImageColumn1.Image = global::AMSEMS.Properties.Resources.delete_24;
             this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
             this.dataGridViewImageColumn1.ReadOnly = true;
-            // 
-            // ptbUpload
-            // 
-            this.ptbUpload.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.ptbUpload.Location = new System.Drawing.Point(10, 52);
-            this.ptbUpload.Name = "ptbUpload";
-            this.ptbUpload.OverrideDefault.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbUpload.OverrideDefault.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbUpload.OverrideDefault.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbUpload.OverrideDefault.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbUpload.OverrideDefault.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.ptbUpload.OverrideDefault.Border.GraphicsHint = ComponentFactory.Krypton.Toolkit.PaletteGraphicsHint.AntiAlias;
-            this.ptbUpload.OverrideDefault.Border.Width = 1;
-            this.ptbUpload.OverrideDefault.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.ptbUpload.OverrideDefault.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.ptbUpload.OverrideDefault.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.ptbUpload.OverrideFocus.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbUpload.OverrideFocus.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbUpload.Size = new System.Drawing.Size(36, 34);
-            this.ptbUpload.StateCommon.Back.Color1 = System.Drawing.Color.White;
-            this.ptbUpload.StateCommon.Back.Color2 = System.Drawing.Color.White;
-            this.ptbUpload.StateCommon.Border.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbUpload.StateCommon.Border.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbUpload.StateCommon.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.ptbUpload.StateCommon.Border.Rounding = 10;
-            this.ptbUpload.StateCommon.Border.Width = 1;
-            this.ptbUpload.StateCommon.Content.Padding = new System.Windows.Forms.Padding(2, -1, -1, -1);
-            this.ptbUpload.StateCommon.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.ptbUpload.StateCommon.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.ptbUpload.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Poppins", 9F);
-            this.ptbUpload.StateCommon.Content.ShortText.ImageStyle = ComponentFactory.Krypton.Toolkit.PaletteImageStyle.CenterLeft;
-            this.ptbUpload.StatePressed.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbUpload.StatePressed.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(252)))));
-            this.ptbUpload.StatePressed.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.ptbUpload.StatePressed.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.ptbUpload.StatePressed.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.ptbUpload.StateTracking.Back.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ptbUpload.StateTracking.Back.Color2 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ptbUpload.StateTracking.Border.DrawBorders = ((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders)((((ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Top | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Bottom) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Left) 
-            | ComponentFactory.Krypton.Toolkit.PaletteDrawBorders.Right)));
-            this.ptbUpload.StateTracking.Border.Rounding = 10;
-            this.ptbUpload.StateTracking.Content.Image.Effect = ComponentFactory.Krypton.Toolkit.PaletteImageEffect.Normal;
-            this.ptbUpload.StateTracking.Content.ShortText.Color1 = System.Drawing.Color.White;
-            this.ptbUpload.StateTracking.Content.ShortText.Color2 = System.Drawing.Color.White;
-            this.ptbUpload.TabIndex = 158;
-            this.ptbUpload.Values.Image = global::AMSEMS.Properties.Resources.upload;
-            this.ptbUpload.Values.Text = "";
-            this.ptbUpload.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // formEventDetails
             // 

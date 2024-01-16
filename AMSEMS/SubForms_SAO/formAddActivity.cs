@@ -396,9 +396,52 @@ namespace AMSEMS.SubForms_SAO
 
         }
 
-        private void btnActivities_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Are you sure you want to delete this Activity?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+                    {
+                        cn.Open();
+                        string deleteQuery = "DELETE FROM tbl_activities WHERE Activity_ID = @ID";
 
+                        using (SqlCommand command = new SqlCommand(deleteQuery, cn))
+                        {
+                            // Add parameter for the primary key value
+                            command.Parameters.AddWithValue("@ID", act_id);
+                            command.ExecuteNonQuery();
+
+                            var option = new PusherOptions
+                            {
+                                Cluster = "ap1",
+                                Encrypted = true,
+                            };
+                            var pusher = new Pusher("1732969", "6cc843a774ea227a754f", "de6683c35f58d7bc943f", option);
+
+                            var result = pusher.TriggerAsync("amsems", "activity", new { message = "new notification" });
+                            MessageBox.Show("Deleted successfully.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    if (form != null)
+                    {
+                        form.refresh();
+                    }
+                    else
+                    {
+                        form1.RefreshCalendar();
+                    }
+                    this.Dispose();
+                }
+            }
         }
     }
 }

@@ -19,12 +19,31 @@ namespace AMSEMS.SubForms_SAO
         string announceBy;
         private string searchKeyword = string.Empty;
         private DateTime filterDate = DateTime.MinValue;
+        private string schYear;
         public formAddAnnouncement()
         {
             InitializeComponent();
 
             cn = new SqlConnection(SQL_Connection.connection);
             announceBy = "Student Affair Office (SAO)";
+
+            using (SqlConnection cn = new SqlConnection(SQL_Connection.connection))
+            {
+                cn.Open();
+                string query = "";
+
+                query = "SELECT Acad_ID FROM tbl_acad WHERE Status = 1";
+                using (SqlCommand cm = new SqlCommand(query, cn))
+                {
+                    using (SqlDataReader dr = cm.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            schYear = dr["Acad_ID"].ToString();
+                        }
+                    }
+                }
+            }
         }
         public void getForm(formAnnouncement form)
         {
@@ -45,11 +64,12 @@ namespace AMSEMS.SubForms_SAO
                     {
                         DateTime dateTime = DateTime.Now;
                         cn.Open();
-                        cm = new SqlCommand("Insert Into tbl_Announcement Values (@Title,@Des,@DateTime,@AnnounceBy)", cn);
+                        cm = new SqlCommand("Insert Into tbl_Announcement Values (@Title,@Des,@DateTime,@AnnounceBy,@SchYear)", cn);
                         cm.Parameters.AddWithValue("@Title", tbAnnounceTitle.Text);
                         cm.Parameters.AddWithValue("@Des", tbDescription.Text);
                         cm.Parameters.AddWithValue("@DateTime", dateTime);
                         cm.Parameters.AddWithValue("@AnnounceBy", announceBy);
+                        cm.Parameters.AddWithValue("@SchYear", schYear);
                         cm.ExecuteNonQuery();
 
                         var option = new PusherOptions
