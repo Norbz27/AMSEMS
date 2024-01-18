@@ -54,6 +54,7 @@
             this.option = new System.Windows.Forms.DataGridViewImageColumn();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.kryptonGroupBox5 = new ComponentFactory.Krypton.Toolkit.KryptonGroupBox();
+            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             this.btnAll = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnActive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnInactive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
@@ -80,13 +81,13 @@
             this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnSelArchive = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.btnMultiDel = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.ptbLoading = new AMSEMS.RoundPictureBoxRect();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGuidance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).BeginInit();
             this.kryptonGroupBox5.Panel.SuspendLayout();
             this.kryptonGroupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).BeginInit();
             this.kryptonGroupBox1.Panel.SuspendLayout();
@@ -96,7 +97,6 @@
             this.contextMenuStrip2.SuspendLayout();
             this.CMSExport.SuspendLayout();
             this.pnControl.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // btnReload
@@ -271,6 +271,7 @@
             this.dgvGuidance.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTeachers_CellContentClick);
             this.dgvGuidance.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvTeachers_CellFormatting);
             this.dgvGuidance.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvTeachers_CellPainting);
+            this.dgvGuidance.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvGuidance_KeyDown);
             // 
             // Select
             // 
@@ -379,6 +380,23 @@
             this.kryptonGroupBox5.StateCommon.Border.Rounding = 10;
             this.kryptonGroupBox5.StateCommon.Border.Width = 2;
             this.kryptonGroupBox5.TabIndex = 50;
+            // 
+            // ptbLoading
+            // 
+            this.ptbLoading.BackColor = System.Drawing.Color.White;
+            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ptbLoading.BorderWidth = 0;
+            this.ptbLoading.CornerRadius = 10;
+            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
+            this.ptbLoading.ImageLocation = "";
+            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
+            this.ptbLoading.Name = "ptbLoading";
+            this.ptbLoading.Size = new System.Drawing.Size(882, 329);
+            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.ptbLoading.TabIndex = 12;
+            this.ptbLoading.TabStop = false;
+            this.ptbLoading.Visible = false;
             // 
             // btnAll
             // 
@@ -1177,23 +1195,6 @@
             this.btnMultiDel.Values.Text = "";
             this.btnMultiDel.Click += new System.EventHandler(this.btnMultiDel_Click);
             // 
-            // ptbLoading
-            // 
-            this.ptbLoading.BackColor = System.Drawing.Color.White;
-            this.ptbLoading.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ptbLoading.BorderWidth = 0;
-            this.ptbLoading.CornerRadius = 10;
-            this.ptbLoading.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ptbLoading.Image = global::AMSEMS.Properties.Resources.loading;
-            this.ptbLoading.ImageLocation = "";
-            this.ptbLoading.Location = new System.Drawing.Point(0, 0);
-            this.ptbLoading.Name = "ptbLoading";
-            this.ptbLoading.Size = new System.Drawing.Size(882, 329);
-            this.ptbLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.ptbLoading.TabIndex = 12;
-            this.ptbLoading.TabStop = false;
-            this.ptbLoading.Visible = false;
-            // 
             // formAcctounts_Guidance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1219,6 +1220,7 @@
             this.kryptonGroupBox5.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5)).EndInit();
             this.kryptonGroupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1.Panel)).EndInit();
             this.kryptonGroupBox1.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox1)).EndInit();
@@ -1229,7 +1231,6 @@
             this.contextMenuStrip2.ResumeLayout(false);
             this.CMSExport.ResumeLayout(false);
             this.pnControl.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ptbLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

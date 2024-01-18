@@ -1489,5 +1489,110 @@ namespace AMSEMS.SubForms_AcadHead
                 }
             }
         }
+
+        private void dgvSubjects_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                headerCheckbox.Checked = true;
+            }
+
+            switch (e.KeyCode)
+            {
+                case Keys.F1:
+                    formSubjectsForm formSubjectsForm = new formSubjectsForm();
+                    formSubjectsForm.setData("Submit", this);
+                    formSubjectsForm.ShowDialog();
+                    break;
+                case Keys.F3:
+                    formImportViewSubjects formImportViewSubjects = new formImportViewSubjects();
+                    formImportViewSubjects.ShowDialog();
+                    break;
+                case Keys.F10:
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        ExportToPDF(dgvSubjects, saveFileDialog.FileName);
+                        MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        Process.Start(saveFileDialog.FileName);
+                    }
+                    break;
+                case Keys.F11:
+                    try
+                    {
+                        using (SaveFileDialog saveFileDialog1 = new SaveFileDialog())
+                        {
+                            saveFileDialog1.Filter = "Excel Files|*.xlsx";
+                            saveFileDialog1.Title = "Save As Excel File";
+
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                string filePath = saveFileDialog1.FileName;
+
+                                // Create a new Excel application
+                                Excel.Application excelApp = new Excel.Application();
+                                excelApp.Visible = false; // You can set this to true for debugging purposes
+
+                                // Create a new Excel workbook
+                                Excel.Workbook workbook = excelApp.Workbooks.Add();
+
+                                // Create a new Excel worksheet
+                                Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets.Add();
+
+                                // Customizing the table appearance
+                                Excel.Range tableRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[dgvSubjects.Rows.Count + 1, 3]]; // Adjust the column count accordingly
+
+                                int excelColumnIndex = 1; // Start from the first Excel column
+
+                                // Specify the columns to export (2nd, 3rd, and 4th)
+                                int[] columnsToExport = { 1, 2, 3 }; // 0-based indices
+
+                                foreach (int columnIndex in columnsToExport)
+                                {
+                                    DataGridViewColumn column = dgvSubjects.Columns[columnIndex];
+                                    worksheet.Cells[1, excelColumnIndex] = column.HeaderText; // Set the header in the first row
+                                    worksheet.Cells[1, excelColumnIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196)); // Background color: #4472C4
+                                    worksheet.Cells[1, excelColumnIndex].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White); // Text color: White
+                                    excelColumnIndex++;
+                                }
+
+                                int rowIndex = 2; // Start from the second row
+                                foreach (DataGridViewRow row in dgvSubjects.Rows)
+                                {
+                                    excelColumnIndex = 1; // Reset Excel column index for each row
+                                    foreach (int columnIndex in columnsToExport)
+                                    {
+                                        worksheet.Cells[rowIndex, excelColumnIndex] = row.Cells[columnIndex].Value.ToString();
+                                        excelColumnIndex++;
+                                    }
+                                    rowIndex++;
+                                }
+
+                                // Apply the "Blue, Table Style Medium 2" table style
+                                tableRange.Worksheet.ListObjects.Add(Excel.XlListObjectSourceType.xlSrcRange, tableRange, null, Excel.XlYesNoGuess.xlYes, null).TableStyle = "TableStyleMedium2";
+
+                                // Save the Excel file
+                                workbook.SaveAs(filePath);
+
+                                // Close Excel and release resources
+                                workbook.Close();
+                                excelApp.Quit();
+                                System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
+                                System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+                                System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+
+                                MessageBox.Show("Data exported to Excel successfully.", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    break;
+            }
+        }
     }
 }

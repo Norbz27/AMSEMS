@@ -1092,5 +1092,119 @@ namespace AMSEMS.SubForms_Admin
             }
             cancellationTokenSource?.Cancel();
         }
+
+        private void dgvGuidance_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                headerCheckbox.Checked = true;
+            }
+
+            switch (e.KeyCode)
+            {
+                case Keys.F1:
+                    formGeneratedForm formGeneratedForm = new formGeneratedForm();
+                    formGeneratedForm.setData(role, "Submit", this);
+                    formGeneratedForm.ShowDialog();
+                    break;
+                case Keys.F3:
+                    formImportView form2 = new formImportView();
+                    form2.setRole(role);
+                    form2.reloadFormGui(this);
+                    form2.ShowDialog();
+                    break;
+                case Keys.F10:
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        ExportToPDF(dgvGuidance, saveFileDialog.FileName);
+                        MessageBox.Show("Data exported to PDF successfully.", "Export to PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        Process.Start(saveFileDialog.FileName);
+                    }
+                    break;
+                case Keys.F11:
+                    try
+                    {
+                        using (SaveFileDialog saveFileDialog1 = new SaveFileDialog())
+                        {
+                            saveFileDialog1.Filter = "Excel Files|*.xlsx";
+                            saveFileDialog1.Title = "Save As Excel File";
+
+                            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                            {
+                                string filePath = saveFileDialog1.FileName;
+
+
+                                // Your SQL query to retrieve data from the database
+                                string query = "SELECT ID, UPPER(Firstname) as Firstname, UPPER(Middlename) as Middlename, UPPER(Lastname) as Lastname FROM tbl_guidance_accounts";
+
+                                // Create a new Excel application
+                                Excel.Application excelApp = new Excel.Application();
+                                excelApp.Visible = false; // You can set this to true for debugging purposes
+
+                                // Create a new Excel workbook
+                                Excel.Workbook workbook = excelApp.Workbooks.Add();
+
+                                // Create a new Excel worksheet
+                                Excel.Worksheet worksheet = (Excel.Worksheet)workbook.Worksheets.Add();
+
+                                // Customizing the table appearance
+                                Excel.Range tableRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[1, 4]]; // Assuming there are four columns
+
+                                // Execute the query and populate the Excel worksheet
+                                using (SqlConnection connection = new SqlConnection(SQL_Connection.connection))
+                                {
+                                    connection.Open();
+                                    using (SqlCommand command = new SqlCommand(query, connection))
+                                    {
+                                        SqlDataReader reader = command.ExecuteReader();
+
+                                        for (int i = 1; i <= reader.FieldCount; i++)
+                                        {
+                                            worksheet.Cells[1, i] = reader.GetName(i - 1);
+                                            worksheet.Cells[1, i].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.FromArgb(68, 114, 196));
+                                            worksheet.Cells[1, i].Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.White);
+                                        }
+
+                                        int rowIndex = 2;
+                                        while (reader.Read())
+                                        {
+                                            for (int i = 1; i <= reader.FieldCount; i++)
+                                            {
+                                                worksheet.Cells[rowIndex, i] = reader.GetValue(i - 1).ToString();
+                                            }
+                                            rowIndex++;
+                                        }
+
+                                        reader.Close();
+                                    }
+                                }
+
+                                // Apply the "Blue, Table Style Medium 2" table style
+                                tableRange.Worksheet.ListObjects.Add(Excel.XlListObjectSourceType.xlSrcRange, tableRange, null, Excel.XlYesNoGuess.xlYes, null).TableStyle = "TableStyleMedium2";
+
+                                // Save the Excel file
+                                workbook.SaveAs(filePath);
+
+                                // Close Excel and release resources
+                                workbook.Close();
+                                excelApp.Quit();
+                                System.Runtime.InteropServices.Marshal.ReleaseComObject(worksheet);
+                                System.Runtime.InteropServices.Marshal.ReleaseComObject(workbook);
+                                System.Runtime.InteropServices.Marshal.ReleaseComObject(excelApp);
+
+                                MessageBox.Show("Data exported to Excel successfully.", "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    break;
+            }
+        }
     }
 }

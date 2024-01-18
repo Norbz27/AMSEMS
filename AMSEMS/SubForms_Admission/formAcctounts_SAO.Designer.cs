@@ -654,6 +654,7 @@
             this.dgvsao.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGuidance_CellContentClick);
             this.dgvsao.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvTeachers_CellFormatting);
             this.dgvsao.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvTeachers_CellPainting);
+            this.dgvsao.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvsao_KeyDown);
             // 
             // Select
             // 

@@ -281,6 +281,7 @@
             this.dgvTeachers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTeachers_CellContentClick);
             this.dgvTeachers.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvTeachers_CellFormatting);
             this.dgvTeachers.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvTeachers_CellPainting);
+            this.dgvTeachers.KeyDown += new System.Windows.Forms.KeyEventHandler(this.formAcctounts_DeptHead_KeyDown);
             // 
             // Select
             // 
@@ -1292,6 +1293,7 @@
             this.Text = " ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formAcctounts_DeptHead_FormClosing);
             this.Load += new System.EventHandler(this.formAcctounts_DeptHead_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.formAcctounts_DeptHead_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTeachers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroupBox5.Panel)).EndInit();
