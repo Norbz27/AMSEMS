@@ -82,8 +82,8 @@ namespace AMSEMS.SubForms_Teacher
                 ptLoading.Style = ProgressBarStyle.Marquee;
                 ptLoading.Visible = true;
                 await Task.Delay(3000);
-                if (CheckForInternetConnection())
-                {
+                //if (CheckForInternetConnection())
+                //{
                     try
                     {
                         using (cn = new SqlConnection(SQL_Connection.connection))
@@ -225,7 +225,7 @@ namespace AMSEMS.SubForms_Teacher
                     MessageBox.Show("Unstable Connection!! Can't connect to server!!", "AMSEMS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 ptLoading.Visible = false;
-            }
+            //}
         }
         public static DataTable GetStudList(string tblname)
         {

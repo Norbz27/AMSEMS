@@ -443,7 +443,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(415, 19);
             this.label2.TabIndex = 34;
-            this.label2.Text = "Type name of section, then add it to subject.\r\n";
+            this.label2.Text = "Type name of student, then add it to subject.\r\n";
             // 
             // formAddStudentToSubject
             // 

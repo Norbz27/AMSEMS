@@ -588,6 +588,12 @@
     <Compile Include="SubForms_Admission\formAddSchoolSetting2.Designer.cs">
       <DependentUpon>formAddSchoolSetting2.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubForms_Admission\formDataMigration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SubForms_Admission\formDataMigration.Designer.cs">
+      <DependentUpon>formDataMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="SubForms_Admission\formImportViewSubjects.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1228,6 +1234,7 @@
     <None Include="Resources\extracurricular.png" />
     <None Include="Resources\extracurricular-16.png" />
     <None Include="Resources\activity.png" />
+    <None Include="Resources\file-16.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1388,6 +1395,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admission\formAddSchoolSetting2.resx">
       <DependentUpon>formAddSchoolSetting2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SubForms_Admission\formDataMigration.resx">
+      <DependentUpon>formDataMigration.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SubForms_Admission\formImportViewSubjects.resx">
       <DependentUpon>formImportViewSubjects.cs</DependentUpon>

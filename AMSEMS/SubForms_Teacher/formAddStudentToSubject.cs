@@ -112,7 +112,7 @@ namespace AMSEMS.SubForms_Teacher
                         if (rd.Read())
                         {
                             string CourseDes = rd["Course_Description"].ToString();
-                            lblHeaderSubject.Text = "Add Section to " + CourseDes;
+                            lblHeaderSubject.Text = "Add Student to " + CourseDes;
                         }
                     }
                 }

@@ -1916,6 +1916,12 @@ namespace AMSEMS.SubForms_Admin
             UseWaitCursor = false;
         }
 
+        private void btnDataMigration_Click(object sender, EventArgs e)
+        {
+            formDataMigration formDataMigration = new formDataMigration();
+            formDataMigration.ShowDialog();
+        }
+
         private void formAccounts_Students_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (backgroundWorker.IsBusy)
